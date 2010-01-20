@@ -1,13 +1,15 @@
 <?php
 class Auth extends Controller {
  
-    function __construct() {
+    function __construct() 
+    {
         parent::__construct();
         $this->load->library(array('ion_auth','session','form_validation'));
     }
  
     //redirect if needed, otherwise display the user list
-    function index() {
+    function index() 
+    {
     	if (!$this->ion_auth->logged_in()) {
 	    	//redirect them to the login page
 			redirect("auth/login", 'refresh');
@@ -24,7 +26,8 @@ class Auth extends Controller {
     }
     
     //log the user in
-    function login() {
+    function login() 
+    {
         $this->data['title'] = "Login";
         
         //validate form input
@@ -61,7 +64,8 @@ class Auth extends Controller {
     }
     
     //log the user out
-	function logout() {
+	function logout() 
+	{
         $this->data['title'] = "Logout";
         
         //log the user out
@@ -72,7 +76,8 @@ class Auth extends Controller {
     }
     
     //change password
-	function change_password() {	    
+	function change_password() 
+	{	    
 	    $this->form_validation->set_rules('old', 'Old password', 'required');
 	    $this->form_validation->set_rules('new', 'New Password', 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|matches[new_confirm]');
 	    $this->form_validation->set_rules('new_confirm', 'Confirm New Password', 'required');
@@ -124,7 +129,8 @@ class Auth extends Controller {
 	}
 	
 	//forgot password
-	function forgot_password() {
+	function forgot_password() 
+	{
 		$this->form_validation->set_rules('email', 'Email Address', 'required');
 	    if ($this->form_validation->run() == false) {
 	    	//setup the input
@@ -151,21 +157,23 @@ class Auth extends Controller {
 	}
 	
 	//reset password - final step for forgotten password
-	public function reset_password($code) {
+	public function reset_password($code) 
+	{
 		$reset = $this->ion_auth->forgotten_password_complete($code);
-		echo (int) $reset;
+		echo $reset; //debug
 		if ($reset) {  //if the reset worked then send them to the login page
 			$this->session->set_flashdata('message', 'An email has been sent with your password, please check your inbox.');
-            redirect("auth/login", 'refresh');
+            //redirect("auth/login", 'refresh');
 		}
 		else { //if the reset didnt work then send them back to the forgot password page
 			$this->session->set_flashdata('message', 'The email failed to send, try again.');
-            redirect("auth/forgot_password", 'refresh');
+            //redirect("auth/forgot_password", 'refresh');
 		}
 	}
 
 	//activate the user
-	function activate($id) {        
+	function activate($id) 
+	{        
 		if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
 	        //activate the user
 	        $this->ion_auth->activate($id);
@@ -175,7 +183,8 @@ class Auth extends Controller {
     }
     
     //deactivate the user
-	function deactivate($id) {        
+	function deactivate($id) 
+	{        
 		if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
 	        //de-activate the user
 	        $this->ion_auth->deactivate($id);
@@ -185,7 +194,8 @@ class Auth extends Controller {
     }
     
     //create a new user
-	function create_user() {  
+	function create_user() 
+	{  
         $this->data['title'] = "Create User";
               
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
@@ -273,7 +283,8 @@ class Auth extends Controller {
 		}
     }
     
-	function edit_user($id) { // [incomplete]
+	function edit_user($id) 
+	{ // [incomplete]
         $this->data['title'] = "Edit User";
     }
 }
