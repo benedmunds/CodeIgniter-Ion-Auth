@@ -63,9 +63,9 @@ class ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function activate($code)
+	public function activate($id, $code=false)
 	{
-		return $this->ci->ion_auth_model->activate($code);
+		return $this->ci->ion_auth_model->activate($id, $code);
 	}
 	
 	/**

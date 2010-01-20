@@ -176,11 +176,11 @@ class Auth extends Controller {
 	}
 
 	//activate the user
-	function activate($id) 
+	function activate($id, $code=false) 
 	{        
 		if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
 	        //activate the user
-	        $this->ion_auth->activate($id);
+	        $this->ion_auth->activate($id, $code);
 		}
         //redirect them back to the admin page
         redirect("auth", 'refresh');
