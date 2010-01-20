@@ -166,7 +166,7 @@ class ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email)
+	public function register($username, $password, $email) //need to test email activation
 	{
 	    $email_activation = $this->ci->config->item('email_activation');
 	    $email_folder     = $this->ci->config->item('email_templates');
@@ -228,6 +228,7 @@ class ion_auth
 	    $this->ci->session->unset_userdata($identity);
 	    $this->ci->session->unset_userdata('group');
 	    $this->ci->session->unset_userdata('id');
+	    $this->ci->session->unset_userdata('user_id');
 		$this->ci->session->sess_destroy();
 	}
 	
