@@ -147,7 +147,7 @@ class Auth extends Controller {
 			
 			if ($forgotten) { //if there were no errors
 				$this->session->set_flashdata('message', 'An email has been sent, please check your inbox.');
-	            redirect("auth/login", 'refresh');
+	            redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else {
 				$this->session->set_flashdata('message', 'The email failed to send, try again.');
