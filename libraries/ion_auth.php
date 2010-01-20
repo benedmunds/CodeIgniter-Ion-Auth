@@ -6,7 +6,7 @@
 * 		   ben.edmunds@gmail.com
 *          @benedmunds
 * 
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *          
 * Created:  10.01.2009 
 * 
@@ -100,7 +100,8 @@ class ion_auth
 	{
 		$forgotten_password = $this->ci->ion_auth_model->forgotten_password($email);
 		
-		if ($forgotten_password) {
+		if ($forgotten_password) 
+		{
 			// Get user information.
 			$profile = $this->ci->ion_auth_model->profile($email);
 
@@ -119,7 +120,8 @@ class ion_auth
 			$this->ci->email->message($message);
 			return $this->ci->email->send();
 		}
-		else {
+		else 
+		{
 			return false;
 		}
 	}
@@ -136,7 +138,8 @@ class ion_auth
 	    $profile      = $this->ci->ion_auth_model->profile($code);
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code);
 
-		if ($new_password) {
+		if ($new_password) 
+		{
 			$data = array('identity'     => $profile->{$identity},
 				          'new_password' => $new_password);
             
@@ -148,6 +151,7 @@ class ion_auth
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject($this->ci->config->item('site_title') . ' - New Password');
 			$this->ci->email->message($message);
+			return $new_password; //debug
 			return $this->ci->email->send();
 		}
 		else

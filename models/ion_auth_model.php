@@ -6,7 +6,7 @@
 * 		   ben.edmunds@gmail.com
 *          @benedmunds
 * 
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *          
 * Created:  10.01.2009 
 * 
@@ -96,8 +96,11 @@ class ion_auth_model extends Model
 	public function hash_password($password = false)
 	{
 	    if ($password === false)
+	    {
 	    	return false;
-		$salt = $this->salt();
+	    }
+	    
+	    $salt = $this->salt();
 		
 		return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);		
 	}
@@ -112,17 +115,21 @@ class ion_auth_model extends Model
 	public function hash_password_db($identity = false, $password = false)
 	{
 	   if ($identity === false || $password === false)
+	   {
 	        return false;
-	    
-	    $query  = $this->db->select('password')
-                    	   ->where($this->identity_column, $identity)
-                    	   ->limit(1)
-                    	   ->get($this->tables['users']);
+	   }
+	   
+	   $query  = $this->db->select('password')
+       	             	  ->where($this->identity_column, $identity)
+                    	  ->limit(1)
+                    	  ->get($this->tables['users']);
             
         $result = $query->row();
         
 		if ($query->num_rows() !== 1)
+		{
 		    return false;
+		}
 		    
 		$salt = substr($result->password, 0, $this->salt_length);
 
@@ -159,7 +166,8 @@ class ion_auth_model extends Model
 	 **/
 	public function activate($id, $code = false)
 	{	    
-	    if ($code != false) {  
+	    if ($code != false) 
+	    {  
 		    $query = $this->db->select($this->identity_column)
 	                	      ->where('activation_code', $code)
 	                	      ->limit(1)
@@ -176,7 +184,8 @@ class ion_auth_model extends Model
 	        
 			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	    }
-	    else {
+	    else 
+	    {
 			$data = array('activation_code' => '',
 						  'active'          => 1,
 						 );
@@ -197,7 +206,9 @@ class ion_auth_model extends Model
 	public function deactivate($id = false)
 	{
 	    if ($id === false)
+	    {
 	        return false;
+	    }
 	    
 		$activation_code       = sha1(md5(microtime()));
 		$this->activation_code = $activation_code;
@@ -219,7 +230,9 @@ class ion_auth_model extends Model
 	public function change_password($identity = false, $old = false, $new = false)
 	{
 	    if ($identity === false || $old === false || $new === false)
+	    {
 	        return false;
+	    }
 	    
 	    $query  = $this->db->select('password')
                     	   ->where($this->identity_column, $identity)
@@ -253,7 +266,9 @@ class ion_auth_model extends Model
 	public function username_check($username = false)
 	{
 	    if ($username === false)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select('id')
                            ->where('username', $username)
@@ -261,7 +276,9 @@ class ion_auth_model extends Model
                            ->get($this->tables['users']);
 		
 		if ($query->num_rows() == 1)
+		{
 			return true;
+		}
 		
 		return false;
 	}
@@ -275,7 +292,9 @@ class ion_auth_model extends Model
 	public function email_check($email = false)
 	{
 	    if ($email === false)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select('id')
                            ->where('email', $email)
@@ -283,7 +302,9 @@ class ion_auth_model extends Model
                            ->get($this->tables['users']);
 		
 		if ($query->num_rows() == 1)
+		{
 			return true;
+		}
 		
 		return false;
 	}
@@ -297,7 +318,9 @@ class ion_auth_model extends Model
 	protected function identity_check($identity = false)
 	{
 	    if ($identity === false)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select('id')
                            ->where($this->identity_column, $identity)
@@ -305,7 +328,9 @@ class ion_auth_model extends Model
                            ->get($this->tables['users']);
 		
 		if ($query->num_rows() == 1)
+		{
 			return true;
+		}
 		
 		return false;
 	}
@@ -319,7 +344,9 @@ class ion_auth_model extends Model
 	public function forgotten_password($email = false)
 	{
 	    if ($email === false)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select('forgotten_password_code')
                     	   ->where('email', $email)
@@ -335,7 +362,7 @@ class ion_auth_model extends Model
 		$this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array('email' => $email));
 		
 		return ($this->db->affected_rows() == 1) ? true : false;
-}
+	}
 	
 	/**
 	 * Forgotten Password Complete
@@ -346,7 +373,9 @@ class ion_auth_model extends Model
 	public function forgotten_password_complete($code = false)
 	{
 	    if (!$code)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select('id')
                     	   ->where('forgotten_password_code', $code)
@@ -355,7 +384,8 @@ class ion_auth_model extends Model
         
         $result = $query->row();
         
-        if ($query->num_rows() > 0) {
+        if ($query->num_rows() > 0) 
+        {
         	$password   = $this->salt();
 		    
             $data = array('password'                => $this->hash_password($password),
@@ -379,7 +409,9 @@ class ion_auth_model extends Model
 	public function profile($identity = false)
 	{ 
 	    if ($identity === false)
+	    {
 	        return false;
+	    }
 	    
 		$this->db->select($this->tables['users'].'.id, '.
 						  $this->tables['users'].'.username, ' .
@@ -435,7 +467,9 @@ class ion_auth_model extends Model
 	public function register($username = false, $password = false, $email = false, $additional_data = false)
 	{
 	    if ($username === false || $password === false || $email === false)
+	    {
 	        return false;
+	    }
 	    
         // Group ID
 	    $query    = $this->db->select('id')->where('name', $this->config->item('default_group'))->get($this->tables['groups']);
@@ -466,10 +500,12 @@ class ion_auth_model extends Model
 	    {
 	        foreach ($this->columns as $input)
 	        {
-	        	if (is_array($additional_data) && isset($additional_data[$input])) {
+	        	if (is_array($additional_data) && isset($additional_data[$input])) 
+	        	{
 	        		$data[$input] = $additional_data[$input];	
 	        	}
-	        	else {
+	        	else 
+	        	{
 	            	$data[$input] = $this->input->post($input);
 	        	}
 	        }
@@ -489,7 +525,9 @@ class ion_auth_model extends Model
 	public function login($identity = false, $password = false)
 	{
 	    if ($identity === false || $password === false || $this->identity_check($identity) == false)
+	    {
 	        return false;
+	    }
 	    
 	    $query = $this->db->select($this->identity_column.', id, password, activation_code, group_id')
                     	   ->where($this->identity_column, $identity)
@@ -503,7 +541,9 @@ class ion_auth_model extends Model
             $password = $this->hash_password_db($identity, $password);
             
             if (!empty($result->activation_code)) 
+            {
             	return false;
+            }
             
     		if ($result->password === $password)
     		{
@@ -671,7 +711,8 @@ class ion_auth_model extends Model
 	public function get_user($id=false)
 	{
 		//if no id was passed use the current users id
-		if (!$id) {
+		if (!$id) 
+		{
 			$id = $this->ci->session->userdata('user_id');
 		}
 		
@@ -712,7 +753,8 @@ class ion_auth_model extends Model
 	public function get_user_array($id=false)
 	{
 		//if no id was passed use the current users id
-		if (!$id) {
+		if (!$id) 
+		{
 			$id = $this->ci->session->userdata('user_id');
 		}
 		
@@ -753,7 +795,8 @@ class ion_auth_model extends Model
 	public function get_users_group($id=false)
 	{
 		//if no id was passed use the current users id
-		if (!$id) {
+		if (!$id) 
+		{
 			$id = $this->ci->session->userdata('user_id');
 		}
 		
