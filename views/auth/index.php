@@ -3,7 +3,7 @@
 	<h1>Users</h1>
 	<p>Below is a list of the users.</p>
 	
-	<div id="infoMessage"><?php echo $this->session->flashdata('message');?></div>
+	<div id="infoMessage"><?php echo $message;?></div>
 	
 	<table cellpadding=0 cellspacing=10>
 		<th>First Name</th><th>Last Name</th><th>Email</th><th>Group</th><th>Status</th>

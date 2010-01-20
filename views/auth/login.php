@@ -4,7 +4,7 @@
     <div class="pageTitleBorder"></div>
 	<p>Please login with your email address and password below.</p>
 	
-	<div id="infoMessage"><?php echo $this->session->flashdata('message');?></div>
+	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("auth/login");?>
       <p>Email:</p>

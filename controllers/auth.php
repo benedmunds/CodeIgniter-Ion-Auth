@@ -19,6 +19,9 @@ class Auth extends Controller {
 			redirect("/", 'refresh');
     	}
     	else {
+	        //set the flash data error message if there is one
+	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+	        
     		//list the users
     		$this->data['users'] = $this->ion_auth->get_users_array();
     		$this->load->view('auth/index', $this->data);
@@ -47,7 +50,8 @@ class Auth extends Controller {
 	        }
         }
 		else {  //the user is not logging in so display the login page
-		    $this->session->set_flashdata('message', validation_errors());
+	        //set the flash data error message if there is one
+	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 		    
 			$this->data['email']      = array('name'    => 'email',
                                               'id'      => 'email',
@@ -232,7 +236,8 @@ class Auth extends Controller {
        		redirect("auth", 'refresh');
 		} 
 		else { //display the create user form
-			$this->session->set_flashdata('message', validation_errors());
+	        //set the flash data error message if there is one
+	        $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			
 			$this->data['first_name']          = array('name'   => 'first_name',
 		                                              'id'      => 'first_name',

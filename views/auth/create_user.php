@@ -3,7 +3,7 @@
 	<h1>Create User</h1>
 	<p>Please enter the users information below.</p>
 	
-	<div id="infoMessage"><?php echo $this->session->flashdata('message');?></div>
+	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("auth/create_user");?>
       <p>First Name:<br />
