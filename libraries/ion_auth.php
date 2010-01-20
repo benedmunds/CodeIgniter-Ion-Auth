@@ -179,11 +179,17 @@ class ion_auth
 		{
 			$register = $this->ci->ion_auth_model->register($username, $password, $email);
             
-			if (!$register) { return false; }
+			if (!$register) 
+			{ 
+				return false; 
+			}
 
 			$deactivate = $this->ci->ion_auth_model->deactivate($username);
 
-			if (!$deactivate) { return false; }
+			if (!$deactivate) 
+			{ 
+				return false; 
+			}
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
 
