@@ -241,27 +241,40 @@ class Ion_auth
 	/**
 	 * logged_in
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function logged_in()
 	{
 	    $identity = $this->ci->config->item('identity');
-		return ($this->ci->session->userdata($identity)) ? true : false;
+		return (bool) $this->ci->session->userdata($identity);
 	}
 	
 	/**
 	 * is_admin
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Ben Edmunds
 	 **/
 	public function is_admin()
 	{
 	    $admin_group = $this->ci->config->item('admin_group');
 	    $user_group  = $this->ci->session->userdata('group');
-	    return ($user_group == $admin_group) ? true : false;
+	    return $user_group == $admin_group;
 	}
+	
+	/**
+	 * is_group
+	 *
+	 * @return bool
+	 * @author Phil Sturgeon
+	 **/
+	public function is_group($check_group)
+	{
+	    $user_group  = $this->ci->session->userdata('group');
+	    return $user_group == $check_group;
+	}
+	
 	
 	/**
 	 * Profile
