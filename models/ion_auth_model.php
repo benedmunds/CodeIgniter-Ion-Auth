@@ -464,7 +464,7 @@ class Ion_auth_model extends Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username = false, $password = false, $email = false, $additional_data = false)
+	public function register($username = false, $password = false, $email = false, $additional_data = false, $group_name = false)
 	{
 	    if ($username === false || $password === false || $email === false)
 	    {
@@ -472,11 +472,18 @@ class Ion_auth_model extends Model
 	    }
 	    
         // Group ID
-	    $query    = $this->db->select('id')->where('name', $this->config->item('default_group'))->get($this->tables['groups']);
-	    $result   = $query->row();
-	    $group_id = $result->id;
-	    
-        //IP Address
+        if($group_name === false)
+        {
+        	$group_name = $this->config->item('default_group');
+        }
+        
+	    $group_id = $this->db->select('id')
+	    	->where('name', $group_name)
+	    	->get($this->tables['groups'])
+	    	->row()
+	    	->id;
+
+	    // IP Address
         $ip_address = $this->input->ip_address();
 	    
 		$password = $this->hash_password($password);

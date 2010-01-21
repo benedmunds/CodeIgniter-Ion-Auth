@@ -166,18 +166,18 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email) //need to test email activation
+	public function register($username, $password, $email, $additional_data, $group_name = false) //need to test email activation
 	{
 	    $email_activation = $this->ci->config->item('email_activation');
 	    $email_folder     = $this->ci->config->item('email_templates');
 
 		if (!$email_activation)
 		{
-			return $this->ci->ion_auth_model->register($username, $password, $email);
+			return $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
 		}
 		else
 		{
-			$register = $this->ci->ion_auth_model->register($username, $password, $email);
+			$register = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
             
 			if (!$register) 
 			{ 
