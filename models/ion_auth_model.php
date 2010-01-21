@@ -27,7 +27,7 @@
  */
  
 
-class ion_auth_model extends Model
+class Ion_auth_model extends Model
 {
 	/**
 	 * Holds an array of tables used
