@@ -90,7 +90,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Hashes the password to be stored in the database.
 	 *
-	 * @return void
+	 * @return string
 	 * @author Mathew
 	 **/
 	public function hash_password($password = false)
@@ -109,7 +109,7 @@ class Ion_auth_model extends Model
 	 * This function takes a password and validates it
      * against an entry in the users table.
 	 *
-	 * @return void
+	 * @return string
 	 * @author Mathew
 	 **/
 	public function hash_password_db($identity = false, $password = false)
@@ -141,7 +141,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Generates a random salt value.
 	 *
-	 * @return void
+	 * @return string
 	 * @author Mathew
 	 **/
 	public function salt()
@@ -161,7 +161,7 @@ class Ion_auth_model extends Model
 	/**
 	 * activate
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function activate($id, $code = false)
@@ -193,14 +193,14 @@ class Ion_auth_model extends Model
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 	    }
 		
-		return ($this->db->affected_rows() == 1) ? true : false;
+		return $this->db->affected_rows() == 1;
 	}
 	
 	
 	/**
 	 * Deactivate
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function deactivate($id = false)
@@ -218,13 +218,13 @@ class Ion_auth_model extends Model
         
 		$this->db->update($this->tables['users'], $data, array('id' => $id));
 		
-		return ($this->db->affected_rows() == 1) ? true : false;
+		return $this->db->affected_rows() == 1;
 	}
 
 	/**
 	 * change password
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function change_password($identity = false, $old = false, $new = false)
@@ -251,7 +251,7 @@ class Ion_auth_model extends Model
 	        
 	        $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	        
-	        return ($this->db->affected_rows() == 1) ? true : false;
+	        return $this->db->affected_rows() == 1;
 	    }
 	    
 	    return false;
@@ -260,7 +260,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Checks username
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function username_check($username = false)
@@ -286,7 +286,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Checks email
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function email_check($email = false)
@@ -312,7 +312,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Identity check
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	protected function identity_check($identity = false)
@@ -338,7 +338,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Insert a forgotten password key.
 	 *
-	 * @return boolean
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function forgotten_password($email = false)
@@ -367,7 +367,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Forgotten Password Complete
 	 *
-	 * @return string password
+	 * @return string
 	 * @author Mathew
 	 **/
 	public function forgotten_password_complete($code = false)
@@ -403,7 +403,7 @@ class Ion_auth_model extends Model
 	/**
 	 * profile
 	 *
-	 * @return void
+	 * @return object
 	 * @author Mathew
 	 **/
 	public function profile($identity = false)
@@ -461,7 +461,7 @@ class Ion_auth_model extends Model
 	/**
 	 * register
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function register($username = false, $password = false, $email = false, $additional_data = false, $group_name = false)
@@ -520,13 +520,13 @@ class Ion_auth_model extends Model
         
 		$this->db->insert($this->tables['meta'], $data);
 		
-		return ($this->db->affected_rows() > 0) ? true : false;
+		return $this->db->affected_rows() > 0;
 	}
 	
 	/**
 	 * login
 	 *
-	 * @return void
+	 * @return bool
 	 * @author Mathew
 	 **/
 	public function login($identity = false, $password = false)
@@ -640,7 +640,7 @@ class Ion_auth_model extends Model
 	/**
 	 * get_active_users
 	 *
-	 * @return void
+	 * @return object
 	 * @author Ben Edmunds
 	 **/
 	public function get_active_users()
@@ -676,7 +676,7 @@ class Ion_auth_model extends Model
 	/**
 	 * get_active_users_array
 	 *
-	 * @return void
+	 * @return array
 	 * @author Ben Edmunds
 	 **/
 	public function get_active_users_array()
@@ -712,7 +712,7 @@ class Ion_auth_model extends Model
 	/**
 	 * get_user
 	 *
-	 * @return void
+	 * @return object
 	 * @author Ben Edmunds
 	 **/
 	public function get_user($id=false)
@@ -796,7 +796,7 @@ class Ion_auth_model extends Model
 	/**
 	 * get_users_group
 	 *
-	 * @return void
+	 * @return object
 	 * @author Ben Edmunds
 	 **/
 	public function get_users_group($id=false)
