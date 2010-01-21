@@ -336,7 +336,7 @@ class Ion_auth_model extends Model
 	}
 
 	/**
-	 * Insert a forgotten password key.
+	 * Insert a forgotten password key
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -466,7 +466,7 @@ class Ion_auth_model extends Model
 	 **/
 	public function register($username = false, $password = false, $email = false, $additional_data = false, $group_name = false)
 	{
-	    if ($username === false || $password === false || $email === false)
+	    if ($username === false || $password === false || $email === false || $this->username_check($username) || $this->email_check($email))
 	    {
 	        return false;
 	    }
@@ -478,10 +478,10 @@ class Ion_auth_model extends Model
         }
         
 	    $group_id = $this->db->select('id')
-	    	->where('name', $group_name)
-	    	->get($this->tables['groups'])
-	    	->row()
-	    	->id;
+					    	 ->where('name', $group_name)
+					    	 ->get($this->tables['groups'])
+					    	 ->row()
+					    	 ->id;
 
 	    // IP Address
         $ip_address = $this->input->ip_address();
