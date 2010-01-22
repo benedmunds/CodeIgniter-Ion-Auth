@@ -90,7 +90,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Hashes the password to be stored in the database.
 	 *
-	 * @return string
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function hash_password($password = false)
@@ -109,7 +109,7 @@ class Ion_auth_model extends Model
 	 * This function takes a password and validates it
      * against an entry in the users table.
 	 *
-	 * @return string
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function hash_password_db($identity = false, $password = false)
@@ -141,7 +141,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Generates a random salt value.
 	 *
-	 * @return string
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function salt()
@@ -161,7 +161,7 @@ class Ion_auth_model extends Model
 	/**
 	 * activate
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function activate($id, $code = false)
@@ -193,14 +193,14 @@ class Ion_auth_model extends Model
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
 	    }
 		
-		return $this->db->affected_rows() == 1;
+		return ($this->db->affected_rows() == 1) ? true : false;
 	}
 	
 	
 	/**
 	 * Deactivate
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function deactivate($id = false)
@@ -218,13 +218,13 @@ class Ion_auth_model extends Model
         
 		$this->db->update($this->tables['users'], $data, array('id' => $id));
 		
-		return $this->db->affected_rows() == 1;
+		return ($this->db->affected_rows() == 1) ? true : false;
 	}
 
 	/**
 	 * change password
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function change_password($identity = false, $old = false, $new = false)
@@ -251,7 +251,7 @@ class Ion_auth_model extends Model
 	        
 	        $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	        
-	        return $this->db->affected_rows() == 1;
+	        return ($this->db->affected_rows() == 1) ? true : false;
 	    }
 	    
 	    return false;
@@ -260,7 +260,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Checks username
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function username_check($username = false)
@@ -286,7 +286,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Checks email
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function email_check($email = false)
@@ -312,7 +312,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Identity check
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	protected function identity_check($identity = false)
@@ -336,9 +336,9 @@ class Ion_auth_model extends Model
 	}
 
 	/**
-	 * Insert a forgotten password key
+	 * Insert a forgotten password key.
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Mathew
 	 **/
 	public function forgotten_password($email = false)
@@ -367,7 +367,7 @@ class Ion_auth_model extends Model
 	/**
 	 * Forgotten Password Complete
 	 *
-	 * @return string
+	 * @return string password
 	 * @author Mathew
 	 **/
 	public function forgotten_password_complete($code = false)
@@ -403,7 +403,7 @@ class Ion_auth_model extends Model
 	/**
 	 * profile
 	 *
-	 * @return object
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function profile($identity = false)
@@ -461,12 +461,12 @@ class Ion_auth_model extends Model
 	/**
 	 * register
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function register($username = false, $password = false, $email = false, $additional_data = false, $group_name = false)
 	{
-	    if ($username === false || $password === false || $email === false || $this->username_check($username) || $this->email_check($email))
+	    if ($username === false || $password === false || $email === false)
 	    {
 	        return false;
 	    }
@@ -478,10 +478,10 @@ class Ion_auth_model extends Model
         }
         
 	    $group_id = $this->db->select('id')
-					    	 ->where('name', $group_name)
-					    	 ->get($this->tables['groups'])
-					    	 ->row()
-					    	 ->id;
+	    	->where('name', $group_name)
+	    	->get($this->tables['groups'])
+	    	->row()
+	    	->id;
 
 	    // IP Address
         $ip_address = $this->input->ip_address();
@@ -520,13 +520,13 @@ class Ion_auth_model extends Model
         
 		$this->db->insert($this->tables['meta'], $data);
 		
-		return $this->db->affected_rows() > 0;
+		return ($this->db->affected_rows() > 0) ? true : false;
 	}
 	
 	/**
 	 * login
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function login($identity = false, $password = false)
@@ -575,7 +575,7 @@ class Ion_auth_model extends Model
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users()
+	public function get_users($group_name = false)
 	{
 	    $this->db->select($this->tables['users'].'.id, '.
 						  $this->tables['users'].'.username, ' .
@@ -599,51 +599,21 @@ class Ion_auth_model extends Model
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 
-		$query = $this->db->get($this->tables['users']);
-		return $query->result();
-	}
-	
-	/**
-	 * get_users_array
-	 *
-	 * @return array Users
-	 * @author Ben Edmunds
-	 **/
-	public function get_users_array()
-	{
-	    $this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
+		if(!empty($group_name))
 		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
+	    	$this->db->where($this->tables['groups'].'.name', $group_name);
 		}
 		
-		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
-
-		$query = $this->db->get($this->tables['users']);
-		return $query->result_array();
+		return $this->db->get($this->tables['users']);
 	}
 	
 	/**
 	 * get_active_users
 	 *
-	 * @return object
+	 * @return void
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users()
+	public function get_active_users($group_name = false)
 	{
 	    $this->db->select($this->tables['users'].'.id, '.
 						  $this->tables['users'].'.username, ' .
@@ -667,52 +637,20 @@ class Ion_auth_model extends Model
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 		
-		$this->db->where($this->tables['users']. '.active, 1');
-
-		$query = $this->db->get($this->tables['users']);
-		return $query->result();
-	}
-	
-	/**
-	 * get_active_users_array
-	 *
-	 * @return array
-	 * @author Ben Edmunds
-	 **/
-	public function get_active_users_array()
-	{
-	    $this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
+		if(!empty($group_name))
 		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
+	    	$this->db->where($this->tables['groups'].'.name', $group_name);
 		}
 		
-		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
+		$this->db->where($this->tables['users']. '.active', 1);
 		
-		$this->db->where($this->tables['users']. '.active, 1');
-
-		$query = $this->db->get($this->tables['users']);
-		return $query->result_array();
+		return $this->db->get($this->tables['users']);
 	}
 	
 	/**
 	 * get_user
 	 *
-	 * @return object
+	 * @return void
 	 * @author Ben Edmunds
 	 **/
 	public function get_user($id=false)
@@ -723,7 +661,7 @@ class Ion_auth_model extends Model
 			$id = $this->ci->session->userdata('user_id');
 		}
 		
-	    $this->db->select($this->tables['users'].'.id, '.
+	    $this->db->select($this->tables['users'].'.id, '. 
 						  $this->tables['users'].'.username, ' .
 						  $this->tables['users'].'.password, '.
 						  $this->tables['users'].'.email, '.
@@ -742,61 +680,17 @@ class Ion_auth_model extends Model
     		}
 		}
 		
-		$query = $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left')
-				 	  	  ->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left')
-				 	  	  ->where($this->tables['users'].'.id', $id)
-	    		 	  	  ->limit(1)
-		 			  	  ->get($this->tables['users']);
-		
-		return $query->row();
-	}
-	
-	/**
-	 * get_user_array
-	 *
-	 * @return array User
-	 * @author Ben Edmunds
-	 **/
-	public function get_user_array($id=false)
-	{
-		//if no id was passed use the current users id
-		if (!$id) 
-		{
-			$id = $this->ci->session->userdata('user_id');
-		}
-		
-	    $this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
-		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
-		}
-		
-		$query = $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left')
-				 	  	  ->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left')
-				 	  	  ->where($this->tables['users'].'.id', $id)
-	    		 	  	  ->limit(1)
-		 			  	  ->get($this->tables['users']);
-		
-		return $query->row_array();
+		return $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left')
+			->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left')
+			->where($this->tables['users'].'.id', $id)
+			->limit(1)
+			->get($this->tables['users']);
 	}
 	
 	/**
 	 * get_users_group
 	 *
-	 * @return object
+	 * @return void
 	 * @author Ben Edmunds
 	 **/
 	public function get_users_group($id=false)
@@ -811,10 +705,10 @@ class Ion_auth_model extends Model
 	    				         ->where('id', $id)
                     	         ->get($this->tables['users']);
 
-		$user         = $userQuery->row_array();
+		$user         = $userQuery->row();
 		
 		$groupQuery   = $this->db->select('name, description')
-	    				         ->where('id', $user['group_id'])
+	    				         ->where('id', $user->group_id)
                     	         ->get($this->tables['groups']);
                     	         
         return $groupQuery->row();
