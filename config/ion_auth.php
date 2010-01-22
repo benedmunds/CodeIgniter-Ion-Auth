@@ -34,7 +34,12 @@
 	/**
 	 * Site Title, example.com
 	 */
-	$config['site_title']	= "YourWebsite.com";
+	$config['site_title']		   = "Example.com";
+	
+	/**
+	 * Admin Email, admin@example.com
+	 */
+	$config['admin_email']		   = "admin@example.com";
 	
 	/**
 	 * Default group, use name
