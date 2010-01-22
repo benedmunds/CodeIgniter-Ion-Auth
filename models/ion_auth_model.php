@@ -723,6 +723,8 @@ class Ion_auth_model extends Model
 	 **/
 	public function update_user($id, $data)
 	{
+		$this->db->trans_begin();
+		
 		if (!empty($this->columns))
 	    {
 			// 'user_id' = $id
@@ -747,6 +749,44 @@ class Ion_auth_model extends Model
 		
 		$this->db->update($this->tables['users'], $data, array('id' => $id));
         
-		return ($this->db->affected_rows() > 0) ? true : false;
+		if ($this->db->trans_status() === FALSE)
+		{
+		    $this->db->trans_rollback();
+		    return FALSE;
+		}
+		
+		else
+		{
+		    $this->db->trans_commit();
+		    return TRUE;
+		}
 	}
+	
+
+	/**
+	 * update_user
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function delete_user($id)
+	{
+		$this->db->trans_begin();
+		
+		$this->db->delete($this->tables['meta'], array($this->meta_join => $id));
+		$this->db->delete($this->tables['users'], array('id' => $id));
+		
+		if ($this->db->trans_status() === FALSE)
+		{
+		    $this->db->trans_rollback();
+		    return FALSE;
+		}
+		else
+		{
+		    $this->db->trans_commit();
+		    return TRUE;
+		}
+
+	}
+	
 }

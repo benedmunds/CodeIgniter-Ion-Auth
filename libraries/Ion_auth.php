@@ -366,7 +366,7 @@ class Ion_auth
 	{
 	    return $this->ci->ion_auth_model->get_users_group($id);
 	}
-	
+
 
 	/**
 	 * update_user
@@ -377,6 +377,18 @@ class Ion_auth
 	public function update_user($id, $data)
 	{
 		 return $this->ci->ion_auth_model->update_user($id, $data);
+	}
+
+	
+	/**
+	 * update_user
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function delete_user($id)
+	{
+		 return $this->ci->ion_auth_model->delete_user($id);
 	}
 	
 }
