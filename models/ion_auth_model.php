@@ -713,4 +713,40 @@ class Ion_auth_model extends Model
                     	         
         return $groupQuery->row();
 	}
+	
+
+	/**
+	 * update_user
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function update_user($id, $data)
+	{
+		if (!empty($this->columns))
+	    {
+			// 'user_id' = $id
+			$this->db->where($this->meta_join, $id);
+			
+	        foreach ($this->columns as $field)
+	        {
+	        	if (is_array($data) && isset($data[$field])) 
+	        	{
+	            	$this->db->set($field, $data[$field]);
+	            	unset($data[$field]);
+	        	}
+	        }
+
+	        $this->db->update($this->tables['meta']);
+	    }
+        
+		if(array_key_exists('password', $data))
+		{
+			$data['password'] = $this->hash_password($data['password']);
+		}
+		
+		$this->db->update($this->tables['users'], $data, array('id' => $id));
+        
+		return ($this->db->affected_rows() > 0) ? true : false;
+	}
 }
