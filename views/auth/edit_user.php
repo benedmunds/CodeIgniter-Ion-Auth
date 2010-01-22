@@ -27,7 +27,7 @@
       </p>
       
       <p>
-      	<input type=checkbox name="reset_password">Reset Password</input>
+      	<input type=checkbox name="reset_password"> <label for="reset_password">Reset Password</label>
       </p>
       
       <?php echo form_input($user_id);?>
