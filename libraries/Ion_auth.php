@@ -60,40 +60,40 @@ class Ion_auth
 	/**
 	 * Activate user.
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function activate($id, $code=false)
 	{
-		return (bool) $this->ci->ion_auth_model->activate($id, $code);
+		return $this->ci->ion_auth_model->activate($id, $code);
 	}
 	
 	/**
 	 * Deactivate user.
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function deactivate($id)
 	{
-	    return (bool) $this->ci->ion_auth_model->deactivate($id);
+	    return $this->ci->ion_auth_model->deactivate($id);
 	}
 	
 	/**
 	 * Change password.
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-        return (bool) $this->ci->ion_auth_model->change_password($identity, $old, $new);
+        return $this->ci->ion_auth_model->change_password($identity, $old, $new);
 	}
 
 	/**
 	 * forgotten password feature
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function forgotten_password($email)
@@ -114,12 +114,11 @@ class Ion_auth
 			$config['mail_type'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from("admin@".$this->ci->config->item('site_title'), $this->ci->config->item('site_title'));
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject($this->ci->config->item('site_title') . ' Email Verification (Forgotten Password)');
 			$this->ci->email->message($message);
-			
-			return (bool) $this->ci->email->send();
+			return $this->ci->email->send();
 		}
 		else 
 		{
@@ -130,7 +129,7 @@ class Ion_auth
 	/**
 	 * forgotten_password_complete
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function forgotten_password_complete($code)
@@ -147,15 +146,13 @@ class Ion_auth
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
 				
 			$this->ci->email->clear();
-			$config['mail_type'] = "html";
-			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from("admin@".$this->ci->config->item('site_title'), $this->ci->config->item('site_title'));
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject($this->ci->config->item('site_title') . ' - New Password');
 			$this->ci->email->message($message);
-			
-			return (bool) $this->ci->email->send();
+			return $new_password; //debug
+			return $this->ci->email->send();
 		}
 		else
 		{
@@ -166,7 +163,7 @@ class Ion_auth
 	/**
 	 * register
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function register($username, $password, $email, $additional_data, $group_name = false) //need to test email activation
@@ -204,27 +201,25 @@ class Ion_auth
 			$message = $this->ci->load->view($email_folder.'activation', $data, true);
             
 			$this->ci->email->clear();
-			$config['mail_type'] = "html";
-			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
+			$this->ci->email->from("admin@".$this->ci->config->item('site_title'), $this->ci->config->item('site_title'));
 			$this->ci->email->to($email);
 			$this->ci->email->subject('Email Activation (Registration)');
 			$this->ci->email->message($message);
 			
-			return (bool) $this->ci->email->send();
+			return $this->ci->email->send();
 		}
 	}
 	
 	/**
 	 * login
 	 *
-	 * @return bool
+	 * @return void
 	 * @author Mathew
 	 **/
 	public function login($identity, $password)
 	{
-		return (bool) $this->ci->ion_auth_model->login($identity, $password);
+		return $this->ci->ion_auth_model->login($identity, $password);
 	}
 	
 	/**
@@ -265,7 +260,7 @@ class Ion_auth
 	{
 	    $admin_group = $this->ci->config->item('admin_group');
 	    $user_group  = $this->ci->session->userdata('group');
-	    return (bool) $user_group == $admin_group;
+	    return $user_group == $admin_group;
 	}
 	
 	/**
@@ -277,7 +272,7 @@ class Ion_auth
 	public function is_group($check_group)
 	{
 	    $user_group  = $this->ci->session->userdata('group');
-	    return (bool) $user_group == $check_group;
+	    return $user_group == $check_group;
 	}
 	
 	
@@ -300,9 +295,9 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users()
+	public function get_users($group_name = false)
 	{
-	    return $this->ci->ion_auth_model->get_users();
+	    return $this->ci->ion_auth_model->get_users($group_name)->result();
 	}
 	
 	/**
@@ -311,9 +306,9 @@ class Ion_auth
 	 * @return array Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_array()
+	public function get_users_array($group_name = false)
 	{
-	    return $this->ci->ion_auth_model->get_users_array();
+	    return $this->ci->ion_auth_model->get_users($group_name)->result_array();
 	}
 	
 	/**
@@ -322,9 +317,9 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users()
+	public function get_active_users($group_name = false)
 	{
-	    return $this->ci->ion_auth_model->get_active_users();
+	    return $this->ci->ion_auth_model->get_active_users($group_name)->result();
 	}
 	
 	/**
@@ -333,9 +328,9 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users_array()
+	public function get_active_users_array($group_name = false)
 	{
-	    return $this->ci->ion_auth_model->get_active_users_array();
+	    return $this->ci->ion_auth_model->get_active_users($group_name)->result_array();
 	}
 	
 	/**
@@ -346,7 +341,7 @@ class Ion_auth
 	 **/
 	public function get_user($id=false)
 	{
-	    return $this->ci->ion_auth_model->get_user($id);
+	    return $this->ci->ion_auth_model->get_user($id)->row();
 	}
 	
 	/**
@@ -357,7 +352,7 @@ class Ion_auth
 	 **/
 	public function get_user_array($id=false)
 	{
-	    return $this->ci->ion_auth_model->get_user_array($id);
+	    return $this->ci->ion_auth_model->get_user($id)->row_array();
 	}
 
 	
@@ -370,6 +365,30 @@ class Ion_auth
 	public function get_users_group($id=false)
 	{
 	    return $this->ci->ion_auth_model->get_users_group($id);
+	}
+
+
+	/**
+	 * update_user
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function update_user($id, $data)
+	{
+		 return $this->ci->ion_auth_model->update_user($id, $data);
+	}
+
+	
+	/**
+	 * update_user
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function delete_user($id)
+	{
+		 return $this->ci->ion_auth_model->delete_user($id);
 	}
 	
 }
