@@ -120,9 +120,9 @@ class Ion_auth_model extends Model
 	   }
 	   
 	   $query  = $this->db->select('password')
-       	             	  ->where($this->identity_column, $identity)
-                    	  ->limit(1)
-                    	  ->get($this->tables['users']);
+			->where($this->identity_column, $identity)
+			->limit(1)
+			->get($this->tables['users']);
             
         $result = $query->row();
         
@@ -235,9 +235,9 @@ class Ion_auth_model extends Model
 	public function change_password($identity, $old, $new)
 	{
 	    $query  = $this->db->select('password')
-                    	   ->where($this->identity_column, $identity)
-                    	   ->limit(1)
-                    	   ->get($this->tables['users']);
+			->where($this->identity_column, $identity)
+			->limit(1)
+			->get($this->tables['users']);
                     	   
 	    $result = $query->row();
 
@@ -374,37 +374,21 @@ class Ion_auth_model extends Model
 	        return FALSE;
 	    }
 	    
-		$this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['groups'].'.name AS `group`');
-		
-		if (!empty($this->columns))
-		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
-		}
-		
-		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
+		$this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, g.name AS `group`, m.*');
+		$this->db->join($this->tables['meta'] . ' m', 'u.id = m.'.$this->meta_join, 'left');
+		$this->db->join($this->tables['groups'] . ' g', 'u.group_id = g.id', 'left');
 		
 		if (strlen($identity) === 40)
 	    {
-	        $this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
+	        $this->db->where('u.forgotten_password_code', $identity);
 	    }
 	    else
 	    {
-	        $this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
+	        $this->db->where('u.'.$this->identity_column, $identity);
 	    }
 	    
 		$this->db->limit(1);
-		$i = $this->db->get($this->tables['users']);
+		$i = $this->db->get($this->tables['users'] .' u');
 		
 		return ($i->num_rows > 0) ? $i->row() : FALSE;
 	}
@@ -539,34 +523,16 @@ class Ion_auth_model extends Model
 	 **/
 	public function get_users($group_name = false)
 	{
-	    $this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
-		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
-		}
-		
-		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
+		$this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, u.active, g.name AS `group`, m.*');
+		$this->db->join($this->tables['meta'] . ' m', 'u.id = m.'.$this->meta_join, 'left');
+		$this->db->join($this->tables['groups'] . ' g', 'u.group_id = g.id', 'left');
 
 		if(!empty($group_name))
 		{
-	    	$this->db->where($this->tables['groups'].'.name', $group_name);
+	    	$this->db->where('g.name', $group_name);
 		}
 		
-		return $this->db->get($this->tables['users']);
+		return $this->db->get($this->tables['users'] .' u');
 	}
 	
 	/**
@@ -577,43 +543,25 @@ class Ion_auth_model extends Model
 	 **/
 	public function get_active_users($group_name = false)
 	{
-	    $this->db->select($this->tables['users'].'.id, '.
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
-		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
-		}
-		
-		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
+	    $this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, u.active, g.name AS `group`, g.description AS group_description, m.*');
+		$this->db->join($this->tables['meta'] . ' m', 'u.id = m.'.$this->meta_join, 'left');
+		$this->db->join($this->tables['groups'] . ' g', 'u.group_id = g.id', 'left');
 		
 		if(!empty($group_name))
 		{
-	    	$this->db->where($this->tables['groups'].'.name', $group_name);
+	    	$this->db->where('g.name', $group_name);
 		}
 		
-		$this->db->where($this->tables['users']. '.active', 1);
+		$this->db->where('u.active', 1);
 		
-		return $this->db->get($this->tables['users']);
+		return $this->db->get($this->tables['users'] .' u');
 	}
 	
 	/**
 	 * get_user
 	 *
-	 * @return void
-	 * @author Ben Edmunds
+	 * @return object
+	 * @author Phil Sturgeon
 	 **/
 	public function get_user($id = false)
 	{
@@ -623,30 +571,12 @@ class Ion_auth_model extends Model
 			$id = $this->session->userdata('user_id');
 		}
 		
-	    $this->db->select($this->tables['users'].'.id, '. 
-						  $this->tables['users'].'.username, ' .
-						  $this->tables['users'].'.password, '.
-						  $this->tables['users'].'.email, '.
-						  $this->tables['users'].'.activation_code, '.
-						  $this->tables['users'].'.forgotten_password_code , '.
-						  $this->tables['users'].'.ip_address, '.
-						  $this->tables['users'].'.active, '.
-						  $this->tables['groups'].'.name AS group_name, '.
-						  $this->tables['groups'].'.description AS group_description');
-		
-		if (!empty($this->columns))
-		{
-		    foreach ($this->columns as $value)
-    		{
-    			$this->db->select($this->tables['meta'].'.'.$value);
-    		}
-		}
-		
-		return $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left')
-			->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left')
-			->where($this->tables['users'].'.id', $id)
+	    return $this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, u.active, g.name AS `group`, g.description AS group_description, m.*')
+			->join($this->tables['meta'] . ' m', 'u.id = m.'.$this->meta_join, 'left')
+			->join($this->tables['groups'] . ' g', 'u.group_id = g.id', 'left')
+			->where('u.id', $id)
 			->limit(1)
-			->get($this->tables['users']);
+			->get($this->tables['users'] .' u');
 	}
 	
 	/**
