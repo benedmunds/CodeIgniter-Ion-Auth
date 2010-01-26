@@ -270,12 +270,8 @@ class Ion_auth_model extends Model
 	        return false;
 	    }
 	    
-	    $query = $this->db->select('id')
-                           ->where('username', $username)
-                           ->limit(1)
-                           ->get($this->tables['users']);
-		
-		return $query->num_rows() == 1;
+	    return $this->db->where('username', $username)
+			->count_all_results($this->tables['users']) > 0;
 	}
 	
 	/**
@@ -291,12 +287,8 @@ class Ion_auth_model extends Model
 	        return false;
 	    }
 	    
-	    $query = $this->db->select('id')
-                           ->where('email', $email)
-                           ->limit(1)
-                           ->get($this->tables['users']);
-		
-		return $query->num_rows() == 1;
+	    return $this->db->where('email', $email)
+			->count_all_results($this->tables['users']) > 0;
 	}
 	
 	/**
@@ -312,12 +304,8 @@ class Ion_auth_model extends Model
 	        return false;
 	    }
 	    
-	    $query = $this->db->select('id')
-                           ->where($this->identity_column, $identity)
-                           ->limit(1)
-                           ->get($this->tables['users']);
-		
-		return $query->num_rows() == 1;
+	    return $this->db->where($this->identity_column, $identity)
+			->count_all_results($this->tables['users']) > 0;
 	}
 
 	/**
@@ -362,14 +350,9 @@ class Ion_auth_model extends Model
 	        return false;
 	    }
 	    
-	    $query = $this->db->select('id')
-                    	   ->where('forgotten_password_code', $code)
-                           ->limit(1)
-                    	   ->get($this->tables['users']);
-        
-        $result = $query->row();
-        
-        if ($query->num_rows() > 0) 
+	   	$this->db->where('forgotten_password_code', $code);
+
+	   	if ($this->db->count_all_results($this->tables['users']) > 0) 
         {
         	$password   = $this->salt();
 		    
