@@ -153,7 +153,7 @@ class Ion_auth
 			$this->ci->email->to($profile->email);
 			$this->ci->email->subject($this->ci->config->item('site_title') . ' - New Password');
 			$this->ci->email->message($message);
-			return $new_password; //debug
+
 			return $this->ci->email->send();
 		}
 		else
