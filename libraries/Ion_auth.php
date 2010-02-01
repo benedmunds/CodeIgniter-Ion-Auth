@@ -43,6 +43,20 @@ class Ion_auth
 	protected $status;
 
 	/**
+	 * extra where
+	 *
+	 * @var array
+	 **/
+	public $_extra_where = array();
+
+	/**
+	 * extra set
+	 *
+	 * @var array
+	 **/
+	public $_extra_set = array();
+
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -98,31 +112,30 @@ class Ion_auth
 	 **/
 	public function forgotten_password($email)
 	{
-		$forgotten_password = $this->ci->ion_auth_model->forgotten_password($email);
-		
-		if ($forgotten_password) 
+		if ( $this->ci->ion_auth_model->forgotten_password($email) ) 
 		{
 			// Get user information.
 			$profile = $this->ci->ion_auth_model->profile($email);
 
-			$data = array('identity'                => $profile->{$this->ci->config->item('identity')},
-    			          'forgotten_password_code' => $profile->forgotten_password_code);
-                
+			$data = array(
+				'identity'                => $profile->{$this->ci->config->item('identity')},
+				'forgotten_password_code' => $profile->forgotten_password_code
+			);
+
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password'), $data, true);
-				
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
 			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title') . ' Email Verification (Forgotten Password)');
+			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
 			return $this->ci->email->send();
 		}
 		else 
 		{
-			return false;
+			return FALSE;
 		}
 	}
 	
@@ -140,8 +153,10 @@ class Ion_auth
 
 		if ($new_password) 
 		{
-			$data = array('identity'     => $profile->{$identity},
-				          'new_password' => $new_password);
+			$data = array(
+				'identity'     => $profile->{$identity},
+				'new_password' => $new_password
+			);
             
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
 				
@@ -158,7 +173,7 @@ class Ion_auth
 		}
 		else
 		{
-			return false;
+			return FALSE;
 		}
 	}
 
@@ -183,14 +198,14 @@ class Ion_auth
             
 			if (!$register) 
 			{ 
-				return false; 
+				return FALSE; 
 			}
 
 			$deactivate = $this->ci->ion_auth_model->deactivate($username);
 
 			if (!$deactivate) 
 			{ 
-				return false; 
+				return FALSE; 
 			}
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
@@ -208,7 +223,7 @@ class Ion_auth
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email'), $this->ci->config->item('site_title'));
 			$this->ci->email->to($email);
-			$this->ci->email->subject('Email Activation (Registration)');
+			$this->ci->email->subject($this->ci->config->item('site_title') . ' - Account Activation');
 			$this->ci->email->message($message);
 			
 			return $this->ci->email->send();
@@ -393,6 +408,35 @@ class Ion_auth
 	public function delete_user($id)
 	{
 		 return $this->ci->ion_auth_model->delete_user($id);
+	}
+	
+	
+	/**
+	 * extra_where
+	 * 
+	 * Crazy function that allows extra where field to be used for user fetching/unique checking etc.
+	 * Basically this allows users to be unique based on one other thing than the identifier which is helpful
+	 * for sites using multiple domains on a single database.
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function extra_where($field, $value)
+	{
+		$this->_extra_where = array($field => $value);
+	}
+	
+	/**
+	 * extra_set
+	 *
+	 * Set your extra field for registration
+	 *
+	 * @return void
+	 * @author Phil Sturgeon
+	 **/
+	public function extra_set($field, $value)
+	{
+		$this->_extra_set = array($field => $value);
 	}
 	
 }
