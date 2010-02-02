@@ -2,9 +2,11 @@
 /**
 * Name:  Ion Auth
 * 
-* Author:  Ben Edmunds
-* 		   ben.edmunds@gmail.com
-*          @benedmunds
+* Author: Ben Edmunds
+* 		  ben.edmunds@gmail.com
+*         @benedmunds
+*          
+* Added Awesomeness: Phil Sturgeon
 * 
 * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *          
@@ -117,10 +119,9 @@ class Ion_auth
 			// Get user information.
 			$profile = $this->ci->ion_auth_model->profile($email);
 
-			$data = array(
-				'identity'                => $profile->{$this->ci->config->item('identity')},
-				'forgotten_password_code' => $profile->forgotten_password_code
-			);
+			$data = array('identity'                => $profile->{$this->ci->config->item('identity')},
+						  'forgotten_password_code' => $profile->forgotten_password_code
+						 );
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password'), $data, true);
 			$this->ci->email->clear();
@@ -135,7 +136,7 @@ class Ion_auth
 		}
 		else 
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -153,10 +154,9 @@ class Ion_auth
 
 		if ($new_password) 
 		{
-			$data = array(
-				'identity'     => $profile->{$identity},
-				'new_password' => $new_password
-			);
+			$data = array('identity'     => $profile->{$identity},
+						  'new_password' => $new_password
+						 );
             
 			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_forgot_password_complete'), $data, true);
 				
@@ -173,7 +173,7 @@ class Ion_auth
 		}
 		else
 		{
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -198,14 +198,14 @@ class Ion_auth
             
 			if (!$register) 
 			{ 
-				return FALSE; 
+				return false; 
 			}
 
 			$deactivate = $this->ci->ion_auth_model->deactivate($username);
 
 			if (!$deactivate) 
 			{ 
-				return FALSE; 
+				return false; 
 			}
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
@@ -213,7 +213,8 @@ class Ion_auth
 			$data = array('username'   => $username,
         				  'password'   => $password,
         				  'email'      => $email,
-        				  'activation' => $activation_code);
+        				  'activation' => $activation_code
+						 );
             
 			$message = $this->ci->load->view($email_folder.'activation', $data, true);
             
@@ -279,7 +280,7 @@ class Ion_auth
 	{
 	    $admin_group = $this->ci->config->item('admin_group');
 	    $user_group  = $this->ci->session->userdata('group');
-	    return $user_group == $admin_group;
+	    return (bool) $user_group == $admin_group;
 	}
 	
 	/**

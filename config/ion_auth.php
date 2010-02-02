@@ -2,9 +2,11 @@
 /**
 * Name:  Ion Auth Config
 * 
-* Author:  Ben Edmunds
-* 		   ben.edmunds@gmail.com
-*          @benedmunds
+* Author: Ben Edmunds
+* 		  ben.edmunds@gmail.com
+*         @benedmunds
+*          
+* Added Awesomeness: Phil Sturgeon
 * 
 * Location: http://github.com/benedmunds/ion_auth/
 *          
