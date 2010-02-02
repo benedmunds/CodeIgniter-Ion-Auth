@@ -290,8 +290,17 @@ class Ion_auth
 	 **/
 	public function is_group($check_group)
 	{
-	    $user_group  = $this->ci->session->userdata('group');
-	    return $user_group == $check_group;
+	    $user_group = $this->ci->session->userdata('group');
+	    
+	    if(is_array($check_group))
+	    {
+	    	return $user_group == $check_group;
+	    }
+	    
+	    else
+	    {
+	    	return in_array($user_group, $check_group);
+	    }
 	}
 	
 	
