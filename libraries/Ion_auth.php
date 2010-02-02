@@ -294,13 +294,10 @@ class Ion_auth
 	    
 	    if(is_array($check_group))
 	    {
-	    	return $user_group == $check_group;
-	    }
-	    
-	    else
-	    {
 	    	return in_array($user_group, $check_group);
 	    }
+	    
+	    return $user_group == $check_group;
 	}
 	
 	
@@ -430,9 +427,19 @@ class Ion_auth
 	 * @return void
 	 * @author Phil Sturgeon
 	 **/
-	public function extra_where($field, $value)
+	public function extra_where()
 	{
-		$this->_extra_where = array($field => $value);
+		$where =& func_get_args();
+		
+		if(count($where) == 1)
+		{
+			$this->_extra_where = $where[0];
+		}
+		
+		else
+		{
+			$this->_extra_where = array($where[0] => $where[1]);
+		}
 	}
 	
 	/**
@@ -443,9 +450,19 @@ class Ion_auth
 	 * @return void
 	 * @author Phil Sturgeon
 	 **/
-	public function extra_set($field, $value)
+	public function extra_set()
 	{
-		$this->_extra_set = array($field => $value);
+		$set =& func_get_args();
+		
+		if(count($set) == 1)
+		{
+			$this->_extra_set = $set[0];
+		}
+		
+		else
+		{
+			$this->_extra_set = array($set[0] => $set[1]);
+		}
 	}
 	
 }
