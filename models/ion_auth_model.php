@@ -170,10 +170,7 @@ class Ion_auth_model extends Model
 	public function activate($id, $code = false)
 	{	    
 	    if ($code != false) 
-	    {  
-		   // Ticket system
-		   $this->db->where('client_id', CLIENT_ID);
-	   
+	    {  	   
 		    $query = $this->db->select($this->identity_column)
 				        	  ->where('activation_code', $code)
 				        	  ->limit(1)
@@ -183,22 +180,27 @@ class Ion_auth_model extends Model
 	        
 			if ($query->num_rows() !== 1)
 			{
-				return FALSE;
+				return false;
 			}
 		    
 			$identity = $result->{$this->identity_column};
 			
-			$data = array('activation_code' => '');
+			$data = array('activation_code' => '',
+						  'active'          => 1
+						 );
 	        
 			$this->db->where($this->ion_auth->_extra_where);
 			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	    }
-	    else 
+	    else //must be called by an admin to activate without a code
 	    {
-			$data = array(
-				'activation_code' => '',
-				'active' => 1
-			);
+	    	if (!$this->ion_auth->is_admin()) 
+	    	{
+	    		return false;
+	    	}
+			$data = array('activation_code' => '',
+						  'active'          => 1
+						 );
 		   
 			$this->db->where($this->ion_auth->_extra_where);
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
@@ -496,7 +498,7 @@ class Ion_auth_model extends Model
         
 		$this->db->insert($this->tables['meta'], $data);
 		
-		return $this->db->affected_rows() > 0;
+		return ($this->db->affected_rows() > 0) ? $id : false;
 	}
 	
 	/**

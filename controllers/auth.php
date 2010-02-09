@@ -167,23 +167,29 @@ class Auth extends Controller {
 		echo $reset; //debug
 		if ($reset) {  //if the reset worked then send them to the login page
 			$this->session->set_flashdata('message', 'An email has been sent with your password, please check your inbox.');
-            //redirect("auth/login", 'refresh');
+            redirect("auth/login", 'refresh');
 		}
 		else { //if the reset didnt work then send them back to the forgot password page
 			$this->session->set_flashdata('message', 'The email failed to send, try again.');
-            //redirect("auth/forgot_password", 'refresh');
+            redirect("auth/forgot_password", 'refresh');
 		}
 	}
 
 	//activate the user
 	function activate($id, $code=false) 
 	{        
-		if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin()) {
-	        //activate the user
-	        $this->ion_auth->activate($id, $code);
-		}
-        //redirect them back to the admin page
-        redirect("auth", 'refresh');
+		$activation = $this->ion_auth->activate($id, $code);
+		
+        if ($activation) {
+			//redirect them to the auth page
+	        $this->session->set_flashdata('message', "Account Activated");
+	        redirect("auth", 'refresh');
+        }
+        else {
+			//redirect them to the forgot password page
+	        $this->session->set_flashdata('message', "Unable to Activate");
+	        redirect("auth/forgot_password", 'refresh');
+        }
     }
     
     //deactivate the user
@@ -193,7 +199,7 @@ class Auth extends Controller {
 	        //de-activate the user
 	        $this->ion_auth->deactivate($id);
 		} 
-        //redirect them back to the admin page
+        //redirect them back to the auth page
         redirect("auth", 'refresh');
     }
     

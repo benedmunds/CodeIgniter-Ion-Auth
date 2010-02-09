@@ -186,7 +186,6 @@ class Ion_auth
 	public function register($username, $password, $email, $additional_data, $group_name = false) //need to test email activation
 	{
 	    $email_activation = $this->ci->config->item('email_activation');
-	    $email_folder     = $this->ci->config->item('email_templates');
 
 		if (!$email_activation)
 		{
@@ -209,14 +208,16 @@ class Ion_auth
 			}
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
+			$identity        = $this->ci->config->item('identity');
+	    	$user            = $this->ci->ion_auth_model->get_user($register);
 
-			$data = array('username'   => $username,
-        				  'password'   => $password,
+			$data = array('identity'   => $user->{$identity},
+						  'id'         => $user->id,
         				  'email'      => $email,
-        				  'activation' => $activation_code
+        				  'activation' => $activation_code,
 						 );
             
-			$message = $this->ci->load->view($email_folder.'activation', $data, true);
+			$message = $this->ci->load->view($this->ci->config->item('email_templates').$this->ci->config->item('email_activate'), $data, true);
             
 			$this->ci->email->clear();
 			$config['mailtype'] = "html";
@@ -280,7 +281,7 @@ class Ion_auth
 	{
 	    $admin_group = $this->ci->config->item('admin_group');
 	    $user_group  = $this->ci->session->userdata('group');
-	    return (bool) $user_group == $admin_group;
+	    return $user_group == $admin_group;
 	}
 	
 	/**

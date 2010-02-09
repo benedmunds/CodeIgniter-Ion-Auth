@@ -93,6 +93,12 @@
 	$config['email_templates']     = 'auth/email/';
 	
 	/**
+	 * activate Account Email Template
+     * Default : activate.tpl.php
+	 **/
+	$config['email_activate']   = 'activate.tpl.php';
+	
+	/**
 	 * Forgot Password Email Template
      * Default : forgot_password.tpl.php
 	 **/
