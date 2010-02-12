@@ -556,7 +556,7 @@ class Ion_auth_model extends Model
 	 **/
 	public function get_users($group_name = false)
 	{
-		$this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, u.active, g.name AS `group`');
+		$this->db->select('u.id, u.username, u.email, u.ip_address, u.active, g.name AS `group`, g.description AS group_description');
 
 		if (!empty($this->columns))
         {
@@ -587,7 +587,7 @@ class Ion_auth_model extends Model
 	 **/
 	public function get_active_users($group_name = false)
 	{
-	    $this->db->select('u.id, u.username, u.password, u.email, u.activation_code, u.forgotten_password_code, u.ip_address, u.active, g.name AS `group`, g.description AS group_description');
+	    $this->db->select('u.id, u.username, u.email, u.ip_address, u.active, g.name AS `group`, g.description AS group_description');
 
 		if (!empty($this->columns))
         {

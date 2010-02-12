@@ -164,7 +164,7 @@ class Auth extends Controller {
 	public function reset_password($code) 
 	{
 		$reset = $this->ion_auth->forgotten_password_complete($code);
-		echo $reset; //debug
+		
 		if ($reset) {  //if the reset worked then send them to the login page
 			$this->session->set_flashdata('message', 'An email has been sent with your password, please check your inbox.');
             redirect("auth/login", 'refresh');
@@ -292,10 +292,5 @@ class Auth extends Controller {
                                                      );
             $this->load->view('auth/create_user', $this->data);
 		}
-    }
-    
-	function edit_user($id) 
-	{ // [incomplete]
-        $this->data['title'] = "Edit User";
     }
 }
