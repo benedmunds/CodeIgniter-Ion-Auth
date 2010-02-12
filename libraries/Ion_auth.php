@@ -193,14 +193,14 @@ class Ion_auth
 		}
 		else
 		{
-			$register = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
+			$id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
             
-			if (!$register) 
+			if (!$id) 
 			{ 
 				return false; 
 			}
 
-			$deactivate = $this->ci->ion_auth_model->deactivate($username);
+			$deactivate = $this->ci->ion_auth_model->deactivate($id);
 
 			if (!$deactivate) 
 			{ 
@@ -209,7 +209,7 @@ class Ion_auth
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
 			$identity        = $this->ci->config->item('identity');
-	    	$user            = $this->ci->ion_auth_model->get_user($register);
+	    	$user            = $this->ci->ion_auth_model->get_user($id)->row();
 
 			$data = array('identity'   => $user->{$identity},
 						  'id'         => $user->id,
