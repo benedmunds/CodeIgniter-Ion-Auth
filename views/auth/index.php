@@ -18,7 +18,7 @@
 				<td><?php echo $user['first_name']?></td>
 				<td><?php echo $user['last_name']?></td>
 				<td><?php echo $user['email'];?></td>
-				<td><?php echo ucfirst($user['group']);?></td>
+				<td><?php echo $user['group_description'];?></td>
 				<td><?php echo ($user['active']) ? anchor("auth/deactivate/".$user['id'], 'Active') : anchor("auth/activate/". $user['id'], 'Inactive');?></td>
 			</tr>
 		<?php endforeach;?>
