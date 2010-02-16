@@ -5,6 +5,7 @@ class Auth extends Controller {
     {
         parent::__construct();
         $this->load->library(array('ion_auth','session','form_validation'));
+        $this->load->helper('url');
     }
  
     //redirect if needed, otherwise display the user list
