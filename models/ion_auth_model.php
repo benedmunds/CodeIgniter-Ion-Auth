@@ -457,9 +457,18 @@ class Ion_auth_model extends Model
 	 **/
 	public function register($username, $password, $email, $additional_data = false, $group_name = false)
 	{
-	    if (empty($username) || empty($password) || empty($email) || $this->username_check($username) || $this->email_check($email))
+	    if (empty($username) || empty($password) || empty($email) || $this->email_check($email))
 	    {
 	        return FALSE;
+	    }
+	    
+	    // If username is taken, use username1 or username2, etc.
+	    for($i = 0; $this->username_check($username); $i++)
+	    {
+	    	if($i > 0)
+	    	{
+	    		$username .= $i;
+	    	}
 	    }
 	    
         // Group ID
