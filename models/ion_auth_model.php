@@ -680,12 +680,12 @@ class Ion_auth_model extends Model
 	 **/
 	public function update_user($id, $data)
 	{
-		$this->db->trans_begin();
+	    $this->db->trans_begin();
 		
-		if (!empty($this->columns))
+	    if (!empty($this->columns))
 	    {
-			// 'user_id' = $id
-			$this->db->where($this->meta_join, $id);
+		// 'user_id' = $id
+		$this->db->where($this->meta_join, $id);
 			
 	        foreach ($this->columns as $field)
 	        {
