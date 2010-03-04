@@ -40,7 +40,15 @@ class Auth extends Controller {
 	    $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() == true) { //check to see if the user is logging in
-        	if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'))) { //if the login is successful
+        	//check for "remember me"
+        	if ($this->input->post('remember') == 1) {
+        		$remember = true;
+        	}
+        	else {
+        		$remember = false;
+        	}
+        	
+        	if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember)) { //if the login is successful
 	        	//redirect them back to the home page
 	        	$this->session->set_flashdata('message', "Logged In Successfully");
 	        	redirect($this->config->item('base_url'), 'refresh');

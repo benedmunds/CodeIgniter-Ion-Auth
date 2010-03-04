@@ -60,6 +60,7 @@ CREATE TABLE `users` (
   `email` varchar(40) NOT NULL,
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
+  `remember_code` varchar(40) DEFAULT NULL,
   `active` int(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 );

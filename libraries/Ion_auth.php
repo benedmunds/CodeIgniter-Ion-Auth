@@ -62,6 +62,13 @@ class Ion_auth
 		$email = $this->ci->config->item('email');
 		$this->ci->load->library('email', $email);
 		$this->ci->load->model('ion_auth_model');
+		$this->load->helper('cookie');
+		
+		//auto-login the user if they are remembered
+		if (get_cookie('identity') && get_cookie('remember_code'))
+		{
+			$this->ci->ion_auth_model->login_remembered_user();
+		}
 	}
 	
 	/**
@@ -229,9 +236,9 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function login($identity, $password)
+	public function login($identity, $password, $remember=false)
 	{
-		return $this->ci->ion_auth_model->login($identity, $password);
+		return $this->ci->ion_auth_model->login($identity, $password, $remember);
 	}
 	
 	/**
@@ -247,6 +254,18 @@ class Ion_auth
 	    $this->ci->session->unset_userdata('group');
 	    $this->ci->session->unset_userdata('id');
 	    $this->ci->session->unset_userdata('user_id');
+	    
+	    //delete the remember me cookies if they exist
+	    if (get_cookie('identity')) 
+	    {
+	    	delete_cookie('identity');	
+	    }
+		if (get_cookie('remember_code')) 
+	    {
+	    	delete_cookie('remember_code');	
+	    }
+	    
+	    
 		$this->ci->session->sess_destroy();
 	}
 	

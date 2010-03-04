@@ -78,6 +78,21 @@
 	$config['email_activation']    = false;
 	
 	/**
+	 * Allow users to be remembered and enable auto-login
+	 **/
+	$config['remember_users']      = true;
+	
+	/**
+	 * How long to remember the user (seconds)
+	 **/
+	$config['user_expire']         = 86500;
+	
+	/**
+	 * Extend the users cookies everytime they auto-login
+	 **/
+	$config['user_extend_on_login'] = false;
+	
+	/**
 	 * Folder where email templates are stored.
      * Default : auth/
 	 **/

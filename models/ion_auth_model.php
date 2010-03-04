@@ -60,6 +60,7 @@ class Ion_auth_model extends Model
 	{
 		parent::__construct();
 		$this->load->config('ion_auth');
+		$this->load->helper('cookie');
 		$this->tables  = $this->config->item('tables');
 		$this->columns = $this->config->item('columns');
 		
@@ -121,7 +122,7 @@ class Ion_auth_model extends Model
         
 		if ($query->num_rows() !== 1)
 		{
-		    return false;
+		    return FALSE;
 		}
 		    
 		$salt = substr($result->password, 0, $this->salt_length);
@@ -313,7 +314,6 @@ class Ion_auth_model extends Model
 	    }
 	    
 	    return $this->db->where($this->identity_column, $identity)
-	    	->where($this->ion_auth->_extra_where)
 			->count_all_results($this->tables['users']) > 0;
 	}
 
@@ -365,8 +365,6 @@ class Ion_auth_model extends Model
                 'forgotten_password_code' => '0',
                 'active'                  => 1
             );
-            
-			$this->db->where($this->ion_auth->_extra_where);
 		   
             $this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
 
@@ -521,7 +519,7 @@ class Ion_auth_model extends Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function login($identity, $password)
+	public function login($identity, $password, $remember=FALSE)
 	{
 	    if (empty($identity) || empty($password) || !$this->identity_check($identity))
 	    {
@@ -555,6 +553,12 @@ class Ion_auth_model extends Model
     		    $group_row   = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
 	    
     		    $this->session->set_userdata('group',  $group_row->name);
+    		    
+    		    if ($remember && $this->config->item('remember_users'))
+    		    {
+    		    	$this->remember_user($result->id);
+    		    }
+    		    
     		    return TRUE;
     		}
         }
@@ -674,8 +678,8 @@ class Ion_auth_model extends Model
 		
 	    if (!empty($this->columns))
 	    {
-		// 'user_id' = $id
-		$this->db->where($this->meta_join, $id);
+			// 'user_id' = $id
+			$this->db->where($this->meta_join, $id);
 			
 	        foreach ($this->columns as $field)
 	        {
@@ -688,23 +692,24 @@ class Ion_auth_model extends Model
 
 	        $this->db->update($this->tables['meta']);
 	    }
-            if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
-            {
+	    
+        if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
+        {
 	        if (array_key_exists('password', $data))
-		{
-		    $data['password'] = $this->hash_password($data['password']);
-		}
-
-		$this->db->where($this->ion_auth->_extra_where);
-
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
-            }
+			{
+			    $data['password'] = $this->hash_password($data['password']);
+			}
+	
+			$this->db->where($this->ion_auth->_extra_where);
+	
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
+        }
+            
 		if ($this->db->trans_status() === FALSE)
 		{
 		    $this->db->trans_rollback();
 		    return FALSE;
 		}
-		
 		else
 		{
 		    $this->db->trans_commit();
@@ -736,7 +741,90 @@ class Ion_auth_model extends Model
 		    $this->db->trans_commit();
 		    return TRUE;
 		}
-
 	}
 	
+	/**
+	 * login_remembed_user
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function login_remembered_user()
+	{
+		//check for valid data
+		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity'))) 
+		{
+			return FALSE;
+		}
+		
+		//get the user
+		$query = $this->db->select($this->identity_column.', id, group_id')
+						  ->where($this->identity_column, get_cookie('identity'))
+						  ->where('remember_code', get_cookie('remember_code'))
+						  ->limit(1)
+						  ->get($this->tables['users']);
+        
+		//if the user was found, sign them in
+        if ($query->num_rows() == 1)
+        {
+        	$user = $query->row();
+        	
+            $this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
+    		$this->session->set_userdata('id',  $user->id); //kept for backwards compatibility
+    		$this->session->set_userdata('user_id',  $user->id); //everyone likes to overwrite id so we'll use user_id
+    		$this->session->set_userdata('group_id',  $user->group_id);
+    		    
+    		$group_row = $this->db->select('name')->where('id', $user->group_id)->get($this->tables['groups'])->row();
+	    
+    		$this->session->set_userdata('group',  $group_row->name);
+    		
+    		//extend the users cookies if the option is enabled
+    		if ($this->config->item('user_extend_on_login'))
+    		{
+    			$this->remember_user($user->id);
+    		}
+    		
+    		return TRUE;
+          }
+        
+		  return FALSE;		
+	}
+	
+	/**
+	 * remember_user
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	private function remember_user($id)
+	{
+		if (!$id) {
+			return FALSE;
+		}
+		
+		$salt = sha1(md5(microtime()));
+		
+		$this->db->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
+		
+		if ($this->db->affected_rows() == 1) 
+		{
+			$user = $this->get_user($id)->row();
+			
+			$identity = array('name'   => 'identity',
+	                   		  'value'  => $user->{$this->identity_column},
+	                   		  'expire' => $this->config->item('user_expire'),
+	               			 );
+			set_cookie($identity); 
+			
+			$remember_code = array('name'   => 'remember_code',
+	                   		  	   'value'  => $salt,
+	                   		  	   'expire' => $this->config->item('user_expire'),
+	               			 	  );
+			set_cookie($remember_code); 
+			
+			return TRUE;
+		}
+		
+		return FALSE;
+	}	
 }
