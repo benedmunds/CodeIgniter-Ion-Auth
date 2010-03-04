@@ -698,7 +698,8 @@ class Ion_auth_model extends Model
 
 	        $this->db->update($this->tables['meta']);
 	    }
-            if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) {
+            if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data)) 
+            {
 	        if (array_key_exists('password', $data))
 		{
 		    $data['password'] = $this->hash_password($data['password']);
