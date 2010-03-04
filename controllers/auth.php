@@ -5,6 +5,8 @@ class Auth extends Controller {
     {
         parent::__construct();
         $this->load->library(array('ion_auth','session','form_validation'));
+        $this->load->database();
+        $this->load->helper('url');
     }
  
     //redirect if needed, otherwise display the user list
@@ -16,7 +18,7 @@ class Auth extends Controller {
     	}
     	elseif (!$this->ion_auth->is_admin()) {
     		//redirect them to the home page because they must be an administrator to view this
-			redirect("/", 'refresh');
+			redirect($this->config->item('base_url'), 'refresh');
     	}
     	else {
 	        //set the flash data error message if there is one
@@ -41,7 +43,7 @@ class Auth extends Controller {
         	if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'))) { //if the login is successful
 	        	//redirect them back to the home page
 	        	$this->session->set_flashdata('message', "Logged In Successfully");
-	        	redirect('/', 'refresh');
+	        	redirect($this->config->item('base_url'), 'refresh');
 	        }
 	        else { //if the login was un-successful
 	        	//redirect them back to the login page
