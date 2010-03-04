@@ -7,6 +7,7 @@ CREATE TABLE "users" (
     "email" varchar(40) NOT NULL,
     "activation_code" varchar(40),
     "forgotten_password_code" varchar(40),
+    "remember_code" varchar(40),
     "active" int4,
   PRIMARY KEY("id"),
   CONSTRAINT "check_id" CHECK(id >= 0),
