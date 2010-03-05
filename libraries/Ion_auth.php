@@ -62,7 +62,7 @@ class Ion_auth
 		$email = $this->ci->config->item('email');
 		$this->ci->load->library('email', $email);
 		$this->ci->load->model('ion_auth_model');
-		$this->load->helper('cookie');
+		$this->ci->load->helper('cookie');
 		
 		//auto-login the user if they are remembered
 		if (get_cookie('identity') && get_cookie('remember_code'))
