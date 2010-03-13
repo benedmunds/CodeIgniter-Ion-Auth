@@ -27,7 +27,11 @@ In the package you will find example usage code in the controllers and views
 folders.  The example code isn't the most beautiful code you'll ever see but 
 it'll show you how to use the library and it's nice and generic so it doesn't 
 require a MY_controller or anything but it will be easy to add render() methods 
-if needed since there is only one load->view() per controller method.    
+if needed since there is only one load->view() per controller method.
+
+DEFAULT LOGIN:
+Username: admin@admin.com
+Password: password    
 
 
 IMPORTANT:   
