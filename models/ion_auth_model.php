@@ -19,7 +19,7 @@
 * 
 */ 
 
-class Ion_auth_model extends Model
+class Ion_auth_model extends CI_Model
 {
 	/**
 	 * Holds an array of tables used
@@ -59,14 +59,16 @@ class Ion_auth_model extends Model
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->database();
 		$this->load->config('ion_auth');
 		$this->load->helper('cookie');
+        	$this->load->library('session');
 		$this->tables  = $this->config->item('tables');
 		$this->columns = $this->config->item('columns');
 		
 		$this->identity_column     = $this->config->item('identity');
-	    $this->salt_length         = $this->config->item('salt_length');
-	    $this->meta_join           = $this->config->item('join');
+	    	$this->salt_length         = $this->config->item('salt_length');
+	    	$this->meta_join           = $this->config->item('join');
 	}
 	
 	/**

@@ -4,7 +4,9 @@ class Auth extends Controller {
     function __construct() 
     {
         parent::__construct();
-        $this->load->library(array('ion_auth','session','form_validation'));
+        $this->load->library('ion_auth');
+        $this->load->library('session');
+        $this->load->library('form_validation');
         $this->load->database();
         $this->load->helper('url');
     }
