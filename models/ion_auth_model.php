@@ -66,13 +66,14 @@ class Ion_auth_model extends CI_Model
 		$this->load->database();
 		$this->load->config('ion_auth');
 		$this->load->helper('cookie');
-        	$this->load->library('session');
+        $this->load->library('session');
 		$this->tables  = $this->config->item('tables');
 		$this->columns = $this->config->item('columns');
 		
-		$this->identity_column     = $this->config->item('identity');
-	    	$this->salt_length         = $this->config->item('salt_length');
-	    	$this->meta_join           = $this->config->item('join');
+		$this->identity_column = $this->config->item('identity');
+	    $this->store_salt      = $this->config->item('store_salt');
+	    $this->salt_length     = $this->config->item('salt_length');
+	    $this->meta_join       = $this->config->item('join');
 	}
 	
 	/**
@@ -92,16 +93,22 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password($password)
+	public function hash_password($password, $salt=false)
 	{
 	    if (empty($password))
 	    {
 	    	return FALSE;
 	    }
 	    
-	    $salt = $this->salt();
-		
-		return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);		
+	    if ($this->store_salt && $salt) 
+		{
+			return  sha1($password . $salt);
+		}
+		else 
+		{
+	    	$salt = $this->salt();
+	    	return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
+		}		
 	}
 	
 	/**
@@ -119,10 +126,11 @@ class Ion_auth_model extends CI_Model
 	   }
 	   
 	   $query = $this->db->select('password')
-			->where($this->identity_column, $identity)
-			->where($this->ion_auth->_extra_where)
-			->limit(1)
-			->get($this->tables['users']);
+	   					 ->select('salt')
+						 ->where($this->identity_column, $identity)
+						 ->where($this->ion_auth->_extra_where)
+						 ->limit(1)
+						 ->get($this->tables['users']);
             
         $result = $query->row();
         
@@ -130,12 +138,17 @@ class Ion_auth_model extends CI_Model
 		{
 		    return FALSE;
 		}
-		    
-		$salt = substr($result->password, 0, $this->salt_length);
 
-		$password = $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
-        
-		return $password;
+		if ($this->store_salt) 
+		{
+			return sha1($password . $result->salt);
+		}
+		else 
+		{
+			$salt = substr($result->password, 0, $this->salt_length);
+	
+			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
+		}
 	}
 	
 	/**
@@ -246,10 +259,10 @@ class Ion_auth_model extends CI_Model
 	public function change_password($identity, $old, $new)
 	{
 	    $query = $this->db->select('password')
-			->where($this->identity_column, $identity)
-			->where($this->ion_auth->_extra_where)
-			->limit(1)
-			->get($this->tables['users']);
+						  ->where($this->identity_column, $identity)
+						  ->where($this->ion_auth->_extra_where)
+						  ->limit(1)
+						  ->get($this->tables['users']);
                     	   
 	    $result = $query->row();
 
@@ -320,7 +333,7 @@ class Ion_auth_model extends CI_Model
 	    }
 	    
 	    return $this->db->where($this->identity_column, $identity)
-			->count_all_results($this->tables['users']) > 0;
+					->count_all_results($this->tables['users']) > 0;
 	}
 
 	/**
@@ -457,14 +470,16 @@ class Ion_auth_model extends CI_Model
 	    }
 	    
 	    // If username is taken, use username1 or username2, etc.
-	    for($i = 0; $this->username_check($username); $i++)
+	    if ($this->identity != 'username') 
 	    {
-	    	if($i > 0)
-	    	{
-	    		$username .= $i;
-	    	}
+		    for($i = 0; $this->username_check($username); $i++)
+		    {
+		    	if($i > 0)
+		    	{
+		    		$username .= $i;
+		    	}
+		    }
 	    }
-	    
         // Group ID
         if(empty($group_name))
         {
@@ -472,25 +487,39 @@ class Ion_auth_model extends CI_Model
         }
         
 	    $group_id = $this->db->select('id')
-	    	->where('name', $group_name)
-	    	->get($this->tables['groups'])
-	    	->row()
-	    	->id;
+				    	 ->where('name', $group_name)
+				    	 ->get($this->tables['groups'])
+				    	 ->row()->id;
 
 	    // IP Address
         $ip_address = $this->input->ip_address();
 	    
-		$password = $this->hash_password($password);
+        if ($this->store_salt) 
+        {
+        	$salt = $this->salt();
+        }
+        else 
+        {
+        	$salt = false;
+        }
+		$password = $this->hash_password($password, $salt);
 		
         // Users table.
 		$data = array(
 			'username'   => $username, 
-			'password'   => $password, 
+			'password'   => $password,
   			'email'      => $email,
 			'group_id'   => $group_id,
 			'ip_address' => $ip_address,
+        	'created_on' => now(),
+			'last_login' => now(),
 			'active'     => 1
 		);
+		
+		if ($this->store_salt) 
+        {
+        	$data['salt'] = $salt;
+        }
 		  
 		$this->db->insert($this->tables['users'], array_merge($data, $this->ion_auth->_extra_set));
         
@@ -532,11 +561,12 @@ class Ion_auth_model extends CI_Model
 	        return FALSE;
 	    }
 	    
-	    $query = $this->db->select($this->identity_column.', id, password, activation_code, group_id')
-			->where($this->identity_column, $identity)
-			->where($this->ion_auth->_extra_where)
-			->limit(1)
-			->get($this->tables['users']);
+	    $query = $this->db->select($this->identity_column.', id, password, group_id')
+						  ->where($this->identity_column, $identity)
+						  ->where($this->ion_auth->_extra_where)
+						  ->where('active', 1)
+						  ->limit(1)
+						  ->get($this->tables['users']);
 	    
         $result = $query->row();
         
@@ -544,20 +574,17 @@ class Ion_auth_model extends CI_Model
         {
             $password = $this->hash_password_db($identity, $password);
             
-            if (!empty($result->activation_code)) 
-            {
-            	return FALSE;
-            }
-            
     		if ($result->password === $password)
     		{
+        		$this->update_last_login($result->id);
+        		
     		    $this->session->set_userdata($this->identity_column,  $result->{$this->identity_column});
     		    $this->session->set_userdata('id',  $result->id); //kept for backwards compatibility
     		    $this->session->set_userdata('user_id',  $result->id); //everyone likes to overwrite id so we'll use user_id
     		    $this->session->set_userdata('group_id',  $result->group_id);
     		    
-    		    $group_row   = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
-	    
+    		    $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
+
     		    $this->session->set_userdata('group',  $group_row->name);
     		    
     		    if ($remember && $this->config->item('remember_users'))
@@ -610,7 +637,7 @@ class Ion_auth_model extends CI_Model
 		}
 		
 		return $this->db->where($this->ion_auth->_extra_where)
-			->get($this->tables['users']);
+					    ->get($this->tables['users']);
 	}
 	
 	/**
@@ -622,7 +649,21 @@ class Ion_auth_model extends CI_Model
 	public function get_active_users($group_name = false)
 	{
 	    $this->db->where($this->tables['users'].'.active', 1);
-		$this->get_users($group_name);
+	    
+		return $this->get_users($group_name);
+	}
+	
+	/**
+	 * get_inactive_users
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_inactive_users($group_name = false)
+	{
+	    $this->db->where($this->tables['users'].'.active', 0);
+	    
+		return $this->get_users($group_name);
 	}
 	
 	/**
@@ -646,6 +687,34 @@ class Ion_auth_model extends CI_Model
 	}
 	
 	/**
+	 * get_user_by_email
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_user_by_email($email)
+	{
+		$this->db->where($this->tables['users'].'.email', $email);
+		$this->db->limit(1);
+		
+		return $this->get_users();
+	}
+	
+	/**
+	 * get_newest_users
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_newest_users($limit = 10)
+  	{
+    	$this->db->order_by($this->tables['users'].'.created_on', 'desc');
+    	$this->db->limit($limit);
+    	
+    	return $this->get_users();
+  	}
+	
+	/**
 	 * get_users_group
 	 *
 	 * @return object
@@ -654,21 +723,21 @@ class Ion_auth_model extends CI_Model
 	public function get_users_group($id=false)
 	{
 		//if no id was passed use the current users id
-		if (!$id) 
+		if (!$id)  
 		{
 			$id = $this->session->userdata('user_id');
 		}
 		
 	    $query = $this->db->select('group_id')
-			->where('id', $id)
-			->get($this->tables['users']);
+						  ->where('id', $id)
+						  ->get($this->tables['users']);
 
 		$user = $query->row();
 		
 		return $this->db->select('name, description')
-			->where('id', $user->group_id)
-			->get($this->tables['groups'])
-			->row();
+						->where('id', $user->group_id)
+						->get($this->tables['groups'])
+						->row();
 	}
 	
 
@@ -725,7 +794,7 @@ class Ion_auth_model extends CI_Model
 	
 
 	/**
-	 * update_user
+	 * delete_user
 	 *
 	 * @return bool
 	 * @author Phil Sturgeon
@@ -747,6 +816,42 @@ class Ion_auth_model extends CI_Model
 		    $this->db->trans_commit();
 		    return TRUE;
 		}
+	}
+	
+
+	/**
+	 * update_last_login
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function update_last_login($id)
+	{
+		$this->load->helper('date');
+		
+		$this->db
+			->where($this->ion_auth->_extra_where)
+			->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
+		
+		return $this->db->affected_rows() == 1;
+	}
+	
+
+	/**
+	 * set_lang
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function set_lang($lang = 'en')
+	{
+		set_cookie(array(
+			'name'   => 'lang_code',
+			'value'  => $lang,
+			'expire' => $this->config->item('user_expire') + time()
+		));
+		
+		return TRUE;
 	}
 	
 	/**
@@ -774,6 +879,8 @@ class Ion_auth_model extends CI_Model
         if ($query->num_rows() == 1)
         {
         	$user = $query->row();
+        	
+        	$this->update_last_login($user->id);
         	
             $this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
     		$this->session->set_userdata('id',  $user->id); //kept for backwards compatibility
