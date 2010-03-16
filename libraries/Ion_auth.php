@@ -88,11 +88,11 @@ class Ion_auth
 		$this->ci =& get_instance();
 		$this->ci->load->config('ion_auth');
 		$this->ci->load->library('email');
-        $this->ci->load->library('session');
-		$this->ci->load->model('ion_auth_model');
-		$this->ci->load->helper('cookie');
+        	$this->ci->load->library('session');
 		$this->ci->load->library('language');
 		$this->ci->lang->load('ion_auth');
+		$this->ci->load->model('ion_auth_model');
+		$this->ci->load->helper('cookie');
 		
 		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter');
 		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter');

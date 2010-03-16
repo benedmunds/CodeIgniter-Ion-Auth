@@ -126,5 +126,30 @@
 	 **/
 	$config['store_salt'] = false;
 	
+	/**
+	 * Should the salt be stored in the database
+	 **/
+	$config['store_salt'] = true;
+	
+	/**
+	 * Message Start Delimiter
+	 **/
+	$config['message_start_delimiter'] = '<p>';
+	
+	/**
+	 * Message End Delimiter
+	 **/
+	$config['message_end_delimiter'] = '</p>';
+	
+	/**
+	 * Error Start Delimiter
+	 **/
+	$config['error_start_delimiter'] = '<p>';
+	
+	/**
+	 * Error End Delimiter
+	 **/
+	$config['error_end_delimiter'] = '</p>';
+	
 /* End of file ion_auth.php */
 /* Location: ./system/application/config/ion_auth.php */
