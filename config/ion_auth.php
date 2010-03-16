@@ -127,11 +127,6 @@
 	$config['store_salt'] = false;
 	
 	/**
-	 * Should the salt be stored in the database
-	 **/
-	$config['store_salt'] = true;
-	
-	/**
 	 * Message Start Delimiter
 	 **/
 	$config['message_start_delimiter'] = '<p>';
