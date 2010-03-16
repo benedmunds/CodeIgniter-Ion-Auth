@@ -62,7 +62,9 @@ CREATE TABLE `users` (
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
   `remember_code` varchar(40) DEFAULT NULL,
-  `active` int(1) unsigned DEFAULT NULL,
+  `created_on` mediumint(11) unsigned NOT NULL,
+  `last_login` mediumint(11) unsigned NOT NULL,
+  `active` int(1) unsigned DEFAULT NULL,s
   PRIMARY KEY (`id`)
 );
 
