@@ -120,6 +120,11 @@
 	 * Salt Length
 	 **/
 	$config['salt_length'] = 10;
+
+	/**
+	 * Should the salt be stored in the database
+	 **/
+	$config['store_salt'] = false;
 	
 /* End of file ion_auth.php */
 /* Location: ./system/application/config/ion_auth.php */
