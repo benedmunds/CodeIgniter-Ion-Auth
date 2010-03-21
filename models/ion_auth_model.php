@@ -400,7 +400,7 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function profile($identity = '')
+	public function profile($identity = '', $is_code = false)
 	{ 
 	    if (empty($identity))
 	    {
@@ -431,7 +431,7 @@ class Ion_auth_model extends CI_Model
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 		
-		if (strlen($identity) === 40)
+		if ($is_code)
 	    {
 	        $this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
 	    }

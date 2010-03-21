@@ -220,7 +220,7 @@ class Ion_auth
 	public function forgotten_password_complete($code)
 	{
 	    $identity     = $this->ci->config->item('identity');
-	    $profile      = $this->ci->ion_auth_model->profile($code);
+	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code);
 
 		if ($new_password) 
@@ -441,7 +441,7 @@ class Ion_auth
 	    $session  = $this->ci->config->item('identity');
 	    $identity = $this->ci->session->userdata($session);
 	    
-	    return $this->ci->ion_auth_model->profile($identity);
+	    return $this->ci->ion_auth_model->profile($identity);strlen
 	}
 	
 	/**
