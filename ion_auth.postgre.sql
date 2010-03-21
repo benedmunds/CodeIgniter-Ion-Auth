@@ -10,7 +10,7 @@ CREATE TABLE "users" (
     "forgotten_password_code" varchar(40),
     "remember_code" varchar(40),
     "created_on" int11 NOT NULL,
-    "last_login" int11 NOT NULL,
+    "last_login" int11,
     "active" int4,
   PRIMARY KEY("id"),
   CONSTRAINT "check_id" CHECK(id >= 0),
