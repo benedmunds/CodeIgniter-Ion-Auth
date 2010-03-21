@@ -465,9 +465,15 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function register($username, $password, $email, $additional_data = false, $group_name = false)
 	{
-	    if (empty($username) || empty($password) || empty($email) || $this->email_check($email))
+	    if ($this->identity == 'email' && $this->email_check($email))
 	    {
-	        return FALSE;
+		$this->ion_auth->set_error('account_creation_duplicate_email');
+	    	return FALSE;
+	    } 
+	    elseif ($this->identity == 'username' && $this->username_check($username))
+	    {
+	    	$this->ion_auth->set_error('account_creation_duplicate_username');
+	    	return FALSE;
 	    }
 	    
 	    // If username is taken, use username1 or username2, etc.
