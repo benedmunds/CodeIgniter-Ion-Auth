@@ -100,7 +100,7 @@ class Ion_auth
 		$this->error_end_delimiter     = $this->ci->config->item('error_end_delimiter');
 		
 		//auto-login the user if they are remembered
-		if (get_cookie('identity') && get_cookie('remember_code'))
+		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
@@ -220,7 +220,7 @@ class Ion_auth
 	public function forgotten_password_complete($code)
 	{
 	    $identity     = $this->ci->config->item('identity');
-	    $profile      = $this->ci->ion_auth_model->profile($code);
+	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code);
 
 		if ($new_password) 

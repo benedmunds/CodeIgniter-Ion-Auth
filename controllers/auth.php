@@ -52,12 +52,12 @@ class Auth extends Controller {
         	
         	if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember)) { //if the login is successful
 	        	//redirect them back to the home page
-	        	$this->session->set_flashdata('message', "Logged In Successfully");
+	        	$this->session->set_flashdata('message', $this->ion_auth->messages());
 	        	redirect($this->config->item('base_url'), 'refresh');
 	        }
 	        else { //if the login was un-successful
 	        	//redirect them back to the login page
-	        	$this->session->set_flashdata('message', "Login In-Correct");
+	        	$this->session->set_flashdata('message', $this->ion_auth->errors());
 	        	redirect("auth/login", 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 	        }
         }
@@ -134,11 +134,11 @@ class Auth extends Controller {
 	        $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
 		
     		if ($change) { //if the password was successfully changed
-    			$this->session->set_flashdata('message', 'Password Changed Successfully');
+    			$this->session->set_flashdata('message', $this->ion_auth->messages());
     			$this->logout();
     		}
     		else {
-    			$this->session->set_flashdata('message', 'Password Change Failed');
+    			$this->session->set_flashdata('message', $this->ion_auth->errors());
     			redirect('auth/change_password', 'refresh');
     		}
 	    }
@@ -162,11 +162,11 @@ class Auth extends Controller {
 			$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
 			
 			if ($forgotten) { //if there were no errors
-				$this->session->set_flashdata('message', 'An email has been sent, please check your inbox.');
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
 	            redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else {
-				$this->session->set_flashdata('message', 'The email failed to send, try again.');
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
 	            redirect("auth/forgot_password", 'refresh');
 			}
 	    }
@@ -178,11 +178,11 @@ class Auth extends Controller {
 		$reset = $this->ion_auth->forgotten_password_complete($code);
 		
 		if ($reset) {  //if the reset worked then send them to the login page
-			$this->session->set_flashdata('message', 'An email has been sent with your password, please check your inbox.');
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
             redirect("auth/login", 'refresh');
 		}
 		else { //if the reset didnt work then send them back to the forgot password page
-			$this->session->set_flashdata('message', 'The email failed to send, try again.');
+			$this->session->set_flashdata('message', $this->ion_auth->errors());
             redirect("auth/forgot_password", 'refresh');
 		}
 	}
@@ -194,12 +194,12 @@ class Auth extends Controller {
 		
         if ($activation) {
 			//redirect them to the auth page
-	        $this->session->set_flashdata('message', "Account Activated");
+	        $this->session->set_flashdata('message', $this->ion_auth->messages());
 	        redirect("auth", 'refresh');
         }
         else {
 			//redirect them to the forgot password page
-	        $this->session->set_flashdata('message', "Unable to Activate");
+	        $this->session->set_flashdata('message', $this->ion_auth->errors());
 	        redirect("auth/forgot_password", 'refresh');
         }
     }
