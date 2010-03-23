@@ -401,7 +401,7 @@ class Ion_auth_model extends CI_Model
 	 * @author Mathew
 	 **/
 	public function profile($identity = '', $is_code = false)
-	{ 
+	{
 	    if (empty($identity))
 	    {
 	        return FALSE;
@@ -430,7 +430,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
-		
+
 		if ($is_code)
 	    {
 	        $this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
@@ -469,7 +469,7 @@ class Ion_auth_model extends CI_Model
 	    {
 			$this->ion_auth->set_error('account_creation_duplicate_email');
 	    	return FALSE;
-	    } 
+	    }
 	    elseif ($this->identity == 'username' && $this->username_check($username))
 	    {
 	    	$this->ion_auth->set_error('account_creation_duplicate_username');
@@ -525,7 +525,12 @@ class Ion_auth_model extends CI_Model
         	$data['salt'] = $salt;
         }
 
-		$this->db->insert($this->tables['users'], array_merge($data, $this->ion_auth->_extra_set));
+		if($this->ion_auth->_extra_set)
+		{
+			$this->db->set($this->ion_auth->_extra_set);
+		}
+
+		$this->db->insert($this->tables['users'], $data);
 
 		// Meta table.
 		$id = $this->db->insert_id();
@@ -641,8 +646,9 @@ class Ion_auth_model extends CI_Model
 	    	$this->db->where($this->tables['groups'].'.name', $group_name);
 		}
 
-		return $this->db->where($this->ion_auth->_extra_where)
-					    ->get($this->tables['users']);
+		return $this->db
+			->where($this->ion_auth->_extra_where)
+			->get($this->tables['users']);
 	}
 
 	/**
@@ -733,16 +739,18 @@ class Ion_auth_model extends CI_Model
 			$id = $this->session->userdata('user_id');
 		}
 
-	    $query = $this->db->select('group_id')
-						  ->where('id', $id)
-						  ->get($this->tables['users']);
+	    $query = $this->db
+			->select('group_id')
+			->where('id', $id)
+			->get($this->tables['users']);
 
 		$user = $query->row();
 
-		return $this->db->select('name, description')
-						->where('id', $user->group_id)
-						->get($this->tables['groups'])
-						->row();
+		return $this->db
+			->select('name, description')
+			->where('id', $user->group_id)
+			->get($this->tables['groups'])
+			->row();
 	}
 
 
@@ -790,11 +798,9 @@ class Ion_auth_model extends CI_Model
 		    $this->db->trans_rollback();
 		    return FALSE;
 		}
-		else
-		{
-		    $this->db->trans_commit();
-		    return TRUE;
-		}
+
+		$this->db->trans_commit();
+		return TRUE;
 	}
 
 
@@ -816,11 +822,9 @@ class Ion_auth_model extends CI_Model
 		    $this->db->trans_rollback();
 		    return FALSE;
 		}
-		else
-		{
-		    $this->db->trans_commit();
-		    return TRUE;
-		}
+
+		$this->db->trans_commit();
+		return TRUE;
 	}
 
 
@@ -875,10 +879,11 @@ class Ion_auth_model extends CI_Model
 
 		//get the user
 		$query = $this->db->select($this->identity_column.', id, group_id')
-						  ->where($this->identity_column, get_cookie('identity'))
-						  ->where('remember_code', get_cookie('remember_code'))
-						  ->limit(1)
-						  ->get($this->tables['users']);
+			->where($this->identity_column, get_cookie('identity'))
+			->where('remember_code', get_cookie('remember_code'))
+			->where($this->ion_auth->_extra_where)
+			->limit(1)
+			->get($this->tables['users']);
 
 		//if the user was found, sign them in
         if ($query->num_rows() == 1)
@@ -903,9 +908,9 @@ class Ion_auth_model extends CI_Model
     		}
 
     		return TRUE;
-          }
+		}
 
-		  return FALSE;
+		return FALSE;
 	}
 
 	/**
@@ -916,28 +921,35 @@ class Ion_auth_model extends CI_Model
 	 **/
 	private function remember_user($id)
 	{
-		if (!$id) {
+		if (!$id)
+		{
 			return FALSE;
 		}
 
 		$salt = sha1(md5(microtime()));
 
-		$this->db->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
+		$this->db
+				->where($this->ion_auth->_extra_where)
+				->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
 
 		if ($this->db->affected_rows() == 1)
 		{
 			$user = $this->get_user($id)->row();
 
-			$identity = array('name'   => 'identity',
-	                   		  'value'  => $user->{$this->identity_column},
-	                   		  'expire' => $this->config->item('user_expire'),
-	               			 );
+			$identity = array(
+				'name'   => 'identity',
+				'value'  => $user->{$this->identity_column},
+				'expire' => $this->config->item('user_expire'),
+			);
+
 			set_cookie($identity);
 
-			$remember_code = array('name'   => 'remember_code',
-	                   		  	   'value'  => $salt,
-	                   		  	   'expire' => $this->config->item('user_expire'),
-	               			 	  );
+			$remember_code = array(
+				'name'   => 'remember_code',
+				'value'  => $salt,
+				'expire' => $this->config->item('user_expire'),
+			);
+			
 			set_cookie($remember_code);
 
 			return TRUE;
