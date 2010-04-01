@@ -259,7 +259,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function change_password($identity, $old, $new)
 	{
-	    $query = $this->db->select('password')
+	    $query = $this->db->select('password,salt')
 						  ->where($this->identity_column, $identity)
 						  ->where($this->ion_auth->_extra_where)
 						  ->limit(1)
@@ -269,7 +269,7 @@ class Ion_auth_model extends CI_Model
 
 	    $db_password = $result->password;
 	    $old         = $this->hash_password_db($identity, $old);
-	    $new         = $this->hash_password($new);
+	    $new         = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
 	    {
