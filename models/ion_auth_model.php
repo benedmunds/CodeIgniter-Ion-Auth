@@ -273,7 +273,10 @@ class Ion_auth_model extends CI_Model
 
 	    if ($db_password === $old)
 	    {
-	        $data = array('password' => $new);
+	    	//store the new password and reset the remember code so all remembered instances have to re-login
+	        $data = array('password' => $new,
+	        			  'remember_code' => '',
+	        			 );
 	        
 	        $this->db->where($this->ion_auth->_extra_where);
 	        $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
@@ -584,7 +587,7 @@ class Ion_auth_model extends CI_Model
     		if ($result->password === $password)
     		{
         		$this->update_last_login($result->id);
-        		
+        		        		
     		    $this->session->set_userdata($this->identity_column,  $result->{$this->identity_column});
     		    $this->session->set_userdata('id',  $result->id); //kept for backwards compatibility
     		    $this->session->set_userdata('user_id',  $result->id); //everyone likes to overwrite id so we'll use user_id
@@ -923,7 +926,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
                 
-	        $user = $this->get_user($id)->row();
+	    $user = $this->get_user($id)->row();
 
 		$salt = sha1($user->password);
 		
