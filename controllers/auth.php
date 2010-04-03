@@ -95,7 +95,7 @@ class Auth extends Controller {
 	function change_password() 
 	{	    
 	    $this->form_validation->set_rules('old', 'Old password', 'required');
-	    $this->form_validation->set_rules('new', 'New Password', 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|matches[new_confirm]');
+	    $this->form_validation->set_rules('new', 'New Password', 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']|matches[new_confirm]');
 	    $this->form_validation->set_rules('new_confirm', 'Confirm New Password', 'required');
 	   
 	    if (!$this->ion_auth->logged_in()) {
@@ -129,7 +129,7 @@ class Auth extends Controller {
         	$this->load->view('auth/change_password', $this->data);		        
 	    }
 	    else {
-	        $identity = $this->session->userdata($this->config->item('identity'));
+	        $identity = $this->session->userdata($this->config->item('identity', 'ion_auth'));
 	        
 	        $change = $this->ion_auth->change_password($identity, $this->input->post('old'), $this->input->post('new'));
 		
@@ -232,7 +232,7 @@ class Auth extends Controller {
     	$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
     	$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
     	$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
-    	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.$this->config->item('min_password_length').']|max_length['.$this->config->item('max_password_length').']|matches[password_confirm]');
+    	$this->form_validation->set_rules('password', 'Password', 'required|min_length['.$this->config->item('min_password_length', 'ion_auth').']|max_length['.$this->config->item('max_password_length', 'ion_auth').']|matches[password_confirm]');
     	$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
 
         if ($this->form_validation->run() == true) { //check to see if we are creating the user

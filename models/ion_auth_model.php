@@ -64,17 +64,17 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->config('ion_auth');
+		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
         $this->load->library('session');
-		$this->tables  = $this->config->item('tables');
-		$this->columns = $this->config->item('columns');
+		$this->tables  = $this->config->item('tables', 'ion_auth');
+		$this->columns = $this->config->item('columns', 'ion_auth');
 		
-		$this->identity_column = $this->config->item('identity');
-	    $this->store_salt      = $this->config->item('store_salt');
-	    $this->salt_length     = $this->config->item('salt_length');
-	    $this->meta_join       = $this->config->item('join');
+		$this->identity_column = $this->config->item('identity', 'ion_auth');
+	    $this->store_salt      = $this->config->item('store_salt', 'ion_auth');
+	    $this->salt_length     = $this->config->item('salt_length', 'ion_auth');
+	    $this->meta_join       = $this->config->item('join', 'ion_auth');
 	}
 	
 	/**
@@ -490,7 +490,7 @@ class Ion_auth_model extends CI_Model
         // Group ID
         if(empty($group_name))
         {
-        	$group_name = $this->config->item('default_group');
+        	$group_name = $this->config->item('default_group', 'ion_auth');
         }
         
 	    $group_id = $this->db->select('id')
@@ -594,7 +594,7 @@ class Ion_auth_model extends CI_Model
 
     		    $this->session->set_userdata('group',  $group_row->name);
     		    
-    		    if ($remember && $this->config->item('remember_users'))
+    		    if ($remember && $this->config->item('remember_users', 'ion_auth'))
     		    {
     		    	$this->remember_user($result->id);
     		    }
@@ -855,7 +855,7 @@ class Ion_auth_model extends CI_Model
 		set_cookie(array(
 			'name'   => 'lang_code',
 			'value'  => $lang,
-			'expire' => $this->config->item('user_expire') + time()
+			'expire' => $this->config->item('user_expire', 'ion_auth') + time()
 		));
 		
 		return TRUE;
@@ -899,7 +899,7 @@ class Ion_auth_model extends CI_Model
     		$this->session->set_userdata('group',  $group_row->name);
     		
     		//extend the users cookies if the option is enabled
-    		if ($this->config->item('user_extend_on_login'))
+    		if ($this->config->item('user_extend_on_login', 'ion_auth'))
     		{
     			$this->remember_user($user->id);
     		}
@@ -932,13 +932,13 @@ class Ion_auth_model extends CI_Model
 		{			
 			$identity = array('name'   => 'identity',
 	                   		  'value'  => $user->{$this->identity_column},
-	                   		  'expire' => $this->config->item('user_expire'),
+	                   		  'expire' => $this->config->item('user_expire', 'ion_auth'),
 	               			 );
 			set_cookie($identity); 
 			
 			$remember_code = array('name'   => 'remember_code',
 	                   		  	   'value'  => $salt,
-	                   		  	   'expire' => $this->config->item('user_expire'),
+	                   		  	   'expire' => $this->config->item('user_expire', 'ion_auth'),
 	               			 	  );
 			set_cookie($remember_code); 
 			
