@@ -609,7 +609,7 @@ class Ion_auth
 
 	
 	/**
-	 * update_user
+	 * delete_user
 	 *
 	 * @return void
 	 * @author Phil Sturgeon
