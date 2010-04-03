@@ -921,15 +921,15 @@ class Ion_auth_model extends CI_Model
 		if (!$id) {
 			return FALSE;
 		}
-		
-		$salt = sha1(md5(microtime()));
+                
+	        $user = $this->get_user($id)->row();
+
+		$salt = sha1($user->password);
 		
 		$this->db->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
 		
 		if ($this->db->affected_rows() == 1) 
-		{
-			$user = $this->get_user($id)->row();
-			
+		{			
 			$identity = array('name'   => 'identity',
 	                   		  'value'  => $user->{$this->identity_column},
 	                   		  'expire' => $this->config->item('user_expire'),
