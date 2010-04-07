@@ -186,10 +186,10 @@ class Ion_auth
 		if ( $this->ci->ion_auth_model->forgotten_password($email) ) 
 		{
 			// Get user information
-			$profile = $this->ci->ion_auth_model->profile($email);
+			$user = $this->get_user_by_email($email);
 
-			$data = array('identity'                => $profile->{$this->ci->config->item('identity', 'ion_auth')},
-						  'forgotten_password_code' => $profile->forgotten_password_code
+			$data = array('identity'                => $user->{$this->ci->config->item('identity', 'ion_auth')},
+						  'forgotten_password_code' => $user->forgotten_password_code
 						 );
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
@@ -198,7 +198,7 @@ class Ion_auth
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
-			$this->ci->email->to($profile->email);
+			$this->ci->email->to($user->email);
 			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
 			$this->ci->email->message($message);
 			
