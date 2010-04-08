@@ -416,6 +416,7 @@ class Ion_auth_model extends CI_Model
 	    	$this->tables['users'].'.username',
 	    	$this->tables['users'].'.password',
 	    	$this->tables['users'].'.email',
+	    	$this->tables['users'].'.salt',
 	    	$this->tables['users'].'.activation_code',
 	    	$this->tables['users'].'.forgotten_password_code',
 	    	$this->tables['users'].'.ip_address',
