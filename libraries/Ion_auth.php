@@ -103,6 +103,8 @@ class Ion_auth
                     $this->ci->load->library('language');
                 }
 		
+                $this->messages = array();
+                $this->errors = array();
 		$this->message_start_delimiter = $this->ci->config->item('message_start_delimiter', 'ion_auth');
 		$this->message_end_delimiter   = $this->ci->config->item('message_end_delimiter', 'ion_auth');
 		$this->error_start_delimiter   = $this->ci->config->item('error_start_delimiter', 'ion_auth');
