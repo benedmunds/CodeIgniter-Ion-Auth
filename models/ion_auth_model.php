@@ -64,7 +64,6 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-                $this->load->library('ion_auth'); 
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
@@ -645,13 +644,17 @@ class Ion_auth_model extends CI_Model
 		$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 		$this->db->join($this->tables['groups'], $this->tables['users'].'.group_id = '.$this->tables['groups'].'.id', 'left');
 		
-		if(!empty($group_name))
+		if (!empty($group_name))
 		{
-	    	$this->db->where($this->tables['groups'].'.name', $group_name);
+   	    	    $this->db->where($this->tables['groups'].'.name', $group_name);
 		}
-		
-		return $this->db->where($this->ion_auth->_extra_where)
-					    ->get($this->tables['users']);
+
+		if (isset($this->ion_auth->_extra_where))
+                {
+                    $this->db->where($this->ion_auth->_extra_where);
+                }
+                
+		return $this->db->get($this->tables['users']);
 	}
 	
 	/**
@@ -845,9 +848,12 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->load->helper('date');
 		
-		$this->db
-			->where($this->ion_auth->_extra_where)
-			->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
+                if (isset($this->ion_auth->_extra_where))
+                {
+                    $this->db->where($this->ion_auth->_extra_where);
+                }
+
+		$this->db->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
 		
 		return $this->db->affected_rows() == 1;
 	}
