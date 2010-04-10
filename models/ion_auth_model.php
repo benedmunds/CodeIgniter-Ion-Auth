@@ -64,6 +64,7 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+                $this->load->library('ion_auth'); 
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
@@ -370,7 +371,7 @@ class Ion_auth_model extends CI_Model
 	 * @return string
 	 * @author Mathew
 	 **/
-	public function forgotten_password_complete($code)
+	public function forgotten_password_complete($code, $salt=FALSE)
 	{
 	    if (empty($code))
 	    {
@@ -384,7 +385,7 @@ class Ion_auth_model extends CI_Model
         	$password = $this->salt();
 		    
             $data = array(
-            	'password'                => $this->hash_password($password),
+            	'password'                => $this->hash_password($password, $salt),
                 'forgotten_password_code' => '0',
                 'active'                  => 1
             );
@@ -415,6 +416,7 @@ class Ion_auth_model extends CI_Model
 	    	$this->tables['users'].'.username',
 	    	$this->tables['users'].'.password',
 	    	$this->tables['users'].'.email',
+	    	$this->tables['users'].'.salt',
 	    	$this->tables['users'].'.activation_code',
 	    	$this->tables['users'].'.forgotten_password_code',
 	    	$this->tables['users'].'.ip_address',
