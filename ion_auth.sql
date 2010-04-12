@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `meta`;
 
 CREATE TABLE `meta` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(10) unsigned DEFAULT NULL,
+  `user_id` mediumint(8) unsigned DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
