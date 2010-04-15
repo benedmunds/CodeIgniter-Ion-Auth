@@ -283,7 +283,7 @@ class Auth extends Controller {
 		} 
 		else { //display the create user form
 	        //set the flash data error message if there is one
-	        $this->data['message'] = (validation_errors()) ? ($this->ion_auth->errors()) ? $this->ion_auth->errors() : validation_errors()) : $this->session->flashdata('message');
+	        $this->data['message'] = (validation_errors()) ? ($this->ion_auth->errors() ? $this->ion_auth->errors() : validation_errors()) : $this->session->flashdata('message');
 			
 			$this->data['first_name']          = array('name'   => 'first_name',
 		                                              'id'      => 'first_name',
