@@ -890,10 +890,13 @@ class Ion_auth_model extends CI_Model
 		}
 
 		//get the user
+                if (isset($this->ion_auth->_extra_where))
+		{
+			$this->db->where($this->ion_auth->_extra_where);
+		}
 		$query = $this->db->select($this->identity_column.', id, group_id')
 			->where($this->identity_column, get_cookie('identity'))
 			->where('remember_code', get_cookie('remember_code'))
-			->where($this->ion_auth->_extra_where)
 			->limit(1)
 			->get($this->tables['users']);
 
