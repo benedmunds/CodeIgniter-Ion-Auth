@@ -233,6 +233,13 @@ class Ion_auth
 	{
 	    $identity     = $this->ci->config->item('identity', 'ion_auth');
 	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
+
+            if (!is_object($profile)) 
+            {
+                $this->set_error('password_change_unsuccessful');
+                return FALSE;
+            }
+
 		$new_password = $this->ci->ion_auth_model->forgotten_password_complete($code, $profile->salt);
 
 		if ($new_password)
