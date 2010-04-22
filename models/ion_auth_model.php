@@ -570,12 +570,17 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$query = $this->db->select($this->identity_column.', id, password, group_id')
-			->where($this->identity_column, $identity)
-			->where($this->ion_auth->_extra_where)
-			->where('active', 1)
-			->limit(1)
-			->get($this->tables['users']);
+		$this->db->select($this->identity_column.', id, password, group_id')
+			->where($this->identity_column, $identity);
+
+		if (isset($this->ion_auth->_extra_where))
+		{
+			$this->db->where($this->ion_auth->_extra_where);
+		}
+
+                $query = $this->db->where('active', 1)
+       			                   ->limit(1)
+			                   ->get($this->tables['users']);
 
 		$result = $query->row();
 
