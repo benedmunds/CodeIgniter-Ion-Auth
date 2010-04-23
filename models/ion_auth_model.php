@@ -4,7 +4,7 @@
 *
 * Author:  Ben Edmunds
 * 		   ben.edmunds@gmail.com
-*	  @benedmunds
+*	  	   @benedmunds
 *
 * Added Awesomeness: Phil Sturgeon
 *
@@ -64,10 +64,10 @@ class Ion_auth_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->config('ion_auth', TRUE);
+		$this->load->config('users/ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
-	$this->load->library('session');
+		$this->load->library('session');
 		$this->tables  = $this->config->item('tables', 'ion_auth');
 		$this->columns = $this->config->item('columns', 'ion_auth');
 
@@ -767,6 +767,36 @@ class Ion_auth_model extends CI_Model
   	}
 
 	/**
+	 * get_group
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_group($id)
+  	{
+    	$this->db->where('id', $id);
+    	
+  		return $this->db
+					->get($this->tables['groups'])
+					->row();
+  	}
+
+	/**
+	 * get_group_by_name
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_group_by_name($name)
+  	{
+    	$this->db->where('name', $name);
+    	
+  		return $this->db
+					->get($this->tables['groups'])
+					->row();
+  	}
+
+	/**
 	 * update_user
 	 *
 	 * @return bool
@@ -796,7 +826,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
-	{
+		{
 			if (array_key_exists('password', $data))
 			{
 				$data['password'] = $this->hash_password($data['password'], $user->salt);
@@ -895,15 +925,15 @@ class Ion_auth_model extends CI_Model
 		}
 
 		//get the user
-                if (isset($this->ion_auth->_extra_where))
+        if (isset($this->ion_auth->_extra_where))
 		{
 			$this->db->where($this->ion_auth->_extra_where);
 		}
 		$query = $this->db->select($this->identity_column.', id, group_id')
-			->where($this->identity_column, get_cookie('identity'))
-			->where('remember_code', get_cookie('remember_code'))
-			->limit(1)
-			->get($this->tables['users']);
+					->where($this->identity_column, get_cookie('identity'))
+					->where('remember_code', get_cookie('remember_code'))
+					->limit(1)
+					->get($this->tables['users']);
 
 		//if the user was found, sign them in
 		if ($query->num_rows() == 1)
