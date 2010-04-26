@@ -485,7 +485,7 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 		// Group ID
-		if(empty($group_name))
+		if(!$group_name)
 		{
 			$group_name = $this->config->item('default_group', 'ion_auth');
 		}
