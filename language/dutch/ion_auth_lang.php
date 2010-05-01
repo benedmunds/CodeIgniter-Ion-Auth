@@ -42,7 +42,7 @@ $lang['logout_successful'] 		 	 = 'U bent uitgelogged';
 // Account Changes
 $lang['update_successful'] 		 	 = 'Account informatie is bijgewerkt';
 $lang['update_unsuccessful'] 		 	 = 'Account informatie bijwerken is mislukt';
-$lang['delete_successful'] 		 	 = 'User is verwijdert';
+$lang['delete_successful'] 		 	 = 'User is verwijderd';
 $lang['delete_unsuccessful'] 		 	 = 'User verwijderen is mislukt';
 
 /* End of file ion_auth_lang.php */
