@@ -22,22 +22,22 @@ $lang['account_creation_duplicate_username'] = 'Nom d\'utilisateur déjà utilis
  
 // Password
 $lang['password_change_successful'] = 'Le mot de passe a été changé avec succès';
-$lang['password_change_unsuccessful'] = 'Impossible de changé le mot de passe';
+$lang['password_change_unsuccessful'] = 'Impossible de changer le mot de passe';
 $lang['forgot_password_successful'] = 'Mail de réinitialisation du mot de passe envoyé';
 $lang['forgot_password_unsuccessful'] = 'Impossible de réinitialiser le mot de passe';
  
 // Activation
 $lang['activate_successful'] = 'Compte activé';
-$lang['activate_unsuccessful'] = 'Impossible d\'activé le compte';
+$lang['activate_unsuccessful'] = 'Impossible d\'activer le compte';
 $lang['deactivate_successful'] = 'Compte désactivé';
-$lang['deactivate_unsuccessful'] = 'Impossible de désactivé le compte';
+$lang['deactivate_unsuccessful'] = 'Impossible de désactiver le compte';
 $lang['activation_email_successful'] = 'Email d\'activation envoyé avec succès';
 $lang['activation_email_unsuccessful'] = 'Impossible d\'envoyer le mail d\'activation';
  
 // Login / Logout
 $lang['login_successful'] = 'Connecté avec succès';
 $lang['login_unsuccessful'] = 'Erreur lors de la connexion';
-$lang['logout_successful'] = 'Déconnexion effectué avec succès';
+$lang['logout_successful'] = 'Déconnexion effectuée avec succès';
   
 // Account Changes
 $lang['update_successful'] = 'Compte utilisateur mis à jour avec succès';
