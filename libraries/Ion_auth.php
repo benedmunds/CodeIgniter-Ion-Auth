@@ -262,7 +262,7 @@ class Ion_auth
 
 			if ($this->ci->email->send())
 			{
-				$this->set_error('password_change_successful');
+				$this->set_message('password_change_successful');
 				return TRUE;
 			}
 			else
