@@ -207,7 +207,7 @@ class Ion_auth
 
 			if ($this->ci->email->send())
 			{
-				$this->set_error('forgot_password_successful');
+				$this->set_message('forgot_password_successful');
 				return TRUE;
 			}
 			else
