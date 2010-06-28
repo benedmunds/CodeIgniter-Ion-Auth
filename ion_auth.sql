@@ -1,5 +1,4 @@
-﻿DROP TABLE IF EXISTS `groups`;
-
+DROP TABLE IF EXISTS `groups`;
 #
 # Table structure for table 'groups'
 #
