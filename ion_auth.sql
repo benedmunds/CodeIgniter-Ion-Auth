@@ -64,7 +64,7 @@ CREATE TABLE `users` (
   `remember_code` varchar(40) DEFAULT NULL,
   `created_on` int(11) unsigned NOT NULL,
   `last_login` int(11) unsigned DEFAULT NULL,
-  `active` int(1) unsigned DEFAULT NULL,
+  `active` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 

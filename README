@@ -38,6 +38,10 @@ IMPORTANT:
 It is highly recommended that you use encrypted database sessions for security!
 
 
+OPTIMIZATION:
+It is recommended that you add your identity column as an index.
+
+
 
 Feel free to send me an email if you have any problems.  
 
