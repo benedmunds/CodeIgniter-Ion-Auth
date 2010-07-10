@@ -12,7 +12,7 @@
 *
 * Created:  10.01.2009
 *
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.  Original redux license is below.
+* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be. 
 * Original Author name has been kept but that does not mean that the method has not been modified.
 *
 * Requirements: PHP5 or above
