@@ -800,6 +800,12 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->trans_begin();
 
+        if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
+        {
+            $this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
+            return FALSE;
+        }
+
 		if (!empty($this->columns))
 		{
 			// 'user_id' = $id
