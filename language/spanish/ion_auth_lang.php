@@ -2,7 +2,7 @@
 /**
 * Name:  Ion Auth Lang - Spanish
 * 
-* Author: Wilfrido Garc韆 Espinosa
+* Author: Wilfrido Garc锟絘 Espinosa
 * 		  contacto@wilfridogarcia.com
 *         @wilfridogarcia
 * 
@@ -15,36 +15,36 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'Cuenta Exit髎amente Creada';
-$lang['account_creation_unsuccessful'] 	 	 = 'No se Puede Crear la Cuenta';
-$lang['account_creation_duplicate_email'] 	 = 'Email en Uso o Inv醠ido';
-$lang['account_creation_duplicate_username'] 	 = 'Nombre de Usuario en Uso o Inv醠ido';
+$lang['account_creation_successful'] 	  	 = 'Cuenta creada con 茅xito';
+$lang['account_creation_unsuccessful'] 	 	 = 'No se ha podido crear la cuenta';
+$lang['account_creation_duplicate_email'] 	 = 'Email en uso o inv谩lido';
+$lang['account_creation_duplicate_username'] = 'Nombre de usuario en uso o inv谩lido';
 
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Password Exit髎amente Cambiado';
-$lang['password_change_unsuccessful'] 	  	 = 'No se Puede Cambiar el Password';
-$lang['forgot_password_successful'] 	 	 = 'Nuevo Password Enviado por Email';
-$lang['forgot_password_unsuccessful'] 	 	 = 'No se Puede Crear Nuevo Password';
+$lang['password_change_successful'] 	 	 = 'Password cambiado con 茅xito';
+$lang['password_change_unsuccessful'] 	  	 = 'No se ha podido cambiar el password';
+$lang['forgot_password_successful'] 	 	 = 'Nuevo password enviado por email';
+$lang['forgot_password_unsuccessful'] 	 	 = 'No se ha podido crear un nuevo password';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'Cuenta Activada';
-$lang['activate_unsuccessful'] 		 	 = 'No se Puede Activar Cuenta';
-$lang['deactivate_successful'] 		  	 = 'Cuenta Desactivada';
-$lang['deactivate_unsuccessful'] 	  	 = 'No se Puede Desactivar la Cuenta';
-$lang['activation_email_successful'] 	  	 = 'Email de Activaci髇 Enviado';
-$lang['activation_email_unsuccessful']   	 = 'No se Puede Enviar Email de Activaci髇';
+$lang['activate_successful'] 		  	 = 'Cuenta activada';
+$lang['activate_unsuccessful'] 		 	 = 'No se ha podido activar la cuenta';
+$lang['deactivate_successful'] 		  	 = 'Cuenta desactivada';
+$lang['deactivate_unsuccessful'] 	  	 = 'No se ha podido desactivar la cuenta';
+$lang['activation_email_successful'] 	  	 = 'Email de activaci贸n enviado';
+$lang['activation_email_unsuccessful']   	 = 'No se ha podido enviar el email de activaci贸n';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'Sesi髇 Iniciada Exit髎amente';
-$lang['login_unsuccessful'] 		  	 = 'No se Puede Iniciar Sesi髇';
-$lang['logout_successful'] 		 	 = 'Sesi髇 Terminada Exit髎amente';
-  
+$lang['login_successful'] 		  	 = 'Sesi贸n iniciada con 茅xito';
+$lang['login_unsuccessful'] 		  	 = 'No se ha podido iniciar sesi贸n';
+$lang['logout_successful'] 		 	 = 'Sesi贸n finalizada con 茅xito';
+
 // Account Changes
-$lang['update_successful'] 		 	 = 'Informaci髇 de Cuenta Exit髎amente Actualizada';
-$lang['update_unsuccessful'] 		 	 = 'No se Puede Actualizar la Informaci髇 de Cuenta';
-$lang['delete_successful'] 		 	 = 'Usuario Borrado';
-$lang['delete_unsuccessful'] 		 	 = 'No se Puede Borrar Usuario';
+$lang['update_successful'] 		 	 = 'Informaci贸n de la cuenta actualizada con 茅xito';
+$lang['update_unsuccessful'] 		 	 = 'No se ha podido actualizar la informaci贸n de la cuenta';
+$lang['delete_successful'] 		 	 = 'Usuario eliminado';
+$lang['delete_unsuccessful'] 		 	 = 'No se ha podido Eliminar el usuario';
 
 
 ?>
