@@ -17,6 +17,9 @@ but had a ton of bugs and was missing some key features.
 So I've refactored the code and added new methods and functions with the much 
 appreciated help of Phil Sturgeon.
 
+DOCUMENTATION:
+Documentation is at http://benedmunds.com/ion_auth/
+
 INSTALLATION:
 Just copy the files from this package to the correspoding folder in your 
 application folder.  For example, copy Ion_auth/config/ion_auth.php to 
