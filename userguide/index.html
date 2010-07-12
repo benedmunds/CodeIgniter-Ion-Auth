@@ -48,6 +48,12 @@
 			<ul>
 				<li><a href="#login">login()</a></li>
 				<li><a href="#logout">logout()</a></li>
+				<li><a href="#register">register()</a></li>
+				<li><a href="#update_user">update_user()</a></li>
+				<li><a href="#delete_user">delete_user()</a></li>
+				<li><a href="#logged_in">logged_in()</a></li>
+				<li><a href="#is_admin">is_admin()</a></li>
+				<li><a href="#is_group">is_group()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -185,6 +191,18 @@ Documentation
 	<h2>login()</h2>
 	<p>Logs the user into the system.</p>
 
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.  Usually username or email but depends on your config.</li>
+		<li>'Password' - string REQUIRED.</li>
+		<li>'Remember' - boolean OPTIONAL. TRUE sets the user to be remembered if enabled in the config</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully logged in FALSE if the user was not logged in.</li>
+	</ul>
+
 	<p><b>Usage</b></p>
 	<pre>
 		$identity = 'ben.edmunds@gmail.com';
@@ -201,6 +219,148 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 		$this->ion_auth->logout();
+	</pre>
+	<br />
+
+	<a name="register"></a>
+	<h2>register()</h2>
+	<p>Register (create) a new user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+		<li>'Password' - string REQUIRED.</li>
+		<li>'Email' - string REQUIRED.</li>
+		<li>'Additional Data' - multidimensional array REQUIRED.</li>
+		<li>'Group Name' - string OPTIONAL.  If not passed the default group name set in the config will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully created FALSE if the user was not created.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$username = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		$email = 'benedmunds';
+		$additional_data = array(
+								'first_name' => 'Ben',
+								'last_name' => 'Edmunds',
+								);
+		$group_name = 'users';
+		$this->ion_auth->register($identity, $password, $email, $additional_data, $group_name)
+	</pre>
+	<br />
+
+	<a name="update_user"></a>
+	<h2>update_user()</h2>
+	<p>Update a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+		<li>'Data' - multidimensional array REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully updated FALSE if the user was not updated.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					'password' => '123456789',
+					 );
+		$this->ion_auth->update_user($id, $data)
+	</pre>
+	<br />
+
+	<a name="delete_user"></a>
+	<h2>delete_user()</h2>
+	<p>Delete a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully deleted FALSE if the user was not deleted.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$this->ion_auth->delete_user($id)
+	</pre>
+	<br />
+
+	<a name="logged_in"></a>
+	<h2>logged_in()</h2>
+	<p>Check to see if a user is logged in.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is logged in FALSE if the user is not logged in.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		if (!$this->ion_auth->logged_in())
+		{
+			redirect('auth/login');
+		}
+	</pre>
+	<br />
+
+	<a name="is_admin"></a>
+	<h2>is_admin()</h2>
+	<p>Check to see if the currently logged in user is an admin.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is an admin FALSE if the user is not an admin.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		if (!$this->ion_auth->is_admin())
+		{
+			$this->session->set_flashdata('message', 'You must be an admin to view this page');
+			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+
+	<a name="is_group"></a>
+	<h2>is_group()</h2>
+	<p>Check to see if the currently logged in user is in the passed in group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group Name' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is in the group FALSE if the user is not in the group.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group = 'gangstas';
+		if (!$this->ion_auth->is_group($group))
+		{
+			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+			redirect('welcome/index');
+		}
 	</pre>
 	<br />
 
