@@ -54,6 +54,21 @@
 				<li><a href="#logged_in">logged_in()</a></li>
 				<li><a href="#is_admin">is_admin()</a></li>
 				<li><a href="#is_group">is_group()</a></li>
+				<li><a href="#get_user">get_user()</a></li>
+				<li><a href="#get_user_array">get_user_array()</a></li>
+				<li><a href="#get_user_by_email">get_user_by_email()</a></li>
+				<li><a href="#get_users">get_users()</a></li>
+				<li><a href="#get_users_array">get_users_array()</a></li>
+				<li><a href="#get_newest_users">get_newest_users()</a></li>
+				<li><a href="#get_newest_users_array">get_newest_users_array()</a></li>
+				<li><a href="#get_active_users">get_active_users()</a></li>
+				<li><a href="#get_active_users_array">get_active_users_array()</a></li>
+				<li><a href="#get_inactive_users">get_inactive_users()</a></li>
+				<li><a href="#get_inactive_users_array">get_inactive_users_array()</a></li>
+				<li><a href="#messages">messages()</a></li>
+				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
+				<li><a href="#errors">errors()</a></li>
+				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -360,6 +375,360 @@ Documentation
 		{
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
 			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+
+	<a name="get_user"></a>
+	<h2>get_user()</h2>
+	<p>Get a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user = $this->ion_auth->get_user();
+		echo $user->email;
+	</pre>
+	<br />
+
+	<a name="get_user_array"></a>
+	<h2>get_user_array()</h2>
+	<p>Get a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user = $this->ion_auth->get_user_array();
+		echo $user['email'];
+	</pre>
+	<br />
+
+	<a name="get_user_by_email"></a>
+	<h2>get_user_by_email()</h2>
+	<p>Get a user by their email address.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Email' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$email = 'ben.edmunds@gmail.com';
+		$user = $this->ion_auth->get_user_by_email($email);
+		echo $user->first_name;
+	</pre>
+	<br />
+
+	<a name="get_users"></a>
+	<h2>get_users()</h2>
+	<p>Get the users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$admin_users = $this->ion_auth->get_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_users_array"></a>
+	<h2>get_users_array()</h2>
+	<p>Get the users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>multidimensional array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$admin_users = $this->ion_auth->get_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_newest_users"></a>
+	<h2>get_newest_users()</h2>
+	<p>Get the newest users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Limit' - integer OPTIONAL.  Default value is 10.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$newest_admin_users = $this->ion_auth->get_newest_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_newest_users_array"></a>
+	<h2>get_newest_users_array()</h2>
+	<p>Get the newest users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Limit' - integer OPTIONAL.  Default value is 10.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>multidimensional array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$newest_admin_users = $this->ion_auth->get_newest_users_array($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_active_users"></a>
+	<h2>get_active_users()</h2>
+	<p>Get the active users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$active_admin_users = $this->ion_auth->get_active_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_active_users_array"></a>
+	<h2>get_active_users_array()</h2>
+	<p>Get the active users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>multidimensional array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$active_admin_users = $this->ion_auth->get_active_users_array($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_inactive_users"></a>
+	<h2>get_inactive_users()</h2>
+	<p>Get the inactive users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$inactive_admin_users = $this->ion_auth->get_inactive_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_inactive_users_array"></a>
+	<h2>get_inactive_users_array()</h2>
+	<p>Get the inactive users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>multidimensional array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_group = 'admin';
+		$inactive_admin_users = $this->ion_auth->get_inactive_users_array($admin_group);
+	</pre>
+	<br />
+
+	<a name="messages"></a>
+	<h2>messages()</h2>
+	<p>Get messages.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="set_message_delimiters"></a>
+	<h2>set_message_delimiters()</h2>
+	<p>Set the message delimiters.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Start Delimiter' - string REQUIRED.</li>
+		<li>'End Delimiter' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="errors"></a>
+	<h2>errors()</h2>
+	<p>Get the errors.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="set_error_delimiters"></a>
+	<h2>set_error_delimiters()</h2>
+	<p>Set the error delimiters.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Start Delimiter' - string REQUIRED.</li>
+		<li>'End Delimiter' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ion_auth->errors();
+			echo $errors;
 		}
 	</pre>
 	<br />
