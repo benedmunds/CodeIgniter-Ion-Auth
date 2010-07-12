@@ -51,9 +51,14 @@
 				<li><a href="#register">register()</a></li>
 				<li><a href="#update_user">update_user()</a></li>
 				<li><a href="#delete_user">delete_user()</a></li>
+				<li><a href="#forgotten_password">forgotten_password()</a></li>
+				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
 				<li><a href="#logged_in">logged_in()</a></li>
 				<li><a href="#is_admin">is_admin()</a></li>
 				<li><a href="#is_group">is_group()</a></li>
+				<li><a href="#username_check">username_check()</a></li>
+				<li><a href="#email_check">email_check()</a></li>
+				<li><a href="#identity_check">identity_check()</a></li>
 				<li><a href="#get_user">get_user()</a></li>
 				<li><a href="#get_user_array">get_user_array()</a></li>
 				<li><a href="#get_user_by_email">get_user_by_email()</a></li>
@@ -65,10 +70,15 @@
 				<li><a href="#get_active_users_array">get_active_users_array()</a></li>
 				<li><a href="#get_inactive_users">get_inactive_users()</a></li>
 				<li><a href="#get_inactive_users_array">get_inactive_users_array()</a></li>
+				<li><a href="#get_groups">get_groups()</a></li>
+				<li><a href="#get_group">get_group()</a></li>
+				<li><a href="#get_group_by_name">get_group_by_name()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
+				<li><a href="#extra_where">extra_where()</a></li>
+				<li><a href="#extra_set">extra_set()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -265,7 +275,7 @@ Documentation
 								'last_name' => 'Edmunds',
 								);
 		$group_name = 'users';
-		$this->ion_auth->register($identity, $password, $email, $additional_data, $group_name)
+		$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
 	</pre>
 	<br />
 
@@ -314,6 +324,85 @@ Documentation
 	<pre>
 		$id = 12;
 		$this->ion_auth->delete_user($id)
+	</pre>
+	<br />
+
+	<a name="forgotten_password"></a>
+	<h2>forgotten_password()</h2>
+	<p>Resets a users password by emailing the user a reset code.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Email' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the users password was successfully reset FALSE if the users password was not reset.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//Working code for this example is in the example Auth controller in the github repo
+		function forgot_password()
+		{
+			$this->form_validation->set_rules('email', 'Email Address', 'required');
+			if ($this->form_validation->run() == false) {
+				//setup the input
+				$this->data['email'] = array('name'    => 'email',
+											 'id'      => 'email',
+											);
+				//set any errors and display the form
+				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+				$this->load->view('auth/forgot_password', $this->data);
+			}
+			else {
+				//run the forgotten password method to email an activation code to the user
+				$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
+
+				if ($forgotten) { //if there were no errors
+					$this->session->set_flashdata('message', $this->ion_auth->messages());
+					redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				}
+				else {
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+					redirect("auth/forgot_password", 'refresh');
+				}
+			}
+		}
+	</pre>
+	<br />
+
+	<a name="forgotten_password_complete"></a>
+	<h2>forgotten_password_complete()</h2>
+	<p>Final step of resetting a users password.  The user comes to this page from their email.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Code' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string.  The users new password.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//Working code for this example is in the example Auth controller in the github repo
+		public function reset_password($code)
+		{
+			$reset = $this->ion_auth->forgotten_password_complete($code);
+
+			if ($reset) {  //if the reset worked then send them to the login page
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth/login", 'refresh');
+			}
+			else { //if the reset didnt work then send them back to the forgot password page
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				redirect("auth/forgot_password", 'refresh');
+			}
+		}
 	</pre>
 	<br />
 
@@ -375,6 +464,100 @@ Documentation
 		{
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
 			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+
+	<a name="username_check"></a>
+	<h2>username_check()</h2>
+	<p>Check to see if the username is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.  Usually you would use this method with form_validation.
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$email = $this->input->post('email');
+		$additional_data = array(
+								'first_name' => $this->input->post('first_name'),
+								'last_name' => $this->input->post('last_name'),
+								);
+		if (!$this->ion_auth->username_check($username))
+		{
+			$group_name = 'users';
+			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+		}
+	</pre>
+	<br />
+
+	<a name="email_check"></a>
+	<h2>email_check()</h2>
+	<p>Check to see if the email is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Email' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.  Usually you would use this method with form_validation.
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$email = $this->input->post('email');
+		$additional_data = array(
+								'first_name' => $this->input->post('first_name'),
+								'last_name' => $this->input->post('last_name'),
+								);
+		if (!$this->ion_auth->email_check($email))
+		{
+			$group_name = 'users';
+			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+		}
+	</pre>
+	<br />
+
+	<a name="identity_check"></a>
+	<h2>email_check()</h2>
+	<p>Check to see if the identity is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.
+		$user = $this->ion_auth->get_user();
+		$data = array(
+					'identity' => $this->input->post('identity'),
+					'first_name' => $this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					 );
+		if ($data['identity'] === $user->username || $data['identity'] === $user->email || $this->ion_auth->identity_check($data['identity']) === FALSE)
+		{
+			$this->ion_auth->update_user($user->id, $data)
 		}
 	</pre>
 	<br />
@@ -611,6 +794,63 @@ Documentation
 	</pre>
 	<br />
 
+	<a name="get_groups"></a>
+	<h2>get_groups()</h2>
+	<p>Get the groups.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$groups = $this->ion_auth->get_groups();
+	</pre>
+	<br />
+
+	<a name="get_group"></a>
+	<h2>get_group()</h2>
+	<p>Get a group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group_id = 2;
+		$group = $this->ion_auth->get_group($group_id);
+	</pre>
+	<br />
+
+	<a name="get_group_by_name"></a>
+	<h2>get_group_by_name()</h2>
+	<p>Get a group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Name' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group_name = 'users';
+		$group = $this->ion_auth->get_group_by_name($group_name);
+	</pre>
+	<br />
+
 	<a name="messages"></a>
 	<h2>messages()</h2>
 	<p>Get messages.</p>
@@ -730,6 +970,46 @@ Documentation
 			$errors = $this->ion_auth->errors();
 			echo $errors;
 		}
+	</pre>
+	<br />
+
+	<a name="extra_where"></a>
+	<h2>extra_where()</h2>
+	<p>Allows extra where field to be used for user fetching/unique checking etc.  Basically this allows users to be unique based on one other thing than the identifier which is helpful for sites using multiple domains on a single database.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>string or array REQUIRED.</li>
+	</ol>
+
+	<p><b>String Usage</b></p>
+	<pre>
+		$this->ion_auth->extra_where("meta.domain = 'yourmother.com'");
+	</pre>
+	<p><b>Array Usage</b></p>
+	<pre>
+		$where = array('meta.domain', 'yourmother.com');
+		$this->ion_auth->extra_where($where);
+	</pre>
+	<br />
+
+	<a name="extra_set"></a>
+	<h2>extra_set()</h2>
+	<p>Allows extra set field to be used for user registration.  This is helpful for sites using multiple domains on a single database.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>string or array REQUIRED.</li>
+	</ol>
+
+	<p><b>String Usage</b></p>
+	<pre>
+		$this->ion_auth->extra_set("meta.domain = 'yourmother.com'");
+	</pre>
+	<p><b>Array Usage</b></p>
+	<pre>
+		$where = array('meta.domain', 'yourmother.com');
+		$this->ion_auth->extra_set($where);
 	</pre>
 	<br />
 
