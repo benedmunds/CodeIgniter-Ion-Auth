@@ -455,7 +455,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group Name' - string REQUIRED.</li>
+		<li>'Group Name' - string or array of stringsREQUIRED.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -539,7 +539,7 @@ Documentation
 	<br />
 
 	<a name="identity_check"></a>
-	<h2>email_check()</h2>
+	<h2>identity_check()</h2>
 	<p>Check to see if the identity is already registered.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -579,7 +579,31 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>object</li>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[group_id] => 1
+				[ip_address] => 127.0.0.1
+				[username] => administrator
+				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+				[salt] => 9462e8eee0
+				[email] => admin@admin.com
+				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
+				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
+				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
+				[created_on] => 1268889823
+				[last_login] => 1279464628
+				[active] => 0
+				[group] => admin
+				[group_description] => Administrator
+				[first_name] => Admin
+				[last_name] => Account
+				[company] => Some Corporation
+				[phone] => (123)456-7890
+			)
+			</pre>
+		</li>
 	</ul>
 
 	<p><b>Usage</b></p>
@@ -600,7 +624,29 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>array</li>
+		<li><pre>Array
+			(
+				[id] => 1
+				[group_id] => 1
+				[ip_address] => 127.0.0.1
+				[username] => administrator
+				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+				[salt] => 9462e8eee0
+				[email] => admin@admin.com
+				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
+				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
+				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
+				[created_on] => 1268889823
+				[last_login] => 1279464628
+				[active] => 0
+				[group] => admin
+				[group_description] => Administrator
+				[first_name] => Admin
+				[last_name] => Account
+				[company] => Some Corporation
+				[phone] => (123)456-7890
+			)
+			</pre></li>
 	</ul>
 
 	<p><b>Usage</b></p>
@@ -621,7 +667,31 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>object</li>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[group_id] => 1
+				[ip_address] => 127.0.0.1
+				[username] => administrator
+				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+				[salt] => 9462e8eee0
+				[email] => admin@admin.com
+				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
+				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
+				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
+				[created_on] => 1268889823
+				[last_login] => 1279464628
+				[active] => 0
+				[group] => admin
+				[group_description] => Administrator
+				[first_name] => Admin
+				[last_name] => Account
+				[company] => Some Corporation
+				[phone] => (123)456-7890
+			)
+			</pre>
+		</li>
 	</ul>
 
 	<p><b>Usage</b></p>
