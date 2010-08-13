@@ -5,7 +5,7 @@ CREATE TABLE users (
     username varchar(15) NOT NULL,
     password varchar(40) NOT NULL,
     salt varchar(40),
-    email varchar(40) NOT NULL,
+    email varchar(100) NOT NULL,
     activation_code varchar(40),
     forgotten_password_code varchar(40),
     remember_code varchar(40),
