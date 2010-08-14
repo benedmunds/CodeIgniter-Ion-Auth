@@ -26,4 +26,6 @@
 	
 	<p><a href="<?php echo site_url('auth/create_user');?>">Create a new user</a></p>
 	
+	<p><a href="<?php echo site_url('auth/logout'); ?>">Logout</a></p>
+	
 </div>
