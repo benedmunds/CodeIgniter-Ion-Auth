@@ -70,7 +70,7 @@
 	/**
 	 * Maximum Allowed Length of Password
 	 **/
-	$config['max_password_length'] = 20;	
+	$config['max_password_length'] = 20;
 
 	/**
 	 * Email Activation for registration

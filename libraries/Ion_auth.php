@@ -197,7 +197,7 @@ class Ion_auth
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
@@ -252,7 +252,7 @@ class Ion_auth
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
 
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
@@ -331,7 +331,7 @@ class Ion_auth
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
 
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
