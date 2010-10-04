@@ -206,11 +206,6 @@ class Ion_auth_model extends CI_Model
 	    }
 	    else
 	    {
-			if (!$this->ion_auth->is_admin())
-			{
-				return false;
-			}
-
 			$data = array(
 				'activation_code' => '',
 				'active' => 1
