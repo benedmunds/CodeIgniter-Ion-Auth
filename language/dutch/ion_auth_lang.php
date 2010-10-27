@@ -4,6 +4,8 @@
 * 
 * Author: Jeroen van der Gulik
 *         jeroen@isset.nl
+*
+* Adjustments by Dieter
 * 
 * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *          
@@ -40,8 +42,8 @@ $lang['login_unsuccessful'] 		  	 = 'Login is incorrect';
 $lang['logout_successful'] 		 	 = 'U bent uitgelogd';
   
 // Account Changes
-$lang['update_successful'] 		 	 = 'Account informatie is bijgewerkt';
-$lang['update_unsuccessful'] 		 	 = 'Account informatie bijwerken is mislukt';
+$lang['update_successful'] 		 	 = 'Account is bijgewerkt';
+$lang['update_unsuccessful'] 		 	 = 'Account bijwerken is mislukt';
 $lang['delete_successful'] 		 	 = 'Gebruiker is verwijderd';
 $lang['delete_unsuccessful'] 		 	 = 'Gebruiker verwijderen is mislukt';
 
