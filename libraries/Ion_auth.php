@@ -115,7 +115,7 @@ class Ion_auth
 	 **/
 	public function __call($method, $arguments)
 	{
-		if( !method_exists( $this->ci->ion_auth_model, $method) )
+		if (!method_exists( $this->ci->ion_auth_model, $method) )
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
@@ -197,7 +197,7 @@ class Ion_auth
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
@@ -234,7 +234,7 @@ class Ion_auth
 	    $identity     = $this->ci->config->item('identity', 'ion_auth');
 	    $profile      = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
 
-            if (!is_object($profile)) 
+            if (!is_object($profile))
             {
                 $this->set_error('password_change_unsuccessful');
                 return FALSE;
@@ -252,7 +252,7 @@ class Ion_auth
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
 
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
@@ -282,7 +282,7 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data, $group_name = false)
+	public function register($username, $password, $email, $additional_data, $group_name = false) //need to test email activation
 	{
 	    $email_activation = $this->ci->config->item('email_activation', 'ion_auth');
 
@@ -331,7 +331,7 @@ class Ion_auth
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
 
 			$this->ci->email->clear();
-			$config['mailtype'] = "html";
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
 			$this->ci->email->initialize($config);
 			$this->ci->email->set_newline("\r\n");
 			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));

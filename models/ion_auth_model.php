@@ -12,7 +12,7 @@
 *
 * Created:  10.01.2009
 *
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be. 
+* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
 * Original Author name has been kept but that does not mean that the method has not been modified.
 *
 * Requirements: PHP5 or above
@@ -206,11 +206,6 @@ class Ion_auth_model extends CI_Model
 	    }
 	    else
 	    {
-			if (!$this->ion_auth->is_admin())
-			{
-				return false;
-			}
-
 			$data = array(
 				'activation_code' => '',
 				'active' => 1
@@ -484,16 +479,28 @@ class Ion_auth_model extends CI_Model
 				}
 			}
 		}
-		// Group ID
-		if(!$group_name)
+
+		// If a group ID was passed, use it
+		if(isset($additional_data['group_id']))
 		{
-			$group_name = $this->config->item('default_group', 'ion_auth');
+			$group_id = $additional_data['group_id'];
+			unset($additional_data['group_id']);
 		}
 
-		$group_id = $this->db->select('id')
-			->where('name', $group_name)
-			->get($this->tables['groups'])
-			->row()->id;
+		// Otherwise use the group name if it exists
+		else
+		{
+			// Group ID
+			if(!$group_name)
+			{
+				$group_name = $this->config->item('default_group', 'ion_auth');
+			}
+
+			$group_id = $this->db->select('id')
+				->where('name', $group_name)
+				->get($this->tables['groups'])
+				->row()->id;
+		}
 
 		// IP Address
 		$ip_address = $this->input->ip_address();
@@ -562,17 +569,13 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->db->select($this->identity_column.', id, password, group_id')
-			->where($this->identity_column, $identity);
-
-		if (isset($this->ion_auth->_extra_where))
-		{
-			$this->db->where($this->ion_auth->_extra_where);
-		}
-
-                $query = $this->db->where('active', 1)
-       			                   ->limit(1)
-			                   ->get($this->tables['users']);
+		$query = $this->db
+			->select($this->identity_column.', id, password, group_id')
+			->where($this->identity_column, $identity)
+			->where('active', 1)
+			->where($this->ion_auth->_extra_where)
+			->limit(1)
+			->get($this->tables['users']);
 
 		$result = $query->row();
 
@@ -767,7 +770,7 @@ class Ion_auth_model extends CI_Model
 	public function get_group($id)
   	{
     	$this->db->where('id', $id);
-    	
+
   		return $this->db
 					->get($this->tables['groups'])
 					->row();
@@ -782,7 +785,7 @@ class Ion_auth_model extends CI_Model
 	public function get_group_by_name($name)
   	{
     	$this->db->where('name', $name);
-    	
+
   		return $this->db
 					->get($this->tables['groups'])
 					->row();
