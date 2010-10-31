@@ -413,7 +413,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->select(array(
 			$this->tables['users'].'.*',
-			$this->tables['groups'].'.name AS `group`',
+			$this->tables['groups'].'.name AS group',
 			$this->tables['groups'].'.description AS group_description'
 		));
 
@@ -615,7 +615,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->db->select(array(
 			$this->tables['users'].'.*',
-			$this->tables['groups'].'.name AS `group`',
+			$this->tables['groups'].'.name AS group',
 			$this->tables['groups'].'.description AS group_description'
 		));
 

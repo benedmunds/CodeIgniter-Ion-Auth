@@ -1,6 +1,6 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "group_id" int4 NOT NULL,
+    "group_id" int NOT NULL,
     "ip_address" char(16) NOT NULL,
     "username" varchar(15) NOT NULL,
     "password" varchar(40) NOT NULL,
@@ -9,8 +9,8 @@ CREATE TABLE "users" (
     "activation_code" varchar(40),
     "forgotten_password_code" varchar(40),
     "remember_code" varchar(40),
-    "created_on" int11 NOT NULL,
-    "last_login" int11,
+    "created_on" int NOT NULL,
+    "last_login" int,
     "active" int4,
   PRIMARY KEY("id"),
   CONSTRAINT "check_id" CHECK(id >= 0),
@@ -21,7 +21,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "meta" (
     "id" SERIAL NOT NULL,
-    "user_id" int4,
+    "user_id" int,
     "first_name" varchar(50),
     "last_name" varchar(50),
     "company" varchar(100),
