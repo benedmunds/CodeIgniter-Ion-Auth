@@ -408,8 +408,8 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->select(array(
 			$this->tables['users'].'.*',
-			$this->tables['groups'].'.name AS group',
-			$this->tables['groups'].'.description AS group_description'
+			$this->tables['groups'].'.name AS '. $this->db->protect_identifiers('group'),
+			$this->tables['groups'].'.description AS ' $this->db->protect_identifiers('group_description')
 		));
 
 		if (!empty($this->columns))
@@ -618,8 +618,8 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->db->select(array(
 			$this->tables['users'].'.*',
-			$this->tables['groups'].'.name AS group',
-			$this->tables['groups'].'.description AS group_description'
+			$this->tables['groups'].'.name AS '. $this->db->protect_identifiers('group'),
+			$this->tables['groups'].'.description AS '. $this->db->protect_identifiers('group_description')
 		));
 
 		if (!empty($this->columns))
