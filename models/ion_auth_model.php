@@ -811,19 +811,25 @@ class Ion_auth_model extends CI_Model
 
 		if (!empty($this->columns))
 		{
-			// 'user_id' = $id
-			$this->db->where($this->meta_join, $id);
+                        //filter the data passed by the columns in the config
+                        $meta_fields = array();
+                        foreach ($this->columns as $field)
+                        {
+                            if (is_array($data) && isset($data[$field]))
+                            {
+                                $meta_fields[$field] = $data[$field];
+                                unset($data[$field]);
+                            }
+                        }
 
-			foreach ($this->columns as $field)
-			{
-				if (is_array($data) && isset($data[$field]))
-				{
-		    			$this->db->set($field, $data[$field]);
-		    			unset($data[$field]);
-				}
-			}
-
-			$this->db->update($this->tables['meta']);
+                        //update the meta data
+                        if (count($meta_fields) > 0)
+                        {
+                            // 'user_id' = $id
+                            $this->db->where($this->meta_join, $id);
+                            $this->db->set($meta_fields);
+                            $this->db->update($this->tables['meta']);
+                        }
 		}
 
 		if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
