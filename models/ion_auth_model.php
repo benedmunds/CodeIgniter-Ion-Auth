@@ -587,14 +587,17 @@ class Ion_auth_model extends CI_Model
 		{
 		    $this->update_last_login($result->id);
 
-		    $this->session->set_userdata($this->identity_column,  $result->{$this->identity_column});
-		    $this->session->set_userdata('id',  $result->id); //kept for backwards compatibility
-		    $this->session->set_userdata('user_id',  $result->id); //everyone likes to overwrite id so we'll use user_id
-		    $this->session->set_userdata('group_id',  $result->group_id);
-
 		    $group_row = $this->db->select('name')->where('id', $result->group_id)->get($this->tables['groups'])->row();
 
-		    $this->session->set_userdata('group',  $group_row->name);
+		    $session_data = array(
+					$this->identity_column => $result->{$this->identity_column},
+					'id'                   => $result->id, //kept for backwards compatibility
+					'user_id'              => $result->id, //everyone likes to overwrite id so we'll use user_id
+					'group_id'             => $result->group_id,
+					'group'                => $group_row->name
+					 );
+
+		    $this->session->set_userdata($session_data);
 
 		    if ($remember && $this->config->item('remember_users', 'ion_auth'))
 		    {
@@ -945,14 +948,18 @@ class Ion_auth_model extends CI_Model
 
 		$this->update_last_login($user->id);
 
-		$this->session->set_userdata($this->identity_column,  $user->{$this->identity_column});
-		$this->session->set_userdata('id',  $user->id); //kept for backwards compatibility
-		$this->session->set_userdata('user_id',  $user->id); //everyone likes to overwrite id so we'll use user_id
-		$this->session->set_userdata('group_id',  $user->group_id);
-
 		$group_row = $this->db->select('name')->where('id', $user->group_id)->get($this->tables['groups'])->row();
 
-		$this->session->set_userdata('group',  $group_row->name);
+		$session_data = array(
+				    $this->identity_column => $user->{$this->identity_column},
+				    'id'                   => $user->id, //kept for backwards compatibility
+				    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+				    'group_id'             => $user->group_id,
+				    'group'                => $group_row->name
+				     );
+
+		$this->session->set_userdata($session_data);
+
 
 		//extend the users cookies if the option is enabled
 		if ($this->config->item('user_extend_on_login', 'ion_auth'))
