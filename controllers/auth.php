@@ -1,5 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+if(!class_exists('Controller')) { class Controller extends CI_Controller {} }
+
 class Auth extends Controller {
  
     function __construct() 
