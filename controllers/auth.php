@@ -3,9 +3,10 @@
 if(!class_exists('Controller'))
 { 
     class Controller extends CI_Controller {
-	function __construct() {
-	    parent::__construct(); 
-	} 
+		function __construct()
+		{
+			parent::__construct();
+		}
     }
 }
 
