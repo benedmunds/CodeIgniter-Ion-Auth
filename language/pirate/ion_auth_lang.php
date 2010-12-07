@@ -39,6 +39,3 @@ $lang['update_successful'] 		 	 		= 'Ship Information Successfully Updated';
 $lang['update_unsuccessful'] 		 	 	= 'Unable to Update Ship Information';
 $lang['delete_successful'] 		 	 		= 'Pirate Sent to Davy Jones\' Locker';
 $lang['delete_unsuccessful'] 		 	 	= 'Avast, The Pirate be Still Alive';
-
-
-?>
