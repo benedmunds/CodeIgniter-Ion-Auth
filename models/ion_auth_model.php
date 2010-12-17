@@ -617,7 +617,7 @@ class Ion_auth_model extends CI_Model
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group = false)
+	public function get_users($group=false, $limit=NULL, $offset=NULL)
 	{
 	    $this->db->select(array(
 				$this->tables['users'].'.*',
@@ -645,10 +645,16 @@ class Ion_auth_model extends CI_Model
 		$this->db->where_in($this->tables['groups'].'.name', $group);
 	    }
 
+		
 	    if (isset($this->ion_auth->_extra_where))
 	    {
 		$this->db->where($this->ion_auth->_extra_where);
 	    }
+
+
+		if (isset($limit) && isset($offset))
+			$this->db->limit($limit, $offset);
+		
 
 	    return $this->db->get($this->tables['users']);
 	}

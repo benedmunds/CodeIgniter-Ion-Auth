@@ -464,9 +464,9 @@ class Ion_auth
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($group_name = false)
+	public function get_users($group_name=false, $limit=NULL, $offset=NULL)
 	{
-		return $this->ci->ion_auth_model->get_users($group_name)->result();
+		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result();
 	}
 
 	/**
@@ -475,9 +475,9 @@ class Ion_auth
 	 * @return array Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_array($group_name = false)
+	public function get_users_array($group_name=false, $limit=NULL, $offset=NULL)
 	{
-		return $this->ci->ion_auth_model->get_users($group_name)->result_array();
+		return $this->ci->ion_auth_model->get_users($group_name, $limit, $offset)->result_array();
 	}
 
 	/**
