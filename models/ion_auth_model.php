@@ -718,6 +718,20 @@ class Ion_auth_model extends CI_Model
 
 	    return $this->get_users();
 	}
+	
+	/**
+	 * get_user_by_identity
+	 *                                      //copied from above ^
+	 * @return object
+	 * @author jondavidjohn
+	 **/
+	public function get_user_by_identity($identity)
+	{
+	    $this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
+	    $this->db->limit(1);
+
+	    return $this->get_users();
+	}
 
 	/**
 	 * get_newest_users

@@ -183,12 +183,12 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function forgotten_password($email)
+	public function forgotten_password($identity)    //changed $email to $identity
 	{
-		if ( $this->ci->ion_auth_model->forgotten_password($email) )
+		if ( $this->ci->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
-			$user = $this->get_user_by_email($email);
+			$user = $this->get_user_by_identity($identity);  //changed to get_user_by_identity from email
 
 			$data = array(
 				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
@@ -566,6 +566,17 @@ class Ion_auth
 	public function get_user_by_email($email)
 	{
 		return $this->ci->ion_auth_model->get_user_by_email($email)->row();
+	}
+	
+	/**
+	 * Get User by Identity
+	 *                              //copied from above ^
+	 * @return object User
+	 * @author jondavidjohn
+	 **/
+	public function get_user_by_identity($identity)
+	{
+		return $this->ci->ion_auth_model->get_user_by_identity($identity)->row();
 	}
 
 	/**
