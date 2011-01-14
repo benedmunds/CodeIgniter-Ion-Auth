@@ -340,7 +340,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Email' - string REQUIRED.</li>
+		<li>'Identity' - string REQUIRED.  (as defined in config/ion_auth.php)</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -349,6 +349,7 @@ Documentation
 	</ul>
 
 	<p><b>Usage</b></p>
+	<p> - this example assumes you have 'email' selected as the identity in config/ion_auth.php 
 	<pre>
 		//Working code for this example is in the example Auth controller in the github repo
 		function forgot_password()
