@@ -69,6 +69,8 @@ class Ion_auth_model extends CI_Model
 	public $_order_by = NULL;
 
 	public $_order = NULL;
+
+	protected $response = NULL;
 	
 
 	public function __construct()
@@ -584,9 +586,24 @@ class Ion_auth_model extends CI_Model
 		$this->_order    = $order;
 	}
 
-	public function object()
+	public function row()
 	{
-		return $blah;
+		return $this->response->row();
+	}
+
+	public function row_array()
+	{
+		return $this->response->row_array();
+	}
+
+	public function result()
+	{
+		return $this->response->result();
+	}
+
+	public function result_array()
+	{
+		return $this->response->result_array();
 	}
 
 
@@ -643,7 +660,9 @@ class Ion_auth_model extends CI_Model
 	    }
 		
 
-	    return $this->db->get($this->tables['users']);
+	    $this->response = $this->db->get($this->tables['users']);
+
+		return $this;
 	}
 
 
@@ -655,13 +674,17 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function user($id = NULL)
 	{
-	    //if no id was passed use the current users id
-	    if (isset($id))
-			$id = $this->session->userdata('user_id');
+	    $this->response = $this->limit(1)->users();
 
-	    return $this->limit(1)->where('id', $id)->users();
+		return $this;
 	}
 
+	public function current()
+	{
+	    $this->where('id', $this->session->userdata('user_id'));
+
+		return $this;
+	}
 
 	/**
 	 * get_users_groups
@@ -711,44 +734,55 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * get_groups
-	 *
-	 * @return object
-	 * @author Phil Sturgeon
-	 **/
-	public function get_groups()
-  	{
-    	return $this->db->get($this->tables['groups'])
-			            ->result();
-  	}
-
-	/**
-	 * get_group
+	 * groups
 	 *
 	 * @return object
 	 * @author Ben Edmunds
 	 **/
-	public function get_group($id)
+	public function groups()
   	{
-    	$this->db->where('id', $id);
+		//run each where that was passed
+		if (isset($this->_where))
+	    {
+			foreach ($this->_where as $where)
+				$this->db->where($where);
 
-  		return $this->db->get($this->tables['groups'])
-					    ->row();
+			unset($this->_where);
+	    }
+
+
+		if (isset($this->_limit) && isset($this->_offset))
+		{
+			$this->db->limit($this->_limit, $this->_offset);
+
+			unset($this->_limit);
+			unset($this->_offset);
+		}
+
+		//set the order
+		if (isset($this->_order_by) && isset($this->_order))
+	    {
+			$this->db->order_by($this->_order_by, $this->_order);
+	    }
+
+    	$this->response = $this->db->get($this->tables['groups']);
+
+		return $this;
   	}
 
 	/**
-	 * get_group_by_name
+	 * group
 	 *
 	 * @return object
 	 * @author Ben Edmunds
 	 **/
-	public function get_group_by_name($name)
+	public function group()
   	{
-    	$this->db->where('name', $name);
+		$this->limit(1);
 
-  		return $this->db->get($this->tables['groups'])
-					    ->row();
+		return $this->groups();
   	}
+
 
 	/**
 	 * update_user
@@ -756,60 +790,61 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function update($id, $data)
+	public function update($data)
 	{
-	    $user = $this->where('id', $id)->user()->row();
+	    $user = $this->user()->row();
 
 	    $this->db->trans_begin();
 
 	    if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 	    {
-		$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
-		return FALSE;
+			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
+			return FALSE;
 	    }
 
 	    if (!empty($this->columns))
 	    {
-		//filter the data passed by the columns in the config
-		$meta_fields = array();
-		foreach ($this->columns as $field)
-		{
-		    if (is_array($data) && isset($data[$field]))
-		    {
-			$meta_fields[$field] = $data[$field];
-			unset($data[$field]);
-		    }
-		}
+			//filter the data passed by the columns in the config
+			$meta_fields = array();
+			foreach ($this->columns as $field)
+			{
+				if (is_array($data) && isset($data[$field]))
+				{
+					$meta_fields[$field] = $data[$field];
+					unset($data[$field]);
+				}
+			}
 
-		//update the meta data
-		if (count($meta_fields) > 0)
-		{
-		    // 'user_id' = $id
-		    $this->db->where($this->meta_join, $id);
-		    $this->db->set($meta_fields);
-		    $this->db->update($this->tables['meta']);
-		}
+			//update the meta data
+			if (count($meta_fields) > 0)
+			{
+				// 'user_id' = $id
+				$this->db->where($this->meta_join, $user->id);
+				$this->db->set($meta_fields);
+				$this->db->update($this->tables['meta']);
+			}
 	    }
 
 	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 	    {
-		if (array_key_exists('password', $data))
-		{
-			$data['password'] = $this->hash_password($data['password'], $user->salt);
-		}
+			if (array_key_exists('password', $data))
+			{
+				$data['password'] = $this->hash_password($data['password'], $user->salt);
+			}
 
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
+			$this->db->update($this->tables['users'], $data, array('id' => $user->id));
 	    }
 
 	    if ($this->db->trans_status() === FALSE)
 	    {
-		$this->db->trans_rollback();
-		return FALSE;
+			$this->db->trans_rollback();
+			return FALSE;
 	    }
 
 	    $this->db->trans_commit();
+		
 	    return TRUE;
 	}
 
