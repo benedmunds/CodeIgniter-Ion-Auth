@@ -567,6 +567,17 @@ class Ion_auth
 	{
 		return $this->ci->ion_auth_model->get_user_by_email($email)->row();
 	}
+
+	/**
+	 * Get Users by Email
+	 *
+	 * @return object Users
+	 * @author Ben Edmunds
+	 **/
+	public function get_users_by_email($email)
+	{
+		return $this->ci->ion_auth_model->get_users_by_email($email)->result();
+	}
 	
 	/**
 	 * Get User by Identity

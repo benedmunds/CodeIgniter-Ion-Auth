@@ -713,8 +713,20 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_user_by_email($email)
 	{
-	    $this->db->where($this->tables['users'].'.email', $email);
 	    $this->db->limit(1);
+
+	    return $this->get_users_by_email();
+	}
+
+	/**
+	 * get_users_by_email
+	 *
+	 * @return object
+	 * @author Ben Edmunds
+	 **/
+	public function get_users_by_email($email)
+	{
+	    $this->db->where($this->tables['users'].'.email', $email);
 
 	    return $this->get_users();
 	}
