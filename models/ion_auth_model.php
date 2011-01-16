@@ -456,56 +456,35 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = false, $group_name = false)
+	public function register($username, $password, $email, $additional_data = false, $groups = array())
 	{
 	    if ($this->identity_column == 'email' && $this->email_check($email))
 	    {
-		$this->ion_auth->set_error('account_creation_duplicate_email');
-		return FALSE;
+			$this->ion_auth->set_error('account_creation_duplicate_email');
+			return FALSE;
 	    }
 	    elseif ($this->identity_column == 'username' && $this->username_check($username))
 	    {
-		$this->ion_auth->set_error('account_creation_duplicate_username');
-		return FALSE;
+			$this->ion_auth->set_error('account_creation_duplicate_username');
+			return FALSE;
 	    }
 
 	    // If username is taken, use username1 or username2, etc.
 	    if ($this->identity_column != 'username')
 	    {
-		for($i = 0; $this->username_check($username); $i++)
-		{
-		    if($i > 0)
-		    {
-			$username .= $i;
-		    }
-		}
+			for($i = 0; $this->username_check($username); $i++)
+			{
+				if($i > 0)
+				{
+				$username .= $i;
+				}
+			}
 	    }
 
-	    // If a group ID was passed, use it
-	    if(isset($additional_data['group_id']))
-	    {
-		$group_id = $additional_data['group_id'];
-		unset($additional_data['group_id']);
-	    }
-
-	    // Otherwise use the group name if it exists
-	    else
-	    {
-		// Group ID
-		if(!$group_name)
-		{
-		    $group_name = $this->config->item('default_group', 'ion_auth');
-		}
-
-		$group_id = $this->db->select('id')
-				     ->where('name', $group_name)
-				     ->get($this->tables['groups'])
-				     ->row()->id;
-	    }
 
 	    // IP Address
 	    $ip_address = $this->input->ip_address();
-	    $salt	= $this->store_salt ? $this->salt() : FALSE;
+	    $salt       = $this->store_salt ? $this->salt() : FALSE;
 	    $password	= $this->hash_password($password, $salt);
 
 	    // Users table.
@@ -513,7 +492,6 @@ class Ion_auth_model extends CI_Model
 			'username'   => $username,
 			'password'   => $password,
 			'email'      => $email,
-			'group_id'   => $group_id,
 			'ip_address' => $ip_address,
 			'created_on' => now(),
 			'last_login' => now(),
@@ -522,34 +500,45 @@ class Ion_auth_model extends CI_Model
 
 	    if ($this->store_salt)
 	    {
-		$data['salt'] = $salt;
+			$data['salt'] = $salt;
 	    }
 
 	    if($this->ion_auth->_extra_set)
 	    {
-		$this->db->set($this->ion_auth->_extra_set);
+			$this->db->set($this->ion_auth->_extra_set);
 	    }
 
 	    $this->db->insert($this->tables['users'], $data);
 
-	    // Meta table.
 	    $id = $this->db->insert_id();
 
+
+		if (!empty($groups))
+		{
+			//add to groups
+			foreach ($groups as $group)
+			{
+				$this->add_to_group($group, $id);
+			}
+		}
+
+
+	    // Meta table.
 	    $data = array($this->meta_join => $id);
 
 	    if (!empty($this->columns))
 	    {
-		foreach ($this->columns as $input)
-		{
-		    if (is_array($additional_data) && isset($additional_data[$input]))
-		    {
-			$data[$input] = $additional_data[$input];
-		    }
-		    elseif ($this->input->post($input))
-		    {
-			$data[$input] = $this->input->post($input);
-		    }
-		}
+			foreach ($this->columns as $input)
+			{
+				if (is_array($additional_data) && isset($additional_data[$input]))
+				{
+					$data[$input] = $additional_data[$input];
+				}
+				elseif ($this->input->post($input))
+				{
+					$data[$input] = $this->input->post($input);
+				}
+			}
 	    }
 
 	    $this->db->insert($this->tables['meta'], $data);
@@ -759,26 +748,52 @@ class Ion_auth_model extends CI_Model
 	    return $this->get_users();
   	}
 
+
 	/**
-	 * get_users_group
+	 * get_users_groups
 	 *
-	 * @return object
+	 * @return array
 	 * @author Ben Edmunds
 	 **/
-	public function get_users_group($id=false)
+	public function get_users_groups($id=false)
 	{
-	    //if no id was passed use the current users id
-	    $id || $id = $this->session->userdata('user_id');
+		//if no id was passed use the current users id
+		$id || $id = $this->session->userdata('user_id');
 
-	    $user = $this->db->select('group_id')
-			     ->where('id', $id)
-			     ->get($this->tables['users'])
-			     ->row();
+		return $this->db->select($this->tables['users_groups'].'.group_id as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
+						->where($this->tables['users_groups'].'.user_id', $id)
+						->join($this->tables['groups'], $this->tables['users_groups'].'.group_id='.$this->tables['groups'].'.id')
+						->get($this->tables['users_groups'])
+						->result();
+	}
 
-	    return $this->db->select('name, description')
-			    ->where('id', $user->group_id)
-			    ->get($this->tables['groups'])
-			    ->row();
+
+	/**
+	 * add_to_group
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function add_to_group($group_id, $user_id=false)
+	{
+		//if no id was passed use the current users id
+		$user_id || $user_id = $this->session->userdata('user_id');
+
+		return $this->db->insert($this->tables['users_groups'], array('group_id' => (int)$group_id, 'user_id' => (int)$user_id));
+	}
+
+	/**
+	 * remove_from_group
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function remove_from_group($group_id, $user_id=false)
+	{
+		//if no id was passed use the current users id
+		$user_id || $user_id = $this->session->userdata('user_id');
+
+		return $this->db->delete($this->tables['users_groups'], array('group_id' => (int)$group_id, 'user_id' => (int)$user_id));
 	}
 
 	/**
@@ -789,8 +804,8 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_groups()
   	{
-	    return $this->db->get($this->tables['groups'])
-			    ->result();
+    	return $this->db->get($this->tables['groups'])
+			            ->result();
   	}
 
 	/**
@@ -801,10 +816,10 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_group($id)
   	{
-	    $this->db->where('id', $id);
+    	$this->db->where('id', $id);
 
-	    return $this->db->get($this->tables['groups'])
-			    ->row();
+  		return $this->db->get($this->tables['groups'])
+					    ->row();
   	}
 
 	/**
@@ -815,10 +830,10 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_group_by_name($name)
   	{
-	    $this->db->where('name', $name);
+    	$this->db->where('name', $name);
 
-	    return $this->db->get($this->tables['groups'])
-			    ->row();
+  		return $this->db->get($this->tables['groups'])
+					    ->row();
   	}
 
 	/**
