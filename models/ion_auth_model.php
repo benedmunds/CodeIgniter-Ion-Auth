@@ -60,6 +60,17 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public $identity;
 
+	public $_where = array();
+
+	public $_limit = NULL;
+
+	public $_offset = NULL;
+
+	public $_order_by = NULL;
+
+	public $_order = NULL;
+	
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -394,49 +405,6 @@ class Ion_auth_model extends CI_Model
 	    return FALSE;
 	}
 
-	/**
-	 * profile
-	 *
-	 * @return void
-	 * @author Mathew
-	 **/
-	public function profile($identity = '', $is_code = false)
-	{
-	    if (empty($identity))
-	    {
-		return FALSE;
-	    }
-
-	    $this->db->select(array(
-				$this->tables['users'].'.*'
-				   ));
-
-	    if (!empty($this->columns))
-	    {
-			foreach ($this->columns as $field)
-			{
-				$this->db->select($this->tables['meta'] .'.' . $field);
-			}
-	    }
-
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
-
-	    if ($is_code)
-	    {
-			$this->db->where($this->tables['users'].'.forgotten_password_code', $identity);
-	    }
-	    else
-	    {
-			$this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
-	    }
-
-	    $this->db->where($this->ion_auth->_extra_where);
-
-	    $this->db->limit(1);
-	    $i = $this->db->get($this->tables['users']);
-
-	    return ($i->num_rows > 0) ? $i->row() : FALSE;
-	}
 
 	/**
 	 * Basic functionality
@@ -593,13 +561,42 @@ class Ion_auth_model extends CI_Model
 	    return FALSE;
 	}
 
+	public function limit($limit)
+	{
+		$this->_limit = $limit;
+	}
+	public function offset($offset)
+	{
+		$this->_offset = $offset;
+	}
+
+	public function where($where, $value=NULL)
+	{
+		if (isset($value))
+			$this->_where[] = array($where => $value);
+		elseif (is_array($where))
+			$this->_where[] = $where;
+	}
+
+	public function order_by($by, $order='desc')
+	{
+		$this->_order_by = $by;
+		$this->_order    = $order;
+	}
+
+	public function object()
+	{
+		return $blah;
+	}
+
+
 	/**
-	 * get_users
+	 * users
 	 *
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function get_users($limit=NULL, $offset=NULL)
+	public function users()
 	{
 	    $this->db->select(array(
 					$this->tables['users'].'.*',
@@ -618,116 +615,52 @@ class Ion_auth_model extends CI_Model
 		
 	    if (isset($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
+	    }
+
+		//run each where that was passed
+		if (isset($this->_where))
+	    {
+			foreach ($this->_where as $where)
+				$this->db->where($where);
+
+			unset($this->_where);
 	    }
 
 
-		if (isset($limit) && isset($offset))
-			$this->db->limit($limit, $offset);
+		if (isset($this->_limit) && isset($this->_offset))
+		{
+			$this->db->limit($this->_limit, $this->_offset);
+
+			unset($this->_limit);
+			unset($this->_offset);
+		}
+
+		//set the order
+		if (isset($this->_order_by) && isset($this->_order))
+	    {
+			$this->db->order_by($this->_order_by, $this->_order);
+	    }
 		
 
 	    return $this->db->get($this->tables['users']);
 	}
 
+
 	/**
-	 * get_active_users
+	 * user
 	 *
 	 * @return object
 	 * @author Ben Edmunds
 	 **/
-	public function get_active_users()
-	{
-	    $this->db->where($this->tables['users'].'.active', 1);
-
-	    return $this->get_users();
-	}
-
-	/**
-	 * get_inactive_users
-	 *
-	 * @return object
-	 * @author Ben Edmunds
-	 **/
-	public function get_inactive_users($group_name = false)
-	{
-	    $this->db->where($this->tables['users'].'.active', 0);
-
-	    return $this->get_users($group_name);
-	}
-
-	/**
-	 * get_user
-	 *
-	 * @return object
-	 * @author Phil Sturgeon
-	 **/
-	public function get_user($id = false)
+	public function user($id = NULL)
 	{
 	    //if no id was passed use the current users id
-	    if (empty($id))
-	    {
-		$id = $this->session->userdata('user_id');
-	    }
+	    if (isset($id))
+			$id = $this->session->userdata('user_id');
 
-	    $this->db->where($this->tables['users'].'.id', $id);
-	    $this->db->limit(1);
-
-	    return $this->get_users();
+	    return $this->limit(1)->where('id', $id)->users();
 	}
-
-	/**
-	 * get_user_by_email
-	 *
-	 * @return object
-	 * @author Ben Edmunds
-	 **/
-	public function get_user_by_email($email)
-	{
-	    $this->db->limit(1);
-
-	    return $this->get_users_by_email();
-	}
-
-	/**
-	 * get_users_by_email
-	 *
-	 * @return object
-	 * @author Ben Edmunds
-	 **/
-	public function get_users_by_email($email)
-	{
-	    $this->db->where($this->tables['users'].'.email', $email);
-
-	    return $this->get_users();
-	}
-	
-	/**
-	 * get_user_by_identity
-	 *                                      //copied from above ^
-	 * @return object
-	 * @author jondavidjohn
-	 **/
-	public function get_user_by_identity($identity)
-	{
-	    $this->db->where($this->tables['users'].'.'.$this->identity_column, $identity);
-	    $this->db->limit(1);
-
-	    return $this->get_users();
-	}
-
-	/**
-	 * get_newest_users
-	 *
-	 * @return object
-	 * @author Ben Edmunds
-	 **/
-	public function get_newest_users($limit = 10)
-  	{
-	    $this->db->order_by($this->tables['users'].'.created_on', 'desc');
-	    $this->db->limit($limit);
-
-	    return $this->get_users();
-  	}
 
 
 	/**
@@ -823,9 +756,9 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function update_user($id, $data)
+	public function update($id, $data)
 	{
-	    $user = $this->get_user($id)->row();
+	    $user = $this->where('id', $id)->user()->row();
 
 	    $this->db->trans_begin();
 
