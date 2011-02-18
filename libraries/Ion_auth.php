@@ -103,6 +103,8 @@ class Ion_auth
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
+			$CI = &get_instance();
+			$CI->ion_auth = $this;
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
 	}
