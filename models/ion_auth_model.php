@@ -646,9 +646,9 @@ class Ion_auth_model extends CI_Model
 	    }
 
 		
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
 
@@ -919,9 +919,9 @@ class Ion_auth_model extends CI_Model
 	{
 	    $this->load->helper('date');
 
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
 	    $this->db->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
@@ -962,9 +962,9 @@ class Ion_auth_model extends CI_Model
 	    }
 
 	    //get the user
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
 	    $query = $this->db->select($this->identity_column.', id, group_id')
@@ -1015,7 +1015,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    if (!$id)
 	    {
-		return FALSE;
+			return FALSE;
 	    }
 
 	    $user = $this->get_user($id)->row();
@@ -1026,19 +1026,19 @@ class Ion_auth_model extends CI_Model
 
 	    if ($this->db->affected_rows() > -1)
 	    {
-		set_cookie(array(
-			    'name'   => 'identity',
-			    'value'  => $user->{$this->identity_column},
-			    'expire' => $this->config->item('user_expire', 'ion_auth'),
-				));
+			set_cookie(array(
+					'name'   => 'identity',
+					'value'  => $user->{$this->identity_column},
+					'expire' => $this->config->item('user_expire', 'ion_auth'),
+					));
 
-		set_cookie(array(
-			    'name'   => 'remember_code',
-			    'value'  => $salt,
-			    'expire' => $this->config->item('user_expire', 'ion_auth'),
-				));
+			set_cookie(array(
+					'name'   => 'remember_code',
+					'value'  => $salt,
+					'expire' => $this->config->item('user_expire', 'ion_auth'),
+					));
 
-		return TRUE;
+			return TRUE;
 	    }
 
 	    return FALSE;
