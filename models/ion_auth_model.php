@@ -835,49 +835,50 @@ class Ion_auth_model extends CI_Model
 
 	    if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 	    {
-		$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
-		return FALSE;
+			$this->db->trans_rollback();
+			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
+			return FALSE;
 	    }
 
 	    if (!empty($this->columns))
 	    {
-		//filter the data passed by the columns in the config
-		$meta_fields = array();
-		foreach ($this->columns as $field)
-		{
-		    if (is_array($data) && isset($data[$field]))
-		    {
-			$meta_fields[$field] = $data[$field];
-			unset($data[$field]);
-		    }
-		}
+			//filter the data passed by the columns in the config
+			$meta_fields = array();
+			foreach ($this->columns as $field)
+			{
+				if (is_array($data) && isset($data[$field]))
+				{
+				$meta_fields[$field] = $data[$field];
+				unset($data[$field]);
+				}
+			}
 
-		//update the meta data
-		if (count($meta_fields) > 0)
-		{
-		    // 'user_id' = $id
-		    $this->db->where($this->meta_join, $id);
-		    $this->db->set($meta_fields);
-		    $this->db->update($this->tables['meta']);
-		}
+			//update the meta data
+			if (count($meta_fields) > 0)
+			{
+				// 'user_id' = $id
+				$this->db->where($this->meta_join, $id);
+				$this->db->set($meta_fields);
+				$this->db->update($this->tables['meta']);
+			}
 	    }
 
 	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
-	    {
-		if (array_key_exists('password', $data))
-		{
-			$data['password'] = $this->hash_password($data['password'], $user->salt);
-		}
+			{
+			if (array_key_exists('password', $data))
+			{
+				$data['password'] = $this->hash_password($data['password'], $user->salt);
+			}
 
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
 	    }
 
 	    if ($this->db->trans_status() === FALSE)
 	    {
-		$this->db->trans_rollback();
-		return FALSE;
+			$this->db->trans_rollback();
+			return FALSE;
 	    }
 
 	    $this->db->trans_commit();
