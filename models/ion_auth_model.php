@@ -630,7 +630,7 @@ class Ion_auth_model extends CI_Model
 	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
 
 		
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
 			$this->db->where($this->ion_auth->_extra_where);
 	    }
@@ -883,9 +883,9 @@ class Ion_auth_model extends CI_Model
 	{
 	    $this->load->helper('date');
 
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
 	    $this->db->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
@@ -926,9 +926,9 @@ class Ion_auth_model extends CI_Model
 	    }
 
 	    //get the user
-	    if (isset($this->ion_auth->_extra_where))
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
-		$this->db->where($this->ion_auth->_extra_where);
+			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
 	    $query = $this->db->select($this->identity_column.', id')
