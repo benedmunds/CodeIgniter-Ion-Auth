@@ -715,7 +715,7 @@ class Ion_auth_model extends CI_Model
 	{
 	    $this->db->limit(1);
 
-	    return $this->get_users_by_email();
+	    return $this->get_users_by_email($email);
 	}
 
 	/**
