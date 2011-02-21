@@ -93,9 +93,15 @@
 	$config['user_extend_on_login'] = false;
 	
 	/**
+<<<<<<< HEAD
 	 * Type of email to send (HTML or text)
 	 * Default : html
 	 **/
+=======
+	* Type of email to send (HTML or text)
+	* Default : html
+	**/
+>>>>>>> 6c5a7aa11ea5707fdddee72ea56e5033d5f8da56
 	$config['email_type'] = 'html';
 	
 	/**
