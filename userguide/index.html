@@ -65,6 +65,7 @@
 				<li><a href="#get_users_by_email">get_users_by_email()</a></li>
 				<li><a href="#get_user_by_identity">get_user_by_identity()</a></li>
 				<li><a href="#get_users">get_users()</a></li>
+                                <li><a href="#get_users_count">get_users_count()</a></li>
 				<li><a href="#get_users_array">get_users_array()</a></li>
 				<li><a href="#get_newest_users">get_newest_users()</a></li>
 				<li><a href="#get_newest_users_array">get_newest_users_array()</a></li>
@@ -812,6 +813,26 @@ Documentation
 	<pre>
 		$admin_group = 'admin';
 		$admin_users = $this->ion_auth->get_users($admin_group);
+	</pre>
+	<br />
+
+	<a name="get_users_count"></a>
+	<h2>get_users_count()</h2>
+	<p>Get the number of users.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be counted.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>int Number of users</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$numberOfUsers = $this->ion_auth->get_users_count();
 	</pre>
 	<br />
 
