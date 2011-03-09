@@ -660,6 +660,35 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * get_users_count
+	 *
+	 * @return int Number of Users
+	 * @author Sven Lueckenbach
+	 **/
+	public function get_users_count($group=false)
+	{
+	    $this->db->select('COUNT(*) AS number');
+
+	    if (is_string($group))
+	    {
+		$this->db->where($this->tables['groups'].'.name', $group);
+	    }
+	    else if (is_array($group))
+	    {
+		$this->db->where_in($this->tables['groups'].'.name', $group);
+	    }
+
+	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
+	    {
+			$this->db->where($this->ion_auth->_extra_where);
+	    }		
+
+		$query = $this->db->get($this->tables['users']);
+
+	    return $query->row()->number;
+	}
+
+	/**
 	 * get_active_users
 	 *
 	 * @return object
