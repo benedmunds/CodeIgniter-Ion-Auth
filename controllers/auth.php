@@ -209,7 +209,11 @@ class Auth extends Controller {
 	//activate the user
 	function activate($id, $code=false)
 	{
-		$activation = $this->ion_auth->activate($id, $code);
+		if ($code !== false)
+			$activation = $this->ion_auth->activate($id, $code);
+		else if ($this->ion_auth->is_admin())
+			$activation = $this->ion_auth->activate($id);
+
 
 		if ($activation)
 		{
