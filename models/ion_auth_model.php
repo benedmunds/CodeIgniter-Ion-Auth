@@ -667,15 +667,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function get_users_count($group=false)
 	{
-	    $this->db->select('COUNT(*) AS number');
-
 	    if (is_string($group))
 	    {
-		$this->db->where($this->tables['groups'].'.name', $group);
+			$this->db->where($this->tables['groups'].'.name', $group);
 	    }
 	    else if (is_array($group))
 	    {
-		$this->db->where_in($this->tables['groups'].'.name', $group);
+			$this->db->where_in($this->tables['groups'].'.name', $group);
 	    }
 
 	    if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
@@ -683,9 +681,9 @@ class Ion_auth_model extends CI_Model
 			$this->db->where($this->ion_auth->_extra_where);
 	    }		
 
-		$query = $this->db->get($this->tables['users']);
+		$this->db->from($this->tables['users']);
 
-	    return $query->row()->number;
+	    return $this->db->count_all_results();
 	}
 
 	/**
