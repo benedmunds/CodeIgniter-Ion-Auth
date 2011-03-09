@@ -194,39 +194,39 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function activate($id, $code = false)
 	{
-	    if ($code != false)
+	    if ($code !== false)
 	    {
-		$query = $this->db->select($this->identity_column)
-				  ->where('activation_code', $code)
-				  ->limit(1)
-				  ->get($this->tables['users']);
+			$query = $this->db->select($this->identity_column)
+					  ->where('activation_code', $code)
+					  ->limit(1)
+					  ->get($this->tables['users']);
 
-		$result = $query->row();
+			$result = $query->row();
 
-		if ($query->num_rows() !== 1)
-		{
-			return FALSE;
-		}
+			if ($query->num_rows() !== 1)
+			{
+				return FALSE;
+			}
 
-		$identity = $result->{$this->identity_column};
+			$identity = $result->{$this->identity_column};
 
-		$data = array(
-			    'activation_code' => '',
-			    'active'	  => 1
-			     );
+			$data = array(
+					'activation_code' => '',
+					'active'	  => 1
+					 );
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 	    }
 	    else
 	    {
-		$data = array(
-			    'activation_code' => '',
-			    'active' => 1
-			     );
+			$data = array(
+					'activation_code' => '',
+					'active' => 1
+					 );
 
-		$this->db->where($this->ion_auth->_extra_where);
-		$this->db->update($this->tables['users'], $data, array('id' => $id));
+			$this->db->where($this->ion_auth->_extra_where);
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
 	    }
 
 	    return $this->db->affected_rows() == 1;
