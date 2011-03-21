@@ -471,6 +471,17 @@ class Ion_auth
 	}
 
 	/**
+	 * Get Number of Users
+	 *
+	 * @return int Number of Users
+	 * @author Sven Lueckenbach
+	 **/
+	public function get_users_count($group_name=false)
+	{
+		return $this->ci->ion_auth_model->get_users_count($group_name);
+	}
+
+	/**
 	 * Get Users Array
 	 *
 	 * @return array Users
