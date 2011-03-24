@@ -2,9 +2,9 @@
 
 	<div class="pageTitle">Deactivate User</div>
     <div class="pageTitleBorder"></div>
-	<p>Are you sure you want to deactivate the user '<?php echo $user->username; ?>'</p>
+	<p>Are you sure you want to deactivate the user '<?php echo $user['username']; ?>'</p>
 	
-    <?php echo form_open("auth/deactivate/".$user->id);?>
+    <?php echo form_open("auth/deactivate/".$user['id']);?>
     	
       <p>
       	<label for="confirm">Yes:</label>
@@ -14,7 +14,7 @@
       </p>
       
       <?php echo form_hidden($csrf); ?>
-      <?php echo form_hidden(array('id'=>$user->id)); ?>
+      <?php echo form_hidden(array('id'=>$user['id'])); ?>
       
       <p><?php echo form_submit('submit', 'Submit');?></p>
 

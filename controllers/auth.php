@@ -243,7 +243,7 @@ class Auth extends Controller {
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
-			$this->data['user'] = $this->ion_auth->get_user($id);
+			$this->data['user'] = $this->ion_auth->get_user_array($id);
 			$this->load->view('auth/deactivate_user', $this->data);
 		}
 		else
