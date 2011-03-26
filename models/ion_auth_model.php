@@ -757,6 +757,32 @@ class Ion_auth_model extends CI_Model
 
 	    return $this->get_users();
 	}
+
+	/**
+	 * get_user_by_username
+	 *
+	 * @return object
+	 * @author Kevin Smith
+	 **/
+	public function get_user_by_username($username)
+	{
+	    $this->db->limit(1);
+
+	    return $this->get_users_by_username($username);
+	}
+
+	/**
+	 * get_users_by_username
+	 *
+	 * @return object
+	 * @author Kevin Smith
+	 **/
+	public function get_users_by_username($username)
+	{
+	    $this->db->where($this->tables['users'].'.username', $username);
+
+	    return $this->get_users();
+	}
 	
 	/**
 	 * get_user_by_identity

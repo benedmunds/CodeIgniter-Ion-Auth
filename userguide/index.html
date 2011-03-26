@@ -63,6 +63,8 @@
 				<li><a href="#get_user_array">get_user_array()</a></li>
 				<li><a href="#get_user_by_email">get_user_by_email()</a></li>
 				<li><a href="#get_users_by_email">get_users_by_email()</a></li>
+				<li><a href="#get_user_by_username">get_user_by_username()</a></li>
+				<li><a href="#get_users_by_username">get_users_by_username()</a></li>
 				<li><a href="#get_user_by_identity">get_user_by_identity()</a></li>
 				<li><a href="#get_users">get_users()</a></li>
                                 <li><a href="#get_users_count">get_users_count()</a></li>
@@ -724,6 +726,74 @@ Documentation
 	<pre>
 		$email = 'ben.edmunds@gmail.com';
 		$users = $this->ion_auth->get_users_by_email($email);
+		print_r($users);
+	</pre>
+	<br />
+	
+	<a name="get_user_by_username"></a>
+	<h2>get_user_by_username()</h2>
+	<p>Get a user by their username.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[group_id] => 1
+				[ip_address] => 127.0.0.1
+				[username] => administrator
+				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+				[salt] => 9462e8eee0
+				[email] => admin@admin.com
+				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
+				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
+				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
+				[created_on] => 1268889823
+				[last_login] => 1279464628
+				[active] => 0
+				[group] => admin
+				[group_description] => Administrator
+				[first_name] => Admin
+				[last_name] => Account
+				[company] => Some Corporation
+				[phone] => (123)456-7890
+			)
+			</pre>
+		</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$email = 'benedmunds';
+		$user = $this->ion_auth->get_user_by_username($username);
+		echo $user->first_name;
+	</pre>
+	<br />
+
+	<a name="get_users_by_username"></a>
+	<h2>get_users_by_username()</h2>
+	<p>Get users by their username.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>multidimensional array</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$email = 'benedmunds';
+		$users = $this->ion_auth->get_users_by_username($username);
 		print_r($users);
 	</pre>
 	<br />
