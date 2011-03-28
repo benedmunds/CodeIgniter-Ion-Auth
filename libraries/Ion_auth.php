@@ -592,6 +592,28 @@ class Ion_auth
 	}
 	
 	/**
+	 * Get User by Username
+	 *
+	 * @return object User
+	 * @author Kevin Smith
+	 **/
+	public function get_user_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_user_by_username($username)->row();
+	}
+
+	/**
+	 * Get Users by Username
+	 *
+	 * @return object Users
+	 * @author Kevin Smith
+	 **/
+	public function get_users_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_users_by_username($username)->result();
+	}
+	
+	/**
 	 * Get User by Identity
 	 *                              //copied from above ^
 	 * @return object User
