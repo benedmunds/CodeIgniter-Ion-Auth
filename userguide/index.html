@@ -164,6 +164,7 @@ Documentation
 		<li>$config['join']</li>
 		<li>$config['columns']</li>
 		<li>$config['identity']</li>
+		<li>$config['reserved']</li>
 		<li>$config['min_password_length']</li>
 		<li>$config['max_password_length']</li>
 		<li>$config['email_activation']</li>
@@ -201,6 +202,7 @@ Documentation
 		<li>'join' - Column to use for joining users and meta table.  DEFAULT is 'user_id'.</li>
 		<li>'columns' - The columns in the meta table.  DEFAULT is 'array('first_name', 'last_name', 'company', 'phone')'.</li>
 		<li>'identity' - Column to use for uniquely identifing user/logging in/etc. Usual choices are 'email' OR 'username'. You should add an index in the users table for whatever you set this option to. DEFAULT is 'email'.</li>
+		<li>'reserved' - A list of reserved/banned words that new registrations cannot use as a username.</li>
 		<li>'min_password_length' - Minimum length of passwords.  DEFAULT is '8'.</li>
 		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
 		<li>'email_activation' - TRUE or FALSE. Sets whether to require email activation or not. DEFAULT is 'false'.</li>
