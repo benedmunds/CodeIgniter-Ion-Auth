@@ -916,7 +916,7 @@ class Ion_auth_model extends CI_Model
 			}
 	    }
 
-	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
+	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data) || array_key_exists('group_id', $data))
 			{
 			if (array_key_exists('password', $data))
 			{
