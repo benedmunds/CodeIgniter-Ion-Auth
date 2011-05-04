@@ -316,8 +316,8 @@ class Ion_auth_model extends CI_Model
 	    }
 
 	    return $this->db->where('email', $email)
-			    ->where($this->ion_auth->_extra_where)
-			    ->count_all_results($this->tables['users']) > 0;
+		                ->where($this->ion_auth->_extra_where)
+		                ->count_all_results($this->tables['users']) > 0;
 	}
 
 	/**
@@ -334,7 +334,8 @@ class Ion_auth_model extends CI_Model
 	    }
 
 	    return $this->db->where($this->identity_column, $identity)
-			->count_all_results($this->tables['users']) > 0;
+		                             ->where($this->ion_auth->_extra_where)
+		                             ->count_all_results($this->tables['users']) > 0;
 	}
 
 	/**
