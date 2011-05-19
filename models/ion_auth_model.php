@@ -332,12 +332,12 @@ class Ion_auth_model extends CI_Model
 	    {
 			return FALSE;
 	    }
-
+/*
 		if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
 	    {
 			$this->db->where($this->ion_auth->_extra_where);
 	    }
-
+*/
 	    return $this->db->where($this->identity_column, $identity)
 		                ->count_all_results($this->tables['users']) > 0;
 	}
