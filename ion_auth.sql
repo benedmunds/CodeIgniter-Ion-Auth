@@ -11,7 +11,6 @@ CREATE TABLE `groups` (
   PRIMARY KEY (`id`)
 );
 
-
 #
 # Dumping data for table 'groups'
 #
@@ -75,3 +74,22 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `group_id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `created_on`, `last_login`, `active`) VALUES
 	('1','1','127.0.0.1','administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL,'1268889823','1268889823','1');
+
+
+
+DROP TABLE IF EXISTS `users_groups`;
+
+#
+# Table structure for table 'groups'
+#
+
+CREATE TABLE `users_groups` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` mediumint(8) NOT NULL,
+  `group_id` mediumint(8) NOT NULL,
+  PRIMARY KEY (`id`)
+);
+
+INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
+	(1,1,1),
+	(2,1,2);

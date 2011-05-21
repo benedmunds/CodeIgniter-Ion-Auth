@@ -37,7 +37,12 @@ class Auth extends Controller {
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			//list the users
-			$this->data['users'] = $this->ion_auth->get_users_array();
+			$this->data['users'] = $this->ion_auth->users()->result();
+			foreach ($this->data['users'] as $k => $user)
+			{
+				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id);
+			}
+			
 			$this->load->view('auth/index', $this->data);
 		}
 	}
@@ -243,7 +248,8 @@ class Auth extends Controller {
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
-			$this->data['user'] = $this->ion_auth->get_user($id);
+			$this->data['user'] = $this->ion_auth->user($id)->row();
+
 			$this->load->view('auth/deactivate_user', $this->data);
 		}
 		else

@@ -245,7 +245,7 @@ class Ion_auth
 
 			$activation_code = $this->ci->ion_auth_model->activation_code;
 			$identity        = $this->ci->config->item('identity', 'ion_auth');
-			$user            = $this->ci->ion_auth_model->get_user($id)->row();
+			$user            = $this->ci->ion_auth_model->user($id)->row();
 
 			$data = array(
 				'identity'   => $user->{$identity},
@@ -336,9 +336,8 @@ class Ion_auth
 		$this->ci->ion_auth_model->trigger_events('is_admin');
 		
 		$admin_group = $this->ci->config->item('admin_group', 'ion_auth');
-		$user_group  = $this->ci->session->userdata('group');
-
-		return $user_group == $admin_group;
+		
+		return $this->in_group($admin_group);
 	}
 
 	/**
@@ -347,19 +346,22 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function is_group($check_group)
+	public function in_group($check_group)
 	{
 		$this->ci->ion_auth_model->trigger_events('is_group');
-		
-		$user_group = $this->ci->session->userdata('group');
 
-		if(is_array($check_group))
+		$users_groups = $this->ci->ion_auth_model->get_users_groups();
+		
+		$groups = array();
+		foreach ($users_groups as $group)
 		{
-			return in_array($user_group, $check_group);
+			$groups[] = $group->name;
 		}
 
-		return $user_group == $check_group;
+		
+		return in_array($check_group, $groups);
 	}
+
 
 	/**
 	 * Profile
