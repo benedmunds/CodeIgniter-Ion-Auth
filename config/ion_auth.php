@@ -3,12 +3,12 @@
 * Name:  Ion Auth Config
 * 
 * Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
+* 	  ben.edmunds@gmail.com
 *         @benedmunds
 *          
 * Added Awesomeness: Phil Sturgeon
 * 
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth/
 *          
 * Created:  10.01.2009 
 * 
