@@ -187,8 +187,8 @@ class Ion_auth
 	public function forgotten_password($identity)    //changed $email to $identity
 	{
 		// Get user information
-		#changed by adityamenon on github (adityamenon90@gmail.com)
-		#get the details of the user, and thus his email address **before** sending a request to the model
+		//changed by adityamenon on github (adityamenon90@gmail.com)
+		//get the details of the user, and thus his email address **before** sending a request to the model
 		$user = $this->get_user_by_identity($identity);
 		$email = $user->email;
 		
