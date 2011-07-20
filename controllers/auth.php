@@ -162,7 +162,7 @@ class Auth extends Controller {
 	{
 		//changed by adityamenon on github (adityamenon90@gmail.com)
 		//get the identity type from config and send it when you load the view
-		$identity = $this->config->item('identity');
+		$identity = $this->config->item('identity', 'ion_auth');
 		$identity_human = ucwords(str_replace('_', ' ', $identity)); //if someone uses underscores to connect words in the column names
 		$this->form_validation->set_rules($identity, $identity_human, 'required'); //changed
 		if ($this->form_validation->run() == false)
