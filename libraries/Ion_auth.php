@@ -196,7 +196,7 @@ class Ion_auth
 		{
 			$data = array(
 				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
-				'forgotten_password_code' => $user->forgotten_password_code
+				'forgotten_password_code' => $this->ci->ion_auth_model->forgotten_password_code,
 			);
 
 			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
