@@ -72,10 +72,20 @@ class Ion_auth_model extends CI_Model
 		$this->tables  = $this->config->item('tables', 'ion_auth');
 		$this->columns = $this->config->item('columns', 'ion_auth');
 
-		$this->identity_column = $this->config->item('identity', 'ion_auth');
-		$this->store_salt      = $this->config->item('store_salt', 'ion_auth');
-		$this->salt_length     = $this->config->item('salt_length', 'ion_auth');
-		$this->meta_join       = $this->config->item('join', 'ion_auth');
+		$this->identity_column     = $this->config->item('identity', 'ion_auth');
+		$this->store_salt      	   = $this->config->item('store_salt', 'ion_auth');
+		$this->salt_length     	   = $this->config->item('salt_length', 'ion_auth');
+		$this->meta_join       	   = $this->config->item('join', 'ion_auth');
+		$this->min_password_length = $this->config->item('min_password_length', 'ion_auth');
+		
+		/**
+		* Checks if salt length is at least the length
+		* of the minimum password length.
+		**/
+		if($this->salt_length < $this->min_password_length)
+		{
+			$this->salt_length = $this->min_password_length;
+		}
 	}
 
 	/**
