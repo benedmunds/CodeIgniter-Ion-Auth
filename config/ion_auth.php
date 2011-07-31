@@ -124,6 +124,8 @@
 	
 	/**
 	 * Salt Length
+	 * Salt length needs to be at least as long 
+	 * as the minimum password length.
 	 **/
 	$config['salt_length'] = 10;
 
