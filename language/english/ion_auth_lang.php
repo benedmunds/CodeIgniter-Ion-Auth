@@ -37,7 +37,7 @@ $lang['activation_email_unsuccessful']   	 = 'Unable to Send Activation Email';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Logged In Successfully';
-$lang['login_unsuccessful'] 		  	 = 'In-Correct Login';
+$lang['login_unsuccessful'] 		  	 = 'Incorrect Login';
 $lang['logout_successful'] 		 	 = 'Logged Out Successfully';
   
 // Account Changes
