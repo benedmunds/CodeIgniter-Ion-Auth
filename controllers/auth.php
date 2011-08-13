@@ -160,26 +160,25 @@ class Auth extends Controller {
 	//forgot password
 	function forgot_password()
 	{
-		//changed by adityamenon on github (adityamenon90@gmail.com)
 		//get the identity type from config and send it when you load the view
 		$identity = $this->config->item('identity');
 		$identity_human = ucwords(str_replace('_', ' ', $identity)); //if someone uses underscores to connect words in the column names
-		$this->form_validation->set_rules($identity, $identity_human, 'required'); //changed
+		$this->form_validation->set_rules($identity, $identity_human, 'required');
 		if ($this->form_validation->run() == false)
 		{
 			//setup the input
-			$this->data[$identity] = array('name' => $identity, //changed
+			$this->data[$identity] = array('name' => $identity,
 				'id' => $identity, //changed
 			);
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['identity'] = $identity; $this->data['identity_human'] = $identity_human; //added
+			$this->data['identity'] = $identity; $this->data['identity_human'] = $identity_human;
 			$this->load->view('auth/forgot_password', $this->data);
 		}
 		else
 		{
 			//run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
+			$forgotten = $this->ion_auth->forgotten_password($this->input->post($identity));
 
 			if ($forgotten)
 			{ //if there were no errors
