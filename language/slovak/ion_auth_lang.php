@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+ï»¿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Slovak
 * 
@@ -15,33 +15,33 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'Úèet úspešne vytvorený';
-$lang['account_creation_unsuccessful'] 	 	 = 'Nepodarilo sa vytvori úèet';
-$lang['account_creation_duplicate_email'] 	 = 'Email sa už používa, alebo je neplatný';
-$lang['account_creation_duplicate_username'] 	 = 'Používate¾ské meno sa už používa, alebo je neplatné';
+$lang['account_creation_successful'] 	  	 = 'ÃšÄet ÃºspeÅ¡ne vytvorenÃ½';
+$lang['account_creation_unsuccessful'] 	 	 = 'Nepodarilo sa vytvoriÅ¥ ÃºÄet';
+$lang['account_creation_duplicate_email'] 	 = 'Email sa uÅ¾ pouÅ¾Ã­va, alebo je neplatnÃ½';
+$lang['account_creation_duplicate_username'] 	 = 'PouÅ¾Ã­vateÄ¾skÃ© meno sa uÅ¾ pouÅ¾Ã­va, alebo je neplatnÃ©';
 
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Heslo úspešne zmenené';
-$lang['password_change_unsuccessful'] 	  	 = 'Nepodarilo sa zmeni heslo';
-$lang['forgot_password_successful'] 	 	 = 'Email s resetnutým heslom odoslaný';
-$lang['forgot_password_unsuccessful'] 	 	 = 'Nepodarilo sa resetnú heslo';
+$lang['password_change_successful'] 	 	 = 'Heslo ÃºspeÅ¡ne zmenenÃ©';
+$lang['password_change_unsuccessful'] 	  	 = 'Nepodarilo sa zmeniÅ¥ heslo';
+$lang['forgot_password_successful'] 	 	 = 'Email s resetnutÃ½m heslom odoslanÃ½';
+$lang['forgot_password_unsuccessful'] 	 	 = 'Nepodarilo sa resetnÃºÅ¥ heslo';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'Úèet aktivovaný';
-$lang['activate_unsuccessful'] 		 	 = 'Nepodarilo sa aktivova úèet';
-$lang['deactivate_successful'] 		  	 = 'Úèet deaktivovaný';
-$lang['deactivate_unsuccessful'] 	  	 = 'Nepodarilo sa deaktivova úèet';
-$lang['activation_email_successful'] 	  	 = 'Aktivaèný email odoslaný';
-$lang['activation_email_unsuccessful']   	 = 'Nepodarilo sa odosla aktivaèný email';
+$lang['activate_successful'] 		  	 = 'ÃšÄet aktivovanÃ½';
+$lang['activate_unsuccessful'] 		 	 = 'Nepodarilo sa aktivovaÅ¥ ÃºÄet';
+$lang['deactivate_successful'] 		  	 = 'ÃšÄet deaktivovanÃ½';
+$lang['deactivate_unsuccessful'] 	  	 = 'Nepodarilo sa deaktivovaÅ¥ ÃºÄet';
+$lang['activation_email_successful'] 	  	 = 'AktivaÄnÃ½ email odoslanÃ½';
+$lang['activation_email_unsuccessful']   	 = 'Nepodarilo sa odoslaÅ¥ aktivaÄnÃ½ email';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'Prihlásenie úspešné';
-$lang['login_unsuccessful'] 		  	 = 'Nepodarilo sa prihlási';
-$lang['logout_successful'] 		 	 = 'Odhlásenie úspešné';
+$lang['login_successful'] 		  	 = 'PrihlÃ¡senie ÃºspeÅ¡nÃ©';
+$lang['login_unsuccessful'] 		  	 = 'Nepodarilo sa prihlÃ¡siÅ¥';
+$lang['logout_successful'] 		 	 = 'OdhlÃ¡senie ÃºspeÅ¡nÃ©';
   
 // Account Changes
-$lang['update_successful'] 		 	 = 'Informácie o úète aktualizované';
-$lang['update_unsuccessful'] 		 	 = 'Nepodarilo sa aktualizova úèet';
-$lang['delete_successful'] 		 	 = 'Užívate¾ odstránený';
-$lang['delete_unsuccessful'] 		 	 = 'Nepodarilo sa odstráni užívate¾a';
+$lang['update_successful'] 		 	 = 'InformÃ¡cie o ÃºÄte aktualizovanÃ©';
+$lang['update_unsuccessful'] 		 	 = 'Nepodarilo sa aktualizovaÅ¥ ÃºÄet';
+$lang['delete_successful'] 		 	 = 'UÅ¾Ã­vateÄ¾ odstrÃ¡nenÃ½';
+$lang['delete_unsuccessful'] 		 	 = 'Nepodarilo sa odstrÃ¡niÅ¥ uÅ¾Ã­vateÄ¾a';
