@@ -1156,7 +1156,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 	    }
 
-	    $user = $this->get_user($id)->row();
+	    $user = $this->user($id)->row();
 
 	    $salt = sha1($user->password);
 
