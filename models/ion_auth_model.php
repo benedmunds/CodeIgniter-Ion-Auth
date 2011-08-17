@@ -841,6 +841,9 @@ class Ion_auth_model extends CI_Model
 		if (isset($this->_order_by) && isset($this->_order))
 	    {
 			$this->db->order_by($this->_order_by, $this->_order);
+			
+			unset($this->_order);
+			unset($this->_order_by);
 	    }
 		
 
