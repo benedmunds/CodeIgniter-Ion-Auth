@@ -880,6 +880,8 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('current');
 		
 	    $this->where($this->tables['users'].'.id', $this->session->userdata('user_id'));
+	    
+	    $this->users();
 
 		return $this;
 	}
