@@ -841,6 +841,9 @@ class Ion_auth_model extends CI_Model
 		if (isset($this->_order_by) && isset($this->_order))
 	    {
 			$this->db->order_by($this->_order_by, $this->_order);
+			
+			unset($this->_order);
+			unset($this->_order_by);
 	    }
 		
 
@@ -880,6 +883,8 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('current');
 		
 	    $this->where($this->tables['users'].'.id', $this->session->userdata('user_id'));
+	    
+	    $this->users();
 
 		return $this;
 	}
