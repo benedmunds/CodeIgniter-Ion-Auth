@@ -45,6 +45,12 @@ class Auth extends Controller {
 	function login()
 	{
 		$this->data['title'] = "Login";
+		
+		if ($this->ion_auth->logged_in())
+		{
+			//already logged in so no need to access this page
+			redirect($this->config->item('base_url'), 'refresh');
+		}
 
 		//validate form input
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
