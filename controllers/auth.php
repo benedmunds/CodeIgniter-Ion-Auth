@@ -183,12 +183,12 @@ class Auth extends Controller {
 			if ($forgotten)
 			{ //if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect('auth/login', 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				redirect('auth/forgot_password', 'refresh');
 			}
 		}
 	}
@@ -201,12 +201,12 @@ class Auth extends Controller {
 		if ($reset)
 		{  //if the reset worked then send them to the login page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth/login", 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 		else
 		{ //if the reset didnt work then send them back to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect('auth/forgot_password', 'refresh');
 		}
 	}
 
@@ -223,13 +223,13 @@ class Auth extends Controller {
 		{
 			//redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect('auth', 'refresh');
 		}
 		else
 		{
 			//redirect them to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect('auth/forgot_password', 'refresh');
 		}
 	}
 
@@ -310,7 +310,7 @@ class Auth extends Controller {
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Created");
-			redirect("auth", 'refresh');
+			redirect('auth', 'refresh');
 		}
 		else
 		{ //display the create user form
