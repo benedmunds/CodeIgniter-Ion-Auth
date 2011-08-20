@@ -448,7 +448,7 @@ class Ion_auth
 		$permission = false;
 		if(is_array($check_group)) 
 		{
-    			foreach($check_group $key => $value)
+    			foreach($check_group as $key => $value)
     			{
         			if(in_array($value, $groups)) 
         			{
