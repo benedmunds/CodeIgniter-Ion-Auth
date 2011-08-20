@@ -238,8 +238,7 @@ class Auth extends Controller {
 	{
 		// no funny business, force to integer
 		$id = (int) $id;
-
-		$this->load->library('form_validation');
+		
 		$this->form_validation->set_rules('confirm', 'confirmation', 'required');
 		$this->form_validation->set_rules('id', 'user ID', 'required|is_natural');
 
