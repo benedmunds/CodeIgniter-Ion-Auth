@@ -335,14 +335,14 @@ class Ion_auth
 	}
 
 	/**
-	 * is_group
+	 * in_group
 	 *
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
 	public function in_group($check_group)
 	{
-		$this->ci->ion_auth_model->trigger_events('is_group');
+		$this->ci->ion_auth_model->trigger_events('in_group');
 
 		$users_groups = $this->ci->ion_auth_model->get_users_groups();
 		
