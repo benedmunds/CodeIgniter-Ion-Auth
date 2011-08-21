@@ -345,15 +345,32 @@ class Ion_auth
 		$this->ci->ion_auth_model->trigger_events('in_group');
 
 		$users_groups = $this->ci->ion_auth_model->get_users_groups();
-		
 		$groups = array();
 		foreach ($users_groups as $group)
 		{
 			$groups[] = $group->name;
 		}
-
 		
-		return in_array($check_group, $groups);
+		
+		if (is_array($check_group)) 
+		{
+			foreach($check_group as $key => $value)
+			{
+				if (in_array($value, $groups)) 
+				{
+					return TRUE;
+				}
+			}
+		} 
+		else 
+		{
+			if (in_array($check_group, $groups)) 
+			{
+				return TRUE;
+			}
+		}
+		
+		return TRUE;
 	}
 
 
