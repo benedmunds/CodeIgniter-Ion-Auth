@@ -761,14 +761,20 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('row');
 		
-		return $this->response->row();
+		$row = $this->response->row();
+		$this->response->free_result();
+		
+		return $row;
 	}
 
 	public function row_array()
 	{
 		$this->trigger_events(array('row', 'row_array'));
 		
-		return $this->response->row_array();
+		$row = $this->response->row_array();
+		$this->response->free_result();
+		
+		return $row;
 	}
 
 	public function result()
