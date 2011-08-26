@@ -156,7 +156,7 @@ class Ion_auth_model extends CI_Model
 		$this->identity_column = $this->config->item('identity', 'ion_auth');
 		$this->store_salt      = $this->config->item('store_salt', 'ion_auth');
 		$this->salt_length     = $this->config->item('salt_length', 'ion_auth');
-		$this->meta_join       = $this->config->item('join', 'ion_auth');
+		$this->join			   = $this->config->item('join', 'ion_auth');
 		
 		//initialize messages and error
 		$this->messages = array();
@@ -640,7 +640,7 @@ class Ion_auth_model extends CI_Model
 
 
 	    // Meta table.
-	    $data = array($this->meta_join => $id);
+	    $data = array($this->join['users'] => $id);
 
 	    if (!empty($this->columns))
 	    {
@@ -761,14 +761,20 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('row');
 		
-		return $this->response->row();
+		$row = $this->response->row();
+		$this->response->free_result();
+		
+		return $row;
 	}
 
 	public function row_array()
 	{
 		$this->trigger_events(array('row', 'row_array'));
 		
-		return $this->response->row_array();
+		$row = $this->response->row_array();
+		$this->response->free_result();
+		
+		return $row;
 	}
 
 	public function result()
@@ -814,7 +820,7 @@ class Ion_auth_model extends CI_Model
 			}
 	    }
 
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->meta_join, 'left');
+	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->join['users'], 'left');
 
 		
 	    $this->trigger_events('extra_where');
@@ -902,9 +908,9 @@ class Ion_auth_model extends CI_Model
 		//if no id was passed use the current users id
 		$id || $id = $this->session->userdata('user_id');
 
-		return $this->db->select($this->tables['users_groups'].'.group_id as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
-						->where($this->tables['users_groups'].'.user_id', $id)
-						->join($this->tables['groups'], $this->tables['users_groups'].'.group_id='.$this->tables['groups'].'.id')
+		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
+						->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
+						->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
 						->get($this->tables['users_groups'])
 						->result();
 	}
@@ -923,7 +929,7 @@ class Ion_auth_model extends CI_Model
 		//if no id was passed use the current users id
 		$user_id || $user_id = $this->session->userdata('user_id');
 
-		return $this->db->insert($this->tables['users_groups'], array('group_id' => (int)$group_id, 'user_id' => (int)$user_id));
+		return $this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
 	}
 
 	/**
@@ -939,7 +945,7 @@ class Ion_auth_model extends CI_Model
 		//if no id was passed use the current users id
 		$user_id || $user_id = $this->session->userdata('user_id');
 
-		return $this->db->delete($this->tables['users_groups'], array('group_id' => (int)$group_id, 'user_id' => (int)$user_id));
+		return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
 	}
 
 	/**
@@ -1039,7 +1045,7 @@ class Ion_auth_model extends CI_Model
 			if (count($meta_fields) > 0)
 			{
 				// 'user_id' = $id
-				$this->db->where($this->meta_join, $user->id);
+				$this->db->where($this->join['users'], $user->id);
 				$this->db->set($meta_fields);
 				$this->db->update($this->tables['meta']);
 			}
@@ -1086,7 +1092,7 @@ class Ion_auth_model extends CI_Model
 		
 	    $this->db->trans_begin();
 
-	    $this->db->delete($this->tables['meta'], array($this->meta_join => $id));
+	    $this->db->delete($this->tables['meta'], array($this->join['users'] => $id));
 	    $this->db->delete($this->tables['users'], array('id' => $id));
 
 	    if ($this->db->trans_status() === FALSE)
