@@ -1,12 +1,13 @@
-THIS IS IN DEVELOPMENT - DO NOT USE
+THIS IS IN DEVELOPMENT - BETA
+
+NOTE - the docs have not been updated for v2 yet.  
 
 ======================================
 Ion Auth 2
 
-The future of authentication (that's an awesome line isn't it)
+The future of authentication
 
 by Ben Edmunds
-added awesomeness by Phil Sturgeon
 ======================================
 
 Redux Auth 2 had a lot of potential.  It's lightweight, simple, and clean, 
