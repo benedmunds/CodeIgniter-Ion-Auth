@@ -351,7 +351,6 @@ class Ion_auth
 			$groups[] = $group->name;
 		}
 		
-		
 		if (is_array($check_group)) 
 		{
 			foreach($check_group as $key => $value)
@@ -370,7 +369,7 @@ class Ion_auth
 			}
 		}
 		
-		return TRUE;
+		return FALSE;
 	}
 
 
