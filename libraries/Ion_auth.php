@@ -148,7 +148,8 @@ class Ion_auth
 		$this->ci->ion_auth_model->trigger_events('pre_password_change');
 		
 		$identity = $this->ci->config->item('identity', 'ion_auth');
-		$profile  = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
+		$this->ci->db->where($this->ci->ion_auth_model->tables['users'].'.forgotten_password_code', $code);
+		$profile = $this->users()->row();
 
 		if (!is_object($profile))
 		{
