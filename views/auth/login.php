@@ -2,15 +2,15 @@
 
 	<div class="pageTitle">Login</div>
     <div class="pageTitleBorder"></div>
-	<p>Please login with your email address and password below.</p>
+	<p>Please login with your email/username and password below.</p>
 	
 	<div id="infoMessage"><?php echo $message;?></div>
 	
     <?php echo form_open("auth/login");?>
     	
       <p>
-      	<label for="email">Email:</label>
-      	<?php echo form_input($email);?>
+      	<label for="identity">Email/Username:</label>
+      	<?php echo form_input($identity);?>
       </p>
       
       <p>

@@ -213,9 +213,9 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password_db($identity, $password)
+	public function hash_password_db($id, $password)
 	{
-	   if (empty($identity) || empty($password))
+	   if (empty($id) || empty($password))
 	   {
 		return FALSE;
 	   }
@@ -224,26 +224,26 @@ class Ion_auth_model extends CI_Model
 		
 	   $query = $this->db->select('password')
 			     ->select('salt')
-			     ->where($this->identity_column, $identity)
+			     ->where('id', $id)
 			     ->limit(1)
 			     ->get($this->tables['users']);
 
-	    $result = $query->row();
+	    $hash_password_db = $query->row();
 
 	    if ($query->num_rows() !== 1)
 	    {
-		return FALSE;
+			return FALSE;
 	    }
 
 	    if ($this->store_salt)
 	    {
-		return sha1($password . $result->salt);
+			return sha1($password . $hash_password_db->salt);
 	    }
 	    else
 	    {
-		$salt = substr($result->password, 0, $this->salt_length);
+			$salt = substr($hash_password_db->password, 0, $this->salt_length);
 
-		return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
+			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 	    }
 	}
 
@@ -656,7 +656,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_login');
 		
-	    if (empty($identity) || empty($password) || !$this->identity_check($identity))
+	    if (empty($identity) || empty($password))
 	    {
 			$this->set_message('login_unsuccessful');
 			return FALSE;
@@ -664,33 +664,34 @@ class Ion_auth_model extends CI_Model
 
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select($this->identity_column.', id, password')
-		                  ->where($this->identity_column, $identity)
+	    $query = $this->db->select('username, email, id, password, group_id')
+				          ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
 		                  ->where('active', 1)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
+		
+	    $user = $query->row();
 
-	    $result = $query->row();
-
-	    if ($query->num_rows() == 1)
+		if ($query->num_rows() == 1)
 	    {
-			$password = $this->hash_password_db($identity, $password);
+			$password = $this->hash_password_db($user->id, $password);
 
-			if ($result->password === $password)
+			if ($user->password === $password)
 			{
-				$this->update_last_login($result->id);
+				$this->update_last_login($user->id);
 
 				$session_data = array(
-							$this->identity_column => $result->{$this->identity_column},
-							'id'                   => $result->id, //kept for backwards compatibility
-							'user_id'              => $result->id, //everyone likes to overwrite id so we'll use user_id
+							'username'             => $user->username,
+							'email'                => $user->email,
+							'id'                   => $user->id, //kept for backwards compatibility
+							'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 						 );
 
 				$this->session->set_userdata($session_data);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($result->id);
+					$this->remember_user($user->id);
 				}
 				
 				
