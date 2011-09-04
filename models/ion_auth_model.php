@@ -121,7 +121,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @var string
 	 **/
-	protected $errors = array();
+	protected $errors;
 
 	/**
 	 * error start delimiter
@@ -289,14 +289,14 @@ class Ion_auth_model extends CI_Model
 			if ($query->num_rows() !== 1)
 			{
 				$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
-				$this->set_message('activate_unsuccessful');
+				$this->set_error('activate_unsuccessful');
 				return FALSE;
 			}
 
 			$identity = $result->{$this->identity_column};
 
 			$data = array(
-					'activation_code' => '',
+					'activation_code' => NULL,
 					'active'	  => 1
 					 );
 
@@ -306,7 +306,7 @@ class Ion_auth_model extends CI_Model
 	    else
 	    {
 			$data = array(
-					'activation_code' => '',
+					'activation_code' => NULL,
 					'active' => 1
 					 );
 
@@ -325,7 +325,7 @@ class Ion_auth_model extends CI_Model
 		else
 		{
 			$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
-			$this->set_message('activate_ussuccessful');
+			$this->set_error('activate_unsuccessful');
 		}
 
 		
@@ -345,7 +345,7 @@ class Ion_auth_model extends CI_Model
 		
 	    if (!isset($id))
 	    {
-			$this->set_message('deactivate_unsuccessful');
+			$this->set_error('deactivate_unsuccessful');
 			return FALSE;
 	    }
 
@@ -365,7 +365,7 @@ class Ion_auth_model extends CI_Model
 		if ($return)
 			$this->set_message('deactivate_successful');
 		else
-			$this->set_message('deactivate_unsuccessful');
+			$this->set_error('deactivate_unsuccessful');
 		
 	    return $return;
 	}
@@ -398,7 +398,7 @@ class Ion_auth_model extends CI_Model
 	    	//store the new password and reset the remember code so all remembered instances have to re-login
 			$data = array(
 					'password' => $new,
-					'remember_code' => '',
+					'remember_code' => NULL,
 					 );
 
 
@@ -415,14 +415,14 @@ class Ion_auth_model extends CI_Model
 			else
 			{
 				$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
-				$this->set_message('password_change_unsuccessful');
+				$this->set_error('password_change_unsuccessful');
 			}
 
 		
 			return $return;
 	    }
 		
-		$this->set_message('password_change_unsuccessful');
+		$this->set_error('password_change_unsuccessful');
 	    return FALSE;
 	}
 
@@ -544,7 +544,7 @@ class Ion_auth_model extends CI_Model
 
 			$data = array(
 					'password'			=> $this->hash_password($password, $salt),
-					'forgotten_password_code'   => '0',
+					'forgotten_password_code'   => NULL,
 					'active'			=> 1,
 					 );
 
@@ -658,7 +658,7 @@ class Ion_auth_model extends CI_Model
 		
 	    if (empty($identity) || empty($password))
 	    {
-			$this->set_message('login_unsuccessful');
+			$this->set_error('login_unsuccessful');
 			return FALSE;
 	    }
 
@@ -703,7 +703,7 @@ class Ion_auth_model extends CI_Model
 	    }
 
 		$this->trigger_events('post_login_unsuccessful');
-		$this->set_message('login_unsuccessful');
+		$this->set_error('login_unsuccessful');
 	    return FALSE;
 	}
 
@@ -999,7 +999,7 @@ class Ion_auth_model extends CI_Model
 			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
 			
 			$this->trigger_events(array('post_update_user', 'post_update_user_unsuccessful'));
-			$this->set_message('update_unsuccessful');
+			$this->set_error('update_unsuccessful');
 			
 			return FALSE;
 	    }
@@ -1025,7 +1025,7 @@ class Ion_auth_model extends CI_Model
 			$this->db->trans_rollback();
 			
 			$this->trigger_events(array('post_update_user', 'post_update_user_unsuccessful'));
-			$this->set_message('update_unsuccessful');
+			$this->set_error('update_unsuccessful');
 			return FALSE;
 	    }
 
@@ -1055,7 +1055,7 @@ class Ion_auth_model extends CI_Model
 	    {
 			$this->db->trans_rollback();
 			$this->trigger_events(array('post_delete_user', 'post_delete_user_unsuccessful'));
-			$this->set_message('delete_unsuccessful');
+			$this->set_error('delete_unsuccessful');
 			return FALSE;
 	    }
 
