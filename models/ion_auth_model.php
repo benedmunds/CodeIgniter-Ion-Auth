@@ -678,11 +678,10 @@ class Ion_auth_model extends CI_Model
 				$this->update_last_login($user->id);
 
 				$session_data = array(
-							'username'             => $user->username,
-							'email'                => $user->email,
-							'id'                   => $user->id, //kept for backwards compatibility
-							'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-						 );
+					'username'             => $user->username,
+					'email'                => $user->email,
+					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+				);
 
 				$this->session->set_userdata($session_data);
 
