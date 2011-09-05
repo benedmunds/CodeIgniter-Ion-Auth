@@ -379,7 +379,7 @@ class Ion_auth_model extends CI_Model
 		
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select('password, salt')
+	    $query = $this->db->select('id, password, salt')
 			      ->where($this->identity_column, $identity)
 			      ->limit(1)
 			      ->get($this->tables['users']);
@@ -387,7 +387,7 @@ class Ion_auth_model extends CI_Model
 	    $result = $query->row();
 
 	    $db_password = $result->password;
-	    $old	     = $this->hash_password_db($identity, $old);
+	    $old	     = $this->hash_password_db($result->id, $old);
 	    $new	     = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
