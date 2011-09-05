@@ -661,7 +661,7 @@ class Ion_auth_model extends CI_Model
 
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select('username, email, id, password, group_id')
+	    $query = $this->db->select('username, email, id, password')
 				          ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
 		                  ->where('active', 1)
 		                  ->limit(1)
