@@ -797,16 +797,7 @@ class Ion_auth_model extends CI_Model
 			$this->tables['users'].'.*',
 		));
 
-	    if ( ! empty($this->columns))
-	    {
-			foreach ($this->columns as $field)
-			{
-				$this->db->select($this->tables['meta'].'.'. $field);
-			}
-	    }
-
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->join['users'], 'left');
-
+	   
 	    $this->trigger_events('extra_where');
 
 		//run each where that was passed
