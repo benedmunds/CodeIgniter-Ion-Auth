@@ -62,7 +62,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @var array
 	 **/
-	public $_ion_where = NULL;
+	public $_ion_where = array();
 
 	/**
 	 * Limit
