@@ -147,7 +147,7 @@ class Ion_auth
 		$this->ci->ion_auth_model->trigger_events('pre_password_change');
 		
 		$identity = $this->ci->config->item('identity', 'ion_auth');
-		$profile  = $this->ci->ion_auth_model->profile($code, true); //pass the code to profile
+		$profile  = $this->user($code, true)->row(); //pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -371,25 +371,5 @@ class Ion_auth
 		
 		return FALSE;
 	}
-
-
-	/**
-	 * Profile
-	 *
-	 * @TODO want to get rid of this
-	 * @return void
-	 * @author Mathew
-	 **/
-	public function profile()
-	{
-		$this->ci->ion_auth_model->trigger_events('profile');
-		
-		$session  = $this->ci->config->item('identity', 'ion_auth');
-		$identity = $this->ci->session->userdata($session);
-
-		return $this->ci->ion_auth_model->profile($identity);
-	}
-
-	
 
 }

@@ -299,7 +299,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 					'activation_code' => '',
 					'active'	  => 1
-					 );
+			);
 
 			$this->trigger_events('extra_where');
 			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
@@ -309,7 +309,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 					'activation_code' => '',
 					'active' => 1
-					 );
+			);
 
 
 			$this->trigger_events('extra_where');
@@ -735,14 +735,16 @@ class Ion_auth_model extends CI_Model
 		return $this;
 	}
 
-	public function where($where, $value=NULL)
+	public function where($where, $value = NULL)
 	{
 		$this->trigger_events('where');
 		
-		if (isset($value))
-			$this->_where[] = array($where => $value);
-		elseif (is_array($where))
-			$this->_where[] = $where;
+		if ( ! is_array($where))
+		{
+			$where = array($where => $value);
+		}
+		
+		array_push($this->_where, $where);
 		
 		return $this;
 	}
@@ -809,10 +811,11 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('users');
 		
 	    $this->db->select(array(
-					$this->tables['users'].'.*',
-				   ));
+			$this->tables['users'].'.*',
+			
+		));
 
-	    if (!empty($this->columns))
+	    if ( ! empty($this->columns))
 	    {
 			foreach ($this->columns as $field)
 			{
@@ -829,9 +832,11 @@ class Ion_auth_model extends CI_Model
 		if (isset($this->_where))
 	    {
 			foreach ($this->_where as $where)
+			{
 				$this->db->where($where);
-
-			unset($this->_where);
+			}
+			
+			$this->_where = array();
 	    }
 
 
@@ -852,7 +857,6 @@ class Ion_auth_model extends CI_Model
 			unset($this->_order_by);
 	    }
 		
-
 	    $this->response = $this->db->get($this->tables['users']);
 
 		return $this;
@@ -869,31 +873,17 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('user');
 		
-		if (isset($id))
-			$this->where($this->tables['users'].'.id', $id);
-		
+		//if no id was passed use the current users id
+		$id || $id = $this->session->userdata('user_id');
+
+		$this->limit(1);
+		$this->where($this->tables['users'].'.id', $id);
+
 	    $this->users();
 		
 		return $this;
 	}
-
 	
-	/**
-	 * current
-	 *
-	 * @return object
-	 * @author Ben Edmunds
-	 **/
-	public function current()
-	{
-		$this->trigger_events('current');
-		
-	    $this->where($this->tables['users'].'.id', $this->session->userdata('user_id'));
-	    
-	    $this->users();
-
-		return $this;
-	}
 
 	/**
 	 * get_users_groups
@@ -962,9 +952,10 @@ class Ion_auth_model extends CI_Model
 		if (isset($this->_where))
 	    {
 			foreach ($this->_where as $where)
+			{
 				$this->db->where($where);
-
-			unset($this->_where);
+			}
+			$this->_where = array();
 	    }
 
 
@@ -1004,17 +995,17 @@ class Ion_auth_model extends CI_Model
 
 
 	/**
-	 * update_user
+	 * update
 	 *
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function update($data)
+	public function update($id, array $data)
 	{
 		$this->trigger_events('pre_update_user');
 		
-	    $user = $this->user()->row();
-
+	    $user = $this->user($id)->row();
+	
 	    $this->db->trans_begin();
 
 	    if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
@@ -1028,7 +1019,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 	    }
 
-	    if (!empty($this->columns))
+	    if ( ! empty($this->columns))
 	    {
 			//filter the data passed by the columns in the config
 			$meta_fields = array();
@@ -1265,13 +1256,17 @@ class Ion_auth_model extends CI_Model
 	public function remove_hook($event, $name)
 	{
 		if (isset($this->_hooks->$event[$name]))
+		{
 			unset($this->_hooks->$event[$name]);
+		}
 	}
 	
 	public function remove_hooks($event)
 	{
 		if (isset($this->_hooks->$event))
+		{
 			unset($this->_hooks->$event);
+		}
 	}
 	
 	protected function _call_hook($event, $name)
