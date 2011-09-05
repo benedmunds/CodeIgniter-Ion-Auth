@@ -42,6 +42,7 @@ class Auth extends Controller {
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id);
 			}
+	
 			
 			$this->load->view('auth/index', $this->data);
 		}
@@ -53,7 +54,7 @@ class Auth extends Controller {
 		$this->data['title'] = "Login";
 
 		//validate form input
-		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
+		$this->form_validation->set_rules('identity', 'Identity', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() == true)
@@ -61,7 +62,7 @@ class Auth extends Controller {
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
-			if ($this->ion_auth->login($this->input->post('email'), $this->input->post('password'), $remember))
+			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
 			{ //if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -79,10 +80,10 @@ class Auth extends Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
+			$this->data['identity'] = array('name' => 'identity',
+				'id' => 'identity',
 				'type' => 'text',
-				'value' => $this->form_validation->set_value('email'),
+				'value' => $this->form_validation->set_value('identity'),
 			);
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
