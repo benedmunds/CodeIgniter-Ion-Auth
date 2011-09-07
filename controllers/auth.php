@@ -154,7 +154,9 @@ class Auth extends Controller {
 			if ($change)
 			{ //if the password was successfully changed
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				$this->logout();
+				//$this->logout();
+				//instead of logging out, redirect to confirmation
+				redirect('auth/confirmation', 'refresh');
 			}
 			else
 			{
