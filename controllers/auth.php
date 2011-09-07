@@ -186,7 +186,7 @@ class Auth extends Controller {
 			if ($forgotten)
 			{ //if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("auth/confirmation", 'refresh');
 			}
 			else
 			{
@@ -202,15 +202,23 @@ class Auth extends Controller {
 		$reset = $this->ion_auth->forgotten_password_complete($code);
 
 		if ($reset)
-		{  //if the reset worked then send them to the login page
+		{  //if the reset worked then send them to the confirmation page, which lets them know to check their email
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth/login", 'refresh');
+			redirect("auth/confirmation", 'refresh');
 		}
 		else
 		{ //if the reset didnt work then send them back to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
 			redirect("auth/forgot_password", 'refresh');
 		}
+	}
+
+	//confirm that changes have been made, like password reset etc
+	function confirmation()
+	{
+		$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+		$this->load->view('confirmation', $this->data);
 	}
 
 	//activate the user
