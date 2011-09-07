@@ -64,8 +64,8 @@ DROP TABLE IF EXISTS `users_groups`;
 
 CREATE TABLE `users_groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) NOT NULL,
-  `group_id` mediumint(8) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 );
 
