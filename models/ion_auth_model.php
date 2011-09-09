@@ -998,11 +998,11 @@ class Ion_auth_model extends CI_Model
 			{
 				$data['password'] = $this->hash_password($data['password'], $user->salt);
 			}
-
-			$this->trigger_events('extra_where');
-
-			$this->db->update($this->tables['users'], $data, array('id' => $user->id));
 	    }
+
+	    $this->trigger_events('extra_where');
+	    $this->db->update($this->tables['users'], $data, array('id' => $user->id));
+
 
 	    if ($this->db->trans_status() === FALSE)
 	    {
