@@ -29,7 +29,6 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `group_id` mediumint(8) unsigned NOT NULL,
   `ip_address` int(10) unsigned NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(40) NOT NULL,

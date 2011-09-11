@@ -1,6 +1,5 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "group_id" int NOT NULL,
     "ip_address" char(16) NOT NULL,
     "username" varchar(15) NOT NULL,
     "password" varchar(40) NOT NULL,
@@ -47,8 +46,8 @@ INSERT INTO groups (id, name, description) VALUES
     (1,'admin','Administrator'),
     (2,'members','General User');
     
-INSERT INTO users (id, group_id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) VALUES
-    ('1','1','127.0.0.1','administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL,'1268889823','1268889823','1','Admin','istrator','ADMIN','0'); 
+INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) VALUES
+    ('1','127.0.0.1','administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL,'1268889823','1268889823','1','Admin','istrator','ADMIN','0'); 
 
 INSERT INTO users_groups (id, user_id, group_id) VALUES
     (1,1,1),
