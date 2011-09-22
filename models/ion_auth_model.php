@@ -661,7 +661,7 @@ class Ion_auth_model extends CI_Model
 
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select('username, email, id, password')
+	    $query = $this->db->select('username, email, id, password, last_login')
 				          ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
 		                  ->where('active', 1)
 		                  ->limit(1)
@@ -675,13 +675,14 @@ class Ion_auth_model extends CI_Model
 
 			if ($user->password === $password)
 			{
-				$this->update_last_login($user->id);
-
 				$session_data = array(
 					'username'             => $user->username,
 					'email'                => $user->email,
 					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+					'old_last_login'       => $user->last_login
 				);
+
+				$this->update_last_login($user->id);
 
 				$this->session->set_userdata($session_data);
 
