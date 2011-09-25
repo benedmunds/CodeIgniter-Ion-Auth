@@ -340,11 +340,11 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group)
+	public function in_group($check_group, $id=false)
 	{
 		$this->ci->ion_auth_model->trigger_events('in_group');
 
-		$users_groups = $this->ci->ion_auth_model->get_users_groups();
+		$users_groups = $this->ci->ion_auth_model->get_users_groups($id);
 		$groups = array();
 		foreach ($users_groups as $group)
 		{
