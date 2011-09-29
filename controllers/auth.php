@@ -117,28 +117,33 @@ class Auth extends Controller {
 		{
 			redirect('auth/login', 'refresh');
 		}
-		$user = $this->ion_auth->get_user($this->session->userdata('user_id'));
+		
+		$user = $this->ion_auth->current()->row();
 
 		if ($this->form_validation->run() == false)
 		{ //display the form
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
-			$this->data['old_password'] = array('name' => 'old',
-				'id' => 'old',
+			$this->data['old_password'] = array(
+				'name' => 'old',
+				'id'   => 'old',
 				'type' => 'password',
 			);
-			$this->data['new_password'] = array('name' => 'new',
-				'id' => 'new',
+			$this->data['new_password'] = array(
+				'name' => 'new',
+				'id'   => 'new',
 				'type' => 'password',
 			);
-			$this->data['new_password_confirm'] = array('name' => 'new_confirm',
-				'id' => 'new_confirm',
+			$this->data['new_password_confirm'] = array(
+				'name' => 'new_confirm',
+				'id'   => 'new_confirm',
 				'type' => 'password',
 			);
-			$this->data['user_id'] = array('name' => 'user_id',
-				'id' => 'user_id',
-				'type' => 'hidden',
+			$this->data['user_id'] = array(
+				'name'  => 'user_id',
+				'id'    => 'user_id',
+				'type'  => 'hidden',
 				'value' => $user->id,
 			);
 
