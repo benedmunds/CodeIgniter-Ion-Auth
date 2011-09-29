@@ -379,7 +379,7 @@ class Ion_auth_model extends CI_Model
 		
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select('password, salt')
+	    $query = $this->db->select('id, password, salt')
 			      ->where($this->identity_column, $identity)
 			      ->limit(1)
 			      ->get($this->tables['users']);
@@ -387,7 +387,7 @@ class Ion_auth_model extends CI_Model
 	    $result = $query->row();
 
 	    $db_password = $result->password;
-	    $old	     = $this->hash_password_db($identity, $old);
+	    $old	     = $this->hash_password_db($result->id, $old);
 	    $new	     = $this->hash_password($new, $result->salt);
 
 	    if ($db_password === $old)
@@ -599,7 +599,7 @@ class Ion_auth_model extends CI_Model
 			'username'   => $username,
 			'password'   => $password,
 			'email'      => $email,
-			'ip_address' => ip2long($ip_address),
+			'ip_address' => sprintf('%u', ip2long($ip_address)),
 			'created_on' => now(),
 			'last_login' => now(),
 			'active'     => 1
@@ -661,7 +661,7 @@ class Ion_auth_model extends CI_Model
 
 	    $this->trigger_events('extra_where');
 		
-	    $query = $this->db->select('username, email, id, password')
+	    $query = $this->db->select('username, email, id, password, last_login')
 				          ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
 		                  ->where('active', 1)
 		                  ->limit(1)
@@ -675,13 +675,14 @@ class Ion_auth_model extends CI_Model
 
 			if ($user->password === $password)
 			{
-				$this->update_last_login($user->id);
-
 				$session_data = array(
 					'username'             => $user->username,
 					'email'                => $user->email,
 					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+					'old_last_login'       => $user->last_login
 				);
+
+				$this->update_last_login($user->id);
 
 				$this->session->set_userdata($session_data);
 
@@ -998,11 +999,11 @@ class Ion_auth_model extends CI_Model
 			{
 				$data['password'] = $this->hash_password($data['password'], $user->salt);
 			}
-
-			$this->trigger_events('extra_where');
-
-			$this->db->update($this->tables['users'], $data, array('id' => $user->id));
 	    }
+
+	    $this->trigger_events('extra_where');
+	    $this->db->update($this->tables['users'], $data, array('id' => $user->id));
+
 
 	    if ($this->db->trans_status() === FALSE)
 	    {

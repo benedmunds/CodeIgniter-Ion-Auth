@@ -29,8 +29,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `group_id` mediumint(8) unsigned NOT NULL,
-  `ip_address` int(10) unsigned NOT NULL
+  `ip_address` int(10) unsigned NOT NULL,
   `username` varchar(15) NOT NULL,
   `password` varchar(40) NOT NULL,
   `salt` varchar(40) DEFAULT NULL,
@@ -65,8 +64,8 @@ DROP TABLE IF EXISTS `users_groups`;
 
 CREATE TABLE `users_groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` mediumint(8) NOT NULL,
-  `group_id` mediumint(8) NOT NULL,
+  `user_id` mediumint(8) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL,
   PRIMARY KEY (`id`)
 );
 

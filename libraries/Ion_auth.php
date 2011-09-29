@@ -103,7 +103,7 @@ class Ion_auth
 		if ( $this->ci->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
-			$user = $this->get_user_by_identity($identity);  //changed to get_user_by_identity from email
+			$user = $this->where($this->ci->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
 
 			$data = array(
 				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
@@ -147,7 +147,7 @@ class Ion_auth
 		$this->ci->ion_auth_model->trigger_events('pre_password_change');
 		
 		$identity = $this->ci->config->item('identity', 'ion_auth');
-		$profile  = $this->user($code, true)->row(); //pass the code to profile
+		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -340,11 +340,11 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group)
+	public function in_group($check_group, $id=false)
 	{
 		$this->ci->ion_auth_model->trigger_events('in_group');
 
-		$users_groups = $this->ci->ion_auth_model->get_users_groups();
+		$users_groups = $this->ci->ion_auth_model->get_users_groups($id);
 		$groups = array();
 		foreach ($users_groups as $group)
 		{
