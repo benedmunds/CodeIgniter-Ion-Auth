@@ -561,7 +561,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = false, $groups = array())
+	public function register($username, $password, $email, $additional_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 		
@@ -1357,12 +1357,14 @@ class Ion_auth_model extends CI_Model
 	{
 		$filtered_data = array();
 		$columns = $this->db->list_fields($table);
-
-		foreach ($columns as $column)
-		{
-		   if (array_key_exists($column, $data))
-				   $filtered_data[$column] = $data[$column];
-		} 
+		
+		if (is_array($data)) {
+			foreach ($columns as $column)
+			{
+				if (array_key_exists($column, $data))
+					$filtered_data[$column] = $data[$column];
+			}
+		}
 		
 		return $filtered_data;
 	}
