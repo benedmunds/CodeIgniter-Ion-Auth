@@ -284,7 +284,6 @@ class Ion_auth
 		
 		$identity = $this->ci->config->item('identity', 'ion_auth');
 		$this->ci->session->unset_userdata($identity);
-		$this->ci->session->unset_userdata('group');
 		$this->ci->session->unset_userdata('id');
 		$this->ci->session->unset_userdata('user_id');
 
