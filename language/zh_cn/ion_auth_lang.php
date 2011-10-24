@@ -17,7 +17,7 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	 = '账号创建成功';
 $lang['account_creation_unsuccessful'] 	 	 = '账号创建失败';
-$lang['account_creation_duplicate_email'] 	 = '电子邮件已被使用或者不合法';
+$lang['account_creation_duplicate_email'] 	 = '电子邮件已被使用或不合法';
 $lang['account_creation_duplicate_username'] 	 = '账号已存在或不合法';
 
 
