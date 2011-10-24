@@ -567,12 +567,12 @@ class Ion_auth_model extends CI_Model
 		
 	    if ($this->identity_column == 'email' && $this->email_check($email))
 	    {
-			$this->ion_auth->set_error('account_creation_duplicate_email');
+			$this->set_error('account_creation_duplicate_email');
 			return FALSE;
 	    }
 	    elseif ($this->identity_column == 'username' && $this->username_check($username))
 	    {
-			$this->ion_auth->set_error('account_creation_duplicate_username');
+			$this->set_error('account_creation_duplicate_username');
 			return FALSE;
 	    }
 
@@ -612,7 +612,7 @@ class Ion_auth_model extends CI_Model
 
 		//filter out any data passed that doesnt have a matching column in the users table
 		//and merge the set user data and the additional data
-		$user_data = array_merge($this->_filter_data('users', $additional_data), $data);
+		$user_data = array_merge($this->_filter_data($this->tables['users'], $additional_data), $data);
 	    
 	    $this->trigger_events('extra_set');
 
@@ -982,7 +982,7 @@ class Ion_auth_model extends CI_Model
 	    if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 	    {
 			$this->db->trans_rollback();
-			$this->ion_auth->set_error('account_creation_duplicate_'.$this->identity_column);
+			$this->set_error('account_creation_duplicate_'.$this->identity_column);
 			
 			$this->trigger_events(array('post_update_user', 'post_update_user_unsuccessful'));
 			$this->set_error('update_unsuccessful');
@@ -1173,7 +1173,6 @@ class Ion_auth_model extends CI_Model
 			                    $this->identity_column => $user->{$this->identity_column},
 			                    'id'                   => $user->id, //kept for backwards compatibility
 			                    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-			                    'user_id'              => $user->id, 
 			                     );
 
 			$this->session->set_userdata($session_data);
