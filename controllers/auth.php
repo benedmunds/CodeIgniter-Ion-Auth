@@ -7,6 +7,8 @@ if ( ! class_exists('Controller'))
 
 class Auth extends Controller {
 
+	public $data;
+
 	function __construct()
 	{
 		parent::__construct();
