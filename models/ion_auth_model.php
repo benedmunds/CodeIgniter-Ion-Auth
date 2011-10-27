@@ -806,7 +806,10 @@ class Ion_auth_model extends CI_Model
 			}
 	    }
 
-	    $this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->join['users'], 'left');
+	    if (isset($this->tables['meta']))
+	    {
+	    	$this->db->join($this->tables['meta'], $this->tables['users'].'.id = '.$this->tables['meta'].'.'.$this->join['users'], 'left');
+	    }
 
 	    $this->trigger_events('extra_where');
 
