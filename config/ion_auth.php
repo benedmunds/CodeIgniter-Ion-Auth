@@ -23,6 +23,10 @@
 	$config['tables']['groups']          = 'groups';
 	$config['tables']['users']           = 'users';
 	$config['tables']['users_groups']    = 'users_groups';
+	/**
+	 * If a user meta information table exists then define it here, otherwise comment this
+	 * array item out so it doesn't attempt to be joined in the query and may end in database error
+	 */
 	$config['tables']['meta']            = 'meta';
 	
 	/**
