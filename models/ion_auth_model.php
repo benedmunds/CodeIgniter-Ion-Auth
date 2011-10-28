@@ -612,7 +612,7 @@ class Ion_auth_model extends CI_Model
 
 		//filter out any data passed that doesnt have a matching column in the users table
 		//and merge the set user data and the additional data
-		$user_data = array_merge($this->_filter_data('users', $additional_data), $data);
+		$user_data = array_merge($this->_filter_data($this->tables['users'], $additional_data), $data);
 	    
 	    $this->trigger_events('extra_set');
 
@@ -1003,7 +1003,7 @@ class Ion_auth_model extends CI_Model
 	    }
 	    
 		// Filter the data passed
-		$data = $this->_filter_data('users', $data);
+		$data = $this->_filter_data($this->tables['users'], $data);
 
 	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 	    {
