@@ -62,7 +62,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @var array
 	 **/
-	public $_ion_where = NULL;
+	public $_ion_where = array();
 
 	/**
 	 * Limit
@@ -561,7 +561,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = false, $groups = array())
+	public function register($username, $password, $email, $additional_data = array(), $groups = array())
 	{
 		$this->trigger_events('pre_register');
 		
