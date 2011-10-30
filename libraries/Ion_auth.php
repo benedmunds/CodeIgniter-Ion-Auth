@@ -343,7 +343,7 @@ class Ion_auth
 	{
 		$this->ci->ion_auth_model->trigger_events('in_group');
 
-		$users_groups = $this->ci->ion_auth_model->get_users_groups($id);
+		$users_groups = $this->ci->ion_auth_model->get_users_groups($id)->result();
 		$groups = array();
 		foreach ($users_groups as $group)
 		{
