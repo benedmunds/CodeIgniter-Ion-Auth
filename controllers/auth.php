@@ -40,7 +40,7 @@ class Auth extends Controller {
 			$this->data['users'] = $this->ion_auth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
 			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id);
+				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 	
 			
