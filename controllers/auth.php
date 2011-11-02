@@ -118,7 +118,7 @@ class Auth extends Controller {
 			redirect('auth/login', 'refresh');
 		}
 		
-		$user = $this->ion_auth->current()->row();
+		$user = $this->ion_auth->user()->row();
 
 		if ($this->form_validation->run() == false)
 		{ //display the form
