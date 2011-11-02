@@ -45,18 +45,12 @@
 	$config['admin_group']         = 'admin';
 	 
 	/**
-	 * Meta table column and Group table column you want to join WITH.
+	 * Users table column and Group table column you want to join WITH.
 	 * Joins from users.id
 	 * Joins from groups.id
 	 **/
 	$config['join']['users']       = 'user_id';
 	$config['join']['groups']      = 'group_id';
-	
-	/**
-	 * Columns in your meta table,
-	 * id not required.
-	 **/
-	$config['columns']             = array('first_name', 'last_name', 'company', 'phone');
 	
 	/**
 	 * A database column which is used to
