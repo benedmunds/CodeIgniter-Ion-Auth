@@ -990,7 +990,7 @@ class Ion_auth_model extends CI_Model
 	    }
 	    
 		// Filter the data passed
-		$data = $this->_filter_data('users', $data);
+		$data = $this->_filter_data($this->tables['users'], $data);
 
 	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 	    {
