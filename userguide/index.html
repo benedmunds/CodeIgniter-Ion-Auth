@@ -251,7 +251,7 @@ Documentation
 		<li>'Password' - string REQUIRED.</li>
 		<li>'Email' - string REQUIRED.</li>
 		<li>'Additional Data' - multidimensional array REQUIRED.</li>
-		<li>'Group Name' - string OPTIONAL.  If not passed the default group name set in the config will be used.</li>
+		<li>'Group' - array OPTIONAL.  If not passed the default group name set in the config will be used.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -267,8 +267,9 @@ Documentation
 		$additional_data = array(
 								'first_name' => 'Ben',
 								'last_name' => 'Edmunds',
-								);
-		$group_name = 'users';
+								);								
+		$group = array('1'); // Sets user to admin. No need for array('1', '2') as user is always set to member by default
+		
 		$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
 	</pre>
 	<br />
