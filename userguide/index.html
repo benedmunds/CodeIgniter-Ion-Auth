@@ -607,11 +607,6 @@ Documentation
 	<h2>users()</h2>
 	<p>Get the users.</p>
 
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
 	<p><strong>Return</strong></p>
 	<ul>
 		<li>array of objects</li>
@@ -619,8 +614,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$admin_group = 'admin';
-		$admin_users = $this->ion_auth->users($admin_group);
+		$admin_users = $this->ion_auth->users();
 	</pre>
 	<br />
 
