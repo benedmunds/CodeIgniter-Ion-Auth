@@ -134,6 +134,13 @@ class Ion_auth_model extends CI_Model
 	 **/
 	protected $error_end_delimiter;
 	
+	/**
+	 * user groups
+	 * 
+	 * @var array
+	 */
+	private $_groups = array();
+	
 
 	public function __construct()
 	{
@@ -869,12 +876,16 @@ class Ion_auth_model extends CI_Model
 		
 		//if no id was passed use the current users id
 		$id || $id = $this->session->userdata('user_id');
-
-		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
+		
+		if (!isset($this->_groups[$id]))
+		{
+			$this->_groups[$id] = $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
 						->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
 						->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
-						->get($this->tables['users_groups'])
-						->result();
+						->get($this->tables['users_groups']);
+		}
+		
+		return $this->_groups[$id];
 	}
 
 
