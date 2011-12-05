@@ -17,7 +17,6 @@ CREATE TABLE "users" (
     "phone" varchar(20),
   PRIMARY KEY("id"),
   CONSTRAINT "check_id" CHECK(id >= 0),
-  CONSTRAINT "check_group_id" CHECK(group_id >= 0),
   CONSTRAINT "check_active" CHECK(active >= 0)
 );
 
