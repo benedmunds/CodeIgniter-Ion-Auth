@@ -59,29 +59,14 @@
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
 				<li><a href="#identity_check">identity_check()</a></li>
-				<li><a href="#get_user">get_user()</a></li>
-				<li><a href="#get_user_array">get_user_array()</a></li>
-				<li><a href="#get_user_by_email">get_user_by_email()</a></li>
-				<li><a href="#get_users_by_email">get_users_by_email()</a></li>
-				<li><a href="#get_user_by_identity">get_user_by_identity()</a></li>
-				<li><a href="#get_users">get_users()</a></li>
-                                <li><a href="#get_users_count">get_users_count()</a></li>
-				<li><a href="#get_users_array">get_users_array()</a></li>
-				<li><a href="#get_newest_users">get_newest_users()</a></li>
-				<li><a href="#get_newest_users_array">get_newest_users_array()</a></li>
-				<li><a href="#get_active_users">get_active_users()</a></li>
-				<li><a href="#get_active_users_array">get_active_users_array()</a></li>
-				<li><a href="#get_inactive_users">get_inactive_users()</a></li>
-				<li><a href="#get_inactive_users_array">get_inactive_users_array()</a></li>
-				<li><a href="#get_groups">get_groups()</a></li>
-				<li><a href="#get_group">get_group()</a></li>
-				<li><a href="#get_group_by_name">get_group_by_name()</a></li>
+				<li><a href="#user">user()</a></li>
+				<li><a href="#users">users()</a></li>
+				<li><a href="#group">group()</a></li>
+				<li><a href="#groups">groups()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
-				<li><a href="#extra_where">extra_where()</a></li>
-				<li><a href="#extra_set">extra_set()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -559,7 +544,7 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 		//This is a lame example but it works.
-		$user = $this->ion_auth->get_user();
+		$user = $this->ion_auth->user();
 		$data = array(
 					'identity' => $this->input->post('identity'),
 					'first_name' => $this->input->post('first_name'),
@@ -572,8 +557,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="get_user"></a>
-	<h2>get_user()</h2>
+	<a name="user"></a>
+	<h2>user()</h2>
 	<p>Get a user.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -612,170 +597,13 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$user = $this->ion_auth->get_user();
+		$user = $this->ion_auth->user();
 		echo $user->email;
 	</pre>
 	<br />
 
-	<a name="get_user_array"></a>
-	<h2>get_user_array()</h2>
-	<p>Get a user.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li><pre>Array
-			(
-				[id] => 1
-				[group_id] => 1
-				[ip_address] => 127.0.0.1
-				[username] => administrator
-				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
-				[salt] => 9462e8eee0
-				[email] => admin@admin.com
-				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
-				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
-				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
-				[created_on] => 1268889823
-				[last_login] => 1279464628
-				[active] => 0
-				[group] => admin
-				[group_description] => Administrator
-				[first_name] => Admin
-				[last_name] => Account
-				[company] => Some Corporation
-				[phone] => (123)456-7890
-			)
-			</pre></li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$user = $this->ion_auth->get_user_array();
-		echo $user['email'];
-	</pre>
-	<br />
-
-	<a name="get_user_by_email"></a>
-	<h2>get_user_by_email()</h2>
-	<p>Get a user by their email address.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Email' - string REQUIRED.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>
-			<pre>
-			stdClass Object (
-				[id] => 1
-				[group_id] => 1
-				[ip_address] => 127.0.0.1
-				[username] => administrator
-				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
-				[salt] => 9462e8eee0
-				[email] => admin@admin.com
-				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
-				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
-				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
-				[created_on] => 1268889823
-				[last_login] => 1279464628
-				[active] => 0
-				[group] => admin
-				[group_description] => Administrator
-				[first_name] => Admin
-				[last_name] => Account
-				[company] => Some Corporation
-				[phone] => (123)456-7890
-			)
-			</pre>
-		</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$email = 'ben.edmunds@gmail.com';
-		$user = $this->ion_auth->get_user_by_email($email);
-		echo $user->first_name;
-	</pre>
-	<br />
-
-	<a name="get_users_by_email"></a>
-	<h2>get_users_by_email()</h2>
-	<p>Get users by their email address.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Email' - string REQUIRED.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>multidimensional array</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$email = 'ben.edmunds@gmail.com';
-		$users = $this->ion_auth->get_users_by_email($email);
-		print_r($users);
-	</pre>
-	<br />
-	
-	<a name="get_user_by_identity"></a>
-	<h2>get_user_by_identity()</h2>
-	<p>Get a user by their identity. (as defined in config/ion_auth.php)</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Identity' - string REQUIRED.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>
-			<pre>
-			stdClass Object (
-				[id] => 1
-				[group_id] => 1
-				[ip_address] => 127.0.0.1
-				[username] => administrator
-				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
-				[salt] => 9462e8eee0
-				[email] => admin@admin.com
-				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
-				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
-				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
-				[created_on] => 1268889823
-				[last_login] => 1279464628
-				[active] => 0
-				[group] => admin
-				[group_description] => Administrator
-				[first_name] => Admin
-				[last_name] => Account
-				[company] => Some Corporation
-				[phone] => (123)456-7890
-			)
-			</pre>
-		</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$identity = 'ben.edmunds@gmail.com';             //or username depending on config/ion_auth.php
-		$user = $this->ion_auth->get_user_by_identity($identity);
-		echo $user->first_name;
-	</pre>
-	<br />
-
-	<a name="get_users"></a>
-	<h2>get_users()</h2>
+	<a name="users"></a>
+	<h2>users()</h2>
 	<p>Get the users.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -791,214 +619,12 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 		$admin_group = 'admin';
-		$admin_users = $this->ion_auth->get_users($admin_group);
+		$admin_users = $this->ion_auth->users($admin_group);
 	</pre>
 	<br />
 
-	<a name="get_users"></a>
-	<h2>get_users()</h2>
-	<p>Get the users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>array of objects</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$admin_users = $this->ion_auth->get_users($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_users_count"></a>
-	<h2>get_users_count()</h2>
-	<p>Get the number of users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be counted.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>int Number of users</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$numberOfUsers = $this->ion_auth->get_users_count();
-	</pre>
-	<br />
-
-	<a name="get_users_array"></a>
-	<h2>get_users_array()</h2>
-	<p>Get the users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group Name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>multidimensional array</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$admin_users = $this->ion_auth->get_users($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_newest_users"></a>
-	<h2>get_newest_users()</h2>
-	<p>Get the newest users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Limit' - integer OPTIONAL.  Default value is 10.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>array of objects</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$newest_users = $this->ion_auth->get_newest_users(20);
-	</pre>
-	<br />
-
-	<a name="get_newest_users_array"></a>
-	<h2>get_newest_users_array()</h2>
-	<p>Get the newest users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Limit' - integer OPTIONAL.  Default value is 10.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>multidimensional array</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$newest_admin_users = $this->ion_auth->get_newest_users_array($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_active_users"></a>
-	<h2>get_active_users()</h2>
-	<p>Get the active users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>array of objects</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$active_admin_users = $this->ion_auth->get_active_users($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_active_users_array"></a>
-	<h2>get_active_users_array()</h2>
-	<p>Get the active users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>multidimensional array</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$active_admin_users = $this->ion_auth->get_active_users_array($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_inactive_users"></a>
-	<h2>get_inactive_users()</h2>
-	<p>Get the inactive users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>array of objects</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$inactive_admin_users = $this->ion_auth->get_inactive_users($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_inactive_users_array"></a>
-	<h2>get_inactive_users_array()</h2>
-	<p>Get the inactive users.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Group name' - string OPTIONAL.  If a group is not supplied all users will be returned.</li>
-	</ol>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>multidimensional array</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$admin_group = 'admin';
-		$inactive_admin_users = $this->ion_auth->get_inactive_users_array($admin_group);
-	</pre>
-	<br />
-
-	<a name="get_groups"></a>
-	<h2>get_groups()</h2>
-	<p>Get the groups.</p>
-
-	<p><strong>Return</strong></p>
-	<ul>
-		<li>array of objects</li>
-	</ul>
-
-	<p><b>Usage</b></p>
-	<pre>
-		$groups = $this->ion_auth->get_groups();
-	</pre>
-	<br />
-
-	<a name="get_group"></a>
-	<h2>get_group()</h2>
+	<a name="group"></a>
+	<h2>group()</h2>
 	<p>Get a group.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1014,28 +640,22 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 		$group_id = 2;
-		$group = $this->ion_auth->get_group($group_id);
+		$group = $this->ion_auth->group($group_id);
 	</pre>
 	<br />
 
-	<a name="get_group_by_name"></a>
-	<h2>get_group_by_name()</h2>
-	<p>Get a group.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Name' - string REQUIRED.</li>
-	</ol>
+	<a name="groups"></a>
+	<h2>groups()</h2>
+	<p>Get the groups.</p>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>object</li>
+		<li>array of objects</li>
 	</ul>
 
 	<p><b>Usage</b></p>
 	<pre>
-		$group_name = 'users';
-		$group = $this->ion_auth->get_group_by_name($group_name);
+		$groups = $this->ion_auth->groups();
 	</pre>
 	<br />
 
@@ -1160,47 +780,6 @@ Documentation
 		}
 	</pre>
 	<br />
-
-	<a name="extra_where"></a>
-	<h2>extra_where()</h2>
-	<p>Allows extra where field to be used for user fetching/unique checking etc.  Basically this allows users to be unique based on one other thing than the identifier which is helpful for sites using multiple domains on a single database.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>string or array REQUIRED.</li>
-	</ol>
-
-	<p><b>String Usage</b></p>
-	<pre>
-		$this->ion_auth->extra_where("meta.domain = 'yourmother.com'");
-	</pre>
-	<p><b>Array Usage</b></p>
-	<pre>
-		$where = array('meta.domain', 'yourmother.com');
-		$this->ion_auth->extra_where($where);
-	</pre>
-	<br />
-
-	<a name="extra_set"></a>
-	<h2>extra_set()</h2>
-	<p>Allows extra set field to be used for user registration.  This is helpful for sites using multiple domains on a single database.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>string or array REQUIRED.</li>
-	</ol>
-
-	<p><b>String Usage</b></p>
-	<pre>
-		$this->ion_auth->extra_set("meta.domain = 'yourmother.com'");
-	</pre>
-	<p><b>Array Usage</b></p>
-	<pre>
-		$where = array('meta.domain', 'yourmother.com');
-		$this->ion_auth->extra_set($where);
-	</pre>
-	<br />
-
 
 </div>
 <!-- END CONTENT -->

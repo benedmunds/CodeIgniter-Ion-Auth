@@ -600,8 +600,8 @@ class Ion_auth_model extends CI_Model
 			'password'   => $password,
 			'email'      => $email,
 			'ip_address' => sprintf('%u', ip2long($ip_address)),
-			'created_on' => now(),
-			'last_login' => now(),
+			'created_on' => time(),
+			'last_login' => time(),
 			'active'     => 1
 		);
 
@@ -873,8 +873,7 @@ class Ion_auth_model extends CI_Model
 		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
 						->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
 						->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
-						->get($this->tables['users_groups'])
-						->result();
+						->get($this->tables['users_groups']);
 	}
 
 
@@ -991,7 +990,7 @@ class Ion_auth_model extends CI_Model
 	    }
 	    
 		// Filter the data passed
-		$data = $this->_filter_data('users', $data);
+		$data = $this->_filter_data($this->tables['users'], $data);
 
 	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 	    {
@@ -1067,7 +1066,7 @@ class Ion_auth_model extends CI_Model
 		
 	    $this->trigger_events('extra_where');
 
-	    $this->db->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
+	    $this->db->update($this->tables['users'], array('last_login' => time()), array('id' => $id));
 
 	    return $this->db->affected_rows() == 1;
 	}
