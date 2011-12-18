@@ -198,7 +198,7 @@ class Ion_auth
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = false, $group_name = false) //need to test email activation
+	public function register($username, $password, $email, $additional_data = array(), $group_name = array()) //need to test email activation
 	{
 		$this->ci->ion_auth_model->trigger_events('pre_account_creation');
 
