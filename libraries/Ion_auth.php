@@ -100,7 +100,7 @@ class Ion_auth
 	 **/
 	public function forgotten_password($identity)    //changed $email to $identity
 	{
-		if ( $this->ci->ion_auth_model->forgotten_password($identity,$this->ci->config->item('identity', 'ion_auth')) )   //changed
+		if ( $this->ci->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
 			$user = $this->where($this->ci->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
