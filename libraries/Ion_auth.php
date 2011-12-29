@@ -105,23 +105,31 @@ class Ion_auth
 			// Get user information
 			$user = $this->where($this->ci->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
 
-			$data = array(
-				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
-				'forgotten_password_code' => $user->forgotten_password_code
-			);
-
-			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
-			$this->ci->email->clear();
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
-			$this->ci->email->to($user->email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
-			$this->ci->email->message($message);
-
-			if ($this->ci->email->send())
-			{
-				$this->set_message('forgot_password_successful');
-				return TRUE;
+			if ($user) {
+			
+				$data = array(
+					'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
+					'forgotten_password_code' => $user->forgotten_password_code
+				);
+	
+				$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
+				$this->ci->email->clear();
+				$this->ci->email->set_newline("\r\n");
+				$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+				$this->ci->email->to($user->email);
+				$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
+				$this->ci->email->message($message);
+	
+				if ($this->ci->email->send())
+				{
+					$this->set_message('forgot_password_successful');
+					return TRUE;
+				}
+				else
+				{
+					$this->set_error('forgot_password_unsuccessful');
+					return FALSE;
+				}
 			}
 			else
 			{
