@@ -491,7 +491,7 @@ class Ion_auth_model extends CI_Model
 	 * @author Mathew
 	 * @updated Ryan
 	 **/
-	public function forgotten_password($identity, $identity_key)
+	public function forgotten_password($identity)
 	{
 	    if (empty($identity))
 	    {
@@ -505,7 +505,7 @@ class Ion_auth_model extends CI_Model
 
 	    $this->trigger_events('extra_where');
 		
-	    $this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array($identity_key => $identity));
+	    $this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array($this->identity_column => $identity));
 			
 		
 		$return = $this->db->affected_rows() == 1;
