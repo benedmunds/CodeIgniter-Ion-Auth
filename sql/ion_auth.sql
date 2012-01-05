@@ -38,6 +38,7 @@ CREATE TABLE `users` (
   `forgotten_password_code` varchar(40) DEFAULT NULL,
   `remember_code` varchar(40) DEFAULT NULL,
   `created_on` int(11) unsigned NOT NULL,
+  `created_by` int(10) unsigned NOT NULL,
   `last_login` int(11) unsigned DEFAULT NULL,
   `active` tinyint(1) unsigned DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
