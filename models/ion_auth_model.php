@@ -489,24 +489,25 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @return bool
 	 * @author Mathew
+	 * @updated Ryan
 	 **/
-	public function forgotten_password($email = '')
+	public function forgotten_password($identity)
 	{
-	    if (empty($email))
+	    if (empty($identity))
 	    {
 			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
 			return FALSE;
 	    }
 
-	    $key = $this->hash_password(microtime().$email);
+	    $key = $this->hash_password(microtime().$identity);
 
 	    $this->forgotten_password_code = $key;
 
 	    $this->trigger_events('extra_where');
 
-	    $this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array('email' => $email));
-
-
+	    $this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array($this->identity_column => $identity));
+			
+		
 		$return = $this->db->affected_rows() == 1;
 
 		if ($return)
