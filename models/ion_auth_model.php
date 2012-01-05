@@ -834,6 +834,57 @@ class Ion_auth_model extends CI_Model
 		return $this;
 	}
 
+    /**
+     * users meta data
+     * this function will get a full information about the users including the
+     * groups that they belong to ..
+     * plus the ability to get the filter the users based on the groups
+     *
+     * @return object Users
+     * @author Mhd Zaher Ghaibeh
+     * */
+    public function users_meta() {
+        $this->trigger_events('users');
+
+        $this->db->select(array(
+            $this->tables['users'] . '.*',
+            $this->tables['groups'] . '.name',
+            $this->tables['groups'] . '.descriptions',
+        ));
+
+
+        $this->trigger_events('extra_where');
+
+        //run each where that was passed
+        if (isset($this->_ion_where)) {
+            foreach ($this->_ion_where as $where) {
+                $this->db->where($where);
+            }
+
+            $this->_ion_where = array();
+        }
+
+        if (isset($this->_ion_limit) && isset($this->_ion_offset)) {
+            $this->db->limit($this->_ion_limit, $this->_ion_offset);
+
+            $this->_ion_limit = NULL;
+            $this->_ion_offset = NULL;
+        }
+
+        //set the order
+        if (isset($this->_ion_order_by) && isset($this->_ion_order)) {
+            $this->db->order_by($this->_ion_order_by, $this->_ion_order);
+
+            $this->_ion_order = NULL;
+            $this->_ion_order_by = NULL;
+        }
+
+        $this->db->from($this->tables['users'])
+                ->join($this->tables['users_groups'],$this->tables['users_groups'].'.user_id = '.$this->tables['users'].'.id')
+                ->join($this->tables['groups'],$this->tables['groups'].'.id='.$this->tables['users_groups'].'.group_id');
+        $this->response = $this->db->get();
+        return $this;
+    }        
 
 	/**
 	 * user
