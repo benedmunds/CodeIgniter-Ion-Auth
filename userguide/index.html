@@ -1,0 +1,789 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Ion Auth</title>
+
+<style type='text/css' media='all'>@import url('./userguide.css');</style>
+<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+
+<meta http-equiv='expires' content='-1' />
+<meta http-equiv= 'pragma' content='no-cache' />
+<meta name='robots' content='all' />
+
+</head>
+<body>
+
+<!-- START NAVIGATION -->
+<div id="nav"><div id="nav_inner">
+<table cellpadding="0" cellspacing="0" border="0" style="width:98%">
+	<tr>
+		<td class="td" valign="top">
+			<h3>Author Info</h3>
+			<ul>
+				<li><a href="http://benedmunds.com">Ben Edmunds</a></li>
+				<li><a href="http://github.com/benedmunds">GitHub</a></li>
+			</ul>
+			<h3>Basic Info</h3>
+			<ul>
+				<li><a href="#license">License</a></li>
+				<li><a href="http://github.com/benedmunds/CodeIgniter-Ion-Auth">GitHub Repo</a></li>
+			</ul>
+			<h3>Introduction</h3>
+			<ul>
+				<li><a href="#install">Installation</a></li>
+				<li><a href="#loading">Loading the Library</a></li>
+			</ul>
+		</td>
+		<td class="td_sep" valign="top">
+    		<h3>Configuration</h3>
+    		<ul>
+			    <li><a href="#config">General</a></li>
+    			<li><a href="#use_config">Config Options</a></li>
+    		</ul>
+			<h3>Class Functions</h3>
+			<ul>
+				<li><a href="#login">login()</a></li>
+				<li><a href="#logout">logout()</a></li>
+				<li><a href="#register">register()</a></li>
+				<li><a href="#update_user">update_user()</a></li>
+				<li><a href="#delete_user">delete_user()</a></li>
+				<li><a href="#forgotten_password">forgotten_password()</a></li>
+				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
+				<li><a href="#logged_in">logged_in()</a></li>
+				<li><a href="#is_admin">is_admin()</a></li>
+				<li><a href="#is_group">is_group()</a></li>
+				<li><a href="#username_check">username_check()</a></li>
+				<li><a href="#email_check">email_check()</a></li>
+				<li><a href="#identity_check">identity_check()</a></li>
+				<li><a href="#user">user()</a></li>
+				<li><a href="#users">users()</a></li>
+				<li><a href="#group">group()</a></li>
+				<li><a href="#groups">groups()</a></li>
+				<li><a href="#messages">messages()</a></li>
+				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
+				<li><a href="#errors">errors()</a></li>
+				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
+			</ul>
+    	</td>
+	</tr>
+</table>
+</div></div>
+<div id="nav2"><a name="top">&nbsp;</a><a href="#" id="toggle_toc"><img src="images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
+<div id="masthead">
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td><h1>Documentation</h1></td>
+<td id="breadcrumb_right">Author:<a href="http://benedmunds.com">Ben Edmunds</a></td>
+</tr>
+</table>
+</div>
+<!-- END NAVIGATION -->
+
+
+<!-- START BREADCRUMB -->
+<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
+<tr>
+<td id="breadcrumb">
+<a href="http://benedmunds.com/ion_auth">Ion Auth</a> &nbsp;&#8250;&nbsp;
+Documentation
+</td>
+</tr>
+</table>
+<!-- END BREADCRUMB -->
+
+<br clear="all" />
+
+
+<!-- START CONTENT -->
+<div id="content">
+	<h1>Ion Auth</h1>
+
+	<p>Ion Auth is a simple and lightweight authentication library for the CodeIgniter framework</p>
+
+	<a name="license"></a>
+	<h2>License</h2>
+
+	<p>Ion Auth is released under the Apache License v2.0. You can read the license here: <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">http://www.apache.org/licenses/LICENSE-2.0</a></p>
+
+	<a name="install"></a>
+	<h2>Installation</h2>
+
+	<ol>
+		<li>Download the latest version: <a href="http://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master">http://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master</a></li>
+		<li>Copy the files from this package to the correspoding folder in your application folder.  For example, copy Ion_auth/config/ion_auth.php to system/application/config/ion_auth.php.</li>
+	</ol>
+
+	<p>The default login is:</p>
+	<ul>
+		<li>Email: admin@admin.com</li>
+		<li>Password: password</li>
+	</ul>
+
+	<a name="loading"></a>
+	<h2>Loading Ion Auth</h2>
+
+	<p>You load Ion Auth just link any other library:</p>
+	<pre>$this->load->library('ion_auth');</pre>
+
+	<p>You can also autoload the library.</p>
+
+
+	<a name="config"></a>
+	<h2>Configuration Options</h2>
+
+	<p>Ion Auth is extremely configurable.  The following configuration options are available:</p>
+	<ul>
+		<li>$config['tables']['groups']</li>
+		<li>$config['tables']['users']</li>
+		<li>$config['tables']['meta']</li>
+		<li>$config['site_title']</li>
+		<li>$config['admin_email']</li>
+		<li>$config['default_group']</li>
+		<li>$config['admin_group']</li>
+		<li>$config['join']</li>
+		<li>$config['columns']</li>
+		<li>$config['identity']</li>
+		<li>$config['min_password_length']</li>
+		<li>$config['max_password_length']</li>
+		<li>$config['email_activation']</li>
+		<li>$config['remember_users']</li>
+		<li>$config['user_expire']</li>
+		<li>$config['user_extend_on_login']</li>
+		<li>$config['email_templates']</li>
+		<li>$config['email_activate']</li>
+		<li>$config['email_forgot_password']</li>
+		<li>$config['email_forgot_password_complete'] </li>
+		<li>$config['salt_length']</li>
+		<li>$config['store_salt'] </li>
+		<li>$config['message_start_delimiter']</li>
+		<li>$config['message_end_delimiter']</li>
+		<li>$config['error_start_delimiter']</li>
+		<li>$config['error_end_delimiter']</li>
+	</ul>
+
+	<a name="use_config"></a>
+	<h2>Using Config File</h2>
+
+	<p>To change configuration options simply edit the config/ion_auth.php file.</p>
+
+	<h3>Config</h3>
+
+	<p>Edit the ion_auth $config array as needed:</p>
+	<ul>
+		<li>'tables['groups']' - The table name to use for the groups table.  DEFAULT is 'groups'.</li>
+		<li>'tables['users']' - The table name to use for the users table.  DEFAULT is 'users'.</li>
+		<li>'tables['meta']' - The table name to use for the meta table.  DEFAULT is 'meta'.</li>
+		<li>'site_title' - The title of your site, used for email.</li>
+		<li>'admin_email' - Your administrator email address.  DEFAULT is 'admin@example.com'.</li>
+		<li>'default_group' - Name of the default user group.  DEFAULT is 'members'.</li>
+		<li>'admin_group' - Name of the admin group.  DEFAULT is 'admin'.</li>
+		<li>'join' - Column to use for joining users and meta table.  DEFAULT is 'user_id'.</li>
+		<li>'columns' - The columns in the meta table.  DEFAULT is 'array('first_name', 'last_name', 'company', 'phone')'.</li>
+		<li>'identity' - Column to use for uniquely identifing user/logging in/etc. Usual choices are 'email' OR 'username'. You should add an index in the users table for whatever you set this option to. DEFAULT is 'email'.</li>
+		<li>'min_password_length' - Minimum length of passwords.  DEFAULT is '8'.</li>
+		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
+		<li>'email_activation' - TRUE or FALSE. Sets whether to require email activation or not. DEFAULT is 'false'.</li>
+		<li>'remember_users' - TRUE or FALSE. Sets whether to enable 'remember me' functionality or not. DEFAULT is 'true'.</li>
+		<li>'user_expire' - Sets how long to remember the user for in seconds. DEFAULT is '86500'.</li>
+		<li>'user_extend_on_login' -  TRUE or FALSE.  Extend the users session expiration on login. DEFAULT is 'false'.</li>
+		<li>'email_templates' -  Folder where the email view templates are stored. DEFAULT is 'auth/email/'.</li>
+		<li>'email_activate' -  Filname of the email activation view template. DEFAULT is 'activate.tpl.php'.</li>
+		<li>'email_forgot_password' -  Filname of the forgot password email view template. DEFAULT is 'forgot_password.tpl.php'.</li>
+		<li>'email_forgot_password_complete' -  Filname of the forgot password complete email view template. DEFAULT is 'new_password.tpl.php'.</li>
+		<li>'salt_length' -  Length of the encryption salt. DEFAULT is '10'.</li>
+		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
+		<li>'message_start_delimiter' -  Starting delimiter for messages. DEFAULT is '&lt;p&gt;'.</li>
+		<li>'message_end_delimiter' -  Ending delimiter for messages. DEFAULT is '&lt;/p&gt;'.</li>
+		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
+		<li>'error_end_delimiter' -  Ending delimiter for errors. DEFAULT is '&lt;/p&gt;'.</li>
+	</ul>
+	<br />
+
+	<h1>Class Function Reference</h1>
+	<p class="important"><strong>NOTE:</strong> Methods available in the model are called through the controller using PHP5 magic.  You should never use ion_auth_model->method() in your applications.</p>
+
+	<a name="login"></a>
+	<h2>login()</h2>
+	<p>Logs the user into the system.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.  Usually username or email but depends on your config.</li>
+		<li>'Password' - string REQUIRED.</li>
+		<li>'Remember' - boolean OPTIONAL. TRUE sets the user to be remembered if enabled in the config</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully logged in FALSE if the user was not logged in.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		$remember = TRUE; // remember the user
+		$this->ion_auth->login($identity, $password, $remember);
+	</pre>
+	<br />
+
+	<a name="logout"></a>
+	<h2>logout()</h2>
+	<p>Logs the user out of the system.</p>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$this->ion_auth->logout();
+	</pre>
+	<br />
+
+	<a name="register"></a>
+	<h2>register()</h2>
+	<p>Register (create) a new user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+		<li>'Password' - string REQUIRED.</li>
+		<li>'Email' - string REQUIRED.</li>
+		<li>'Additional Data' - multidimensional array REQUIRED.</li>
+		<li>'Group' - array OPTIONAL.  If not passed the default group name set in the config will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully created FALSE if the user was not created.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$username = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		$email = 'benedmunds';
+		$additional_data = array(
+								'first_name' => 'Ben',
+								'last_name' => 'Edmunds',
+								);								
+		$group = array('1'); // Sets user to admin. No need for array('1', '2') as user is always set to member by default
+
+		$this->ion_auth->register($username, $password, $email, $additional_data, $group)
+	</pre>
+	<br />
+
+	<a name="update_user"></a>
+	<h2>update_user()</h2>
+	<p>Update a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+		<li>'Data' - multidimensional array REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully updated FALSE if the user was not updated.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					'password' => '123456789',
+					 );
+		$this->ion_auth->update_user($id, $data)
+	</pre>
+	<br />
+
+	<a name="delete_user"></a>
+	<h2>delete_user()</h2>
+	<p>Delete a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully deleted FALSE if the user was not deleted.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$this->ion_auth->delete_user($id)
+	</pre>
+	<br />
+
+	<a name="forgotten_password"></a>
+	<h2>forgotten_password()</h2>
+	<p>Resets a users password by emailing the user a reset code.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.  (as defined in config/ion_auth.php)</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the users password was successfully reset FALSE if the users password was not reset.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<p> - this example assumes you have 'email' selected as the identity in config/ion_auth.php 
+	<pre>
+		//Working code for this example is in the example Auth controller in the github repo
+		function forgot_password()
+		{
+			$this->form_validation->set_rules('email', 'Email Address', 'required');
+			if ($this->form_validation->run() == false) {
+				//setup the input
+				$this->data['email'] = array('name'    => 'email',
+											 'id'      => 'email',
+											);
+				//set any errors and display the form
+				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+				$this->load->view('auth/forgot_password', $this->data);
+			}
+			else {
+				//run the forgotten password method to email an activation code to the user
+				$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
+
+				if ($forgotten) { //if there were no errors
+					$this->session->set_flashdata('message', $this->ion_auth->messages());
+					redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				}
+				else {
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+					redirect("auth/forgot_password", 'refresh');
+				}
+			}
+		}
+	</pre>
+	<br />
+
+	<a name="forgotten_password_complete"></a>
+	<h2>forgotten_password_complete()</h2>
+	<p>Final step of resetting a users password.  The user comes to this page from their email.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Code' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string.  The users new password.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//Working code for this example is in the example Auth controller in the github repo
+		public function reset_password($code)
+		{
+			$reset = $this->ion_auth->forgotten_password_complete($code);
+
+			if ($reset) {  //if the reset worked then send them to the login page
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth/login", 'refresh');
+			}
+			else { //if the reset didnt work then send them back to the forgot password page
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+				redirect("auth/forgot_password", 'refresh');
+			}
+		}
+	</pre>
+	<br />
+
+	<a name="logged_in"></a>
+	<h2>logged_in()</h2>
+	<p>Check to see if a user is logged in.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is logged in FALSE if the user is not logged in.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		if (!$this->ion_auth->logged_in())
+		{
+			redirect('auth/login');
+		}
+	</pre>
+	<br />
+
+	<a name="is_admin"></a>
+	<h2>is_admin()</h2>
+	<p>Check to see if the currently logged in user is an admin.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is an admin FALSE if the user is not an admin.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		if (!$this->ion_auth->is_admin())
+		{
+			$this->session->set_flashdata('message', 'You must be an admin to view this page');
+			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+
+	<a name="is_group"></a>
+	<h2>is_group()</h2>
+	<p>Check to see if the currently logged in user is in the passed in group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group Name' - string or array of stringsREQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is in the group FALSE if the user is not in the group.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group = 'gangstas';
+		if (!$this->ion_auth->is_group($group))
+		{
+			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+
+	<a name="username_check"></a>
+	<h2>username_check()</h2>
+	<p>Check to see if the username is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Username' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.  Usually you would use this method with form_validation.
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$email = $this->input->post('email');
+		$additional_data = array(
+								'first_name' => $this->input->post('first_name'),
+								'last_name' => $this->input->post('last_name'),
+								);
+		if (!$this->ion_auth->username_check($username))
+		{
+			$group_name = 'users';
+			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+		}
+	</pre>
+	<br />
+
+	<a name="email_check"></a>
+	<h2>email_check()</h2>
+	<p>Check to see if the email is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Email' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.  Usually you would use this method with form_validation.
+		$username = $this->input->post('username');
+		$password = $this->input->post('password');
+		$email = $this->input->post('email');
+		$additional_data = array(
+								'first_name' => $this->input->post('first_name'),
+								'last_name' => $this->input->post('last_name'),
+								);
+		if (!$this->ion_auth->email_check($email))
+		{
+			$group_name = 'users';
+			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+		}
+	</pre>
+	<br />
+
+	<a name="identity_check"></a>
+	<h2>identity_check()</h2>
+	<p>Check to see if the identity is already registered.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.
+		$user = $this->ion_auth->user();
+		$data = array(
+					'identity' => $this->input->post('identity'),
+					'first_name' => $this->input->post('first_name'),
+					'last_name' => $this->input->post('last_name'),
+					 );
+		if ($data['identity'] === $user->username || $data['identity'] === $user->email || $this->ion_auth->identity_check($data['identity']) === FALSE)
+		{
+			$this->ion_auth->update_user($user->id, $data)
+		}
+	</pre>
+	<br />
+
+	<a name="user"></a>
+	<h2>user()</h2>
+	<p>Get a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[group_id] => 1
+				[ip_address] => 127.0.0.1
+				[username] => administrator
+				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
+				[salt] => 9462e8eee0
+				[email] => admin@admin.com
+				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
+				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
+				[remember_code] => 9d029802e28cd9c768e8e62277c0df49ec65c48c
+				[created_on] => 1268889823
+				[last_login] => 1279464628
+				[active] => 0
+				[group] => admin
+				[group_description] => Administrator
+				[first_name] => Admin
+				[last_name] => Account
+				[company] => Some Corporation
+				[phone] => (123)456-7890
+			)
+			</pre>
+		</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user = $this->ion_auth->user();
+		echo $user->email;
+	</pre>
+	<br />
+
+	<a name="users"></a>
+	<h2>users()</h2>
+	<p>Get the users.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$admin_users = $this->ion_auth->users();
+	</pre>
+	<br />
+
+	<a name="group"></a>
+	<h2>group()</h2>
+	<p>Get a group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group_id = 2;
+		$group = $this->ion_auth->group($group_id);
+	</pre>
+	<br />
+
+	<a name="groups"></a>
+	<h2>groups()</h2>
+	<p>Get the groups.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array of objects</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$groups = $this->ion_auth->groups();
+	</pre>
+	<br />
+
+	<a name="messages"></a>
+	<h2>messages()</h2>
+	<p>Get messages.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="set_message_delimiters"></a>
+	<h2>set_message_delimiters()</h2>
+	<p>Set the message delimiters.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Start Delimiter' - string REQUIRED.</li>
+		<li>'End Delimiter' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="errors"></a>
+	<h2>errors()</h2>
+	<p>Get the errors.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>string</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+	<a name="set_error_delimiters"></a>
+	<h2>set_error_delimiters()</h2>
+	<p>Set the error delimiters.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Start Delimiter' - string REQUIRED.</li>
+		<li>'End Delimiter' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ion_auth->messages();
+			echo $messages;
+		}
+		else
+		{
+			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ion_auth->errors();
+			echo $errors;
+		}
+	</pre>
+	<br />
+
+</div>
+<!-- END CONTENT -->
+
+
+<div id="footer">
+	<p><a href="#top">Top of Page</a></p>
+	<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2010 Ben Edmunds &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+</div>
+
+</body>
+</html>

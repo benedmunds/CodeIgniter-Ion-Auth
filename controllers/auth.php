@@ -1,11 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-if ( ! class_exists('Controller'))
-{
-	class Controller extends CI_Controller {}
-}
-
-class Auth extends Controller {
+class Auth extends CI_Controller {
 
 	function __construct()
 	{
@@ -40,7 +35,7 @@ class Auth extends Controller {
 			$this->data['users'] = $this->ion_auth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
 			{
-				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id);
+				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 	
 			
@@ -118,7 +113,7 @@ class Auth extends Controller {
 			redirect('auth/login', 'refresh');
 		}
 		
-		$user = $this->ion_auth->current()->row();
+		$user = $this->ion_auth->user()->row();
 
 		if ($this->form_validation->run() == false)
 		{ //display the form
