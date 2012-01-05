@@ -185,13 +185,13 @@ class Ion_auth
 			if ($this->ci->email->send())
 			{
 				$this->set_message('password_change_successful');
-			$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
+				$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
 				return TRUE;
 			}
 			else
 			{
 				$this->set_error('password_change_unsuccessful');
-			$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
+				$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
 				return FALSE;
 			}
 		}
