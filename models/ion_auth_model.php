@@ -72,7 +72,7 @@ class Ion_auth_model extends CI_Model
 	public $_ion_limit = NULL;
 
 	/**
-	* Offset
+	 * Offset
 	 *
 	 * @var string
 	 **/
@@ -1107,7 +1107,7 @@ class Ion_auth_model extends CI_Model
 
 		if (!$id)
 		{
-		return FALSE;
+			return FALSE;
 		}
 
 		$user = $this->user($id)->row();
@@ -1183,7 +1183,7 @@ class Ion_auth_model extends CI_Model
 			//extend the users cookies if the option is enabled
 			if ($this->config->item('user_extend_on_login', 'ion_auth'))
 			{
-			$this->remember_user($user->id);
+				$this->remember_user($user->id);
 			}
 
 			$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_successful'));
@@ -1246,7 +1246,7 @@ class Ion_auth_model extends CI_Model
 			{
 				foreach ($this->_ion_hooks->$events as $name => $hook)
 				{
-				$this->_call_hook($events, $name);
+					$this->_call_hook($events, $name);
 				}
 			}
 		}
