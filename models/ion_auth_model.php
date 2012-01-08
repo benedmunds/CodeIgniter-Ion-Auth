@@ -224,8 +224,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('password')
-		                  ->select('salt')
+		$query = $this->db->select('password, salt')
 		                  ->where('id', $id)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
