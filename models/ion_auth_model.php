@@ -659,9 +659,8 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('username, email, id, password, last_login')
+		$query = $this->db->select('username, email, id, password, active, last_login')
 		                  ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
-		                  ->where('active', 1)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
@@ -673,31 +672,40 @@ class Ion_auth_model extends CI_Model
 
 			if ($user->password === $password)
 			{
-				$session_data = array(
-					'username'             => $user->username,
-					'email'                => $user->email,
-					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-					'old_last_login'       => $user->last_login
-				);
+                if ($user->active == 0)
+                {
+                    $this->trigger_events('post_login_unsuccessful');
+                    $this->set_error('login_unsuccessful_not_active');
 
-				$this->update_last_login($user->id);
+                    return FALSE;
+                }
 
-				$this->session->set_userdata($session_data);
+                $session_data = array(
+                    'username'             => $user->username,
+                    'email'                => $user->email,
+                    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+                    'old_last_login'       => $user->last_login
+                );
 
-				if ($remember && $this->config->item('remember_users', 'ion_auth'))
-				{
-					$this->remember_user($user->id);
-				}
+                $this->update_last_login($user->id);
 
-				$this->trigger_events(array('post_login', 'post_login_successful'));
-				$this->set_message('login_successful');
+                $this->session->set_userdata($session_data);
 
-				return TRUE;
+                if ($remember && $this->config->item('remember_users', 'ion_auth'))
+                {
+                    $this->remember_user($user->id);
+                }
+
+                $this->trigger_events(array('post_login', 'post_login_successful'));
+                $this->set_message('login_successful');
+
+                return TRUE;
 			}
 		}
 
 		$this->trigger_events('post_login_unsuccessful');
 		$this->set_error('login_unsuccessful');
+
 		return FALSE;
 	}
 
