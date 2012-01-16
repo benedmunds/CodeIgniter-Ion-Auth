@@ -15,33 +15,33 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'ÕËºÅ´´½¨³É¹¦';
-$lang['account_creation_unsuccessful'] 	 	 = 'ÕËºÅ´´½¨Ê§°Ü';
-$lang['account_creation_duplicate_email'] 	 = 'µç×ÓÓÊ¼şÒÑ±»Ê¹ÓÃ»ò²»ºÏ·¨';
-$lang['account_creation_duplicate_username'] 	 = 'ÕËºÅÒÑ´æÔÚ»ò²»ºÏ·¨';
+$lang['account_creation_successful'] 	  	 = 'è´¦å·åˆ›å»ºæˆåŠŸ';
+$lang['account_creation_unsuccessful'] 	 	 = 'è´¦å·åˆ›å»ºå¤±è´¥';
+$lang['account_creation_duplicate_email'] 	 = 'ç”µå­é‚®ä»¶å·²è¢«ä½¿ç”¨æˆ–ä¸åˆæ³•';
+$lang['account_creation_duplicate_username'] 	 = 'è´¦å·å·²å­˜åœ¨æˆ–ä¸åˆæ³•';
 
 
 // Password
-$lang['password_change_successful'] 	 	 = 'ÃÜÂëÒÑĞŞ¸Ä';
-$lang['password_change_unsuccessful'] 	  	 = 'ÃÜÂëĞŞ¸ÄÊ§°Ü';
-$lang['forgot_password_successful'] 	 	 = 'ÃÜÂëÒÑÖØÉè,Çë²éÊÕÄúµÄµç×ÓÓÊ¼ş';
-$lang['forgot_password_unsuccessful'] 	 	 = 'ÃÜÂëÖØÉèÊ§°Ü';
+$lang['password_change_successful'] 	 	 = 'å¯†ç å·²ä¿®æ”¹';
+$lang['password_change_unsuccessful'] 	  	 = 'å¯†ç ä¿®æ”¹å¤±è´¥';
+$lang['forgot_password_successful'] 	 	 = 'å¯†ç å·²é‡è®¾,è¯·æŸ¥æ”¶æ‚¨çš„ç”µå­é‚®ä»¶';
+$lang['forgot_password_unsuccessful'] 	 	 = 'å¯†ç é‡è®¾å¤±è´¥';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'ÕËºÅÒÑ¼¤»î';
-$lang['activate_unsuccessful'] 		 	 = 'ÕËºÅ¼¤»îÊ§°Ü';
-$lang['deactivate_successful'] 		  	 = 'ÕËºÅÒÑ¹Ø±Õ';
-$lang['deactivate_unsuccessful'] 	  	 = 'ÕËºÅ¹Ø±ÕÊ§°Ü';
-$lang['activation_email_successful'] 	  	 = 'ÒÑ·¢ËÍ¼¤»îÕËºÅµÄµç×ÓÓÊ¼ş';
-$lang['activation_email_unsuccessful']   	 = '·¢ËÍ¼¤»îÕËºÅµÄµç×ÓÓÊ¼şÊ§°Ü';
+$lang['activate_successful'] 		  	 = 'è´¦å·å·²æ¿€æ´»';
+$lang['activate_unsuccessful'] 		 	 = 'è´¦å·æ¿€æ´»å¤±è´¥';
+$lang['deactivate_successful'] 		  	 = 'è´¦å·å·²å…³é—­';
+$lang['deactivate_unsuccessful'] 	  	 = 'è´¦å·å…³é—­å¤±è´¥';
+$lang['activation_email_successful'] 	  	 = 'å·²å‘é€æ¿€æ´»è´¦å·çš„ç”µå­é‚®ä»¶';
+$lang['activation_email_unsuccessful']   	 = 'å‘é€æ¿€æ´»è´¦å·çš„ç”µå­é‚®ä»¶å¤±è´¥';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'µÇÂ½³É¹¦';
-$lang['login_unsuccessful'] 		  	 = 'µÇÂ½Ê§°Ü';
-$lang['logout_successful'] 		 	 = 'ÄúÒÑ³É¹¦ÍË³ö';
+$lang['login_successful'] 		  	 = 'ç™»é™†æˆåŠŸ';
+$lang['login_unsuccessful'] 		  	 = 'ç™»é™†å¤±è´¥';
+$lang['logout_successful'] 		 	 = 'æ‚¨å·²æˆåŠŸé€€å‡º';
   
 // Account Changes
-$lang['update_successful'] 		 	 = 'ÕËºÅ×ÊÁÏÒÑ¸üĞÂ';
-$lang['update_unsuccessful'] 		 	 = '¸üĞÂÕËºÅ×ÊÁÏÊ§°Ü';
-$lang['delete_successful'] 		 	 = 'ÕËºÅÒÑÉ¾³ı';
-$lang['delete_unsuccessful'] 		 	 = 'É¾³ıÕËºÅÊ§°Ü';
+$lang['update_successful'] 		 	 = 'è´¦å·èµ„æ–™å·²æ›´æ–°';
+$lang['update_unsuccessful'] 		 	 = 'æ›´æ–°è´¦å·èµ„æ–™å¤±è´¥';
+$lang['delete_successful'] 		 	 = 'è´¦å·å·²åˆ é™¤';
+$lang['delete_unsuccessful'] 		 	 = 'åˆ é™¤è´¦å·å¤±è´¥';
