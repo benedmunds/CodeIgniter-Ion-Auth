@@ -55,7 +55,7 @@
 				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
 				<li><a href="#logged_in">logged_in()</a></li>
 				<li><a href="#is_admin">is_admin()</a></li>
-				<li><a href="#is_group">is_group()</a></li>
+				<li><a href="#in_group">in_group()</a></li>
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
 				<li><a href="#identity_check">identity_check()</a></li>
@@ -439,26 +439,34 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="is_group"></a>
-	<h2>is_group()</h2>
+	<a name="in_group"></a>
+	<h2>in_group()</h2>
 	<p>Check to see if the currently logged in user is in the passed in group.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group Name' - string or array of stringsREQUIRED.</li>
+		<li>'Group Name' - string or array of strings REQUIRED.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the user is in the group FALSE if the user is not in the group.</li>
+		<li>boolean.  TRUE if the user is in any of the given groups, FALSE otherwise.</li>
 	</ul>
 
 	<p><b>Usage</b></p>
 	<pre>
+		# single group
 		$group = 'gangstas';
-		if (!$this->ion_auth->is_group($group))
+		if (!$this->ion_auth->in_group($group))
 		{
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+			redirect('welcome/index');
+		}
+
+		# multiple groups
+		$group = array('gangstas', 'hoodrats');
+		if (!$this->ion_auth->in_group($group))
+			$this->session->set_flashdata('message', 'You must be a gangsta OR a hoodrat to view this page');
 			redirect('welcome/index');
 		}
 	</pre>
