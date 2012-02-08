@@ -55,7 +55,7 @@
 	 */
 	
 	
-     $config['hash_method'] = 'sha1';		// IMPORTANT: Make sure this is set to either sha1 or bcrypt 
+	$config['hash_method'] = 'sha1';		// IMPORTANT: Make sure this is set to either sha1 or bcrypt 
 	
 	
 	
@@ -76,7 +76,7 @@
 	 */	
 	$config['random_rounds'] = false;
 	$config['min_rounds'] = 5;
-     $config['max_rounds'] = 9;
+     	$config['max_rounds'] = 9;
 	
 
 	
