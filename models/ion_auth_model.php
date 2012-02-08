@@ -158,6 +158,15 @@ class Ion_auth_model extends CI_Model
 		$this->store_salt      = $this->config->item('store_salt', 'ion_auth');
 		$this->salt_length     = $this->config->item('salt_length', 'ion_auth');
 		$this->join			   = $this->config->item('join', 'ion_auth');
+		
+		
+		//initialize hash method options (Bcrypt)
+		$this->hash_method = $this->config->item('hash_method', 'ion_auth');	
+		$this->default_rounds = $this->config->item('default_rounds', 'ion_auth');			
+		$this->random_rounds = $this->config->item('random_rounds', 'ion_auth');
+		$this->min_rounds = $this->config->item('min_rounds', 'ion_auth');				
+		$this->max_rounds = $this->config->item('max_rounds', 'ion_auth');	
+		
 
 		//initialize messages and error
 		$this->messages = array();
@@ -172,7 +181,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('model_constructor');
 	}
-
+	
 	/**
 	 * Misc functions
 	 *
@@ -196,6 +205,27 @@ class Ion_auth_model extends CI_Model
 		{
 			return FALSE;
 		}
+
+		//bcrypt
+		if ($this->hash_method == 'bcrypt')
+		{
+			
+			if ($this->random_rounds)
+			{
+				$rand = rand($this->min_rounds,$this->max_rounds);
+				$rounds = array('rounds' => $rand);
+				
+			}
+			else
+			{
+				$rounds = array('rounds' => $this->default_rounds);
+			}
+
+			$CI=& get_instance();
+			$CI->load->library('bcrypt',$rounds);
+			return $CI->bcrypt->hash($password);
+		}
+
 
 		if ($this->store_salt && $salt)
 		{
@@ -235,6 +265,21 @@ class Ion_auth_model extends CI_Model
 		{
 			return FALSE;
 		}
+
+		// bcrypt
+	     if ($this->hash_method == 'bcrypt')
+		{
+			$CI=& get_instance();
+			$CI->load->library('bcrypt',null);
+			
+			if ($CI->bcrypt->verify($password,$hash_password_db->password))
+			{
+			 return TRUE;
+			}
+			 return FALSE;
+		}
+
+
 
 		if ($this->store_salt)
 		{
@@ -393,7 +438,7 @@ class Ion_auth_model extends CI_Model
 		$old         = $this->hash_password_db($result->id, $old);
 		$new         = $this->hash_password($new, $result->salt);
 
-		if ($db_password === $old)
+		if ($this->hash_method = 'sha1' && $db_password === $old || $this->hash_method = 'bcrypt' && $old === TRUE)
 		{
 			//store the new password and reset the remember code so all remembered instances have to re-login
 			$data = array(
@@ -670,7 +715,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$password = $this->hash_password_db($user->id, $password);
 
-			if ($user->password === $password)
+			if ($this->hash_method = 'sha1' && $user->password === $password || $this->hash_method = 'bcrypt' && $password === true)
 			{
                 if ($user->active == 0)
                 {
