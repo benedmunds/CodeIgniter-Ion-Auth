@@ -530,8 +530,8 @@ class Ion_auth_model extends CI_Model
 			'email'      => $email,
 			'group_id'   => $group_id,
 			'ip_address' => $ip_address,
-			'created_on' => now(),
-			'last_login' => now(),
+			'created_on' => time(),
+			'last_login' => time(),
 			'active'     => 1
 			 );
 
@@ -993,7 +993,7 @@ class Ion_auth_model extends CI_Model
 			$this->db->where($this->ion_auth->_extra_where);
 	    }
 
-	    $this->db->update($this->tables['users'], array('last_login' => now()), array('id' => $id));
+	    $this->db->update($this->tables['users'], array('last_login' => time()), array('id' => $id));
 
 	    return $this->db->affected_rows() == 1;
 	}
