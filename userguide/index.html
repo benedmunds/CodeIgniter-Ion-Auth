@@ -813,17 +813,22 @@ Documentation
         you trigger_events().
       */
       $event = 'socialpush';
-      $name = 'sendmail';
       $class = 'Accounts';
-      $method = 'email';
       $args = array('this is the content of the message', 'billy');
+      
+      $name = 'activate_sendmail';
+      $method = 'email';
       $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_Twitter';
       $method = 'twitter';
       $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_MailChimp_API';
       $method = 'mailchimp';
       $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_Facebook_API';
       $method = 'facebook';
       $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_gPlus_API';
       $method = 'gplus';
       $this->ion_auth->set_hook($event, $name, $class, $method, $args);
     }
