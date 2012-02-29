@@ -67,6 +67,7 @@
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
+        <li><a href="#trigger_events">trigger_events()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -275,7 +276,7 @@ Documentation
 	<br />
 
 	<a name="update_user"></a>
-	<h2>update_user()</h2>
+	<h2>update()</h2>
 	<p>Update a user.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -297,7 +298,7 @@ Documentation
 					'last_name' => 'Edmunds',
 					'password' => '123456789',
 					 );
-		$this->ion_auth->update_user($id, $data)
+		$this->ion_auth->update($id, $data)
 	</pre>
 	<br />
 
@@ -781,6 +782,94 @@ Documentation
 			$errors = $this->ion_auth->errors();
 			echo $errors;
 		}
+	</pre>
+	<br />
+
+	<a name="set_hook"></a>
+  <h2>set_hook()></h2>
+  <p>Set a single or multiple functions to be called when trigged by trigger_events()</p>
+  
+  <p><strong>Parameters</strong></p>
+  <ol>
+  	<li>'Event' - string REQUIRED.</li>
+    <li>'Name' - string REQUIRED.</li>
+    <li>'Class' - string REQUIRED.</li>
+    <li>'Method' - string REQUIRED.</li>
+    <li>'Arguments' - Array OPTIONAL.</li>
+  </ol>
+  
+  <p><b>Usage</b></p>
+	<pre>
+	class Accounts extends CI_Controller {
+
+    public function __construct()
+    {
+      parent::__construct();
+
+			/* 
+      	make sure we loaded ion_auth2 
+        The following does not need to go in __construct() it just needs to be set before 
+        you trigger_events().
+      */
+      $event = 'socialpush';
+      $name = 'sendmail';
+      $class = 'Accounts';
+      $method = 'email';
+      $args = array('this is the content of the message', 'billy');
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $method = 'twitter';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $method = 'mailchimp';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $method = 'facebook';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $method = 'gplus';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+    }
+  
+    public function Post_Message($one)
+    {
+      $this->ion_auth->trigger_events('socialpush'); 
+    }
+    public function email($content, $who)
+    {
+    	return true;
+    }
+    public function twitter($content, $who) 
+    {
+      return true;
+    }
+    public function mailchimp($content, $who) 
+    {
+    	return true;
+    }
+    public function facebook($content, $who) 
+    {
+    	return true;
+    }
+    public function gplus($content, $who) 
+    {
+    	return true;
+    }
+  }
+	</pre>
+	<br />
+
+
+  
+  
+	<a name="trigger_events"></a>
+	<h2>trigger_events()</h2>
+	<p>Call Additional functions to run that were registered with <a href="#set_hook">set_hook()</a>.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Name' - String or Array REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+	 $this->ion_auth->trigger_events('socialpush'); 
 	</pre>
 	<br />
 
