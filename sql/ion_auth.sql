@@ -59,7 +59,7 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 DROP TABLE IF EXISTS `users_groups`;
 
 #
-# Table structure for table 'groups'
+# Table structure for table 'users_groups'
 #
 
 CREATE TABLE `users_groups` (
