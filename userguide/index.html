@@ -55,7 +55,7 @@
 				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
 				<li><a href="#logged_in">logged_in()</a></li>
 				<li><a href="#is_admin">is_admin()</a></li>
-				<li><a href="#is_group">is_group()</a></li>
+				<li><a href="#in_group">in_group()</a></li>
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
 				<li><a href="#identity_check">identity_check()</a></li>
@@ -67,6 +67,8 @@
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
+        <li><a href="#trigger_events">trigger_events()</a></li>
+        <li><a href="#set_hook">set_hook</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -139,13 +141,13 @@ Documentation
 	<ul>
 		<li>$config['tables']['groups']</li>
 		<li>$config['tables']['users']</li>
-		<li>$config['tables']['meta']</li>
+		<li>$config['tables']['users_groups']</li>
 		<li>$config['site_title']</li>
 		<li>$config['admin_email']</li>
 		<li>$config['default_group']</li>
 		<li>$config['admin_group']</li>
-		<li>$config['join']</li>
-		<li>$config['columns']</li>
+		<li>$config['join']['users']</li>
+		<li>$config['join']['groups']</li>		
 		<li>$config['identity']</li>
 		<li>$config['min_password_length']</li>
 		<li>$config['max_password_length']</li>
@@ -153,6 +155,7 @@ Documentation
 		<li>$config['remember_users']</li>
 		<li>$config['user_expire']</li>
 		<li>$config['user_extend_on_login']</li>
+		<li>$config['email_type'] </li>		
 		<li>$config['email_templates']</li>
 		<li>$config['email_activate']</li>
 		<li>$config['email_forgot_password']</li>
@@ -176,13 +179,13 @@ Documentation
 	<ul>
 		<li>'tables['groups']' - The table name to use for the groups table.  DEFAULT is 'groups'.</li>
 		<li>'tables['users']' - The table name to use for the users table.  DEFAULT is 'users'.</li>
-		<li>'tables['meta']' - The table name to use for the meta table.  DEFAULT is 'meta'.</li>
+		<li>'tables['users_groups']' - The table name to use for the users groups table.  DEFAULT is 'users_groups'.</li>
 		<li>'site_title' - The title of your site, used for email.</li>
 		<li>'admin_email' - Your administrator email address.  DEFAULT is 'admin@example.com'.</li>
 		<li>'default_group' - Name of the default user group.  DEFAULT is 'members'.</li>
 		<li>'admin_group' - Name of the admin group.  DEFAULT is 'admin'.</li>
-		<li>'join' - Column to use for joining users and meta table.  DEFAULT is 'user_id'.</li>
-		<li>'columns' - The columns in the meta table.  DEFAULT is 'array('first_name', 'last_name', 'company', 'phone')'.</li>
+		<li>'join['users'] ' - Users table column you want to join WITH.  DEFAULT is 'user_id'.</li>
+		<li>'join['groups'] ' - Group table column you want to join WITH.  DEFAULT is 'group_id'.</li>		
 		<li>'identity' - Column to use for uniquely identifing user/logging in/etc. Usual choices are 'email' OR 'username'. You should add an index in the users table for whatever you set this option to. DEFAULT is 'email'.</li>
 		<li>'min_password_length' - Minimum length of passwords.  DEFAULT is '8'.</li>
 		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
@@ -190,6 +193,7 @@ Documentation
 		<li>'remember_users' - TRUE or FALSE. Sets whether to enable 'remember me' functionality or not. DEFAULT is 'true'.</li>
 		<li>'user_expire' - Sets how long to remember the user for in seconds. DEFAULT is '86500'.</li>
 		<li>'user_extend_on_login' -  TRUE or FALSE.  Extend the users session expiration on login. DEFAULT is 'false'.</li>
+		<li>'email_type' - Email content type. DEFAULT us 'html'.</li>
 		<li>'email_templates' -  Folder where the email view templates are stored. DEFAULT is 'auth/email/'.</li>
 		<li>'email_activate' -  Filname of the email activation view template. DEFAULT is 'activate.tpl.php'.</li>
 		<li>'email_forgot_password' -  Filname of the forgot password email view template. DEFAULT is 'forgot_password.tpl.php'.</li>
@@ -275,7 +279,7 @@ Documentation
 	<br />
 
 	<a name="update_user"></a>
-	<h2>update_user()</h2>
+	<h2>update()</h2>
 	<p>Update a user.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -297,7 +301,7 @@ Documentation
 					'last_name' => 'Edmunds',
 					'password' => '123456789',
 					 );
-		$this->ion_auth->update_user($id, $data)
+		$this->ion_auth->update($id, $data)
 	</pre>
 	<br />
 
@@ -439,26 +443,34 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="is_group"></a>
-	<h2>is_group()</h2>
+	<a name="in_group"></a>
+	<h2>in_group()</h2>
 	<p>Check to see if the currently logged in user is in the passed in group.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group Name' - string or array of stringsREQUIRED.</li>
+		<li>'Group Name' - string or array of strings REQUIRED.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the user is in the group FALSE if the user is not in the group.</li>
+		<li>boolean.  TRUE if the user is in any of the given groups, FALSE otherwise.</li>
 	</ul>
 
 	<p><b>Usage</b></p>
 	<pre>
+		# single group
 		$group = 'gangstas';
-		if (!$this->ion_auth->is_group($group))
+		if (!$this->ion_auth->in_group($group))
 		{
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
+			redirect('welcome/index');
+		}
+
+		# multiple groups
+		$group = array('gangstas', 'hoodrats');
+		if (!$this->ion_auth->in_group($group))
+			$this->session->set_flashdata('message', 'You must be a gangsta OR a hoodrat to view this page');
 			redirect('welcome/index');
 		}
 	</pre>
@@ -598,7 +610,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$user = $this->ion_auth->user();
+		$user = $this->ion_auth->user()->row();
 		echo $user->email;
 	</pre>
 	<br />
@@ -773,6 +785,99 @@ Documentation
 			$errors = $this->ion_auth->errors();
 			echo $errors;
 		}
+	</pre>
+	<br />
+
+	<a name="set_hook"></a>
+  <h2>set_hook()</h2>
+  <p>Set a single or multiple functions to be called when trigged by trigger_events()</p>
+  
+  <p><strong>Parameters</strong></p>
+  <ol>
+  	<li>'Event' - string REQUIRED.</li>
+    <li>'Name' - string REQUIRED.</li>
+    <li>'Class' - string REQUIRED.</li>
+    <li>'Method' - string REQUIRED.</li>
+    <li>'Arguments' - Array OPTIONAL.</li>
+  </ol>
+  
+  <p><b>Usage</b></p>
+	<pre>
+	class Accounts extends CI_Controller {
+
+    public function __construct()
+    {
+      parent::__construct();
+
+			/* 
+      	make sure we loaded ion_auth2 
+        The following does not need to go in __construct() it just needs to be set before 
+        you trigger_events().
+      */
+      $event = 'socialpush';
+      $class = 'Accounts';
+      $args = array('this is the content of the message', 'billy');
+      
+      $name = 'activate_sendmail';
+      $method = 'email';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_Twitter';
+      $method = 'twitter';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_MailChimp_API';
+      $method = 'mailchimp';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_Facebook_API';
+      $method = 'facebook';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $name = 'call_gPlus_API';
+      $method = 'gplus';
+      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+    }
+  
+    public function Post_Message($one)
+    {
+      $this->ion_auth->trigger_events('socialpush'); 
+    }
+    public function email($content, $who)
+    {
+    	return true;
+    }
+    public function twitter($content, $who) 
+    {
+      return true;
+    }
+    public function mailchimp($content, $who) 
+    {
+    	return true;
+    }
+    public function facebook($content, $who) 
+    {
+    	return true;
+    }
+    public function gplus($content, $who) 
+    {
+    	return true;
+    }
+  }
+	</pre>
+	<br />
+
+
+  
+  
+	<a name="trigger_events"></a>
+	<h2>trigger_events()</h2>
+	<p>Call Additional functions to run that were registered with <a href="#set_hook">set_hook()</a>.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Name' - String or Array REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+	 $this->ion_auth->trigger_events('socialpush'); 
 	</pre>
 	<br />
 

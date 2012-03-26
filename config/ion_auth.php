@@ -89,6 +89,11 @@
 	$config['user_extend_on_login'] = false;
 
 	/**
+	 * Email content type
+	 **/
+	$config['email_type']           = 'html';
+
+	/**
 	 * Folder where email templates are stored.
      * Default : auth/
 	 **/
