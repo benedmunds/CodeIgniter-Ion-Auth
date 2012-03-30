@@ -14,7 +14,7 @@ This version drops any backwards compatibility and makes things even more
 awesome then you could expect.
 
 DOCUMENTATION:
-Documentation WILL BE located at http://benedmunds.com/ion_auth2/
+Documentation WILL BE located at http://benedmunds.com/ion_auth/
 
 INSTALLATION:
 Just copy the files from this package to the correspoding folder in your 
@@ -40,7 +40,7 @@ It is highly recommended that you use encrypted database sessions for security!
 
 
 OPTIMIZATION:
-It is recommended that you add your identity column as an index.
+It is recommended that you add your identity column as a unique index.
 
 
 
