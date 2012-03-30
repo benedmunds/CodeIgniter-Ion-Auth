@@ -89,6 +89,12 @@
 	$config['user_extend_on_login'] = false;
 
 	/**
+	 * Send Email using the builtin CI email class
+	 * if false it will return the code and the identity
+	 **/
+	$config['use_ci_email']= FALSE;
+
+	/**
 	 * Email content type
 	 **/
 	$config['email_type']           = 'html';
