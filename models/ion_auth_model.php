@@ -565,6 +565,8 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_register');
 
+		$manual_activation = $this->config->item('manual_activation', 'ion_auth');
+
 		if ($this->identity_column == 'email' && $this->email_check($email))
 		{
 			$this->set_error('account_creation_duplicate_email');
@@ -602,7 +604,7 @@ class Ion_auth_model extends CI_Model
 			'ip_address' => sprintf('%u', ip2long($ip_address)),
 			'created_on' => time(),
 			'last_login' => time(),
-			'active'     => 1
+			'active'     => ($manual_activation === false ? 1 : 0)
 		);
 
 		if ($this->store_salt)
