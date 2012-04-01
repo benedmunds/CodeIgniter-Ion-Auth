@@ -129,11 +129,13 @@ class Auth extends CI_Controller {
 				'name' => 'new',
 				'id'   => 'new',
 				'type' => 'password',
+				'pattern' => '^.{8}.*$',
 			);
 			$this->data['new_password_confirm'] = array(
 				'name' => 'new_confirm',
 				'id'   => 'new_confirm',
 				'type' => 'password',
+				'pattern' => '^.{8}.*$',
 			);
 			$this->data['user_id'] = array(
 				'name'  => 'user_id',

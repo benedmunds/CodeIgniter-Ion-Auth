@@ -8,7 +8,7 @@
       <?php echo form_input($old_password);?>
       </p>
       
-      <p>New Password:<br />
+      <p>New Password (at least 8 characters long):<br />
       <?php echo form_input($new_password);?>
       </p>
       
