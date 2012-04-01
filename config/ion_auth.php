@@ -72,6 +72,11 @@
 	 * Email Activation for registration
 	 **/
 	$config['email_activation']    = false;
+
+	/**
+	 * Manual Activation for registration
+	 **/
+	$config['manual_activation']    = false;
 	
 	/**
 	 * Allow users to be remembered and enable auto-login
