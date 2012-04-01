@@ -20,7 +20,7 @@
       
       <p>
 	      <label for="remember">Remember Me:</label>
-	      <?php echo form_checkbox('remember', '1', FALSE);?>
+	      <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
 	  </p>
       
       
@@ -28,5 +28,7 @@
 
       
     <?php echo form_close();?>
+
+    <p><a href="forgot_password">Forgot your password?</a></p>
 
 </div>
