@@ -120,6 +120,7 @@ class Auth extends CI_Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
+			$this->data['min_password_length'] = $this->config->item('min_password_length', 'ion_auth');
 			$this->data['old_password'] = array(
 				'name' => 'old',
 				'id'   => 'old',
@@ -129,13 +130,13 @@ class Auth extends CI_Controller {
 				'name' => 'new',
 				'id'   => 'new',
 				'type' => 'password',
-				'pattern' => '^.{8}.*$',
+				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 			);
 			$this->data['new_password_confirm'] = array(
 				'name' => 'new_confirm',
 				'id'   => 'new_confirm',
 				'type' => 'password',
-				'pattern' => '^.{8}.*$',
+				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 			);
 			$this->data['user_id'] = array(
 				'name'  => 'user_id',
