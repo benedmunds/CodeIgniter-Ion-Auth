@@ -71,6 +71,11 @@ class Ion_auth
 			$this->ci->ion_auth = $this;
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
+		
+		$email_config = array(
+			'mailtype' => $this->ci->config->item('email_type', 'ion_auth')
+		);
+		$this->ci->email->initialize($email_config);
 
 		$this->ci->ion_auth_model->trigger_events('library_constructor');
 	}
