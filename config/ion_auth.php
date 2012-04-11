@@ -30,9 +30,7 @@
 	$config['tables']['users']           = 'users';
 	$config['tables']['users_groups']    = 'users_groups';
 	
-	
-	
-	
+
     /**
 	 * Hash Method  (sha1 or bcrypt)
 	 *
@@ -42,7 +40,7 @@
 	 * 		    bcrypt instead of sha1.
 	 *
 	 *
-	 * NOTE: 	    If you use bcrypt you will need to increase your password column character limit
+	 * NOTE: 	If you use bcrypt you will need to increase your password column character limit
 	 * 		    to (80)
 	 *
 	 * Below there is "default_rounds" setting.  This defines how strong the encryption will be,
@@ -54,16 +52,12 @@
 	 * 		    
 	 */
 	
-	
 	$config['hash_method'] = 'sha1';		// IMPORTANT: Make sure this is set to either sha1 or bcrypt 
-	
-	
 	
 	/**
 	 * Default rounds used for Bcrypt only 
 	 */
 	$config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
-	
 	
 	/**
 	 *
@@ -76,7 +70,7 @@
 	 */	
 	$config['random_rounds'] = false;
 	$config['min_rounds'] = 5;
-     	$config['max_rounds'] = 9;
+	$config['max_rounds'] = 9;
 	
 
 	
