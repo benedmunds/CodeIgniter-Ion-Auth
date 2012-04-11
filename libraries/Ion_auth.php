@@ -71,6 +71,11 @@ class Ion_auth
 			$this->ci->ion_auth = $this;
 			$this->ci->ion_auth_model->login_remembered_user();
 		}
+		
+		$email_config = array(
+			'mailtype' => $this->ci->config->item('email_type', 'ion_auth')
+		);
+		$this->ci->email->initialize($email_config);
 
 		$this->ci->ion_auth_model->trigger_events('library_constructor');
 	}
@@ -95,7 +100,7 @@ class Ion_auth
 	/**
 	 * forgotten password feature
 	 *
-	 * @return void
+	 * @return mixed  boolian / array
 	 * @author Mathew
 	 **/
 	public function forgotten_password($identity)    //changed $email to $identity
@@ -111,24 +116,32 @@ class Ion_auth
 					'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
 					'forgotten_password_code' => $user->forgotten_password_code
 				);
-
-				$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
-				$this->ci->email->clear();
-				$this->ci->email->set_newline("\r\n");
-				$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
-				$this->ci->email->to($user->email);
-				$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
-				$this->ci->email->message($message);
-
-				if ($this->ci->email->send())
+				
+				if(!$this->ci->config->item('use_ci_email', 'ion_auth'))
 				{
 					$this->set_message('forgot_password_successful');
-					return TRUE;
+					return $data;
 				}
 				else
 				{
-					$this->set_error('forgot_password_unsuccessful');
-					return FALSE;
+					$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
+					$this->ci->email->clear();
+					$this->ci->email->set_newline("\r\n");
+					$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+					$this->ci->email->to($user->email);
+					$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
+					$this->ci->email->message($message);
+
+					if ($this->ci->email->send())
+					{
+						$this->set_message('forgot_password_successful');
+						return TRUE;
+					}
+					else
+					{
+						$this->set_error('forgot_password_unsuccessful');
+						return FALSE;
+					}
 				}
 			}
 			else
@@ -172,28 +185,37 @@ class Ion_auth
 				'identity'     => $profile->{$identity},
 				'new_password' => $new_password
 			);
-
-			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
-
-			$this->ci->email->clear();
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
-			$this->ci->email->to($profile->email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - New Password');
-			$this->ci->email->message($message);
-
-			if ($this->ci->email->send())
+			if(!$this->ci->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->set_message('password_change_successful');
 				$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
-				return TRUE;
+					return $data;
 			}
 			else
 			{
-				$this->set_error('password_change_unsuccessful');
-				$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
-				return FALSE;
-			}
+				$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
+
+				$this->ci->email->clear();
+				$this->ci->email->set_newline("\r\n");
+				$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+				$this->ci->email->to($profile->email);
+				$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - New Password');
+				$this->ci->email->message($message);
+
+				if ($this->ci->email->send())
+				{
+					$this->set_message('password_change_successful');
+					$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
+					return TRUE;
+				}
+				else
+				{
+					$this->set_error('password_change_unsuccessful');
+					$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
+					return FALSE;
+				}				
+
+			}			
 		}
 
 		$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
@@ -257,21 +279,29 @@ class Ion_auth
 				'email'      => $email,
 				'activation' => $activation_code,
 			);
-
-			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
-
-			$this->ci->email->clear();
-			$this->ci->email->set_newline("\r\n");
-			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
-			$this->ci->email->to($email);
-			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Account Activation');
-			$this->ci->email->message($message);
-
-			if ($this->ci->email->send() == TRUE)
+			if(!$this->ci->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
 				$this->set_message('activation_email_successful');
-				return $id;
+					return $data;
+			}
+			else
+			{
+				$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
+
+				$this->ci->email->clear();
+				$this->ci->email->set_newline("\r\n");
+				$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+				$this->ci->email->to($email);
+				$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Account Activation');
+				$this->ci->email->message($message);
+
+				if ($this->ci->email->send() == TRUE)
+				{
+					$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
+					$this->set_message('activation_email_successful');
+					return $id;
+				}
 			}
 
 			$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));

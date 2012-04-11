@@ -72,6 +72,11 @@
 	 * Email Activation for registration
 	 **/
 	$config['email_activation']    = false;
+
+	/**
+	 * Manual Activation for registration
+	 **/
+	$config['manual_activation']    = false;
 	
 	/**
 	 * Allow users to be remembered and enable auto-login
@@ -87,6 +92,12 @@
 	 * Extend the users cookies everytime they auto-login
 	 **/
 	$config['user_extend_on_login'] = false;
+
+	/**
+	 * Send Email using the builtin CI email class
+	 * if false it will return the code and the identity
+	 **/
+	$config['use_ci_email']= FALSE;
 
 	/**
 	 * Email content type
