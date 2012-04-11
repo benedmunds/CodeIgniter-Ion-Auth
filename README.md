@@ -10,7 +10,7 @@ This version drops any backwards compatibility and makes things even more
 awesome then you could expect.
 
 ###Documentation
-Documentation WILL BE located at http://benedmunds.com/ion_auth/
+Documentation is located at http://benedmunds.com/ion_auth/
 
 ###Installation
 Just copy the files from this package to the correspoding folder in your 
