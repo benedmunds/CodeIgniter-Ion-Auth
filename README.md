@@ -43,7 +43,7 @@ It is recommended that you add your identity column as a unique index.
 Feel free to send me an email if you have any problems.  
 
 
-Thanks,
--Ben Edmunds
- ben.edmunds@gmail.com
- @benedmunds 
+Thanks,  
+-Ben Edmunds  
+ ben.edmunds@gmail.com  
+ @benedmunds   
