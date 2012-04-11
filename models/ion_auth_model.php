@@ -806,7 +806,7 @@ class Ion_auth_model extends CI_Model
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function users()
+	public function users($groups = NULL)
 	{
 		$this->trigger_events('users');
 
@@ -818,6 +818,29 @@ class Ion_auth_model extends CI_Model
             }
 
             $this->_ion_select = array();
+        }
+
+        //filter by group id(s) if passed
+        if (isset($groups))
+        {
+        	//build an array if only one group was passed
+        	if (is_numeric($groups))
+        	{
+        		$group = $groups;
+        		$groups = Array($group);
+        	}
+
+        	//join and then run a where_in against the group ids
+        	if (isset($groups) && !empty($groups))
+        	{
+        		$this->db->join(
+	        		$this->tables['users_groups'], 
+	        		$this->tables['users_groups'].'.user_id = ' . $this->tables['users'].'.id', 
+	        		'inner'
+	        	);
+
+	        	$this->db->where_in($this->tables['users_groups'].'.group_id', $groups);
+	        }
         }
 
 		$this->trigger_events('extra_where');
