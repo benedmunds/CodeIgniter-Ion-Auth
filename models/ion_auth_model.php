@@ -871,8 +871,7 @@ class Ion_auth_model extends CI_Model
         	//build an array if only one group was passed
         	if (is_numeric($groups))
         	{
-        		$group = $groups;
-        		$groups = Array($group);
+        		$groups = Array($groups);
         	}
 
         	//join and then run a where_in against the group ids
