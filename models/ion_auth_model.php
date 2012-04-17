@@ -866,6 +866,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('users');
 
+        $this->db->select(array($this->tables['users'].'.id as id', $this->tables['users'].'.id as user_id'));
         if (isset($this->_ion_select))
         {
             foreach ($this->_ion_select as $select)
