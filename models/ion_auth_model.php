@@ -199,7 +199,7 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password($password, $salt=false)
+	public function hash_password($password, $salt=false, $use_sha1_override=FALSE)
 	{
 		if (empty($password))
 		{
@@ -207,7 +207,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		//bcrypt
-		if ($this->hash_method == 'bcrypt')
+		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
 			
 			if ($this->random_rounds)
@@ -245,7 +245,7 @@ class Ion_auth_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password_db($id, $password)
+	public function hash_password_db($id, $password, $use_sha1_override=FALSE)
 	{
 		if (empty($id) || empty($password))
 		{
@@ -267,7 +267,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// bcrypt
-	     if ($this->hash_method == 'bcrypt')
+	     if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
 			$CI=& get_instance();
 			$CI->load->library('bcrypt',null);
@@ -291,6 +291,17 @@ class Ion_auth_model extends CI_Model
 
 			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}
+	}
+
+	/**
+	 * Generates a random salt value for forgotten passwords or any other keys. Uses SHA1.
+	 *
+	 * @return void
+	 * @author Mathew
+	 **/
+	public function hash_code($password)
+	{
+		return $this->hash_password($password, FALSE, TRUE);
 	}
 
 	/**
@@ -544,7 +555,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$key = $this->hash_password(microtime().$identity);
+		$key = $this->hash_code(microtime().$identity);
 
 		$this->forgotten_password_code = $key;
 
@@ -871,8 +882,7 @@ class Ion_auth_model extends CI_Model
         	//build an array if only one group was passed
         	if (is_numeric($groups))
         	{
-        		$group = $groups;
-        		$groups = Array($group);
+        		$groups = Array($groups);
         	}
 
         	//join and then run a where_in against the group ids
