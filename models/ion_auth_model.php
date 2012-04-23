@@ -426,6 +426,85 @@ class Ion_auth_model extends CI_Model
 		return $return;
 	}
 
+	public function clear_forgotten_password_code($code) {
+		
+		if (empty($code))
+		{
+			return FALSE;
+		}
+		
+		$this->db->where('forgotten_password_code', $code);
+
+		if ($this->db->count_all_results($this->tables['users']) > 0)
+		{
+			$password = $this->salt();
+
+			$data = array(
+				'password'                => $this->hash_password($password, $salt),
+				'forgotten_password_code' => NULL,
+				'active'                  => 1,
+			 );
+
+			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
+			
+			return TRUE;
+		}
+		
+		return FALSE;
+	}
+
+	/**
+	 * reset password
+	 *
+	 * @return bool
+	 * @author Mathew
+	 **/
+	public function reset_password($identity, $new) {
+		$this->trigger_events('pre_change_password');
+
+		if (!$this->identity_check($identity)) {
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			return FALSE;
+		}
+		
+		$this->trigger_events('extra_where');
+
+		$query = $this->db->select('id, password, salt')
+		                  ->where($this->identity_column, $identity)
+		                  ->limit(1)
+		                  ->get($this->tables['users']);
+
+		$result = $query->row();
+		
+		$new = $this->hash_password($new, $result->salt);
+		
+		//store the new password and reset the remember code so all remembered instances have to re-login
+		//also clear the forgotten password code
+		$data = array(
+			'password' => $new,
+			'remember_code' => NULL,
+			'forgotten_password_code' => NULL,
+			'active'                  => 1,
+			);
+
+		$this->trigger_events('extra_where');
+		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+
+		$return = $this->db->affected_rows() == 1;
+		if ($return)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
+			$this->set_message('password_change_successful');
+		}
+		else
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+		}
+
+		return $return;
+	}
+
 	/**
 	 * change password
 	 *

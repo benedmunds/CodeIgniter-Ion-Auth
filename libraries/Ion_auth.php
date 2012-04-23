@@ -223,6 +223,32 @@ class Ion_auth
 	}
 
 	/**
+	 * forgotten_password_check
+	 *
+	 * @return void
+	 * @author Michael
+	 **/
+	public function forgotten_password_check($code)
+	{
+		$this->ci->ion_auth_model->trigger_events('pre_password_change');
+
+		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
+
+		if (!is_object($profile))
+		{
+			$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
+		else
+		{
+			$this->set_message('password_change_successful');
+			$this->ci->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
+			return $profile;
+		}
+	}
+
+	/**
 	 * register
 	 *
 	 * @return void
