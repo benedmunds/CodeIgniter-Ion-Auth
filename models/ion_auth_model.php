@@ -1110,6 +1110,11 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('groups');
 
+		// Note: I am sure we can improve this SELECT
+		$this->db->select($this->tables['groups'].'.id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description');
+		// Note: add member_count to the ebd of the SELECT
+		$this->db->select('member_count');
+
 		//run each where that was passed
 		if (isset($this->_ion_where))
 		{
@@ -1133,6 +1138,8 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
 		}
+
+		$this->db->join('(SELECT group_id, COUNT(id) as member_count FROM '.$this->tables['users_groups'].' GROUP BY group_id) u', $this->tables['groups'].'.id = u.group_id', 'left outer');
 
 		$this->response = $this->db->get($this->tables['groups']);
 
