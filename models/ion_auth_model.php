@@ -443,6 +443,7 @@ class Ion_auth_model extends CI_Model
 				'password'                => $this->hash_password($password, $salt),
 				'forgotten_password_code' => NULL,
 				'active'                  => 1,
+				'forgotten_password_time' => NULL
 			 );
 
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
@@ -640,7 +641,12 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array($this->identity_column => $identity));
+		$update = array(
+			'forgotten_password_code' => $key,
+			'forgotten_password_time' => time()
+		);
+
+		$this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
 
 		$return = $this->db->affected_rows() == 1;
 
@@ -668,10 +674,21 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->db->where('forgotten_password_code', $code);
+		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
 
-		if ($this->db->count_all_results($this->tables['users']) > 0)
-		{
+		if ($profile) {
+			
+			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
+				//Make sure it isn't expired
+				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
+				if (time() - $profile->forgotten_password_time > $expiration) {
+					//it has expired
+					$this->set_error('forgot_password_expired');
+					$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
+					return FALSE;
+				}
+			}
+            
 			$password = $this->salt();
 
 			$data = array(
