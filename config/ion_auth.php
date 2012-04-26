@@ -192,6 +192,12 @@
 	$config['store_salt'] = false;
 	
 	/**
+	 * The number of seconds after which a forgot password request will
+	 * expire. If set to 0, forgot password requests will not expire.
+	 **/
+	$config['forgot_password_expiration'] = 0;
+	
+	/**
 	 * Message Start Delimiter
 	 **/
 	$config['message_start_delimiter'] = '<p>';
