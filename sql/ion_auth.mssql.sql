@@ -7,6 +7,7 @@ CREATE TABLE users (
     email varchar(100) NOT NULL,
     activation_code varchar(40),
     forgotten_password_code varchar(40),
+	forgotten_password_code datetime,
     remember_code varchar(40),
     created_on datetime NOT NULL,
     last_login datetime,

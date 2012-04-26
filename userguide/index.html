@@ -162,6 +162,7 @@ Documentation
 		<li>$config['email_forgot_password_complete'] </li>
 		<li>$config['salt_length']</li>
 		<li>$config['store_salt'] </li>
+		<li>$config['forgot_password_expiration'] </li>
 		<li>$config['message_start_delimiter']</li>
 		<li>$config['message_end_delimiter']</li>
 		<li>$config['error_start_delimiter']</li>
@@ -200,6 +201,7 @@ Documentation
 		<li>'email_forgot_password_complete' -  Filname of the forgot password complete email view template. DEFAULT is 'new_password.tpl.php'.</li>
 		<li>'salt_length' -  Length of the encryption salt. DEFAULT is '10'.</li>
 		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
+		<li>'forgot_password_expiration' - Number of seconds before a forgot password request expires. If set to 0, requests will not expire. DEFAULT is 0.</li>
 		<li>'message_start_delimiter' -  Starting delimiter for messages. DEFAULT is '&lt;p&gt;'.</li>
 		<li>'message_end_delimiter' -  Ending delimiter for messages. DEFAULT is '&lt;/p&gt;'.</li>
 		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
