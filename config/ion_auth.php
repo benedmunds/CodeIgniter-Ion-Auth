@@ -157,12 +157,7 @@
 	$config['email_config']         = array(
 		'mailtype' => 'html',
 	);
-
-	/**
-	 * Email content type
-	 **/
-	$config['email_type']           = 'html';
-
+	
 	/**
 	 * Folder where email templates are stored.
      * Default : auth/
@@ -170,7 +165,7 @@
 	$config['email_templates']     = 'auth/email/';
 	
 	/**
-	 * activate Account Email Template
+	 * Activate Account Email Template
      * Default : activate.tpl.php
 	 **/
 	$config['email_activate']   = 'activate.tpl.php';
