@@ -147,7 +147,7 @@
 	 * Send Email using the builtin CI email class
 	 * if false it will return the code and the identity
 	 **/
-	$config['use_ci_email']= FALSE;
+	$config['use_ci_email']= false;
 
 	/**
 	 * Email content type
@@ -190,6 +190,12 @@
 	 * fbaa5e216d163a02ae630ab1a43372635dd374c0 with default salt.
 	 **/
 	$config['store_salt'] = false;
+	
+	/**
+	 * The number of seconds after which a forgot password request will
+	 * expire. If set to 0, forgot password requests will not expire.
+	 **/
+	$config['forgot_password_expiration'] = 0;
 	
 	/**
 	 * Message Start Delimiter

@@ -426,6 +426,86 @@ class Ion_auth_model extends CI_Model
 		return $return;
 	}
 
+	public function clear_forgotten_password_code($code) {
+		
+		if (empty($code))
+		{
+			return FALSE;
+		}
+		
+		$this->db->where('forgotten_password_code', $code);
+
+		if ($this->db->count_all_results($this->tables['users']) > 0)
+		{
+			$password = $this->salt();
+
+			$data = array(
+				'password'                => $this->hash_password($password, $salt),
+				'forgotten_password_code' => NULL,
+				'active'                  => 1,
+				'forgotten_password_time' => NULL
+			 );
+
+			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
+			
+			return TRUE;
+		}
+		
+		return FALSE;
+	}
+
+	/**
+	 * reset password
+	 *
+	 * @return bool
+	 * @author Mathew
+	 **/
+	public function reset_password($identity, $new) {
+		$this->trigger_events('pre_change_password');
+
+		if (!$this->identity_check($identity)) {
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			return FALSE;
+		}
+		
+		$this->trigger_events('extra_where');
+
+		$query = $this->db->select('id, password, salt')
+		                  ->where($this->identity_column, $identity)
+		                  ->limit(1)
+		                  ->get($this->tables['users']);
+
+		$result = $query->row();
+		
+		$new = $this->hash_password($new, $result->salt);
+		
+		//store the new password and reset the remember code so all remembered instances have to re-login
+		//also clear the forgotten password code
+		$data = array(
+			'password' => $new,
+			'remember_code' => NULL,
+			'forgotten_password_code' => NULL,
+			'active'                  => 1,
+			);
+
+		$this->trigger_events('extra_where');
+		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+
+		$return = $this->db->affected_rows() == 1;
+		if ($return)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
+			$this->set_message('password_change_successful');
+		}
+		else
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+		}
+
+		return $return;
+	}
+
 	/**
 	 * change password
 	 *
@@ -442,6 +522,13 @@ class Ion_auth_model extends CI_Model
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
+		
+		if ($query->num_rows() !== 1)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
 
 		$result = $query->row();
 
@@ -449,7 +536,7 @@ class Ion_auth_model extends CI_Model
 		$old         = $this->hash_password_db($result->id, $old);
 		$new         = $this->hash_password($new, $result->salt);
 
-		if ($this->hash_method = 'sha1' && $db_password === $old || $this->hash_method = 'bcrypt' && $old === TRUE)
+		if ($this->hash_method == 'sha1' && $db_password === $old || $this->hash_method == 'bcrypt' && $old === TRUE)
 		{
 			//store the new password and reset the remember code so all remembered instances have to re-login
 			$data = array(
@@ -561,7 +648,12 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$this->db->update($this->tables['users'], array('forgotten_password_code' => $key), array($this->identity_column => $identity));
+		$update = array(
+			'forgotten_password_code' => $key,
+			'forgotten_password_time' => time()
+		);
+
+		$this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
 
 		$return = $this->db->affected_rows() == 1;
 
@@ -589,10 +681,21 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->db->where('forgotten_password_code', $code);
+		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
 
-		if ($this->db->count_all_results($this->tables['users']) > 0)
-		{
+		if ($profile) {
+			
+			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
+				//Make sure it isn't expired
+				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
+				if (time() - $profile->forgotten_password_time > $expiration) {
+					//it has expired
+					$this->set_error('forgot_password_expired');
+					$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
+					return FALSE;
+				}
+			}
+            
 			$password = $this->salt();
 
 			$data = array(
@@ -722,13 +825,13 @@ class Ion_auth_model extends CI_Model
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
-		$user = $query->row();
-
-		if ($query->num_rows() == 1)
+		if ($query->num_rows() === 1)
 		{
+			$user = $query->row();
+			
 			$password = $this->hash_password_db($user->id, $password);
 
-			if ($this->hash_method = 'sha1' && $user->password === $password || $this->hash_method = 'bcrypt' && $password === true)
+			if ($this->hash_method == 'sha1' && $user->password === $password || $this->hash_method == 'bcrypt' && $password === true)
 			{
                 if ($user->active == 0)
                 {
