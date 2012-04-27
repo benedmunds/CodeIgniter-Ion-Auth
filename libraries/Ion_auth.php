@@ -63,10 +63,12 @@ class Ion_auth
 			$this->ion_auth_model->login_remembered_user();
 		}
 		
-		$email_config = array(
-			'mailtype' => $this->config->item('email_type', 'ion_auth')
-		);
-		$this->email->initialize($email_config);
+		$email_config = $this->config->item('email_config', 'ion_auth');
+
+		if (isset($email_config) && is_array($email_config)
+		{
+			$this->email->initialize($email_config);
+		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
 	}

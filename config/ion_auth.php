@@ -150,6 +150,15 @@
 	$config['use_ci_email']= false;
 
 	/**
+	 * Email config - 
+	 * 	'file' = use the default CI config or use from a config file
+	 * 	array = manually set your email config settings
+	 **/
+	$config['email_config']         = array(
+		'mailtype' => 'html',
+	);
+
+	/**
 	 * Email content type
 	 **/
 	$config['email_type']           = 'html';
