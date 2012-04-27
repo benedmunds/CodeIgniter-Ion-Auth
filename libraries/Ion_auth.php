@@ -60,7 +60,6 @@ class Ion_auth
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
-			$this->ion_auth = $this;
 			$this->ion_auth_model->login_remembered_user();
 		}
 		
