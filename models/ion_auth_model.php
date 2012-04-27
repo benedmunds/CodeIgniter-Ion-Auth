@@ -522,6 +522,13 @@ class Ion_auth_model extends CI_Model
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
+		
+		if ($query->num_rows() !== 1)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
 
 		$result = $query->row();
 
@@ -818,10 +825,10 @@ class Ion_auth_model extends CI_Model
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
-		$user = $query->row();
-
-		if ($query->num_rows() == 1)
+		if ($query->num_rows() === 1)
 		{
+			$user = $query->row();
+			
 			$password = $this->hash_password_db($user->id, $password);
 
 			if ($this->hash_method == 'sha1' && $user->password === $password || $this->hash_method == 'bcrypt' && $password === true)

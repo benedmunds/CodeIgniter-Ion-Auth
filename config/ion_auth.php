@@ -147,7 +147,7 @@
 	 * Send Email using the builtin CI email class
 	 * if false it will return the code and the identity
 	 **/
-	$config['use_ci_email']= FALSE;
+	$config['use_ci_email']= false;
 
 	/**
 	 * Email content type
