@@ -179,6 +179,23 @@ class Ion_auth_model extends CI_Model
 		//initialize our hooks object
 		$this->_ion_hooks = new stdClass;
 
+		//load the bcrypt class if needed
+		if ($this->hash_method == 'bcrypt') {
+			if ($this->random_rounds)
+			{
+				$rand = rand($this->min_rounds,$this->max_rounds);
+				$rounds = array('rounds' => $rand);
+
+			}
+			else
+			{
+				$rounds = array('rounds' => $this->default_rounds);
+			}
+
+			$CI=& get_instance();
+			$CI->load->library('bcrypt',$rounds);
+		}
+		
 		$this->trigger_events('model_constructor');
 	}
 	
@@ -209,20 +226,7 @@ class Ion_auth_model extends CI_Model
 		//bcrypt
 		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
-			
-			if ($this->random_rounds)
-			{
-				$rand = rand($this->min_rounds,$this->max_rounds);
-				$rounds = array('rounds' => $rand);
-				
-			}
-			else
-			{
-				$rounds = array('rounds' => $this->default_rounds);
-			}
-
 			$CI=& get_instance();
-			$CI->load->library('bcrypt',$rounds);
 			return $CI->bcrypt->hash($password);
 		}
 
@@ -270,8 +274,6 @@ class Ion_auth_model extends CI_Model
 	     if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
 			$CI=& get_instance();
-			$CI->load->library('bcrypt',null);
-			
 			if ($CI->bcrypt->verify($password,$hash_password_db->password))
 			{
 			 return TRUE;
