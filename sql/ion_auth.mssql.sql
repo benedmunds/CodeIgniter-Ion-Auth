@@ -57,3 +57,12 @@ SET IDENTITY_INSERT users_groups ON;
 INSERT INTO users_groups (id, user_id, group_id) VALUES (1,1,1);
 INSERT INTO users_groups (id, user_id, group_id) VALUES (2,1,2);
 SET IDENTITY_INSERT users_groups OFF;
+
+CREATE TABLE login_attempts (
+    id int NOT NULL IDENTITY(1,1),
+    ip_address char(16) NOT NULL,
+    login varchar(100) NOT NULL,
+	time datetime,
+  PRIMARY KEY(id),
+  CONSTRAINT users_check_id CHECK(id >= 0)
+);

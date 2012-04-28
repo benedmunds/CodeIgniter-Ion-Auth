@@ -872,6 +872,75 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
+	/**
+	 * is_max_login_attempts_exceeded
+	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
+	 * 
+	 * @param string $identity
+	 * @return boolean
+	 **/
+	public function is_max_login_attempts_exceeded($identity) {
+		if ($this->config->item('track_login_attempts', 'ion_auth')) {
+			$max_attempts = $this->config->item('maximum_login_attempts', 'ion_auth');
+			if ($max_attempts > 0) {
+				$ip_address = sprintf('%u', ip2long($this->input->ip_address()));
+				$attempts = $this->get_attempts_num($ip_address, $identity);
+				return $attempts >= $max_attempts;
+			}
+		}
+		return FALSE;
+	}
+
+	/**
+	 * Get number of attempts to login occured from given IP-address or identity
+	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
+	 * 
+	 * @param	string $identity
+	 * @return	int
+	 */
+	function get_attempts_num($identity)
+	{
+		$ip_address = sprintf('%u', ip2long($this->input->ip_address()));
+		
+		$this->db->select('1', FALSE);
+		$this->db->where('ip_address', $ip_address);
+		if (strlen($identity) > 0) $this->db->or_where('login', $identity);
+
+		$qres = $this->db->get($this->tables['login_attempts']);
+		return $qres->num_rows();
+	}
+
+	/**
+	 * increase_login_attempts
+	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
+	 * 
+	 * @param string $identity
+	 **/
+	public function increase_login_attempts($identity) {
+		if ($this->config->item('track_login_attempts', 'ion_auth')) {
+			$ip_address = sprintf('%u', ip2long($this->input->ip_address()));
+			$this->db->insert($this->tables['login_attempts'], array('ip_address' => $ip_address, 'login' => $identity, 'time' => time()));
+		}
+	}
+
+	/**
+	 * clear_login_attempts
+	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
+	 * 
+	 * @param string $identity
+	 **/
+	public function clear_login_attempts($identity, $expire_period = 86400) {
+		if ($this->config->item('track_login_attempts', 'ion_auth')) {
+			$ip_address = sprintf('%u', ip2long($this->input->ip_address()));
+			
+			$this->db->where(array('ip_address' => $ip_address, 'login' => $identity));
+			// Purge obsolete login attempts
+			$this->db->or_where('time <', time() - $expire_period);
+
+			$this->db->delete($this->tables['login_attempts']);
+		}
+	}
+
 	public function limit($limit)
 	{
 		$this->trigger_events('limit');
