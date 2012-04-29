@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
-    ip_address char(16) NOT NULL,
+    ip_address varbinary(16) NOT NULL,
     username varchar(100) NOT NULL,
     password varchar(40) NOT NULL,
     salt varchar(40),
@@ -50,7 +50,7 @@ SET IDENTITY_INSERT groups OFF;
 
 SET IDENTITY_INSERT users ON;
 INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) 
-	VALUES ('1','127.0.0.1','administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, GETDATE(), GETDATE(),'1','Admin','istrator','ADMIN','0'); 
+	VALUES ('1',0x7F000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, GETDATE(), GETDATE(),'1','Admin','istrator','ADMIN','0'); 
 SET IDENTITY_INSERT users OFF;
 
 SET IDENTITY_INSERT users_groups ON;
