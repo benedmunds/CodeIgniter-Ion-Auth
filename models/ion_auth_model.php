@@ -435,10 +435,7 @@ class Ion_auth_model extends CI_Model
 
 		if ($this->db->count_all_results($this->tables['users']) > 0)
 		{
-			$password = $this->salt();
-
 			$data = array(
-				'password'                => $this->hash_password($password, $salt),
 				'forgotten_password_code' => NULL,
 				'forgotten_password_time' => NULL
 			 );
