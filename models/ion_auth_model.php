@@ -467,6 +467,13 @@ class Ion_auth_model extends CI_Model
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
+		
+		if ($query->num_rows() !== 1)
+		{
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			$this->set_error('password_change_unsuccessful');
+			return FALSE;
+		}
 
 		$result = $query->row();
 		
@@ -478,7 +485,7 @@ class Ion_auth_model extends CI_Model
 			'password' => $new,
 			'remember_code' => NULL,
 			'forgotten_password_code' => NULL,
-			'active'                  => 1,
+			'forgotten_password_time' => NULL,
 			);
 
 		$this->trigger_events('extra_where');
