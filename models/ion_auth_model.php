@@ -486,7 +486,7 @@ class Ion_auth_model extends CI_Model
 			'password' => $new,
 			'remember_code' => NULL,
 			'forgotten_password_code' => NULL,
-			'active'                  => 1,
+			'forgotten_password_time' => NULL,
 			);
 
 		$this->trigger_events('extra_where');
