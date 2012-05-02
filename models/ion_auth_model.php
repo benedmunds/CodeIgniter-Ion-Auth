@@ -192,8 +192,7 @@ class Ion_auth_model extends CI_Model
 				$rounds = array('rounds' => $this->default_rounds);
 			}
 
-			$CI=& get_instance();
-			$CI->load->library('bcrypt',$rounds);
+			$this->load->library('bcrypt',$rounds);
 		}
 		
 		$this->trigger_events('model_constructor');
@@ -226,8 +225,7 @@ class Ion_auth_model extends CI_Model
 		//bcrypt
 		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
-			$CI=& get_instance();
-			return $CI->bcrypt->hash($password);
+			return $this->bcrypt->hash($password);
 		}
 
 
@@ -271,17 +269,15 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// bcrypt
-	     if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
+		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
 		{
-			$CI=& get_instance();
-			if ($CI->bcrypt->verify($password,$hash_password_db->password))
+			if ($this->bcrypt->verify($password,$hash_password_db->password))
 			{
-			 return TRUE;
+				return TRUE;
 			}
-			 return FALSE;
+			
+			return FALSE;
 		}
-
-
 
 		if ($this->store_salt)
 		{
