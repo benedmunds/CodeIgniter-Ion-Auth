@@ -1,6 +1,6 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "ip_address" varchar(40) NOT NULL,
+    "ip_address" inet NOT NULL,
     "username" varchar(100) NOT NULL,
     "password" varchar(40) NOT NULL,
     "salt" varchar(40),
@@ -55,7 +55,7 @@ INSERT INTO users_groups (user_id, group_id) VALUES
 
 CREATE TABLE "login_attempts" (
     "id" SERIAL NOT NULL,
-    "ip_address" varchar(40) NOT NULL,
+    "ip_address" inet NOT NULL,
     "login" varchar(100) NOT NULL,
     "time" int,
   PRIMARY KEY("id"),
