@@ -752,7 +752,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// IP Address
-		$ip_address = $this->input->ip_address();
+		$ip_address = _prepare_ip($this->input->ip_address());
 		$salt       = $this->store_salt ? $this->salt() : FALSE;
 		$password   = $this->hash_password($password, $salt);
 
@@ -903,7 +903,7 @@ class Ion_auth_model extends CI_Model
 	 */
 	function get_attempts_num($identity)
 	{
-		$ip_address = $this->input->ip_address();
+		$ip_address = _prepare_ip($this->input->ip_address());;
 		
 		$this->db->select('1', FALSE);
 		$this->db->where('ip_address', $ip_address);
@@ -921,7 +921,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function increase_login_attempts($identity) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
-			$ip_address = $this->input->ip_address();
+			$ip_address = _prepare_ip($this->input->ip_address());
 			$this->db->insert($this->tables['login_attempts'], array('ip_address' => $ip_address, 'login' => $identity, 'time' => time()));
 		}
 	}
@@ -934,7 +934,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function clear_login_attempts($identity, $expire_period = 86400) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
-			$ip_address = $this->input->ip_address();
+			$ip_address = _prepare_ip($this->input->ip_address());
 			
 			$this->db->where(array('ip_address' => $ip_address, 'login' => $identity));
 			// Purge obsolete login attempts
@@ -1646,5 +1646,16 @@ class Ion_auth_model extends CI_Model
 		}
 
 		return $filtered_data;
+	}
+	
+	protected function _prepare_ip($ip_address) {
+		if ($this->db->platform() === 'postgre')
+		{
+			return $ip_address;
+		}
+		else
+		{
+			return inet_pton($ip_address);
+		}
 	}
 }
