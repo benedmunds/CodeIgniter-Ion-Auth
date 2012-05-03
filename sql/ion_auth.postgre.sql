@@ -1,6 +1,6 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "ip_address" char(16) NOT NULL,
+    "ip_address" varchar(40) NOT NULL,
     "username" varchar(100) NOT NULL,
     "password" varchar(40) NOT NULL,
     "salt" varchar(40),
