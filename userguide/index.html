@@ -211,7 +211,9 @@ Documentation
 		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
 		<li>'forgot_password_expiration' - Number of seconds before a forgot password request expires. If set to 0, requests will not expire. DEFAULT is 0.</li>
 		<li>'track_login_attempts' - Track the number of failed login attempts for each user or ip. DEFAULT is 'false'.</li>
-		<li>'maximum_login_attempts' - Set the maximum number of failed login attempts. If set to 0, there is no maximum. DEFAULT is 3.</li>
+		<li>'maximum_login_attempts' - Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is 
+			 used by $this->ion_auth->is_max_login_attempts_exceeded(). The controller should check this function and act appropriately. 
+			 If set to 0, there is no maximum. DEFAULT is 3.</li>
 		<li>'message_start_delimiter' -  Starting delimiter for messages. DEFAULT is '&lt;p&gt;'.</li>
 		<li>'message_end_delimiter' -  Ending delimiter for messages. DEFAULT is '&lt;/p&gt;'.</li>
 		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
@@ -584,7 +586,8 @@ Documentation
 	
 	<a name="is_max_login_attempts_exceeded"></a>
 	<h2>is_max_login_attempts_exceeded()</h2>
-	<p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.</p>
+	<p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.
+	   The controller must call this method and take any necessary actions. Login attempt limits are not enforced in the library.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
@@ -630,7 +633,8 @@ Documentation
 	
 	<a name="increase_login_attempts"></a>
 	<h2>increase_login_attempts()</h2>
-	<p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.</p>
+	<p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.
+	   This method is automatically called during the login() method if the login failed.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
@@ -649,7 +653,8 @@ Documentation
 	
 	<a name="clear_login_attempts"></a>
 	<h2>clear_login_attempts()</h2>
-	<p>Clears all failed login attempt records for this identity or this ip address.</p>
+	<p>Clears all failed login attempt records for this identity or this ip address.
+	   This method is automatically called during the login() method if the login succeded.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>

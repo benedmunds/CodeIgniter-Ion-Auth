@@ -851,7 +851,9 @@ class Ion_auth_model extends CI_Model
                 );
 
                 $this->update_last_login($user->id);
-
+				
+				$this->clear_login_attempts($identity);
+				
                 $this->session->set_userdata($session_data);
 
                 if ($remember && $this->config->item('remember_users', 'ion_auth'))
@@ -866,6 +868,8 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
+		$this->increase_login_attempts($identity);
+		
 		$this->trigger_events('post_login_unsuccessful');
 		$this->set_error('login_unsuccessful');
 

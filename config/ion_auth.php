@@ -208,10 +208,12 @@
 
 	/**
 	 * Set the maximum number of failed login attempts.
-	 * If set to 0, there will be no maximum imposed. 
+	 * This maximum is not enforced by the library, but is 
+	 * used by $this->ion_auth->is_max_login_attempts_exceeded().
+	 * The controller should check this function and act
+	 * appropriately. If this variable set to 0, there is no maximum.
 	 **/
 	$config['maximum_login_attempts'] = 3;
-	
 	
 	/**
 	 * Message Start Delimiter
