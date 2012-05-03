@@ -29,7 +29,7 @@
 	$config['tables']['groups']          = 'groups';
 	$config['tables']['users']           = 'users';
 	$config['tables']['users_groups']    = 'users_groups';
-	
+	$config['tables']['login_attempts']  = 'login_attempts';
 
     /**
 	 * Hash Method  (sha1 or bcrypt)
@@ -200,6 +200,20 @@
 	 * expire. If set to 0, forgot password requests will not expire.
 	 **/
 	$config['forgot_password_expiration'] = 0;
+	
+	/**
+	 * Track the number of failed login attempts for each user or ip. 
+	 **/
+	$config['track_login_attempts'] = false;
+
+	/**
+	 * Set the maximum number of failed login attempts.
+	 * This maximum is not enforced by the library, but is 
+	 * used by $this->ion_auth->is_max_login_attempts_exceeded().
+	 * The controller should check this function and act
+	 * appropriately. If this variable set to 0, there is no maximum.
+	 **/
+	$config['maximum_login_attempts'] = 3;
 	
 	/**
 	 * Message Start Delimiter
