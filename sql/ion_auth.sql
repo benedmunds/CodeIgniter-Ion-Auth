@@ -83,7 +83,7 @@ DROP TABLE IF EXISTS `login_attempts`;
 
 CREATE TABLE `login_attempts` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address` int(10) unsigned NOT NULL,
+  `ip_address` varchar(40) NOT NULL,
   `login` varchar(100) NOT NULL,
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
