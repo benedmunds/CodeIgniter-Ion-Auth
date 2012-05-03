@@ -761,7 +761,7 @@ class Ion_auth_model extends CI_Model
 			'username'   => $username,
 			'password'   => $password,
 			'email'      => $email,
-			'ip_address' => sprintf('%u', ip2long($ip_address)),
+			'ip_address' => $ip_address,
 			'created_on' => time(),
 			'last_login' => time(),
 			'active'     => ($manual_activation === false ? 1 : 0)
