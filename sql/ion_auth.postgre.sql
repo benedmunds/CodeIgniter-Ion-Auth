@@ -52,3 +52,12 @@ INSERT INTO users (ip_address, username, password, salt, email, activation_code,
 INSERT INTO users_groups (user_id, group_id) VALUES
     (1,1),
     (1,2);
+
+CREATE TABLE "login_attempts" (
+    "id" SERIAL NOT NULL,
+    "ip_address" varchar(40) NOT NULL,
+    "login" varchar(100) NOT NULL,
+    "time" int,
+  PRIMARY KEY("id"),
+  CONSTRAINT "check_id" CHECK(id >= 0),
+);

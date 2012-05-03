@@ -59,6 +59,10 @@
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
 				<li><a href="#identity_check">identity_check()</a></li>
+				<li><a href="#is_max_login_attempts_exceeded">is_max_login_attempts_exceeded()</a></li>
+				<li><a href="#get_attempts_num">get_attempts_num()</a></li>
+				<li><a href="#increase_login_attempts">increase_login_attempts()</a></li>
+				<li><a href="#clear_login_attempts">clear_login_attempts()</a></li>
 				<li><a href="#user">user()</a></li>
 				<li><a href="#users">users()</a></li>
 				<li><a href="#group">group()</a></li>
@@ -142,6 +146,7 @@ Documentation
 		<li>$config['tables']['groups']</li>
 		<li>$config['tables']['users']</li>
 		<li>$config['tables']['users_groups']</li>
+		<li>$config['tables']['login_attempts']</li>
 		<li>$config['site_title']</li>
 		<li>$config['admin_email']</li>
 		<li>$config['default_group']</li>
@@ -163,6 +168,8 @@ Documentation
 		<li>$config['salt_length']</li>
 		<li>$config['store_salt'] </li>
 		<li>$config['forgot_password_expiration'] </li>
+		<li>$config['track_login_attempts'] </li>
+		<li>$config['maximum_login_attempts'] </li>
 		<li>$config['message_start_delimiter']</li>
 		<li>$config['message_end_delimiter']</li>
 		<li>$config['error_start_delimiter']</li>
@@ -181,6 +188,7 @@ Documentation
 		<li>'tables['groups']' - The table name to use for the groups table.  DEFAULT is 'groups'.</li>
 		<li>'tables['users']' - The table name to use for the users table.  DEFAULT is 'users'.</li>
 		<li>'tables['users_groups']' - The table name to use for the users groups table.  DEFAULT is 'users_groups'.</li>
+		<li>'tables['login_attempts']' - The table name to use for the login attempts table.  DEFAULT is 'login_attempts'.</li>
 		<li>'site_title' - The title of your site, used for email.</li>
 		<li>'admin_email' - Your administrator email address.  DEFAULT is 'admin@example.com'.</li>
 		<li>'default_group' - Name of the default user group.  DEFAULT is 'members'.</li>
@@ -202,6 +210,10 @@ Documentation
 		<li>'salt_length' -  Length of the encryption salt. DEFAULT is '10'.</li>
 		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
 		<li>'forgot_password_expiration' - Number of seconds before a forgot password request expires. If set to 0, requests will not expire. DEFAULT is 0.</li>
+		<li>'track_login_attempts' - Track the number of failed login attempts for each user or ip. DEFAULT is 'false'.</li>
+		<li>'maximum_login_attempts' - Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is 
+			 used by $this->ion_auth->is_max_login_attempts_exceeded(). The controller should check this function and act appropriately. 
+			 If set to 0, there is no maximum. DEFAULT is 3.</li>
 		<li>'message_start_delimiter' -  Starting delimiter for messages. DEFAULT is '&lt;p&gt;'.</li>
 		<li>'message_end_delimiter' -  Ending delimiter for messages. DEFAULT is '&lt;/p&gt;'.</li>
 		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
@@ -568,6 +580,93 @@ Documentation
 		if ($data['identity'] === $user->username || $data['identity'] === $user->email || $this->ion_auth->identity_check($data['identity']) === FALSE)
 		{
 			$this->ion_auth->update_user($user->id, $data)
+		}
+	</pre>
+	<br />
+	
+	<a name="is_max_login_attempts_exceeded"></a>
+	<h2>is_max_login_attempts_exceeded()</h2>
+	<p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.
+	   The controller must call this method and take any necessary actions. Login attempt limits are not enforced in the library.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if maximum_login_attempts is exceeded FALSE if not or if login attempts not tracked.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		if ($this->ion_auth->is_max_login_attempts_exceeded($identity))
+		{
+			$this->session->set_flashdata('message', 'You have too many login attempts');
+			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+	
+	<a name="get_attempts_num"></a>
+	<h2>get_attempts_num()</h2>
+	<p>Returns the number of failed login attempts for this identity or ip address.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>int.  The number of failed login attempts for this identity or ip address.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$num_attempts = $this->ion_auth->get_attempts_num($identity);
+	</pre>
+	<br />
+	
+	<a name="increase_login_attempts"></a>
+	<h2>increase_login_attempts()</h2>
+	<p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.
+	   This method is automatically called during the login() method if the login failed.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		if ($this->ion_auth->login($identity, $password) == FALSE) {
+			$this->ion_auth->increase_login_attempts($identity)
+		}
+	</pre>
+	<br />
+	
+	<a name="clear_login_attempts"></a>
+	<h2>clear_login_attempts()</h2>
+	<p>Clears all failed login attempt records for this identity or this ip address.
+	   This method is automatically called during the login() method if the login succeded.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		if ($this->ion_auth->login($identity, $password) == TRUE) {
+			$this->ion_auth->clear_login_attempts($identity)
 		}
 	</pre>
 	<br />
