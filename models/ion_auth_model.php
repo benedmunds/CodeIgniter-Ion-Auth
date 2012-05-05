@@ -1102,6 +1102,12 @@ class Ion_auth_model extends CI_Model
 			$this->_ion_limit  = NULL;
 			$this->_ion_offset = NULL;
 		}
+		else if (isset($this->_ion_limit)) 
+		{
+			$this->db->limit($this->_ion_limit);
+			
+			$this->_ion_limit  = NULL;
+		}
 
 		//set the order
 		if (isset($this->_ion_order_by) && isset($this->_ion_order))
@@ -1223,6 +1229,12 @@ class Ion_auth_model extends CI_Model
 
 			$this->_ion_limit  = NULL;
 			$this->_ion_offset = NULL;
+		}
+		else if (isset($this->_ion_limit)) 
+		{
+			$this->db->limit($this->_ion_limit);
+			
+			$this->_ion_limit  = NULL;
 		}
 
 		//set the order
