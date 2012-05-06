@@ -903,14 +903,17 @@ class Ion_auth_model extends CI_Model
 	 */
 	function get_attempts_num($identity)
 	{
-		$ip_address = $this->_prepare_ip($this->input->ip_address());;
-		
-		$this->db->select('1', FALSE);
-		$this->db->where('ip_address', $ip_address);
-		if (strlen($identity) > 0) $this->db->or_where('login', $identity);
+		if ($this->config->item('track_login_attempts', 'ion_auth')) {
+			$ip_address = $this->_prepare_ip($this->input->ip_address());;
+			
+			$this->db->select('1', FALSE);
+			$this->db->where('ip_address', $ip_address);
+			if (strlen($identity) > 0) $this->db->or_where('login', $identity);
 
-		$qres = $this->db->get($this->tables['login_attempts']);
-		return $qres->num_rows();
+			$qres = $this->db->get($this->tables['login_attempts']);
+			return $qres->num_rows();
+		}
+		return 0;
 	}
 
 	/**
@@ -922,8 +925,9 @@ class Ion_auth_model extends CI_Model
 	public function increase_login_attempts($identity) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
 			$ip_address = $this->_prepare_ip($this->input->ip_address());
-			$this->db->insert($this->tables['login_attempts'], array('ip_address' => $ip_address, 'login' => $identity, 'time' => time()));
+			return $this->db->insert($this->tables['login_attempts'], array('ip_address' => $ip_address, 'login' => $identity, 'time' => time()));
 		}
+		return FALSE;
 	}
 
 	/**
@@ -940,8 +944,9 @@ class Ion_auth_model extends CI_Model
 			// Purge obsolete login attempts
 			$this->db->or_where('time <', time() - $expire_period);
 
-			$this->db->delete($this->tables['login_attempts']);
+			return $this->db->delete($this->tables['login_attempts']);
 		}
+		return FALSE;
 	}
 
 	public function limit($limit)
