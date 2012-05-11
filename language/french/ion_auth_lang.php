@@ -37,6 +37,7 @@ $lang['activation_email_unsuccessful'] = 'Impossible d\'envoyer le mail d\'activ
 // Login / Logout
 $lang['login_successful'] = 'Connecté avec succès';
 $lang['login_unsuccessful'] = 'Erreur lors de la connexion';
+$lang['login_unsuccessful_not_active'] = 'Ce compte est inactif';
 $lang['logout_successful'] = 'Déconnexion effectuée avec succès';
   
 // Account Changes
