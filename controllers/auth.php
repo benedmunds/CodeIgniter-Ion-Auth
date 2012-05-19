@@ -200,8 +200,13 @@ class Auth extends CI_Controller {
 	}
 
 	//reset password - final step for forgotten password
-	public function reset_password($code)
+	public function reset_password($code = NULL)
 	{
+		if (!$code)
+		{
+			show_404();
+		}
+		
 		$user = $this->ion_auth->forgotten_password_check($code);
 
 		if ($user)
