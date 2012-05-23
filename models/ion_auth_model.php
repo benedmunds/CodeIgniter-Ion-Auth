@@ -546,7 +546,7 @@ class Ion_auth_model extends CI_Model
 		$old         = $this->hash_password_db($result->id, $old);
 		$new         = $this->hash_password($new, $result->salt);
 
-		if ($this->hash_method == 'sha1' && $db_password === $old || $this->hash_method == 'bcrypt' && $old === TRUE)
+		if ($old === TRUE)
 		{
 			//store the new password and reset the remember code so all remembered instances have to re-login
 			$data = array(
@@ -841,7 +841,7 @@ class Ion_auth_model extends CI_Model
 			
 			$password = $this->hash_password_db($user->id, $password);
 
-			if ($this->hash_method == 'sha1' && $user->password === $password || $this->hash_method == 'bcrypt' && $password === true)
+			if ($password === true)
 			{
                 if ($user->active == 0)
                 {
