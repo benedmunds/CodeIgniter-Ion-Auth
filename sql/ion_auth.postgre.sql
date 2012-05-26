@@ -8,7 +8,7 @@ CREATE TABLE "users" (
     "activation_code" varchar(40),
     "forgotten_password_code" varchar(40),
     "forgotten_password_time" int,
-	"remember_code" varchar(40),
+    "remember_code" varchar(40),
     "created_on" int NOT NULL,
     "last_login" int,
     "active" int4,
