@@ -3,11 +3,12 @@
  * IonAuth MongoDB Model
  *
  * A rewrite of IonAuth model to use MongoDB as database backend. It
- * requires CodeIgniter MongoDB Active Record library installed. The class
- * is designed to work with CodeIgniter v2.0+ and Modular Extensions in place.
+ * requires both CodeIgniter MongoDB Active Record and CodeIgniter MongoDB Session
+ * libraries installed.
  *
  * This model class will be loaded in case that it's set to use MongoDB as
- * database backend instead of the original model class.
+ * database backend instead of the original model class, see controller and library
+ * files for more info on its internal usage.
  *
  * @package		CodeIgniter
  * @author		Sepehr Lajevardi <me@sepehr.ws>
