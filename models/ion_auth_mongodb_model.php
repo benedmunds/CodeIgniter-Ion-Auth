@@ -162,11 +162,11 @@ class Ion_auth_mongodb_model extends CI_Model {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->config('auth/ion_auth', TRUE);
+		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
 		$this->load->library('session');
-		$this->lang->load('auth/ion_auth');
+		$this->lang->load('ion_auth');
 
 		// Initialize MongoDB collection names
 		$this->collections = $this->config->item('collections', 'ion_auth');
