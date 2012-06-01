@@ -310,7 +310,7 @@ class Auth extends CI_Controller {
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
-		$id = (string) $id;
+		$id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('confirm', 'confirmation', 'required');
