@@ -72,7 +72,7 @@ CREATE TABLE `users_groups` (
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 	(1,1,1),
-	(1,1,2);
+	(2,1,2);
 
 
 DROP TABLE IF EXISTS `login_attempts`;
