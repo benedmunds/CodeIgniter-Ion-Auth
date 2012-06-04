@@ -1089,6 +1089,7 @@ class Ion_auth_model extends CI_Model
 			//join and then run a where_in against the group ids
 			if (isset($groups) && !empty($groups))
 			{
+				$this->db->distinct();
 				$this->db->join(
 				    $this->tables['users_groups'], 
 				    $this->tables['users_groups'].'.user_id = ' . $this->tables['users'].'.id', 
