@@ -4,7 +4,12 @@
 | -------------------------------------------------------------------------
 | Database Type
 | -------------------------------------------------------------------------
-| If set to TRUE, IonAuth will use MongoDB as its database backend.
+| If set to TRUE, Ion Auth will use MongoDB as its database backend.
+|
+| If you use MongoDB there are two external dependencies that have to be 
+| integrated with your project:
+|   CodeIgniter MongoDB Active Record Library - http://github.com/alexbilbie/codeigniter-mongodb-library/tree/v2
+|   CodeIgniter MongoDB Session Library - http://github.com/sepehr/ci-mongodb-session
 */
 $config['use_mongodb'] = FALSE;
 
@@ -12,7 +17,10 @@ $config['use_mongodb'] = FALSE;
 | -------------------------------------------------------------------------
 | MongoDB Collection.
 | -------------------------------------------------------------------------
-| IonAuth uses a simplified schema when using MongoDB as backend, here they are:
+| Setup the mongodb docs using the following command: 
+| $ mongorestore sql/mongo
+|
+| Ion Auth uses a simplified schema when using MongoDB as backend, here they are:
 |
 | groups: {
 |	_id: GROUP_ID,
