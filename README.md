@@ -9,20 +9,20 @@ the code and added new features.
 This version drops any backwards compatibility and makes things even more 
 awesome then you could expect.
 
-###Documentation
+##Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
 
-###Installation
+##Installation
 Just copy the files from this package to the correspoding folder in your 
 application folder.  For example, copy Ion_auth/config/ion_auth.php to 
 system/application/config/ion_auth.php.  
 
-##Relational DB Setup
+###Relational DB Setup
 Then just run the appropriate SQL file (if you're using migrations you can 
 get the migrations from JD here: 
 https://github.com/iamfiscus/codeigniter-ion-auth-migration).  
 
-##MongoDB Setup
+###MongoDB Setup
 Integrate the following projects to enable MongoDB support in CodeIgniter:  
   
     CodeIgniter MongoDB Active Record Library - http://github.com/alexbilbie/codeigniter-mongodb-library/tree/v2
@@ -33,7 +33,7 @@ Set $config['use_mongodb'] = TRUE; in the config file and then run the following
     $ mongorestore sql/mongo
 
 
-###Usage   
+##Usage   
 In the package you will find example usage code in the controllers and views 
 folders.  The example code isn't the most beautiful code you'll ever see but 
 it'll show you how to use the library and it's nice and generic so it doesn't 
