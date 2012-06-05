@@ -67,6 +67,7 @@
 				<li><a href="#users">users()</a></li>
 				<li><a href="#group">group()</a></li>
 				<li><a href="#groups">groups()</a></li>
+				<li><a href="#get_users_groups">get_users_groups()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
@@ -790,6 +791,34 @@ Documentation
 			$errors = $this->ion_auth->errors();
 			echo $errors;
 		}
+	</pre>
+	<br />
+
+<a name="get_users_groups"></a>
+	<h2>get_users_groups()</h2>
+	<p>Get all groups a user is part of.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[name] => admins
+				[description] => Administrator
+			)
+			</pre>
+		</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
 	</pre>
 	<br />
 
