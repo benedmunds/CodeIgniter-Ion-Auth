@@ -808,7 +808,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		// Add to default group if not already set,
 		// get the ID of the default group first:
 		$default_group = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group()->document();
-		if ((isset($default_group->_id) && !isset($groups)) || (empty($groups) && !in_array($default_group->id, $groups)))
+		if ((isset($default_group->_id) && !isset($groups)) || (empty($groups) && !in_array($default_group->_id, $groups)))
 		{
 			$data['groups'][] = $default_group->_id;
 		}
@@ -1532,7 +1532,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$this->trigger_events('extra_where');
 
 		$updated = $this->mongo_db
-			->where('_id', new MongoId($user->id))
+			->where('_id', new MongoId($user->_id))
 			->set($data)
 			->update($this->collections['users']);
 
@@ -1699,7 +1699,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 			$user = (object) $document[0];
 
 			// Update last login timestamp
-			$this->update_last_login($user->id);
+			$this->update_last_login($user->_id);
 
 			// And set user session data
 			$this->session->set_userdata(array(
