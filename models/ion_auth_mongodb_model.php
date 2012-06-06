@@ -1463,11 +1463,12 @@ class Ion_auth_mongodb_model extends CI_Model {
 	 *
 	 * @return object
 	 */
-	public function group()
+	public function group($id)
 	{
 		$this->trigger_events('group');
 
 		// Set query parameters
+		$this->where('_id', new MongoId($id));
 		$this->limit(1);
 
 		// Execute and return results
