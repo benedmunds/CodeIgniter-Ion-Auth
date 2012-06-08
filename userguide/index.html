@@ -718,6 +718,11 @@ Documentation
 	<h2>users()</h2>
 	<p>Get the users.</p>
 
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group IDs' - array OPTIONAL. If an array of group ids are passed (or a single group id) this will return the users in those groups.</li>
+	</ol>
+
 	<p><strong>Return</strong></p>
 	<ul>
 		<li>array of objects</li>
@@ -725,7 +730,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$admin_users = $this->ion_auth->users();
+		$users = $this->ion_auth->users();
 	</pre>
 	<br />
 
