@@ -1272,9 +1272,14 @@ class Ion_auth_model extends CI_Model
 	 * @return object
 	 * @author Ben Edmunds
 	 **/
-	public function group()
+	public function group($id = NULL)
 	{
 		$this->trigger_events('group');
+
+		if (isset($id))
+		{
+			$this->db->where($this->tables['groups'].'.id', $id);
+		}
 
 		$this->limit(1);
 
