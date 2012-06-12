@@ -140,7 +140,6 @@ class Ion_auth
 				{
 					$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password', 'ion_auth'), $data, true);
 					$this->email->clear();
-					$this->email->set_newline("\r\n");
 					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 					$this->email->to($user->email);
 					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
@@ -210,7 +209,6 @@ class Ion_auth
 				$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
 
 				$this->email->clear();
-				$this->email->set_newline("\r\n");
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 				$this->email->to($profile->email);
 				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - New Password');
@@ -335,7 +333,6 @@ class Ion_auth
 				$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_activate', 'ion_auth'), $data, true);
 
 				$this->email->clear();
-				$this->email->set_newline("\r\n");
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 				$this->email->to($email);
 				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Account Activation');
