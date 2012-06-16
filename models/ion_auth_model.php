@@ -954,7 +954,7 @@ class Ion_auth_model extends CI_Model
 			
 			$this->db->where(array('ip_address' => $ip_address, 'login' => $identity));
 			// Purge obsolete login attempts
-			$this->db->or_where('time <', time() - $expire_period);
+			$this->db->or_where('time <', time() - $expire_period, FALSE);
 
 			return $this->db->delete($this->tables['login_attempts']);
 		}
