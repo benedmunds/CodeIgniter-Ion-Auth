@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varbinary(16) NOT NULL,
+    ip_address varbinary(45) NOT NULL,
     username varchar(100) NOT NULL,
     password varchar(40) NOT NULL,
     salt varchar(40),
@@ -60,7 +60,7 @@ SET IDENTITY_INSERT users_groups OFF;
 
 CREATE TABLE login_attempts (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varbinary(16) NOT NULL,
+    ip_address varbinary(45) NOT NULL,
     login varchar(100) NOT NULL,
 	time datetime,
   PRIMARY KEY(id),
