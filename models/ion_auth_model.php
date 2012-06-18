@@ -1318,7 +1318,15 @@ class Ion_auth_model extends CI_Model
 		{
 			if (array_key_exists('password', $data))
 			{
-				$data['password'] = $this->hash_password($data['password'], $user->salt);
+				if( ! empty($data['password']))
+				{
+					$data['password'] = $this->hash_password($data['password'], $user->salt);
+				}
+				else
+				{
+					// unset password so it doesn't effect database entry if no password passed
+					unset($data['password']);
+				}
 			}
 		}
 
