@@ -624,7 +624,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	protected function identity_check($identity = '')
+	public function identity_check($identity = '')
 	{
 		$this->trigger_events('identity_check');
 
