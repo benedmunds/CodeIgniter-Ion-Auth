@@ -1213,24 +1213,24 @@ class Ion_auth_model extends CI_Model
 		// if group id(s) are passed remove user from the group(s)
 		if( ! empty($group_ids))
 		{
-		    if(is_array($group_ids))
-		    {
-		        foreach($group_ids as $group_id)
-		        {
-		            $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
-		        }
-		       
-		        return TRUE;
-		    }
-		    else
-		    {
-		        return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_ids, $this->join['users'] => (int)$user_id));
-		    }
+			if(is_array($group_ids))
+			{
+				foreach($group_ids as $group_id)
+				{
+					$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+				}
+			
+				return TRUE;
+			}
+			else
+			{
+				return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_ids, $this->join['users'] => (int)$user_id));
+			}
 		}
 		// otherwise remove user from all groups
 		else
 		{
-		    return $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id));
+			return $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id));
 		}
 	}
 
@@ -1376,6 +1376,7 @@ class Ion_auth_model extends CI_Model
 
 		// delete user from users table
 		$this->db->delete($this->tables['users'], array('id' => $id));
+		
 		// remove user from groups
 		$this->remove_from_group(NULL, $id);
 
