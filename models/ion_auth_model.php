@@ -1207,8 +1207,11 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('remove_from_group');
 		
-		//if no id was passed use the current users id
-		$user_id || $user_id = $this->session->userdata('user_id');
+		// user id is required
+		if(empty($user_id))
+		{
+			return FALSE;
+		}
 		
 		// if group id(s) are passed remove user from the group(s)
 		if( ! empty($group_ids))
