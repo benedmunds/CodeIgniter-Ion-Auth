@@ -68,6 +68,7 @@
 				<li><a href="#group">group()</a></li>
 				<li><a href="#groups">groups()</a></li>
 				<li><a href="#get_users_groups">get_users_groups()</a></li>
+				<li><a href="#remove_from_group">remove_from_group()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
@@ -799,7 +800,7 @@ Documentation
 	</pre>
 	<br />
 
-<a name="get_users_groups"></a>
+	<a name="get_users_groups"></a>
 	<h2>get_users_groups()</h2>
 	<p>Get all groups a user is part of.</p>
 
@@ -826,6 +827,33 @@ Documentation
 		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
 	</pre>
 	<br />
+	
+	<a name="remove_from_group"></a>
+	<h2>remove_from_group()</h2>
+	<p>Remove user from group(s)</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'User_id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was removed from group(s) FALSE if the user is not removed from group(s).</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+        // pass an array of group ID's and user ID
+        $this->ion_auth->remove_from_group(array('1', '3', '6'), $user_id);
+        
+        // pass a single ID and user ID
+        $this->ion_auth->remove_from_group(1, $user_id);
+        
+        // pass NULL to remove user from all groups
+        $this->ion_auth->remove_from_group(NULL, $user_id);
+	</pre>
+	<br />	
 
 	<a name="set_message_delimiters"></a>
 	<h2>set_message_delimiters()</h2>
