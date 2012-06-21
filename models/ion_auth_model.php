@@ -1203,18 +1203,34 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Ben Edmunds
 	 **/
-	public function remove_from_group($group_id=false, $user_id=false)
+	public function remove_from_group($group_ids=false, $user_id=false)
 	{
 		$this->trigger_events('remove_from_group');
-
-		//if no id was passed use the current users id
-		$user_id || $user_id = $this->session->userdata('user_id');
-
-		// if no group id is passed remove user from all groups
-		if( ! empty($group_id))
+		
+		// user id is required
+		if(empty($user_id))
 		{
-			return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+			return FALSE;
 		}
+		
+		// if group id(s) are passed remove user from the group(s)
+		if( ! empty($group_ids))
+		{
+			if(is_array($group_ids))
+			{
+				foreach($group_ids as $group_id)
+				{
+					$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+				}
+			
+				return TRUE;
+			}
+			else
+			{
+				return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_ids, $this->join['users'] => (int)$user_id));
+			}
+		}
+		// otherwise remove user from all groups
 		else
 		{
 			return $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id));
@@ -1318,7 +1334,15 @@ class Ion_auth_model extends CI_Model
 		{
 			if (array_key_exists('password', $data))
 			{
-				$data['password'] = $this->hash_password($data['password'], $user->salt);
+				if( ! empty($data['password']))
+				{
+					$data['password'] = $this->hash_password($data['password'], $user->salt);
+				}
+				else
+				{
+					// unset password so it doesn't effect database entry if no password passed
+					unset($data['password']);
+				}
 			}
 		}
 
@@ -1353,7 +1377,10 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->trans_begin();
 
+		// delete user from users table
 		$this->db->delete($this->tables['users'], array('id' => $id));
+		
+		// remove user from groups
 		$this->remove_from_group(NULL, $id);
 
 		if ($this->db->trans_status() === FALSE)
