@@ -1647,7 +1647,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 	 *
 	 * @return bool
 	 */
-	private function remember_user($id)
+	public function remember_user($id)
 	{
 		$this->trigger_events('pre_remember_user');
 
