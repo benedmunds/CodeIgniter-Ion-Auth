@@ -45,3 +45,8 @@ $lang['update_successful'] 		 	 = 'Informasi Akun Berhasil Diperbaharui';
 $lang['update_unsuccessful'] 		 	 = 'Tidak Dapat Memperbaharui Informasi Akun';
 $lang['delete_successful'] 		 	 = 'Pengguna Telah Dihapus';
 $lang['delete_unsuccessful'] 		 	 = 'Tidak Dapat Menghapus Pengguna';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

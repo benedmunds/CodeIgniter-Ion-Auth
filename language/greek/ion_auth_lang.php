@@ -44,3 +44,8 @@ $lang['update_successful'] 		 	 = 'Οι Πληροφορίες του Λογαρ
 $lang['update_unsuccessful'] 		 	 = 'Αδυναμία Ενημέρωσης Πληροφοριών Λογαριασμού';
 $lang['delete_successful'] 		 	 = 'Ο Χρήστης Διαγράφηκε';
 $lang['delete_unsuccessful'] 		 	 = 'Αδυναμία Διαγραφής Χρήστη';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

@@ -45,3 +45,8 @@ $lang['update_successful'] 		 	         = 'Account Information Successfully Upda
 $lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';
 $lang['delete_successful'] 		 	         = 'User Deleted';
 $lang['delete_unsuccessful'] 		 	     = 'Unable to Delete User';
+
+// Email Subjects
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

@@ -43,3 +43,8 @@ $lang['update_successful'] 		 	         = 'Informácie o účte boli úspešne a
 $lang['update_unsuccessful'] 		 	     = 'Informácie o účte sa nedájú aktualizovať';
 $lang['delete_successful'] 		 	         = 'Užívateľ bol zmazaný';
 $lang['delete_unsuccessful'] 		 	     = 'Užívateľ sa nedá zmazať ';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

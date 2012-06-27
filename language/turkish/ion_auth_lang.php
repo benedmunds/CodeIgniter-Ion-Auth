@@ -46,5 +46,7 @@ $lang['update_unsuccessful'] 		 	 = 'Üyelik Bilgileri Güncellenemedi';
 $lang['delete_successful'] 		 	 = 'Kullanıcı Silindi';
 $lang['delete_unsuccessful'] 			 = 'Kullanıcı Silinemedi';
 
-
-?>
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

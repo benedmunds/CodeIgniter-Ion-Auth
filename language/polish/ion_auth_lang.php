@@ -46,5 +46,7 @@ $lang['update_unsuccessful'] 		= 'Nie można uaktualnić konta';
 $lang['delete_successful'] 		= 'Użytkownik został skasowany';
 $lang['delete_unsuccessful'] 		= 'Nie można skasować użytkownika';
 
-
-?>
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

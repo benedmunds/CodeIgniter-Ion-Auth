@@ -45,6 +45,8 @@ $lang['update_successful'] = 'Compte utilisateur mis à jour avec succès';
 $lang['update_unsuccessful'] = 'Impossible de mettre à jour le compte utilisateur';
 $lang['delete_successful'] = 'Utilisateur supprimé';
 $lang['delete_unsuccessful'] = 'Impossible de supprimer l\'utilisateur';
- 
- 
-?>
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

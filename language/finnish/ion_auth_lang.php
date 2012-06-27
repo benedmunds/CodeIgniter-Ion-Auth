@@ -45,3 +45,8 @@ $lang['update_successful'] 		 	 = 'Tilin tiedot päivitetty!';
 $lang['update_unsuccessful'] 		 	 = 'Tietojen päivitys epäonnistui';
 $lang['delete_successful'] 		 	 = 'Tili poistettu';
 $lang['delete_unsuccessful'] 		 	 = 'Tilin poisto epäonnistui';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';
