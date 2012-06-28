@@ -39,3 +39,8 @@ $lang['update_successful'] 		 	 		= 'Ship Information Successfully Updated';
 $lang['update_unsuccessful'] 		 	 	= 'Unable to Update Ship Information';
 $lang['delete_successful'] 		 	 		= 'Pirate Sent to Davy Jones\' Locker';
 $lang['delete_unsuccessful'] 		 	 	= 'Avast, The Pirate be Still Alive';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

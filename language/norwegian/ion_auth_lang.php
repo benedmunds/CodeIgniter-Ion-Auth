@@ -45,3 +45,8 @@ $lang['update_successful'] 		 	 = 'Konto informasjon oppdatert';
 $lang['update_unsuccessful'] 		 	 = 'Klarte ikke å oppdatere konto informasjon';
 $lang['delete_successful'] 		 	 = 'Konto fjernet';
 $lang['delete_unsuccessful'] 		 	 = 'Klarte ikke å fjerne konto';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

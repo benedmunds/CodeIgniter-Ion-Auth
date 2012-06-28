@@ -45,3 +45,8 @@ $lang['update_successful'] 		 	 = '帳號資料更新成功';
 $lang['update_unsuccessful'] 		 	 = '更新帳號資料失敗';
 $lang['delete_successful'] 		 	 = '帳號已刪除';
 $lang['delete_unsuccessful'] 		 	 = '刪除帳號失敗';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

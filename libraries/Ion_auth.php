@@ -54,15 +54,20 @@ class Ion_auth
 		$this->load->library('email');
 		$this->load->library('session');
 		$this->lang->load('ion_auth');
-		$this->load->model('ion_auth_model');
 		$this->load->helper('cookie');
+
+		// Load IonAuth MongoDB model if it's set to use MongoDB,
+		// We assign the model object to "ion_auth_model" variable.
+		$this->config->item('use_mongodb', 'ion_auth') ?
+			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model') :
+			$this->load->model('ion_auth_model');
 
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
 		{
 			$this->ion_auth_model->login_remembered_user();
 		}
-		
+
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
 		if (isset($email_config) && is_array($email_config))
@@ -88,12 +93,12 @@ class Ion_auth
 
 		return call_user_func_array( array($this->ion_auth_model, $method), $arguments);
 	}
-	
+
 	/**
 	 * __get
-	 * 
+	 *
 	 * Enables the use of CI super-global without having to define an extra variable.
-	 * 
+	 *
 	 * I can't remember where I first saw this, so thank you if you are the original author. -Militis
 	 *
 	 * @access	public
@@ -119,13 +124,13 @@ class Ion_auth
 			// Get user information
 			$user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
 
-			if ($user) 
+			if ($user)
 			{
 				$data = array(
 					'identity'		=> $user->{$this->config->item('identity', 'ion_auth')},
 					'forgotten_password_code' => $user->forgotten_password_code
 				);
-				
+
 				if(!$this->config->item('use_ci_email', 'ion_auth'))
 				{
 					$this->set_message('forgot_password_successful');
@@ -135,10 +140,9 @@ class Ion_auth
 				{
 					$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password', 'ion_auth'), $data, true);
 					$this->email->clear();
-					$this->email->set_newline("\r\n");
 					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 					$this->email->to($user->email);
-					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
+					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_forgotten_password_subject'));
 					$this->email->message($message);
 
 					if ($this->email->send())
@@ -205,10 +209,9 @@ class Ion_auth
 				$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
 
 				$this->email->clear();
-				$this->email->set_newline("\r\n");
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 				$this->email->to($profile->email);
-				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - New Password');
+				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_new_password_subject'));
 				$this->email->message($message);
 
 				if ($this->email->send())
@@ -222,9 +225,9 @@ class Ion_auth
 					$this->set_error('password_change_unsuccessful');
 					$this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
 					return FALSE;
-				}				
+				}
 
-			}			
+			}
 		}
 
 		$this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_unsuccessful'));
@@ -330,10 +333,9 @@ class Ion_auth
 				$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_activate', 'ion_auth'), $data, true);
 
 				$this->email->clear();
-				$this->email->set_newline("\r\n");
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 				$this->email->to($email);
-				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Account Activation');
+				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_activation_subject'));
 				$this->email->message($message);
 
 				if ($this->email->send() == TRUE)

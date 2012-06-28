@@ -48,5 +48,10 @@ $lang['update_unsuccessful']					= 'No s&#39;ha pogut actualitzar la informació
 $lang['delete_successful']						= 'Usuari eliminat';
 $lang['delete_unsuccessful']					= 'No s&#39;ha pogut Eliminar l&#39;usuari';
 
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';
+
 
 ?>

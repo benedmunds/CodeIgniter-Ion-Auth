@@ -46,5 +46,9 @@ $lang['update_unsuccessful'] 		 	 = 'Neįmanoma pakeisti vartotojo duoemnų';
 $lang['delete_successful'] 		 	 = 'Vartotojas pašalintas';
 $lang['delete_unsuccessful'] 		 	 = 'Neįmanoma pašalinti vartotojo';
 
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';
 
 ?>

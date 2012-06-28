@@ -45,3 +45,8 @@ $lang['update_successful']                   = 'Sinu andmed on muudetud';
 $lang['update_unsuccessful']                 = 'Andmete muutmine ebaõnnestus.';
 $lang['delete_successful']                   = 'Kasutaja on eemaldatud';
 $lang['delete_unsuccessful']                 = 'Kasutajat eemaldamine ebaõnnestus.';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

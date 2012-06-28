@@ -46,4 +46,7 @@ $lang['update_unsuccessful'] 		 	 = 'Não é Possível Actualizar a Informação da C
 $lang['delete_successful'] 		 	 = 'Utilizador Removido';
 $lang['delete_unsuccessful'] 		 	 = 'Não é Possível Remover o Utilizador';
 
-?>
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

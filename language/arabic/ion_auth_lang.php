@@ -44,3 +44,8 @@ $lang['update_successful'] 		 	 = 'تم تعديل معلومات حسابك';
 $lang['update_unsuccessful'] 		 	 = 'لا يمكن تعديل معلومات الحساب';
 $lang['delete_successful'] 		 	 = 'تم إلغاء المستخدم';
 $lang['delete_unsuccessful'] 		 	 = 'لا يمكن إلغاء المستخدم';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';

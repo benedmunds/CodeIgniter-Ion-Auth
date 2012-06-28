@@ -1,6 +1,6 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "ip_address" char(16) NOT NULL,
+    "ip_address" inet NOT NULL,
     "username" varchar(100) NOT NULL,
     "password" varchar(40) NOT NULL,
     "salt" varchar(40),
@@ -8,7 +8,7 @@ CREATE TABLE "users" (
     "activation_code" varchar(40),
     "forgotten_password_code" varchar(40),
     "forgotten_password_time" int,
-	"remember_code" varchar(40),
+    "remember_code" varchar(40),
     "created_on" int NOT NULL,
     "last_login" int,
     "active" int4,
@@ -52,3 +52,12 @@ INSERT INTO users (ip_address, username, password, salt, email, activation_code,
 INSERT INTO users_groups (user_id, group_id) VALUES
     (1,1),
     (1,2);
+
+CREATE TABLE "login_attempts" (
+    "id" SERIAL NOT NULL,
+    "ip_address" inet NOT NULL,
+    "login" varchar(100) NOT NULL,
+    "time" int,
+  PRIMARY KEY("id"),
+  CONSTRAINT "check_id" CHECK(id >= 0),
+);

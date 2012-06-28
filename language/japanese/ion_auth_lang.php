@@ -42,3 +42,8 @@ $lang['update_successful'] 		 	 = 'アカウント情報を更新しました';
 $lang['update_unsuccessful'] 		 = 'アカウント情報を更新することが出来ません';
 $lang['delete_successful'] 		 	 = 'ユーザーを削除しました';
 $lang['delete_unsuccessful'] 		 = 'ユーザーを削除することが出来ません';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = '忘れたパスワードの確認';
+$lang['email_new_password_subject']          = '新しいパスワード';
+$lang['email_activation_subject']            = 'アカウントの承認';

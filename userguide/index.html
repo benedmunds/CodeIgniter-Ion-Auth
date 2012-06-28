@@ -59,16 +59,22 @@
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
 				<li><a href="#identity_check">identity_check()</a></li>
+				<li><a href="#is_max_login_attempts_exceeded">is_max_login_attempts_exceeded()</a></li>
+				<li><a href="#get_attempts_num">get_attempts_num()</a></li>
+				<li><a href="#increase_login_attempts">increase_login_attempts()</a></li>
+				<li><a href="#clear_login_attempts">clear_login_attempts()</a></li>
 				<li><a href="#user">user()</a></li>
 				<li><a href="#users">users()</a></li>
 				<li><a href="#group">group()</a></li>
 				<li><a href="#groups">groups()</a></li>
+				<li><a href="#get_users_groups">get_users_groups()</a></li>
+				<li><a href="#remove_from_group">remove_from_group()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
         <li><a href="#trigger_events">trigger_events()</a></li>
-        <li><a href="#set_hook">set_hook</a></li>
+        <li><a href="#set_hook">set_hook()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -142,6 +148,7 @@ Documentation
 		<li>$config['tables']['groups']</li>
 		<li>$config['tables']['users']</li>
 		<li>$config['tables']['users_groups']</li>
+		<li>$config['tables']['login_attempts']</li>
 		<li>$config['site_title']</li>
 		<li>$config['admin_email']</li>
 		<li>$config['default_group']</li>
@@ -163,6 +170,8 @@ Documentation
 		<li>$config['salt_length']</li>
 		<li>$config['store_salt'] </li>
 		<li>$config['forgot_password_expiration'] </li>
+		<li>$config['track_login_attempts'] </li>
+		<li>$config['maximum_login_attempts'] </li>
 		<li>$config['message_start_delimiter']</li>
 		<li>$config['message_end_delimiter']</li>
 		<li>$config['error_start_delimiter']</li>
@@ -181,6 +190,7 @@ Documentation
 		<li>'tables['groups']' - The table name to use for the groups table.  DEFAULT is 'groups'.</li>
 		<li>'tables['users']' - The table name to use for the users table.  DEFAULT is 'users'.</li>
 		<li>'tables['users_groups']' - The table name to use for the users groups table.  DEFAULT is 'users_groups'.</li>
+		<li>'tables['login_attempts']' - The table name to use for the login attempts table.  DEFAULT is 'login_attempts'.</li>
 		<li>'site_title' - The title of your site, used for email.</li>
 		<li>'admin_email' - Your administrator email address.  DEFAULT is 'admin@example.com'.</li>
 		<li>'default_group' - Name of the default user group.  DEFAULT is 'members'.</li>
@@ -192,7 +202,7 @@ Documentation
 		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
 		<li>'email_activation' - TRUE or FALSE. Sets whether to require email activation or not. DEFAULT is 'false'.</li>
 		<li>'remember_users' - TRUE or FALSE. Sets whether to enable 'remember me' functionality or not. DEFAULT is 'true'.</li>
-		<li>'user_expire' - Sets how long to remember the user for in seconds. DEFAULT is '86500'.</li>
+		<li>'user_expire' - Sets how long to remember the user for in seconds. Set to zero for no expiration. DEFAULT is '86500'.</li>
 		<li>'user_extend_on_login' -  TRUE or FALSE.  Extend the users session expiration on login. DEFAULT is 'false'.</li>
 		<li>'email_type' - Email content type. DEFAULT us 'html'.</li>
 		<li>'email_templates' -  Folder where the email view templates are stored. DEFAULT is 'auth/email/'.</li>
@@ -202,6 +212,10 @@ Documentation
 		<li>'salt_length' -  Length of the encryption salt. DEFAULT is '10'.</li>
 		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
 		<li>'forgot_password_expiration' - Number of seconds before a forgot password request expires. If set to 0, requests will not expire. DEFAULT is 0.</li>
+		<li>'track_login_attempts' - Track the number of failed login attempts for each user or ip. DEFAULT is 'false'.</li>
+		<li>'maximum_login_attempts' - Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is 
+			 used by $this->ion_auth->is_max_login_attempts_exceeded(). The controller should check this function and act appropriately. 
+			 If set to 0, there is no maximum. DEFAULT is 3.</li>
 		<li>'message_start_delimiter' -  Starting delimiter for messages. DEFAULT is '&lt;p&gt;'.</li>
 		<li>'message_end_delimiter' -  Ending delimiter for messages. DEFAULT is '&lt;/p&gt;'.</li>
 		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
@@ -262,7 +276,7 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the user was successfully created FALSE if the user was not created.</li>
+		<li>mixed.  The ID of the user if the user was successfully created, FALSE if the user was not created.</li>
 	</ul>
 
 	<p><b>Usage</b></p>
@@ -571,6 +585,93 @@ Documentation
 		}
 	</pre>
 	<br />
+	
+	<a name="is_max_login_attempts_exceeded"></a>
+	<h2>is_max_login_attempts_exceeded()</h2>
+	<p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.
+	   The controller must call this method and take any necessary actions. Login attempt limits are not enforced in the library.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if maximum_login_attempts is exceeded FALSE if not or if login attempts not tracked.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		if ($this->ion_auth->is_max_login_attempts_exceeded($identity))
+		{
+			$this->session->set_flashdata('message', 'You have too many login attempts');
+			redirect('welcome/index');
+		}
+	</pre>
+	<br />
+	
+	<a name="get_attempts_num"></a>
+	<h2>get_attempts_num()</h2>
+	<p>Returns the number of failed login attempts for this identity or ip address.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>int.  The number of failed login attempts for this identity or ip address.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$num_attempts = $this->ion_auth->get_attempts_num($identity);
+	</pre>
+	<br />
+	
+	<a name="increase_login_attempts"></a>
+	<h2>increase_login_attempts()</h2>
+	<p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.
+	   This method is automatically called during the login() method if the login failed.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		if ($this->ion_auth->login($identity, $password) == FALSE) {
+			$this->ion_auth->increase_login_attempts($identity)
+		}
+	</pre>
+	<br />
+	
+	<a name="clear_login_attempts"></a>
+	<h2>clear_login_attempts()</h2>
+	<p>Clears all failed login attempt records for this identity or this ip address.
+	   This method is automatically called during the login() method if the login succeded.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Identity' - string REQUIRED.</li>
+	</ol>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$identity = 'ben.edmunds@gmail.com';
+		$password = '12345678';
+		if ($this->ion_auth->login($identity, $password) == TRUE) {
+			$this->ion_auth->clear_login_attempts($identity)
+		}
+	</pre>
+	<br />
 
 	<a name="user"></a>
 	<h2>user()</h2>
@@ -587,7 +688,6 @@ Documentation
 			<pre>
 			stdClass Object (
 				[id] => 1
-				[group_id] => 1
 				[ip_address] => 127.0.0.1
 				[username] => administrator
 				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
@@ -599,8 +699,6 @@ Documentation
 				[created_on] => 1268889823
 				[last_login] => 1279464628
 				[active] => 0
-				[group] => admin
-				[group_description] => Administrator
 				[first_name] => Admin
 				[last_name] => Account
 				[company] => Some Corporation
@@ -621,6 +719,11 @@ Documentation
 	<h2>users()</h2>
 	<p>Get the users.</p>
 
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Group IDs' - array OPTIONAL. If an array of group ids are passed (or a single group id) this will return the users in those groups.</li>
+	</ol>
+
 	<p><strong>Return</strong></p>
 	<ul>
 		<li>array of objects</li>
@@ -628,7 +731,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$admin_users = $this->ion_auth->users();
+		$users = $this->ion_auth->users();
 	</pre>
 	<br />
 
@@ -696,6 +799,61 @@ Documentation
 		}
 	</pre>
 	<br />
+
+	<a name="get_users_groups"></a>
+	<h2>get_users_groups()</h2>
+	<p>Get all groups a user is part of.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer OPTIONAL. If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>
+			<pre>
+			stdClass Object (
+				[id] => 1
+				[name] => admins
+				[description] => Administrator
+			)
+			</pre>
+		</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+	</pre>
+	<br />
+	
+	<a name="remove_from_group"></a>
+	<h2>remove_from_group()</h2>
+	<p>Remove user from group(s)</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'User_id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was removed from group(s) FALSE if the user is not removed from group(s).</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+        // pass an array of group ID's and user ID
+        $this->ion_auth->remove_from_group(array('1', '3', '6'), $user_id);
+        
+        // pass a single ID and user ID
+        $this->ion_auth->remove_from_group(1, $user_id);
+        
+        // pass NULL to remove user from all groups
+        $this->ion_auth->remove_from_group(NULL, $user_id);
+	</pre>
+	<br />	
 
 	<a name="set_message_delimiters"></a>
 	<h2>set_message_delimiters()</h2>
@@ -792,7 +950,10 @@ Documentation
 
 	<a name="set_hook"></a>
   <h2>set_hook()</h2>
-  <p>Set a single or multiple functions to be called when trigged by trigger_events()</p>
+  <p>
+  	Set a single or multiple functions to be called when trigged by trigger_events().  
+  	See an example here: <a href="http://gist.github.com/657de89b26decda2b2fa" target="_blank">http://gist.github.com/657de89b26decda2b2fa</a>  
+  </p>
   
   <p><strong>Parameters</strong></p>
   <ol>

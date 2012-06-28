@@ -45,3 +45,8 @@ $lang['update_successful']      = 'Kontouppgifterna uppdaterades';
 $lang['update_unsuccessful']    = 'Det gick inte att uppdatera kontouppgifterna';
 $lang['delete_successful']      = 'Användaren är borttagen';
 $lang['delete_unsuccessful']    = 'Det gick inte att ta bort användaren';
+
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+$lang['email_new_password_subject']          = 'New Password';
+$lang['email_activation_subject']            = 'Account Activation';
