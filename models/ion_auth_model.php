@@ -1427,10 +1427,21 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('set_lang');
 
+		// if the user_expire is set to zero we'll set the expiration two years from now.
+		if($this->config->item('user_expire', 'ion_auth') === 0)
+		{
+			$expire = (60*60*24*365*2);
+		}
+		// otherwise use what is set
+		else
+		{
+			$expire = $this->config->item('user_expire', 'ion_auth');
+		}
+
 		set_cookie(array(
 			'name'   => 'lang_code',
 			'value'  => $lang,
-			'expire' => $this->config->item('user_expire', 'ion_auth') + time()
+			'expire' => $expire
 		));
 
 		return TRUE;
@@ -1459,16 +1470,27 @@ class Ion_auth_model extends CI_Model
 
 		if ($this->db->affected_rows() > -1)
 		{
+			// if the user_expire is set to zero we'll set the expiration two years from now.
+			if($this->config->item('user_expire', 'ion_auth') === 0)
+			{
+				$expire = (60*60*24*365*2);
+			}
+			// otherwise use what is set
+			else
+			{
+				$expire = $this->config->item('user_expire', 'ion_auth');
+			}
+			
 			set_cookie(array(
 			    'name'   => 'identity',
 			    'value'  => $user->{$this->identity_column},
-			    'expire' => $this->config->item('user_expire', 'ion_auth'),
+			    'expire' => $expire
 			));
 
 			set_cookie(array(
 			    'name'   => 'remember_code',
 			    'value'  => $salt,
-			    'expire' => $this->config->item('user_expire', 'ion_auth'),
+			    'expire' => $expire
 			));
 
 			$this->trigger_events(array('post_remember_user', 'remember_user_successful'));
