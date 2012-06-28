@@ -20,42 +20,6 @@ $config['use_mongodb'] = FALSE;
 | Setup the mongodb docs using the following command: 
 | $ mongorestore sql/mongo
 |
-| Ion Auth uses a simplified schema when using MongoDB as backend, here they are:
-|
-| groups: {
-|	_id: GROUP_ID,
-|	name,
-|	description
-| }
-|
-| login_attempts: {
-|	_id: LOGIN_ATTEMPT_ID,
-|	ip_address,
-|	login,
-|	time
-| }
-|
-| users: {
-| 	_id: USER_ID,
-| 	ip_address,
-| 	username, (ensureIndex)
-| 	password,
-| 	salt,
-| 	email, (ensureIndex)
-| 	activation_code,
-| 	forgotten_password_code, (ensureIndex)
-| 	forgotten_password_time,
-| 	remember_code,
-| 	created_on, (ensureIndex)
-| 	last_login,
-| 	active, (ensureIndex)
-| 	first_name,
-| 	last_name,
-| 	company,
-| 	phone,
-| 	groups: [GROUP_ID_1, GROUP_ID_2, ...], (ensureIndex)
-| }
-|
 */
 $config['collections']['users']          = 'users';
 $config['collections']['groups']         = 'groups';
