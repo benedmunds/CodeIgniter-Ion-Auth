@@ -59,5 +59,5 @@ CREATE TABLE "login_attempts" (
     "login" varchar(100) NOT NULL,
     "time" int,
   PRIMARY KEY("id"),
-  CONSTRAINT "check_id" CHECK(id >= 0),
+  CONSTRAINT "check_id" CHECK(id >= 0)
 );
