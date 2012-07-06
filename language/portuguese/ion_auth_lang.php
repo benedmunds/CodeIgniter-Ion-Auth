@@ -22,31 +22,31 @@ $lang['account_creation_duplicate_username'] 	 = 'Nome de Usuário em Uso ou Invá
 
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Password Alterada com Sucesso';
-$lang['password_change_unsuccessful'] 	  	 = 'Não é Possível Alterar a Password';
-$lang['forgot_password_successful'] 	 	 = 'Nova Password Enviada por Email';
-$lang['forgot_password_unsuccessful'] 	 	 = 'Não é Possível Criar uma Nova Password';
+$lang['password_change_successful'] 	 	 = 'Senha Alterada com Sucesso';
+$lang['password_change_unsuccessful'] 	  	 = 'Não é Possível Alterar a Senha';
+$lang['forgot_password_successful'] 	 	 = 'Nova Senha Enviada por Email';
+$lang['forgot_password_unsuccessful'] 	 	 = 'Não é Possível Criar uma Nova Senha';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'Conta Activada';
-$lang['activate_unsuccessful'] 		 	 = 'Não é Possível Activar a Conta';
-$lang['deactivate_successful'] 		  	 = 'Conta Desactivada';
-$lang['deactivate_unsuccessful'] 	  	 = 'Não é Possível Desactivar a Conta';
-$lang['activation_email_successful'] 	  	 = 'Email de Activação Enviado';
-$lang['activation_email_unsuccessful']   	 = 'Não é Possível Enviar o Email de Activação';
+$lang['activate_successful'] 		  	 = 'Conta Ativada';
+$lang['activate_unsuccessful'] 		 	 = 'Não é Possível Ativar a Conta';
+$lang['deactivate_successful'] 		  	 = 'Conta Desativada';
+$lang['deactivate_unsuccessful'] 	  	 = 'Não é Possível Desativar a Conta';
+$lang['activation_email_successful'] 	  	 = 'Email de Ativação Enviado';
+$lang['activation_email_unsuccessful']   	 = 'Não é Possível Enviar o Email de Ativação';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Sessão Iniciada com Sucesso';
 $lang['login_unsuccessful'] 		  	 = 'Não é Possível Iniciar Sessão';
-$lang['logout_successful'] 		 	 = 'Sessão Terminada com Sucesso';
+$lang['logout_successful'] 		 	 = 'Sessão Encerrada com Sucesso';
   
 // Account Changes
-$lang['update_successful'] 		 	 = 'Informação da Conta Actualizada com Sucesso';
-$lang['update_unsuccessful'] 		 	 = 'Não é Possível Actualizar a Informação da Conta';
-$lang['delete_successful'] 		 	 = 'Utilizador Removido';
-$lang['delete_unsuccessful'] 		 	 = 'Não é Possível Remover o Utilizador';
+$lang['update_successful'] 		 	 = 'Informação da Conta Atualizada com Sucesso';
+$lang['update_unsuccessful'] 		 	 = 'Não é Possível Atualizar a Informação da Conta';
+$lang['delete_successful'] 		 	 = 'Usuário Removido';
+$lang['delete_unsuccessful'] 		 	 = 'Não é Possível Remover o Usuário';
 
 // Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_forgotten_password_subject']    = 'Esqueci a senha';
+$lang['email_new_password_subject']          = 'Nova senha';
+$lang['email_activation_subject']            = 'Ativação da conta';
