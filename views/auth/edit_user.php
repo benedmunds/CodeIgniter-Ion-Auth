@@ -1,9 +1,9 @@
-<h1>Create User</h1>
+<h1>Edit User</h1>
 <p>Please enter the users information below.</p>
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/create_user");?>
+<?php echo form_open(current_url());?>
 
       <p>
             First Name: <br />
@@ -21,26 +21,24 @@
       </p>
 
       <p>
-            Email: <br />
-            <?php echo form_input($email);?>
-      </p>
-
-      <p>
             Phone: <br />
             <?php echo form_input($phone1);?>-<?php echo form_input($phone2);?>-<?php echo form_input($phone3);?>
       </p>
 
       <p>
-            Password: <br />
+            Password: (if changing password)<br />
             <?php echo form_input($password);?>
       </p>
 
       <p>
-            Confirm Password: <br />
+            Confirm Password: (if changing password)<br />
             <?php echo form_input($password_confirm);?>
       </p>
 
 
-      <p><?php echo form_submit('submit', 'Create User');?></p>
+      <?php echo form_hidden('id', $user->id);?>
+      <?php echo form_hidden($csrf); ?>
+
+      <p><?php echo form_submit('submit', 'Save User');?></p>
 
 <?php echo form_close();?>

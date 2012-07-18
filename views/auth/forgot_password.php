@@ -5,8 +5,9 @@
 
 <?php echo form_open("auth/forgot_password");?>
 
-      <p>Email Address:<br />
-      <?php echo form_input($email);?>
+      <p>
+      	Email Address: <br />
+      	<?php echo form_input($email);?>
       </p>
       
       <p><?php echo form_submit('submit', 'Submit');?></p>

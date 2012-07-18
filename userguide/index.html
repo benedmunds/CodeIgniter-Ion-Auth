@@ -444,6 +444,12 @@ Documentation
 	<h2>is_admin()</h2>
 	<p>Check to see if the currently logged in user is an admin.</p>
 
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'id' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
+	</ol>
+
 	<p><strong>Return</strong></p>
 	<ul>
 		<li>boolean.  TRUE if the user is an admin FALSE if the user is not an admin.</li>
@@ -466,6 +472,7 @@ Documentation
 	<p><strong>Parameters</strong></p>
 	<ol>
 		<li>'Group Name' - string or array of strings REQUIRED.</li>
+		<li>'User ID' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>

@@ -1970,15 +1970,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 	 */
 	protected function _prepare_ip($ip_address)
 	{
-		if ($this->db->platform() === 'postgre')
-		{
-			return $ip_address;
-		}
-		else
-		{
-			// Return the packed in_addr representation of the passed IP to be stored
-			return inet_pton($ip_address);
-		}
+		return $ip_address;
 	}
 
 	// ------------------------------------------------------------------------
