@@ -15,6 +15,8 @@ class Auth extends CI_Controller {
 		$this->load->library('mongo_db') :
 
 		$this->load->database();
+
+		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 	}
 
 	//redirect if needed, otherwise display the user list
@@ -407,7 +409,7 @@ class Auth extends CI_Controller {
 		{ 
 			//check to see if we are creating the user
 			//redirect them back to the admin page
-			$this->session->set_flashdata('message', "User Created");
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			redirect("auth", 'refresh');
 		}
 		else
