@@ -49,4 +49,4 @@ $lang['delete_unsuccessful'] 		 	 = '刪除帳號失敗';
 // Email Subjects - TODO Please Translate
 $lang['email_forgotten_password_subject']    = '密碼重設驗證';
 $lang['email_new_password_subject']          = '新密碼';
-$lang['email_activation_subject']            = '帳號啟動;
+$lang['email_activation_subject']            = '帳號啟動';
