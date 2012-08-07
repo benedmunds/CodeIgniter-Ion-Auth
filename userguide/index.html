@@ -471,7 +471,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group Name' - string or array of strings REQUIRED.</li>
+		<li>'Group ID or Name' - string, integer or array of strings and integers REQUIRED.</li>
 		<li>'User ID' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
 	</ol>
 
@@ -482,7 +482,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		# single group
+		# single group (by name)
 		$group = 'gangstas';
 		if (!$this->ion_auth->in_group($group))
 		{
@@ -490,10 +490,32 @@ Documentation
 			redirect('welcome/index');
 		}
 
-		# multiple groups
+		# single group (by id)
+		$group = 1;
+		if (!$this->ion_auth->in_group($group))
+		{
+			$this->session->set_flashdata('message', 'You must be part of the group 1 to view this page');
+			redirect('welcome/index');
+		}
+
+		# multiple groups (by name)
 		$group = array('gangstas', 'hoodrats');
 		if (!$this->ion_auth->in_group($group))
 			$this->session->set_flashdata('message', 'You must be a gangsta OR a hoodrat to view this page');
+			redirect('welcome/index');
+		}
+
+		# multiple groups (by id)
+		$group = array(1, 2);
+		if (!$this->ion_auth->in_group($group))
+			$this->session->set_flashdata('message', 'You must be a part of group 1 or 2 to view this page');
+			redirect('welcome/index');
+		}
+
+		# multiple groups (by id and name)
+		$group = array('gangstas', 2);
+		if (!$this->ion_auth->in_group($group))
+			$this->session->set_flashdata('message', 'You must be a part of the gangstas or group 2');
 			redirect('welcome/index');
 		}
 	</pre>
