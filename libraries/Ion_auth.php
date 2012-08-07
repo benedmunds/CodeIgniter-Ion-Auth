@@ -426,16 +426,22 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('in_group');
 
 		$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
-		$groups = array();
+
+		$groups_by_name = array();
+		$groups_by_id = array();
+
 		foreach ($users_groups as $group)
 		{
-			$groups[] = $group->name;
+			$groups_by_name[] = $group->name;
+			$groups_by_id[] = $group->id;
 		}
 
 		if (is_array($check_group))
 		{
 			foreach($check_group as $key => $value)
 			{
+				$groups = (is_string($value)) ? $groups_by_name : $groups_by_id;
+
 				if (in_array($value, $groups))
 				{
 					return TRUE;
@@ -444,6 +450,8 @@ class Ion_auth
 		}
 		else
 		{
+			$groups = (is_string($check_group)) ? $groups_by_name : $groups_by_id;
+
 			if (in_array($check_group, $groups))
 			{
 				return TRUE;
