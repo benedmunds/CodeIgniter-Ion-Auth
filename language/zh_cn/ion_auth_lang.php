@@ -46,7 +46,7 @@ $lang['update_unsuccessful'] 		 	 = '更新账号资料失败';
 $lang['delete_successful'] 		 	 = '账号已删除';
 $lang['delete_unsuccessful'] 		 	 = '删除账号失败';
 
-// Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+// Email Subjects
+$lang['email_forgotten_password_subject']    = '密码重设验证';
+$lang['email_new_password_subject']          = '您的新密码';
+$lang['email_activation_subject']            = '帐号激活';
