@@ -793,6 +793,11 @@ class Ion_auth_model extends CI_Model
 
 		if (!empty($groups))
 		{
+			if ( ! is_array($groups))
+			{
+				$groups = array($groups);
+			}
+			
 			//add to groups
 			foreach ($groups as $group)
 			{

@@ -277,6 +277,12 @@ class Ion_auth
 
 		$email_activation = $this->config->item('email_activation', 'ion_auth');
 
+		if(!$password)
+		{
+			$this->load->helper('string');
+			$password = random_string('alnum', 8);
+		}
+
 		$id = $this->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
 
 		if (!$id)
@@ -294,7 +300,6 @@ class Ion_auth
 		}
 		else
 		{
-
 			$deactivate = $this->ion_auth_model->deactivate($id);
 
 			if (!$deactivate)
@@ -313,6 +318,7 @@ class Ion_auth
 				'id'         => $user->id,
 				'email'      => $email,
 				'activation' => $activation_code,
+				'password'   => $password
 			);
 
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
