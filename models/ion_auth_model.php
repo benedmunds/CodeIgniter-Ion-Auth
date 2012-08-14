@@ -361,7 +361,7 @@ class Ion_auth_model extends CI_Model
 
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 1
+			    'active'          => TRUE
 			);
 
 			$this->trigger_events('extra_where');
@@ -371,7 +371,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 1
+			    'active'          => TRUE
 			);
 
 
@@ -418,7 +418,7 @@ class Ion_auth_model extends CI_Model
 
 		$data = array(
 		    'activation_code' => $activation_code,
-		    'active'          => 0
+		    'active'          => FALSE
 		);
 
 		$this->trigger_events('extra_where');
@@ -711,7 +711,7 @@ class Ion_auth_model extends CI_Model
 			$data = array(
 			    'password'                => $this->hash_password($password, $salt),
 			    'forgotten_password_code' => NULL,
-			    'active'                  => 1,
+			    'active'                  => TRUE,
 			 );
 
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
@@ -773,7 +773,7 @@ class Ion_auth_model extends CI_Model
 		    'ip_address' => $ip_address,
 		    'created_on' => time(),
 		    'last_login' => time(),
-		    'active'     => ($manual_activation === false ? 1 : 0)
+		    'active'     => ($manual_activation === false ?  TRUE : FALSE)
 		);
 
 		if ($this->store_salt)
@@ -830,7 +830,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+		$query = $this->db->select($this->identity_column . ', username, email, id, password, CAST(active AS integer), last_login')
 		                  ->where($this->identity_column, $this->db->escape_str($identity))
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
@@ -843,7 +843,7 @@ class Ion_auth_model extends CI_Model
 
 			if ($password === TRUE)
 			{
-				if ($user->active == 0)
+				if (!$user->active)
 				{
 					$this->trigger_events('post_login_unsuccessful');
 					$this->set_error('login_unsuccessful_not_active');
