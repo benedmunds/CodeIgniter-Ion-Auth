@@ -11,7 +11,7 @@ CREATE TABLE "users" (
     "remember_code" varchar(40),
     "created_on" int NOT NULL,
     "last_login" int,
-    "active" int4,
+    "active" boolean,
     "first_name" varchar(50),
     "last_name" varchar(50),
     "company" varchar(100),
