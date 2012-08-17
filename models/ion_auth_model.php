@@ -923,7 +923,7 @@ class Ion_auth_model extends CI_Model
 	function get_attempts_num($identity)
 	{
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
-			$ip_address = $this->_prepare_ip($this->input->ip_address());;
+			$ip_address = $this->_prepare_ip($this->input->ip_address());
 			
 			$this->db->select('1', FALSE);
 			$this->db->where('ip_address', $ip_address);
