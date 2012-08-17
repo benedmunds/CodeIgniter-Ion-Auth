@@ -71,6 +71,13 @@ class Ion_auth_model extends CI_Model
 	public $_ion_select = array();
 
 	/**
+	 * Like
+	 *
+	 * @var string
+	 **/
+	public $_ion_like = array();
+	
+	/**
 	 * Limit
 	 *
 	 * @var string
@@ -991,6 +998,20 @@ class Ion_auth_model extends CI_Model
 		return $this;
 	}
 
+	public function like($like, $value = NULL)
+	{
+		$this->trigger_events('like');
+
+		if (!is_array($like))
+		{
+			$like = array($like => $value);
+		}
+
+		array_push($this->_ion_like, $like);
+
+		return $this;
+	}
+	
 	public function select($select)
 	{
 		$this->trigger_events('select');
@@ -1111,6 +1132,16 @@ class Ion_auth_model extends CI_Model
 			}
 
 			$this->_ion_where = array();
+		}
+
+		if (isset($this->_ion_like))
+		{
+			foreach ($this->_ion_like as $like)
+			{
+				$this->db->or_like($like);
+			}
+
+			$this->_ion_like = array();
 		}
 
 		if (isset($this->_ion_limit) && isset($this->_ion_offset))
