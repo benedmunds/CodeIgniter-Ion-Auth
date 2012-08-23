@@ -1773,4 +1773,284 @@ class Ion_auth_model extends CI_Model
 			return inet_pton($ip_address);
 		}
 	}
+	
+	/** HybridIgniter functions **/
+	
+	/**
+	 * check provider
+	 * 
+	 * check if user already have authenticated using this provider before
+	 *
+	 * @return bool
+	 * @author MAMProgr
+	 **/
+	public function check_provider($provider = '', $provider_uid = '')
+	{
+		
+		$this->trigger_events('user_by_provider');
+
+		if (empty($provider) || empty($provider_uid))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('extra_where');
+		
+		return $this->db->where($this->tables['authentications'].'.provider', $provider)
+				 		->where($this->tables['authentications'].'.provider_uid', $provider_uid)
+		         		->count_all_results($this->tables['authentications']) > 0;
+	}
+	
+	/**
+	 * user by provider
+	 * 
+	 * try to get user profile if user already have authenticated using this provider before
+	 *
+	 * @return object
+	 * @author MAMProgr
+	 **/
+	public function user_by_provider($provider = '', $provider_uid = '')
+	{
+		
+		$this->trigger_events('user_by_provider');
+
+		if (empty($provider) || empty($provider_uid))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('extra_where');
+		
+		$query = $this->db->where($this->tables['authentications'].'.provider', $provider)
+						  ->where($this->tables['authentications'].'.provider_uid', $provider_uid)
+		                  ->limit(1)
+		                  ->get($this->tables['authentications']);
+
+		if ($query->num_rows() === 1)
+		{
+			return $query->row();
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * user id by email
+	 * 
+	 * get user id from users table where email = $email
+	 *
+	 * @return integer
+	 * @author MAMProgr
+	 **/
+	public function id_by_email($email = '')
+	{
+		
+		$this->trigger_events('id_by_email');
+
+		if (empty($email))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('extra_where');
+
+		$query = $this->db->where('email', $email)
+						  ->limit(1)
+		                  ->get($this->tables['users']);
+		
+		if ($query->num_rows() === 1)
+		{
+			$row = $query->row();
+			return $row->id;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
+	/**
+	 * login by provider
+	 * 
+	 * try to log user in by provider_uid
+	 *
+	 * @return bool
+	 * @author MAMProgr
+	 **/
+	public function login_by_provider($provider, $provider_uid)
+	{
+		$this->trigger_events('pre_login');
+		
+		if (empty($provider) || empty($provider_uid))
+		{
+			$this->set_error('login_by_provider_unsuccessful');
+			return FALSE;
+		}
+		
+		$this->trigger_events('pre_user_by_provider');
+		
+		//try to get user profile if user already have authenticated using this provider before
+		$user_info = $this->user_by_provider($provider, $provider_uid);
+		
+		if(!$user_info)
+		{ // user isn't exist in authentications table. then you must register user before
+			return FALSE;
+		}
+
+		$this->trigger_events('extra_where');
+
+		$query = $this->db->select('username, email, id, active, last_login')
+		                  ->where('id', $user_info->user_id)
+		                  ->limit(1)
+		                  ->get($this->tables['users']);
+
+		if ($query->num_rows() === 1)
+		{
+			$user = $query->row();
+			
+			if ($user->active == 0)
+			{
+				$this->trigger_events('post_login_unsuccessful');
+				$this->set_error('login_unsuccessful_not_active');
+
+				return FALSE;
+			}
+
+			$session_data = array(
+			    'identity'             => $user->{$this->identity_column},
+			    'username'             => $user->username,
+			    'email'                => $user->email,
+			    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+			    'old_last_login'       => $user->last_login,
+			    'provider'			   => $provider,
+		   		'provider_uid'		   => $provider_uid
+			);
+
+			$this->update_last_login($user->id);
+			
+			$this->clear_login_attempts($user->email);
+			
+			$this->session->set_userdata($session_data);
+
+			$this->trigger_events(array('post_login', 'post_login_successful'));
+			$this->set_message('login_successful');
+
+			return TRUE;
+		}
+		
+		$this->trigger_events('post_login_unsuccessful');
+		$this->set_error('login_unsuccessful');
+
+		return FALSE;
+	}
+	
+	/**
+	 * register by provider
+	 *
+	 * @return integer
+	 * @author MAMProgr
+	 **/
+	public function register_by_provider($provider, $provider_uid, $username, $password, $email,  $additional_data = array(), $groups = array())
+	{
+		$this->trigger_events('pre_register');
+
+		$manual_activation = $this->config->item('manual_activation', 'ion_auth');
+		
+		if($this->check_provider($provider, $provider_uid))
+		{
+			$this->set_error('account_creation_duplicate_provider');
+			return FALSE;
+		}
+		
+		if (!$user_id = $this->id_by_email($email))
+		{// user isn't exist in users table.
+			
+			// create new user & get his id.
+			
+			// If username is taken, use username1 or username2, etc.
+			$original_username = $username;
+			for($i = 0; $this->username_check($username); $i++)
+			{
+				if($i > 0)
+				{
+					$username = $original_username . $i;
+				}
+			}
+	
+			// IP Address
+			$ip_address = $this->_prepare_ip($this->input->ip_address());
+			$salt       = $this->store_salt ? $this->salt() : FALSE;
+			$password   = $this->hash_password($password, $salt);
+	
+			// Users table.
+			$data = array(
+			    'username'   => $username,
+			    'password'   => $password,
+			    'email'      => $email,
+			    'ip_address' => $ip_address,
+			    'created_on' => time(),
+			    'last_login' => time(),
+			    'active'     => ($manual_activation === false ? 1 : 0)
+			);
+	
+			if ($this->store_salt)
+			{
+				$data['salt'] = $salt;
+			}
+	
+			$this->trigger_events('extra_set');
+	
+			$this->db->insert($this->tables['users'], $data);
+	
+			$id = $this->db->insert_id();
+	
+			if (!empty($groups))
+			{
+				//add to groups
+				foreach ($groups as $group)
+				{
+					$this->add_to_group($group, $id);
+				}
+			}
+	
+			//add to default group if not already set
+			$default_group = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group()->row();
+			if ((isset($default_group->id) && !isset($groups)) || (empty($groups) && !in_array($default_group->id, $groups)))
+			{
+				$this->add_to_group($default_group->id, $id);
+			}
+	
+			$this->trigger_events('post_register');
+	
+			$user_id = (isset($id)) ? $id : FALSE;
+		}
+		
+		// now, creat a new authentication for user
+		
+		// Authentications table.
+		$data = array(
+		    'user_id'		=> $user_id,
+		    'provider'		=> $provider,
+		    'provider_uid'	=> $provider_uid,
+		    'created_on' => time()
+		);
+		
+		//filter out any data passed that doesnt have a matching column in the users table
+		//and merge the set user data and the additional data
+		$user_data = array_merge($this->_filter_data($this->tables['authentications'], $additional_data), $data);
+		
+		$this->trigger_events('extra_set');
+
+		$this->db->insert($this->tables['authentications'], $user_data);
+		
+		$id = $this->db->insert_id();
+		
+		$this->trigger_events('post_register');
+
+		return (isset($id)) ? $id : FALSE; //id in Authentications table.
+	}
+	
+	/** /HybridIgniter functions **/
 }
