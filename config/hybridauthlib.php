@@ -14,7 +14,7 @@ $config =
 		// set on "base_url" the relative url that point to HybridAuth Endpoint
 		// IMPORTANT: If the "index.php" is removed from the URL (http://codeigniter.com/user_guide/general/urls.html) the
 		// "/index.php/" part __MUST__ be prepended to the base_url.
-		'base_url' => '/hauth/endpoint',
+		'base_url' => '/auth/provider_endpoint',
 
 		"providers" => array ( 
 			// openid providers
