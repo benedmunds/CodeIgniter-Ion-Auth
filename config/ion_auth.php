@@ -22,6 +22,7 @@ $config['use_mongodb'] = FALSE;
 |
 */
 $config['collections']['users']          = 'users';
+$config['collections']['authentications']= 'authentications'; // for Hybrid-Auth Library..
 $config['collections']['groups']         = 'groups';
 $config['collections']['login_attempts'] = 'login_attempts';
 
@@ -32,6 +33,7 @@ $config['collections']['login_attempts'] = 'login_attempts';
 | Database table names.
 */
 $config['tables']['users']           = 'users';
+$config['tables']['authentications']= 'authentications'; // for Hybrid-Auth Library..
 $config['tables']['groups']          = 'groups';
 $config['tables']['users_groups']    = 'users_groups';
 $config['tables']['login_attempts']  = 'login_attempts';
