@@ -106,24 +106,28 @@ class Auth extends CI_Controller {
 		if(empty($provider)) redirect();
 		try
 		{
+			// create an instance for Hybridauth with the configuration file
 			$this->load->library('HybridAuthLib');
 
 			if ($this->hybridauthlib->serviceEnabled($provider))
 			{
+				// try to authenticate the selected $provider
 				$service = $this->hybridauthlib->authenticate($provider);
 				
 				if ($service->isUserConnected())
 				{
+					// grab the user profile
 					$user_profile = $service->getUserProfile();
-					/************************************************************************************/
+					
 					$provider_uid = $user_profile->identifier;
+					
 					if($this->ion_auth->login_by_provider($provider,$provider_uid))
 					{
 						$data['user_profile'] = $this->ion_auth->user_by_provider($provider,$provider_uid);
 						$this->load->view('auth/user_profile',$data);
 					}
 					else
-					{
+					{ // if authentication does not exist and email is not in use, then we create a new user 
 						$username = $user_profile->firstName.' '.$user_profile->lastName;
 						$password = rand(8, 15);
 						$email = $user_profile->email;
@@ -151,9 +155,11 @@ class Auth extends CI_Controller {
 						$additional_data['zip']			= $user_profile->zip;
 						
 						if($email != null && $this->ion_auth->register_by_provider($provider, $provider_uid, $username, $password, $email,  $additional_data))
-						{
+						{ // create new user && creat a new authentication for him
+							
 							if($this->ion_auth->login_by_provider($provider,$provider_uid))
-							{
+							{ // log user in :)
+								// get user profile from authentications table.
 								$data['user_profile'] = $this->ion_auth->user_by_provider($provider,$provider_uid);
 								$this->load->view('hauth/done',$data);
 							}
@@ -173,7 +179,6 @@ class Auth extends CI_Controller {
 							redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 						}
 					}
-					/************************************************************************************/
 				}
 				else // Cannot authenticate user
 				{
@@ -189,6 +194,7 @@ class Auth extends CI_Controller {
 		}
 		catch(Exception $e)
 		{
+			// Display the recived error
 			$error = 'Unexpected error';
 			switch($e->getCode())
 			{
@@ -217,8 +223,10 @@ class Auth extends CI_Controller {
 				$service->logout();
 			}
 			
+			// well, basically your should not display this to the end user, just give him a hint and move on..
 			$this->data['message'] = $this->session->set_flashdata('message', $error);
 			
+			// load error view
 			$this->load->view('auth/login', $this->data);
 		}
 	}

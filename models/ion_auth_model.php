@@ -1778,12 +1778,15 @@ class Ion_auth_model extends CI_Model
 	
 	/**
 	 * check provider
+	 * 
+	 * check if user already have authenticated using this provider before
 	 *
 	 * @return bool
 	 * @author MAMProgr
 	 **/
 	public function check_provider($provider = '', $provider_uid = '')
 	{
+		
 		$this->trigger_events('user_by_provider');
 
 		if (empty($provider) || empty($provider_uid))
@@ -1800,12 +1803,15 @@ class Ion_auth_model extends CI_Model
 	
 	/**
 	 * user by provider
+	 * 
+	 * try to get user profile if user already have authenticated using this provider before
 	 *
 	 * @return object
 	 * @author MAMProgr
 	 **/
 	public function user_by_provider($provider = '', $provider_uid = '')
 	{
+		
 		$this->trigger_events('user_by_provider');
 
 		if (empty($provider) || empty($provider_uid))
@@ -1832,12 +1838,15 @@ class Ion_auth_model extends CI_Model
 	
 	/**
 	 * user id by email
+	 * 
+	 * get user id from users table where email = $email
 	 *
 	 * @return integer
 	 * @author MAMProgr
 	 **/
 	public function id_by_email($email = '')
 	{
+		
 		$this->trigger_events('id_by_email');
 
 		if (empty($email))
@@ -1850,6 +1859,7 @@ class Ion_auth_model extends CI_Model
 		$query = $this->db->where('email', $email)
 						  ->limit(1)
 		                  ->get($this->tables['users']);
+		
 		if ($query->num_rows() === 1)
 		{
 			$row = $query->row();
@@ -1863,6 +1873,8 @@ class Ion_auth_model extends CI_Model
 	
 	/**
 	 * login by provider
+	 * 
+	 * try to log user in by provider_uid
 	 *
 	 * @return bool
 	 * @author MAMProgr
@@ -1879,9 +1891,13 @@ class Ion_auth_model extends CI_Model
 		
 		$this->trigger_events('pre_user_by_provider');
 		
+		//try to get user profile if user already have authenticated using this provider before
 		$user_info = $this->user_by_provider($provider, $provider_uid);
 		
-		if(!$user_info) return FALSE;
+		if(!$user_info)
+		{ // user isn't exist in authentications table. then you must register user before
+			return FALSE;
+		}
 
 		$this->trigger_events('extra_where');
 
@@ -1949,10 +1965,11 @@ class Ion_auth_model extends CI_Model
 		}
 		
 		if (!$user_id = $this->id_by_email($email))
-		{// user not exist in users table.
-		
-			// If username is taken, use username1 or username2, etc.
+		{// user isn't exist in users table.
 			
+			// create new user & get his id.
+			
+			// If username is taken, use username1 or username2, etc.
 			$original_username = $username;
 			for($i = 0; $this->username_check($username); $i++)
 			{
@@ -2009,7 +2026,9 @@ class Ion_auth_model extends CI_Model
 	
 			$user_id = (isset($id)) ? $id : FALSE;
 		}
-
+		
+		// now, creat a new authentication for user
+		
 		// Authentications table.
 		$data = array(
 		    'user_id'		=> $user_id,
