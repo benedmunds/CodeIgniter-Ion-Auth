@@ -1801,7 +1801,7 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * user by provider
 	 *
-	 * @return bool
+	 * @return object
 	 * @author MAMProgr
 	 **/
 	public function user_by_provider($provider = '', $provider_uid = '')
@@ -1933,8 +1933,8 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * register by provider
 	 *
-	 * @return bool
-	 * @author Mathew
+	 * @return integer
+	 * @author MAMProgr
 	 **/
 	public function register_by_provider($provider, $provider_uid, $username, $password, $email,  $additional_data = array(), $groups = array())
 	{
