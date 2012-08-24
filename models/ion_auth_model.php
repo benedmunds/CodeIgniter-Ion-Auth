@@ -1809,10 +1809,14 @@ class Ion_auth_model extends CI_Model
 	 * @return object
 	 * @author MAMProgr
 	 **/
-	public function user_by_provider($provider = '', $provider_uid = '')
+	public function user_by_provider($provider = NULL, $provider_uid = NULL)
 	{
 		
 		$this->trigger_events('user_by_provider');
+		
+		$provider || $provider = $this->session->userdata('provider');
+		
+		$provider_uid || $provider_uid = $this->session->userdata('provider_uid');
 
 		if (empty($provider) || empty($provider_uid))
 		{
@@ -1828,7 +1832,24 @@ class Ion_auth_model extends CI_Model
 
 		if ($query->num_rows() === 1)
 		{
-			return $query->row();
+			$user_info = $query->row();
+			$email = $user_info->email;
+			
+			$user_id = $this->id_by_email($email);
+			
+			$user = $this->user($user_id)->row();
+			
+			$user_info->ip_address = $user->ip_address;
+			$user_info->password = $user->password;
+			$user_info->salt = $user->salt;
+			$user_info->email = $user->email;
+			$user_info->activation_code = $user->activation_code;
+			$user_info->forgotten_password_code = $user->forgotten_password_code;
+			$user_info->remember_code = $user->remember_code;
+			$user_info->last_login = $user->last_login;
+			$user_info->active = $user->active;
+			
+			return $user_info;
 		}
 		else
 		{
