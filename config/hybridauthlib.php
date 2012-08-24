@@ -9,14 +9,12 @@
 //	HybridAuth Config file: http://hybridauth.sourceforge.net/userguide/Configuration.html
 // ----------------------------------------------------------------------------------------
 
-$config =
-	array(
-		// set on "base_url" the relative url that point to HybridAuth Endpoint
-		// IMPORTANT: If the "index.php" is removed from the URL (http://codeigniter.com/user_guide/general/urls.html) the
-		// "/index.php/" part __MUST__ be prepended to the base_url.
-		'base_url' => '/auth/provider_endpoint',
+// set on "base_url" the relative url that point to HybridAuth Endpoint
+// IMPORTANT: If the "index.php" is removed from the URL (http://codeigniter.com/user_guide/general/urls.html) the
+// "/index.php/" part __MUST__ be prepended to the base_url.
+$config['base_url'] = '/auth/provider_endpoint';
 
-		"providers" => array ( 
+$config['providers'] = array ( 
 			// openid providers
 			"OpenID" => array (
 				"enabled" => true
@@ -66,13 +64,12 @@ $config =
 				"enabled" => true,
 				"keys"    => array ( "id" => "", "secret" => "" ) 
 			),
-		),
+		);
 
-		// if you want to enable logging, set 'debug_mode' to true  then provide a writable file by the web server on "debug_file"
-		"debug_mode" => (ENVIRONMENT == 'development'),
+// if you want to enable logging, set 'debug_mode' to true  then provide a writable file by the web server on "debug_file"
+$config['debug_mode'] = (ENVIRONMENT == 'development');
 
-		"debug_file" => APPPATH.'/logs/hybridauth.log',
-	);
+$config['debug_file'] = APPPATH.'/logs/hybridauth.log';
 
 
 /* End of file hybridauthlib.php */
