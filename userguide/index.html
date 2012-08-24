@@ -73,8 +73,28 @@
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
-        <li><a href="#trigger_events">trigger_events()</a></li>
-        <li><a href="#set_hook">set_hook()</a></li>
+		        <li><a href="#trigger_events">trigger_events()</a></li>
+		        <li><a href="#set_hook">set_hook()</a></li>
+			</ul>
+    	</td>
+    	<td class="td_sep" valign="top">
+    		<h3>Social Login (Using HybridIgniter)</h3>
+    		<ul>
+			    <li><a href="http://github.com/mamprogr/HybridIgniter">HybridIgniter GitHub Repo</a></li>
+    			<li><a href="http://hybridauth.sourceforge.net/userguide.html">HybridAuth User Guide</a></li>
+    		</ul>
+    		<h3>Configuration (Social Login)</h3>
+    		<ul>
+			    <li><a href="#social_config">General</a></li>
+    			<li><a href="#social_use_config">Config Options</a></li>
+    		</ul>
+			<h3>Class Functions (Social Login)</h3>
+			<ul>
+				<li><a href="#login_by_provider">login_by_provider()</a></li>
+				<li><a href="#register_by_provider">register_by_provider()</a></li>
+				<li><a href="#user_by_provider">user_by_provider()</a></li>
+				<li><a href="#check_provider">check_provider()</a></li>
+				<li><a href="#id_by_email">id_by_email()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -221,6 +241,42 @@ Documentation
 		<li>'error_start_delimiter' -  Starting delimiter for errors. DEFAULT is '&lt;p&gt;'.</li>
 		<li>'error_end_delimiter' -  Ending delimiter for errors. DEFAULT is '&lt;/p&gt;'.</li>
 	</ul>
+	
+	<a name="social_config"></a>
+	<h2>Configuration Options (Social Login)</h2>
+
+	<p>Except for OpenID providers, each social network will require that you create an external application linking your Web site to theirs apis. These external applications ensures that users are logging into the proper Web site and allows IDps to send the user back to the correct Web site after successfully authenticating their Accounts. </p>
+	
+	<p>You can found where and how to create these externals applications by refering to <b>Registering application</b> and <b>Adapter specifications</b> sections on the list of <b>Identity Providers</b> on the <a href="http://hybridauth.sourceforge.net/userguide.html">HybridAuth user guide</a>.</p>
+	
+	<a name="social_use_config"></a>
+	<h2>Using Config File (Social Login)</h2>
+
+	<p>To change configuration options simply edit the config/hybridauthlib.php file.</p>
+
+	<h3>Config</h3>
+
+	<p>Edit the hybridauthlib $config array as needed:</p>
+	<ul>
+		<li>'base_url' - The url to HybridIgniter Endpoint (where the index.php and config.php are found).</li>
+		<li>
+			'providers' - The list of providers supported by HybridIgniter which you want to use.
+			<ul>
+				<li>'enabled' - Can be true or false; if you dont want to use a specific provider then set it to 'false'</li>
+				<li>
+					'keys' - Are your application credentials, for example :
+					<ul>
+						<li>'id' - Is your (facebook or live) application id.</li>
+						<li>'key' - Is your (twitter, myspace, linkedin, etc.) application consumer key.</li>
+						<li>'secret' - Is your application consumer secret.</li>
+					</ul>
+				</li>
+				<li>'scope' - OPTIONAL used for facebook in case you want to provider the permissions requested by default.</li>
+			</ul>
+		</li>
+		<li>[OPTIONAL] To enable Logging, set 'debug_mode' to true, then provide a path of a writable file on 'debug_file'.</li>
+	</ul>
+	
 	<br />
 
 	<h1>Class Function Reference</h1>
@@ -1054,10 +1110,7 @@ Documentation
   }
 	</pre>
 	<br />
-
-
-  
-  
+	
 	<a name="trigger_events"></a>
 	<h2>trigger_events()</h2>
 	<p>Call Additional functions to run that were registered with <a href="#set_hook">set_hook()</a>.</p>
@@ -1070,6 +1123,184 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 	 $this->ion_auth->trigger_events('socialpush'); 
+	</pre>
+	<br />
+	
+	<a name="login_by_provider"></a>
+	<h2>login_by_provider()</h2>
+	<p>Logs the user into the system with a social network.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Provider' - string REQUIRED.</li>
+		<li>'Provider UID' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user was successfully logged in FALSE if the user was not logged in.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$provider = 'Google';
+		$provider_uid = '113907575899618602240';
+		$this->ion_auth->login_by_provider($provider, $provider_uid);
+	</pre>
+	<br />
+	
+	<a name="register_by_provider"></a>
+	<h2>register_by_provider()</h2>
+	<p>Register (create) a new user -If needed-, then creat a new authentication for him.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Provider' - string REQUIRED.</li>
+		<li>'Provider UID' - string REQUIRED.</li>
+		<li>'Username' - string REQUIRED.</li>
+		<li>'Password' - string REQUIRED.</li>
+		<li>'Email' - string REQUIRED.</li>
+		<li>'Additional Data' - multidimensional array REQUIRED.</li>
+		<li>'Group' - array OPTIONAL.  If not passed the default group name set in the config will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>mixed.  The ID of the authentication if the authentication was successfully created, FALSE if the user was not created.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$provider = 'Google';
+		$provider_uid = '113907575899618602240';
+		$username = 'mamprogr';
+		$password = '123456789';
+		$email = 'mamprogr@gmail.com';
+		$additional_data = array(
+								'first_name' => 'Moahammed Anas',
+								'last_name' => 'Al-Mahdi',
+								'profileURL' => 'https://profiles.google.com/113907575899618602240',
+								'photoURL' => 'https://lh3.googleusercontent.com/-GZ15mm6lhnk/AAAAAAAAAAI/AAAAAAAAAYI/0YuzwxObxTk/photo.jpg',
+								);								
+		$group = array('1'); // Sets user to admin. No need for array('1', '2') as user is always set to member by default
+
+		$this->ion_auth->register_by_provider($provider, $provider_uid, $username, $password, $email, $additional_data, $group)
+	</pre>
+	<br />
+	
+	<a name="user_by_provider"></a>
+	<h2>user_by_provider()</h2>
+	<p>Get a user.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Provider' - string OPTIONAL. If a Provider is not passed the Provider of the currently logged in user will be used.</li>
+		<li>'Provider UID' - string OPTIONAL. If a Provider UID is not passed the Provider UID of the currently logged in user will be used.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>
+			<pre>
+			stdClass Object
+			(
+			    [id] => 5
+			    [user_id] => 2
+			    [provider] => Google
+			    [provider_uid] => 113907575899618602240
+			    [profileURL] => https://profiles.google.com/113907575899618602240
+			    [webSiteURL] => null
+			    [photoURL] => https://lh3.googleusercontent.com/-GZ15mm6lhnk/AAAAAAAAAAI/AAAAAAAAAYI/0YuzwxObxTk/photo.jpg
+			    [displayName] => MAM Progr
+			    [description] => null
+			    [firstName] => Mohammed Anas
+			    [lastName] => Al-Mahdi
+			    [gender] => male
+			    [language] => en
+			    [age] => null
+			    [birthDay] => null
+			    [birthMonth] => null
+			    [birthYear] => null
+			    [email] => mamprogr@gmail.com
+			    [emailVerified] => mamprogr@gmail.com
+			    [phone] => null
+			    [address] => null
+			    [country] => null
+			    [region] => null
+			    [city] => null
+			    [zip] => null
+			    [created_on] => 1345683161
+			    [ip_address] => null
+			    [password] => ed61a92a0c97a66acdb9bd7e7bfb9d6c58a9b1b4
+			    [salt] => null
+			    [activation_code] => null
+			    [forgotten_password_code] => null
+			    [remember_code] => null
+			    [last_login] => 1345814872
+			    [active] => 1
+			)
+			</pre>
+		</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user = $this->ion_auth->user_by_provider();
+		echo $user->firstName;
+	</pre>
+	<br />
+	
+	<a name="check_provider"></a>
+	<h2>check_provider()</h2>
+	<p>Check to see if the email is already authenticated using this provider before.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Provider' - string REQUIRED.</li>
+		<li>'Provider UID' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the user is authenticated FALSE if the user is not authenticated.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$provider = 'Google';
+		$provider_uid = '113907575899618602240';
+		
+		if ($this->ion_auth->check_provider($provider, $provider_uid))
+		{
+			// do login ..
+		}
+		else
+		{
+			// do register ..
+		}
+	</pre>
+	<br />
+	
+	<a name="id_by_email"></a>
+	<h2>id_by_email()</h2>
+	<p>Get a user id by user email.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Email' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>integer.  user id if the user is registered FALSE if the user is not registered.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		//This is a lame example but it works.  Usually you would use this method to link Social Login functions.
+		
+		$email = 'mamprogr@gmail.com';
+		echo $this->ion_auth->id_by_email($email);
 	</pre>
 	<br />
 
