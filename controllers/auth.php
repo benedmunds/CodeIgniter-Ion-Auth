@@ -123,7 +123,7 @@ class Auth extends CI_Controller {
 					
 					if($this->ion_auth->login_by_provider($provider,$provider_uid))
 					{
-						$data['user_profile'] = $this->ion_auth->user_by_provider($provider,$provider_uid);
+						$data['user_profile'] = $this->ion_auth->user_by_provider();
 						$this->load->view('auth/user_profile',$data);
 					}
 					else
@@ -160,29 +160,31 @@ class Auth extends CI_Controller {
 							if($this->ion_auth->login_by_provider($provider,$provider_uid))
 							{ // log user in :)
 								// get user profile from authentications table.
-								$data['user_profile'] = $this->ion_auth->user_by_provider($provider,$provider_uid);
-								$this->load->view('hauth/done',$data);
+								$data['user_profile'] = $this->ion_auth->user_by_provider();
+								$this->load->view('auth/user_profile',$data);
 							}
 							else
 							{
 								//if the login was un-successful
 								//redirect them back to the login page
-								$this->session->set_flashdata('message', $this->ion_auth->errors());
-								redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+								$this->data['message'] = 'Cannot authenticate user';
+								
+								$this->load->view('auth/login', $this->data);
 							}
 						}
 						else
 						{
 							//if the register was un-successful
 							//redirect them back to the login page
-							$this->session->set_flashdata('message', $this->ion_auth->errors());
-							redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+							$this->data['message'] = 'Cannot authenticate user';
+							
+							$this->load->view('auth/login', $this->data);
 						}
 					}
 				}
 				else // Cannot authenticate user
 				{
-					$this->data['message'] = $this->session->set_flashdata('message', 'Cannot authenticate user');
+					$this->data['message'] = 'Cannot authenticate user';
 					
 					$this->load->view('auth/login', $this->data);
 				}
@@ -224,7 +226,7 @@ class Auth extends CI_Controller {
 			}
 			
 			// well, basically your should not display this to the end user, just give him a hint and move on..
-			$this->data['message'] = $this->session->set_flashdata('message', $error);
+			$this->data['message'] = $error;
 			
 			// load error view
 			$this->load->view('auth/login', $this->data);
