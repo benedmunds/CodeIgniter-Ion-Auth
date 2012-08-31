@@ -47,6 +47,6 @@ $lang['delete_successful']      = 'Användaren är borttagen';
 $lang['delete_unsuccessful']    = 'Det gick inte att ta bort användaren';
 
 // Email Subjects
-$lang['email_forgotten_password_subject']    = 'Glöm lösenordsverifikation';
+$lang['email_forgotten_password_subject']    = 'Glömt lösenordsverifikation';
 $lang['email_new_password_subject']          = 'Nytt lösenord';
 $lang['email_activation_subject']            = 'Kontoaktivering';
