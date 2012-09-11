@@ -31,7 +31,7 @@ CREATE TABLE `users` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `ip_address` varbinary(16) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `password` varchar(40) NOT NULL,
+  `password` varchar(80) NOT NULL,
   `salt` varchar(40) DEFAULT NULL,
   `email` varchar(100) NOT NULL,
   `activation_code` varchar(40) DEFAULT NULL,
