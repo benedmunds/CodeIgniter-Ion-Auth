@@ -2,7 +2,7 @@ CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
     ip_address varbinary(16) NOT NULL,
     username varchar(100) NOT NULL,
-    password varchar(40) NOT NULL,
+    password varchar(80) NOT NULL,
     salt varchar(40),
     email varchar(100) NOT NULL,
     activation_code varchar(40),
