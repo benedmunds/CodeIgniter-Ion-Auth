@@ -2,7 +2,7 @@ CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
     "ip_address" inet NOT NULL,
     "username" varchar(100) NOT NULL,
-    "password" varchar(40) NOT NULL,
+    "password" varchar(80) NOT NULL,
     "salt" varchar(40),
     "email" varchar(100) NOT NULL,
     "activation_code" varchar(40),
