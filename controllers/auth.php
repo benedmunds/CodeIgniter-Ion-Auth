@@ -283,11 +283,6 @@ class Auth extends Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-		{
-			redirect('auth', 'refresh');
-		}
-
 		//validate form input
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
@@ -311,11 +306,13 @@ class Auth extends Controller {
 				'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 			);
 		}
+
+		//check to see if we are creating the user
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
-		{ //check to see if we are creating the user
-			//redirect them back to the admin page
+		{ 
+			// User is created - redirect him to the login page
 			$this->session->set_flashdata('message', "User Created");
-			redirect('auth', 'refresh');
+			redirect('auth/login', 'refresh');
 		}
 		else
 		{ //display the create user form
