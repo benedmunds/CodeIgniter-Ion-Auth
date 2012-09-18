@@ -48,7 +48,7 @@ class Bcrypt {
       $bytes = openssl_random_pseudo_bytes($count);
     }
 
-    if($bytes === '' && is_readable('/dev/urandom') &&
+    if($bytes === '' && @is_readable('/dev/urandom') &&
        ($hRand = @fopen('/dev/urandom', 'rb')) !== FALSE) {
       $bytes = fread($hRand, $count);
       fclose($hRand);
