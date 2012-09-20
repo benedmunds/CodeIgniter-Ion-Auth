@@ -147,6 +147,20 @@ class Ion_auth_model extends CI_Model
 	 **/
 	protected $error_end_delimiter;
 
+	/**
+	 * caching of users and their groups
+	 *
+	 * @var array
+	 **/
+	public $_cache_user_in_group = array();
+
+	/**
+	 * caching of groups
+	 * 
+	 * @var array
+	 **/
+	protected $_cache_groups = array();
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -1235,7 +1249,19 @@ class Ion_auth_model extends CI_Model
 		//if no id was passed use the current users id
 		$user_id || $user_id = $this->session->userdata('user_id');
 
-		return $this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+		if ($return = $this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id)))
+		{
+			if (isset($this->_cache_groups[$group_id])) {
+				$group_name = $this->_cache_groups[$group_id];
+			}
+			else {
+				$group = $this->group($group_id)->result();
+				$group_name = $group[0]->name;
+				$this->_cache_groups[$group_id] = $group_name;
+			}
+			$this->_cache_user_in_group[$user_id][$group_id] = $group_name;
+		}
+		return $return;
 	}
 
 	/**
@@ -1257,25 +1283,30 @@ class Ion_auth_model extends CI_Model
 		// if group id(s) are passed remove user from the group(s)
 		if( ! empty($group_ids))
 		{
-			if(is_array($group_ids))
+			if(!is_array($group_ids))
 			{
-				foreach($group_ids as $group_id)
-				{
-					$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
-				}
+				$group_ids = array($group_ids);
+			}
 
-				return TRUE;
-			}
-			else
+			foreach($group_ids as $group_id)
 			{
-				return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_ids, $this->join['users'] => (int)$user_id));
+				$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+				if (isset($this->_cache_user_in_group[$user_id]) && isset($this->_cache_user_in_group[$user_id][$group_id]))
+				{
+					unset($this->_cache_user_in_group[$user_id][$group_id]);
+				}
 			}
+
+			$return = TRUE;
 		}
 		// otherwise remove user from all groups
 		else
 		{
-			return $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id));
+			if ($return = $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id))) {
+				$this->_cache_user_in_group[$user_id] = array();
+			}
 		}
+		return $return;
 	}
 
 	/**

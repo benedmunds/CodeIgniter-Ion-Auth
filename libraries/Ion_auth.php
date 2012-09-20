@@ -43,6 +43,13 @@ class Ion_auth
 	public $_extra_set = array();
 
 	/**
+	 * caching of users and their groups
+	 *
+	 * @var array
+	 **/
+	public $_cache_user_in_group;
+
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -61,6 +68,8 @@ class Ion_auth
 		$this->config->item('use_mongodb', 'ion_auth') ?
 			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model') :
 			$this->load->model('ion_auth_model');
+
+		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
@@ -424,35 +433,33 @@ class Ion_auth
 	public function in_group($check_group, $id=false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
+		
+		$id || $id = $this->session->userdata('user_id');
 
-		$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
-
-		$groups_by_name = array();
-		$groups_by_id = array();
-
-		foreach ($users_groups as $group)
+		if (!is_array($check_group))
 		{
-			$groups_by_name[] = $group->name;
-			$groups_by_id[] = $group->id;
+			$check_group = array($check_group);
 		}
-
-		if (is_array($check_group))
+		
+		if (isset($this->_cache_user_in_group[$id]))
 		{
-			foreach($check_group as $key => $value)
-			{
-				$groups = (is_string($value)) ? $groups_by_name : $groups_by_id;
-
-				if (in_array($value, $groups))
-				{
-					return TRUE;
-				}
-			}
+			$groups_array = $this->_cache_user_in_group[$id];
 		}
 		else
 		{
-			$groups = (is_string($check_group)) ? $groups_by_name : $groups_by_id;
+			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+			$groups_array = array();
+			foreach ($users_groups as $group)
+			{
+				$groups_array[$group->id] = $group->name;
+			}
+			$this->_cache_user_in_group[$id] = $groups_array();
+		}
+		foreach ($check_group as $key => $value)
+		{
+			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
 
-			if (in_array($check_group, $groups))
+			if (in_array($value, $groups))
 			{
 				return TRUE;
 			}
@@ -460,5 +467,5 @@ class Ion_auth
 
 		return FALSE;
 	}
-
+	
 }
