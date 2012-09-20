@@ -154,6 +154,20 @@ class Ion_auth_mongodb_model extends CI_Model {
 	 */
 	protected $error_end_delimiter;
 
+	/**
+	 * caching of users and their groups
+	 *
+	 * @var array
+	 */
+	public $_cache_user_in_group = array();
+
+	/**
+	 * caching of groups
+	 * 
+	 * @var array
+	 */
+	protected $_cache_groups = array();
+
 	// ------------------------------------------------------------------------
 
 	/**
