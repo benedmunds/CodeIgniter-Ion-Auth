@@ -1105,13 +1105,6 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('users');
 
-		//default selects
-		$this->db->select(array(
-		    $this->tables['users'].'.*',
-		    $this->tables['users'].'.id as id',
-		    $this->tables['users'].'.id as user_id'
-		));
-
 		if (isset($this->_ion_select))
 		{
 			foreach ($this->_ion_select as $select)
@@ -1120,6 +1113,15 @@ class Ion_auth_model extends CI_Model
 			}
 
 			$this->_ion_select = array();
+		}
+		else
+		{
+			//default selects
+			$this->db->select(array(
+			    $this->tables['users'].'.*',
+			    $this->tables['users'].'.id as id',
+			    $this->tables['users'].'.id as user_id'
+			));
 		}
 
 		//filter by group id(s) if passed
