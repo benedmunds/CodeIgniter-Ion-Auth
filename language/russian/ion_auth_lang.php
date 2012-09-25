@@ -38,7 +38,7 @@ $lang['activation_email_unsuccessful']   	 = 'Сообщение об актив
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Авторизация прошла успешно';
-$lang['login_unsuccessful'] 		  	 = 'Логин не верен';
+$lang['login_unsuccessful'] 		  	 = 'Логин/пароль не верен';
 $lang['logout_successful'] 		 	 = 'Выход успешный';
 
 // Account Changes
@@ -48,6 +48,6 @@ $lang['delete_successful'] 		 	 = 'Учетная запись удалена';
 $lang['delete_unsuccessful'] 		 	 = 'Невозможно удалить учетную запись';
 
 // Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_forgotten_password_subject']    = 'Проверка забытого пароля';
+$lang['email_new_password_subject']          = 'Новый пароль';
+$lang['email_activation_subject']            = 'Активация учетной записи';
