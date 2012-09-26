@@ -1762,9 +1762,9 @@ class Ion_auth_model extends CI_Model
 	 * @return array
 	 * @author Raul Baldner Junior
 	 **/
-	public function messages_array($langified = TRUE)
+	public function messages_array($langify = TRUE)
 	{
-		if ($langified)
+		if ($langify)
 		{
 			$_output = array();
 			foreach ($this->messages as $message)
@@ -1823,9 +1823,9 @@ class Ion_auth_model extends CI_Model
 	 * @return array
 	 * @author Raul Baldner Junior
 	 **/
-	public function errors_array($langified = TRUE)
+	public function errors_array($langify = TRUE)
 	{
-		if ($langified)
+		if ($langify)
 		{
 			$_output = array();
 			foreach ($this->errors as $error)
