@@ -1916,9 +1916,9 @@ class Ion_auth_mongodb_model extends CI_Model {
 	/**
 	 * Return messages as an array, langified or not
 	 **/
-	public function messages_array($langified = TRUE)
+	public function messages_array($langify = TRUE)
 	{
-		if ($langified)
+		if ($langify)
 		{
 			$_output = array();
 			foreach ($this->messages as $message)
@@ -1967,9 +1967,9 @@ class Ion_auth_mongodb_model extends CI_Model {
 	/**
 	 * Return errors as an array, langified or not
 	 **/
-	public function errors_array($langified = TRUE)
+	public function errors_array($langify = TRUE)
 	{
-		if ($langified)
+		if ($langify)
 		{
 			$_output = array();
 			foreach ($this->errors as $error)
