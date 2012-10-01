@@ -1451,11 +1451,11 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->trans_begin();
 
-		// delete user from users table
-		$this->db->delete($this->tables['users'], array('id' => $id));
-
 		// remove user from groups
 		$this->remove_from_group(NULL, $id);
+
+		// delete user from users table
+		$this->db->delete($this->tables['users'], array('id' => $id));
 
 		if ($this->db->trans_status() === FALSE)
 		{
