@@ -231,11 +231,6 @@ class User extends CI_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect('user', 'refresh');
 			}
-			else
-			{
-				//set the flash data error message if there is one
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-			}
 		}
 
 		//display the edit user form
@@ -378,7 +373,7 @@ class User extends CI_Controller {
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
-			$this->load->view('user/deactivate_user', $this->data);
+			$this->load->view('auth/deactivate_user', $this->data);
 		}
 		else
 		{
