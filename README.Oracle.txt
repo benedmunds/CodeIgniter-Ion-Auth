@@ -39,11 +39,11 @@ Server having driver 10g with instant client and a TNSNames file installed
 -- Create table
 create table CI_SESSIONS
 (
-  session_id     varchar2(40) default 0 not null,
-  ip_address     varchar2(16) default 0 not null,
-  user_agent     varchar2(150) default 0 not null,
-  last_activity  number default 0 not null,
-  user_data      varchar2(4000) default ''
+  "session_id"     varchar2(40) default 0 not null,
+  "ip_address"     varchar2(16) default 0 not null,
+  "user_agent"     varchar2(150) default 0 not null,
+  "last_activity"  number default 0 not null,
+  "user_data"      varchar2(4000) default ''
 )
 -- ************************************************** FIX THIS ***********
 tablespace <Your Table Namespace>
@@ -55,19 +55,19 @@ tablespace <Your Table Namespace>
 	maxextents unlimited
   );
 -- Add comments to the columns 
-comment on column CI_SESSIONS.session_id
+comment on column CI_SESSIONS."session_id"
   is 'CodeIgniter framework session manager';
-comment on column CI_SESSIONS.ip_address
+comment on column CI_SESSIONS."ip_address"
   is 'Visitor''s IP address';
-comment on column CI_SESSIONS.user_agent
+comment on column CI_SESSIONS."user_agent"
   is 'Visitor''s browser properties';
-comment on column CI_SESSIONS.last_activity
+comment on column CI_SESSIONS."last_activity"
   is 'Unix timestamp';
-comment on column CI_SESSIONS.user_data
+comment on column CI_SESSIONS."user_data"
   is 'Custom parameters';
 -- Create/Recreate primary, unique and foreign key constraints 
 alter table CI_SESSIONS
-  add constraint PK_PRIMARY_KEY primary key (session_id);
+  add constraint PK_PRIMARY_KEY primary key ("session_id");
 -- Create/Recreate indexes 
-create index last_activity_idx on CI_SESSIONS (last_activity);
+create index last_activity_idx on CI_SESSIONS ("last_activity");
 </CI_SESSIONS.sql>
