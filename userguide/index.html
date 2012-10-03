@@ -70,8 +70,10 @@
 				<li><a href="#get_users_groups">get_users_groups()</a></li>
 				<li><a href="#remove_from_group">remove_from_group()</a></li>
 				<li><a href="#messages">messages()</a></li>
+				<li><a href="#messages_array">messages_array()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
+				<li><a href="#errors_array">errors_array()</a></li>
 				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
         <li><a href="#trigger_events">trigger_events()</a></li>
         <li><a href="#set_hook">set_hook()</a></li>
@@ -829,6 +831,46 @@ Documentation
 	</pre>
 	<br />
 
+	<a name="messages_array"></a>
+	<h2>messages_array()</h2>
+	<p>Get messages as an array.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array</li>
+	</ul>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Langify' - boolean OPTIONAL. TRUE means that the messages will be langified.</li>
+	</ol>
+	
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages_array();
+			foreach ($messages as $message)
+			{
+				echo $message;
+			}
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors_array();
+			foreach ($errors as $error)
+			{
+				echo $error;
+			}
+		}
+	</pre>
+	<br />
+
 	<a name="get_users_groups"></a>
 	<h2>get_users_groups()</h2>
 	<p>Get all groups a user is part of.</p>
@@ -941,6 +983,46 @@ Documentation
 		{
 			$errors = $this->ion_auth->errors();
 			echo $errors;
+		}
+	</pre>
+	<br />
+	
+	<a name="errors_array"></a>
+	<h2>errors_array()</h2>
+	<p>Get error messages as an array.</p>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>array</li>
+	</ul>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Langify' - boolean OPTIONAL. TRUE means that the error messages will be langified.</li>
+	</ol>
+	
+	<p><b>Usage</b></p>
+	<pre>
+		$id = 12;
+		$data = array(
+					'first_name' => 'Ben',
+					'last_name' => 'Edmunds',
+					 );
+		if ($this->ion_auth->update_user($id, $data))
+		{
+			$messages = $this->ion_auth->messages_array();
+			foreach ($messages as $message)
+			{
+				echo $message;
+			}
+		}
+		else
+		{
+			$errors = $this->ion_auth->errors_array();
+			foreach ($errors as $error)
+			{
+				echo $error;
+			}
 		}
 	</pre>
 	<br />
