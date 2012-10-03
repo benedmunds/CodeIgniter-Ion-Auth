@@ -1382,7 +1382,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function update($id, array $data)
+	public function update($id, array $data, $groups = array())
 	{
 		$this->trigger_events('pre_update_user');
 
@@ -1422,6 +1422,16 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 		$this->db->update($this->tables['users'], $data, array('id' => $user->id));
+
+		if (!empty($groups))
+		{
+			$this->remove_from_group(NULL, $id);
+			//add to groups
+			foreach ($groups as $group)
+			{
+				$this->add_to_group($group, $id);
+			}
+		}
 
 		if ($this->db->trans_status() === FALSE)
 		{
