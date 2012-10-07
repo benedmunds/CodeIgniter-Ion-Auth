@@ -26,4 +26,4 @@
 	<?php endforeach;?>
 </table>
 
-<p><a href="<?php echo site_url('auth/create_user');?>">Create a new user</a></p>
+<p><a href="/">Home</a></p>

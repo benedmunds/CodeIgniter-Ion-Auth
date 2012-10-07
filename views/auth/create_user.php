@@ -2,16 +2,16 @@
 <p>Please enter the users information below.</p>
 
 <div id="infoMessage"><?php echo $message;?></div>
-
+<p> { * means mandatory field } </p>
 <?php echo form_open("auth/create_user");?>
 
       <p>
-            First Name: <br />
+            * First Name: <br />
             <?php echo form_input($first_name);?>
       </p>
 
       <p>
-            Last Name: <br />
+            * Last Name: <br />
             <?php echo form_input($last_name);?>
       </p>
 
@@ -21,7 +21,7 @@
       </p>
 
       <p>
-            Email: <br />
+            * Email: <br />
             <?php echo form_input($email);?>
       </p>
 
@@ -31,12 +31,12 @@
       </p>
 
       <p>
-            Password: <br />
+            * Password: <br />
             <?php echo form_input($password);?>
       </p>
 
       <p>
-            Confirm Password: <br />
+            * Confirm Password: <br />
             <?php echo form_input($password_confirm);?>
       </p>
 
@@ -44,3 +44,4 @@
       <p><?php echo form_submit('submit', 'Create User');?></p>
 
 <?php echo form_close();?>
+<p><a href="/">Home</a></p>
