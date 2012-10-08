@@ -95,6 +95,7 @@ $config['user_expire']          = 86500; 				// How long to remember the user (s
 $config['user_extend_on_login'] = FALSE; 				// Extend the users cookies everytime they auto-login
 $config['track_login_attempts'] = FALSE;				// Track the number of failed login attempts for each user or ip.
 $config['maximum_login_attempts']     = 3; 				// The maximum number of failed login attempts.
+$config['lockout_time'] = 600;				   			// The number of seconds to lockout an account due to exceeded attempts
 $config['forgot_password_expiration'] = 0; 				// The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
 
