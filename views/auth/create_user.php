@@ -1,9 +1,14 @@
-<h1>Create User</h1>
+<h1><?php echo $title;?></h1>
 <p>Please enter the users information below.</p>
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/create_user");?>
+<?php echo form_open("user/create_user");?>
+
+      <p>
+            Username: <br />
+            <?php echo form_input($username);?>
+      </p>
 
       <p>
             First Name: <br />
@@ -16,13 +21,18 @@
       </p>
 
       <p>
-            Company Name: <br />
-            <?php echo form_input($company);?>
+            Email: <br />
+            <?php echo form_input($email);?>
       </p>
 
       <p>
-            Email: <br />
-            <?php echo form_input($email);?>
+            Group(s): <br />
+            <?php echo form_multiselect($groups['name'], $groups['options'], $groups['selected'], $groups['extra']);?>
+      </p>
+
+      <p>
+            Company Name: <br />
+            <?php echo form_input($company);?>
       </p>
 
       <p>
@@ -32,7 +42,7 @@
 
       <p>
             Password: <br />
-            <?php echo form_input($password);?>
+            <?php echo form_input($password);?> (at least <?php echo $min_password_length;?> characters long)
       </p>
 
       <p>
