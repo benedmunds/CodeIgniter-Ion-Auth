@@ -588,7 +588,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 
 		$this->trigger_events('extra_where');
-		$username = new MongoRegex('/'.$username.'/i');
+		$username = new MongoRegex('/^'.$username.'$/i');
 		return count($this->mongo_db
 			->where('username', $username)
 			->get($this->collections['users'])) > 0;
@@ -611,7 +611,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 
 		$this->trigger_events('extra_where');
-		$email = new MongoRegex('/'.$email.'/i');
+		$email = new MongoRegex('/^'.$email.'$/i');
 		return count($this->mongo_db
 			->where('email', $email)
 			->get($this->collections['users'])) > 0;
