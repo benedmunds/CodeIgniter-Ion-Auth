@@ -16,7 +16,7 @@
 */
 
 // Account Creation
-$lang['account_creation_successful']  	= 'Conta criada com sucesso';
+$lang['account_creation_successful']  		= 'Conta criada com sucesso';
 $lang['account_creation_unsuccessful']		= 'N&atilde;o foi poss&iacute;vel criar a conta';
 $lang['account_creation_duplicate_email']	= 'Email em uso ou inv&aacute;lido';
 $lang['account_creation_duplicate_username']= 'Nome de usu&aacute;rio em uso ou inv&aacute;lido';
@@ -32,19 +32,20 @@ $lang['activate_successful']				= 'Conta ativada';
 $lang['activate_unsuccessful']				= 'N&atilde;o foi poss&iacute;vel ativar a conta';
 $lang['deactivate_successful']				= 'Conta desativada';
 $lang['deactivate_unsuccessful']			= 'N&atilde;o foi poss&iacute;vel desativar a conta';
-$lang['activation_email_successful']		= 'Email de ativa&ccedil;&atilde;o enviado';
+$lang['activation_email_successful']		= 'Email de ativa&ccedil;&atilde;o enviado com sucesso';
 $lang['activation_email_unsuccessful']		= 'N&atilde;o foi poss&iacute;vel enviar o email de ativa&ccedil;&atilde;o';
 
 // Login / Logout
 $lang['login_successful']					= 'Sess&atilde;o iniciada com sucesso';
 $lang['login_unsuccessful']					= 'Usu&aacute;rio ou senha inv&aacute;lidos';
 $lang['login_unsuccessful_not_active']		= 'A conta est&aacute; desativada';
+$lang['login_timeout']						= 'Conta temporariamente bloqueada. Tente novamente mais tarde';
 $lang['logout_successful']					= 'Sess&atilde;o encerrada com sucesso';
 
 // Account Changes
 $lang['update_successful']					= 'Informa&ccedil;&otilde;es da conta atualizadas com sucesso';
 $lang['update_unsuccessful']				= 'N&atilde;o foi poss&iacute;vel atualizar as informa&ccedil;&otilde;es da conta';
-$lang['delete_successful']					= 'Usu&aacute;rio exclu&iacute;do';
+$lang['delete_successful']					= 'Usu&aacute;rio exclu&iacute;do com sucesso';
 $lang['delete_unsuccessful']				= 'N&atilde;o foi poss&iacute;vel excluir o usu&aacute;rio';
 
 // Email Subjects
