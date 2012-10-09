@@ -23,7 +23,20 @@ class Auth extends CI_Controller {
 	function index()
 	{
 		$this->session->keep_flashdata('message');
-		redirect('user', 'refresh');
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+		elseif (!$this->ion_auth->is_admin())
+		{
+			//redirect them to the home page because they must be an administrator to view this
+			redirect('/', 'refresh');
+		}
+		else
+		{
+			redirect('user', 'refresh');
+		}
 	}
 
 	//log the user in
