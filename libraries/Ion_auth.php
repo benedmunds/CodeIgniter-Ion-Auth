@@ -433,14 +433,14 @@ class Ion_auth
 	public function in_group($check_group, $id=false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
-		
+
 		$id || $id = $this->session->userdata('user_id');
 
 		if (!is_array($check_group))
 		{
 			$check_group = array($check_group);
 		}
-		
+
 		if (isset($this->_cache_user_in_group[$id]))
 		{
 			$groups_array = $this->_cache_user_in_group[$id];
@@ -467,5 +467,5 @@ class Ion_auth
 
 		return FALSE;
 	}
-	
+
 }
