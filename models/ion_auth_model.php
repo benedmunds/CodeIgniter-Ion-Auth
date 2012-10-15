@@ -1675,6 +1675,38 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
+
+	/**
+	 * create_group
+	 *
+	 * @author aditya menon
+	*/
+	public function create_group($group_name = FALSE, $group_description = NULL)
+	{
+		// bail if the group name was not passed
+		if(!$group_name)
+		{
+			return FALSE;
+		}
+
+		// bail if the group name already exists
+		$existing_group = $this->db->get_where('groups', array('name' => $group_name))->row();
+		if(!is_null($existing_group->id))
+		{
+			$this->set_error('group_already_exists');
+			return FALSE;
+		}
+
+		// insert the new group
+		$this->db->insert($this->tables['groups'], array('name' => $group_name, 'description' => $group_description));
+		$group_id = $this->db->insert_id();
+
+		// report success
+		$this->set_message('group_creation_successful');
+		// return the brand new group id
+		return $group_id;
+	}
+
 	public function set_hook($event, $name, $class, $method, $arguments)
 	{
 		$this->_ion_hooks->{$event}[$name] = new stdClass;
