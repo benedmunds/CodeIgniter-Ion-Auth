@@ -11,7 +11,7 @@
 */
 $config['use_contact_engine'] = TRUE;
 $config['contact_engine_api']	= 'http://ce_github/index.php/api/';
-
+$config['contact_engine_key'] = ''; //optional. Write here your key to point Contact Engine to the right LDAP branch
 /*
 | -------------------------------------------------------------------------
 | Database Type

@@ -161,7 +161,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 		$this->crr = new Rest_Return_Object();
 		
 		//User object
-		$this->load->library('user');
+		$this->load->model('user');
 		
 		//initialize db tables data
 		$this->tables  = $this->config->item('tables', 'ion_auth');
@@ -916,7 +916,11 @@ class Ion_auth_contact_engine_model extends CI_Model
 			return FALSE;
 		}
 		
-		$ce_key = '';  //TODO  how to set the ce_key?
+		if($this->config->item('contact_engine_key','ion_auth')) {
+			$ce_key = $this->config->item('contact_engine_key','ion_auth');
+		} else {
+			$ce_key = '';
+		}
 		
 		$method = 'authenticate';
 		$input = array();
