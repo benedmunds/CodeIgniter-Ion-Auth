@@ -47,6 +47,10 @@ $lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';
 $lang['delete_successful'] 		 	         = 'User Deleted';
 $lang['delete_unsuccessful'] 		 	     = 'Unable to Delete User';
 
+// Groups
+$lang['group_creation_successful']  = 'Group created Successfully';
+$lang['group_already_exists']       = 'Group name already taken';
+
 // Email Subjects
 $lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
 $lang['email_new_password_subject']          = 'New Password';
