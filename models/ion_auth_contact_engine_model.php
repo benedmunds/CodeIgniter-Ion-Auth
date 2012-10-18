@@ -136,8 +136,9 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 **/
 	protected $error_end_delimiter;
 	
-	//object containg the REST return provided by Contact Engine
-	public $crr;
+	public $crr; 	//object containg the REST return provided by Contact Engine
+	
+	public $ce_key;	 //string containing the Contact Engine key
 
 	public $_cache_user_in_group;  //I don't know what's this attribute but I need to declare otherwise throws a warning
 	 
@@ -159,6 +160,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//Rest Return class
 		$this->load->model('rest_return_object');
 		$this->crr = new Rest_Return_Object();
+		if(!$this->ce_key = $this->config->item('contact_engine_key','ion_auth')) $this->ce_key = '';
 		
 		//User object
 		$this->load->model('user');
@@ -227,29 +229,44 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 * @return void
 	 * @author Mathew
 	 **/
-	public function hash_password($password, $salt=false, $use_sha1_override=FALSE)
+	public function hash_password($password)
 	{
-		if (empty($password))
+		if (empty($password) || is_array($password))
 		{
 			return FALSE;
 		}
-
-		//bcrypt
-		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
-		{
-			return $this->bcrypt->hash($password);
+	
+		$hash_method = $this->config->item('hash_method','ion_auth');
+			
+		//encrypt the password for LDAP
+		switch ($hash_method) {
+			case 'sha1' || 'SHA1':
+				$password = '{SHA}'.base64_encode(pack("H*",sha1($password)));
+			break;
+					
+			default:
+				$password = '{MD5}'.base64_encode(pack("H*",md5($password)));
+			break;
 		}
+				
+		return $password;
+
+// 		//bcrypt
+// 		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
+// 		{
+// 			return $this->bcrypt->hash($password);
+// 		}
 
 
-		if ($this->store_salt && $salt)
-		{
-			return  sha1($password . $salt);
-		}
-		else
-		{
-			$salt = $this->salt();
-			return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
-		}
+// 		if ($this->store_salt && $salt)
+// 		{
+// 			return  sha1($password . $salt);
+// 		}
+// 		else
+// 		{
+// 			$salt = $this->salt();
+// 			return  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
+// 		}
 	}
 
 	/**
@@ -321,7 +338,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 **/
 	public function hash_code($password)
 	{
-		return $this->hash_password($password, FALSE, TRUE);
+		//return $this->hash_password($password, FALSE, TRUE);
+		return  sha1($password . uniqid());	
 	}
 
 	/**
@@ -664,7 +682,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 			return FALSE;
 		}
 
-		$key = $this->hash_code(microtime().$identity);
+		$key = $this->hash_code($identity);
 
 		$this->forgotten_password_code = $key;
 
@@ -742,7 +760,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 **/
-	public function register($username, $password, $email, $additional_data = array(), $groups = array(), $category = 'unknown', $ce_key = null)
+	public function register($username, $password, $email, $additional_data = array(), $groups = array(), $category = 'unknown')
 	{
 		//FIXME this must be reported in the sql file
 		//ALTER TABLE  `users` CHANGE  `id`  `id` MEDIUMINT( 8 ) UNSIGNED NOT NULL
@@ -757,7 +775,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 		$method = 'read';
 		$input = array();
 		$input['filter'] = '(mail='.$email.')';
-		$input['ce_key'] = $ce_key;
+		$input['ce_key'] = $this->ce_key;
 		
 		//checks if the email has been already registered in Contact Engine
 		$rest_return = $this->rest->get($method, $input, 'serialize');
@@ -773,32 +791,22 @@ class Ion_auth_contact_engine_model extends CI_Model
 		}
 
 		if($this->crr->results_number == 0) {
-			
-			//encrypt the password for LDAP
-			switch ($hash_method) {
-				case 'sha1' || 'SHA1':
-					$ldap_password = '{SHA}'.base64_encode(pack("H*",sha1($password)));
-				break;
-			
-				default:
-					$ldap_password = '{MD5}'.base64_encode(pack("H*",md5($password)));
-				break;
-			}
 						
-			//create the user in Contact Engine
+			//creates the user in Contact Engine
 			$method = 'create';
 			$input = array();
 			$input['givenName'] = $additional_data['first_name'];
 			$input['sn'] = $additional_data['last_name'];
 			$input['cn'] = $input['fileAs'] = $input['givenName'].' '.$input['sn'];
 			$input['displayName'] = $input['sn'].' '.$input['givenName'];
-			$hash_method = $this->config->item('hash_method','ion_auth');
-			$input['userPassword'] = $ldap_password;
+			
+			$hash_password = $this->hash_password($password);
+			$input['userPassword'] = $hash_password;
 			$input['mail'] = $email;
 			$input['category'] = $category;
 			$input['enabled'] = 'TRUE';
 			$input['entryCreatedBy'] = 'IonAuthCe';
-			$input['ce_key'] = $ce_key;
+			$input['ce_key'] = $this->ce_key;
 			
 			//adds the new contact in Contact Engine
 			$rest_return_creation = $this->rest->post($method, $input, 'serialize');
@@ -850,7 +858,6 @@ class Ion_auth_contact_engine_model extends CI_Model
 		// IP Address
 		$ip_address = $this->_prepare_ip($this->input->ip_address());
 		$salt       = $this->store_salt ? $this->salt() : FALSE;
-		$password   = $this->hash_password($password, $salt);
 
 		// Users table.
 		$data = array(
@@ -904,7 +911,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 * login
 	 *
 	 * @return bool
-	 * @author Mathew
+	 * @author Mathew, Damiano Venturin
 	 **/
 	public function login($identity, $password, $remember=FALSE)
 	{
@@ -916,17 +923,11 @@ class Ion_auth_contact_engine_model extends CI_Model
 			return FALSE;
 		}
 		
-		if($this->config->item('contact_engine_key','ion_auth')) {
-			$ce_key = $this->config->item('contact_engine_key','ion_auth');
-		} else {
-			$ce_key = '';
-		}
-		
 		$method = 'authenticate';
 		$input = array();
 		$input['mail'] = $identity;
 		$input['userPassword'] = $password;
-		$input['ce_key'] = $ce_key;
+		$input['ce_key'] = $this->ce_key;
 
 		//performing authentication request to contact engine
 		$rest_return = $this->rest->get($method, $input, 'serialize');		
@@ -969,17 +970,21 @@ class Ion_auth_contact_engine_model extends CI_Model
 			$additiona_data = array(
 					'first_name' => $user->first_name,
 					'last_name' => $user->last_name,
+					'preferred_language' => $user->preferred_language,
 			);
 				
 			$this->register($user->username, '', $user->email, $additiona_data);
 		}
 		
 		$session_data = array(
-				'identity'             => $user->{$this->identity_column},
-				'username'             => $user->username,
-				'email'                => $user->email,
-				'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-				'old_last_login'       => $user->last_login($this->tables['users'])
+				'identity'				=> $user->{$this->identity_column},
+				'username'				=> $user->username,
+				'first_name'			=> $user->first_name,
+				'last_name'				=> $user->last_name,
+				'email'					=> $user->email,
+				'user_id'				=> $user->id, //everyone likes to overwrite id so we'll use user_id
+				'old_last_login'		=> $user->last_login($this->tables['users']),
+				'preferred_language'	=> $user->preferred_language
 				);
 				
 		$this->update_last_login($user->id);
@@ -1005,8 +1010,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		->where($this->identity_column, $this->db->escape_str($identity))
 		->get($this->tables['users']);
 		
-		$a = $query->row();
-		$b = $query->num_rows();
+// 		$a = $query->row();
+// 		$b = $query->num_rows();
 		if ($query->num_rows() === 0) {
 			return false;
 		} else {		
@@ -1432,7 +1437,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 * update
 	 *
 	 * @return bool
-	 * @author Phil Sturgeon
+	 * @author Phil Sturgeon, Damiano Venturin
 	 **/
 	public function update($id, array $data)
 	{
@@ -1460,15 +1465,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		{
 			if (array_key_exists('password', $data))
 			{
-				if( ! empty($data['password']))
-				{
-					$data['password'] = $this->hash_password($data['password'], $user->salt);
-				}
-				else
-				{
-					// unset password so it doesn't effect database entry if no password passed
-					unset($data['password']);
-				}
+				$password = $this->hash_password($data['password']);;
+				unset($data['password']); //we don't care about the password stored in the database
 			}
 		}
 
@@ -1484,6 +1482,14 @@ class Ion_auth_contact_engine_model extends CI_Model
 			return FALSE;
 		}
 
+		if(!$this->update_contact_engine($user,$password,$data)){
+			$this->db->trans_rollback();
+			
+			$this->trigger_events(array('post_update_user', 'post_update_user_unsuccessful'));
+			$this->set_error('update_contact_engine_unsuccessful');
+			return FALSE;			
+		}
+				
 		$this->db->trans_commit();
 
 		$this->trigger_events(array('post_update_user', 'post_update_user_successful'));
@@ -1491,6 +1497,59 @@ class Ion_auth_contact_engine_model extends CI_Model
 		return TRUE;
 	}
 
+	public function update_contact_engine($user, $hash_password, array $data){
+		
+		if(!is_object($user)) return false;
+		
+		if(empty($hash_password) || is_array($hash_password)) return false;
+		
+		//update Contact Engine
+		$data = $this->_filter_data_ldap($data);
+		
+		//TODO check that $hash_password begins with the encryption tag {SHA} or {MD5}
+		
+		//get attributes stored in Contact Engine
+		$method = 'read';
+		$input = array();
+		$input['ce_key'] = $this->ce_key;
+		$input['filter'] = '(uid='. $user->id .')';
+		
+		$rest_return = $this->rest->post($method, $input, 'serialize');
+		
+		//parsing REST return
+		$this->crr->importCeReturnObject($rest_return);
+		
+		if($this->crr->has_errors) return FALSE;
+		
+		$data_on_ldap = $rest_return['data'][0];
+		
+		$method = 'update';
+		$input = $data_on_ldap;
+		$input['ce_key'] = $this->ce_key;
+		$input['uid'] = $user->id;
+		
+		if(isset($data['first_name'])) $input['givenName'] = $data['first_name'];
+		if(isset($data['last_name'])) $input['sn'] = $data['last_name'];
+		if(isset($data['first_name']) && isset($data['last_name'])) {
+			$input['displayName'] = $data['first_name'] . ' ' . $data['last_name'];
+			$input['fileAs'] = $data['last_name'] . ' ' . $data['first_name'];
+		}
+		if(isset($data['email'])) $input['mail'] = $data['email'];
+		if(isset($hash_password)) $input['userPassword'] = $hash_password;
+		if(isset($data['preferred_language'])) {
+			$input['preferredLanguage'] = $data['preferred_language'];
+			$this->session->set_userdata(array('preferred_language' => $data['preferred_language']));
+		}
+		
+		$rest_return = $this->rest->post($method, $input, 'serialize');
+		
+		//parsing REST return
+		$this->crr->importCeReturnObject($rest_return);
+			
+		if($this->crr->has_errors) return FALSE;
+		
+		return TRUE;
+	}
 	/**
 	* delete_user
 	*
@@ -1646,7 +1705,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 
 		//get the user
 		$this->trigger_events('extra_where');
-		$query = $this->db->select($this->identity_column.', id')
+		//TODO instead of reading the first_name and last_name from the database I should make a read request to Contact Engine
+		$query = $this->db->select($this->identity_column.', id, first_name, last_name')
 		                  ->where($this->identity_column, get_cookie('identity'))
 		                  ->where('remember_code', get_cookie('remember_code'))
 		                  ->limit(1)
@@ -1663,6 +1723,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 			    $this->identity_column => $user->{$this->identity_column},
 			    'id'                   => $user->id, //kept for backwards compatibility
 			    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+			    'first_name'		   => $user->first_name,
+			    'last_name' 		   => $user->last_name,
 			);
 
 			$this->session->set_userdata($session_data);
@@ -1855,6 +1917,24 @@ class Ion_auth_contact_engine_model extends CI_Model
 			}
 		}
 
+		return $filtered_data;
+	}
+	
+	
+	protected function _filter_data_ldap($data)
+	{
+		$filtered_data = array();
+		$ldap_attributes = array('first_name','last_name','email', 'preferred_language');
+		
+		if (is_array($data))
+		{
+			foreach ($ldap_attributes as $ldap_attribute)
+			{
+				if (array_key_exists($ldap_attribute, $data))
+					$filtered_data[$ldap_attribute] = $data[$ldap_attribute];
+			}
+		}
+	
 		return $filtered_data;
 	}
 	

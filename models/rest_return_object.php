@@ -33,6 +33,7 @@ class Rest_Return_Object extends CI_Model
 	private function validateCeRestReturn($crr) 
 	{
 		$this->has_no_errors = false;
+		$this->has_errors = true;
 		if(!is_array($crr)) return false;
 		if(!isset($crr['status']) || !is_array($crr['status'])) return false;
 		if(!isset($crr['status']['results_number'])) return false;
@@ -43,6 +44,7 @@ class Rest_Return_Object extends CI_Model
 		if(!isset($crr['status']['duration'])) return false;
 		if(!isset($crr['data']) || !is_array($crr['data'])) return false;
 		$this->has_no_errors = true;
+		$this->has_errors = false;
 		return true;
 	}
 	
@@ -53,6 +55,7 @@ class Rest_Return_Object extends CI_Model
 			$CI = get_instance();
 			$CI->session->set_flashdata('custom_error', $this->http_message);
 			$this->has_no_errors = false;
+			$this->has_errors = true;
 		}	
 	}
 
@@ -67,7 +70,8 @@ class Rest_Return_Object extends CI_Model
 		$this->results_page = null;
 		$this->finished = null;
 		$this->duration = null;
-		$this->has_no_errors = true;		
+		$this->has_no_errors = true;
+		$this->has_errors = false;
 	}
 	
 	public function importCeReturnObject($crr)

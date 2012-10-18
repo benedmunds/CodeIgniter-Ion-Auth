@@ -8,9 +8,10 @@ class User extends CI_Model{
 	public $last_name = null;
 	public $id = null;
 	public $username = null;
+	public $preferred_language = 'english';
 	
 	public function __construct() {
-		$a = '';
+		parent::__construct();
 	}
 	
 	public function fill_with(array $rest_return) {
@@ -42,6 +43,10 @@ class User extends CI_Model{
 				
 				case 'sn':
 					$this->last_name = $value[0];
+				break;
+				
+				case 'preferredLanguage':
+					$this->preferred_language = $value;
 				break;
 				
 				default:
