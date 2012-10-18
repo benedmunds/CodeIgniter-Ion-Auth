@@ -10,8 +10,9 @@
 |
 */
 $config['use_contact_engine'] = TRUE;
-$config['contact_engine_api']	= 'http://ce_github/index.php/api/';
+$config['contact_engine_api'] = 'http://ce_github/index.php/api/';
 $config['contact_engine_key'] = ''; //Write here your key to point Contact Engine to the right LDAP branch
+
 /*
 | -------------------------------------------------------------------------
 | Database Type
@@ -43,10 +44,10 @@ $config['collections']['login_attempts'] = 'login_attempts';
 | -------------------------------------------------------------------------
 | Database table names.
 */
-$config['tables']['users']           = 'users';
-$config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
-$config['tables']['login_attempts']  = 'login_attempts';
+$config['tables']['users'] = 'users';
+$config['tables']['groups'] = 'groups';
+$config['tables']['users_groups'] = 'users_groups';
+$config['tables']['login_attempts'] = 'login_attempts';
 
 /*
  | Users table column and Group table column you want to join WITH.
@@ -94,8 +95,8 @@ $config['max_rounds']     = 9;
  | The controller should check this function and act
  | appropriately. If this variable set to 0, there is no maximum.
  */
-$config['site_title']           = ""; 		// Site Title, example.com
-$config['admin_email']          = ""; 	// Admin Email, admin@example.com
+$config['site_title'] = 'site_title'; 		// Site Title, example.com
+$config['admin_email'] = 'email@site.com'; 	// Admin Email, admin@example.com
 $config['default_group']        = 'members'; 			// Default group, use name
 $config['admin_group']          = 'admin'; 				// Default administrators group, use name
 $config['identity']             = 'email'; 				// A database column which is used to login with
