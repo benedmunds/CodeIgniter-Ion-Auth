@@ -617,7 +617,7 @@ class Auth extends CI_Controller {
 			$new_group_id = $this->ion_auth->create_group($this->input->post('group_name'), $this->input->post('description'));
 			if($new_group_id)
 			{
-				// check to see if we are creating the user
+				// check to see if we are creating the group
 				// redirect them back to the admin page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect("auth", 'refresh');
@@ -645,6 +645,69 @@ class Auth extends CI_Controller {
 			$this->load->view('auth/create_group', $this->data);
 		}
 	}
+
+	//edit a group
+	function edit_group($id)
+	{
+		// bail if no group id given
+		if(!$id || empty($id))
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$this->data['title'] = "Edit Group";
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$group = $this->ion_auth->group($id)->row();
+
+		//validate form input
+		$this->form_validation->set_rules('group_name', 'Group name', 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('group_description', 'Group Description', 'xss_clean');
+
+		if (isset($_POST) && !empty($_POST))
+		{
+			if ($this->form_validation->run() === TRUE)
+			{ 
+				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['description']);
+
+				if($group_update)
+				{
+					$this->session->set_flashdata('message', "Group Saved");
+				}
+				else
+				{
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+				}
+				redirect("auth", 'refresh');
+			}
+		}
+		
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+		//pass the user to the view
+		$this->data['group'] = $group;
+
+		$this->data['group_name'] = array(
+			'name'  => 'group_name',
+			'id'    => 'group_name',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('group_name', $group->name),
+		);
+		$this->data['description'] = array(
+			'name'  => 'description',
+			'id'    => 'description',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('description', $group->description),
+		);
+		
+		$this->load->view('auth/edit_group', $this->data);
+	}
+
 
 	function _get_csrf_nonce()
 	{

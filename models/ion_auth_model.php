@@ -1707,6 +1707,44 @@ class Ion_auth_model extends CI_Model
 		return $group_id;
 	}
 
+	/**
+	 * update_group
+	 *
+	 * @return bool
+	 * @author aditya menon
+	 **/
+	public function update_group($group_id = FALSE, $group_name = FALSE, $group_description = NULL)
+	{
+		$mandatory = array($group_id, $group_name);
+
+		// bail if no group id or name given
+		foreach ($mandatory as $mandatory_param) {		
+			if(!$mandatory_param || empty($mandatory_param))
+			{
+				return FALSE;
+			}
+		}
+
+		// bail if the group name already exists
+		$existing_group = $this->db->get_where('groups', array('name' => $group_name))->row();
+		if(isset($existing_group->id) && $existing_group->id != $group_id)
+		{
+			$this->set_error('group_already_exists');
+			return FALSE;
+		}
+
+		$query_data = array(
+			'name' => $group_name,
+			'description' => $group_description,
+		);
+
+		$this->db->update($this->tables['groups'], $query_data, array('id' => $group_id));
+
+		$this->set_message('group_update_successful');
+
+		return TRUE;
+	}
+
 	public function set_hook($event, $name, $class, $method, $arguments)
 	{
 		$this->_ion_hooks->{$event}[$name] = new stdClass;
