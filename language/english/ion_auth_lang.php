@@ -50,6 +50,7 @@ $lang['delete_unsuccessful'] 		 	     = 'Unable to Delete User';
 // Groups
 $lang['group_creation_successful']  = 'Group created Successfully';
 $lang['group_already_exists']       = 'Group name already taken';
+$lang['group_update_successful']    = 'Group details updated';
 
 // Email Subjects
 $lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
