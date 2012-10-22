@@ -1745,6 +1745,44 @@ class Ion_auth_model extends CI_Model
 		return TRUE;
 	}
 
+	/**
+	* delete_group
+	*
+	* @return bool
+	* @author aditya menon
+	**/
+	public function delete_group($group_id = FALSE)
+	{
+		// bail if mandatory param not set
+		if(!$group_id || empty($group_id))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('pre_delete_group');
+
+		$this->db->trans_begin();
+
+		// remove all users from this group
+		$this->db->delete($this->tables['users_groups'], array('group_id' => $group_id));
+		// remove the group itself
+		$this->db->delete($this->tables['groups'], array('id' => $group_id));
+
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$this->trigger_events(array('post_delete_group', 'post_delete_group_unsuccessful'));
+			$this->set_error('group_delete_unsuccessful');
+			return FALSE;
+		}
+
+		$this->db->trans_commit();
+
+		$this->trigger_events(array('post_delete_group', 'post_delete_group_successful'));
+		$this->set_message('group_delete_successful');
+		return TRUE;
+	}
+
 	public function set_hook($event, $name, $class, $method, $arguments)
 	{
 		$this->_ion_hooks->{$event}[$name] = new stdClass;
