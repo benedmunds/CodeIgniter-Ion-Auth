@@ -69,6 +69,9 @@
 				<li><a href="#groups">groups()</a></li>
 				<li><a href="#get_users_groups">get_users_groups()</a></li>
 				<li><a href="#remove_from_group">remove_from_group()</a></li>
+				<li><a href="#create_group">create_group()</a></li>
+				<li><a href="#update_group">update_group()</a></li>
+				<li><a href="#delete_group">delete_group()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#messages_array">messages_array()</a></li>
 				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
@@ -924,7 +927,110 @@ Documentation
         // pass NULL to remove user from all groups
         $this->ion_auth->remove_from_group(NULL, $user_id);
 	</pre>
-	<br />	
+	<br />
+
+<a name="create_group"></a>
+	<h2>create_group()</h2>
+	<p>Create a group</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'group_name' - string REQUIRED.</li>
+		<li>'group_description' - string.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>brand new group_id if the group was created, FALSE if the group creation failed.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+        // pass the right arguments and it's done
+        $group = $this->ion_auth->create_group('new_test_group', 'This is a test description');
+        
+        if(!$group)
+        {
+        	$view_errors = $this->ion_auth->messages();
+      	}
+      	else
+      	{
+      		$new_group_id = $group;
+      		// do more cool stuff
+      	}
+	</pre>
+	<br />
+
+<a name="update_group"></a>
+	<h2>update_group()</h2>
+	<p>Update details of a group</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'group_id' - int REQUIRED.</li>
+		<li>'group_name' - string REQUIRED.</li>
+		<li>'group_description' - string.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the group was updated, FALSE if the update failed.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+				// source these things from anywhere you like (eg., a form)
+				$group_id = 2;
+				$group_name = 'test_group_changed_name';
+				$group_description = 'I changed the name yay';
+
+        // pass the right arguments and it's done
+        $group_update = $this->ion_auth->update_group($group_id, $group_name, $group_description);
+        
+        if(!$group_update)
+        {
+        	$view_errors = $this->ion_auth->messages();
+      	}
+      	else
+      	{
+      		// do more cool stuff
+      	}
+	</pre>
+	<br />
+
+<a name="delete_group"></a>
+	<h2>delete_group()</h2>
+	<p>Remove a group. Removes the group details from the configured 'groups' table. Users belonging to the group are stripped of this status (references to this group are removed from users_groups), but user data itself remains untouched.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'group_id' - int REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>boolean.  TRUE if the group was deleted, FALSE if the delete failed.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+				// source this from anywhere you like (eg., a form)
+				$group_id = 2;
+
+        // pass the right arguments and it's done
+        $group_delete = $this->ion_auth->delete_group($group_id);
+        
+        if(!$group_delete)
+        {
+        	$view_errors = $this->ion_auth->messages();
+      	}
+      	else
+      	{
+      		// do more cool stuff
+      	}
+	</pre>
+	<br />
+
 
 	<a name="set_message_delimiters"></a>
 	<h2>set_message_delimiters()</h2>
