@@ -676,7 +676,7 @@ class Auth extends CI_Controller {
 		{
 			if ($this->form_validation->run() === TRUE)
 			{
-				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['description']);
+				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
 
 				if($group_update)
 				{
@@ -702,11 +702,11 @@ class Auth extends CI_Controller {
 			'type'  => 'text',
 			'value' => $this->form_validation->set_value('group_name', $group->name),
 		);
-		$this->data['description'] = array(
-			'name'  => 'description',
-			'id'    => 'description',
+		$this->data['group_description'] = array(
+			'name'  => 'group_description',
+			'id'    => 'group_description',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('description', $group->description),
+			'value' => $this->form_validation->set_value('group_description', $group->description),
 		);
 
 		$this->load->view('auth/edit_group', $this->data);
