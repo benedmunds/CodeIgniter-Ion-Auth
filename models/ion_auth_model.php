@@ -851,7 +851,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+		$query = $this->db->select($this->identity_column . ' identity_column, username, email, id, password, active, last_login')
 		                  ->where($this->identity_column, $this->db->escape_str($identity))
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
@@ -2012,7 +2012,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	protected function _prepare_ip($ip_address) {
-		if ($this->db->platform() === 'postgre' || $this->db->platform() === 'sqlsrv' || $this->db->platform() === 'mssql')
+		if ($this->db->platform() === 'oci8' || $this->db->platform() === 'postgre' || $this->db->platform() === 'sqlsrv' || $this->db->platform() === 'mssql')
 		{
 			return $ip_address;
 		}
