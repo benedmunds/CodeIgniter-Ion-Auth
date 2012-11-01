@@ -376,6 +376,28 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	  //delete the user if they are really right and is admin
+	  function delete_user( $id = NULL, $right = false ) {
+		  $id = $this -> config -> item( 'use_mongodb', 'ion_auth' ) ? ( string ) $id : ( int ) $id;
+		  $actual_userid = $this->session->userdata('user_id');
+
+		  // if is right of to delete and is not the actual user
+		  // do we have the right userlevel?
+		  if ( $right
+				  && $actual_userid != $id
+				  && $this -> ion_auth -> logged_in()
+				  && $this -> ion_auth -> is_admin()
+				  && $this -> ion_auth -> delete_user( $id ) /* this rule shoud be the last rule */
+		  ) {
+			  $this -> session -> set_flashdata( 'message', $this -> lang -> line( 'delete_successful' ) );
+		  } else {
+			  $this -> session -> set_flashdata( 'message', $this -> lang -> line( 'delete_unsuccessful' ) );
+		  }
+
+		  //redirect them back to the main auth page
+		  redirect( 'auth', 'refresh' );
+	  }
+
 	//create a new user
 	function create_user()
 	{
