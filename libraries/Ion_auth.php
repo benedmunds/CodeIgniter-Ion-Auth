@@ -79,7 +79,7 @@ class Ion_auth
 
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
-		if (isset($email_config) && is_array($email_config))
+		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
 		{
 			$this->email->initialize($email_config);
 		}
