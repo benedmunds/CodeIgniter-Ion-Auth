@@ -8,7 +8,7 @@ class User extends CI_Model{
 	public $last_name = null;
 	public $id = null;
 	public $username = null;
-	public $preferred_language = 'english';
+	public $preferred_language = null;
 	
 	public function __construct() {
 		parent::__construct();

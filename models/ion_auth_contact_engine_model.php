@@ -138,7 +138,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	
 	public $crr; 	//object containg the REST return provided by Contact Engine
 	
-	public $ce_key;	 //string containing the Contact Engine key
+	public $ce_key = null;	 //string containing the Contact Engine key
 
 	public $_cache_user_in_group;  //I don't know what's this attribute but I need to declare otherwise throws a warning
 	 
@@ -160,7 +160,9 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//Rest Return class
 		$this->load->model('rest_return_object');
 		$this->crr = new Rest_Return_Object();
-		if(!$this->ce_key = $this->config->item('contact_engine_key','ion_auth')) $this->ce_key = '';
+		if(!isset($this->ce_key)) {
+			if(!$this->ce_key = $this->config->item('contact_engine_key','ion_auth')) $this->ce_key = '';
+		}
 		
 		//User object
 		$this->load->model('user');
