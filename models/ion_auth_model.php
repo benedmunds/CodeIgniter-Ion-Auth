@@ -563,7 +563,6 @@ class Ion_auth_model extends CI_Model
 
 		$result = $query->row();
 
-		$db_password = $result->password;
 		$old         = $this->hash_password_db($result->id, $old);
 		$new         = $this->hash_password($new, $result->salt);
 
