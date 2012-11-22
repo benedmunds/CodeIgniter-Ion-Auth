@@ -478,20 +478,7 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
-	/**
-	 * reset password
-	 *
-	 * @return bool
-	 * @author Mathew
-	 **/
-	public function reset_password($identity, $new) {
-		$this->trigger_events('pre_change_password');
-
-		if (!$this->identity_check($identity)) {
-			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
-			return FALSE;
-		}
-
+	public function get_user($identity) {
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('id, password, salt')
@@ -504,26 +491,53 @@ class Ion_auth_model extends CI_Model
 			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
 			$this->set_error('password_change_unsuccessful');
 			return FALSE;
+		} else {
+			return $query->row();
+		}
+	}
+
+	/**
+	 * reset password
+	 *
+	 * @return bool
+	 * @author Mathew
+	 **/
+	public function reset_password($identity, $new) {
+		$this->trigger_events('pre_change_password');
+
+		$user_exists = $this->identity_check($identity);
+
+		if (!$user_exists) {
+			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
+			return FALSE;
 		}
 
-		$result = $query->row();
+		$user = $this->get_user($identity);
 
-		$new = $this->hash_password($new, $result->salt);
+		$user_could_not_be_found = FALSE === $user;
+		if ( $user_could_not_be_found ) { return false; }
+
+		$hashed_new_password = $this->hash_password($new, $user->salt);
 
 		//store the new password and reset the remember code so all remembered instances have to re-login
 		//also clear the forgotten password code
 		$data = array(
-		    'password' => $new,
+		    'password' => $hashed_new_password,
 		    'remember_code' => NULL,
 		    'forgotten_password_code' => NULL,
 		    'forgotten_password_time' => NULL,
 		);
 
+		$whether_password_was_successfully_changed = $this->update_user_password( $identity, $data );
+		return $whether_password_was_successfully_changed;
+	}
+
+	function update_user_password($identity, $data) {
 		$this->trigger_events('extra_where');
 		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
-		$return = $this->db->affected_rows() == 1;
-		if ($return)
+		$successfully_changed_password_in_db = $this->db->affected_rows() == 1;
+		if ($successfully_changed_password_in_db)
 		{
 			$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
 			$this->set_message('password_change_successful');
@@ -534,7 +548,7 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('password_change_unsuccessful');
 		}
 
-		return $return;
+		return $successfully_changed_password_in_db;
 	}
 
 	/**
@@ -547,21 +561,10 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_change_password');
 
-		$this->trigger_events('extra_where');
+		$user = $this->get_user($identity);
 
-		$query = $this->db->select('id, password, salt')
-		                  ->where($this->identity_column, $identity)
-		                  ->limit(1)
-		                  ->get($this->tables['users']);
-
-		if ($query->num_rows() !== 1)
-		{
-			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
-			$this->set_error('password_change_unsuccessful');
-			return FALSE;
-		}
-
-		$user = $query->row();
+		$user_could_not_be_found = FALSE === $user;
+		if ( $user_could_not_be_found ) { return false; }
 
 		$old_password_matches = $this->hash_password_db($user->id, $old);
 
@@ -574,22 +577,8 @@ class Ion_auth_model extends CI_Model
 			    'remember_code' => NULL,
 			);
 
-			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
-
-			$successfully_changed_password_in_db = $this->db->affected_rows() == 1;
-			if ($successfully_changed_password_in_db)
-			{
-				$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
-				$this->set_message('password_change_successful');
-			}
-			else
-			{
-				$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
-				$this->set_error('password_change_unsuccessful');
-			}
-
-			return $successfully_changed_password_in_db;
+			$whether_password_was_successfully_changed = $this->update_user_password( $identity, $data );
+			return $whether_password_was_successfully_changed;
 		}
 
 		$this->set_error('password_change_unsuccessful');
