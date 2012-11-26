@@ -478,7 +478,7 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_user($identity) {
+	protected function get_old_password_info($identity) {
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('id, password, salt')
@@ -532,7 +532,7 @@ class Ion_auth_model extends CI_Model
 		return $whether_password_was_successfully_changed;
 	}
 
-	function update_user_password($identity, $data) {
+	protected function update_user_password($identity, $data) {
 		$this->trigger_events('extra_where');
 		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
