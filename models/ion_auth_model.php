@@ -512,7 +512,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$user = $this->get_user($identity);
+		$user = $this->get_old_password_info($identity);
 
 		$user_could_not_be_found = FALSE === $user;
 		if ( $user_could_not_be_found ) { return false; }
@@ -561,7 +561,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_change_password');
 
-		$user = $this->get_user($identity);
+		$user = $this->get_old_password_info($identity);
 
 		$user_could_not_be_found = FALSE === $user;
 		if ( $user_could_not_be_found ) { return false; }
