@@ -116,7 +116,8 @@ class Ion_auth
 	 */
 	public function __get($var)
 	{
-		return get_instance()->$var;
+		$CI =& get_instance();
+		return $CI->$var;
 	}
 
 
