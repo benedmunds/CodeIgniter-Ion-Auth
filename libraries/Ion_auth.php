@@ -386,8 +386,14 @@ class Ion_auth
 			delete_cookie('remember_code');
 		}
 
-		//Recreate the session
+		//Destroy the session
 		$this->session->sess_destroy();
+
+		//Recreate the session
+		if (substr(CI_VERSION, 0, 1) == '2') 
+		{
+			$this->session->sess_create();
+		}
 
 		$this->set_message('logout_successful');
 		return TRUE;
