@@ -192,6 +192,16 @@ class Auth extends CI_Controller {
 				'id' => 'email',
 			);
 
+			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
+				$this->data['identity_label'] = 'Username';	
+			}
+			else
+			{
+				$this->data['identity_label'] = 'Email';	
+			}
+			
+			
+
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$this->load->view('auth/forgot_password', $this->data);
