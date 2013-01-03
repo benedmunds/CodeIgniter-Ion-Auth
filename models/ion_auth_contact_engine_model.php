@@ -138,7 +138,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	
 	public $crr; 	//object containg the REST return provided by Contact Engine
 	
-	public $ce_key = null;	 //string containing the Contact Engine key
+	public $ce_key;	 //string containing the Contact Engine key
 
 	public $_cache_user_in_group;  //I don't know what's this attribute but I need to declare otherwise throws a warning
 	 
@@ -160,9 +160,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//Rest Return class
 		$this->load->model('rest_return_object');
 		$this->crr = new Rest_Return_Object();
-		if(!isset($this->ce_key)) {
-			if(!$this->ce_key = $this->config->item('contact_engine_key','ion_auth')) $this->ce_key = '';
-		}
+		if(!$this->ce_key = $this->config->item('contact_engine_key','ion_auth')) $this->ce_key = '';
 		
 		//User object
 		$this->load->model('user');
@@ -764,12 +762,6 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 **/
 	public function register($username, $password, $email, $additional_data = array(), $groups = array(), $category = 'unknown')
 	{
-		//FIXME this must be reported in the sql file
-		//ALTER TABLE  `users` CHANGE  `id`  `id` MEDIUMINT( 8 ) UNSIGNED NOT NULL
-		//ALTER TABLE  `users` CHANGE  `id`  `id` MEDIUMINT( 8 ) UNSIGNED NULL
-		//ALTER TABLE  `users` CHANGE  `id`  `id` INT( 20 ) UNSIGNED NOT NULL DEFAULT  '0'
-		//ALTER TABLE  `users` ADD UNIQUE (`id`)
-		
 		//TODO what about removing spaces from $username?
 		
 		$this->trigger_events('pre_register');
@@ -1003,7 +995,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 		$this->trigger_events(array('post_login', 'post_login_successful'));
 		$this->set_message('login_successful');
 		
-		return TRUE;
+		return true;
 	}
 	
 	private function user_exist_in_mysql($identity){
@@ -1021,6 +1013,22 @@ class Ion_auth_contact_engine_model extends CI_Model
 		}
 	}
 
+	private function user_exist_in_group($user_id,$group_id){
+
+		$query = $this->db->select('user_id')
+		->where('user_id', $this->db->escape_str($user_id))
+		->where('group_id', $this->db->escape_str($group_id))
+		->get($this->tables['users_groups']);
+	
+		// 		$a = $query->row();
+		// 		$b = $query->num_rows();
+		if ($query->num_rows() === 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+		
 	/**
 	 * is_max_login_attempts_exceeded
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
@@ -1308,6 +1316,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//if no id was passed use the current users id
 		$id || $id = $this->session->userdata('user_id');
 
+		if(!$id) return false;
+		
 		return $this->db->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
 		                ->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
 		                ->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
@@ -1327,6 +1337,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//if no id was passed use the current users id
 		$user_id || $user_id = $this->session->userdata('user_id');
 
+		if($this->user_exist_in_group($user_id,$group_id)) return true;
+		
 		return $this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
 	}
 
@@ -1353,6 +1365,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 			{
 				foreach($group_ids as $group_id)
 				{
+					if(!$this->user_exist_in_group($user_id,$group_id)) continue;
+					
 					$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
 				}
 			
@@ -1360,6 +1374,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 			}
 			else
 			{
+				if(!$this->user_exist_in_group($user_id,$group_id)) return true;
+				
 				return $this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_ids, $this->join['users'] => (int)$user_id));
 			}
 		}
