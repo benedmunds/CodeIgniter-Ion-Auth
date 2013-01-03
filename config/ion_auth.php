@@ -1,5 +1,17 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//DAM
+/*
+| -------------------------------------------------------------------------
+| Database Type
+| -------------------------------------------------------------------------
+| If set to TRUE, Ion Auth will use Contact Engine as its database backend.
+| https://github.com/damko/Contact-Engine
+|
+*/
+$config['use_contact_engine'] = TRUE;
+$config['contact_engine_api'] = 'http://ce.tooljarnitro.biz/index.php/api/';
+$config['contact_engine_key'] = 'your_contact_engine_key';
 /*
 | -------------------------------------------------------------------------
 | Database Type
@@ -67,6 +79,7 @@ $config['join']['groups'] = 'group_id';
  | to encrypt with x rounds.
  */
 $config['hash_method']    = 'sha1';	// IMPORTANT: Make sure this is set to either sha1 or bcrypt
+									// CONTACT ENGINE supports SHA1 and MD5 but not bcrypt
 $config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;

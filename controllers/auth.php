@@ -30,6 +30,7 @@ class Auth extends CI_Controller {
 		}
 		elseif (!$this->ion_auth->is_admin())
 		{
+			$this->session->set_flashdata('message', 'You are logged in but you are not an administrator');
 			//redirect them to the home page because they must be an administrator to view this
 			redirect('/', 'refresh');
 		}
@@ -49,6 +50,24 @@ class Auth extends CI_Controller {
 			$this->load->view('auth/index', $this->data);
 		}
 	}
+	
+	//shows the Ion Auth Registered users
+	function list_registered_users() {
+		
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			
+		//list the users
+		$this->data['users'] = $this->ion_auth->users()->result();
+		foreach ($this->data['users'] as $k => $user)
+		{
+			$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+		}
+			
+			
+		$this->load->view('auth/index', $this->data);		
+
+	}
 
 	//log the user in
 	function login()
@@ -65,8 +84,11 @@ class Auth extends CI_Controller {
 			//check for "remember me"
 			$remember = (bool) $this->input->post('remember');
 
-			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
-			{
+			$identity = $this->input->post('identity');
+			$password = $this->input->post('password');
+			
+			if ($this->ion_auth->login($identity, $password, $remember))
+			{ 
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -400,10 +422,16 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
-		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
-		$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
-		$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
+
+		//TODO DAM find out a better way to do this
+		if($this->config->item('use_contact_engine')!='TRUE')
+		{
+			//$this->form_validation->set_rules('phone1', 'First Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
+			//$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'required|xss_clean|min_length[3]|max_length[3]');
+			//$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'required|xss_clean|min_length[4]|max_length[4]');
+			//$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
+		}
+
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
 
@@ -420,6 +448,7 @@ class Auth extends CI_Controller {
 				'phone'      => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 			);
 		}
+		
 		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email, $additional_data))
 		{
 			//check to see if we are creating the user
