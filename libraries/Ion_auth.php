@@ -224,20 +224,12 @@ class Ion_auth
 		$new_password = $this->ion_auth_model->forgotten_password_complete($code, $profile->salt);
 
 		if ($new_password)
-		{	
-			
-			//TODO Dam these lines should be somewhere in ion_auth_contact_engine
-			//updates the password in Contact Engine
-			$data = array();
-			if(!$this->ion_auth_model->update_contact_engine($profile,$this->ion_auth_model->hash_password($new_password), $data)) return false;
-			
-			//dam let's automatically login the user
-			if(!$this->ion_auth_model->login($profile->{$identity},$new_password,true)) return false;
-						
+		{							
 			$data = array(
 				'identity'     => $profile->{$identity},
 				'new_password' => $new_password
 			);
+			
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->set_message('password_change_successful');

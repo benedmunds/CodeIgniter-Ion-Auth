@@ -747,6 +747,16 @@ class Ion_auth_contact_engine_model extends CI_Model
 			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
 
 			$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_successful'));
+			
+			
+			//updates the password in Contact Engine
+			$data = array();
+			if(!$this->ion_auth_model->update_contact_engine($profile,$this->ion_auth_model->hash_password($new_password), $data)) return false;
+		
+			//automatically logs-in the user
+			if(!$this->ion_auth_model->login($profile->{$identity},$new_password,true)) return false;
+		
+			
 			return $password;
 		}
 
@@ -762,7 +772,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 	 **/
 	public function register($username, $password, $email, $additional_data = array(), $groups = array(), $category = 'unknown')
 	{
-		//TODO what about removing spaces from $username?
+		//TODO DAM what about removing spaces from $username?
 		
 		$this->trigger_events('pre_register');
 		
@@ -774,8 +784,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//checks if the email has been already registered in Contact Engine
 		$rest_return = $this->rest->get($method, $input, 'serialize');
 		
-		//TODO maybe we don't need this
-		if(!$rest_return) return FALSE;
+		//TODO DAM delme
+		//if(!$rest_return) return FALSE;
 		
 		//parsing REST return
 		$this->crr->importCeReturnObject($rest_return);
@@ -805,8 +815,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 			//adds the new contact in Contact Engine
 			$rest_return_creation = $this->rest->post($method, $input, 'serialize');
 			
-			//TODO maybe we don't need this
-			if(!$rest_return_creation) return FALSE;
+			//TODO DAM delme
+			//if(!$rest_return_creation) return FALSE;
 			
 			//parsing REST return
 			$this->crr->importCeReturnObject($rest_return_creation);
@@ -926,8 +936,8 @@ class Ion_auth_contact_engine_model extends CI_Model
 		//performing authentication request to contact engine
 		$rest_return = $this->rest->get($method, $input, 'serialize');		
 		
-		//TODO maybe we don't need this
-		if(!$rest_return) return false;
+		//TODO DAM delme
+		//if(!$rest_return) return false;
 		
 		//parsing REST return
 		$this->crr->importCeReturnObject($rest_return);
@@ -946,7 +956,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 			return false;
 		}
 		
-		$this->trigger_events('extra_where'); //TODO is this necessary?
+		$this->trigger_events('extra_where'); //TODO DAM is this necessary?
 		
 		//the obj User is for back compatibility
 		$user = new User;
@@ -1463,8 +1473,11 @@ class Ion_auth_contact_engine_model extends CI_Model
 
 		$user = $this->user($id)->row();
 
+		if(!is_object($user)) return false;
+		
 		$this->db->trans_begin();
-
+		
+		//it checks if the user is already stored in the "users" mysql table (i.e. valid record)
 		if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 		{
 			$this->db->trans_rollback();
@@ -1521,10 +1534,12 @@ class Ion_auth_contact_engine_model extends CI_Model
 		
 		if(empty($hash_password) || is_array($hash_password)) return false;
 		
+		//it checks that $hash_password begins with the encryption tag {SHA} or {MD5}
+		$this->load->helper('ionauth'); //this is mandatory in case the application is not used as a spark
+		if( !startsWith($hash_password, '{SHA}') && !startsWith($hash_password, '{MD5}')) return false;
+		
 		//update Contact Engine
 		$data = $this->_filter_data_ldap($data);
-		
-		//TODO check that $hash_password begins with the encryption tag {SHA} or {MD5}
 		
 		//get attributes stored in Contact Engine
 		$method = 'read';
@@ -1723,7 +1738,7 @@ class Ion_auth_contact_engine_model extends CI_Model
 
 		//get the user
 		$this->trigger_events('extra_where');
-		//TODO instead of reading the first_name and last_name from the database I should make a read request to Contact Engine
+		//TODO DAM instead of reading the first_name and last_name from the database I should make a read request to Contact Engine
 		$query = $this->db->select($this->identity_column.', id, first_name, last_name')
 		                  ->where($this->identity_column, get_cookie('identity'))
 		                  ->where('remember_code', get_cookie('remember_code'))

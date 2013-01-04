@@ -1,6 +1,5 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-//DAM
 /*
 | -------------------------------------------------------------------------
 | Database Type
@@ -9,9 +8,10 @@
 | https://github.com/damko/Contact-Engine
 |
 */
-$config['use_contact_engine'] = TRUE;
-$config['contact_engine_api'] = 'http://ce.tooljarnitro.biz/index.php/api/';
-$config['contact_engine_key'] = 'your_contact_engine_key';
+$config['use_contact_engine'] = FALSE;
+$config['contact_engine_api'] = ''; // something like http://ce.domain.com/index.php/api/';
+$config['contact_engine_key'] = ''; //set here your contact engine key or leave it empty
+
 /*
 | -------------------------------------------------------------------------
 | Database Type
@@ -120,7 +120,7 @@ $config['forgot_password_expiration'] = 0; 				// The number of seconds after wh
  | 	  'file' = Use the default CI config or use from a config file
  | 	  array  = Manually set your email config settings
  */
-$config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+$config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 $config['email_config'] = array(
 	'mailtype' => 'html',
 );
