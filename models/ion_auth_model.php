@@ -1504,12 +1504,18 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_delete_user');
 
 		$this->db->trans_begin();
+		
+		// delete user from users table
+		$this->db->delete($this->tables['users'], array('id' => $id));
+		
+		// if user does not exist in database then it returns FALSE else removes the user from groups
+		if ($this->db->affected_rows() == 0)
+		{
+		    return FALSE;
+		}
 
 		// remove user from groups
 		$this->remove_from_group(NULL, $id);
-
-		// delete user from users table
-		$this->db->delete($this->tables['users'], array('id' => $id));
 
 		if ($this->db->trans_status() === FALSE)
 		{
