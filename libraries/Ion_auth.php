@@ -72,11 +72,24 @@ class Ion_auth
 			$this->load->driver('session');
 		}
 
+		//DAM
 		// Load IonAuth MongoDB model if it's set to use MongoDB,
 		// We assign the model object to "ion_auth_model" variable.
-		$this->config->item('use_mongodb', 'ion_auth') ?
-			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model') :
+		if($this->config->item('use_mongodb', 'ion_auth')) {
+			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model');
+		}
+
+		//DAM
+		// Load IonAuth Contact Engine model if it's set to use Contact Engine,
+		// We assign the model object to "ion_auth_model" variable.
+		if($this->config->item('use_contact_engine', 'ion_auth')) {
+			$this->load->model('ion_auth_contact_engine_model', 'ion_auth_model');
+		}
+
+		$CI = get_instance();
+		if(!isset($CI->ion_auth_model) || !is_object($CI->ion_auth_model)){
 			$this->load->model('ion_auth_model');
+		}
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
@@ -211,11 +224,12 @@ class Ion_auth
 		$new_password = $this->ion_auth_model->forgotten_password_complete($code, $profile->salt);
 
 		if ($new_password)
-		{
+		{							
 			$data = array(
 				'identity'     => $profile->{$identity},
 				'new_password' => $new_password
 			);
+			
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->set_message('password_change_successful');

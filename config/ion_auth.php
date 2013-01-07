@@ -1,5 +1,31 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+//DAM
+/*
+| -------------------------------------------------------------------------
+| Database Type
+| -------------------------------------------------------------------------
+| This configuration block enables support for Contact Engine which provides
+| a comfortable way to store users in LDAP and to authenticate them via API
+| https://github.com/damko/Contact-Engine
+|
+*/
+//If set to TRUE, Ion Auth will use Contact Engine as its database backend.
+$config['use_contact_engine'] = TRUE;
+
+//If there are no constants set ( ex.: /application/constants.php) it will use the settings specified here   
+if( CONTACT_ENGINE_API ) {
+	$config['contact_engine_api'] = CONTACT_ENGINE_API;
+} else {
+	$config['contact_engine_api'] = ''; // something like http://ce.domain.com/index.php/api/';
+}
+
+if( CONTACT_ENGINE_KEY ) {
+	$config['contact_engine_key'] = CONTACT_ENGINE_KEY;
+} else {
+	$config['contact_engine_key'] = ''; //set here your contact engine key or leave it empty
+}
+
 /*
 | -------------------------------------------------------------------------
 | Database Type
@@ -31,10 +57,10 @@ $config['collections']['login_attempts'] = 'login_attempts';
 | -------------------------------------------------------------------------
 | Database table names.
 */
-$config['tables']['users']           = 'users';
-$config['tables']['groups']          = 'groups';
-$config['tables']['users_groups']    = 'users_groups';
-$config['tables']['login_attempts']  = 'login_attempts';
+$config['tables']['users'] = 'users';
+$config['tables']['groups'] = 'groups';
+$config['tables']['users_groups'] = 'users_groups';
+$config['tables']['login_attempts'] = 'login_attempts';
 
 /*
  | Users table column and Group table column you want to join WITH.
@@ -67,6 +93,7 @@ $config['join']['groups'] = 'group_id';
  | to encrypt with x rounds.
  */
 $config['hash_method']    = 'sha1';	// IMPORTANT: Make sure this is set to either sha1 or bcrypt
+									// CONTACT ENGINE supports SHA1 and MD5 but not bcrypt
 $config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;
@@ -81,9 +108,9 @@ $config['max_rounds']     = 9;
  | The controller should check this function and act
  | appropriately. If this variable set to 0, there is no maximum.
  */
-$config['site_title']           = "Example.com"; 		// Site Title, example.com
-$config['admin_email']          = "admin@example.com"; 	// Admin Email, admin@example.com
-$config['default_group']        = 'members'; 			// Default group, use name
+$config['site_title'] = 'ToolJar.biz'; 		// Site Title, example.com
+$config['admin_email'] = 'dam@venturin.net'; 	// Admin Email, admin@example.com
+$config['default_group']      	= 'members'; 			// Default group, use name
 $config['admin_group']          = 'admin'; 				// Default administrators group, use name
 $config['identity']             = 'email'; 				// A database column which is used to login with
 $config['min_password_length']  = 8; 					// Minimum Required Length of Password
@@ -107,7 +134,7 @@ $config['forgot_password_expiration'] = 0; 				// The number of seconds after wh
  | 	  'file' = Use the default CI config or use from a config file
  | 	  array  = Manually set your email config settings
  */
-$config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+$config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 $config['email_config'] = array(
 	'mailtype' => 'html',
 );
