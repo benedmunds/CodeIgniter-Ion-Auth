@@ -1,5 +1,13 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+$config_file = APPPATH.'config/ion_auth.php';
+
+//DAM
+if(is_file($config_file)) {
+	include $config_file;
+	return;
+} 
+
 //DAM
 /*
 | -------------------------------------------------------------------------
@@ -138,6 +146,16 @@ $config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, 
 $config['email_config'] = array(
 	'mailtype' => 'html',
 );
+
+/*
+| -------------------------------------------------------------------------
+| Template Engine
+| -------------------------------------------------------------------------
+| Which template engine to use.
+| Default: php
+*/
+$config['template_engine'] = 'php';
+
 
 /*
  | -------------------------------------------------------------------------

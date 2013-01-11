@@ -169,13 +169,43 @@ class Ion_auth
 				}
 				else
 				{
-					$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password', 'ion_auth'), $data, true);
+					$locations = Modules::$locations;
+					if(is_array($locations)) {
+						
+						foreach ($locations as $absolute => $relative) {
+							
+							if(isset($tpl)) break; //breaks after the first occurrence
+							
+							if(strstr($absolute, 'ion_auth')) {
+
+								$path = $absolute . 'views/' . $this->config->item('email_templates', 'ion_auth');
+								$tpl = $path . $this->config->item('email_forgot_password', 'ion_auth');
+								
+								if(is_file($tpl)) {
+									break;
+								} else {
+									unset($path);
+									unset($tpl);
+								}
+							}		
+						}
+					}
+					
+					if(!isset($tpl)) {
+						$this->set_error('forgot_password_unsuccessful');
+						return FALSE;
+					}
+					
+					if(!$template_engine = $this->config->item('template_engine', 'ion_auth')) {
+						$template_engine = 'php';
+					}
+					$message = $this->load->view($this->config->item('email_forgot_password', 'ion_auth'), $data, true, $template_engine, $path);
 					$this->email->clear();
 					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 					$this->email->to($user->email);
 					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_forgotten_password_subject'));
 					$this->email->message($message);
-
+					
 					if ($this->email->send())
 					{
 						$this->set_message('forgot_password_successful');
