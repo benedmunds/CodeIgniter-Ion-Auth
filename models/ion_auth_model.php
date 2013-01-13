@@ -892,19 +892,11 @@ class Ion_auth_model extends CI_Model
 					return FALSE;
 				}
 
-				$session_data = array(
-				    'identity'             => $user->{$this->identity_column},
-				    'username'             => $user->username,
-				    'email'                => $user->email,
-				    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-				    'old_last_login'       => $user->last_login
-				);
+				$this->set_session($user);
 
 				$this->update_last_login($user->id);
 
 				$this->clear_login_attempts($identity);
-
-				$this->session->set_userdata($session_data);
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
@@ -1582,6 +1574,30 @@ class Ion_auth_model extends CI_Model
 	 * remember_user
 	 *
 	 * @return bool
+	 * @author jrmadsen67
+	 **/
+	public function set_session($user)
+	{
+
+		$this->trigger_events('set_session');
+
+		$session_data = array(
+		    'identity'             => $user->{$this->identity_column},
+		    'username'             => $user->username,
+		    'email'                => $user->email,
+		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+		    'old_last_login'       => $user->last_login
+		);
+
+		$this->session->set_userdata($session_data);
+
+		return TRUE;
+	}
+
+	/**
+	 * remember_user
+	 *
+	 * @return bool
 	 * @author Ben Edmunds
 	 **/
 	public function remember_user($id)
@@ -1664,14 +1680,7 @@ class Ion_auth_model extends CI_Model
 
 			$this->update_last_login($user->id);
 
-			$session_data = array(
-			    $this->identity_column => $user->{$this->identity_column},
-			    'id'                   => $user->id, //kept for backwards compatibility
-			    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-			);
-
-			$this->session->set_userdata($session_data);
-
+			$this->set_session($user);
 
 			//extend the users cookies if the option is enabled
 			if ($this->config->item('user_extend_on_login', 'ion_auth'))
