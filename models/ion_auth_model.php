@@ -1579,7 +1579,7 @@ class Ion_auth_model extends CI_Model
 	public function set_session($user)
 	{
 
-		$this->trigger_events('set_session');
+		$this->trigger_events('pre_set_session');
 
 		$session_data = array(
 		    'identity'             => $user->{$this->identity_column},
@@ -1590,6 +1590,8 @@ class Ion_auth_model extends CI_Model
 		);
 
 		$this->session->set_userdata($session_data);
+
+		$this->trigger_events('post_set_session');
 
 		return TRUE;
 	}
