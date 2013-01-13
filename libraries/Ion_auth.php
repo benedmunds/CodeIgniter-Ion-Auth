@@ -424,6 +424,23 @@ class Ion_auth
 	}
 
 	/**
+	 * logged_in
+	 *
+	 * @return integer
+	 * @author jrmadsen67
+	 **/
+	public function get_user_id()
+	{
+		$user_id = $this->session->userdata('user_id');
+		if (!empty($user_id))
+		{
+			return $user_id;
+		}	
+		return 0;
+	}
+
+
+	/**
 	 * is_admin
 	 *
 	 * @return bool
