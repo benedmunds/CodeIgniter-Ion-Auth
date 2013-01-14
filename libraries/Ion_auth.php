@@ -436,7 +436,7 @@ class Ion_auth
 		{
 			return $user_id;
 		}	
-		return 0;
+		return null;
 	}
 
 
