@@ -1185,11 +1185,11 @@ class Ion_auth_model extends CI_Model
 				$this->db->distinct();
 				$this->db->join(
 				    $this->tables['users_groups'],
-				    $this->tables['users_groups'].'.user_id = ' . $this->tables['users'].'.id',
+				    $this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id',
 				    'inner'
 				);
 
-				$this->db->where_in($this->tables['users_groups'].'.group_id', $groups);
+				$this->db->where_in($this->tables['users_groups'].'.'.$this->join['groups'], $groups);
 			}
 		}
 
@@ -1787,7 +1787,7 @@ class Ion_auth_model extends CI_Model
 		$this->db->trans_begin();
 
 		// remove all users from this group
-		$this->db->delete($this->tables['users_groups'], array('group_id' => $group_id));
+		$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => $group_id));
 		// remove the group itself
 		$this->db->delete($this->tables['groups'], array('id' => $group_id));
 
