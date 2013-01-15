@@ -45,8 +45,7 @@ class Auth extends CI_Controller {
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-
-			$this->load->view('auth/index', $this->data);
+			$this->_render_page('auth/index', $this->data);
 		}
 	}
 
@@ -96,7 +95,7 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 			);
 
-			$this->load->view('auth/login', $this->data);
+			$this->_render_page('auth/login', $this->data);
 		}
 	}
 
@@ -159,7 +158,7 @@ class Auth extends CI_Controller {
 			);
 
 			//render
-			$this->load->view('auth/change_password', $this->data);
+			$this->_render_page('auth/change_password', $this->data);
 		}
 		else
 		{
@@ -204,7 +203,7 @@ class Auth extends CI_Controller {
 
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->load->view('auth/forgot_password', $this->data);
+			$this->_render_page('auth/forgot_password', $this->data);
 		}
 		else
 		{
@@ -276,7 +275,7 @@ class Auth extends CI_Controller {
 				$this->data['code'] = $code;
 
 				//render
-				$this->load->view('auth/reset_password', $this->data);
+				$this->_render_page('auth/reset_password', $this->data);
 			}
 			else
 			{
@@ -361,7 +360,7 @@ class Auth extends CI_Controller {
 			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
-			$this->load->view('auth/deactivate_user', $this->data);
+			$this->_render_page('auth/deactivate_user', $this->data);
 		}
 		else
 		{
@@ -488,7 +487,7 @@ class Auth extends CI_Controller {
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 
-			$this->load->view('auth/create_user', $this->data);
+			$this->_render_page('auth/create_user', $this->data);
 		}
 	}
 
@@ -627,7 +626,7 @@ class Auth extends CI_Controller {
 			'type' => 'password'
 		);
 
-		$this->load->view('auth/edit_user', $this->data);
+		$this->_render_page('auth/edit_user', $this->data);
 	}
 
 	// create a new group
@@ -674,7 +673,7 @@ class Auth extends CI_Controller {
 				'value' => $this->form_validation->set_value('description'),
 			);
 
-			$this->load->view('auth/create_group', $this->data);
+			$this->_render_page('auth/create_group', $this->data);
 		}
 	}
 
@@ -737,7 +736,7 @@ class Auth extends CI_Controller {
 			'value' => $this->form_validation->set_value('group_description', $group->description),
 		);
 
-		$this->load->view('auth/edit_group', $this->data);
+		$this->_render_page('auth/edit_group', $this->data);
 	}
 
 
@@ -763,6 +762,16 @@ class Auth extends CI_Controller {
 		{
 			return FALSE;
 		}
+	}
+
+	function _render_page($view, $data=null, $render=false)
+	{
+
+		$this->viewdata = (empty($data)) ? $this->data: $data;
+
+		$view_html = $this->load->view($view, $this->viewdata, $render);
+
+		if (!$render) return $view_html;
 	}
 
 }
