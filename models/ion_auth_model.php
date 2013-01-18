@@ -1505,7 +1505,10 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->trans_begin();
 		
-		// delete user from users table
+		// remove user from groups
+		$this->remove_from_group(NULL, $id);
+		
+		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], array('id' => $id));
 		
 		// if user does not exist in database then it returns FALSE else removes the user from groups
@@ -1513,9 +1516,6 @@ class Ion_auth_model extends CI_Model
 		{
 		    return FALSE;
 		}
-
-		// remove user from groups
-		$this->remove_from_group(NULL, $id);
 
 		if ($this->db->trans_status() === FALSE)
 		{
