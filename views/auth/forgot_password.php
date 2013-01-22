@@ -9,7 +9,7 @@
       	<?php echo $identity_label; ?>: <br />
       	<?php echo form_input($email);?>
       </p>
-      
+
       <p><?php echo form_submit('submit', 'Submit');?></p>
-      
+
 <?php echo form_close();?>

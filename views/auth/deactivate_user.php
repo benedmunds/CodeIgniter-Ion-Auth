@@ -1,6 +1,6 @@
 <h1>Deactivate User</h1>
 <p>Are you sure you want to deactivate the user '<?php echo $user->username; ?>'</p>
-	
+
 <?php echo form_open("auth/deactivate/".$user->id);?>
 
   <p>

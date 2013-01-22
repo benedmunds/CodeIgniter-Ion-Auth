@@ -4,10 +4,10 @@
 class Bcrypt {
   private $rounds;
   public function __construct($params=array('rounds'=>7)) {
-    
-    
+
+
     $rounds = $params['rounds'];
-    
+
     if(CRYPT_BLOWFISH != 1) {
       throw new Exception("bcrypt not supported in this installation. See http://php.net/crypt");
     }
