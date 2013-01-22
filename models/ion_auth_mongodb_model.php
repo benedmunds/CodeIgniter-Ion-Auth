@@ -182,7 +182,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$this->load->helper('date');
 
 		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2') 
+		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->load->library('session');
 		}
@@ -190,7 +190,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		{
 			$this->load->driver('session');
 		}
-		
+
 		$this->lang->load('ion_auth');
 
 		// Initialize MongoDB collection names
@@ -1660,7 +1660,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 			'value'  => $lang,
 			'expire' => $expire
 		));
-		
+
 		return TRUE;
 	}
 
@@ -1703,7 +1703,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 			{
 				$expire = $this->config->item('user_expire', 'ion_auth');
 			}
-			
+
 			set_cookie(array(
 			    'name'   => 'identity',
 			    'value'  => $user->{$this->identity_column},

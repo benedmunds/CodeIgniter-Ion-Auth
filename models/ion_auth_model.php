@@ -170,7 +170,7 @@ class Ion_auth_model extends CI_Model
 		$this->load->helper('date');
 
 		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2') 
+		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->load->library('session');
 		}
@@ -178,7 +178,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->load->driver('session');
 		}
-		
+
 		$this->lang->load('ion_auth');
 
 		//initialize db tables data
@@ -864,12 +864,12 @@ class Ion_auth_model extends CI_Model
 		                  ->where($this->identity_column, $this->db->escape_str($identity))
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
-						  
+
 		if($this->is_time_locked_out($identity))
 		{
 			//Hash something anyway, just to take up time
 			$this->hash_password($password);
-			
+
 			$this->trigger_events('post_login_unsuccessful');
 			$this->set_error('login_timeout');
 
@@ -960,7 +960,7 @@ class Ion_auth_model extends CI_Model
 		}
 		return 0;
 	}
-	
+
 	/**
 	 * Get a boolean to determine if an account should be locked out due to
 	 * exceeded login attempts within a given period
@@ -971,7 +971,7 @@ class Ion_auth_model extends CI_Model
 
 		return $this->is_max_login_attempts_exceeded($identity) && $this->get_last_attempt_time($identity) > time() - $this->config->item('lockout_time', 'ion_auth');
 	}
-	
+
 	/**
 	 * Get the time of the last time a login attempt occured from given IP-address or identity
 	 *
@@ -981,17 +981,17 @@ class Ion_auth_model extends CI_Model
 	public function get_last_attempt_time($identity) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
 			$ip_address = $this->_prepare_ip($this->input->ip_address());
-			
+
 			$this->db->select_max('time');
 			$this->db->where('ip_address', $ip_address);
 			if (strlen($identity) > 0) $this->db->or_where('login', $identity);
 			$qres = $this->db->get($this->tables['login_attempts'], 1);
-			
+
 			if($qres->num_rows() > 0) {
 				return $qres->row()->time;
 			}
 		}
-		
+
 		return 0;
 	}
 
@@ -1299,7 +1299,7 @@ class Ion_auth_model extends CI_Model
 
 		//check if unique - num_rows() > 0 means row found
 		if ($this->db->where(array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id))->get($this->tables['users_groups'])->num_rows()) return false;
- 
+
 		if ($return = $this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id)))
 		{
 			if (isset($this->_cache_groups[$group_id])) {
@@ -1499,13 +1499,13 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_delete_user');
 
 		$this->db->trans_begin();
-		
+
 		// remove user from groups
 		$this->remove_from_group(NULL, $id);
-		
+
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], array('id' => $id));
-		
+
 		// if user does not exist in database then it returns FALSE else removes the user from groups
 		if ($this->db->affected_rows() == 0)
 		{
@@ -1747,7 +1747,7 @@ class Ion_auth_model extends CI_Model
 		$mandatory = array($group_id, $group_name);
 
 		// bail if no group id or name given
-		foreach ($mandatory as $mandatory_param) {		
+		foreach ($mandatory as $mandatory_param) {
 			if(!$mandatory_param || empty($mandatory_param))
 			{
 				return FALSE;
