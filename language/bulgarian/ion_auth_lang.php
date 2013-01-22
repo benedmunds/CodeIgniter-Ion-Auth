@@ -1,16 +1,16 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth Lang - English
+* Name:  Ion Auth Lang - Bulgarian
 *
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
+* Author: Ivan Kolev
+* 		  ivan.kolev@gmail.com
+*
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  03.14.2010
+* Created:  01.22.2013
 *
-* Description:  English language file for Ion Auth messages and errors
+* Description:  Bulgarian language file for Ion Auth messages and errors
 *
 */
 
