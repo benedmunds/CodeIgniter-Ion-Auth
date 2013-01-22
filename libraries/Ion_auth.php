@@ -63,7 +63,7 @@ class Ion_auth
 		$this->load->helper('cookie');
 
 		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2') 
+		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->load->library('session');
 		}
@@ -399,7 +399,7 @@ class Ion_auth
 		$this->session->sess_destroy();
 
 		//Recreate the session
-		if (substr(CI_VERSION, 0, 1) == '2') 
+		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->session->sess_create();
 		}
@@ -435,7 +435,7 @@ class Ion_auth
 		if (!empty($user_id))
 		{
 			return $user_id;
-		}	
+		}
 		return null;
 	}
 
@@ -464,14 +464,14 @@ class Ion_auth
 	public function in_group($check_group, $id=false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
-		
+
 		$id || $id = $this->session->userdata('user_id');
 
 		if (!is_array($check_group))
 		{
 			$check_group = array($check_group);
 		}
-		
+
 		if (isset($this->_cache_user_in_group[$id]))
 		{
 			$groups_array = $this->_cache_user_in_group[$id];
@@ -498,5 +498,5 @@ class Ion_auth
 
 		return FALSE;
 	}
-	
+
 }

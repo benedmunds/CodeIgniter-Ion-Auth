@@ -34,9 +34,9 @@
             Confirm Password: (if changing password)<br />
             <?php echo form_input($password_confirm);?>
       </p>
-      
+
 	 <h3>Member of groups</h3>
-	<?php foreach ($groups as $group):?>					
+	<?php foreach ($groups as $group):?>
 	<label class="checkbox">
 	<?php
 		$gID=$group['id'];
