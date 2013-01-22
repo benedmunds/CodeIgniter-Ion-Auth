@@ -3,7 +3,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open(current_url());?>
+<?php echo form_open(uri_string());?>
 
       <p>
             First Name: <br />
