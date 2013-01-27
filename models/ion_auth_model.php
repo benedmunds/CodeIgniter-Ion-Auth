@@ -1751,32 +1751,39 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author aditya menon
 	 **/
-	public function update_group($group_id = FALSE, $group_name = FALSE, $group_description = NULL)
+	public function update_group($group_id = FALSE, $group_name = FALSE, $additional_data = array())
 	{
-		$mandatory = array($group_id, $group_name);
+		if (empty($group_id)) return FALSE;
 
-		// bail if no group id or name given
-		foreach ($mandatory as $mandatory_param) {
-			if(!$mandatory_param || empty($mandatory_param))
-			{
-				return FALSE;
-			}
-		}
+		$data = array();
 
-		// bail if the group name already exists
-		$existing_group = $this->db->get_where($this->tables['groups'], array('name' => $group_name))->row();
-		if(isset($existing_group->id) && $existing_group->id != $group_id)
+		if (!empty($group_name))
 		{
-			$this->set_error('group_already_exists');
-			return FALSE;
+			// we are changing the name, so do some checks
+
+			// bail if the group name already exists
+			$existing_group = $this->db->get_where($this->tables['groups'], array('name' => $group_name))->row();
+			if(isset($existing_group->id) && $existing_group->id != $group_id)
+			{
+				$this->set_error('group_already_exists');
+				return FALSE;
+			}	
+
+			$data['name'] = $group_name;		
 		}
+		
 
-		$query_data = array(
-			'name' => $group_name,
-			'description' => $group_description,
-		);
+		// IMPORTANT!! Third parameter was string type $description; this following code is to maintain backward compatibility
+		// New projects should work with 3rd param as array
+		if (is_string($additional_data)) $additional_data = array('description' => $additional_data);
+		
 
-		$this->db->update($this->tables['groups'], $query_data, array('id' => $group_id));
+		//filter out any data passed that doesnt have a matching column in the groups table
+		//and merge the set group data and the additional data
+		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->tables['groups'], $additional_data), $data);
+
+
+		$this->db->update($this->tables['groups'], $data, array('id' => $group_id));
 
 		$this->set_message('group_update_successful');
 
