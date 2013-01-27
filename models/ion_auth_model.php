@@ -1710,11 +1710,12 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @author aditya menon
 	*/
-	public function create_group($group_name = FALSE, $group_description = NULL)
+	public function create_group($group_name = FALSE, $group_description = '', $additional_data = array())
 	{
 		// bail if the group name was not passed
 		if(!$group_name)
 		{
+			$this->set_error('group_name_required');
 			return FALSE;
 		}
 
@@ -1726,8 +1727,16 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
+		$data = array('name'=>$group_name,'description'=>$group_description);
+
+		//filter out any data passed that doesnt have a matching column in the groups table
+		//and merge the set group data and the additional data
+		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->tables['groups'], $additional_data), $data);
+
+		$this->trigger_events('extra_group_set');
+
 		// insert the new group
-		$this->db->insert($this->tables['groups'], array('name' => $group_name, 'description' => $group_description));
+		$this->db->insert($this->tables['groups'], $data);
 		$group_id = $this->db->insert_id();
 
 		// report success

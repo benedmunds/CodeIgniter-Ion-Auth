@@ -53,6 +53,7 @@ $lang['group_already_exists']       = 'Group name already taken';
 $lang['group_update_successful']    = 'Group details updated';
 $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
+$lang['group_name_required'] 		= 'Group name is a required field';
 
 // Email Subjects
 $lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
