@@ -1151,7 +1151,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('users');
 
-		if (isset($this->_ion_select))
+		if (isset($this->_ion_select) && !empty($this->_ion_select))
 		{
 			foreach ($this->_ion_select as $select)
 			{
