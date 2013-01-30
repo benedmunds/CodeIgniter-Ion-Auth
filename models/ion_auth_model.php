@@ -1151,7 +1151,7 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('users');
 
-		if (!empty($this->_ion_select))
+		if (isset($this->_ion_select) && !empty($this->_ion_select))
 		{
 			foreach ($this->_ion_select as $select)
 			{
@@ -1196,7 +1196,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		//run each where that was passed
-		if (!empty($this->_ion_where))
+		if (isset($this->_ion_where) && !empty($this->_ion_where))
 		{
 			foreach ($this->_ion_where as $where)
 			{
@@ -1206,7 +1206,7 @@ class Ion_auth_model extends CI_Model
 			$this->_ion_where = array();
 		}
 
-		if (!empty($this->_ion_like))
+		if (isset($this->_ion_like) && !empty($this->_ion_like))
 		{
 			foreach ($this->_ion_like as $like)
 			{
@@ -1371,7 +1371,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('groups');
 
 		//run each where that was passed
-		if (!empty($this->_ion_where))
+		if (isset($this->_ion_where) && !empty($this->_ion_where))
 		{
 			foreach ($this->_ion_where as $where)
 			{
