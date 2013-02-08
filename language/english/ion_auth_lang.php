@@ -8,7 +8,7 @@
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  03.14.2010
+* Created:  03.14.2010 // change this date!
 *
 * Description:  English language file for Ion Auth messages and errors
 *
