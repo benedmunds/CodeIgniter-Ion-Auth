@@ -1781,6 +1781,131 @@ class Ion_auth_mongodb_model extends CI_Model {
 		return FALSE;
 	}
 
+
+	/**
+	 * create_group
+	 *
+	 * @author Ben Edmunds
+	*/
+	public function create_group($group_name = FALSE, $group_description = '', $additional_data = array())
+	{
+		// bail if the group name was not passed
+		if(!$group_name)
+		{
+			$this->set_error('group_name_required');
+			return FALSE;
+		}
+
+		// bail if the group name already exists
+		$existing_group = $this->where('name', $group_name)->group()->document();
+		if(isset($existing_group) && !empty($existing_group))
+		{
+			$this->set_error('group_already_exists');
+			return FALSE;
+		}
+
+		$data = array('name'=>$group_name,'description'=>$group_description);
+
+		//filter out any data passed that doesnt have a matching column in the groups table
+		//and merge the set group data and the additional data
+		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->collections['groups'], $additional_data), $data);
+
+		$this->trigger_events('extra_group_set');
+
+		// insert the new group
+		$group_id = $this->mongo_db->insert($this->collections['groups'], $data);
+
+		// report success
+		$this->set_message('group_creation_successful');
+
+		// return the brand new group id
+		return $group_id;
+	}
+
+	/**
+	 * update_group
+	 *
+	 * @return bool
+	 * @author Ben Edmunds
+	 **/
+	public function update_group($group_id = FALSE, $group_name = FALSE, $additional_data = array())
+	{
+		if (empty($group_id)) return FALSE;
+
+		$data = array();
+
+		if (!empty($group_name))
+		{
+			// we are changing the name, so do some checks
+
+			// bail if the group name already exists
+			$existing_group = $this->where('name', $group_name)->group()->document();
+			if(isset($existing_group->id) && $existing_group->id != $group_id)
+			{
+				$this->set_error('group_already_exists');
+				return FALSE;
+			}	
+
+			$data['name'] = $group_name;		
+		}
+		
+
+		// IMPORTANT!! Third parameter was string type $description; this following code is to maintain backward compatibility
+		// New projects should work with 3rd param as array
+		if (is_string($additional_data)) $additional_data = array('description' => $additional_data);
+		
+
+		//filter out any data passed that doesnt have a matching column in the groups table
+		//and merge the set group data and the additional data
+		if (!empty($additional_data)) $data = array_merge($this->_filter_data($this->collections['groups'], $additional_data), $data);
+
+
+		$updated = $this->mongo_db
+			->where('_id', new MongoId($group_id))
+			->set($data)
+			->update($this->collections['groups']);
+
+		$this->set_message('group_update_successful');
+
+		return TRUE;
+	}
+
+	/**
+	* delete_group
+	*
+	* @return bool
+	* @author Ben Edmunds
+	**/
+	public function delete_group($group_id = FALSE)
+	{
+		// bail if mandatory param not set
+		if(!$group_id || empty($group_id))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('pre_delete_group');
+
+
+		// delete this group
+		$deleted = $this->mongo_db
+			->where('_id', new MongoId($group_id))
+			->delete($this->collections['groups']);
+
+		if (!$deleted)
+		{
+			$this->trigger_events(array('post_delete_group', 'post_delete_group_unsuccessful'));
+			$this->set_error('group_delete_unsuccessful');
+			return FALSE;
+		}
+
+
+		$this->trigger_events(array('post_delete_group', 'post_delete_group_successful'));
+		$this->set_message('group_delete_successful');
+		return TRUE;
+	}
+
+
 	// ------------------------------------------------------------------------
 
 	/**
