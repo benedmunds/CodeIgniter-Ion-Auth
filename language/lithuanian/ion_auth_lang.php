@@ -47,8 +47,8 @@ $lang['delete_successful'] 		 	 = 'Vartotojas pašalintas';
 $lang['delete_unsuccessful'] 		 	 = 'Neįmanoma pašalinti vartotojo';
 
 // Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_forgotten_password_subject']    = 'Pamiršto slaptažodžio patvirtinimas';
+$lang['email_new_password_subject']          = 'Naujas slaptažodis';
+$lang['email_activation_subject']            = 'Paskyros aktyvavimas';
 
 ?>

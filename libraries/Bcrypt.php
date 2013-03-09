@@ -4,10 +4,10 @@
 class Bcrypt {
   private $rounds;
   public function __construct($params=array('rounds'=>7)) {
-    
-    
+
+
     $rounds = $params['rounds'];
-    
+
     if(CRYPT_BLOWFISH != 1) {
       throw new Exception("bcrypt not supported in this installation. See http://php.net/crypt");
     }
@@ -48,7 +48,7 @@ class Bcrypt {
       $bytes = openssl_random_pseudo_bytes($count);
     }
 
-    if($bytes === '' && is_readable('/dev/urandom') &&
+    if($bytes === '' && @is_readable('/dev/urandom') &&
        ($hRand = @fopen('/dev/urandom', 'rb')) !== FALSE) {
       $bytes = fread($hRand, $count);
       fclose($hRand);

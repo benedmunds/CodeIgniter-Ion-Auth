@@ -6,7 +6,7 @@
 | -------------------------------------------------------------------------
 | If set to TRUE, Ion Auth will use MongoDB as its database backend.
 |
-| If you use MongoDB there are two external dependencies that have to be 
+| If you use MongoDB there are two external dependencies that have to be
 | integrated with your project:
 |   CodeIgniter MongoDB Active Record Library - http://github.com/alexbilbie/codeigniter-mongodb-library/tree/v2
 |   CodeIgniter MongoDB Session Library - http://github.com/sepehr/ci-mongodb-session
@@ -17,7 +17,7 @@ $config['use_mongodb'] = FALSE;
 | -------------------------------------------------------------------------
 | MongoDB Collection.
 | -------------------------------------------------------------------------
-| Setup the mongodb docs using the following command: 
+| Setup the mongodb docs using the following command:
 | $ mongorestore sql/mongo
 |
 */
@@ -81,21 +81,22 @@ $config['max_rounds']     = 9;
  | The controller should check this function and act
  | appropriately. If this variable set to 0, there is no maximum.
  */
-$config['site_title']           = "Example.com"; 		// Site Title, example.com
-$config['admin_email']          = "admin@example.com"; 	// Admin Email, admin@example.com
-$config['default_group']        = 'members'; 			// Default group, use name
-$config['admin_group']          = 'admin'; 				// Default administrators group, use name
-$config['identity']             = 'email'; 				// A database column which is used to login with
-$config['min_password_length']  = 8; 					// Minimum Required Length of Password
-$config['max_password_length']  = 20; 					// Maximum Allowed Length of Password
-$config['email_activation']     = FALSE; 				// Email Activation for registration
-$config['manual_activation']    = FALSE; 				// Manual Activation for registration
-$config['remember_users']       = TRUE; 				// Allow users to be remembered and enable auto-login
-$config['user_expire']          = 86500; 				// How long to remember the user (seconds). Set to zero for no expiration
-$config['user_extend_on_login'] = FALSE; 				// Extend the users cookies everytime they auto-login
-$config['track_login_attempts'] = FALSE;				// Track the number of failed login attempts for each user or ip.
-$config['maximum_login_attempts']     = 3; 				// The maximum number of failed login attempts.
-$config['forgot_password_expiration'] = 0; 				// The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
+$config['site_title']                 = "Example.com";       // Site Title, example.com
+$config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
+$config['default_group']              = 'members';           // Default group, use name
+$config['admin_group']                = 'admin';             // Default administrators group, use name
+$config['identity']                   = 'email';             // A database column which is used to login with
+$config['min_password_length']        = 8;                   // Minimum Required Length of Password
+$config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
+$config['email_activation']           = FALSE;               // Email Activation for registration
+$config['manual_activation']          = FALSE;               // Manual Activation for registration
+$config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
+$config['user_expire']                = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
+$config['user_extend_on_login']       = FALSE;               // Extend the users cookies everytime they auto-login
+$config['track_login_attempts']       = FALSE;               // Track the number of failed login attempts for each user or ip.
+$config['maximum_login_attempts']     = 3;                   // The maximum number of failed login attempts.
+$config['lockout_time']               = 600;                 // The number of miliseconds to lockout an account due to exceeded attempts
+$config['forgot_password_expiration'] = 0;                   // The number of miliseconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
 
 /*

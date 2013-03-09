@@ -1,6 +1,6 @@
 <html>
 <body>
-	<h1>Reset Password for <?php echo $identity;?></h1>
-	<p>Please click this link to <?php echo anchor('auth/reset_password/'. $forgotten_password_code, 'Reset Your Password');?>.</p>
+	<h1><?php echo sprintf(lang('email_forgot_password_heading'), $identity);?></h1>
+	<p><?php echo sprintf(lang('email_forgot_password_subheading'), anchor('auth/reset_password/'. $forgotten_password_code, lang('email_forgot_password_link')));?></p>
 </body>
 </html>
