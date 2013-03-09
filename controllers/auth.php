@@ -17,6 +17,9 @@ class Auth extends CI_Controller {
 		$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
+
+		$this->lang->load('auth');
+		$this->load->helper('language');
 	}
 
 	//redirect if needed, otherwise display the user list
