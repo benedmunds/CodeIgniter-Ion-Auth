@@ -2,10 +2,19 @@
 /**
 * Name:  Ion Auth Lang - Japanese
 *
-* Author: Nobuo Kihara
+* Author: Ben Edmunds
+* 		  ben.edmunds@gmail.com
+*         @benedmunds
+*
+* Translation: Nobuo Kihara
 * 		  softark@gmail.com
 *
-* Created:  2010-10-30
+* Translation: Daniel Davis
+*         @ourmaninjapan
+*
+* Location: http://github.com/benedmunds/ion_auth/
+*
+* Created:  03.14.2010
 *
 * Description:  Japanese language file for Ion Auth messages and errors
 *
@@ -14,9 +23,8 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	 = 'アカウントを作成しました';
 $lang['account_creation_unsuccessful'] 	 	 = 'アカウントを作成することが出来ません';
-$lang['account_creation_duplicate_email'] 	 = 'メール・アドレスが登録済みまたは不正です';
+$lang['account_creation_duplicate_email'] 	 = 'メールアドレスが登録済みまたは不正です';
 $lang['account_creation_duplicate_username'] = 'ユーザー名が登録済みまたは不正です';
-
 
 // Password
 $lang['password_change_successful'] 	 	 = 'パスワードを変更しました';
@@ -35,6 +43,8 @@ $lang['activation_email_unsuccessful']   = 'アクティベーション・メー
 // Login / Logout
 $lang['login_successful'] 		  	 = 'ログインしました';
 $lang['login_unsuccessful'] 		 = 'ログイン出来ません';
+$lang['login_unsuccessful_not_active'] 		 = 'アカウントが無効です';
+$lang['login_timeout']                       = 'アカウントが仮にロックされています。後でもう一度試してください';
 $lang['logout_successful'] 		 	 = 'ログアウトしました';
 
 // Account Changes
@@ -43,7 +53,15 @@ $lang['update_unsuccessful'] 		 = 'アカウント情報を更新することが
 $lang['delete_successful'] 		 	 = 'ユーザーを削除しました';
 $lang['delete_unsuccessful'] 		 = 'ユーザーを削除することが出来ません';
 
-// Email Subjects - TODO Please Translate
+// Email Subjects
 $lang['email_forgotten_password_subject']    = '忘れたパスワードの確認';
 $lang['email_new_password_subject']          = '新しいパスワード';
 $lang['email_activation_subject']            = 'アカウントの承認';
+
+// Groups
+$lang['group_creation_successful']  = 'グループを作成しました';
+$lang['group_already_exists']       = 'このグループ名はすでに使われています';
+$lang['group_update_successful']    = 'グループ情報を更新しました';
+$lang['group_delete_successful']    = 'グループを削除しました';
+$lang['group_delete_unsuccessful'] 	= 'グループを削除することが出来ません';
+$lang['group_name_required'] 		= 'グループ名が必要です。';

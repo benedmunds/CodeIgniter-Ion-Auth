@@ -1,161 +1,161 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - English
+* Name:  Auth Lang - Japanese
 *
 * Author: Ben Edmunds
 * 		  ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Author: Daniel Davis
+* Author/Translation: Daniel Davis
 *         @ourmaninjapan
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  03.09.2013
+* Created:  03.19.2013
 *
-* Description:  English language file for Ion Auth example views
+* Description:  Japanese language file for Ion Auth example views
 *
 */
 
 // Errors
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_csrf'] = 'セキュリティに問題が生じ送信できませんでした。';
 
 // Login
-$lang['login_heading']         = 'Login';
-$lang['login_subheading']      = 'Please login with your email/username and password below.';
-$lang['login_identity_label']  = 'Email/Username:';
-$lang['login_password_label']  = 'Password:';
-$lang['login_remember_label']  = 'Remember Me:';
-$lang['login_submit_btn']      = 'Login';
-$lang['login_forgot_password'] = 'Forgot your password?';
+$lang['login_heading']         = 'ログイン';
+$lang['login_subheading']      = 'メールアドレス又はユーザー名とパスワードでログインして下さい。';
+$lang['login_identity_label']  = 'メールアドレス又はユーザー名：';
+$lang['login_password_label']  = 'パスワード：';
+$lang['login_remember_label']  = '次回から自動的にログイン：';
+$lang['login_submit_btn']      = 'ログイン';
+$lang['login_forgot_password'] = 'パスワードを忘れましたか？';
 
 // Index
-$lang['index_heading']           = 'Users';
-$lang['index_subheading']        = 'Below is a list of the users.';
-$lang['index_fname_th']          = 'First Name';
-$lang['index_lname_th']          = 'Last Name';
-$lang['index_email_th']          = 'Email';
-$lang['index_groups_th']         = 'Groups';
-$lang['index_status_th']         = 'Status';
-$lang['index_action_th']         = 'Action';
-$lang['index_active_link']       = 'Active';
-$lang['index_inactive_link']     = 'Inactive';
-$lang['index_create_user_link']  = 'Create a new user';
-$lang['index_create_group_link'] = 'Create a new group';
+$lang['index_heading']           = 'ユーザー';
+$lang['index_subheading']        = 'ユーザー一覧';
+$lang['index_fname_th']          = '名';
+$lang['index_lname_th']          = '姓';
+$lang['index_email_th']          = 'メールアドレス';
+$lang['index_groups_th']         = 'グループ';
+$lang['index_status_th']         = '状態';
+$lang['index_action_th']         = '操作';
+$lang['index_active_link']       = '有効';
+$lang['index_inactive_link']     = '無効';
+$lang['index_create_user_link']  = 'ユーザーの新規作成';
+$lang['index_create_group_link'] = 'グループの新規作成';
 
 // Deactivate User
-$lang['deactivate_heading']                  = 'Deactivate User';
-$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
-$lang['deactivate_confirm_y_label']          = 'Yes:';
-$lang['deactivate_confirm_n_label']          = 'No:';
-$lang['deactivate_submit_btn']               = 'Submit';
-$lang['deactivate_validation_confirm_label'] = 'confirmation';
-$lang['deactivate_validation_user_id_label'] = 'user ID';
+$lang['deactivate_heading']                  = 'ユーザーの無効化';
+$lang['deactivate_subheading']               = '本当にユーザー「%s」を無効にしますか。';
+$lang['deactivate_confirm_y_label']          = 'はい：';
+$lang['deactivate_confirm_n_label']          = 'いいえ：';
+$lang['deactivate_submit_btn']               = '送信';
+$lang['deactivate_validation_confirm_label'] = '確認';
+$lang['deactivate_validation_user_id_label'] = 'ユーザーID';
 
 // Create User
-$lang['create_user_heading']                           = 'Create User';
-$lang['create_user_subheading']                        = 'Please enter the users information below.';
-$lang['create_user_fname_label']                       = 'First Name:';
-$lang['create_user_lname_label']                       = 'Last Name:';
-$lang['create_user_company_label']                     = 'Company Name:';
-$lang['create_user_email_label']                       = 'Email:';
-$lang['create_user_phone_label']                       = 'Phone:';
-$lang['create_user_password_label']                    = 'Password:';
-$lang['create_user_password_confirm_label']            = 'Confirm Password:';
-$lang['create_user_submit_btn']                        = 'Create User';
-$lang['create_user_validation_fname_label']            = 'First Name';
-$lang['create_user_validation_lname_label']            = 'Last Name';
-$lang['create_user_validation_email_label']            = 'Email Address';
-$lang['create_user_validation_phone1_label']           = 'First Part of Phone';
-$lang['create_user_validation_phone2_label']           = 'Second Part of Phone';
-$lang['create_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['create_user_validation_company_label']          = 'Company Name';
-$lang['create_user_validation_password_label']         = 'Password';
-$lang['create_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['create_user_heading']                           = 'ユーザーの作成';
+$lang['create_user_subheading']                        = 'ユーザー情報を入力して下さい。';
+$lang['create_user_fname_label']                       = '名：';
+$lang['create_user_lname_label']                       = '姓：';
+$lang['create_user_company_label']                     = '会社名：';
+$lang['create_user_email_label']                       = 'メールアドレス：';
+$lang['create_user_phone_label']                       = '電話番号：';
+$lang['create_user_password_label']                    = 'パスワード：';
+$lang['create_user_password_confirm_label']            = 'パスワード（確認用）：';
+$lang['create_user_submit_btn']                        = '作成';
+$lang['create_user_validation_fname_label']            = '名';
+$lang['create_user_validation_lname_label']            = '姓';
+$lang['create_user_validation_email_label']            = 'メールアドレス';
+$lang['create_user_validation_phone1_label']           = '電話番号の第1部';
+$lang['create_user_validation_phone2_label']           = '電話番号の第2部';
+$lang['create_user_validation_phone3_label']           = '電話番号の第3部';
+$lang['create_user_validation_company_label']          = '会社名';
+$lang['create_user_validation_password_label']         = 'パスワード';
+$lang['create_user_validation_password_confirm_label'] = 'パスワードの確認';
 
 // Edit User
-$lang['edit_user_heading']                           = 'Edit User';
-$lang['edit_user_subheading']                        = 'Please enter the users information below.';
-$lang['edit_user_fname_label']                       = 'First Name:';
-$lang['edit_user_lname_label']                       = 'Last Name:';
-$lang['edit_user_company_label']                     = 'Company Name:';
-$lang['edit_user_email_label']                       = 'Email:';
-$lang['edit_user_phone_label']                       = 'Phone:';
-$lang['edit_user_password_label']                    = 'Password: (if changing password)';
-$lang['edit_user_password_confirm_label']            = 'Confirm Password: (if changing password)';
-$lang['edit_user_groups_heading']                    = 'Member of groups';
-$lang['edit_user_submit_btn']                        = 'Save User';
-$lang['edit_user_validation_fname_label']            = 'First Name';
-$lang['edit_user_validation_lname_label']            = 'Last Name';
-$lang['edit_user_validation_email_label']            = 'Email Address';
-$lang['edit_user_validation_phone1_label']           = 'First Part of Phone';
-$lang['edit_user_validation_phone2_label']           = 'Second Part of Phone';
-$lang['edit_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['edit_user_validation_company_label']          = 'Company Name';
-$lang['edit_user_validation_groups_label']           = 'Groups';
-$lang['edit_user_validation_password_label']         = 'Password';
-$lang['edit_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['edit_user_heading']                           = 'ユーザーの編集';
+$lang['edit_user_subheading']                        = 'ユーザー情報を入力して下さい。';
+$lang['edit_user_fname_label']                       = '名：';
+$lang['edit_user_lname_label']                       = '姓：';
+$lang['edit_user_company_label']                     = '会社名：';
+$lang['edit_user_email_label']                       = 'メールアドレス：';
+$lang['edit_user_phone_label']                       = '電話番号：:';
+$lang['edit_user_password_label']                    = 'パスワード（パスワードを変更する場合のみ）：';
+$lang['edit_user_password_confirm_label']            = 'パスワードの確認（パスワードを変更する場合のみ）：';
+$lang['edit_user_groups_heading']                    = '所属グループ';
+$lang['edit_user_submit_btn']                        = '保存';
+$lang['edit_user_validation_fname_label']            = '名';
+$lang['edit_user_validation_lname_label']            = '姓';
+$lang['edit_user_validation_email_label']            = 'メールアドレス';
+$lang['edit_user_validation_phone1_label']           = '電話番号の第1部';
+$lang['edit_user_validation_phone2_label']           = '電話番号の第2部';
+$lang['edit_user_validation_phone3_label']           = '電話番号の第3部';
+$lang['edit_user_validation_company_label']          = '会社名';
+$lang['edit_user_validation_groups_label']           = 'グループ';
+$lang['edit_user_validation_password_label']         = 'パスワード';
+$lang['edit_user_validation_password_confirm_label'] = 'パスワードの確認';
 
 // Create Group
-$lang['create_group_title']                  = 'Create Group';
-$lang['create_group_heading']                = 'Create Group';
-$lang['create_group_subheading']             = 'Please enter the group information below.';
-$lang['create_group_name_label']             = 'Group Name:';
-$lang['create_group_desc_label']             = 'Description:';
-$lang['create_group_submit_btn']             = 'Create Group';
-$lang['create_group_validation_name_label']  = 'Group Name';
-$lang['create_group_validation_desc_label']  = 'Description';
+$lang['create_group_title']                  = 'グループの作成';
+$lang['create_group_heading']                = 'グループの作成';
+$lang['create_group_subheading']             = 'グループ情報を入力して下さい。';
+$lang['create_group_name_label']             = 'グループ名：';
+$lang['create_group_desc_label']             = '詳細：';
+$lang['create_group_submit_btn']             = '作成';
+$lang['create_group_validation_name_label']  = 'グループ名';
+$lang['create_group_validation_desc_label']  = '詳細';
 
 // Edit Group
-$lang['edit_group_title']                  = 'Edit Group';
-$lang['edit_group_saved']                  = 'Group Saved';
-$lang['edit_group_heading']                = 'Edit Group';
-$lang['edit_group_subheading']             = 'Please enter the group information below.';
-$lang['edit_group_name_label']             = 'Group Name:';
-$lang['edit_group_desc_label']             = 'Description:';
-$lang['edit_group_submit_btn']             = 'Save Group';
-$lang['edit_group_validation_name_label']  = 'Group Name';
-$lang['edit_group_validation_desc_label']  = 'Description';
+$lang['edit_group_title']                  = 'グループの編集';
+$lang['edit_group_saved']                  = '保存できました';
+$lang['edit_group_heading']                = 'グループの編集';
+$lang['edit_group_subheading']             = 'グループ情報を入力して下さい。';
+$lang['edit_group_name_label']             = 'グループ名：';
+$lang['edit_group_desc_label']             = '詳細：';
+$lang['edit_group_submit_btn']             = '保存';
+$lang['edit_group_validation_name_label']  = 'グループ名';
+$lang['edit_group_validation_desc_label']  = '詳細';
 
 // Change Password
-$lang['change_password_heading']                               = 'Change Password';
-$lang['change_password_old_password_label']                    = 'Old Password:';
-$lang['change_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['change_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['change_password_submit_btn']                            = 'Change';
-$lang['change_password_validation_old_password_label']         = 'Old Password';
-$lang['change_password_validation_new_password_label']         = 'New Password';
-$lang['change_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+$lang['change_password_heading']                               = 'パスワードの変更';
+$lang['change_password_old_password_label']                    = '元のパスワード：';
+$lang['change_password_new_password_label']                    = '新しいパスワード（少なくとも%s字以上）：';
+$lang['change_password_new_password_confirm_label']            = '新しいパスワード（確認用）：';
+$lang['change_password_submit_btn']                            = '変更';
+$lang['change_password_validation_old_password_label']         = '元のパスワード';
+$lang['change_password_validation_new_password_label']         = '新しいパスワード';
+$lang['change_password_validation_new_password_confirm_label'] = '新しいパスワードの確認';
 
 // Forgot Password
-$lang['forgot_password_heading']                 = 'Forgot Password';
-$lang['forgot_password_subheading']              = 'Please enter your %s so we can send you an email to reset your password.';
-$lang['forgot_password_email_label']             = '%s:';
-$lang['forgot_password_submit_btn']              = 'Submit';
-$lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_username_identity_label'] = 'Username';
-$lang['forgot_password_email_identity_label']    = 'Email';
+$lang['forgot_password_heading']                 = 'パスワードの再発行';
+$lang['forgot_password_subheading']              = '新しいパスワードをメールで送信するため、%sを入力して下さい。';
+$lang['forgot_password_email_label']             = '%s：';
+$lang['forgot_password_submit_btn']              = '送信';
+$lang['forgot_password_validation_email_label']  = 'メールアドレス';
+$lang['forgot_password_username_identity_label'] = 'ユーザー名';
+$lang['forgot_password_email_identity_label']    = 'メールアドレス';
 
 
 // Reset Password
-$lang['reset_password_heading']                               = 'Change Password';
-$lang['reset_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['reset_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['reset_password_submit_btn']                            = 'Change';
-$lang['reset_password_validation_new_password_label']         = 'New Password';
-$lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+$lang['reset_password_heading']                               = 'パスワードの変更';
+$lang['reset_password_new_password_label']                    = '新しいパスワード（少なくとも%s字以上）：';
+$lang['reset_password_new_password_confirm_label']            = '新しいパスワード（確認用）：';
+$lang['reset_password_submit_btn']                            = '変更';
+$lang['reset_password_validation_new_password_label']         = '新しいパスワード';
+$lang['reset_password_validation_new_password_confirm_label'] = '新しいパスワードの確認';
 
 // Activation Email
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activate_heading']    = 'アカウントの有効化： %s';
+$lang['email_activate_subheading'] = 'このリンクをクリックして%s。';
+$lang['email_activate_link']       = 'アカウントを有効にして下さい';
 
 // Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgot_password_heading']    = 'パスワードのリセット： %s';
+$lang['email_forgot_password_subheading'] = 'このリンクをクリックして%s。';
+$lang['email_forgot_password_link']       = 'パスワードをリセットして下さい';
 
 // New Password Email
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_heading']    = '新しいパスワード： %s';
+$lang['email_new_password_subheading'] = 'パスワードをリセットすることができました： %s';
 
