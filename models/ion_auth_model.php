@@ -673,6 +673,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 * @updated Ryan
+	 * @updated 52aa456eef8b60ad6754b31fbdcc77bb
 	 **/
 	public function forgotten_password($identity)
 	{
@@ -682,7 +683,17 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$key = $this->hash_code(microtime().$identity);
+		//All some more randomness
+		$activation_code_part = "";
+		if(function_exists("openssl_random_pseudo_bytes")) {
+			$activation_code_part = openssl_random_pseudo_bytes(128);
+		}
+		
+		for($i=0;$i<1024;$i++) {
+			$activation_code_part = sha1($activation_code_part . mt_rand() . microtime());
+		}
+		
+		$key = $this->hash_code($activation_code_part.$identity);
 
 		$this->forgotten_password_code = $key;
 
