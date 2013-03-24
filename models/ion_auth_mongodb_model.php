@@ -957,6 +957,66 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 		return FALSE;
 	}
+	
+	// ------------------------------------------------------------------------
+	
+	/**
+	 * is_time_locked_out function.
+	 *
+	 * @access public
+	 * @param mixed $identity
+	 * @return void
+	 */
+	function is_time_locked_out($identity) {
+		if ($this->is_max_login_attempts_exceeded($identity))
+		{
+			if ($this->get_last_attempt_time($identity) > time() - $this->config->item('lockout_time', 'ion_auth'))
+			{
+				return TRUE;
+			}
+		}
+		return FALSE;
+	}
+	
+	// ------------------------------------------------------------------------
+
+	/**
+	 * get_last_attempt_time function.
+	 *
+	 * @access public
+	 * @param mixed $identity
+	 * @return void
+	 */
+	function get_last_attempt_time($identity)
+	{
+		// Do we set to track login attempts?
+		if ($this->config->item('track_login_attempts', 'ion_auth'))
+		{
+			$this->mongo_db
+				->select('time')
+				->where('ip_address', $this->input->ip_address());
+
+			if ( ! empty($identity))
+			{
+				$this->mongo_db->or_where(array('ip_address' => $this->input->ip_address(), 'login' => $identity));
+			}
+
+			$document = $this->mongo_db
+				->order_by(array('time' => 'desc'))
+				->limit(1)
+				->get($this->collections['login_attempts']);
+
+			if (count($document) > 0)
+			{
+				return $document[0]['time'];
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
+		return FALSE;
+	}
 
 	// ------------------------------------------------------------------------
 
