@@ -28,29 +28,30 @@ $lang['login_password_label']  = 'Password:';
 $lang['login_remember_label']  = 'Remember Me:';
 $lang['login_submit_btn']      = 'Login';
 $lang['login_forgot_password'] = 'Forgot your password?';
+$lang['logout_title'] = 'Logout';
 
-// Index
-$lang['index_heading']           = 'Users';
-$lang['index_subheading']        = 'Below is a list of the users.';
-$lang['index_fname_th']          = 'First Name';
-$lang['index_lname_th']          = 'Last Name';
-$lang['index_email_th']          = 'Email';
-$lang['index_groups_th']         = 'Groups';
-$lang['index_status_th']         = 'Status';
-$lang['index_action_th']         = 'Action';
-$lang['index_active_link']       = 'Active';
-$lang['index_inactive_link']     = 'Inactive';
-$lang['index_create_user_link']  = 'Create a new user';
-$lang['index_create_group_link'] = 'Create a new group';
+// List Users
+$lang['users_title']           	= 'Users';
+$lang['users_heading']           = 'Users';
+$lang['users_subheading']        = 'Below is a list of the users.';
+$lang['users_fname_th']          = 'First Name';
+$lang['users_lname_th']          = 'Last Name';
+$lang['users_email_th']          = 'Email';
+$lang['users_groups_th']         = 'Groups';
+$lang['users_status_th']         = 'Status';
+$lang['users_action_th']         = 'Action';
+$lang['users_active_link']       = 'Active';
+$lang['users_inactive_link']     = 'Inactive';
+$lang['users_create_link']  = 'Create a new user';
 
 // Deactivate User
-$lang['deactivate_heading']                  = 'Deactivate User';
-$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
-$lang['deactivate_confirm_y_label']          = 'Yes:';
-$lang['deactivate_confirm_n_label']          = 'No:';
-$lang['deactivate_submit_btn']               = 'Submit';
-$lang['deactivate_validation_confirm_label'] = 'confirmation';
-$lang['deactivate_validation_user_id_label'] = 'user ID';
+$lang['deactivate_user_heading']                  = 'Deactivate User';
+$lang['deactivate_user_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
+$lang['deactivate_user_confirm_y_label']          = 'Yes:';
+$lang['deactivate_user_confirm_n_label']          = 'No:';
+$lang['deactivate_user_submit_btn']               = 'Submit';
+$lang['deactivate_user_validation_confirm_label'] = 'confirmation';
+$lang['deactivate_user_validation_user_id_label'] = 'user ID';
 
 // Create User
 $lang['create_user_heading']                           = 'Create User';
@@ -96,6 +97,24 @@ $lang['edit_user_validation_groups_label']           = 'Groups';
 $lang['edit_user_validation_password_label']         = 'Password';
 $lang['edit_user_validation_password_confirm_label'] = 'Password Confirmation';
 
+// Delete User
+$lang['delete_user_heading']                  = 'Delete User';
+$lang['delete_user_subheading']               = 'Are you sure you want to delete the user \'%s\'';
+$lang['delete_user_confirm_y_label']          = 'Yes:';
+$lang['delete_user_confirm_n_label']          = 'No:';
+$lang['delete_user_submit_btn']               = 'Submit';
+$lang['delete_user_validation_confirm_label'] = 'confirmation';
+$lang['delete_user_validation_user_id_label'] = 'user ID';
+
+// List Groups
+$lang['groups_title']                  = 'Groups';
+$lang['groups_heading']                = 'Create Group';
+$lang['groups_subheading']             = 'Please enter the group information below.';
+$lang['groups_name_th']             = 'Group Name:';
+$lang['groups_desc_th']             = 'Description:';
+$lang['groups_action_th']         = 'Action';
+$lang['groups_create_link']             = 'Create Group:';
+
 // Create Group
 $lang['create_group_title']                  = 'Create Group';
 $lang['create_group_heading']                = 'Create Group';
@@ -116,6 +135,15 @@ $lang['edit_group_desc_label']             = 'Description:';
 $lang['edit_group_submit_btn']             = 'Save Group';
 $lang['edit_group_validation_name_label']  = 'Group Name';
 $lang['edit_group_validation_desc_label']  = 'Description';
+
+// Delete Group
+$lang['delete_group_heading']                  = 'Delete Group';
+$lang['delete_group_subheading']               = 'Are you sure you want to delete the group \'%s\'';
+$lang['delete_group_confirm_y_label']          = 'Yes:';
+$lang['delete_group_confirm_n_label']          = 'No:';
+$lang['delete_group_submit_btn']               = 'Submit';
+$lang['delete_group_validation_confirm_label'] = 'confirmation';
+$lang['delete_group_validation_user_id_label'] = 'group ID';
 
 // Change Password
 $lang['change_password_heading']                               = 'Change Password';
