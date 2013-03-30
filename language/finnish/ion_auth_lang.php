@@ -37,7 +37,7 @@ $lang['activation_email_unsuccessful']           = 'Aktivointiviestiä ei voitu 
 // Login / Logout
 $lang['login_successful']                        = 'Olet nyt kirjautunut sisään!';
 $lang['login_unsuccessful']                      = 'Kirjautuminen epäonnistui';
-$lang['login_unsuccessful_not_active']   	       = 'Tiliä ei aktivoitu';
+$lang['login_unsuccessful_not_active']           = 'Tiliä ei aktivoitu';
 $lang['login_timeout']                           = 'Väliaikaisesti suljettu. Yritä uudelleen myöhemmin.';
 $lang['logout_successful']                       = 'Olet nyt kirjautunut ulos';
   
