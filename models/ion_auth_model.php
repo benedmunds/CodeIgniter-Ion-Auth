@@ -173,17 +173,6 @@ class Ion_auth_model extends CI_Model
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
-
-		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->load->library('session');
-		}
-		else
-		{
-			$this->load->driver('session');
-		}
-
 		$this->lang->load('ion_auth');
 
 		//initialize db tables data

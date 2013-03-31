@@ -62,16 +62,6 @@ class Ion_auth
 		$this->lang->load('ion_auth');
 		$this->load->helper('cookie');
 
-		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->load->library('session');
-		}
-		else
-		{
-			$this->load->driver('session');
-		}
-
 		// Load IonAuth MongoDB model if it's set to use MongoDB,
 		// We assign the model object to "ion_auth_model" variable.
 		$this->config->item('use_mongodb', 'ion_auth') ?
