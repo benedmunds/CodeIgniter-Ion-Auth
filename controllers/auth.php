@@ -5,17 +5,6 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-
-		// Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->load->library('session');
-		}
-		else
-		{
-			$this->load->driver('session');
-		}
-
 		$this->load->library('ion_auth');
 		$this->load->library('form_validation');
 		$this->load->helper('url');
