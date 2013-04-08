@@ -458,10 +458,14 @@ class Ion_auth
 	/**
 	 * in_group
 	 *
+	 * @param mixed group(s) to check
+	 * @param bool user id
+	 * @param bool check if all groups is present, or any of the groups
+	 *
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group, $id=false)
+	public function in_group($check_group, $id=false, $check_all = false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
 
@@ -490,13 +494,25 @@ class Ion_auth
 		{
 			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
 
-			if (in_array($value, $groups))
+			/**
+			 * if !all (default), in_array
+			 * if all, !in_array
+			 */
+			if (in_array($value, $groups) xor $check_all)
 			{
-				return TRUE;
+				/**
+				 * if !all (default), true
+				 * if all, false
+				 */
+				return !$check_all;
 			}
 		}
 
-		return FALSE;
+		/**
+		 * if !all (default), false
+		 * if all, true
+		 */
+		return $check_all;
 	}
 
 }
