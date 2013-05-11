@@ -36,6 +36,7 @@ CREATE TABLE users_groups (
     user_id int NOT NULL,
 	group_id int NOT NULL,
   PRIMARY KEY(id),
+  CONSTRAINT uc_users_groups UNIQUE (user_id, group_id),
   CONSTRAINT users_groups_check_id CHECK(id >= 0),
   CONSTRAINT users_groups_check_group_id CHECK(group_id >= 0),
   CONSTRAINT users_groups_check_user_id CHECK(user_id >= 0)
