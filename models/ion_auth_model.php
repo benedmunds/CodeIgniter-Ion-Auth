@@ -579,9 +579,8 @@ class Ion_auth_model extends CI_Model
 			);
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
-			$successfully_changed_password_in_db = $this->db->affected_rows() == 1;
+			$successfully_changed_password_in_db = $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 			if ($successfully_changed_password_in_db)
 			{
 				$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
