@@ -1581,7 +1581,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * remember_user
+	 * set_session
 	 *
 	 * @return bool
 	 * @author jrmadsen67
