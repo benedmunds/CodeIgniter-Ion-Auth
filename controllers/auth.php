@@ -5,6 +5,9 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+	    $this->load->library('ion_auth');
+	    $this->load->library('form_validation');
+	    $this->load->helper('url');
 		// Load MongoDB library instead of native db driver if required
 		$this->config->item('use_mongodb', 'ion_auth') ?
 		$this->load->library('mongo_db') :
