@@ -149,6 +149,8 @@ $lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Pas
 $lang['email_activate_heading']    = 'Activate account for %s';
 $lang['email_activate_subheading'] = 'Please click this link to %s.';
 $lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_temp_password_a']	   = 'Your temporary password is';
+$lang['email_temp_password_b']	   = 'For security purposes, please change this immediately after activating your account.';
 
 // Forgot Password Email
 $lang['email_forgot_password_heading']    = 'Reset Password for %s';

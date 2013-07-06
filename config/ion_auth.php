@@ -88,7 +88,13 @@ $config['admin_group']                = 'admin';             // Default administ
 $config['identity']                   = 'email';             // A database column which is used to login with
 $config['min_password_length']        = 8;                   // Minimum Required Length of Password
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
-$config['email_activation']           = FALSE;               // Email Activation for registration
+
+/**
+ * Use Together - random password is sent WITH the activation email
+ */
+$config['email_activation']           = TRUE;                // Email Activation for registration
+$config['random_password']            = TRUE;				 // Set to true to skip passwords during user creation
+
 $config['manual_activation']          = FALSE;               // Manual Activation for registration
 $config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
 $config['user_expire']                = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
