@@ -5,10 +5,9 @@ class Auth extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->library('ion_auth');
-		$this->load->library('form_validation');
-		$this->load->helper('url');
-
+	    $this->load->library('ion_auth');
+	    $this->load->library('form_validation');
+	    $this->load->helper('url');
 		// Load MongoDB library instead of native db driver if required
 		$this->config->item('use_mongodb', 'ion_auth') ?
 		$this->load->library('mongo_db') :
@@ -388,6 +387,8 @@ class Auth extends CI_Controller {
 	//create a new user
 	function create_user()
 	{
+		$random_password = $this->config->item('random_password','ion_auth');
+
 		$this->data['title'] = "Create User";
 
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
@@ -401,14 +402,25 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
-		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
-
+		//check random, ignore validation if true
+		if($random_password == FALSE){
+			$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+			$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
+		}
+		
 		if ($this->form_validation->run() == true)
 		{
 			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
 			$email    = $this->input->post('email');
-			$password = $this->input->post('password');
+			
+			if($random_password == TRUE){ 
+				//test random password, create random password if set
+				$this->load->helper('string');
+				$password = random_string('alnum',12);
+			} else {
+				//use user input
+				$password = $this->input->post('password');
+			}
 
 			$additional_data = array(
 				'first_name' => $this->input->post('first_name'),
@@ -460,18 +472,21 @@ class Auth extends CI_Controller {
 				'type'  => 'text',
 				'value' => $this->form_validation->set_value('phone'),
 			);
-			$this->data['password'] = array(
-				'name'  => 'password',
-				'id'    => 'password',
-				'type'  => 'password',
-				'value' => $this->form_validation->set_value('password'),
-			);
-			$this->data['password_confirm'] = array(
-				'name'  => 'password_confirm',
-				'id'    => 'password_confirm',
-				'type'  => 'password',
-				'value' => $this->form_validation->set_value('password_confirm'),
-			);
+			if($random_password == FALSE){
+				//if random password is set to true, ignore password form validation
+				$this->data['password'] = array(
+					'name'  => 'password',
+					'id'    => 'password',
+					'type'  => 'password',
+					'value' => $this->form_validation->set_value('password'),
+				);
+				$this->data['password_confirm'] = array(
+					'name'  => 'password_confirm',
+					'id'    => 'password_confirm',
+					'type'  => 'password',
+					'value' => $this->form_validation->set_value('password_confirm'),
+				);
+			}
 
 			$this->_render_page('auth/create_user', $this->data);
 		}
