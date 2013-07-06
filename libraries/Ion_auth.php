@@ -335,13 +335,23 @@ class Ion_auth
 			$identity        = $this->config->item('identity', 'ion_auth');
 			$user            = $this->ion_auth_model->user($id)->row();
 
-			$data = array(
-				'identity'   => $user->{$identity},
-				'id'         => $user->id,
-				'email'      => $email,
-				'activation' => $activation_code,
-				'password'	 => $password,
-			);
+			if(!$email_activation){
+				$data = array(
+					'identity'   => $user->{$identity},
+					'id'         => $user->id,
+					'email'      => $email,
+					'activation' => $activation_code,
+					'password'	 => null,
+				);
+			} else {
+				$data = array(
+					'identity'   => $user->{$identity},
+					'id'         => $user->id,
+					'email'      => $email,
+					'activation' => $activation_code,
+					'password'	 => $password,
+				);
+			}
 			if(!$this->config->item('use_ci_email', 'ion_auth'))
 			{
 				$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));

@@ -90,10 +90,10 @@ $config['min_password_length']        = 8;                   // Minimum Required
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
 
 /**
- * Use Together - random password is sent WITH the activation email
+ * Email Activation needs to be enabled for Random Password to be sent to user
  */
 $config['email_activation']           = TRUE;                // Email Activation for registration
-$config['random_password']            = TRUE;				 // Set to true to skip passwords during user creation
+$config['random_password']            = FALSE;				 // Set to TRUE to enable random passwords for new users
 
 $config['manual_activation']          = FALSE;               // Manual Activation for registration
 $config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
@@ -113,7 +113,7 @@ $config['forgot_password_expiration'] = 0;                   // The number of mi
  | 	  'file' = Use the default CI config or use from a config file
  | 	  array  = Manually set your email config settings
  */
-$config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+$config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 $config['email_config'] = array(
 	'mailtype' => 'html',
 );
