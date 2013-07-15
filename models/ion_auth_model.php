@@ -11,7 +11,12 @@
 * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  10.01.2009
+* 
+* Last Change: 3.22.13
 *
+* Changelog:
+* * 3-22-13 - Additional entropy added - 52aa456eef8b60ad6754b31fbdcc77bb
+* 
 * Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
 * Original Author name has been kept but that does not mean that the method has not been modified.
 *
@@ -168,17 +173,6 @@ class Ion_auth_model extends CI_Model
 		$this->load->config('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
-
-		//Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->load->library('session');
-		}
-		else
-		{
-			$this->load->driver('session');
-		}
-
 		$this->lang->load('ion_auth');
 
 		//initialize db tables data
@@ -585,9 +579,8 @@ class Ion_auth_model extends CI_Model
 			);
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 
-			$successfully_changed_password_in_db = $this->db->affected_rows() == 1;
+			$successfully_changed_password_in_db = $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
 			if ($successfully_changed_password_in_db)
 			{
 				$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
@@ -673,6 +666,7 @@ class Ion_auth_model extends CI_Model
 	 * @return bool
 	 * @author Mathew
 	 * @updated Ryan
+	 * @updated 52aa456eef8b60ad6754b31fbdcc77bb
 	 **/
 	public function forgotten_password($identity)
 	{
@@ -682,7 +676,17 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$key = $this->hash_code(microtime().$identity);
+		//All some more randomness
+		$activation_code_part = "";
+		if(function_exists("openssl_random_pseudo_bytes")) {
+			$activation_code_part = openssl_random_pseudo_bytes(128);
+		}
+		
+		for($i=0;$i<1024;$i++) {
+			$activation_code_part = sha1($activation_code_part . mt_rand() . microtime());
+		}
+		
+		$key = $this->hash_code($activation_code_part.$identity);
 
 		$this->forgotten_password_code = $key;
 
@@ -1577,7 +1581,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * remember_user
+	 * set_session
 	 *
 	 * @return bool
 	 * @author jrmadsen67

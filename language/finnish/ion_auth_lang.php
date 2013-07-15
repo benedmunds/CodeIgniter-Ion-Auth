@@ -37,6 +37,8 @@ $lang['activation_email_unsuccessful']           = 'Aktivointiviestiä ei voitu 
 // Login / Logout
 $lang['login_successful']                        = 'Olet nyt kirjautunut sisään!';
 $lang['login_unsuccessful']                      = 'Kirjautuminen epäonnistui';
+$lang['login_unsuccessful_not_active']           = 'Tiliä ei aktivoitu';
+$lang['login_timeout']                           = 'Väliaikaisesti suljettu. Yritä uudelleen myöhemmin.';
 $lang['logout_successful']                       = 'Olet nyt kirjautunut ulos';
   
 // Account Changes
@@ -44,6 +46,14 @@ $lang['update_successful']                       = 'Tilin tiedot päivitetty!';
 $lang['update_unsuccessful']                     = 'Tietojen päivitys epäonnistui';
 $lang['delete_successful']                       = 'Tili poistettu';
 $lang['delete_unsuccessful']                     = 'Tilin poisto epäonnistui';
+
+// Groups
+$lang['group_creation_successful']               = 'Ryhmä luotiin onnistuneesti!';
+$lang['group_already_exists']                    = 'Ryhmän nimi jo käytössä';
+$lang['group_update_successful']                 = 'Ryhmän tiedot päivitetty!';
+$lang['group_delete_successful']                 = 'Ryhmä poistettu';
+$lang['group_delete_unsuccessful']               = 'Ryhmän poisto epäonnistui';
+$lang['group_name_required']                     = 'Ryhmän nimi tarvitaan';
 
 // Email Subjects
 $lang['email_forgotten_password_subject']        = 'Unohtuneen salasanan palautus';

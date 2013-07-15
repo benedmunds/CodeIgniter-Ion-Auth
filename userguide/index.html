@@ -208,6 +208,7 @@ Documentation
 		<li>'min_password_length' - Minimum length of passwords.  DEFAULT is '8'.</li>
 		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
 		<li>'email_activation' - TRUE or FALSE. Sets whether to require email activation or not. DEFAULT is 'false'.</li>
+		<li>'manual_activation' - TRUE or FALSE. Sets whether to require manual activation (probably by an admin user) or not. DEFAULT is 'false'.</li>
 		<li>'remember_users' - TRUE or FALSE. Sets whether to enable 'remember me' functionality or not. DEFAULT is 'true'.</li>
 		<li>'user_expire' - Sets how long to remember the user for in seconds. Set to zero for no expiration. DEFAULT is '86500'.</li>
 		<li>'user_extend_on_login' -  TRUE or FALSE.  Extend the users session expiration on login. DEFAULT is 'false'.</li>
@@ -474,17 +475,18 @@ Documentation
 
 	<a name="in_group"></a>
 	<h2>in_group()</h2>
-	<p>Check to see if the currently logged in user is in the passed in group.</p>
+	<p>Check to see if the currently logged in user is in the passed group(s).</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group ID or Name' - string, integer or array of strings and integers REQUIRED.</li>
+		<li>'Group ID or Name' - string REQUIRED. Integer or array of strings and integers.</li>
 		<li>'User ID' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
+		<li>'Check All' - bool OPTIONAL. Whether to check if user is in all groups, or in any group.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the user is in any of the given groups, FALSE otherwise.</li>
+		<li>boolean.  TRUE if the user is in all or any (based on passed param), FALSE otherwise.</li>
 	</ul>
 
 	<p><b>Usage</b></p>
@@ -525,6 +527,14 @@ Documentation
 			$this->session->set_flashdata('message', 'You must be a part of the gangstas or group 2');
 			redirect('welcome/index');
 		}
+
+		# multiple groups (by id) and check if all exist
+		$group = array(1, 2);
+		if (!$this->ion_auth->in_group($group, false, true))
+			$this->session->set_flashdata('message', 'You must be a part of group 1 and 2 to view this page');
+			redirect('welcome/index');
+		}
+
 	</pre>
 	<br />
 
@@ -788,7 +798,7 @@ Documentation
 	<p><b>Usage</b></p>
 	<pre>
 		$group_id = 2;
-		$group = $this->ion_auth->group($group_id);
+		$group = $this->ion_auth->group($group_id)->result();
 	</pre>
 	<br />
 
