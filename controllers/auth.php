@@ -212,9 +212,10 @@ class Auth extends CI_Controller {
 			$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
 
             if(empty($identity)) {
-                $this->session->set_flashdata('message', 'No record of that email address.');
+                $this->ion_auth->set_message('forgot_password_email_not_found');
+                $this->session->set_flashdata('message', $this->ion_auth->messages());
                 redirect("auth/forgot_password", 'refresh');
-            }    
+            }
             
 			//run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
