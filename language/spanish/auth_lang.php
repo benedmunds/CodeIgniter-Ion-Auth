@@ -138,7 +138,7 @@ $lang['forgot_password_submit_btn']              = 'Enviar';
 $lang['forgot_password_validation_email_label']  = 'Correo Electronico';
 $lang['forgot_password_username_identity_label'] = 'Usuario';
 $lang['forgot_password_email_identity_label']    = 'Email';
-
+$lang['forgot_password_email_not_found']         = 'No record of that email address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Cambiar Contraseña';

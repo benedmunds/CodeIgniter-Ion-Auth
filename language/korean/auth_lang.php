@@ -132,7 +132,7 @@ $lang['forgot_password_submit_btn']              = '보내기';
 $lang['forgot_password_validation_email_label']  = '이메일 주소';
 $lang['forgot_password_username_identity_label'] = '계정명';
 $lang['forgot_password_email_identity_label']    = '이메일';
-
+$lang['forgot_password_email_not_found']         = 'No record of that email address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = '비밀번호 바꾸기';
