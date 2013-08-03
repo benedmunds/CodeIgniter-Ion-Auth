@@ -51,6 +51,6 @@ $lang['delete_successful'] 		 	 = 'Das Benutzerkonto wurde gelöscht';
 $lang['delete_unsuccessful'] 		 = 'Das Benutzerkonto konnte nicht gelöscht werden';
 
 // Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_forgotten_password_subject']    = 'Vergessenes Kennwort Verifikation';
+$lang['email_new_password_subject']          = 'Neues Password';
+$lang['email_activation_subject']            = 'Aktivierung des Kontos';
