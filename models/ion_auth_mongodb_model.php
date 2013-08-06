@@ -893,7 +893,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 					'identity'       => $user->{$this->identity_column},
 					'username'       => $user->username,
 					'email'          => $user->email,
-					'user_id'        => $user->_id,
+					'user_id'        => $user->_id->{'$id'},
 					'old_last_login' => $user->last_login
                 );
                 $this->session->set_userdata($session_data);
@@ -2188,7 +2188,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		}
 		elseif ( ! isset($data['id']) && isset($data['_id']))
 		{
-			$data['id'] = $data['_id'];
+			$data['id'] = $data['_id']->{'$id'};
 		}
 
 		return is_object($result) ? (object) $data : $data;
