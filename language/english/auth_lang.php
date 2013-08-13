@@ -144,18 +144,3 @@ $lang['reset_password_new_password_confirm_label']            = 'Confirm New Pas
 $lang['reset_password_submit_btn']                            = 'Change';
 $lang['reset_password_validation_new_password_label']         = 'New Password';
 $lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Password';
-
-// Activation Email
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
-
-// Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
-
-// New Password Email
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
-
