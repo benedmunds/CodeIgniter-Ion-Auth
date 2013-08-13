@@ -13,9 +13,9 @@ awesome then you could expect.
 Documentation is located at http://benedmunds.com/ion_auth/
 
 ##Installation
-Just copy the files from this package to the correspoding folder in your 
+Just copy the files from this package to the corresponding folder in your 
 application folder.  For example, copy Ion_auth/config/ion_auth.php to 
-system/application/config/ion_auth.php.  
+application/config/ion_auth.php.  
 
 ###Relational DB Setup
 Then just run the appropriate SQL file (if you're using migrations you can 
