@@ -1747,7 +1747,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 			$user = (object) $document[0];
 
 			// Update last login timestamp
-			$this->update_last_login($user->id);
+			$this->update_last_login($user->_id);
 
 			// And set user session data
 			$this->session->set_userdata(array(
