@@ -62,6 +62,7 @@ class Ion_auth
 		$this->lang->load('ion_auth');
 		$this->load->helper('cookie');
 		$this->load->helper('language');
+		$this->load->helper('url');
 
 		// Load the session, CI2 as a library, CI3 uses it as a driver
 		if (substr(CI_VERSION, 0, 1) == '2')
