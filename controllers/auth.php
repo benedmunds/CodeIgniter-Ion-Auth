@@ -208,8 +208,23 @@ class Auth extends CI_Controller {
 		else
 		{
 			// get identity for that email
-			$config_tables = $this->config->item('tables', 'ion_auth');
-			$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
+			if ($this->config->item('use_mongodb', 'ion_auth')) {
+				$email = new MongoRegex('/^'.$this->input->post('email').'$/i');
+				$collections = $this->config->item('collections', 'ion_auth');
+				$identity = $this->mongo_db->where('email', $email)->get($collections['users']);
+                                if (count($identity)>0) {
+                                        $identity = $identity[0];
+                                        $identity_object = new stdClass();
+                                        foreach ($identity as $key => $value)
+                                        {
+                                                $identity_object->$key = $value;
+                                        }
+                                        $identity = $identity_object;
+                                }
+			} else {
+				$config_tables = $this->config->item('tables', 'ion_auth');
+				$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
+			}
 
             if(empty($identity)) {
                 $this->ion_auth->set_message('forgot_password_email_not_found');
