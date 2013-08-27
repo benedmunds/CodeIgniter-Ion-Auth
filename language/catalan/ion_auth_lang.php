@@ -24,10 +24,10 @@ $lang['account_creation_duplicate_username']	= 'Nom d&#39;usuari en ús o invàl
 
 
 // Password
-$lang['password_change_successful']				= 'Password canviat amb èxit';
-$lang['password_change_unsuccessful']			= 'No ha estat possible canviar el password';
-$lang['forgot_password_successful']				= 'Nou password enviat per email';
-$lang['forgot_password_unsuccessful']			= 'No ha estat possible crear un nou password';
+$lang['password_change_successful']				= 'Contrasenya canviada amb èxit';
+$lang['password_change_unsuccessful']			= 'No ha estat possible canviar la contrasenya';
+$lang['forgot_password_successful']				= 'Nova contrasenya enviada per email';
+$lang['forgot_password_unsuccessful']			= 'No ha estat possible crear una nova contrasenya';
 
 // Activation
 $lang['activate_successful']					= 'Compte activat';
@@ -48,5 +48,7 @@ $lang['update_unsuccessful']					= 'No s&#39;ha pogut actualitzar la informació
 $lang['delete_successful']						= 'Usuari eliminat';
 $lang['delete_unsuccessful']					= 'No s&#39;ha pogut Eliminar l&#39;usuari';
 
-
-?>
+// Email Subjects - TODO Please Translate
+$lang['email_forgotten_password_subject']    = 'Verificació de contrasenya oblidada';
+$lang['email_new_password_subject']          = 'Nova contrasenya';
+$lang['email_activation_subject']            = 'Activació del compte';
