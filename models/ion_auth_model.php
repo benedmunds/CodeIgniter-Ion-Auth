@@ -178,6 +178,22 @@ class Ion_auth_model extends CI_Model
 		//initialize db tables data
 		$this->tables  = $this->config->item('tables', 'ion_auth');
 
+<<<<<<< HEAD
+		$this->identity_column     = $this->config->item('identity', 'ion_auth');
+		$this->store_salt      	   = $this->config->item('store_salt', 'ion_auth');
+		$this->salt_length     	   = $this->config->item('salt_length', 'ion_auth');
+		$this->meta_join       	   = $this->config->item('join', 'ion_auth');
+		$this->min_password_length = $this->config->item('min_password_length', 'ion_auth');
+		
+		/**
+		* Checks if salt length is at least the length
+		* of the minimum password length.
+		**/
+		if($this->salt_length < $this->min_password_length)
+		{
+			$this->salt_length = $this->min_password_length;
+		}
+=======
 		//initialize data
 		$this->identity_column = $this->config->item('identity', 'ion_auth');
 		$this->store_salt      = $this->config->item('store_salt', 'ion_auth');
@@ -245,6 +261,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$this->trigger_events('model_constructor');
+>>>>>>> origin/2
 	}
 
 	/**
@@ -660,9 +677,14 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
+<<<<<<< HEAD
+	    return $this->db->where('email', $email)
+		                ->where($this->ion_auth->_extra_where)
+=======
 		$this->trigger_events('extra_where');
 
 		return $this->db->where('email', $email)
+>>>>>>> origin/2
 		                ->count_all_results($this->tables['users']) > 0;
 	}
 
@@ -674,6 +696,19 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function identity_check($identity = '')
 	{
+<<<<<<< HEAD
+	    if (empty($identity))
+	    {
+			return FALSE;
+	    }
+/*
+		if (isset($this->ion_auth->_extra_where) && !empty($this->ion_auth->_extra_where))
+	    {
+			$this->db->where($this->ion_auth->_extra_where);
+	    }
+*/
+	    return $this->db->where($this->identity_column, $identity)
+=======
 		$this->trigger_events('identity_check');
 
 		if (empty($identity))
@@ -682,6 +717,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		return $this->db->where($this->identity_column, $identity)
+>>>>>>> origin/2
 		                ->count_all_results($this->tables['users']) > 0;
 	}
 
@@ -1110,7 +1146,43 @@ class Ion_auth_model extends CI_Model
 		return $this;
 	}
 
+<<<<<<< HEAD
+	/**
+	 * get_user_by_username
+	 *
+	 * @return object
+	 * @author Kevin Smith
+	 **/
+	public function get_user_by_username($username)
+	{
+	    $this->db->limit(1);
+
+	    return $this->get_users_by_username($username);
+	}
+
+	/**
+	 * get_users_by_username
+	 *
+	 * @return object
+	 * @author Kevin Smith
+	 **/
+	public function get_users_by_username($username)
+	{
+	    $this->db->where($this->tables['users'].'.username', $username);
+
+	    return $this->get_users();
+	}
+	
+	/**
+	 * get_user_by_identity
+	 *                                      //copied from above ^
+	 * @return object
+	 * @author jondavidjohn
+	 **/
+	public function get_user_by_identity($identity)
+=======
 	public function order_by($by, $order='desc')
+>>>>>>> origin/2
 	{
 		$this->trigger_events('order_by');
 
@@ -1222,12 +1294,18 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
+<<<<<<< HEAD
+	    if (array_key_exists('username', $data) || array_key_exists('password', $data) || array_key_exists('email', $data) || array_key_exists('group_id', $data))
+			{
+			if (array_key_exists('password', $data))
+=======
 		$this->trigger_events('extra_where');
 
 		//run each where that was passed
 		if (isset($this->_ion_where) && !empty($this->_ion_where))
 		{
 			foreach ($this->_ion_where as $where)
+>>>>>>> origin/2
 			{
 				$this->db->where($where);
 			}

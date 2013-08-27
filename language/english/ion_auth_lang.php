@@ -35,12 +35,19 @@ $lang['activation_email_successful'] 	  	 = 'Activation Email Sent';
 $lang['activation_email_unsuccessful']   	 = 'Unable to Send Activation Email';
 
 // Login / Logout
+<<<<<<< HEAD
+$lang['login_successful'] 		  	 = 'Logged In Successfully';
+$lang['login_unsuccessful'] 		  	 = 'Incorrect Login';
+$lang['logout_successful'] 		 	 = 'Logged Out Successfully';
+  
+=======
 $lang['login_successful'] 		  	         = 'Logged In Successfully';
 $lang['login_unsuccessful'] 		  	     = 'Incorrect Login';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	         = 'Logged Out Successfully';
 
+>>>>>>> origin/2
 // Account Changes
 $lang['update_successful'] 		 	         = 'Account Information Successfully Updated';
 $lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';

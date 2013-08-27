@@ -1,4 +1,22 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<<<<<<< HEAD
+/**
+* Name:  Ion Auth Config
+* 
+* Author: Ben Edmunds
+* 	  ben.edmunds@gmail.com
+*         @benedmunds
+*          
+* Added Awesomeness: Phil Sturgeon
+* 
+* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth/
+*          
+* Created:  10.01.2009 
+* 
+* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
+* Original Author name has been kept but that does not mean that the method has not been modified.
+* 
+=======
 
 /*
 | -------------------------------------------------------------------------
@@ -20,6 +38,7 @@ $config['use_mongodb'] = FALSE;
 | Setup the mongodb docs using the following command:
 | $ mongorestore sql/mongo
 |
+>>>>>>> origin/2
 */
 $config['collections']['users']          = 'users';
 $config['collections']['groups']         = 'groups';
@@ -159,6 +178,20 @@ $config['email_forgot_password_complete'] = 'new_password.tpl.php';
 $config['salt_length'] = 10;
 $config['store_salt']  = FALSE;
 
+<<<<<<< HEAD
+	/**
+	 * Forgot Password Complete Email Template
+     * Default : new_password.tpl.php
+	 **/
+	$config['email_forgot_password_complete']   = 'new_password.tpl.php';
+	
+	/**
+	 * Salt Length
+	 * Salt length needs to be at least as long 
+	 * as the minimum password length.
+	 **/
+	$config['salt_length'] = 10;
+=======
 /*
  | -------------------------------------------------------------------------
  | Message Delimiters.
@@ -169,6 +202,7 @@ $config['message_start_delimiter'] = '<p>'; 	// Message start delimiter
 $config['message_end_delimiter']   = '</p>'; 	// Message end delimiter
 $config['error_start_delimiter']   = '<p>';		// Error mesage start delimiter
 $config['error_end_delimiter']     = '</p>';	// Error mesage end delimiter
+>>>>>>> origin/2
 
 /* End of file ion_auth.php */
 /* Location: ./application/config/ion_auth.php */

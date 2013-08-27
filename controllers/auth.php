@@ -55,6 +55,12 @@ class Auth extends CI_Controller {
 	function login()
 	{
 		$this->data['title'] = "Login";
+		
+		if ($this->ion_auth->logged_in())
+		{
+			//already logged in so no need to access this page
+			redirect($this->config->item('base_url'), 'refresh');
+		}
 
 		//validate form input
 		$this->form_validation->set_rules('identity', 'Identity', 'required');
@@ -185,12 +191,19 @@ class Auth extends CI_Controller {
 	//forgot password
 	function forgot_password()
 	{
+<<<<<<< HEAD
+		//get the identity type from config and send it when you load the view
+		$identity = $this->config->item('identity', 'ion_auth');
+		$identity_human = ucwords(str_replace('_', ' ', $identity)); //if someone uses underscores to connect words in the column names
+		$this->form_validation->set_rules($identity, $identity_human, 'required');
+=======
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required');
+>>>>>>> origin/2
 		if ($this->form_validation->run() == false)
 		{
 			//setup the input
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
+			$this->data[$identity] = array('name' => $identity,
+				'id' => $identity, //changed
 			);
 
 			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
@@ -203,7 +216,12 @@ class Auth extends CI_Controller {
 
 			//set any errors and display the form
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+<<<<<<< HEAD
+			$this->data['identity'] = $identity; $this->data['identity_human'] = $identity_human;
+			$this->load->view('auth/forgot_password', $this->data);
+=======
 			$this->_render_page('auth/forgot_password', $this->data);
+>>>>>>> origin/2
 		}
 		else
 		{
@@ -218,18 +236,22 @@ class Auth extends CI_Controller {
             }
             
 			//run the forgotten password method to email an activation code to the user
+<<<<<<< HEAD
+			$forgotten = $this->ion_auth->forgotten_password($this->input->post($identity));
+=======
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
+>>>>>>> origin/2
 
 			if ($forgotten)
 			{
 				//if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect('auth/login', 'refresh'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				redirect('auth/forgot_password', 'refresh');
 			}
 		}
 	}
@@ -242,6 +264,12 @@ class Auth extends CI_Controller {
 			show_404();
 		}
 
+<<<<<<< HEAD
+		if ($reset)
+		{  //if the reset worked then send them to the login page
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			redirect('auth/login', 'refresh');
+=======
 		$user = $this->ion_auth->forgotten_password_check($code);
 
 		if ($user)
@@ -315,12 +343,13 @@ class Auth extends CI_Controller {
 					}
 				}
 			}
+>>>>>>> origin/2
 		}
 		else
 		{
 			//if the code is invalid then send them back to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect('auth/forgot_password', 'refresh');
 		}
 	}
 
@@ -341,32 +370,45 @@ class Auth extends CI_Controller {
 		{
 			//redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect('auth', 'refresh');
 		}
 		else
 		{
 			//redirect them to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect('auth/forgot_password', 'refresh');
 		}
 	}
 
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
+<<<<<<< HEAD
+		// no funny business, force to integer
+		$id = (int) $id;
+		
+		$this->form_validation->set_rules('confirm', 'confirmation', 'required');
+		$this->form_validation->set_rules('id', 'user ID', 'required|is_natural');
+=======
 		$id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('confirm', $this->lang->line('deactivate_validation_confirm_label'), 'required');
 		$this->form_validation->set_rules('id', $this->lang->line('deactivate_validation_user_id_label'), 'required|alpha_numeric');
+>>>>>>> origin/2
 
 		if ($this->form_validation->run() == FALSE)
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
+<<<<<<< HEAD
+			$this->data['user'] = $this->ion_auth->get_user_array($id);
+			$this->load->view('auth/deactivate_user', $this->data);
+=======
 			$this->data['user'] = $this->ion_auth->user($id)->row();
 
 			$this->_render_page('auth/deactivate_user', $this->data);
+>>>>>>> origin/2
 		}
 		else
 		{
@@ -427,8 +469,13 @@ class Auth extends CI_Controller {
 		{
 			//check to see if we are creating the user
 			//redirect them back to the admin page
+<<<<<<< HEAD
+			$this->session->set_flashdata('message', "User Created");
+			redirect('auth', 'refresh');
+=======
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
 			redirect("auth", 'refresh');
+>>>>>>> origin/2
 		}
 		else
 		{

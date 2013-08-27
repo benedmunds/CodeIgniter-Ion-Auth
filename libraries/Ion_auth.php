@@ -139,12 +139,40 @@ class Ion_auth
 	 **/
 	public function forgotten_password($identity)    //changed $email to $identity
 	{
+<<<<<<< HEAD
+		// Get user information
+		//get the details of the user, and thus his email address **before** sending a request to the model
+		$user = $this->get_user_by_identity($identity);
+		$email = $user->email;
+		
+		if ( $this->ci->ion_auth_model->forgotten_password($email) )   //changed
+		{
+                        //we are doing this again to get the correct password reset request code
+                        $user = $this->get_user_by_identity($identity);
+			$data = array(
+				'identity'		=> $user->{$this->ci->config->item('identity', 'ion_auth')},
+				'forgotten_password_code' => $this->ci->ion_auth_model->forgotten_password_code,
+			);
+
+			$message = $this->ci->load->view($this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_forgot_password', 'ion_auth'), $data, true);
+			$this->ci->email->clear();
+			$config['mailtype'] = $this->ci->config->item('email_type', 'ion_auth');
+			$this->ci->email->initialize($config);
+			$this->ci->email->set_newline("\r\n");
+			$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+			$this->ci->email->to($user->email);
+			$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - Forgotten Password Verification');
+			$this->ci->email->message($message);
+
+			if ($this->ci->email->send())
+=======
 		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
             $user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->where('active', 1)->users()->row();  //changed to get_user_by_identity from email
 
 			if ($user)
+>>>>>>> origin/2
 			{
 				$data = array(
 					'identity'		=> $user->{$this->config->item('identity', 'ion_auth')},
@@ -460,8 +488,68 @@ class Ion_auth
 	 * @param bool user id
 	 * @param bool check if all groups is present, or any of the groups
 	 *
+<<<<<<< HEAD
+	 * @return object User
+	 * @author Ben Edmunds
+	 **/
+	public function get_user_by_email($email)
+	{
+		return $this->ci->ion_auth_model->get_user_by_email($email)->row();
+	}
+
+	/**
+	 * Get Users by Email
+	 *
+	 * @return object Users
+	 * @author Ben Edmunds
+	 **/
+	public function get_users_by_email($email)
+	{
+		return $this->ci->ion_auth_model->get_users_by_email($email)->result();
+	}
+	
+	/**
+	 * Get User by Username
+	 *
+	 * @return object User
+	 * @author Kevin Smith
+	 **/
+	public function get_user_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_user_by_username($username)->row();
+	}
+
+	/**
+	 * Get Users by Username
+	 *
+	 * @return object Users
+	 * @author Kevin Smith
+	 **/
+	public function get_users_by_username($username)
+	{
+		return $this->ci->ion_auth_model->get_users_by_username($username)->result();
+	}
+	
+	/**
+	 * Get User by Identity
+	 *                              //copied from above ^
+	 * @return object User
+	 * @author jondavidjohn
+	 **/
+	public function get_user_by_identity($identity)
+	{
+		return $this->ci->ion_auth_model->get_user_by_identity($identity)->row();
+	}
+
+	/**
+	 * Get User as Array
+	 *
+	 * @return array User
+	 * @author Ben Edmunds
+=======
 	 * @return bool
 	 * @author Phil Sturgeon
+>>>>>>> origin/2
 	 **/
 	public function in_group($check_group, $id=false, $check_all = false)
 	{
