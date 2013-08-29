@@ -675,7 +675,7 @@ class Auth extends CI_Controller {
 		{
 			if ($this->form_validation->run() === TRUE)
 			{
-				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
+				$group_update = $this->ion_auth_model->update_group($id, $_POST['group_name'], $_POST['group_description']);
 
 				if($group_update)
 				{
