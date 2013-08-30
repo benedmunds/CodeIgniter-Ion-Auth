@@ -208,9 +208,7 @@ class Auth extends CI_Controller {
 		else
 		{
 			// get identity for that email
-			$config_tables = $this->config->item('tables', 'ion_auth');
-			$identity = $this->db->where('email', $this->input->post('email'))->limit('1')->get($config_tables['users'])->row();
-
+            $identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
             if(empty($identity)) {
                 $this->ion_auth->set_message('forgot_password_email_not_found');
                 $this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -413,7 +411,7 @@ class Auth extends CI_Controller {
 		if ($this->form_validation->run() == true)
 		{
 			$username = strtolower($this->input->post('first_name')) . ' ' . strtolower($this->input->post('last_name'));
-			$email    = $this->input->post('email');
+			$email    = strtolower($this->input->post('email'));
 			$password = $this->input->post('password');
 
 			$additional_data = array(
