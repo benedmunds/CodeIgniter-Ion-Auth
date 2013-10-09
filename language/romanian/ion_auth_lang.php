@@ -8,7 +8,7 @@
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  10.21.2012
+* Created:  10.09.2013
 *
 * Description:  Romanian language file for Ion Auth messages and errors
 *
@@ -51,8 +51,23 @@ $lang['delete_unsuccessful'] 		 	     = 'Nu am reusit sa sterg utilizatorul';
 $lang['group_creation_successful']  = 'Grup creat cu succes';
 $lang['group_already_exists']       = 'Numele de grup a fost deja utilizat';
 $lang['group_update_successful']    = 'Detaliile grupului au fost actualizate';
+$lang['group_delete_successful']    = 'Grup sters cu succes';
+$lang['group_delete_unsuccessful'] 	= 'Nu am putut sterge grupul';
+$lang['group_name_required'] 		= 'Este necesar un nume pentru grup';
 
-// Email Subjects
-$lang['email_forgotten_password_subject']    = 'Verificarea parolei uitate';
-$lang['email_new_password_subject']          = 'Parola noua';
+// Activation Email
 $lang['email_activation_subject']            = 'Activarea contului';
+$lang['email_activate_heading']    = 'Activarea contului pentru %s';
+$lang['email_activate_subheading'] = 'Dati click pe acest link pentru %s.';
+$lang['email_activate_link']       = 'Activarea contul';
+
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Verificarea parolei uitate';
+$lang['email_forgot_password_heading']    = 'Resetarea parolei pentru %s';
+$lang['email_forgot_password_subheading'] = 'Dati click pe acest link pentru %s.';
+$lang['email_forgot_password_link']       = 'Resetarea parolei';
+
+// New Password Email
+$lang['email_new_password_subject']          = 'Parola noua';
+$lang['email_new_password_heading']    = 'Parola noua pentru %s';
+$lang['email_new_password_subheading'] = 'Parola a fost resetata: %s';
