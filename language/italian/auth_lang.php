@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - English
+* Name:  Auth Lang - Italian
 *
 * Author: Ben Edmunds
 * 		  ben.edmunds@gmail.com
@@ -13,16 +13,15 @@
 *
 * Created:  03.09.2013
 *
-* Description:  English language file for Ion Auth example views
+* Description:  Italian language file for Ion Auth example views
 *
 */
 
 // Errors
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_csrf'] = 'Token CSRF non valido.';
 
 // Login
 $lang['login_heading']         = 'Accedi';
-$lang['login_subheading']      = 'Please login with your email/username and password below.';
 $lang['login_subheading']      = 'Si prega di accedere tramite email/username e password qua sotto.';
 $lang['login_identity_label']  = 'Email/Username:';
 $lang['login_password_label']  = 'Password:';
