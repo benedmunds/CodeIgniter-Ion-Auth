@@ -18,16 +18,16 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Token CSRF non valido.';
+$lang['error_csrf'] = 'Il form non ha superato i controlli di sicurezza';
 
 // Login
 $lang['login_heading']         = 'Accedi';
-$lang['login_subheading']      = 'Si prega di accedere tramite email/username e password qua sotto.';
+$lang['login_subheading']      = 'Si prega di accedere tramite email/username e password';
 $lang['login_identity_label']  = 'Email/Username:';
 $lang['login_password_label']  = 'Password:';
 $lang['login_remember_label']  = 'Ricordami:';
 $lang['login_submit_btn']      = 'Accedi';
-$lang['login_forgot_password'] = 'Dimenticata la password ?';
+$lang['login_forgot_password'] = 'Dimenticata la password?';
 
 // Index
 $lang['index_heading']           = 'Utenti';

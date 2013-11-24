@@ -1085,13 +1085,16 @@ class Ion_auth_model extends CI_Model
 		return $this;
 	}
 
-	public function like($like, $value = NULL)
+	public function like($like, $value = NULL, $position = 'both')
 	{
 		$this->trigger_events('like');
 
 		if (!is_array($like))
 		{
-			$like = array($like => $value);
+			$like = array($like => array(
+				'value'    => $value,
+				'position' => $position,
+			));
 		}
 
 		array_push($this->_ion_like, $like);
