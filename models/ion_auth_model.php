@@ -2093,7 +2093,20 @@ class Ion_auth_model extends CI_Model
 		}
 		else
 		{
-			return inet_pton($ip_address);
+			if(inet_pton($ip_address))
+			{
+				// from stackexchange: http://stackoverflow.com/questions/9025542/inet-pton-not-working
+				$ip_bytes = inet_pton($ip_address);
+				$ip_byte0=ord($ip_bytes[0]);
+				$ip_byte1=ord($ip_bytes[1]);
+				$ip_byte2=ord($ip_bytes[2]);
+				$ip_byte3=ord($ip_bytes[3]);
+				return $ip_byte0.'.'.$ip_byte1.'.'.$ip_byte2.'.'.$ip_byte3;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
