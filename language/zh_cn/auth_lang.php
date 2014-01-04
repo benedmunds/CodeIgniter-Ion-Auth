@@ -147,3 +147,17 @@ $lang['reset_password_new_password_confirm_label']            = '确认新密码
 $lang['reset_password_submit_btn']                            = '修改';
 $lang['reset_password_validation_new_password_label']         = '新密码';
 $lang['reset_password_validation_new_password_confirm_label'] = '确认新密码';
+
+// Activation Email
+$lang['email_activate_heading']    = '激活用户 %s';
+$lang['email_activate_subheading'] = '请点击连接跳转至 %s.';
+$lang['email_activate_link']       = '激活您的账户';
+
+// Forgot Password Email
+$lang['email_forgot_password_heading']    = '重置 %s 的密码';
+$lang['email_forgot_password_subheading'] = '请点击连接跳转至 %s.';
+$lang['email_forgot_password_link']       = '重置您的密码';
+
+// New Password Email
+$lang['email_new_password_heading']    = '%s 的新密码';
+$lang['email_new_password_subheading'] = '您的密码已经重置为: %s';
