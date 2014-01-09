@@ -23,7 +23,7 @@ $lang['account_creation_duplicate_username']	 = 'Kullanıcı Adı Geçersiz ya d
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Şifreniz Değiştirildi';
-$lang['password_change_unsuccessful'] 	  	 = 'Şifreniz Değiştirelemedi';
+$lang['password_change_unsuccessful'] 	  	 = 'Şifreniz Değiştirilemedi';
 $lang['forgot_password_successful'] 	 	 = 'Yeni Şifreniz E-mail Adresinize Yollandı';
 $lang['forgot_password_unsuccessful'] 	 	 = 'Şifreniz Değiştirilemedi';
 
@@ -39,6 +39,7 @@ $lang['activation_email_unsuccessful']  	 = 'Aktivasyon Maili Yollanamadı';
 $lang['login_successful'] 		  	 = 'Giriş Başarılı';
 $lang['login_unsuccessful'] 		 	 = 'Giriş Başarısız';
 $lang['logout_successful'] 		 	 = 'Çıkış Başarılı';
+$lang['login_unsuccessful_not_active'] ="Giriş Başarısız ,Hesabınız Aktif Değil";
   
 // Account Changes
 $lang['update_successful'] 		 	 = 'Üyelik Bilgileri Güncellendi';
