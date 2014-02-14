@@ -486,7 +486,7 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Edit User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
 			redirect('auth', 'refresh');
 		}
@@ -546,7 +546,14 @@ class Auth extends CI_Controller {
 				//check to see if we are creating the user
 				//redirect them back to the admin page
 				$this->session->set_flashdata('message', "User Saved");
-				redirect("auth", 'refresh');
+				if ($this->ion_auth->is_admin())
+				{
+					redirect('auth', 'refresh');
+				}
+				else
+				{
+					redirect('/', 'refresh');
+				}
 			}
 		}
 
