@@ -6,12 +6,13 @@
 * 		  ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Author: 
+* Author: Benjamin Neu (benny@duxu.de)
 *         
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  29.07.2013
+* Last-Edit: 22.02.2014
 *
 * Description:  German language file for Ion Auth example views
 *
