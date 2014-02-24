@@ -5,13 +5,14 @@
 * Author:       Ben Edmunds
 * 		        ben.edmunds@gmail.com
 *               @benedmunds
-* Translation:  Bernd Hückstädt
-* 		        akademie@joytopia.net
+* Translation:  Bernd Hückstädt (akademie@joytopia.net), Benjamin Neu (benny@duxu.de)
+* 		      
 * 
 * 
 * Location:     http://github.com/benedmunds/ion_auth/
 *          
 * Created:  04.02.2010 
+* Last-Edit: 22.02.2014
 * 
 * Description:      German language file for Ion Auth messages and errors
 * Beschreibung:     Deutsche Sprach-Datei für Ion Auth System- und Fehlermeldungen
@@ -42,6 +43,7 @@ $lang['activation_email_unsuccessful']   	 = 'Die Aktivierungs-E-Mail konnte nic
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Login erfolgreich';
 $lang['login_unsuccessful'] 		 = 'Login fehlgeschlagen';
+$lang['login_unsuccessful_not_active'] = 'Der Account ist deaktiviert';
 $lang['logout_successful'] 		 	 = 'Logout erfolgreich';
   
 // Account Changes

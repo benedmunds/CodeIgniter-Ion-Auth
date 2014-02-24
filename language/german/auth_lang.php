@@ -6,12 +6,13 @@
 * 		  ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Author: 
+* Author: Benjamin Neu (benny@duxu.de)
 *         
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  29.07.2013
+* Last-Edit: 22.02.2014
 *
 * Description:  German language file for Ion Auth example views
 *
@@ -31,14 +32,14 @@ $lang['login_forgot_password'] = 'Ihr Kennwort vergessen?';
 
 // Index
 $lang['index_heading']           = 'Benutzer';
-$lang['index_subheading']        = 'Drunter ist ein Verzeichniss der Benutzer.';
+$lang['index_subheading']        = 'Im Folgenden werden alle Benutzer aufgelistet.';
 $lang['index_fname_th']          = 'Vorname';
-$lang['index_lname_th']          = 'Nachame';
+$lang['index_lname_th']          = 'Nachname';
 $lang['index_email_th']          = 'Email';
 $lang['index_groups_th']         = 'Gruppen';
 $lang['index_status_th']         = 'Status';
 $lang['index_action_th']         = 'Aktion';
-$lang['index_active_link']       = 'Aktivität';
+$lang['index_active_link']       = 'Aktiv';
 $lang['index_inactive_link']     = 'Inaktiv';
 $lang['index_inactive_link']     = 'Inaktiv';
 $lang['index_create_user_link']  = 'Einen neuen Benutzer anlegen';
@@ -46,7 +47,7 @@ $lang['index_create_group_link'] = 'Eine neue Gruppe anlegen';
 
 // Deactivate User
 $lang['deactivate_heading']                  = 'Benutzer deaktivieren';
-$lang['deactivate_subheading']               = 'Sind Sie sicher dass Sie den Benutzer \'%s\' deactivieren möchten';
+$lang['deactivate_subheading']               = 'Sind Sie sicher dass Sie den Benutzer \'%s\' deaktivieren möchten';
 $lang['deactivate_confirm_y_label']          = 'Ja:';
 $lang['deactivate_confirm_n_label']          = 'Nein:';
 $lang['deactivate_submit_btn']               = 'Eingeben';
@@ -82,8 +83,8 @@ $lang['edit_user_lname_label']                       = 'Nachname:';
 $lang['edit_user_company_label']                     = 'Firmenname:';
 $lang['edit_user_email_label']                       = 'Email:';
 $lang['edit_user_phone_label']                       = 'Telefon:';
-$lang['edit_user_password_label']                    = 'Kennwort: (falls Sie ändern)';
-$lang['edit_user_password_confirm_label']            = 'Kennwort bestätigen: (falls Sie ändern)';
+$lang['edit_user_password_label']                    = 'Kennwort: (falls Sie es ändern)';
+$lang['edit_user_password_confirm_label']            = 'Kennwort bestätigen: (falls Sie es ändern)';
 $lang['edit_user_groups_heading']                    = 'Mitglied der Gruppen';
 $lang['edit_user_submit_btn']                        = 'Benutzerdaten speichern';
 $lang['edit_user_validation_fname_label']            = 'Vorname';
@@ -152,11 +153,10 @@ $lang['email_activate_subheading'] = 'Bitte drücken Sie auf dieses Link um zu %
 $lang['email_activate_link']       = 'Aktivieren Sie Ihr Konto';
 
 // Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Kennwort für %s zurückstellen';
+$lang['email_forgot_password_heading']    = 'Kennwort für %s zurücksetzen';
 $lang['email_forgot_password_subheading'] = 'Bitte drücken Sie diese Link um zu %s.';
 $lang['email_forgot_password_link']       = 'Ihr Kennwort zurückstellen';
 
 // New Password Email
 $lang['email_new_password_heading']    = 'Neues Kennwort für %s';
-$lang['email_new_password_subheading'] = 'Ihr Kennwort wurde af %s zurückgestellt';
-
+$lang['email_new_password_subheading'] = 'Ihr Kennwort wurde af %s zurückgesetzt';
