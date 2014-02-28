@@ -2,7 +2,7 @@ CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
     ip_address varchar(39) NOT NULL,
     username varchar(100) NOT NULL,
-    password varchar(80) NOT NULL,
+    password varchar(255) NOT NULL,
     salt varchar(40),
     email varchar(100) NOT NULL,
     activation_code varchar(40),
@@ -49,8 +49,8 @@ INSERT INTO groups (id, name, description) VALUES (2,'members','General User');
 SET IDENTITY_INSERT groups OFF;
 
 SET IDENTITY_INSERT users ON;
-INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) 
-	VALUES ('1',0x7f000001,'administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL, DATEDIFF(s, '19700101', GETDATE()), DATEDIFF(s, '19700101', GETDATE()),'1','Admin','istrator','ADMIN','0'); 
+INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone)
+	VALUES ('1',0x7f000001,'administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL, DATEDIFF(s, '19700101', GETDATE()), DATEDIFF(s, '19700101', GETDATE()),'1','Admin','istrator','ADMIN','0');
 SET IDENTITY_INSERT users OFF;
 
 SET IDENTITY_INSERT users_groups ON;

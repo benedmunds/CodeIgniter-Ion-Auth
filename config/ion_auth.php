@@ -63,10 +63,10 @@ $config['join']['groups'] = 'group_id';
  | If you are using Bcrypt the Admin password field also needs to be changed in order login as admin:
  | $2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36
  |
- | Becareful how high you set max_rounds, I would do your own testing on how long it takes
+ | Be careful how high you set max_rounds, I would do your own testing on how long it takes
  | to encrypt with x rounds.
  */
-$config['hash_method']    = 'sha1';	// IMPORTANT: Make sure this is set to either sha1 or bcrypt
+$config['hash_method']    = 'bcrypt';	// sha1 or bcrypt, bcrypt is STRONGLY recommended
 $config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;

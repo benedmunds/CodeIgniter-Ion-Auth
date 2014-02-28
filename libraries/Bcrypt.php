@@ -30,7 +30,7 @@ class Bcrypt {
   }
 
   private function getSalt() {
-    $salt = sprintf('$2a$%02d$', $this->rounds);
+    $salt = sprintf('$2y$%02d$', $this->rounds);
 
     $bytes = $this->getRandomBytes(16);
 
