@@ -859,7 +859,7 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
-		//add to default group if not already set
+		//add to default group if not already set and a specific groups array hasn't been passed
 		$default_group = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group()->row();
 		if ((isset($default_group->id) && !isset($groups)) || (empty($groups) && !in_array($default_group->id, $groups)))
 		{
