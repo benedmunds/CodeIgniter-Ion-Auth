@@ -399,7 +399,7 @@ class Auth extends CI_Controller {
 			redirect('auth', 'refresh');
 		}
 
-		$tables = this->config->item('tables','ion_auth');
+		$tables = $this->config->item('tables','ion_auth');
 		
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
