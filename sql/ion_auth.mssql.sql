@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varchar(39) NOT NULL,
+    ip_address varchar(15) NOT NULL,
     username varchar(100) NOT NULL,
     password varchar(255) NOT NULL,
     salt varchar(40),
@@ -50,7 +50,7 @@ SET IDENTITY_INSERT groups OFF;
 
 SET IDENTITY_INSERT users ON;
 INSERT INTO users (id, ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone)
-	VALUES ('1',0x7f000001,'administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL, DATEDIFF(s, '19700101', GETDATE()), DATEDIFF(s, '19700101', GETDATE()),'1','Admin','istrator','ADMIN','0');
+	VALUES ('1','127.0.0.1','administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL, DATEDIFF(s, '19700101', GETDATE()), DATEDIFF(s, '19700101', GETDATE()),'1','Admin','istrator','ADMIN','0');
 SET IDENTITY_INSERT users OFF;
 
 SET IDENTITY_INSERT users_groups ON;
@@ -60,7 +60,7 @@ SET IDENTITY_INSERT users_groups OFF;
 
 CREATE TABLE login_attempts (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varbinary(16) NOT NULL,
+    ip_address varchar(15),
     login varchar(100) NOT NULL,
 	time datetime,
   PRIMARY KEY(id),
