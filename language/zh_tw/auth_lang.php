@@ -1,15 +1,10 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - English
+* Name:  Auth Lang - Chinese Traditional
 *
-* Author: Ben Edmunds
-*         ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Author: Daniel Davis
-*         @ourmaninjapan
 * Author: Bo-Yi Wu
-*         @appleboy
+*         appleboy.tw@gmail.com
+*         @taiwan
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
@@ -146,17 +141,3 @@ $lang['reset_password_new_password_confirm_label']            = '確認新密碼
 $lang['reset_password_submit_btn']                            = '修改';
 $lang['reset_password_validation_new_password_label']         = '新密碼';
 $lang['reset_password_validation_new_password_confirm_label'] = '確認新密碼';
-
-// Activation Email
-$lang['email_activate_heading']    = '帳號啟動 %s';
-$lang['email_activate_subheading'] = '請點此連結 %s.';
-$lang['email_activate_link']       = '啟動您的帳號';
-
-// Forgot Password Email
-$lang['email_forgot_password_heading']    = '重新啟用密碼 %s';
-$lang['email_forgot_password_subheading'] = '請點此連結 %s.';
-$lang['email_forgot_password_link']       = '重新啟動密碼';
-
-// New Password Email
-$lang['email_new_password_heading']    = '新密碼 %s';
-$lang['email_new_password_subheading'] = '您的密碼已重置為: %s';
