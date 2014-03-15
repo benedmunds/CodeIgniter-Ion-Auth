@@ -37,6 +37,8 @@ $lang['activation_email_unsuccessful'] = '啟動帳號電子郵件失敗';
 // Login / Logout
 $lang['login_successful']   = '登入成功';
 $lang['login_unsuccessful'] = '登入失敗';
+$lang['login_unsuccessful_not_active'] = '帳號尚未啟動';
+$lang['login_timeout'] = '帳號暫時被鎖定，請稍候再試';
 $lang['logout_successful']  = '登出成功';
 
 // Account Changes
@@ -45,7 +47,27 @@ $lang['update_unsuccessful'] = '更新帳號資料失敗';
 $lang['delete_successful']   = '帳號已刪除';
 $lang['delete_unsuccessful'] = '刪除帳號失敗';
 
-// Email Subjects - TODO Please Translate
+// Groups
+$lang['group_creation_successful']  = '建立群組成功';
+$lang['group_already_exists']       = '群組名稱已重複';
+$lang['group_update_successful']    = '更新群組成功';
+$lang['group_delete_successful']    = '群組已刪除';
+$lang['group_delete_unsuccessful']  = '刪除群組失敗';
+$lang['group_name_required']        = '群組名稱為必填欄位';
+
+// Activation Email
+$lang['email_activation_subject']  = '啟動帳號';
+$lang['email_activate_heading']    = '啟動帳號 %s';
+$lang['email_activate_subheading'] = '請點此連結 %s.';
+$lang['email_activate_link']       = '啟動您的帳號';
+
+// Forgot Password Email
 $lang['email_forgotten_password_subject'] = '密碼重設驗證';
-$lang['email_new_password_subject']       = '新密碼';
-$lang['email_activation_subject']         = '帳號啟動';
+$lang['email_forgot_password_heading']    = '重新啟用密碼 %s';
+$lang['email_forgot_password_subheading'] = '請點此連結 %s.';
+$lang['email_forgot_password_link']       = '重新啟動密碼';
+
+// New Password Email
+$lang['email_new_password_subject']    = '新密碼';
+$lang['email_new_password_heading']    = '新密碼 %s';
+$lang['email_new_password_subheading'] = '您的密碼已重置為: %s';
