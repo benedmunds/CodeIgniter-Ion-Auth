@@ -50,3 +50,20 @@ $lang['delete_unsuccessful']    = 'Det gick inte att ta bort användaren';
 $lang['email_forgotten_password_subject']    = 'Glömt lösenordsverifikation';
 $lang['email_new_password_subject']          = 'Nytt lösenord';
 $lang['email_activation_subject']            = 'Kontoaktivering';
+
+// Activation Email
+$lang['email_activation_subject']   = 'Kontoaktivering';
+$lang['email_activate_heading']     = 'Kontoaktivering för %s';
+$lang['email_activate_subheading']  = 'Klicka denna länk för att %s.';
+$lang['email_activate_link']        = 'aktivera ditt konto';
+
+// Forgot Password Email
+$lang['email_forgotten_password_subject'] = 'Glömt lösenordsverifikation';
+$lang['email_forgot_password_heading']    = 'Glömt lösenord för %s';
+$lang['email_forgot_password_subheading'] = 'Klicka denna länk för att %s.';
+$lang['email_forgot_password_link']       = 'återställa ditt lösenord';
+
+// New Password Email
+$lang['email_new_password_subject']     = 'Nytt Lösenord';
+$lang['email_new_password_heading']     = 'Nytt lösenord för %s';
+$lang['email_new_password_subheading']  = 'Ditt lösenord har blivit återställts till: %s';
