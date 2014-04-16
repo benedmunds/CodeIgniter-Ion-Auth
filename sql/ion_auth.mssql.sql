@@ -3,7 +3,7 @@ CREATE TABLE users (
     ip_address varchar(15) NOT NULL,
     username varchar(100) NOT NULL,
     password varchar(255) NOT NULL,
-    salt varchar(40),
+    salt varchar(255),
     email varchar(100) NOT NULL,
     activation_code varchar(40),
     forgotten_password_code varchar(40),
