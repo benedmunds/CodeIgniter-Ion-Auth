@@ -1649,7 +1649,7 @@ class Ion_auth_model extends CI_Model
 
 		$user = $this->user($id)->row();
 
-		$salt = sha1($user->password);
+		$salt = $this->salt();
 
 		$this->db->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
 
