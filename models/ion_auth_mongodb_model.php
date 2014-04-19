@@ -2,6 +2,8 @@
 /**
  * IonAuth MongoDB Model
  *
+ * Version: 2.5.2
+ *
  * A rewrite of IonAuth model to use MongoDB as database backend. It
  * requires both CodeIgniter MongoDB Active Record and CodeIgniter MongoDB Session
  * libraries installed.

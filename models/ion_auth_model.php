@@ -2,6 +2,8 @@
 /**
 * Name:  Ion Auth Model
 *
+* Version: 2.5.2
+*
 * Author:  Ben Edmunds
 * 		   ben.edmunds@gmail.com
 *	  	   @benedmunds
