@@ -36,8 +36,8 @@ $lang['activation_email_successful'] 	  	 = '已发送激活账号的电子邮�
 $lang['activation_email_unsuccessful']   	 = '发送激活账号的电子邮件失败';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = '登陆成功';
-$lang['login_unsuccessful'] 		  	 = '登陆失败';
+$lang['login_successful'] 		  	 = '登录成功';
+$lang['login_unsuccessful'] 		  	 = '登录失败';
 $lang['logout_successful'] 		 	 = '您已成功退出';
   
 // Account Changes
