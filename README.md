@@ -17,7 +17,7 @@ Just copy the files from this package to the corresponding folder in your
 application folder.  For example, copy Ion_auth/config/ion_auth.php to
 application/config/ion_auth.php.
 
-##CodeIgniter Version 3 Compatibility
+###CodeIgniter Version 3 Compatibility
 CodeIgniter v3 requires the class names to be ucfirst().  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
 
 	config/ion_auth.php               =>   config/Ion_auth.php
