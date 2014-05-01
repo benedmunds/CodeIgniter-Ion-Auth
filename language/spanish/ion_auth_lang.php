@@ -15,7 +15,7 @@
 */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'Cuenta creada éxitosamente';
+$lang['account_creation_successful'] 	  	 = 'Cuenta creada exitosamente';
 $lang['account_creation_unsuccessful'] 	 	 = 'No se ha podido crear la cuenta';
 $lang['account_creation_duplicate_email'] 	 = 'Email en uso o inválido';
 $lang['account_creation_duplicate_username'] = 'Nombre de usuario en uso o inválido';
