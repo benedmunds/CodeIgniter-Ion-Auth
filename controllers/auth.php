@@ -553,7 +553,7 @@ class Auth extends CI_Controller {
 
 			if ($this->form_validation->run() === TRUE)
 			{
-				$this->ion_auth->update($id, $data); //Update the targetted user, not the logged in admin. $id matches $user->id if not ADMIN
+				$this->ion_auth->update($user->id, $data);
 
 				//check to see if we are creating the user
 				//redirect them back to the admin page
