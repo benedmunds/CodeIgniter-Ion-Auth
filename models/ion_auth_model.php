@@ -236,14 +236,15 @@ class Ion_auth_model extends CI_Model
 			if ($this->random_rounds)
 			{
 				$rand = rand($this->min_rounds,$this->max_rounds);
-				$rounds = array('rounds' => $rand);
+				$params = array('rounds' => $rand);
 			}
 			else
 			{
-				$rounds = array('rounds' => $this->default_rounds);
+				$params = array('rounds' => $this->default_rounds);
 			}
 
-			$this->load->library('bcrypt',$rounds);
+			$params['salt_prefix'] = $this->config->item('salt_prefix', 'ion_auth');
+			$this->load->library('bcrypt',$params);
 		}
 
 		$this->trigger_events('model_constructor');
