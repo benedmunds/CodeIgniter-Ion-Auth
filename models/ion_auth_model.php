@@ -456,6 +456,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$query = $this->db->select($this->identity_column)
 			                  ->where('activation_code', $code)
+			                  ->where('id', $id)
 			                  ->limit(1)
 			                  ->get($this->tables['users']);
 
@@ -468,15 +469,13 @@ class Ion_auth_model extends CI_Model
 				return FALSE;
 			}
 
-			$identity = $result->{$this->identity_column};
-
 			$data = array(
 			    'activation_code' => NULL,
 			    'active'          => 1
 			);
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
 		}
 		else
 		{
