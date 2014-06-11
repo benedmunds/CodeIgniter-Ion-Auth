@@ -124,6 +124,13 @@ $config['maximum_login_attempts']     = 3;                   // The maximum numb
 $config['lockout_time']               = 600;                 // The number of seconds to lockout an account due to exceeded attempts
 $config['forgot_password_expiration'] = 0;                   // The number of milliseconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
+/*
+ | -------------------------------------------------------------------------
+ | Auth Theme.
+ | -------------------------------------------------------------------------
+ */
+$config['view_theme']       = 'auth_tbs'; 	// Sets the view directory for ion_auth.  Use 'auth_tbs' for a twitter boostrap theme, use 'auth' for the default look and feel
+
 
 /*
  | -------------------------------------------------------------------------
@@ -145,7 +152,7 @@ $config['email_config'] = array(
  | Folder where email templates are stored.
  | Default: auth/
  */
-$config['email_templates'] = 'auth/email/';
+$config['email_templates'] = $config['view_theme'].'/email/';
 
 /*
  | -------------------------------------------------------------------------
