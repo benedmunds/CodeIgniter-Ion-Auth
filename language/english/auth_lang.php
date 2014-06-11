@@ -45,10 +45,11 @@ $lang['index_create_group_link'] = 'Create a new group';
 
 // Deactivate User
 $lang['deactivate_heading']                  = 'Deactivate User';
-$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
-$lang['deactivate_confirm_y_label']          = 'Yes:';
-$lang['deactivate_confirm_n_label']          = 'No:';
-$lang['deactivate_submit_btn']               = 'Submit';
+$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'?';
+$lang['deactivate_confirm_y_label']          = 'Yes';
+$lang['deactivate_confirm_n_label']          = 'No';
+$lang['deactivate_submit_btn']               = 'Deactivate';
+$lang['deactivate_cancel_btn']               = 'Cancel';
 $lang['deactivate_validation_confirm_label'] = 'confirmation';
 $lang['deactivate_validation_user_id_label'] = 'user ID';
 
