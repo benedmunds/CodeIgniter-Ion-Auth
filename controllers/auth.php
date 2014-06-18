@@ -21,8 +21,31 @@ class Auth extends CI_Controller {
 		$this->load->helper('language');
 	}
 
-	//redirect if needed, otherwise display the user list
+	//redirect if needed, otherwise display the dashboard
 	function index()
+	{
+		
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+		elseif (!$this->ion_auth->is_admin())
+		{
+			//redirect them to the home page because they must be an administrator to view this
+			redirect('/', 'refresh');
+		}
+		else
+		{
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+			$this->_render_page('auth/index', $this->data);
+		}
+	}
+
+	//redirect if needed, otherwise display the user list
+	function users()
 	{
 
 		if (!$this->ion_auth->logged_in())
@@ -47,7 +70,7 @@ class Auth extends CI_Controller {
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
 			}
 
-			$this->_render_page('auth/index', $this->data);
+			$this->_render_page('auth/list_users', $this->data);
 		}
 	}
 
@@ -617,6 +640,72 @@ class Auth extends CI_Controller {
 
 		$this->_render_page('auth/edit_user', $this->data);
 	}
+	
+	// delete user
+	function delete_user($id = NULL)
+	{
+		$id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('confirm', $this->lang->line('user_delete_validation_confirm_label'), 'required');
+		$this->form_validation->set_rules('id', $this->lang->line('user_delete_user_id_label'), 'required|alpha_numeric');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			// insert csrf check
+			$this->data['csrf'] = $this->_get_csrf_nonce();
+			$this->data['user'] = $this->ion_auth->user($id)->row();
+
+			$this->_render_page('auth/delete_user', $this->data);
+		}
+		else
+		{
+			// do we really want to deactivate?
+			if ($this->input->post('confirm') == 'yes')
+			{
+				// do we have a valid request?
+				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+				{
+					show_error($this->lang->line('error_csrf'));
+				}
+
+				// do we have the right userlevel?
+				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+				{
+					$this->ion_auth->delete_user($id);
+				}
+			}
+
+			//redirect them back to the auth page
+			redirect('auth', 'refresh');
+		}
+	}
+
+	// list groups
+	function groups()
+	{
+
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('auth/login', 'refresh');
+		}
+		elseif (!$this->ion_auth->is_admin())
+		{
+			//redirect them to the home page because they must be an administrator to view this
+			redirect('/', 'refresh');
+		}
+		else
+		{
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+
+			//list the groups
+			$this->data['groups'] = $this->ion_auth->groups()->result();
+
+			$this->_render_page('auth/list_groups', $this->data);
+		}
+	}
 
 	// create a new group
 	function create_group()
@@ -640,7 +729,7 @@ class Auth extends CI_Controller {
 				// check to see if we are creating the group
 				// redirect them back to the admin page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth", 'refresh');
+				redirect("auth/groups", 'refresh');
 			}
 		}
 		else
@@ -702,7 +791,7 @@ class Auth extends CI_Controller {
 				{
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
 				}
-				redirect("auth", 'refresh');
+				redirect("auth/groups", 'refresh');
 			}
 		}
 
@@ -726,6 +815,46 @@ class Auth extends CI_Controller {
 		);
 
 		$this->_render_page('auth/edit_group', $this->data);
+	}
+	
+	// delete group
+	function delete_group($id = NULL)
+	{
+		$id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('confirm', $this->lang->line('group_delete_validation_confirm_label'), 'required');
+		$this->form_validation->set_rules('id', $this->lang->line('group_delete_user_id_label'), 'required|alpha_numeric');
+
+		if ($this->form_validation->run() == FALSE)
+		{
+			// insert csrf check
+			$this->data['csrf'] = $this->_get_csrf_nonce();
+			$this->data['group'] = $this->ion_auth->group($id)->row();
+
+			$this->_render_page('auth/delete_group', $this->data);
+		}
+		else
+		{
+			// do we really want to deactivate?
+			if ($this->input->post('confirm') == 'yes')
+			{
+				// do we have a valid request?
+				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+				{
+					show_error($this->lang->line('error_csrf'));
+				}
+
+				// do we have the right userlevel?
+				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+				{
+					$this->ion_auth->delete_group($id);
+				}
+			}
+
+			//redirect them back to the auth page
+			redirect('auth/groups', 'refresh');
+		}
 	}
 
 
