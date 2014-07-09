@@ -124,6 +124,15 @@ $config['maximum_login_attempts']     = 3;                   // The maximum numb
 $config['lockout_time']               = 600;                 // The number of seconds to lockout an account due to exceeded attempts
 $config['forgot_password_expiration'] = 0;                   // The number of milliseconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
+/*
+ | -------------------------------------------------------------------------
+ | Cookie options.
+ | -------------------------------------------------------------------------
+ | remember_cookie_name Default: remember_code
+ | identity_cookie_name Default: identity
+ */
+$config['remember_cookie_name'] = 'remember_code';
+$config['identity_cookie_name'] = 'identity';
 
 /*
  | -------------------------------------------------------------------------

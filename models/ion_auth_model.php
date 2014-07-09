@@ -1738,13 +1738,13 @@ class Ion_auth_model extends CI_Model
 			}
 
 			set_cookie(array(
-			    'name'   => 'identity',
+			    'name'   => $this->config->item('identity_cookie_name', 'ion_auth'),
 			    'value'  => $user->{$this->identity_column},
 			    'expire' => $expire
 			));
 
 			set_cookie(array(
-			    'name'   => 'remember_code',
+			    'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
 			    'value'  => $salt,
 			    'expire' => $expire
 			));
@@ -1768,7 +1768,9 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_login_remembered_user');
 
 		//check for valid data
-		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity')))
+		if (!get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) 
+			|| !get_cookie($this->config->item('remember_cookie_name', 'ion_auth')) 
+			|| !$this->identity_check(get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))))
 		{
 			$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_unsuccessful'));
 			return FALSE;
@@ -1777,8 +1779,8 @@ class Ion_auth_model extends CI_Model
 		//get the user
 		$this->trigger_events('extra_where');
 		$query = $this->db->select($this->identity_column.', id, username, email, last_login')
-		                  ->where($this->identity_column, get_cookie('identity'))
-		                  ->where('remember_code', get_cookie('remember_code'))
+		                  ->where($this->identity_column, get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
+		                  ->where('remember_code', get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
