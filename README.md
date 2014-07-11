@@ -20,7 +20,6 @@ application/config/ion_auth.php.
 ###CodeIgniter Version 3 Compatibility
 CodeIgniter v3 requires the class names to be ucfirst().  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
 
-	config/ion_auth.php               =>   config/Ion_auth.php
 	models/ion_auth_model.php         =>   models/Ion_auth_model.php
 	models/ion_auth_mongodb_model.php =>   models/Ion_auth_mongodb_model.php
 
