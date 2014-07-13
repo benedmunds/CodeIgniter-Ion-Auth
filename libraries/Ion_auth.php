@@ -480,20 +480,28 @@ class Ion_auth
 			$check_group = array($check_group);
 		}
 
-		if (isset($this->_cache_user_in_group[$id]))
-		{
-			$groups_array = $this->_cache_user_in_group[$id];
+	        if ($this->config->item('use_mongodb', 'ion_auth')) 
+                {
+                        $id = $id->{'$id'};
+                }
+                if (isset($this->_cache_user_in_group[$id]))
+                {
+                    $groups_array = $this->_cache_user_in_group[$id];
 		}
 		else
-		{
-			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
-			$groups_array = array();
-			foreach ($users_groups as $group)
-			{
-				$groups_array[$group->id] = $group->name;
-			}
-			$this->_cache_user_in_group[$id] = $groups_array;
-		}
+                {
+                    $users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+                    $groups_array = array();
+                    foreach ($users_groups as $group) 
+                    {
+                            if ($this->config->item('use_mongodb', 'ion_auth')) {
+                                $groups_array[$group->_id->{'$id'}] = $group->name;
+                            } else {
+                                $groups_array[$group->id] = $group->name;
+                            }
+                    }
+                    $this->_cache_user_in_group[$id] = $groups_array;
+                }
 		foreach ($check_group as $key => $value)
 		{
 			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);

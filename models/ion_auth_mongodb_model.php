@@ -1562,7 +1562,7 @@ class Ion_auth_mongodb_model extends CI_Model {
 		$this->trigger_events('extra_where');
 
 		$updated = $this->mongo_db
-			->where('_id', new MongoId($user->id))
+			->where('_id', new MongoId($user->_id))
 			->set($data)
 			->update($this->collections['users']);
 
