@@ -86,12 +86,16 @@ $config['join']['groups'] = 'group_id';
  |
  | Be careful how high you set max_rounds, I would do your own testing on how long it takes
  | to encrypt with x rounds.
+ |
+ | salt_prefix: Used for bcrypt. Versions of PHP before 5.3.7 only support "$2a$" as the salt prefix
+ | Versions 5.3.7 or greater should use the default of "$2y$".
  */
 $config['hash_method']    = 'bcrypt';	// sha1 or bcrypt, bcrypt is STRONGLY recommended
 $config['default_rounds'] = 8;		// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;
 $config['max_rounds']     = 9;
+$config['salt_prefix']    = '$2y$';
 
 /*
  | -------------------------------------------------------------------------
@@ -120,6 +124,15 @@ $config['maximum_login_attempts']     = 3;                   // The maximum numb
 $config['lockout_time']               = 600;                 // The number of seconds to lockout an account due to exceeded attempts
 $config['forgot_password_expiration'] = 0;                   // The number of milliseconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 
+/*
+ | -------------------------------------------------------------------------
+ | Cookie options.
+ | -------------------------------------------------------------------------
+ | remember_cookie_name Default: remember_code
+ | identity_cookie_name Default: identity
+ */
+$config['remember_cookie_name'] = 'remember_code';
+$config['identity_cookie_name'] = 'identity';
 
 /*
  | -------------------------------------------------------------------------

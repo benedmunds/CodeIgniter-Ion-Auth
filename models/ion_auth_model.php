@@ -236,14 +236,15 @@ class Ion_auth_model extends CI_Model
 			if ($this->random_rounds)
 			{
 				$rand = rand($this->min_rounds,$this->max_rounds);
-				$rounds = array('rounds' => $rand);
+				$params = array('rounds' => $rand);
 			}
 			else
 			{
-				$rounds = array('rounds' => $this->default_rounds);
+				$params = array('rounds' => $this->default_rounds);
 			}
 
-			$this->load->library('bcrypt',$rounds);
+			$params['salt_prefix'] = $this->config->item('salt_prefix', 'ion_auth');
+			$this->load->library('bcrypt',$params);
 		}
 
 		$this->trigger_events('model_constructor');
@@ -455,6 +456,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$query = $this->db->select($this->identity_column)
 			                  ->where('activation_code', $code)
+			                  ->where('id', $id)
 			                  ->limit(1)
 			                  ->get($this->tables['users']);
 
@@ -467,15 +469,13 @@ class Ion_auth_model extends CI_Model
 				return FALSE;
 			}
 
-			$identity = $result->{$this->identity_column};
-
 			$data = array(
 			    'activation_code' => NULL,
 			    'active'          => 1
 			);
 
 			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+			$this->db->update($this->tables['users'], $data, array('id' => $id));
 		}
 		else
 		{
@@ -773,6 +773,17 @@ class Ion_auth_model extends CI_Model
 
 		$key = $this->hash_code($activation_code_part.$identity);
 
+		// If enable query strings is set, then we need to replace any unsafe characters so that the code can still work
+		if ($key != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE)
+		{
+			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
+			// compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
+			if ( ! preg_match("|^[".str_replace(array('\\-', '\-'), '-', preg_quote($this->config->item('permitted_uri_chars'), '-'))."]+$|i", $key))
+			{
+				$key = preg_replace("/[^".$this->config->item('permitted_uri_chars')."]+/i", "-", $key);
+			}
+		}
+
 		$this->forgotten_password_code = $key;
 
 		$this->trigger_events('extra_where');
@@ -950,7 +961,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
-		                  ->where($this->identity_column, $this->db->escape_str($identity))
+		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 
@@ -1507,7 +1518,7 @@ class Ion_auth_model extends CI_Model
 
 		if (isset($id))
 		{
-			$this->db->where($this->tables['groups'].'.id', $id);
+			$this->where($this->tables['groups'].'.id', $id);
 		}
 
 		$this->limit(1);
@@ -1727,13 +1738,13 @@ class Ion_auth_model extends CI_Model
 			}
 
 			set_cookie(array(
-			    'name'   => 'identity',
+			    'name'   => $this->config->item('identity_cookie_name', 'ion_auth'),
 			    'value'  => $user->{$this->identity_column},
 			    'expire' => $expire
 			));
 
 			set_cookie(array(
-			    'name'   => 'remember_code',
+			    'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
 			    'value'  => $salt,
 			    'expire' => $expire
 			));
@@ -1757,7 +1768,9 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_login_remembered_user');
 
 		//check for valid data
-		if (!get_cookie('identity') || !get_cookie('remember_code') || !$this->identity_check(get_cookie('identity')))
+		if (!get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) 
+			|| !get_cookie($this->config->item('remember_cookie_name', 'ion_auth')) 
+			|| !$this->identity_check(get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))))
 		{
 			$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_unsuccessful'));
 			return FALSE;
@@ -1766,8 +1779,8 @@ class Ion_auth_model extends CI_Model
 		//get the user
 		$this->trigger_events('extra_where');
 		$query = $this->db->select($this->identity_column.', id, username, email, last_login')
-		                  ->where($this->identity_column, get_cookie('identity'))
-		                  ->where('remember_code', get_cookie('remember_code'))
+		                  ->where($this->identity_column, get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
+		                  ->where('remember_code', get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		                  ->limit(1)
 		                  ->get($this->tables['users']);
 

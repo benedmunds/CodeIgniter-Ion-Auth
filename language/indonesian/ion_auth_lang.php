@@ -6,9 +6,14 @@
 * 		  toha.samba@gmail.com
 *         @yllumi
 * 
+* Author: Daeng Muhammad Feisal
+*         daengdoang@gmail.com
+*         @daengdoang
+* 
 * Location: https://github.com/yllumi/CodeIgniter-Ion-Auth
 *          
 * Created:  11.15.2011
+* Edited:   June 21st 2014 :D
 * 
 * Description:  Indonesian language file for Ion Auth messages and errors
 * 
@@ -46,7 +51,7 @@ $lang['update_unsuccessful'] 		 	 = 'Tidak Dapat Memperbaharui Informasi Akun';
 $lang['delete_successful'] 		 	 = 'Pengguna Telah Dihapus';
 $lang['delete_unsuccessful'] 		 	 = 'Tidak Dapat Menghapus Pengguna';
 
-// Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
+// Email Subjects
+$lang['email_forgotten_password_subject']    = 'Lupa Verifikasi Password';
 $lang['email_new_password_subject']          = 'New Password';
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activation_subject']            = 'Aktivasi Akun';
