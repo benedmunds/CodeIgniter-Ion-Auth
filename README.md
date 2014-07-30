@@ -21,23 +21,11 @@ application/config/ion_auth.php.
 CodeIgniter v3 requires the class names to be ucfirst().  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
 
 	models/ion_auth_model.php         =>   models/Ion_auth_model.php
-	models/ion_auth_mongodb_model.php =>   models/Ion_auth_mongodb_model.php
 
 ###Relational DB Setup
 Then just run the appropriate SQL file (if you're using migrations you can
 get the migrations from JD here:
 https://github.com/iamfiscus/codeigniter-ion-auth-migration).
-
-###MongoDB Setup
-Integrate the following projects to enable MongoDB support in CodeIgniter:
-
-    CodeIgniter MongoDB Active Record Library - http://github.com/alexbilbie/codeigniter-mongodb-library/tree/v2
-	CodeIgniter MongoDB Session Library - http://github.com/sepehr/ci-mongodb-session
-
-Set $config['use_mongodb'] = TRUE; in the config file and then run the following command:
-
-    $ mongorestore sql/mongo
-
 
 ##Usage
 In the package you will find example usage code in the controllers and views

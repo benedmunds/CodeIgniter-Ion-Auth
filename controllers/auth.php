@@ -9,10 +9,6 @@ class Auth extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->helper('url');
 
-		// Load MongoDB library instead of native db driver if required
-		$this->config->item('use_mongodb', 'ion_auth') ?
-		$this->load->library('mongo_db') :
-
 		$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
@@ -220,7 +216,7 @@ class Auth extends CI_Controller {
 		                $this->session->set_flashdata('message', $this->ion_auth->messages());
                 		redirect("auth/forgot_password", 'refresh');
             		}
-            
+
 			//run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
@@ -358,7 +354,7 @@ class Auth extends CI_Controller {
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
-		$id = $this->config->item('use_mongodb', 'ion_auth') ? (string) $id : (int) $id;
+		$id = (int) $id;
 
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('confirm', $this->lang->line('deactivate_validation_confirm_label'), 'required');
@@ -406,7 +402,7 @@ class Auth extends CI_Controller {
 		}
 
 		$tables = $this->config->item('tables','ion_auth');
-		
+
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required|xss_clean');
