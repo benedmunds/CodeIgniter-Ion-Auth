@@ -8,7 +8,7 @@
 * Translation:  Acipayamli Ozi
 *
 * Author: Hüseyin Kozan
-* 		  huseyinkozan@gmail.com
+* 		  posta@huseyinkozan.com.tr
 *         @huseyinkozan
 *             
 * Location: http://github.com/huseyinkozan/CodeIgniter-Ion-Auth/

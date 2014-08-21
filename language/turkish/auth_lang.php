@@ -3,7 +3,7 @@
 * Name:  Auth Lang - Turkish
 *
 * Author: Hüseyin Kozan
-* 		  huseyinkozan@gmail.com
+* 		  posta@huseyinkozan.com.tr
 *         @huseyinkozan
 *
 * Location: http://github.com/huseyinkozan/CodeIgniter-Ion-Auth/
