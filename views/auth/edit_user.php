@@ -52,7 +52,7 @@
                   }
               ?>
               <input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>"<?php echo $checked;?>>
-              <?php echo $group['name'];?>
+              <?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?>
               </label>
           <?php endforeach?>
 
