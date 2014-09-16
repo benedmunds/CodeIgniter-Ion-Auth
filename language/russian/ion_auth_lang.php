@@ -22,6 +22,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Невозможно создат�
 $lang['account_creation_duplicate_email'] 	 = 'Электронная почта используется или некорректна';
 $lang['account_creation_duplicate_username'] 	 = 'Имя пользователя существует или некорректно';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'Пароль успешно изменен';
 $lang['password_change_unsuccessful'] 	  	 = 'Пароль невозможно изменить';

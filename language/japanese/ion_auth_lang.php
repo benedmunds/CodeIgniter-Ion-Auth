@@ -26,6 +26,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'アカウントを作成するこ�
 $lang['account_creation_duplicate_email'] 	 = 'メールアドレスが登録済みまたは不正です';
 $lang['account_creation_duplicate_username'] = 'ユーザー名が登録済みまたは不正です';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'パスワードを変更しました';
 $lang['password_change_unsuccessful'] 	  	 = 'パスワードを変更することが出来ません';

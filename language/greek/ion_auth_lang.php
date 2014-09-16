@@ -19,6 +19,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Αποτυχία Δημιουργ�
 $lang['account_creation_duplicate_email'] 	 = 'Το Email χρησιμποιείται ήδη ή είναι λάθος';
 $lang['account_creation_duplicate_username'] 	 = 'Ο Χρήστης υπάρχει ήδη ή είναι λάθος';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Επιτυχής Αλλαγή Κωδικού';

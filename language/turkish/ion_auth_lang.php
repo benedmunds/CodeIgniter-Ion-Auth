@@ -26,6 +26,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Üyelik Kaydınız Yapılamadı';
 $lang['account_creation_duplicate_email'] 	 = 'Eposta Adresi Geçersiz ya da Daha Önceden Alınmış';
 $lang['account_creation_duplicate_username']	 = 'Kullanıcı Adı Geçersiz ya da Daha Önceden Alınmış';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Şifreniz Değiştirildi';

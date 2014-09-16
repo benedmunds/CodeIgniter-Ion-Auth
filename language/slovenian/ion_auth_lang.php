@@ -21,6 +21,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Ni mogoče ustvariti računa';
 $lang['account_creation_duplicate_email'] 	 = 'Elektronski naslov je neveljaven ali pa že obstaja';
 $lang['account_creation_duplicate_username'] = 'Uporabniško ime je neveljavno ali pa že obstaja';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Geslo
 $lang['password_change_successful'] 	 	 = 'Geslo je bilo uspešno spremenjeno';
 $lang['password_change_unsuccessful'] 	  	 = 'Ni mogoče spremeniti gesla';

@@ -22,6 +22,10 @@ $lang['account_creation_unsuccessful']			= 'No ha estat possible crear al compte
 $lang['account_creation_duplicate_email']		= 'Email en ús o invàlid';
 $lang['account_creation_duplicate_username']	= 'Nom d&#39;usuari en ús o invàlid';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful']				= 'Contrasenya canviada amb èxit';

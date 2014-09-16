@@ -18,6 +18,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Nie je možné vytvoriť účet';
 $lang['account_creation_duplicate_email'] 	 = 'E-mail už existuje alebo je neplatný';
 $lang['account_creation_duplicate_username'] = 'Užívateľské meno už existuje alebo je neplatné';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'Heslo bolo úspešne zmenené';
 $lang['password_change_unsuccessful'] 	  	 = 'Nie je možné zmeniť heslo';

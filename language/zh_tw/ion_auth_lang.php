@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful']       = '無法建立帳號';
 $lang['account_creation_duplicate_email']    = '電子郵件已被使用或不合法';
 $lang['account_creation_duplicate_username'] = '帳號已存在或不合法';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful']   = '密碼變更成功';
 $lang['password_change_unsuccessful'] = '密碼變更失敗';

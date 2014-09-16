@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful']       = 'Konto loomine ebaõnnestus';
 $lang['account_creation_duplicate_email']    = 'E-posti aadress on juba kasutusel või vigane.';
 $lang['account_creation_duplicate_username'] = 'Kasutajanimi on juba kasutusel või vigane.';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful']          = 'Salasõna on muudetud.';

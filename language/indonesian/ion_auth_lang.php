@@ -25,6 +25,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Tidak Dapat Membuat Akun';
 $lang['account_creation_duplicate_email'] 	 = 'Email Sudah Digunakan atau Tidak Valid';
 $lang['account_creation_duplicate_username'] 	 = 'Username Sudah Digunakan atau Tidak Valid';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Kata Sandi Berhasil Diubah';
