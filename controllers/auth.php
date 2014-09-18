@@ -514,43 +514,47 @@ class Auth extends CI_Controller {
 				show_error($this->lang->line('error_csrf'));
 			}
 
-			$data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name'  => $this->input->post('last_name'),
-				'company'    => $this->input->post('company'),
-				'phone'      => $this->input->post('phone'),
-			);
-
-			// Only allow updating groups if user is admin
-			if ($this->ion_auth->is_admin())
-			{
-				//Update the groups user belongs to
-				$groupData = $this->input->post('groups');
-
-				if (isset($groupData) && !empty($groupData)) {
-
-					$this->ion_auth->remove_from_group('', $id);
-
-					foreach ($groupData as $grp) {
-						$this->ion_auth->add_to_group($grp, $id);
-					}
-
-				}
-			}
-
 			//update the password if it was posted
 			if ($this->input->post('password'))
 			{
 				$this->form_validation->set_rules('password', $this->lang->line('edit_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
-
-				$data['password'] = $this->input->post('password');
 			}
 
 			if ($this->form_validation->run() === TRUE)
 			{
+				$data = array(
+					'first_name' => $this->input->post('first_name'),
+					'last_name'  => $this->input->post('last_name'),
+					'company'    => $this->input->post('company'),
+					'phone'      => $this->input->post('phone'),
+				);
+				
+				//update the password if it was posted
+				if ($this->input->post('password'))
+				{
+					$data['password'] = $this->input->post('password');
+				}
+
 				$this->ion_auth->update($user->id, $data);
 
+				// Only allow updating groups if user is admin
+				if ($this->ion_auth->is_admin())
+				{
+					//Update the groups user belongs to
+					$groupData = $this->input->post('groups');
+
+					if (isset($groupData) && !empty($groupData)) {
+
+						$this->ion_auth->remove_from_group('', $id);
+
+						foreach ($groupData as $grp) {
+							$this->ion_auth->add_to_group($grp, $id);
+						}
+
+					}
+				}
+				
 				//check to see if we are creating the user
 				//redirect them back to the admin page
 				$this->session->set_flashdata('message', "User Saved");
