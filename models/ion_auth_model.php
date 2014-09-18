@@ -890,6 +890,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 		
+		//capture default grouo details
 		$default_group = $query->row();
 
 		// If username is taken, use username1 or username2, etc.
@@ -937,9 +938,9 @@ class Ion_auth_model extends CI_Model
 		$id = $this->db->insert_id();
 		
 		//add in groups array if it doesn't exits and stop adding into default group if default group ids are set
-		if( ( isset($default_group->id) && empty($groups) AND !in_array( $default_group->id, $groups)) ) 
+		if( isset($default_group->id) && empty($groups) ) 
 		{
-			array_push($groups, $default_group->id );
+			$groups[] = $default_group->id;			
 		}
 
 		if (!empty($groups))
@@ -950,13 +951,6 @@ class Ion_auth_model extends CI_Model
 				$this->add_to_group($group, $id);
 			}
 		}
-
-		//add to default group if not already set
-		/*$default_group = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group()->row();
-		if ((isset($default_group->id) && empty($groups)) || (!empty($groups) && !in_array($default_group->id, $groups)))
-		{
-			$this->add_to_group($default_group->id, $id);
-		}*/
 
 		$this->trigger_events('post_register');
 
