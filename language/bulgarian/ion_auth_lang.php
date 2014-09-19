@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Неуспешен опит за �
 $lang['account_creation_duplicate_email'] 	 = 'Email адреса е вече използван или невалиден';
 $lang['account_creation_duplicate_username'] = 'Потребителското име е вече използвано или невалидно';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'Паролата бе сменена успешно';
 $lang['password_change_unsuccessful'] 	  	 = 'Неуспешен опит за смяна на паролата';

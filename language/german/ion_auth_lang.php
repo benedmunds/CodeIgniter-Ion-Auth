@@ -25,6 +25,10 @@ $lang['account_creation_unsuccessful'] 	         = 'Das Benutzerkonto konnte nic
 $lang['account_creation_duplicate_email']        = 'Die E-Mail-Adresse ist ungültig oder wird bereits verwendet';
 $lang['account_creation_duplicate_username'] 	 = 'Der Benutzername ist ungültig oder wird bereits verwendet';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Das Passwort wurde erfolgreich geändert';

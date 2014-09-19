@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful']           = 'Tilin luonti epäonnistui';
 $lang['account_creation_duplicate_email']        = 'Sähköpostiosoite on virheellinen tai se on jo käytössä';
 $lang['account_creation_duplicate_username']     = 'Tunnus on virheellinen tai se on jo käytössä';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful']              = 'Salasana vaihdettu!';
 $lang['password_change_unsuccessful']            = 'Salasanan vaihto epäonnistui';

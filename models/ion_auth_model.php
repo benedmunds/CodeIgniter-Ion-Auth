@@ -876,6 +876,22 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('account_creation_duplicate_username');
 			return FALSE;
 		}
+		elseif ( !$this->config->item('default_group', 'ion_auth') && empty($groups) ) 
+		{
+			$this->set_error('account_creation_missing_default_group');
+			return FALSE;
+		}
+		
+		//check if the default set in config exists in database
+		$query = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group();		
+		if( $query->num_rows() == 0 && empty($groups) ) 
+		{
+			$this->set_error('account_creation_invalid_default_group');
+			return FALSE;
+		}
+		
+		//capture default grouo details
+		$default_group = $query->row();
 
 		// If username is taken, use username1 or username2, etc.
 		if ($this->identity_column != 'username')
@@ -920,6 +936,12 @@ class Ion_auth_model extends CI_Model
 		$this->db->insert($this->tables['users'], $user_data);
 
 		$id = $this->db->insert_id();
+		
+		//add in groups array if it doesn't exits and stop adding into default group if default group ids are set
+		if( isset($default_group->id) && empty($groups) ) 
+		{
+			$groups[] = $default_group->id;			
+		}
 
 		if (!empty($groups))
 		{
@@ -928,13 +950,6 @@ class Ion_auth_model extends CI_Model
 			{
 				$this->add_to_group($group, $id);
 			}
-		}
-
-		//add to default group if not already set
-		$default_group = $this->where('name', $this->config->item('default_group', 'ion_auth'))->group()->row();
-		if ((isset($default_group->id) && empty($groups)) || (!empty($groups) && !in_array($default_group->id, $groups)))
-		{
-			$this->add_to_group($default_group->id, $id);
 		}
 
 		$this->trigger_events('post_register');

@@ -14,6 +14,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Avast, Unable to Commandeer Ship';
 $lang['account_creation_duplicate_email'] 	 = 'Letter in the Bottle Already Used or Invalid';
 $lang['account_creation_duplicate_username'] = 'Pirate Name Already Used or Invalid';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Secret Code Successfully Changed';

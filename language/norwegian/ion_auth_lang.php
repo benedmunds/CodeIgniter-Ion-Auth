@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Klarte ikke å opprette konto';
 $lang['account_creation_duplicate_email'] 	 = 'E-mail adressen er allerede i bruk eller ugyldig';
 $lang['account_creation_duplicate_username'] 	 = 'Brukernavnet er allerede i bruk eller ugyldig';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Passordet har blitt endret';

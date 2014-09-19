@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Impossibile creare l\'account.';
 $lang['account_creation_duplicate_email'] 	 = 'Email gi&agrave; in uso o non valida.';
 $lang['account_creation_duplicate_username'] 	 = 'Nome utente gi&agrave; in uso o non valido.';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Password modificata con successo.';

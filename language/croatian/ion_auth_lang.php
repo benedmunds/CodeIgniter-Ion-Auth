@@ -23,6 +23,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Račun nije kreiran';
 $lang['account_creation_duplicate_email'] 	 = 'Email je već iskorišten ili krivi';
 $lang['account_creation_duplicate_username'] = 'Korisničko ime je već iskorišteno ili krivo';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'Lozinka uspješno promjenjena';
 $lang['password_change_unsuccessful'] 	  	 = 'Lozinka nije promjenjena';
