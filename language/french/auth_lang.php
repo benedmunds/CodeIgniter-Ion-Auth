@@ -9,6 +9,8 @@
 * Author: Benoit LIETAER
 *         @gmail.com
 *
+* Adjustments by ggallon
+*
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  14.02.2014
@@ -34,9 +36,9 @@ $lang['index_heading']           = 'Utilisateurs';
 $lang['index_subheading']        = 'Ci-dessous se trouve la liste des utilisateurs.';
 $lang['index_fname_th']          = 'Prénom';
 $lang['index_lname_th']          = 'Nom';
-$lang['index_email_th']          = 'E-mail';
+$lang['index_email_th']          = 'Email';
 $lang['index_groups_th']         = 'Groupes';
-$lang['index_status_th']         = 'Status';
+$lang['index_status_th']         = 'Statut';
 $lang['index_action_th']         = 'Action';
 $lang['index_active_link']       = 'Activer';
 $lang['index_inactive_link']     = 'Désactiver';
@@ -58,14 +60,14 @@ $lang['create_user_subheading']                        = 'Veuillez entrer les in
 $lang['create_user_fname_label']                       = 'Prénom :';
 $lang['create_user_lname_label']                       = 'Nom :';
 $lang['create_user_company_label']                     = 'Société :';
-$lang['create_user_email_label']                       = 'E-mail :';
+$lang['create_user_email_label']                       = 'Email :';
 $lang['create_user_phone_label']                       = 'Téléphone :';
 $lang['create_user_password_label']                    = 'Mot de passe :';
 $lang['create_user_password_confirm_label']            = 'Confirmer le mot de passe :';
 $lang['create_user_submit_btn']                        = 'Créer l\'utilisateur';
 $lang['create_user_validation_fname_label']            = 'Prénom';
 $lang['create_user_validation_lname_label']            = 'Nom';
-$lang['create_user_validation_email_label']            = 'Adresse E-mail';
+$lang['create_user_validation_email_label']            = 'Adresse Email';
 $lang['create_user_validation_phone1_label']           = 'Première partie du numéro de téléphone';
 $lang['create_user_validation_phone2_label']           = 'Seconde partie du numéro de téléphone';
 $lang['create_user_validation_phone3_label']           = 'Troisième partie du numéro de téléphone';
@@ -132,9 +134,9 @@ $lang['forgot_password_heading']                 = 'Mot de passe oublié';
 $lang['forgot_password_subheading']              = 'Veuillez entrer votre %s pour que nous puissions vous envoyer votre nouveau mot de passe.';
 $lang['forgot_password_email_label']             = '%s :';
 $lang['forgot_password_submit_btn']              = 'Envoyer';
-$lang['forgot_password_validation_email_label']  = 'Adresse E-mail';
+$lang['forgot_password_validation_email_label']  = 'Adresse Email';
 $lang['forgot_password_username_identity_label'] = 'Nom d\'utilisateur';
-$lang['forgot_password_email_identity_label']    = 'E-mail';
+$lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Cette adresse email n\'est pas enregistrée chez nous.';
 
 // Reset Password

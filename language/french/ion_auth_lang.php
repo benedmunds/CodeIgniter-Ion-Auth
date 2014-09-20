@@ -7,6 +7,8 @@
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
+* Adjustments by ggallon
+*
 * Created: 03.23.2010
 *
 * Description: French language file for Ion Auth messages and errors
@@ -20,8 +22,8 @@ $lang['account_creation_duplicate_email'] = 'Email déjà utilisé ou invalide';
 $lang['account_creation_duplicate_username'] = 'Nom d\'utilisateur déjà utilisé ou invalide';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Le groupe par défaut n\'est pas configuré';
+$lang['account_creation_invalid_default_group'] = 'Le nom du groupe par défaut n\'est pas valide';
  
  
 // Password
@@ -40,12 +42,12 @@ $lang['activation_email_unsuccessful'] = 'Impossible d\'envoyer le mail d\'activ
  
 // Login / Logout
 $lang['login_successful'] = 'Connecté avec succès';
-$lang['login_unsuccessful'] = 'Erreur lors de la connexion';
+$lang['login_unsuccessful'] = 'Érreur lors de la connexion';
 $lang['login_unsuccessful_not_active'] = 'Ce compte est inactif';
 $lang['logout_successful'] = 'Déconnexion effectuée avec succès';
   
 // Account Changes
-$lang['update_successful'] = 'Compte utilisateur mis à jour avec succès';
+$lang['update_successful'] = 'Compte utilisateur mise à jour avec succès';
 $lang['update_unsuccessful'] = 'Impossible de mettre à jour le compte utilisateur';
 $lang['delete_successful'] = 'Utilisateur supprimé';
 $lang['delete_unsuccessful'] = 'Impossible de supprimer l\'utilisateur';
@@ -53,4 +55,4 @@ $lang['delete_unsuccessful'] = 'Impossible de supprimer l\'utilisateur';
 // Email Subjects
 $lang['email_forgotten_password_subject']    = 'Mot de Passe Oublié - Vérification';
 $lang['email_new_password_subject']          = 'Nouveau Mot de Passe';
-$lang['email_activation_subject']            = 'Activation du Compte';
+$lang['email_activation_subject']            = 'Activation du compte';
