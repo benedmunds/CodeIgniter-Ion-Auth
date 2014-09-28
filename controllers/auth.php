@@ -222,7 +222,16 @@ class Auth extends CI_Controller {
 				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
 			}
 	            	if(empty($identity)) {
-		        	$this->ion_auth->set_message('forgot_password_email_not_found');
+	            		
+	            		if($this->config->item('identity', 'ion_auth') == 'username')
+		            	{
+                                   $this->ion_auth->set_message('forgot_password_username_not_found');
+		            	}
+		            	else
+		            	{
+		            	   $this->ion_auth->set_message('forgot_password_email_not_found');
+		            	}
+
 		                $this->session->set_flashdata('message', $this->ion_auth->messages());
                 		redirect("auth/forgot_password", 'refresh');
             		}
