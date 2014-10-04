@@ -23,8 +23,8 @@ $lang['account_creation_duplicate_email'] 	 = 'Электронная почта
 $lang['account_creation_duplicate_username'] 	 = 'Имя пользователя существует или некорректно';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Группа по умолчанию не установлена';
+$lang['account_creation_invalid_default_group'] = 'Группа по умолчанию задана некорректно';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Пароль успешно изменен';
