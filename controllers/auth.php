@@ -556,7 +556,7 @@ class Auth extends CI_Controller {
 					$data['password'] = $this->input->post('password');
 				}
 
-				$this->ion_auth->update($user->id, $data);
+				
 
 				// Only allow updating groups if user is admin
 				if ($this->ion_auth->is_admin())
@@ -575,17 +575,36 @@ class Auth extends CI_Controller {
 					}
 				}
 				
-				//check to see if we are creating the user
-				//redirect them back to the admin page
-				$this->session->set_flashdata('message', "User Saved");
-				if ($this->ion_auth->is_admin())
-				{
-					redirect('auth', 'refresh');
-				}
-				else
-				{
-					redirect('/', 'refresh');
-				}
+			//check to see if we are updating the user
+			   if($this->ion_auth->update($user->id, $data))
+			    {
+			    	//redirect them back to the admin page if admin, or to the base url if non admin
+				    $this->session->set_flashdata('message', $this->ion_auth->messages() );
+				    if ($this->ion_auth->is_admin())
+					{
+						redirect('auth', 'refresh');
+					}
+					else
+					{
+						redirect('/', 'refresh');
+					}
+
+			    }
+			    else
+			    {
+			    	//redirect them back to the admin page if admin, or to the base url if non admin
+				    $this->session->set_flashdata('message', $this->ion_auth->errors() );
+				    if ($this->ion_auth->is_admin())
+					{
+						redirect('auth', 'refresh');
+					}
+					else
+					{
+						redirect('/', 'refresh');
+					}
+
+			    }		
+				
 			}
 		}
 
