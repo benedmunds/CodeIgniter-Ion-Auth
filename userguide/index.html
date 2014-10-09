@@ -930,19 +930,22 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
+		<li>'Group_id' - integer or array REQUIRED.
 		<li>'User_id' - integer REQUIRED.</li>
-		<li>'Group_id' - integer REQUIRED.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the user was added to group FALSE if the user is not added to group.</li>
+		<li>boolean.  TRUE if the user was added to group(s) FALSE if the user is not added to group(s).</li>
 	</ul>
 
 	<p><b>Usage</b></p>
 	<pre>
-        // pass a group ID and user ID
-        $this->ion_auth->add_to_group($group_id, $user_id);
+        // pass an array of group ID's and user ID
+        $this->ion_auth->add_to_group(array('1', '3', '6'), $user_id);
+
+        // pass a single ID and user ID
+        $this->ion_auth->add_to_group(1, $user_id);
 	</pre>
 	<br />
 
@@ -952,6 +955,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
+		<li>'Group_id' - NULL, integer or array REQUIRED.  NULL will remove the user from all groups.</li>
 		<li>'User_id' - integer REQUIRED.</li>
 	</ol>
 
