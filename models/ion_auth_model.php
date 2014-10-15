@@ -1251,7 +1251,6 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events(array('num_rows'));
 
 		$result = $this->response->num_rows();
-		$this->response->free_result();
 
 		return $result;
 	}
