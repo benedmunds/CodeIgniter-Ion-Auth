@@ -5,7 +5,7 @@
 * Author:     Stan
 * 		      tfspir@gmail.com
 *
-* Updated by: Gwenaël Galon
+* Updated by: Gwenaël Gallon
 * 			  github@dev-ggallon
 *
 * Location: http://github.com/benedmunds/ion_auth/
