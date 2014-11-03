@@ -1422,12 +1422,6 @@ class Ion_auth_model extends CI_Model
 			$group_ids = array($group_ids);
 		}
 
-		// First check if all ids exist - num_rows() > 0 means row found
-		foreach($group_ids as $group_id)
-		{
-			if ($this->db->where(array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id))->get($this->tables['users_groups'])->num_rows()) return false;
-		}
-
 		$return = 0;
 
 		// Then insert each into the database
