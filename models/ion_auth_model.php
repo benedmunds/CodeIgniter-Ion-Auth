@@ -706,6 +706,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		return $this->db->where('username', $username)
+				->order_by("id", "ASC")
 				->limit(1)
 		                ->count_all_results($this->tables['users']) > 0;
 	}
@@ -728,6 +729,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		return $this->db->where('email', $email)
+				->order_by("id", "ASC")
 				->limit(1)
 		                ->count_all_results($this->tables['users']) > 0;
 	}
