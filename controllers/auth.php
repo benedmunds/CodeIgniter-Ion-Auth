@@ -293,7 +293,7 @@ class Auth extends CI_Controller {
 					'type'  => 'hidden',
 					'value' => $user->id,
 				);
-				$this->data['csrf'] = $this->_get_csrf_nonce();
+
 				$this->data['code'] = $code;
 
 				//render
@@ -301,34 +301,21 @@ class Auth extends CI_Controller {
 			}
 			else
 			{
-				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
+				// finally change the password
+				$identity = $user->{$this->config->item('identity', 'ion_auth')};
+
+				$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
+
+				if ($change)
 				{
-
-					//something fishy might be up
-					$this->ion_auth->clear_forgotten_password_code($code);
-
-					show_error($this->lang->line('error_csrf'));
-
+					//if the password was successfully changed
+					$this->session->set_flashdata('message', $this->ion_auth->messages());
+					$this->logout();
 				}
 				else
 				{
-					// finally change the password
-					$identity = $user->{$this->config->item('identity', 'ion_auth')};
-
-					$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
-
-					if ($change)
-					{
-						//if the password was successfully changed
-						$this->session->set_flashdata('message', $this->ion_auth->messages());
-						$this->logout();
-					}
-					else
-					{
-						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('auth/reset_password/' . $code, 'refresh');
-					}
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+					redirect('auth/reset_password/' . $code, 'refresh');
 				}
 			}
 		}
