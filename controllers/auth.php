@@ -370,6 +370,12 @@ class Auth extends CI_Controller {
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		{
+			//redirect them to the home page because they must be an administrator to view this
+			return show_error('You must be an administrator to view this page.');
+		}
+		
 		$id = (int) $id;
 
 		$this->load->library('form_validation');
