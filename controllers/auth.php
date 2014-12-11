@@ -177,18 +177,18 @@ class Auth extends CI_Controller {
 
 	//forgot password
 	function forgot_password()
-	{  
+	{
 		//setting validation rules by checking wheather identity is username or email
 		if($this->config->item('identity', 'ion_auth') == 'username' )
 		{
-		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_username_identity_label'), 'required');	
+		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_username_identity_label'), 'required');
 		}
 		else
 		{
-		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');	
+		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
 		}
-		
-		
+
+
 		if ($this->form_validation->run() == false)
 		{
 			//setup the input
@@ -219,7 +219,7 @@ class Auth extends CI_Controller {
 				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
 			}
 	            	if(empty($identity)) {
-	            		
+
 	            		if($this->config->item('identity', 'ion_auth') == 'username')
 		            	{
                                    $this->ion_auth->set_message('forgot_password_username_not_found');
@@ -375,7 +375,7 @@ class Auth extends CI_Controller {
 			//redirect them to the home page because they must be an administrator to view this
 			return show_error('You must be an administrator to view this page.');
 		}
-		
+
 		$id = (int) $id;
 
 		$this->load->library('form_validation');
@@ -426,11 +426,11 @@ class Auth extends CI_Controller {
 		$tables = $this->config->item('tables','ion_auth');
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
+		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
-		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required|xss_clean');
+		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'required');
+		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'required');
 		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', $this->lang->line('create_user_validation_password_confirm_label'), 'required');
 
@@ -522,11 +522,10 @@ class Auth extends CI_Controller {
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 
 		//validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
+		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
+		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
+		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -551,14 +550,14 @@ class Auth extends CI_Controller {
 					'company'    => $this->input->post('company'),
 					'phone'      => $this->input->post('phone'),
 				);
-				
+
 				//update the password if it was posted
 				if ($this->input->post('password'))
 				{
 					$data['password'] = $this->input->post('password');
 				}
 
-				
+
 
 				// Only allow updating groups if user is admin
 				if ($this->ion_auth->is_admin())
@@ -576,7 +575,7 @@ class Auth extends CI_Controller {
 
 					}
 				}
-				
+
 			//check to see if we are updating the user
 			   if($this->ion_auth->update($user->id, $data))
 			    {
@@ -605,8 +604,8 @@ class Auth extends CI_Controller {
 						redirect('/', 'refresh');
 					}
 
-			    }		
-				
+			    }
+
 			}
 		}
 
@@ -670,8 +669,7 @@ class Auth extends CI_Controller {
 		}
 
 		//validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash|xss_clean');
-		$this->form_validation->set_rules('description', $this->lang->line('create_group_validation_desc_label'), 'xss_clean');
+		$this->form_validation->set_rules('group_name', $this->lang->line('create_group_validation_name_label'), 'required|alpha_dash');
 
 		if ($this->form_validation->run() == TRUE)
 		{
@@ -726,8 +724,7 @@ class Auth extends CI_Controller {
 		$group = $this->ion_auth->group($id)->row();
 
 		//validate form input
-		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash|xss_clean');
-		$this->form_validation->set_rules('group_description', $this->lang->line('edit_group_validation_desc_label'), 'xss_clean');
+		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash');
 
 		if (isset($_POST) && !empty($_POST))
 		{
