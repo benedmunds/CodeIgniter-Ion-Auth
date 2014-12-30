@@ -22,8 +22,8 @@ $lang['account_creation_duplicate_email'] 	 = 'E-mail is al in gebruik of ongeld
 $lang['account_creation_duplicate_username'] 	 = 'Gebruikersnaam is al in gebruik of ongeldig';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Standaard groep is niet ingesteld';
+$lang['account_creation_invalid_default_group'] = 'Standaard groepsnaam is ongeldig';
 
 
 // Password

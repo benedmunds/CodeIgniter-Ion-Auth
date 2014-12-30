@@ -1220,7 +1220,6 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('row');
 
 		$row = $this->response->row();
-		$this->response->free_result();
 
 		return $row;
 	}
@@ -1230,7 +1229,6 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events(array('row', 'row_array'));
 
 		$row = $this->response->row_array();
-		$this->response->free_result();
 
 		return $row;
 	}
@@ -1240,7 +1238,6 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('result');
 
 		$result = $this->response->result();
-		$this->response->free_result();
 
 		return $result;
 	}
@@ -1250,7 +1247,6 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events(array('result', 'result_array'));
 
 		$result = $this->response->result_array();
-		$this->response->free_result();
 
 		return $result;
 	}

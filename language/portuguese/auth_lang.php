@@ -36,10 +36,10 @@ $lang['index_email_th']          = 'Email';
 $lang['index_groups_th']         = 'Grupos';
 $lang['index_status_th']         = 'Estado';
 $lang['index_action_th']         = 'Ação';
-$lang['index_active_link']       = 'Activo';
+$lang['index_active_link']       = 'Ativo';
 $lang['index_inactive_link']     = 'Inativo';
-$lang['index_create_user_link']  = 'Criar Novo usuário';
-$lang['index_create_group_link'] = 'Criar Novo grupo';
+$lang['index_create_user_link']  = 'Criar novo usuário';
+$lang['index_create_group_link'] = 'Criar novo grupo';
 
 // Deactivate User
 $lang['deactivate_heading']                  = 'Desativar Usuário';
@@ -64,16 +64,16 @@ $lang['create_user_submit_btn']                        = 'Criar Usuário';
 $lang['create_user_validation_fname_label']            = 'Nome';
 $lang['create_user_validation_lname_label']            = 'Sobrenome';
 $lang['create_user_validation_email_label']            = 'Email';
-$lang['create_user_validation_phone1_label']           = 'Primeira parte do fone';
-$lang['create_user_validation_phone2_label']           = 'Segunda parte do fone';
-$lang['create_user_validation_phone3_label']           = 'Terceira parte do fone';
+$lang['create_user_validation_phone1_label']           = 'Primeira parte do telefone';
+$lang['create_user_validation_phone2_label']           = 'Segunda parte do telefone';
+$lang['create_user_validation_phone3_label']           = 'Terceira parte do telefone';
 $lang['create_user_validation_company_label']          = 'Empresa';
 $lang['create_user_validation_password_label']         = 'Senha';
 $lang['create_user_validation_password_confirm_label'] = 'Confirmação de Senha';
 
 // Edit User
-$lang['edit_user_heading']                           = 'Editar Usuario';
-$lang['edit_user_subheading']                        = 'Por favor informe os dados sobre o usuario abaixo.';
+$lang['edit_user_heading']                           = 'Editar Usuário';
+$lang['edit_user_subheading']                        = 'Por favor informe os dados sobre o usuário abaixo.';
 $lang['edit_user_fname_label']                       = 'Nome:';
 $lang['edit_user_lname_label']                       = 'Sobrenome:';
 $lang['edit_user_company_label']                     = 'Empresa:';
@@ -118,7 +118,7 @@ $lang['edit_group_validation_desc_label']  = 'Descrição';
 // Change Password
 $lang['change_password_heading']                               = 'Mudar Senha';
 $lang['change_password_old_password_label']                    = 'Senha Antiga:';
-$lang['change_password_new_password_label']                    = 'Nova senha( minimo de %s caracteres):';
+$lang['change_password_new_password_label']                    = 'Nova senha: (mínimo de %s caracteres)';
 $lang['change_password_new_password_confirm_label']            = 'Confirme sua Nova Senha:';
 $lang['change_password_submit_btn']                            = 'Mudar';
 $lang['change_password_validation_old_password_label']         = 'Senha Antiga';
@@ -127,17 +127,17 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Confirme sua N
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Esqueceu a Senha';
-$lang['forgot_password_subheading']              = 'Por favor informe seu %s para que possamos enviar para você um email para recuparar sua senha.';
+$lang['forgot_password_subheading']              = 'Por favor, informe seu %s para que possamos enviar para você uma mensagem para recuparar sua senha.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Enviar';
 $lang['forgot_password_validation_email_label']  = 'Email';
 $lang['forgot_password_username_identity_label'] = 'Login';
 $lang['forgot_password_email_identity_label']    = 'Email';
-$lang['forgot_password_email_not_found']         = 'Sem registro para esse endereço de email.';
+$lang['forgot_password_email_not_found']         = 'Este email não foi encontrado.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Mudar Senha';
-$lang['reset_password_new_password_label']                    = 'Nova senha( minimo de %s caracteres):';
+$lang['reset_password_new_password_label']                    = 'Nova senha: (mínimo de %s caracteres)';
 $lang['reset_password_new_password_confirm_label']            = 'Confirme sua Nova Senha:';
 $lang['reset_password_submit_btn']                            = 'Mudar';
 $lang['reset_password_validation_new_password_label']         = 'Senha Antiga';
@@ -145,14 +145,14 @@ $lang['reset_password_validation_new_password_confirm_label'] = 'Confirme sua No
 
 // Activation Email
 $lang['email_activate_heading']    = 'Ative sua conta para %s';
-$lang['email_activate_subheading'] = 'Por favor click nesse link para %s.';
+$lang['email_activate_subheading'] = 'Por favor, clique nesse link para %s.';
 $lang['email_activate_link']       = 'Ative sua conta';
 
 // Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Redefina sua Senha para %s';
-$lang['email_forgot_password_subheading'] = 'Por favor clique nesse link para %s.';
-$lang['email_forgot_password_link']       = 'Redefina sua Senha';
+$lang['email_forgot_password_heading']    = 'Redefina sua senha para %s';
+$lang['email_forgot_password_subheading'] = 'Por favor, clique nesse link para %s.';
+$lang['email_forgot_password_link']       = 'Redefina sua senha';
 
 // New Password Email
-$lang['email_new_password_heading']    = 'Nova Senha para %s';
+$lang['email_new_password_heading']    = 'Nova senha para %s';
 $lang['email_new_password_subheading'] = 'Sua senha foi redefinida para: %s';
