@@ -24,28 +24,28 @@
 class Ion_auth
 {
 	/**
-	 * account status ('not_activated', etc ...)
+	 * Account status ('not_activated', etc ...)
 	 *
 	 * @var string
 	 **/
 	protected $status;
 
 	/**
-	 * extra where
+	 * Extra where
 	 *
 	 * @var array
 	 **/
 	public $_extra_where = array();
 
 	/**
-	 * extra set
+	 * Extra set
 	 *
 	 * @var array
 	 **/
 	public $_extra_set = array();
 
 	/**
-	 * caching of users and their groups
+	 * Caching of users and their groups
 	 *
 	 * @var array
 	 **/
@@ -80,7 +80,7 @@ class Ion_auth
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
-		//auto-login the user if they are remembered
+		// Auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$this->ion_auth_model->login_remembered_user();
@@ -130,7 +130,7 @@ class Ion_auth
 
 
 	/**
-	 * forgotten password feature
+	 * Forgotten password feature
 	 *
 	 * @return mixed  boolian / array
 	 * @author Mathew
@@ -189,7 +189,7 @@ class Ion_auth
 	}
 
 	/**
-	 * forgotten_password_complete
+	 * Forgotten_password_complete
 	 *
 	 * @return void
 	 * @author Mathew
@@ -253,7 +253,7 @@ class Ion_auth
 	}
 
 	/**
-	 * forgotten_password_check
+	 * Forgotten_password_check
 	 *
 	 * @return void
 	 * @author Michael
@@ -270,7 +270,7 @@ class Ion_auth
 		else
 		{
 			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
-				//Make sure it isn't expired
+				// Make sure it isn't expired
 				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
 				if (time() - $profile->forgotten_password_time > $expiration) {
 					//it has expired
@@ -284,7 +284,7 @@ class Ion_auth
 	}
 
 	/**
-	 * register
+	 * Register
 	 *
 	 * @return void
 	 * @author Mathew
@@ -362,7 +362,7 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
-			
+
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
@@ -372,7 +372,7 @@ class Ion_auth
 	}
 
 	/**
-	 * logout
+	 * Logout
 	 *
 	 * @return void
 	 * @author Mathew
@@ -384,7 +384,7 @@ class Ion_auth
 		$identity = $this->config->item('identity', 'ion_auth');
                 $this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
 
-		//delete the remember me cookies if they exist
+		// Delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
 		{
 			delete_cookie($this->config->item('identity_cookie_name', 'ion_auth'));
@@ -394,10 +394,10 @@ class Ion_auth
 			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 		}
 
-		//Destroy the session
+		// Destroy the session
 		$this->session->sess_destroy();
 
-		//Recreate the session
+		// Recreate the session
 		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->session->sess_create();
@@ -412,7 +412,7 @@ class Ion_auth
 	}
 
 	/**
-	 * logged_in
+	 * Logged_in
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -425,7 +425,7 @@ class Ion_auth
 	}
 
 	/**
-	 * logged_in
+	 * Logged_in
 	 *
 	 * @return integer
 	 * @author jrmadsen67
