@@ -36,21 +36,21 @@ class Ion_auth_model extends CI_Model
 	public $tables = array();
 
 	/**
-	 * activation code
+	 * Activation code
 	 *
 	 * @var string
 	 **/
 	public $activation_code;
 
 	/**
-	 * forgotten password key
+	 * Forgotten password key
 	 *
 	 * @var string
 	 **/
 	public $forgotten_password_code;
 
 	/**
-	 * new password
+	 * New password
 	 *
 	 * @var string
 	 **/
@@ -127,42 +127,42 @@ class Ion_auth_model extends CI_Model
 	protected $response = NULL;
 
 	/**
-	 * message (uses lang file)
+	 * Message (uses lang file)
 	 *
 	 * @var string
 	 **/
 	protected $messages;
 
 	/**
-	 * error message (uses lang file)
+	 * Error message (uses lang file)
 	 *
 	 * @var string
 	 **/
 	protected $errors;
 
 	/**
-	 * error start delimiter
+	 * Error start delimiter
 	 *
 	 * @var string
 	 **/
 	protected $error_start_delimiter;
 
 	/**
-	 * error end delimiter
+	 * Error end delimiter
 	 *
 	 * @var string
 	 **/
 	protected $error_end_delimiter;
 
 	/**
-	 * caching of users and their groups
+	 * Caching of users and their groups
 	 *
 	 * @var array
 	 **/
 	public $_cache_user_in_group = array();
 
 	/**
-	 * caching of groups
+	 * Caching of groups
 	 *
 	 * @var array
 	 **/
