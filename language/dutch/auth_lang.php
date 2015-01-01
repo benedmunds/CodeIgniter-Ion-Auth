@@ -13,7 +13,7 @@
 *
 * Created:  03.09.2013
 *
-* Description:  English language file for Ion Auth example views
+* Description:  Dutch language file for Ion Auth example views
 *
 */
 
