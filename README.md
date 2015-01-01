@@ -10,7 +10,7 @@ This version drops any backwards compatibility and makes things even more
 awesome then you could expect.
 
 ##Documentation
-Documentation is located at http://benedmunds.com/ion_auth/
+Documentation is located over [here](http://benedmunds.com/ion_auth/).
 
 ##Installation
 Just copy the files from this package to the corresponding folder in your
@@ -24,8 +24,7 @@ CodeIgniter v3 requires the class names to be ucfirst().  In order to support th
 
 ###Relational DB Setup
 Then just run the appropriate SQL file (if you're using migrations you can
-get the migrations from JD here:
-https://github.com/iamfiscus/codeigniter-ion-auth-migration).
+get the migrations from JD [here](https://github.com/iamfiscus/codeigniter-ion-auth-migration).
 
 ##Usage
 In the package you will find example usage code in the controllers and views
