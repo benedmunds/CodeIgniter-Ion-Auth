@@ -898,7 +898,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		//capture default grouo details
+		//capture default group details
 		$default_group = $query->row();
 
 		// If username is taken, use username1 or username2, etc.
