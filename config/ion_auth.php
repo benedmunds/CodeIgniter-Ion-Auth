@@ -70,7 +70,7 @@ $config['default_rounds'] = 8;		// This does not apply if random_rounds is set t
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;
 $config['max_rounds']     = 9;
-$config['salt_prefix']    = '$2y$';
+$config['salt_prefix']    = version_compare(PHP_VERSION, '5.3.7', '<') ? '$2a$' : '$2y$';
 
 /*
  | -------------------------------------------------------------------------
