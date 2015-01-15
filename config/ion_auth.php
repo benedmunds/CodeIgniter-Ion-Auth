@@ -56,8 +56,9 @@ $config['join']['groups'] = 'group_id';
  | but remember the more rounds you set the longer it will take to hash (CPU usage) So adjust
  | this based on your server hardware.
  |
- | If you are using Bcrypt the Admin password field also needs to be changed in order login as admin:
- | $2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36
+ | If you are using Bcrypt the Admin password field also needs to be changed in order to login as admin:
+ | $2y$: $2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
+ | $2a$: $2a$08$6TTcWD1CJ8pzDy.2U3mdi.tpl.nYOR1pwYXwblZdyQd9SL16B7Cqa
  |
  | Be careful how high you set max_rounds, I would do your own testing on how long it takes
  | to encrypt with x rounds.
@@ -70,7 +71,7 @@ $config['default_rounds'] = 8;		// This does not apply if random_rounds is set t
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 5;
 $config['max_rounds']     = 9;
-$config['salt_prefix']    = '$2y$';
+$config['salt_prefix']    = version_compare(PHP_VERSION, '5.3.7', '<') ? '$2a$' : '$2y$';
 
 /*
  | -------------------------------------------------------------------------
