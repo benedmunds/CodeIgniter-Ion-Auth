@@ -840,6 +840,68 @@ class Auth extends CI_Controller {
 		}
 	}
 
+	//edit a permission
+	function edit_permission($id)
+	{
+		// bail if no group id given
+		if(!$id || empty($id))
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$this->data['title'] = $this->lang->line('edit_permission_title');
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('edit_group_permissions'))
+		{
+			show_error("You don't have permission to edit group permissions");
+		}
+
+		$permission = $this->ion_auth->permission($id)->row();
+
+		//validate form input
+		$this->form_validation->set_rules('permission_name', $this->lang->line('edit_permission_validation_name_label'), 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('permission_description', $this->lang->line('edit_permission_validation_desc_label'), 'xss_clean');
+
+		if (isset($_POST) && !empty($_POST))
+		{
+			if ($this->form_validation->run() === TRUE)
+			{
+				$permission_update = $this->ion_auth->update_permission($id, $_POST['permission_name'], array('description' => $_POST['permission_description']));
+
+				if($permission_update)
+				{
+					$this->session->set_flashdata('message', $this->lang->line('edit_permission_saved'));
+				}
+				else
+				{
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+				}
+				redirect("auth", 'refresh');
+			}
+		}
+
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+		//pass the user to the view
+		$this->data['permission'] = $permission;
+
+		$this->data['permission_name'] = array(
+			'name'  => 'permission_name',
+			'id'    => 'permission_name',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('permission_name', $permission->name),
+		);
+		$this->data['permission_description'] = array(
+			'name'  => 'permission_description',
+			'id'    => 'permission_description',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('permission_description', $permission->description),
+		);
+
+		$this->_render_page('auth/edit_permission', $this->data);
+	}
+
 	function _get_csrf_nonce()
 	{
 		$this->load->helper('string');
