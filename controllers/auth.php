@@ -792,6 +792,53 @@ class Auth extends CI_Controller {
 		$this->_render_page('auth/edit_group', $this->data);
 	}
 
+	// create a new permission
+	function create_permission()
+	{
+		$this->data['title'] = $this->lang->line('create_permission_title');
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_group_permissions'))
+		{
+			show_error("You don't have permission to create a permissions");
+		}
+
+		//validate form input
+		$this->form_validation->set_rules('permission_name', $this->lang->line('create_permission_validation_name_label'), 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('description', $this->lang->line('create_permission_validation_desc_label'), 'xss_clean');
+
+		if ($this->form_validation->run() == TRUE)
+		{
+			$new_permission_id = $this->ion_auth->create_permission($this->input->post('permission_name'), $this->input->post('description'));
+			if($new_permission_id)
+			{
+				// check to see if we are creating the permission
+				// redirect them back to the admin page
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth", 'refresh');
+			}
+		}
+		else
+		{
+			//display the create permission form
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			$this->data['permission_name'] = array(
+				'name'  => 'permission_name',
+				'id'    => 'permission_name',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('permission_name'),
+			);
+			$this->data['description'] = array(
+				'name'  => 'description',
+				'id'    => 'description',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('description'),
+			);
+
+			$this->_render_page('auth/create_permission', $this->data);
+		}
+	}
 
 	function _get_csrf_nonce()
 	{
