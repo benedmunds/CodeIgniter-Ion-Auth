@@ -22,7 +22,6 @@ $lang['account_creation_duplicate_username'] = 'Username Already Used or Invalid
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
 $lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
 
-
 // Password
 $lang['password_change_successful'] 	 	 = 'Password Successfully Changed';
 $lang['password_change_unsuccessful'] 	  	 = 'Unable to Change Password';
@@ -49,6 +48,14 @@ $lang['update_successful'] 		 	         = 'Account Information Successfully Upda
 $lang['update_unsuccessful'] 		 	     = 'Unable to Update Account Information';
 $lang['delete_successful']               = 'User Deleted';
 $lang['delete_unsuccessful']           = 'Unable to Delete User';
+
+// Permissions
+$lang['permission_creation_successful']  = 'Permission created Successfully';
+$lang['permission_already_exists']       = 'Permission name already taken';
+$lang['permission_update_successful']    = 'Permission details updated';
+$lang['permission_delete_successful']    = 'Permission deleted';
+$lang['permission_delete_unsuccessful']  = 'Unable to delete permission';
+$lang['permission_name_required']        = 'Permission name is a required field';
 
 // Groups
 $lang['group_creation_successful']  = 'Group created Successfully';

@@ -17,7 +17,6 @@ class Auth extends CI_Controller {
 	//redirect if needed, otherwise display the user list
 	function index()
 	{
-
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
@@ -38,6 +37,13 @@ class Auth extends CI_Controller {
 			foreach ($this->data['users'] as $k => $user)
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
+			}
+
+			//list groups
+			$this->data['groups'] = $this->ion_auth->groups()->result();
+			foreach ($this->data['groups'] as $k => $group)
+			{
+				$this->data['groups'][$k]->permissions = $this->ion_auth->get_groups_permissions($group->id)->result();
 			}
 
 			$this->_render_page('auth/index', $this->data);
@@ -348,7 +354,7 @@ class Auth extends CI_Controller {
 		{
 			$activation = $this->ion_auth->activate($id, $code);
 		}
-		else if ($this->ion_auth->is_admin())
+		else if ($this->ion_auth->has_permission('change_user_state'))
 		{
 			$activation = $this->ion_auth->activate($id);
 		}
@@ -370,10 +376,10 @@ class Auth extends CI_Controller {
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('change_user_state'))
 		{
-			//redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			//redirect them to the home page because they must have change user permission to view this
+			return show_error('You don\'t have permission to deactivate a user.');
 		}
 
 		$id = (int) $id;
@@ -402,7 +408,7 @@ class Auth extends CI_Controller {
 				}
 
 				// do we have the right userlevel?
-				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+				if ($this->ion_auth->logged_in() && $this->ion_auth->has_permission('change_user_state'))
 				{
 					$this->ion_auth->deactivate($id);
 				}
@@ -418,9 +424,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_user'))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to create a user");
 		}
 
 		$tables = $this->config->item('tables','ion_auth');
@@ -512,9 +518,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Edit User";
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->has_permission('edit_user') && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to edit a user");
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -526,6 +532,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -663,9 +670,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_users_groups'))
 		{
-			redirect('auth', 'refresh');
+                        show_error("You don't have permission to create a user groups");
 		}
 
 		//validate form input
@@ -716,12 +723,14 @@ class Auth extends CI_Controller {
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('edit_users_groups'))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to edit a user groups");
 		}
 
 		$group = $this->ion_auth->group($id)->row();
+		$permissions=$this->ion_auth->permissions()->result_array();
+		$currentPermissions = $this->ion_auth->get_groups_permissions($id)->result();
 
 		//validate form input
 		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash');
@@ -730,6 +739,21 @@ class Auth extends CI_Controller {
 		{
 			if ($this->form_validation->run() === TRUE)
 			{
+				if ($this->ion_auth->has_permission('edit_group_permissions'))
+				{
+					//Update the group's permissions
+					$permissionData = $this->input->post('permissions');
+
+					if (isset($permissionData) && !empty($permissionData)) {
+						$this->ion_auth->remove_permissions_from_group($id);
+
+						foreach ($permissionData as $per) {
+							$this->ion_auth->add_permission_to_group($id, $per);
+						}
+
+					}
+				}
+
 				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
 
 				if($group_update)
@@ -749,6 +773,8 @@ class Auth extends CI_Controller {
 
 		//pass the user to the view
 		$this->data['group'] = $group;
+		$this->data['permissions'] = $permissions;
+		$this->data['currentPermissions'] = $currentPermissions;
 
 		$this->data['group_name'] = array(
 			'name'  => 'group_name',
@@ -766,6 +792,115 @@ class Auth extends CI_Controller {
 		$this->_render_page('auth/edit_group', $this->data);
 	}
 
+	// create a new permission
+	function create_permission()
+	{
+		$this->data['title'] = $this->lang->line('create_permission_title');
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_group_permissions'))
+		{
+			show_error("You don't have permission to create a permissions");
+		}
+
+		//validate form input
+		$this->form_validation->set_rules('permission_name', $this->lang->line('create_permission_validation_name_label'), 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('description', $this->lang->line('create_permission_validation_desc_label'), 'xss_clean');
+
+		if ($this->form_validation->run() == TRUE)
+		{
+			$new_permission_id = $this->ion_auth->create_permission($this->input->post('permission_name'), $this->input->post('description'));
+			if($new_permission_id)
+			{
+				// check to see if we are creating the permission
+				// redirect them back to the admin page
+				$this->session->set_flashdata('message', $this->ion_auth->messages());
+				redirect("auth", 'refresh');
+			}
+		}
+		else
+		{
+			//display the create permission form
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			$this->data['permission_name'] = array(
+				'name'  => 'permission_name',
+				'id'    => 'permission_name',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('permission_name'),
+			);
+			$this->data['description'] = array(
+				'name'  => 'description',
+				'id'    => 'description',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('description'),
+			);
+
+			$this->_render_page('auth/create_permission', $this->data);
+		}
+	}
+
+	//edit a permission
+	function edit_permission($id)
+	{
+		// bail if no group id given
+		if(!$id || empty($id))
+		{
+			redirect('auth', 'refresh');
+		}
+
+		$this->data['title'] = $this->lang->line('edit_permission_title');
+
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('edit_group_permissions'))
+		{
+			show_error("You don't have permission to edit group permissions");
+		}
+
+		$permission = $this->ion_auth->permission($id)->row();
+
+		//validate form input
+		$this->form_validation->set_rules('permission_name', $this->lang->line('edit_permission_validation_name_label'), 'required|alpha_dash|xss_clean');
+		$this->form_validation->set_rules('permission_description', $this->lang->line('edit_permission_validation_desc_label'), 'xss_clean');
+
+		if (isset($_POST) && !empty($_POST))
+		{
+			if ($this->form_validation->run() === TRUE)
+			{
+				$permission_update = $this->ion_auth->update_permission($id, $_POST['permission_name'], array('description' => $_POST['permission_description']));
+
+				if($permission_update)
+				{
+					$this->session->set_flashdata('message', $this->lang->line('edit_permission_saved'));
+				}
+				else
+				{
+					$this->session->set_flashdata('message', $this->ion_auth->errors());
+				}
+				redirect("auth", 'refresh');
+			}
+		}
+
+		//set the flash data error message if there is one
+		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+		//pass the user to the view
+		$this->data['permission'] = $permission;
+
+		$this->data['permission_name'] = array(
+			'name'  => 'permission_name',
+			'id'    => 'permission_name',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('permission_name', $permission->name),
+		);
+		$this->data['permission_description'] = array(
+			'name'  => 'permission_description',
+			'id'    => 'permission_description',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('permission_description', $permission->description),
+		);
+
+		$this->_render_page('auth/edit_permission', $this->data);
+	}
 
 	function _get_csrf_nonce()
 	{

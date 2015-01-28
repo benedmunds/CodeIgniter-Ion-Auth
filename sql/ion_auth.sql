@@ -1,3 +1,30 @@
+DROP TABLE IF EXISTS `permissions`;
+
+#
+# Table structure for table 'permissions'
+#
+
+CREATE TABLE `permissions` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+#
+# Dumping data for table 'permissions'
+#
+
+INSERT INTO `permissions` (`id`, `name`, `description`) VALUES
+     (1,'create_user','Create new user'),
+     (2,'edit_user','Edit user details'),
+     (3,'change_user_state','Activate/Deactivate User'),
+     (4,'view_all_users','Get list of all users'),
+     (5,'create_users_groups','Create users groups'),
+     (6,'edit_users_groups','Edit users groups'),
+     (7,'create_group_permissions','Create group permissions'),
+     (8,'edit_group_permissions','Edit group permissions');
+
 DROP TABLE IF EXISTS `groups`;
 
 #
@@ -19,6 +46,34 @@ INSERT INTO `groups` (`id`, `name`, `description`) VALUES
      (1,'admin','Administrator'),
      (2,'members','General User');
 
+
+DROP TABLE IF EXISTS `groups_permissions`;
+
+#
+# Table structure for table 'groups_permissions'
+#
+
+CREATE TABLE `groups_permissions` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` mediumint(8) unsigned NOT NULL,
+  `permission_id` mediumint(8) unsigned NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_groups_permissions_groups1_idx` (`group_id`),
+  KEY `fk_groups_permissions_permissions1_idx` (`permission_id`),
+  CONSTRAINT `uc_groups_permissions` UNIQUE (`group_id`, `permission_id`),
+  CONSTRAINT `fk_groups_permissions_groups1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  CONSTRAINT `fk_groups_permissions_permissions1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `groups_permissions` (`id`, `group_id`, `permission_id`) VALUES
+     (1,1,1),
+     (2,1,2),
+     (3,1,3),
+     (4,1,4),
+     (5,1,5),
+     (6,1,6),
+     (7,1,7),
+     (8,1,8);
 
 
 DROP TABLE IF EXISTS `users`;

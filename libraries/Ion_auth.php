@@ -52,6 +52,13 @@ class Ion_auth
 	public $_cache_user_in_group;
 
 	/**
+	 * caching of groups and their permissions
+	 *
+	 * @var array
+	 **/
+	public $_cache_group_in_permission;
+
+	/**
 	 * __construct
 	 *
 	 * @return void
@@ -77,6 +84,7 @@ class Ion_auth
 		$this->load->model('ion_auth_model');
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
+		$this->_cache_group_in_permission =& $this->ion_auth_model->_cache_group_in_permission;
 
 		//auto-login the user if they are remembered
 		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
@@ -360,7 +368,6 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
-			
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
@@ -514,4 +521,84 @@ class Ion_auth
 		return $check_all;
 	}
 
+	/**
+	 * has_permission
+	 *
+	 * @param mixed permission(s) to check
+	 * @param bool check if all groups is present, or any of the groups
+	 * @param bool user id
+	 *
+	 * @return bool
+	 * @author Sadika Sumanapala
+	 **/
+	public function has_permission($check_permission, $check_all = false, $id = false)
+	{
+		$this->ion_auth_model->trigger_events('has_permission');
+
+		$id || $id = $this->session->userdata('user_id');
+
+		if (!is_array($check_permission))
+		{
+			$check_permission = array($check_permission);
+		}
+
+		// ****************** First get user's groups ******************
+		if (isset($this->_cache_user_in_group[$id]))
+		{
+			$groups_array = $this->_cache_user_in_group[$id];
+		}
+		else
+		{
+			$users_groups = $this->ion_auth_model->get_users_groups($id)->result();
+			$groups_array = array();
+			foreach ($users_groups as $group)
+			{
+				$groups_array[$group->id] = $group->name;
+			}
+			$this->_cache_user_in_group[$id] = $groups_array;
+		}
+
+		// ****************** Get permissions of those groups ******************
+		$permissions_array = array();
+		foreach ($groups_array as $group_id => $group_name)
+		{
+			if (isset($this->_cache_group_in_permission[$group_id]))
+			{
+				$permissions_array_tmp = $this->_cache_group_in_permission[$group_id];
+			}
+			else
+			{
+				$groups_permissions = $this->ion_auth_model->get_groups_permissions($group_id)->result();
+				$permissions_array_tmp = array();
+				foreach ($groups_permissions as $permission)
+				{
+					$permissions_array[$permission->id] = $permission->name;
+				}
+				$this->_cache_group_in_permission[$id] = $permissions_array;
+			}
+			$permissions_array = $permissions_array + $permissions_array_tmp;
+		}
+
+		// ****************** Check user is permitted ******************
+		foreach ($check_permission as $key => $value)
+		{
+			$permissions = (is_string($value)) ? $permissions_array : array_keys($permissions_array);
+
+			// if $check_all = false (default) return true if one of the permission is present
+			if (in_array($value, $permissions) xor $check_all)
+			{
+				/**
+				 * if !all (default), true
+				 * if all, false
+				 */
+				return !$check_all;
+			}
+		}
+
+		/**
+		 * if !all (default), false
+		 * if all, true
+		 */
+		return $check_all;
+	}
 }

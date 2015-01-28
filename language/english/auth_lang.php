@@ -30,8 +30,8 @@ $lang['login_submit_btn']      = 'Login';
 $lang['login_forgot_password'] = 'Forgot your password?';
 
 // Index
-$lang['index_heading']           = 'Users';
-$lang['index_subheading']        = 'Below is a list of the users.';
+$lang['index_user_heading']           = 'Users';
+$lang['index_user_subheading']        = 'Below is a list of the users.';
 $lang['index_fname_th']          = 'First Name';
 $lang['index_lname_th']          = 'Last Name';
 $lang['index_email_th']          = 'Email';
@@ -40,8 +40,14 @@ $lang['index_status_th']         = 'Status';
 $lang['index_action_th']         = 'Action';
 $lang['index_active_link']       = 'Active';
 $lang['index_inactive_link']     = 'Inactive';
+$lang['index_group_heading']        = 'Groups';
+$lang['index_group_subheading']     = 'Below is a list of the groups.';
+$lang['index_group_name_th']        = 'Name';
+$lang['index_group_desc_th']        = 'Description';
+$lang['index_group_permissions_th'] = 'Permissions';
 $lang['index_create_user_link']  = 'Create a new user';
 $lang['index_create_group_link'] = 'Create a new group';
+$lang['index_create_permission_link'] = 'Create a new permission';
 
 // Deactivate User
 $lang['deactivate_heading']                  = 'Deactivate User';
@@ -106,6 +112,16 @@ $lang['create_group_submit_btn']             = 'Create Group';
 $lang['create_group_validation_name_label']  = 'Group Name';
 $lang['create_group_validation_desc_label']  = 'Description';
 
+// Create Permission
+$lang['create_permission_title']                  = 'Create Permission';
+$lang['create_permission_heading']                = 'Create Permission';
+$lang['create_permission_subheading']             = 'Please enter the permission information below.';
+$lang['create_permission_name_label']             = 'Permission Name:';
+$lang['create_permission_desc_label']             = 'Description:';
+$lang['create_permission_submit_btn']             = 'Create Permission';
+$lang['create_permission_validation_name_label']  = 'Permission Name';
+$lang['create_permission_validation_desc_label']  = 'Description';
+
 // Edit Group
 $lang['edit_group_title']                  = 'Edit Group';
 $lang['edit_group_saved']                  = 'Group Saved';
@@ -116,6 +132,19 @@ $lang['edit_group_desc_label']             = 'Description:';
 $lang['edit_group_submit_btn']             = 'Save Group';
 $lang['edit_group_validation_name_label']  = 'Group Name';
 $lang['edit_group_validation_desc_label']  = 'Description';
+$lang['edit_group_validation_permissions_label'] = 'Permission';
+
+// Edit Permission
+$lang['edit_permission_title']                  = 'Edit Permission';
+$lang['edit_permission_saved']                  = 'Permission Saved';
+$lang['edit_permission_heading']                = 'Edit Permission';
+$lang['edit_permission_subheading']             = 'Please enter the permission information below.';
+$lang['edit_permission_name_label']             = 'Permission Name:';
+$lang['edit_permission_desc_label']             = 'Description:';
+$lang['edit_permission_submit_btn']             = 'Save Permission';
+$lang['edit_permission_validation_name_label']  = 'Permission Name';
+$lang['edit_permission_validation_desc_label']  = 'Description';
+$lang['edit_permission_validation_permissions_label'] = 'Permission';
 
 // Change Password
 $lang['change_password_heading']                               = 'Change Password';

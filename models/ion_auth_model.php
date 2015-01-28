@@ -162,11 +162,25 @@ class Ion_auth_model extends CI_Model
 	public $_cache_user_in_group = array();
 
 	/**
+	 * caching of groups and their permissions
+	 *
+	 * @var array
+	 **/
+	public $_cache_group_in_permission = array();
+
+	/**
 	 * caching of groups
 	 *
 	 * @var array
 	 **/
 	protected $_cache_groups = array();
+
+	/**
+	 * caching of permissions
+	 *
+	 * @var array
+	 **/
+	protected $_cache_permissions = array();
 
 	public function __construct()
 	{
@@ -1961,6 +1975,288 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events(array('post_delete_group', 'post_delete_group_successful'));
 		$this->set_message('group_delete_successful');
+		return TRUE;
+	}
+
+	/**
+	 * get_groups_permissions
+	 *
+	 * @return array
+	 * @author Sadika Sumanapala
+	 **/
+	public function get_groups_permissions($id)
+	{
+		$this->trigger_events('get_groups_permission');
+
+		if(!$id || empty($id))
+		{
+			return FALSE;
+		}
+
+		return $this->db->select($this->tables['groups_permissions'].'.'.$this->join['permissions'].' as id, '.$this->tables['permissions'].'.name, '.$this->tables['permissions'].'.description')
+			    ->where($this->tables['groups_permissions'].'.'.$this->join['groups'], $id)
+			    ->join($this->tables['permissions'], $this->tables['groups_permissions'].'.'.$this->join['permissions'].'='.$this->tables['permissions'].'.id')
+			    ->get($this->tables['groups_permissions']);
+	}
+
+	/**
+	 * add_permission_to_group
+	 *
+	 * @return bool
+	 * @author Sadika Sumanapala
+	 **/
+	public function add_permission_to_group($group_id, $permission_id)
+	{
+		$this->trigger_events('add_permission_to_group');
+
+		if(!$group_id || empty($group_id) || !$permission_id || empty($permission_id))
+		{
+			return FALSE;
+		}
+
+		//check if unique - num_rows() > 0 means row found
+		if ($this->db->where(array( $this->join['permissions'] => (int)$permission_id, $this->join['groups'] => (int)$group_id))->get($this->tables['groups_permissions'])->num_rows()) return false;
+
+		if ($return = $this->db->insert($this->tables['groups_permissions'], array( $this->join['permissions'] => (int)$permission_id, $this->join['groups'] => (int)$group_id)))
+		{
+			if (isset($this->_cache_permissions[$permission_id]))
+			{
+				$permission_name = $this->_cache_permissions[$permission_id];
+			}
+			else
+			{
+				$permission = $this->permission($permission_id)->result();
+				$permission_name = $permission[0]->name;
+				$this->_cache_permissions[$permission_id] = $permission_name;
+			}
+			$this->_cache_group_in_permission[$group_id][$permission_id] = $permission_name;
+		}
+
+		return $return;
+	}
+
+	/**
+	 * remove_permissions_from_group
+	 *
+	 * @return bool
+	 * @author Sadika Sumanapala
+	 **/
+	public function remove_permissions_from_group($group_id = false, $permission_ids = false)
+	{
+		$this->trigger_events('remove_permission_from_group');
+
+		if(empty($group_id))
+		{
+			return FALSE;
+		}
+
+		if( ! empty($permission_ids)) // if permission id(s) are passed remove those permission(s) from the group
+		{
+			if(!is_array($permission_ids))
+			{
+				$permission_ids = array($permission_ids);
+			}
+
+			foreach($permission_ids as $permission_id)
+			{
+				$this->db->delete($this->tables['groups_permissions'], array($this->join['permissions'] => (int)$permission_id, $this->join['groups'] => (int)$group_id));
+				if (isset($this->_cache_group_in_permission[$group_id]) && isset($this->_cache_group_in_permission[$group_id][$permission_id]))
+				{
+					unset($this->_cache_group_in_permission[$group_id][$permission_id]);
+				}
+			}
+
+			$return = TRUE;
+		}
+		else // otherwise remove all permissions from group
+		{
+			if ($return = $this->db->delete($this->tables['groups_permissions'], array($this->join['groups'] => (int)$group_id))) 
+			{
+				$this->_cache_group_in_permission[$group_id] = array();
+			}
+		}
+
+		return $return;
+	}
+
+	/**
+	 * permissions
+	 *
+	 * @return object
+	 * @author Sadika Sumanapala
+	 **/
+	public function permissions()
+	{
+	    $this->trigger_events('permissions');
+
+		//run each 'where' that was passed
+		if (isset($this->_ion_where) && !empty($this->_ion_where))
+		{
+			foreach ($this->_ion_where as $where)
+			{
+				$this->db->where($where);
+			}
+			$this->_ion_where = array();
+		}
+
+		if (isset($this->_ion_limit) && isset($this->_ion_offset))
+		{
+			$this->db->limit($this->_ion_limit, $this->_ion_offset);
+
+			$this->_ion_limit  = NULL;
+		$this->_ion_offset = NULL;
+		}
+		else if (isset($this->_ion_limit))
+		{
+			$this->db->limit($this->_ion_limit);
+			$this->_ion_limit  = NULL;
+		}
+
+		//set the order
+		if (isset($this->_ion_order_by) && isset($this->_ion_order))
+		{
+			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
+		}
+
+		$this->response = $this->db->get($this->tables['permissions']);
+
+		return $this;
+	}
+
+	/**
+	 * permission
+	 *
+	 * @return object
+	 * @author Sadika Sumanapala
+	 **/
+	public function permission($id = NULL)
+	{
+		$this->trigger_events('permission');
+
+		if (isset($id))
+		{
+		$this->where($this->tables['permissions'].'.id', $id);
+		}
+
+		$this->limit(1);
+
+		return $this->permissions();
+	}
+
+	/**
+	 * create_permission
+	 *
+	 * @author Sadika Sumanapala
+	 */
+	public function create_permission($permission_name = FALSE, $permission_description = '', $additional_data = array())
+	{
+		if(!$permission_name)
+		{
+			$this->set_error('permission_name_required');
+			return FALSE;
+		}
+
+		// check permission name already exists
+		$existing_group = $this->db->get_where($this->tables['permissions'], array('name' => $permission_name))->num_rows();
+		if($existing_group !== 0)
+		{
+			$this->set_error('permission_already_exists');
+			return FALSE;
+		}
+
+		$data = array('name' => $permission_name,'description' => $permission_description);
+
+		// filter out any data passed that doesnt have a matching column in the permissions table
+		// and merge the set permission data and the additional data
+		if (!empty($additional_data))
+			$data = array_merge($this->_filter_data($this->tables['permissions'], $additional_data), $data);
+
+		$this->trigger_events('extra_permission_set');
+
+		// insert the new permission
+		$this->db->insert($this->tables['permissions'], $data);
+		$permission_id = $this->db->insert_id();
+
+		// report success
+		$this->set_message('permission_creation_successful');
+
+		// return the brand new permission id
+		return $permission_id;
+	}
+
+	/**
+	 * update_permission
+	 *
+	 * @return bool
+	 * @author Sadika Sumanapala
+	 **/
+	public function update_permission($permission_id = FALSE, $permission_name = FALSE, $additional_data = array())
+	{
+		if (empty($permission_id)) return FALSE;
+
+		$data = array();
+
+		if (!empty($permission_name)) // change name
+		{
+			// check permission name already exists
+			$existing_permission = $this->db->get_where($this->tables['permissions'], array('name' => $permission_name))->row();
+			if(isset($existing_permission->id) && $existing_permission->id != $permission_id)
+			{
+				$this->set_error('permission_already_exists');
+				return FALSE;
+			}
+
+			$data['name'] = $permission_name;
+		}
+
+		// filter out any data passed that doesnt have a matching column in the permissions table
+		// and merge the set permission data and the additional data
+		if (!empty($additional_data))
+			$data = array_merge($this->_filter_data($this->tables['permissions'], $additional_data), $data);
+
+
+		$this->db->update($this->tables['permissions'], $data, array('id' => $permission_id));
+
+		$this->set_message('permission_update_successful');
+
+		return TRUE;
+	}
+
+	/**
+	 * delete_permission
+	 *
+	 * @return bool
+	 * @author Sadika Sumanapala
+	 **/
+	public function delete_permission($permission_id = FALSE)
+	{
+		// permission_id required
+		if(!$permission_id || empty($permission_id))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('pre_delete_permission');
+
+		$this->db->trans_begin();
+
+		// remove this permission from all groups
+		$this->db->delete($this->tables['groups_permissions'], array($this->join['permissions'] => $permission_id));
+		// remove permission itself
+		$this->db->delete($this->tables['permissions'], array('id' => $permission_id));
+
+		if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			$this->trigger_events(array('post_delete_permission', 'post_delete_permission_unsuccessful'));
+			$this->set_error('permission_delete_unsuccessful');
+			return FALSE;
+		}
+
+		$this->db->trans_commit();
+
+		$this->trigger_events(array('post_delete_permission', 'post_delete_permission_successful'));
+		$this->set_message('permission_delete_successful');
 		return TRUE;
 	}
 
