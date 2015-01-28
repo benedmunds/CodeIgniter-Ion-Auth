@@ -518,9 +518,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Edit User";
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
+		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->has_permission('edit_user') && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to edit a user");
 		}
 
 		$user = $this->ion_auth->user($id)->row();
@@ -532,6 +532,7 @@ class Auth extends CI_Controller {
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
