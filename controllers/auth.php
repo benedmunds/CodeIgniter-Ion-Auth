@@ -424,9 +424,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = "Create User";
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_user'))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to create a user");
 		}
 
 		$tables = $this->config->item('tables','ion_auth');
