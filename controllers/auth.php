@@ -670,9 +670,9 @@ class Auth extends CI_Controller {
 	{
 		$this->data['title'] = $this->lang->line('create_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('create_users_groups'))
 		{
-			redirect('auth', 'refresh');
+                        show_error("You don't have permission to create a user groups");
 		}
 
 		//validate form input
