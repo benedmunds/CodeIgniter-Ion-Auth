@@ -723,12 +723,14 @@ class Auth extends CI_Controller {
 
 		$this->data['title'] = $this->lang->line('edit_group_title');
 
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('edit_users_groups'))
 		{
-			redirect('auth', 'refresh');
+			show_error("You don't have permission to edit a user groups");
 		}
 
 		$group = $this->ion_auth->group($id)->row();
+		$permissions=$this->ion_auth->permissions()->result_array();
+		$currentPermissions = $this->ion_auth->get_groups_permissions($id)->result();
 
 		//validate form input
 		$this->form_validation->set_rules('group_name', $this->lang->line('edit_group_validation_name_label'), 'required|alpha_dash');
@@ -737,6 +739,21 @@ class Auth extends CI_Controller {
 		{
 			if ($this->form_validation->run() === TRUE)
 			{
+				if ($this->ion_auth->has_permission('edit_group_permissions'))
+				{
+					//Update the group's permissions
+					$permissionData = $this->input->post('permissions');
+
+					if (isset($permissionData) && !empty($permissionData)) {
+						$this->ion_auth->remove_permissions_from_group($id);
+
+						foreach ($permissionData as $per) {
+							$this->ion_auth->add_permission_to_group($id, $per);
+						}
+
+					}
+				}
+
 				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], $_POST['group_description']);
 
 				if($group_update)
@@ -756,6 +773,8 @@ class Auth extends CI_Controller {
 
 		//pass the user to the view
 		$this->data['group'] = $group;
+		$this->data['permissions'] = $permissions;
+		$this->data['currentPermissions'] = $currentPermissions;
 
 		$this->data['group_name'] = array(
 			'name'  => 'group_name',
