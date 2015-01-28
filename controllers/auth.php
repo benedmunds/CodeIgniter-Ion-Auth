@@ -354,7 +354,7 @@ class Auth extends CI_Controller {
 		{
 			$activation = $this->ion_auth->activate($id, $code);
 		}
-		else if ($this->ion_auth->is_admin())
+		else if ($this->ion_auth->has_permission('change_user_state'))
 		{
 			$activation = $this->ion_auth->activate($id);
 		}
@@ -376,10 +376,10 @@ class Auth extends CI_Controller {
 	//deactivate the user
 	function deactivate($id = NULL)
 	{
-		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+		if (!$this->ion_auth->logged_in() || !$this->ion_auth->has_permission('change_user_state'))
 		{
-			//redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			//redirect them to the home page because they must have change user permission to view this
+			return show_error('You don\'t have permission to deactivate a user.');
 		}
 
 		$id = (int) $id;
@@ -408,7 +408,7 @@ class Auth extends CI_Controller {
 				}
 
 				// do we have the right userlevel?
-				if ($this->ion_auth->logged_in() && $this->ion_auth->is_admin())
+				if ($this->ion_auth->logged_in() && $this->ion_auth->has_permission('change_user_state'))
 				{
 					$this->ion_auth->deactivate($id);
 				}
