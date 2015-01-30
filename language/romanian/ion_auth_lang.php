@@ -21,8 +21,8 @@ $lang['account_creation_duplicate_email'] 	 = 'Email deja folosit sau invalid';
 $lang['account_creation_duplicate_username'] = 'Numele de utilizator este deja folosit sau invalid';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Grupul default nu a fost setat';
+$lang['account_creation_invalid_default_group'] = 'Ati setat un nume gresit pentru grupul default';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Parola schimbata cu succes';
