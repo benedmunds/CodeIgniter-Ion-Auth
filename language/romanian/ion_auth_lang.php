@@ -57,6 +57,7 @@ $lang['group_already_exists']       = 'Numele de grup a fost deja utilizat';
 $lang['group_update_successful']    = 'Detaliile grupului au fost actualizate';
 $lang['group_delete_successful']    = 'Grup sters cu succes';
 $lang['group_delete_unsuccessful'] 	= 'Nu am putut sterge grupul';
+$lang['group_delete_notallowed']    = 'Nu pot sterge grupul administratorilor';
 $lang['group_name_required'] 		= 'Este necesar un nume pentru grup';
 
 // Activation Email
