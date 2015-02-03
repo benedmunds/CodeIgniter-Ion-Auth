@@ -1939,6 +1939,13 @@ class Ion_auth_model extends CI_Model
 		{
 			return FALSE;
 		}
+		$group = $this->group($group_id)->row();
+		if($group->name == $this->config->item('admin_group', 'ion_auth'))
+		{
+			$this->trigger_events(array('post_delete_group', 'post_delete_group_notallowed'));
+			$this->set_error('group_delete_notallowed');
+			return FALSE;
+		}
 
 		$this->trigger_events('pre_delete_group');
 
