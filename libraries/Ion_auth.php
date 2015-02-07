@@ -106,7 +106,14 @@ class Ion_auth
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
-
+		if($method == 'create_user')
+		{
+			return call_user_func_array(array($this, 'register'), $arguments);
+		}
+		if($method=='update_user')
+		{
+			return call_user_func_array(array($this, 'update'), $arguments);
+		}
 		return call_user_func_array( array($this->ion_auth_model, $method), $arguments);
 	}
 
