@@ -59,6 +59,7 @@ $lang['group_already_exists']      = 'Nom du groupe déjà pris';
 $lang['group_update_successful']   = 'Informations sur le groupe mis à jour';
 $lang['group_delete_successful']   = 'Groupe supprimé';
 $lang['group_delete_unsuccessful'] = 'Impossible de supprimer le groupe';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']       = 'Le nom du groupe est un champ obligatoire';
 
 // Activation Email
