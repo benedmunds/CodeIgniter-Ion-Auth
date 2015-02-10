@@ -57,10 +57,21 @@ $lang['group_already_exists']                    = 'Ryhmän nimi jo käytössä'
 $lang['group_update_successful']                 = 'Ryhmän tiedot päivitetty!';
 $lang['group_delete_successful']                 = 'Ryhmä poistettu';
 $lang['group_delete_unsuccessful']               = 'Ryhmän poisto epäonnistui';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']                     = 'Ryhmän nimi tarvitaan';
 
-// Email Subjects
+// Activation Email
+$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
 $lang['email_forgotten_password_subject']        = 'Unohtuneen salasanan palautus';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
 $lang['email_new_password_subject']              = 'Uusi salasana';
-$lang['email_activation_subject']                = 'Tilin aktivointi';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
 
