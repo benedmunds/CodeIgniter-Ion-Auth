@@ -58,9 +58,20 @@ $lang['group_already_exists']       = 'Ime skupine že obstaja';
 $lang['group_update_successful']    = 'Podatki o skupini so bili uspešno posodobljeni';
 $lang['group_delete_successful']    = 'Skupina izbrisana';
 $lang['group_delete_unsuccessful'] 	= 'Ni možno izbrisati skupine';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Ime skupine je obvezno polje';
 
-// Zadeve e-sporočil
-$lang['email_forgotten_password_subject']    = 'Pozabljeno geslo';
-$lang['email_new_password_subject']          = 'Novo geslo';
+// Activation Email
 $lang['email_activation_subject']            = 'Aktivacija računa';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Pozabljeno geslo';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = 'Novo geslo';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';

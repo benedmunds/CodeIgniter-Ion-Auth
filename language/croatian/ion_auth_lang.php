@@ -45,6 +45,7 @@ $lang['activation_email_unsuccessful']   	 = 'Slanje mail za aktivaciju nije usp
 $lang['login_successful'] 		  	         = 'Uspješno prijavljeni';
 $lang['login_unsuccessful'] 		  	     = 'Prijava nije uspjela';
 $lang['login_unsuccessful_not_active'] 		 = 'Račun nije aktivan';
+$lang['login_timeout']                       = 'Temporarily Locked Out. Try again later.';
 $lang['logout_successful'] 		 	         = 'Uspješno ste odjavljeni';
 
 // Account Changes
@@ -53,7 +54,25 @@ $lang['update_unsuccessful'] 		 	     = 'Podaci o računu nisu ažurirani';
 $lang['delete_successful'] 		 	         = 'Korisnik je obrisan';
 $lang['delete_unsuccessful'] 		 	     = 'Brisanje korisnika nije uspjelo';
 
-// Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Potvrda o zaboravljenoj lozinci';
-$lang['email_new_password_subject']          = 'Nova lozinka';
+// Groups
+$lang['group_creation_successful']  = 'Group created Successfully';
+$lang['group_already_exists']       = 'Group name already taken';
+$lang['group_update_successful']    = 'Group details updated';
+$lang['group_delete_successful']    = 'Group deleted';
+$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
+// Activation Email
 $lang['email_activation_subject']            = 'Aktivacija računa';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Potvrda o zaboravljenoj lozinci';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = 'Nova lozinka';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';

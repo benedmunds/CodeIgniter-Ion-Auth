@@ -55,6 +55,7 @@ $lang['group_already_exists']       = '群組名稱已重複';
 $lang['group_update_successful']    = '更新群組成功';
 $lang['group_delete_successful']    = '群組已刪除';
 $lang['group_delete_unsuccessful']  = '刪除群組失敗';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']        = '群組名稱為必填欄位';
 
 // Activation Email

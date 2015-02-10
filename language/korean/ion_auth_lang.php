@@ -57,9 +57,20 @@ $lang['group_already_exists']       = '이미 사용 중인 그룹명입니다';
 $lang['group_update_successful']    = '그룹에 대한 세부 정보를 업데이트 하였습니다';
 $lang['group_delete_successful']    = '그룹을 삭제했습니다';
 $lang['group_delete_unsuccessful'] 	= '그룹을 삭제할 수 없습니다';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= '그룹 이름을 입력해 주십시오';
 
-// Email Subjects
-$lang['email_forgotten_password_subject']    = '잊어버린 비밀번호를 찾는 절차를 보내드립니다';
-$lang['email_new_password_subject']          = '새 비밀번호를 보내드립니다';
+// Activation Email
 $lang['email_activation_subject']            = '계정 활성화 방법을 보내드립니다';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = '잊어버린 비밀번호를 찾는 절차를 보내드립니다';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = '새 비밀번호를 보내드립니다';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';

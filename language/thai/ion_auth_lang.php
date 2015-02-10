@@ -61,6 +61,7 @@ $lang['group_already_exists']       = 'ชื่อกลุ่มถูกใ�
 $lang['group_update_successful']    = 'แก้ไขรายละเอียดกลุ่มแล้ว';
 $lang['group_delete_successful']    = 'กลุ่มถูกลบแล้ว';
 $lang['group_delete_unsuccessful'] 	= 'ไม่สามารถลบกลุ่มได้';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'ต้องใส่ชื่อกลุ่ม';
 
 // Activation Email
