@@ -61,6 +61,7 @@ $lang['group_already_exists']	   = 'Gruppenavnet finnes allerede';
 $lang['group_update_successful']   = 'Gruppeinformasjon oppdatert';
 $lang['group_delete_successful']   = 'Gruppe slettet';
 $lang['group_delete_unsuccessful'] = 'Klarte ikke å slette gruppe';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']	   = 'Gruppenavn må fylles inn';
 
 // Activation Email
