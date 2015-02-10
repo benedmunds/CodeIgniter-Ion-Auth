@@ -44,6 +44,9 @@ $lang['activation_email_unsuccessful']			= 'No ha estat possible enviar l&#39;em
 // Login / Logout
 $lang['login_successful']						= 'Sessió iniciada amb èxit';
 $lang['login_unsuccessful']						= 'No ha estat possible iniciar sessió';
+//TO DO Please translate
+$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
+$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful']						= 'Sessiò finalitzada amb èxit';
 
 // Account Changes
@@ -52,7 +55,26 @@ $lang['update_unsuccessful']					= 'No s&#39;ha pogut actualitzar la informació
 $lang['delete_successful']						= 'Usuari eliminat';
 $lang['delete_unsuccessful']					= 'No s&#39;ha pogut Eliminar l&#39;usuari';
 
-// Email Subjects - TODO Please Translate
+//TO DO Please translate
+// Groups
+$lang['group_creation_successful']  = 'Group created Successfully';
+$lang['group_already_exists']       = 'Group name already taken';
+$lang['group_update_successful']    = 'Group details updated';
+$lang['group_delete_successful']    = 'Group deleted';
+$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
+// Activation Email
+$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
 $lang['email_forgotten_password_subject']    = 'Verificació de contrasenya oblidada';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
 $lang['email_new_password_subject']          = 'Nova contrasenya';
-$lang['email_activation_subject']            = 'Activació del compte';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
