@@ -63,7 +63,7 @@ $lang['group_name_required'] 		= 'Group name is a required field';
 
 //TO DO Please translate
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activation_subject']            = 'Активиране на регистрацията';
 $lang['email_activate_heading']    = 'Activate account for %s';
 $lang['email_activate_subheading'] = 'Please click this link to %s.';
 $lang['email_activate_link']       = 'Activate Your Account';
