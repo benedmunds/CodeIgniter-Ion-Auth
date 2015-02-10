@@ -48,8 +48,9 @@ $lang['activation_email_unsuccessful']  	 = 'Etkinleştirme Epostası Gönderme 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Giriş Başarılı';
 $lang['login_unsuccessful'] 		 	 = 'Giriş Başarısız';
-$lang['logout_successful'] 		 	 = 'Çıkış Başarılı';
 $lang['login_unsuccessful_not_active'] ="Giriş Başarısız ,Hesabınız Etkin Değil";
+$lang['login_timeout']                       = 'Temporarily Locked Out. Try again later.';
+$lang['logout_successful'] 		 	 = 'Çıkış Başarılı';
   
 // Account Changes
 $lang['update_successful'] 		 	 = 'Üyelik Bilgileri Güncellendi';
@@ -57,7 +58,25 @@ $lang['update_unsuccessful'] 		 	 = 'Üyelik Bilgileri Güncelleme Başarısız'
 $lang['delete_successful'] 		 	 = 'Kullanıcı Silindi';
 $lang['delete_unsuccessful'] 			 = 'Kullanıcı Silme Başarısız';
 
-// Email Subjects
-$lang['email_forgotten_password_subject']    = 'Şifremi Unuttum';
-$lang['email_new_password_subject']          = 'Yeni Şifre';
+// Groups
+$lang['group_creation_successful']  = 'Group created Successfully';
+$lang['group_already_exists']       = 'Group name already taken';
+$lang['group_update_successful']    = 'Group details updated';
+$lang['group_delete_successful']    = 'Group deleted';
+$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
+// Activation Email
 $lang['email_activation_subject']            = 'Üyelik Etkinleştirme';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Şifremi Unuttum';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = 'Yeni Şifre';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
