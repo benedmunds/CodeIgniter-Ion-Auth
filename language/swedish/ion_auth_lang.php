@@ -42,6 +42,8 @@ $lang['activation_email_unsuccessful']    = 'E-post med aktiveringslänk kunde i
 // Login / Logout
 $lang['login_successful']       = 'Du är nu inloggad';
 $lang['login_unsuccessful']     = 'Inloggningen misslyckades';
+$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
+$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful']      = 'Du är nu utloggad';
   
 // Account Changes
@@ -50,10 +52,14 @@ $lang['update_unsuccessful']    = 'Det gick inte att uppdatera kontouppgifterna'
 $lang['delete_successful']      = 'Användaren är borttagen';
 $lang['delete_unsuccessful']    = 'Det gick inte att ta bort användaren';
 
-// Email Subjects
-$lang['email_forgotten_password_subject']    = 'Glömt lösenordsverifikation';
-$lang['email_new_password_subject']          = 'Nytt lösenord';
-$lang['email_activation_subject']            = 'Kontoaktivering';
+// Groups
+$lang['group_creation_successful']  = 'Group created Successfully';
+$lang['group_already_exists']       = 'Group name already taken';
+$lang['group_update_successful']    = 'Group details updated';
+$lang['group_delete_successful']    = 'Group deleted';
+$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
 
 // Activation Email
 $lang['email_activation_subject']   = 'Kontoaktivering';
