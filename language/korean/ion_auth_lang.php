@@ -61,7 +61,7 @@ $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group'
 $lang['group_name_required'] 		= '그룹 이름을 입력해 주십시오';
 
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activation_subject']            = '계정 활성화 방법을 보내드립니다';
 $lang['email_activate_heading']    = 'Activate account for %s';
 $lang['email_activate_subheading'] = 'Please click this link to %s.';
 $lang['email_activate_link']       = 'Activate Your Account';
