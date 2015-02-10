@@ -62,8 +62,20 @@ $lang['group_already_exists']       = 'اين نام گروه قبلا استف�
 $lang['group_update_successful']    = 'جزئيات گروه با موفقيت بروز رساني شد';
 $lang['group_delete_successful']    = 'گروه حذف شد';
 $lang['group_delete_unsuccessful'] 	= 'امكان حذف گروه وجود ندارد';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
 
-// Email Subjects
+// Activation Email
+$lang['email_activation_subject']            = 'Account Activation';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
 $lang['email_forgotten_password_subject']    = 'تایید رمز عبور جدید';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
 $lang['email_new_password_subject']          = 'رمز عبور جدید';
-$lang['email_activation_subject']            = 'فعال سازی حساب کاربري';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
