@@ -1293,7 +1293,7 @@ class Ion_auth_model extends CI_Model
 		if (isset($groups))
 		{
 			//build an array if only one group was passed
-			if (is_numeric($groups))
+			if (!is_array($groups))
 			{
 				$groups = Array($groups);
 			}
@@ -1307,7 +1307,21 @@ class Ion_auth_model extends CI_Model
 				    $this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id',
 				    'inner'
 				);
-
+			}
+			// verify if group name or group id was used
+            		$numeric_group = TRUE;
+            		foreach($groups as $group)
+            		{
+                		if(!is_numeric($group)) $numeric_group = FALSE;
+            		}
+            		//if group name was used we do one more join with groups
+            		if($numeric_group==FALSE)
+            		{
+                		$this->db->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
+                		$this->db->where_in($this->tables['groups'] . '.name', $groups);
+            		}
+            		else
+            		{
 				$this->db->where_in($this->tables['users_groups'].'.'.$this->join['groups'], $groups);
 			}
 		}
