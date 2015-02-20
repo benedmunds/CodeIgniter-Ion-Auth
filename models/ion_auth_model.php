@@ -1308,21 +1308,25 @@ class Ion_auth_model extends CI_Model
 				    'inner'
 				);
 			}
-			// verify if group name or group id was used
-            		$numeric_group = TRUE;
-            		foreach($groups as $group)
-            		{
-                		if(!is_numeric($group)) $numeric_group = FALSE;
-            		}
-            		//if group name was used we do one more join with groups
-            		if($numeric_group==FALSE)
-            		{
-                		$this->db->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
-                		$this->db->where_in($this->tables['groups'] . '.name', $groups);
-            		}
-            		else
-            		{
-				$this->db->where_in($this->tables['users_groups'].'.'.$this->join['groups'], $groups);
+			
+			// verify if group name or group id was used and create and put elements in different arrays
+			$group_ids = array();
+			$group_names = array();
+			foreach($groups as $group)
+			{
+				if(is_numeric($group)) $group_ids[] = $group;
+				else $group_names[] = $group;
+			}
+			$or_where_in = (!empty($group_ids) && !empty($group_names)) ? 'or_where_in' : 'where_in';
+			//if group name was used we do one more join with groups
+			if(!empty($group_names))
+			{
+				$this->db->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
+				$this->db->where_in($this->tables['groups'] . '.name', $group_names);
+			}
+			if(!empty($group_ids))
+			{
+				$this->db->{$or_where_in}($this->tables['users_groups'].'.'.$this->join['groups'], $group_ids);
 			}
 		}
 
