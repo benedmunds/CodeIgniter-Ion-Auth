@@ -982,11 +982,18 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+		$this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
-		    			  ->order_by('id', 'desc')
-		                  ->get($this->tables['users']);
+		    			  ->order_by('id', 'desc');
+                          
+        //also match against the alternate ID column if specified
+        $altIdCol = $this->config->item('identity_alt', 'ion_auth');
+        if($altIdCol !== FALSE && trim($altIdCol) !== '') {
+            $this->db->or_where($altIdCol, $identity);
+        }
+                          
+        $query = $this-> db->get($this->tables['users']);
 
 		if($this->is_time_locked_out($identity))
 		{
