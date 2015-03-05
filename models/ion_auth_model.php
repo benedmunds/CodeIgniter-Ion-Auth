@@ -1010,7 +1010,6 @@ class Ion_auth_model extends CI_Model
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc');
                           
-		log_message('info', 'Alt Column ' . $this->identity_column_alt);
         // also match against the alternate ID column if specified
         if(empty($this->identity_column_alt) === FALSE) {
             $this->db->or_where($this->identity_column_alt, $identity);
