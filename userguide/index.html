@@ -777,7 +777,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Group IDs' - array OPTIONAL. If an array of group ids are passed (or a single group id) this will return the users in those groups.</li>
+		<li>'Group IDs, group names, or group IDs and names' - array OPTIONAL. If an array of group ids, of group names, or of group ids and names are passed (or a single group id or name) this will return the users in those groups.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -787,9 +787,25 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		$users = $this->ion_auth->users()->result();
+		$users = $this->ion_auth->users()->result(); // get all users
 	</pre>
 	<br />
+	<pre>
+		$users = $this->ion_auth->users(1)->result(); // get users from group with id of '1'
+	</pre>
+	<br />
+	
+	<pre>
+		$users = $this->ion_auth->users('members)->result(); // get users from 'members' group
+	</pre>
+	<br />
+	<pre>
+		$users = $this->ion_auth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
+	</pre>
+	<br />
+	<pre>
+		$users = $this->ion_auth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
+	</pre>
 
 	<a name="group"></a>
 	<h2>group()</h2>
