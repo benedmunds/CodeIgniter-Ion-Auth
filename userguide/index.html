@@ -820,6 +820,22 @@ Documentation
 		$users = $this->ion_auth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
 	</pre>
 	<br />
+	<pre>
+		$users = $this->ion_auth->users(1)->result(); // get users from group with id of '1'
+	</pre>
+	<br />
+
+	<pre>
+		$users = $this->ion_auth->users('members)->result(); // get users from 'members' group
+	</pre>
+	<br />
+	<pre>
+		$users = $this->ion_auth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
+	</pre>
+	<br />
+	<pre>
+		$users = $this->ion_auth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
+	</pre>
 
 	<a name="group"></a>
 	<h2>group()</h2>
