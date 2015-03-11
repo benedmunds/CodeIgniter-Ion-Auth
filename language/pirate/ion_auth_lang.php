@@ -1,11 +1,11 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
- * 
+ *
  * Every application needs to support the famous pirate language
  *
  * @author 		Yorick Peterse <info [at] yorickpeterse [dot] com>
  * @link 		http://www.yorickpeterse.com/
- * 
+ *
  */
 
 // Account Creation
@@ -39,7 +39,7 @@ $lang['login_unsuccessful'] 		  	 	= 'In-Correct Secret Code';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	 		= 'Be Seeying ya Matey';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 		= 'Ship Information Successfully Updated';
 $lang['update_unsuccessful'] 		 	 	= 'Unable to Update Ship Information';
@@ -54,6 +54,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Account Activation';
 $lang['email_activate_heading']    = 'Activate account for %s';

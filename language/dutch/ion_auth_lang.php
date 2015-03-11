@@ -1,18 +1,18 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Dutch
-* 
+*
 * Author: Jeroen van der Gulik
 *         jeroen@isset.nl
 *
 * Adjustments by Dieter
-* 
+*
 * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
-*          
-* Created:  05.01.2010 
-* 
+*
+* Created:  05.01.2010
+*
 * Description:  Dutch language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -46,7 +46,7 @@ $lang['login_unsuccessful'] 		  	 = 'Login is incorrect';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	 = 'U bent uitgelogd';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Account is bijgewerkt';
 $lang['update_unsuccessful'] 		 	 = 'Account bijwerken is mislukt';
@@ -61,6 +61,7 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Account Activering';

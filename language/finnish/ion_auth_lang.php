@@ -44,7 +44,7 @@ $lang['login_unsuccessful']                      = 'Kirjautuminen epäonnistui';
 $lang['login_unsuccessful_not_active']           = 'Tiliä ei aktivoitu';
 $lang['login_timeout']                           = 'Väliaikaisesti suljettu. Yritä uudelleen myöhemmin.';
 $lang['logout_successful']                       = 'Olet nyt kirjautunut ulos';
-  
+
 // Account Changes
 $lang['update_successful']                       = 'Tilin tiedot päivitetty!';
 $lang['update_unsuccessful']                     = 'Tietojen päivitys epäonnistui';
@@ -59,6 +59,7 @@ $lang['group_delete_successful']                 = 'Ryhmä poistettu';
 $lang['group_delete_unsuccessful']               = 'Ryhmän poisto epäonnistui';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']                     = 'Ryhmän nimi tarvitaan';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Tilin aktivointi';

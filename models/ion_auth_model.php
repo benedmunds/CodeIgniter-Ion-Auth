@@ -892,7 +892,7 @@ class Ion_auth_model extends CI_Model
 
 		//check if the default set in config exists in database
 		$query = $this->db->get_where($this->tables['groups'],array('name' => $this->config->item('default_group', 'ion_auth')),1)->row();
-		if( !isset($query->id) && empty($groups) ) 
+		if( !isset($query->id) && empty($groups) )
 		{
 			$this->set_error('account_creation_invalid_default_group');
 			return FALSE;
@@ -1308,7 +1308,7 @@ class Ion_auth_model extends CI_Model
 				    'inner'
 				);
 			}
-			
+
 			// verify if group name or group id was used and create and put elements in different arrays
 			$group_ids = array();
 			$group_names = array();
@@ -1925,6 +1925,14 @@ class Ion_auth_model extends CI_Model
 
 			$data['name'] = $group_name;
 		}
+
+		// restrict change of name of the admin group
+        $group = $this->db->get_where($this->tables['groups'], array('id' => $group_id))->row();
+        if($this->config->item('admin_group', 'ion_auth') === $group->name && $group_name !== $group->name)
+        {
+            $this->set_error('group_name_admin_not_alter');
+            return FALSE;
+        }
 
 
 		// IMPORTANT!! Third parameter was string type $description; this following code is to maintain backward compatibility

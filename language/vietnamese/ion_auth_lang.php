@@ -55,6 +55,7 @@ $lang['group_delete_successful']    = 'Đã xoá nhóm';
 $lang['group_delete_unsuccessful'] 	= 'Không thể xoá nhóm vào lúc này';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Vui lòng nhập tên nhóm';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Kích hoạt tài khoản';

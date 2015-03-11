@@ -63,6 +63,7 @@ $lang['group_delete_successful']    = 'กลุ่มถูกลบแล้�
 $lang['group_delete_unsuccessful'] 	= 'ไม่สามารถลบกลุ่มได้';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'ต้องใส่ชื่อกลุ่ม';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'การเปิดใช้บัญชี';

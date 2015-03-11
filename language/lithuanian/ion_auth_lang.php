@@ -60,6 +60,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Paskyros aktyvavimas';
 $lang['email_activate_heading']    = 'Activate account for %s';

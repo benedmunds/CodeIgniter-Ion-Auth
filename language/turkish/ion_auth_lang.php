@@ -10,7 +10,7 @@
 * Author: Hüseyin Kozan
 * 		  posta@huseyinkozan.com.tr
 *         @huseyinkozan
-*             
+*
 * Location: http://github.com/huseyinkozan/CodeIgniter-Ion-Auth/
 *
 * Created:  05.01.2010
@@ -51,7 +51,7 @@ $lang['login_unsuccessful'] 		 	 = 'Giriş Başarısız';
 $lang['login_unsuccessful_not_active'] ="Giriş Başarısız ,Hesabınız Etkin Değil";
 $lang['login_timeout']                       = 'Temporarily Locked Out. Try again later.';
 $lang['logout_successful'] 		 	 = 'Çıkış Başarılı';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Üyelik Bilgileri Güncellendi';
 $lang['update_unsuccessful'] 		 	 = 'Üyelik Bilgileri Güncelleme Başarısız';
@@ -66,6 +66,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Üyelik Etkinleştirme';
 $lang['email_activate_heading']    = 'Activate account for %s';

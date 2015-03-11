@@ -59,6 +59,7 @@ $lang['group_delete_successful']    = '그룹을 삭제했습니다';
 $lang['group_delete_unsuccessful'] 	= '그룹을 삭제할 수 없습니다';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= '그룹 이름을 입력해 주십시오';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = '계정 활성화 방법을 보내드립니다';

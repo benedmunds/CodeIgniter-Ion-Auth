@@ -59,6 +59,7 @@ $lang['group_delete_successful']    = 'Grup sters cu succes';
 $lang['group_delete_unsuccessful'] 	= 'Nu am putut sterge grupul';
 $lang['group_delete_notallowed']    = 'Nu pot sterge grupul administratorilor';
 $lang['group_name_required'] 		= 'Este necesar un nume pentru grup';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Activarea contului';

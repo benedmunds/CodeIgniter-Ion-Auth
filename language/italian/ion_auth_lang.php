@@ -1,15 +1,15 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Italian
-* 
+*
 * Author: Ben Edmunds
 *         ben.edmunds@gmail.com
 *         @benedmunds
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
-* Created:  07.08.2010 
-* 
+*
+* Created:  07.08.2010
+*
 * Description:  Italian language file for Ion Auth messages and errors
 * translation:   Antonio Frignani (www.thinkers.it)
 */
@@ -45,7 +45,7 @@ $lang['login_unsuccessful'] 		  	 = 'Login non corretto.';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out. Try again later.';
 $lang['logout_successful'] 		 	 = 'Logout effettuato con successo.';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Informazioni dell\'account aggiornate con successo.';
 $lang['update_unsuccessful'] 		 	 = 'Impossibile aggiornare le informazioni dell\'account.';
@@ -60,6 +60,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Attivazione Account';
 $lang['email_activate_heading']    = 'Activate account for %s';
