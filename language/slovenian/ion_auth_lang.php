@@ -4,7 +4,7 @@
 *
 * Author: Žiga Drnovšček
 * 		  ziga.drnovscek@gmail.com
-*         
+*
 *
 *
 * Location: http://github.com/benedmunds/ion_auth/
@@ -60,6 +60,7 @@ $lang['group_delete_successful']    = 'Skupina izbrisana';
 $lang['group_delete_unsuccessful'] 	= 'Ni možno izbrisati skupine';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Ime skupine je obvezno polje';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Aktivacija računa';

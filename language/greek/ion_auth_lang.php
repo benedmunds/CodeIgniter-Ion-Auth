@@ -1,16 +1,16 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Greek
-* 
+*
 * Author: Vagelis Papaloukas
 * 		  vagelispapalou@yahoo.gr
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
+*
 * Created:  02.04.2011
-* 
+*
 * Description:  Greek language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -44,7 +44,7 @@ $lang['login_unsuccessful'] 		  	 = 'Λάθος Στοιχεία';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	 = 'Αποσυνδεθήκατε Επιτυχώς';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Οι Πληροφορίες του Λογαριασμού Ενημερώθηκαν Επιτυχώς';
 $lang['update_unsuccessful'] 		 	 = 'Αδυναμία Ενημέρωσης Πληροφοριών Λογαριασμού';
@@ -59,6 +59,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Account Activation';
 $lang['email_activate_heading']    = 'Activate account for %s';

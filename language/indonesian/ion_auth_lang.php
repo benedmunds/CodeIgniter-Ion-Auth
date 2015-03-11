@@ -1,22 +1,22 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Indonesian
-* 
+*
 * Author: Toni Haryanto
 * 		  toha.samba@gmail.com
 *         @yllumi
-* 
+*
 * Author: Daeng Muhammad Feisal
 *         daengdoang@gmail.com
 *         @daengdoang
-* 
+*
 * Location: https://github.com/yllumi/CodeIgniter-Ion-Auth
-*          
+*
 * Created:  11.15.2011
 * Edited:   June 21st 2014 :D
-* 
+*
 * Description:  Indonesian language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -50,7 +50,7 @@ $lang['login_unsuccessful'] 		  	 = 'Log In Gagal';
 $lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful'] 		 	 = 'Log Out Berhasil';
-  
+
 // Account Changes
 $lang['update_successful'] 		 	 = 'Informasi Akun Berhasil Diperbaharui';
 $lang['update_unsuccessful'] 		 	 = 'Tidak Dapat Memperbaharui Informasi Akun';
@@ -65,6 +65,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Aktivasi Akun';
 $lang['email_activate_heading']    = 'Activate account for %s';

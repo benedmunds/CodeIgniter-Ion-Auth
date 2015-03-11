@@ -1,21 +1,21 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Polish
-* 
+*
 * Author: Bart Majewski
 * 		  hello@bartoszmajewski.pl
 *         @bart_majewski
  * Updates: Slawomir Jasinski
  * 			slav123@gmail.com
  * 			@slavomirj
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
+*
 * Created:  03.23.2010
 * Updated:  22.08.2012
-* 
+*
 * Description:  Polish language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -64,6 +64,8 @@ $lang['group_delete_successful']    = 'Group deleted';
 $lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+
 // Activation Email
 $lang['email_activation_subject']            = 'Aktywacja Konta';
 $lang['email_activate_heading']    = 'Activate account for %s';

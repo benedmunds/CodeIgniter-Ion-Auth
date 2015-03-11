@@ -58,6 +58,7 @@ $lang['group_delete_successful']            = 'Grupo excluído com sucesso';
 $lang['group_delete_unsuccessful']          = 'Não foi possível excluir o grupo';
 $lang['group_delete_notallowed']    		= 'Não é possível excluir o grupo de administradores';
 $lang['group_name_required'] 				= 'Nome do grupo é um campo obrigatório';
+$lang['group_name_admin_not_alter'] 		= 'Nome do grupo administrador não pode ser alterado';
 
 // Activation Email
 $lang['email_activation_subject']           = 'Ativação da conta';

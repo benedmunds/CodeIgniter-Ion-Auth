@@ -1,7 +1,7 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
 * Name:  Ion Auth Lang - Norwegian
-* 
+*
 * Author: Tomas E. Sandven
 * 		  tomas191191@gmail.com
 *         @codemonkey1991
@@ -9,14 +9,14 @@
 * Author: Yngve Høiseth
 * 		  yngve.hoiseth@gmail.com
 *         @yhoiseth
-* 
+*
 * Location: http://github.com/benedmunds/ion_auth/
-*          
+*
 * Created:  01.01.2012
 * Last-Edit: 16.11.2014
-* 
+*
 * Description:  Norwegian language file for Ion Auth messages and errors
-* 
+*
 */
 
 // Account Creation
@@ -63,6 +63,7 @@ $lang['group_delete_successful']   = 'Gruppe slettet';
 $lang['group_delete_unsuccessful'] = 'Klarte ikke å slette gruppe';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']	   = 'Gruppenavn må fylles inn';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']  = 'Aktivering av konto';

@@ -65,6 +65,7 @@ $lang['group_delete_successful']    = 'グループを削除しました';
 $lang['group_delete_unsuccessful'] 	= 'グループを削除することが出来ません';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'グループ名が必要です。';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']            = 'アカウントの承認';

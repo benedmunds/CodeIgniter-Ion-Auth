@@ -1928,7 +1928,11 @@ class Ion_auth_model extends CI_Model
 
 		// restrict change of name of the admin group
         $group = $this->db->get_where($this->tables['groups'], array('id' => $group_id))->row();
-        if($this->config->item('admin_group', 'ion_auth') === $group->name && $group_name !== $group->name) return FALSE;
+        if($this->config->item('admin_group', 'ion_auth') === $group->name && $group_name !== $group->name)
+        {
+            $this->set_error('group_name_admin_not_alter');
+            return FALSE;
+        }
 
 
 		// IMPORTANT!! Third parameter was string type $description; this following code is to maintain backward compatibility

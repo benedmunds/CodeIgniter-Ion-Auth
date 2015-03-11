@@ -57,6 +57,7 @@ $lang['group_delete_successful']    = '群組已刪除';
 $lang['group_delete_unsuccessful']  = '刪除群組失敗';
 $lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']        = '群組名稱為必填欄位';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
 $lang['email_activation_subject']  = '啟動帳號';
