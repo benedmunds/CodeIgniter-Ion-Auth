@@ -62,7 +62,7 @@ class Ion_auth_model extends CI_Model
 	 * @var string
 	 **/
 	public $identity;
-
+	
 	/**
 	 * Where
 	 *
@@ -185,6 +185,8 @@ class Ion_auth_model extends CI_Model
 		$this->store_salt      = $this->config->item('store_salt', 'ion_auth');
 		$this->salt_length     = $this->config->item('salt_length', 'ion_auth');
 		$this->join			   = $this->config->item('join', 'ion_auth');
+		$altIdCol              = $this->config->item('identity_alt', 'ion_auth');
+		$this->identity_column_alt = $altIdCol !== FALSE ? $altIdCol : '';
 
 
 		//initialize hash method options (Bcrypt)
@@ -585,9 +587,14 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('id, password, salt')
-		                  ->where($this->identity_column, $identity)
-		                  ->limit(1)
+		$this->db->select('id, password, salt')
+	                  ->where($this->identity_column, $identity);
+						  
+		if(empty($this->identity_column_alt) === FALSE) {
+			$this->db->or_where($this->identity_column_alt, $identity);
+		}
+		
+		$query = $this->db->limit(1)
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
 
@@ -641,9 +648,14 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('id, password, salt')
-		                  ->where($this->identity_column, $identity)
-		                  ->limit(1)
+		$this->db->select('id, password, salt')
+	                  ->where($this->identity_column, $identity);
+						  
+		if(empty($this->identity_column_alt) === FALSE) {
+			$this->db->or_where($this->identity_column_alt, $identity);
+		}
+		
+		$query = $this->db->limit(1)
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
 
@@ -749,8 +761,13 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		return $this->db->where($this->identity_column, $identity)
-		                ->count_all_results($this->tables['users']) > 0;
+		$this->db->where($this->identity_column, $identity);
+		
+		if(empty($this->identity_column_alt) === FALSE) {
+			$this->db->or_where($this->identity_column_alt, $identity);
+		}
+		
+		return $this->db->count_all_results($this->tables['users']) > 0;
 	}
 
 	/**
@@ -801,7 +818,13 @@ class Ion_auth_model extends CI_Model
 		    'forgotten_password_time' => time()
 		);
 
-		$this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
+		$this->db->where($this->identity_column, $identity);
+		  
+		if(empty($this->identity_column_alt) === FALSE) {
+			$this->db->or_where($this->identity_column_alt, $identity);
+		}
+		
+		$this->db->update($this->tables['users'], $update);
 
 		$return = $this->db->affected_rows() == 1;
 
@@ -874,12 +897,12 @@ class Ion_auth_model extends CI_Model
 
 		$manual_activation = $this->config->item('manual_activation', 'ion_auth');
 
-		if ($this->identity_column == 'email' && $this->email_check($email))
+		if (($this->identity_column == 'email' || $this->identity_column_alt == 'email') && $this->email_check($email))
 		{
 			$this->set_error('account_creation_duplicate_email');
 			return FALSE;
 		}
-		elseif ($this->identity_column == 'username' && $this->username_check($username))
+		elseif (($this->identity_column == 'username' || $this->identity_column_alt == 'username') && $this->username_check($username))
 		{
 			$this->set_error('account_creation_duplicate_username');
 			return FALSE;
@@ -982,11 +1005,17 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+		$this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
-		    			  ->order_by('id', 'desc')
-		                  ->get($this->tables['users']);
+		    			  ->order_by('id', 'desc');
+                          
+        // also match against the alternate ID column if specified
+        if(empty($this->identity_column_alt) === FALSE) {
+            $this->db->or_where($this->identity_column_alt, $identity);
+        }
+                          
+        $query = $this-> db->get($this->tables['users']);
 
 		if($this->is_time_locked_out($identity))
 		{
@@ -1589,8 +1618,10 @@ class Ion_auth_model extends CI_Model
 		$user = $this->user($id)->row();
 
 		$this->db->trans_begin();
+		
+		$doIdCheck = array_key_exists($this->identity_column, $data) || array_key_exists($this->identity_column_alt, $data);
 
-		if (array_key_exists($this->identity_column, $data) && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
+		if ($doIdCheck && $this->identity_check($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 		{
 			$this->db->trans_rollback();
 			$this->set_error('account_creation_duplicate_'.$this->identity_column);
@@ -1745,6 +1776,10 @@ class Ion_auth_model extends CI_Model
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login
 		);
+		
+		if(empty($this->identity_column_alt) === FALSE) {
+			$session_data['identity_alt'] = $user->{$this->identity_column_alt};
+		}
 
 		$this->session->set_userdata($session_data);
 
