@@ -873,15 +873,11 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('pre_register');
 
 		$manual_activation = $this->config->item('manual_activation', 'ion_auth');
-
-		if ($this->identity_column == 'email' && $this->email_check($email))
+		
+		$identity_column = $this->identity_column;
+        	if($this->{$identity_column.'_check'}($$identity_column))
 		{
-			$this->set_error('account_creation_duplicate_email');
-			return FALSE;
-		}
-		elseif ($this->identity_column == 'username' && $this->username_check($username))
-		{
-			$this->set_error('account_creation_duplicate_username');
+			$this->set_error('account_creation_duplicate_'.$identity_column);
 			return FALSE;
 		}
 		elseif ( !$this->config->item('default_group', 'ion_auth') && empty($groups) )
