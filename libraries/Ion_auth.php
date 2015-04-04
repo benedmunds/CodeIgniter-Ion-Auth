@@ -360,7 +360,7 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
-			
+
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
@@ -445,7 +445,7 @@ class Ion_auth
 	 * @return bool
 	 * @author Ben Edmunds
 	 **/
-	public function is_admin($id=false)
+	public function is_admin($id = false)
 	{
 		$this->ion_auth_model->trigger_events('is_admin');
 
@@ -464,7 +464,7 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group, $id=false, $check_all = false)
+	public function in_group($check_group, $id = false, $check_all = false)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
 
