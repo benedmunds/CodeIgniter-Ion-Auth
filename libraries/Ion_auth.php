@@ -129,8 +129,10 @@ class Ion_auth
 	/**
 	 * forgotten password feature
 	 *
-	 * @return mixed  boolian / array
+	 * @param $identity, string
+	 *
 	 * @author Mathew
+	 * @return mixed  boolian / array
 	 **/
 	public function forgotten_password($identity)    //changed $email to $identity
 	{
@@ -189,8 +191,10 @@ class Ion_auth
 	/**
 	 * forgotten_password_complete
 	 *
-	 * @return void
+	 * @param $codes
+	 *
 	 * @author Mathew
+	 * @return void
 	 **/
 	public function forgotten_password_complete($code)
 	{
@@ -253,8 +257,10 @@ class Ion_auth
 	/**
 	 * forgotten_password_check
 	 *
-	 * @return void
+	 * @param $code
+	 *
 	 * @author Michael
+	 * @return void
 	 **/
 	public function forgotten_password_check($code)
 	{
@@ -284,8 +290,14 @@ class Ion_auth
 	/**
 	 * register
 	 *
-	 * @return void
+	 * @param $username
+	 * @param $password
+	 * @param $email
+	 * @param $additional_data, array
+	 * @param $group_ids, array
+	 *
 	 * @author Mathew
+	 * @return void
 	 **/
 	public function register($username, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
 	{
@@ -360,7 +372,7 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
-			
+
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
@@ -442,10 +454,12 @@ class Ion_auth
 	/**
 	 * is_admin
 	 *
+	 * @param $id, bool
+	 *
 	 * @return bool
 	 * @author Ben Edmunds
 	 **/
-	public function is_admin($id=false)
+	public function is_admin($id = FALSE)
 	{
 		$this->ion_auth_model->trigger_events('is_admin');
 
@@ -464,7 +478,7 @@ class Ion_auth
 	 * @return bool
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group, $id=false, $check_all = false)
+	public function in_group($check_group, $id = FALSE, $check_all = FALSE)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
 

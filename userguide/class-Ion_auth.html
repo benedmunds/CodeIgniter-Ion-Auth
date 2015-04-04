@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Ion_auth</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+		</div>
+
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Auth.html">Auth</a></li>
+				<li><a href="class-Bcrypt.html">Bcrypt</a></li>
+				<li class="active"><a href="class-Ion_auth.html">Ion_auth</a></li>
+				<li><a href="class-Ion_auth_model.html">Ion_auth_model</a></li>
+				<li><a href="class-Migration_Install_ion_auth.html">Migration_Install_ion_auth</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Auth.html">Auth</a></li>
+				<li><a href="class-Bcrypt.html">Bcrypt</a></li>
+				<li class="active"><a href="class-Ion_auth.html">Ion_auth</a></li>
+				<li><a href="class-Ion_auth_model.html">Ion_auth_model</a></li>
+				<li><a href="class-Migration_Install_ion_auth.html">Migration_Install_ion_auth</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Ion_auth</h1>
+
+
+	<div class="description">
+	<p>Name:  Ion Auth</p>
+
+<p>Version: 2.5.2</p>
+
+<p>Author: Ben Edmunds ben.edmunds@gmail.com</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+				<b>Benedmunds:</b>
+				<p>Added Awesomeness: Phil Sturgeon</p>
+
+<p>Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth</p>
+
+<p>Created:  10.01.2009</p>
+
+<p>Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
+Original Author name has been kept but that does not mean that the method has not been modified.</p>
+
+<p>Requirements: PHP5 or above</p><br>
+			<b>Located at</b> <a href="source-class-Ion_auth.html#3-531" title="Go to source code">libraries/Ion_auth.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-Ion_auth.html#54-87" title="Go to source code">__construct</a>( )</code>
+
+		<div class="description short">
+			<p>__construct</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>__construct</p>
+
+
+
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Ben<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__call" id="___call">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___call">#</a>
+		<code><a href="source-class-Ion_auth.html#89-110" title="Go to source code">__call</a>( <span> <var>$method</var></span>, <span> <var>$arguments</var></span> )</code>
+
+		<div class="description short">
+			<p>__call</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>__call</p>
+
+<p>Acts as a simple way to call model methods without loads of stupid alias'</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__get" id="___get">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___get">#</a>
+		<code><a href="source-class-Ion_auth.html#112-126" title="Go to source code">__get</a>( <span> <var>$var</var></span> )</code>
+
+		<div class="description short">
+			<p>__get</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>__get</p>
+
+<p>Enables the use of CI super-global without having to define an extra variable.</p>
+
+<p>I can't remember where I first saw this, so thank you if you are the original author. -Militis</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$var</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forgotten_password" id="_forgotten_password">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forgotten_password">#</a>
+		<code><a href="source-class-Ion_auth.html#129-189" title="Go to source code">forgotten_password</a>( <span> <var>$identity</var></span> )</code>
+
+		<div class="description short">
+			<p>forgotten password feature</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>forgotten password feature</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$identity</var></dt>
+					<dd>string</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed<br>boolian / array
+				</div>
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Mathew<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forgotten_password_complete" id="_forgotten_password_complete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forgotten_password_complete">#</a>
+		<code><a href="source-class-Ion_auth.html#191-255" title="Go to source code">forgotten_password_complete</a>( <span> <var>$code</var></span> )</code>
+
+		<div class="description short">
+			<p>forgotten_password_complete</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>forgotten_password_complete</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$code</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Mathew<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="forgotten_password_check" id="_forgotten_password_check">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_forgotten_password_check">#</a>
+		<code><a href="source-class-Ion_auth.html#257-288" title="Go to source code">forgotten_password_check</a>( <span> <var>$code</var></span> )</code>
+
+		<div class="description short">
+			<p>forgotten_password_check</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>forgotten_password_check</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$code</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Michael<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="register" id="_register">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_register">#</a>
+		<code><a href="source-class-Ion_auth.html#290-382" title="Go to source code">register</a>( <span> <var>$username</var></span>, <span> <var>$password</var></span>, <span> <var>$email</var></span>, <span> <var>$additional_data</var> = <span class="php-keyword1">array</span>()</span>, <span> <var>$group_ids</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			<p>register</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>register</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$username</var></dt>
+					<dd></dd>
+					<dt><var>$password</var></dt>
+					<dd></dd>
+					<dt><var>$email</var></dt>
+					<dd></dd>
+					<dt><var>$additional_data</var></dt>
+					<dd>array</dd>
+					<dt><var>$group_ids</var></dt>
+					<dd>array</dd>
+				</dl></div>
+
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Mathew<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="logout" id="_logout">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_logout">#</a>
+		<code><a href="source-class-Ion_auth.html#384-422" title="Go to source code">logout</a>( )</code>
+
+		<div class="description short">
+			<p>logout</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>logout</p>
+
+
+
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Mathew<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="logged_in" id="_logged_in">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_logged_in">#</a>
+		<code><a href="source-class-Ion_auth.html#424-435" title="Go to source code">logged_in</a>( )</code>
+
+		<div class="description short">
+			<p>logged_in</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>logged_in</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Mathew<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_user_id" id="_get_user_id">
+
+		<td class="attributes"><code>
+			 public 
+
+			integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_user_id">#</a>
+		<code><a href="source-class-Ion_auth.html#437-451" title="Go to source code">get_user_id</a>( )</code>
+
+		<div class="description short">
+			<p>logged_in</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>logged_in</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					integer
+				</div>
+
+
+				<h4>Author</h4>
+				<div class="list">
+						jrmadsen67<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="is_admin" id="_is_admin">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_is_admin">#</a>
+		<code><a href="source-class-Ion_auth.html#454-469" title="Go to source code">is_admin</a>( <span> <var>$id</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			<p>is_admin</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>is_admin</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$id</var></dt>
+					<dd>bool</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Ben Edmunds<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="in_group" id="_in_group">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_in_group">#</a>
+		<code><a href="source-class-Ion_auth.html#471-529" title="Go to source code">in_group</a>( <span>mixed <var>$check_group</var></span>, <span>boolean <var>$id</var> = <span class="php-keyword1">FALSE</span></span>, <span>boolean <var>$check_all</var> = <span class="php-keyword1">FALSE</span></span> )</code>
+
+		<div class="description short">
+			<p>in_group</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>in_group</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$check_group</var></dt>
+					<dd>to check</dd>
+					<dt><var>$id</var></dt>
+					<dd>id</dd>
+					<dt><var>$check_all</var></dt>
+					<dd>if all groups is present, or any of the groups</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+				<h4>Author</h4>
+				<div class="list">
+						Phil Sturgeon<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="status" id="$status">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ion_auth.html#26-31" title="Go to source code"><var>$status</var></a>
+
+			<div class="description short">
+				<p>account status ('not_activated', etc ...)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>account status ('not_activated', etc ...)</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$status" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_extra_where" id="$_extra_where">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ion_auth.html#33-38" title="Go to source code"><var>$_extra_where</var></a>
+
+			<div class="description short">
+				<p>extra where</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>extra where</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_extra_where" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_extra_set" id="$_extra_set">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ion_auth.html#40-45" title="Go to source code"><var>$_extra_set</var></a>
+
+			<div class="description short">
+				<p>extra set</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>extra set</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_extra_set" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="_cache_user_in_group" id="$_cache_user_in_group">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Ion_auth.html#47-52" title="Go to source code"><var>$_cache_user_in_group</var></a>
+
+			<div class="description short">
+				<p>caching of users and their groups</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>caching of users and their groups</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$_cache_user_in_group" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
