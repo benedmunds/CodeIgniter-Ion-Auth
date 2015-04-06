@@ -20,6 +20,10 @@ $lang['account_creation_unsuccessful'] 	 	 = 'Неуспешен опит за �
 $lang['account_creation_duplicate_email'] 	 = 'Email адреса е вече използван или невалиден';
 $lang['account_creation_duplicate_username'] = 'Потребителското име е вече използвано или невалидно';
 
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+
 // Password
 $lang['password_change_successful'] 	 	 = 'Паролата бе сменена успешно';
 $lang['password_change_unsuccessful'] 	  	 = 'Неуспешен опит за смяна на паролата';
@@ -53,8 +57,23 @@ $lang['group_already_exists']       = 'Името на групата вече �
 $lang['group_update_successful']    = 'Детайлите на групата бяха актуализирани';
 $lang['group_delete_successful']    = 'Групата бе изтрита';
 $lang['group_delete_unsuccessful'] 	= 'Неуспешен опит за изтриване на групата';
+//TO DO Please translate
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
-// Email Subjects
-$lang['email_forgotten_password_subject']    = 'Проверка за забравена парола';
-$lang['email_new_password_subject']          = 'Нова парола';
+//TO DO Please translate
+// Activation Email
 $lang['email_activation_subject']            = 'Активиране на регистрацията';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Проверка за забравена парола';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = 'Нова парола';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';

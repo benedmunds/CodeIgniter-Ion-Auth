@@ -6,7 +6,7 @@
 <?php echo form_open(current_url());?>
 
       <p>
-            <?php echo lang('create_group_name_label', 'group_name');?> <br />
+            <?php echo lang('edit_group_name_label', 'group_name');?> <br />
             <?php echo form_input($group_name);?>
       </p>
 

@@ -2,6 +2,8 @@
 /**
 * Name:  Ion Auth
 *
+* Version: 2.5.2
+*
 * Author: Ben Edmunds
 *		  ben.edmunds@gmail.com
 *         @benedmunds
@@ -58,30 +60,18 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->load->config('ion_auth', TRUE);
-		$this->load->library('email');
+		$this->load->library(array('email'));
 		$this->lang->load('ion_auth');
-		$this->load->helper('cookie');
+		$this->load->helper(array('cookie', 'language','url'));
 
-		// Load the session, CI2 as a library, CI3 uses it as a driver
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->load->library('session');
-		}
-		else
-		{
-			$this->load->driver('session');
-		}
+		$this->load->library('session');
 
-		// Load IonAuth MongoDB model if it's set to use MongoDB,
-		// We assign the model object to "ion_auth_model" variable.
-		$this->config->item('use_mongodb', 'ion_auth') ?
-			$this->load->model('ion_auth_mongodb_model', 'ion_auth_model') :
-			$this->load->model('ion_auth_model');
+		$this->load->model('ion_auth_model');
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
 		//auto-login the user if they are remembered
-		if (!$this->logged_in() && get_cookie('identity') && get_cookie('remember_code'))
+		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$this->ion_auth_model->login_remembered_user();
 		}
@@ -108,7 +98,14 @@ class Ion_auth
 		{
 			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
-
+		if($method == 'create_user')
+		{
+			return call_user_func_array(array($this, 'register'), $arguments);
+		}
+		if($method=='update_user')
+		{
+			return call_user_func_array(array($this, 'update'), $arguments);
+		}
 		return call_user_func_array( array($this->ion_auth_model, $method), $arguments);
 	}
 
@@ -140,7 +137,8 @@ class Ion_auth
 		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
 		{
 			// Get user information
-			$user = $this->where($this->config->item('identity', 'ion_auth'), $identity)->users()->row();  //changed to get_user_by_identity from email
+      $identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
+      $user = $this->where($identifier, $identity)->where('active', 1)->users()->row();  //changed to get_user_by_identity from email
 
 			if ($user)
 			{
@@ -362,6 +360,7 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
+			
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
@@ -384,13 +383,13 @@ class Ion_auth
                 $this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
 
 		//delete the remember me cookies if they exist
-		if (get_cookie('identity'))
+		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
 		{
-			delete_cookie('identity');
+			delete_cookie($this->config->item('identity_cookie_name', 'ion_auth'));
 		}
-		if (get_cookie('remember_code'))
+		if (get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
-			delete_cookie('remember_code');
+			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 		}
 
 		//Destroy the session
@@ -400,6 +399,10 @@ class Ion_auth
 		if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->session->sess_create();
+		}
+		else
+		{
+			$this->session->sess_regenerate(TRUE);
 		}
 
 		$this->set_message('logout_successful');

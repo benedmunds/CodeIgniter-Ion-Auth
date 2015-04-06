@@ -4,7 +4,7 @@
 *
 * Author: Žiga Drnovšček
 * 		  ziga.drnovscek@gmail.com
-*         
+*
 *
 *
 * Location: http://github.com/benedmunds/ion_auth/
@@ -20,6 +20,10 @@ $lang['account_creation_successful'] 	  	 = 'Račun je bil uspešno ustvarjen';
 $lang['account_creation_unsuccessful'] 	 	 = 'Ni mogoče ustvariti računa';
 $lang['account_creation_duplicate_email'] 	 = 'Elektronski naslov je neveljaven ali pa že obstaja';
 $lang['account_creation_duplicate_username'] = 'Uporabniško ime je neveljavno ali pa že obstaja';
+
+// TODO Please Translate
+$lang['account_creation_missing_default_group'] = 'Default group is not set';
+$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
 
 // Geslo
 $lang['password_change_successful'] 	 	 = 'Geslo je bilo uspešno spremenjeno';
@@ -54,9 +58,21 @@ $lang['group_already_exists']       = 'Ime skupine že obstaja';
 $lang['group_update_successful']    = 'Podatki o skupini so bili uspešno posodobljeni';
 $lang['group_delete_successful']    = 'Skupina izbrisana';
 $lang['group_delete_unsuccessful'] 	= 'Ni možno izbrisati skupine';
+$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
 $lang['group_name_required'] 		= 'Ime skupine je obvezno polje';
+$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
-// Zadeve e-sporočil
-$lang['email_forgotten_password_subject']    = 'Pozabljeno geslo';
-$lang['email_new_password_subject']          = 'Novo geslo';
+// Activation Email
 $lang['email_activation_subject']            = 'Aktivacija računa';
+$lang['email_activate_heading']    = 'Activate account for %s';
+$lang['email_activate_subheading'] = 'Please click this link to %s.';
+$lang['email_activate_link']       = 'Activate Your Account';
+// Forgot Password Email
+$lang['email_forgotten_password_subject']    = 'Pozabljeno geslo';
+$lang['email_forgot_password_heading']    = 'Reset Password for %s';
+$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
+$lang['email_forgot_password_link']       = 'Reset Your Password';
+// New Password Email
+$lang['email_new_password_subject']          = 'Novo geslo';
+$lang['email_new_password_heading']    = 'New Password for %s';
+$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';

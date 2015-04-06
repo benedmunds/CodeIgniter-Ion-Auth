@@ -11,7 +11,7 @@
       </p>
 
       <p>
-            <?php echo lang('create_user_lname_label', 'first_name');?> <br />
+            <?php echo lang('create_user_lname_label', 'last_name');?> <br />
             <?php echo form_input($last_name);?>
       </p>
 
