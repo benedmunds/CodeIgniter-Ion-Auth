@@ -18,25 +18,25 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	 = 'Account is aangemaakt';
 $lang['account_creation_unsuccessful'] 	 	 = 'Account aanmaken is mislukt';
-$lang['account_creation_duplicate_email'] 	 = 'E-mail is al in gebruik of ongeldig';
+$lang['account_creation_duplicate_email'] 	 = 'E-mailadres is al in gebruik of ongeldig';
 $lang['account_creation_duplicate_username'] 	 = 'Gebruikersnaam is al in gebruik of ongeldig';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Standaard groep is niet opgegeven';
+$lang['account_creation_invalid_default_group'] = 'Standaard groep is niet geldig';
 
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Wachtwoord succesvol gewijzigd';
 $lang['password_change_unsuccessful'] 	  	 = 'Wachtwoord wijzigen is mislukt';
-$lang['forgot_password_successful'] 	 	 = 'E-mail om het wachtwoord te Resetten is verzonden';
+$lang['forgot_password_successful'] 	 	 = 'E-mail om het wachtwoord te resetten is verzonden';
 $lang['forgot_password_unsuccessful'] 	 	 = 'Wachtwoord resetten is mislukt';
 
 // Activation
 $lang['activate_successful'] 		  	 = 'Account is geactiveerd';
 $lang['activate_unsuccessful'] 		 	 = 'Account activeren is mislukt';
 $lang['deactivate_successful'] 		  	 = 'Account is gedeactiveerd';
-$lang['deactivate_unsuccessful'] 	  	 = 'Accound deactiveren is mislukt';
+$lang['deactivate_unsuccessful'] 	  	 = 'Account deactiveren is mislukt';
 $lang['activation_email_successful'] 	  	 = 'Activatie e-mail is verzonden';
 $lang['activation_email_unsuccessful']   	 = 'Activatie e-mail verzenden is mislukt';
 
@@ -52,9 +52,9 @@ $lang['delete_successful'] 		 	 = 'Gebruiker is verwijderd';
 $lang['delete_unsuccessful'] 		 	 = 'Gebruiker verwijderen is mislukt';
 
 // Email Subjects - TODO Please Translate
-$lang['email_forgotten_password_subject']    = 'Verificatie Verloren Wachtwoord';
+$lang['email_forgotten_password_subject']    = 'Verificatie vergeten wachtwoord';
 $lang['email_new_password_subject']          = 'Nieuw wachtwoord';
-$lang['email_activation_subject']            = 'Account Activering';
+$lang['email_activation_subject']            = 'Account activering';
 
 /* End of file ion_auth_lang.php */
 /* Location: ./system/application/language/dutch/ion_auth_lang.php */
