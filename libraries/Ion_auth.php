@@ -319,7 +319,12 @@ class Ion_auth
 				return FALSE;
 			}
 
+			//deactivate so the user much follow the activation flow
 			$deactivate = $this->ion_auth_model->deactivate($id);
+
+			//the deactivate method call adds a message, here we need to clear that
+			$this->ion_auth_model->clear_messages();
+
 
 			if (!$deactivate)
 			{
@@ -360,7 +365,7 @@ class Ion_auth
 					$this->set_message('activation_email_successful');
 					return $id;
 				}
-			
+
 			}
 
 			$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));

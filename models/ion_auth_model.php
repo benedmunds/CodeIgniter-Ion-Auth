@@ -2103,6 +2103,8 @@ class Ion_auth_model extends CI_Model
 		return $message;
 	}
 
+
+
 	/**
 	 * messages
 	 *
@@ -2148,6 +2150,23 @@ class Ion_auth_model extends CI_Model
 			return $this->messages;
 		}
 	}
+
+
+	/**
+	 * clear_messages
+	 *
+	 * Clear messages
+	 *
+	 * @return void
+	 * @author Ben Edmunds
+	 **/
+	public function clear_messages()
+	{
+		$this->messages = array();
+
+		return TRUE;
+	}
+
 
 	/**
 	 * set_error
@@ -2209,6 +2228,24 @@ class Ion_auth_model extends CI_Model
 			return $this->errors;
 		}
 	}
+
+
+	/**
+	 * clear_errors
+	 *
+	 * Clear Errors
+	 *
+	 * @return void
+	 * @author Ben Edmunds
+	 **/
+	public function clear_errors()
+	{
+		$this->errors = array();
+
+		return TRUE;
+	}
+
+
 
 	protected function _filter_data($table, $data)
 	{
