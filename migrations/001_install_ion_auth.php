@@ -140,10 +140,10 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Dumping data for table 'users'
 		$data = array(
 			'id' => '1',
-			'ip_address' => 0x7f000001,
+			'ip_address' => '127.0.0.1',
 			'username' => 'administrator',
-			'password' => '59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4',
-			'salt' => '9462e8eee0',
+			'password' => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
+			'salt' => '',
 			'email' => 'admin@admin.com',
 			'activation_code' => '',
 			'forgotten_password_code' => NULL,
