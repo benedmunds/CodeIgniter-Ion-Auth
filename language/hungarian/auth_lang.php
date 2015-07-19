@@ -3,7 +3,7 @@
 * Name:  Auth Lang - Hungarian
 *
 * Author: Balazs Bosternak
-* 		  	b.bosternak@gmail.com
+* 				b.bosternak@gmail.com
 *         @bosternakbalazs
 
 *
