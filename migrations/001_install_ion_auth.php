@@ -4,7 +4,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 
 	public function up()
 	{
-		// Drop table 'groups' if it exists		
+		// Drop table 'groups' if it exists
 		$this->dbforge->drop_table('groups', TRUE);
 
 		// Table structure for table 'groups'
@@ -55,7 +55,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'auto_increment' => TRUE
 			),
 			'ip_address' => array(
-				'type' => 'VARBINARY',
+				'type' => 'VARCHAR',
 				'constraint' => '16'
 			),
 			'username' => array(
@@ -158,7 +158,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 		$this->db->insert('users', $data);
 
 
-		// Drop table 'users_groups' if it exists		
+		// Drop table 'users_groups' if it exists
 		$this->dbforge->drop_table('users_groups', TRUE);
 
 		// Table structure for table 'users_groups'
@@ -197,7 +197,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 			)
 		);
 		$this->db->insert_batch('users_groups', $data);
-		
+
 
 		// Drop table 'login_attempts' if it exists
 		$this->dbforge->drop_table('login_attempts', TRUE);
