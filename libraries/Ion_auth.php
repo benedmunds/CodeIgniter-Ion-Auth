@@ -385,8 +385,16 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('logout');
 
 		$identity = $this->config->item('identity', 'ion_auth');
-                $this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
-
+                
+                if (substr(CI_VERSION, 0, 1) == '2')
+		{
+			$this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
+                } 
+                else 
+                {
+                	$this->session->unset_userdata( array($identity, 'id', 'user_id') );
+                }
+                
 		//delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
 		{
@@ -423,8 +431,9 @@ class Ion_auth
 	public function logged_in()
 	{
 		$this->ion_auth_model->trigger_events('logged_in');
-
-		return (bool) $this->session->userdata('identity');
+		$identity = $this->config->item('identity', 'ion_auth');
+		
+		return (bool) $this->session->userdata($identity);
 	}
 
 	/**
