@@ -138,7 +138,7 @@ class Ion_auth
 		{
 			// Get user information
       $identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-      $user = $this->where($identifier, $identity)->where('active', 1)->users()->row();  //changed to get_user_by_identity from email
+      $user = $this->where($identifier, $identity)->where('active', 1)->users()->row();  // changed to get_user_by_identity from email
 
 			if ($user)
 			{
@@ -319,10 +319,10 @@ class Ion_auth
 				return FALSE;
 			}
 
-			//deactivate so the user much follow the activation flow
+			// deactivate so the user much follow the activation flow
 			$deactivate = $this->ion_auth_model->deactivate($id);
 
-			//the deactivate method call adds a message, here we need to clear that
+			// the deactivate method call adds a message, here we need to clear that
 			$this->ion_auth_model->clear_messages();
 
 
@@ -385,17 +385,17 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('logout');
 
 		$identity = $this->config->item('identity', 'ion_auth');
-                
+
                 if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
-                } 
-                else 
+                }
+                else
                 {
                 	$this->session->unset_userdata( array($identity, 'id', 'user_id') );
                 }
-                
-		//delete the remember me cookies if they exist
+
+		// delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
 		{
 			delete_cookie($this->config->item('identity_cookie_name', 'ion_auth'));
@@ -405,7 +405,7 @@ class Ion_auth
 			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 		}
 
-		//Destroy the session
+		// Destroy the session
 		$this->session->sess_destroy();
 
 		//Recreate the session
@@ -432,7 +432,7 @@ class Ion_auth
 	{
 		$this->ion_auth_model->trigger_events('logged_in');
 		$identity = $this->config->item('identity', 'ion_auth');
-		
+
 		return (bool) $this->session->userdata($identity);
 	}
 
