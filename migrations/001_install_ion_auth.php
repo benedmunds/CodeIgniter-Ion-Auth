@@ -211,7 +211,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'auto_increment' => TRUE
 			),
 			'ip_address' => array(
-				'type' => 'VARBINARY',
+				'type' => 'VARCHAR',
 				'constraint' => '16'
 			),
 			'login' => array(
