@@ -12,7 +12,7 @@
 $lang['account_creation_successful'] 	  	 = 'Ahoy, Welcome Aboard Landlubber!';
 $lang['account_creation_unsuccessful'] 	 	 = 'Avast, Unable to Commandeer Ship';
 $lang['account_creation_duplicate_email'] 	 = 'Letter in the Bottle Already Used or Invalid';
-$lang['account_creation_duplicate_username'] = 'Pirate Name Already Used or Invalid';
+$lang['account_creation_duplicate_identity'] = 'Pirate Name Already Used or Invalid';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
