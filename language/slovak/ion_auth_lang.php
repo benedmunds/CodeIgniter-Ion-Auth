@@ -16,7 +16,7 @@
 $lang['account_creation_successful'] 	  	 = 'Účet bol úspešne vytvorený';
 $lang['account_creation_unsuccessful'] 	 	 = 'Nie je možné vytvoriť účet';
 $lang['account_creation_duplicate_email'] 	 = 'E-mail už existuje alebo je neplatný';
-$lang['account_creation_duplicate_username'] = 'Užívateľské meno už existuje alebo je neplatné';
+$lang['account_creation_duplicate_identity'] = 'Užívateľské meno už existuje alebo je neplatné';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
