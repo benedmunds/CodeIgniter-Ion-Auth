@@ -17,7 +17,7 @@
 $lang['account_creation_successful'] 	  	 = 'Ο Λογαριασμός Δημιουργήθηκε Επιτυχώς';
 $lang['account_creation_unsuccessful'] 	 	 = 'Αποτυχία Δημιουργίας Λογαριασμού';
 $lang['account_creation_duplicate_email'] 	 = 'Το Email χρησιμποιείται ήδη ή είναι λάθος';
-$lang['account_creation_duplicate_username'] 	 = 'Ο Χρήστης υπάρχει ήδη ή είναι λάθος';
+$lang['account_creation_duplicate_identity'] 	 = 'Ο Χρήστης υπάρχει ήδη ή είναι λάθος';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
