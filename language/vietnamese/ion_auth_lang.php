@@ -18,7 +18,7 @@
 $lang['account_creation_successful'] 	  	 = 'Đã khởi tạo tài khoản thành công';
 $lang['account_creation_unsuccessful'] 	 	 = 'Không thể tạo tài khoản vào lúc này';
 $lang['account_creation_duplicate_email'] 	 = 'Địa chỉ email không hợp lệ hoặc đã được sử dụng';
-$lang['account_creation_duplicate_username'] = 'Tên tài khoản không hợp lệ hoặc đã được sử dụng';
+$lang['account_creation_duplicate_identity'] = 'Tên tài khoản không hợp lệ hoặc đã được sử dụng';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Đã thay đổi mật khẩu thành công';
