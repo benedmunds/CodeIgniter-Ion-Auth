@@ -23,7 +23,7 @@
 $lang['account_creation_successful'] 	  	     = 'Das Benutzerkonto wurde erfolgreich erstellt';
 $lang['account_creation_unsuccessful'] 	         = 'Das Benutzerkonto konnte nicht erstellt werden';
 $lang['account_creation_duplicate_email']        = 'Die E-Mail-Adresse ist ungültig oder wird bereits verwendet';
-$lang['account_creation_duplicate_username'] 	 = 'Der Benutzername ist ungültig oder wird bereits verwendet';
+$lang['account_creation_duplicate_identity'] 	 = 'Der Benutzername ist ungültig oder wird bereits verwendet';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';

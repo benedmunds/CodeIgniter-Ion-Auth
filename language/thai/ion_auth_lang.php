@@ -23,7 +23,7 @@
 $lang['account_creation_successful'] 	  	 = 'สร้างบัญชีสำเร็จ';
 $lang['account_creation_unsuccessful'] 	 	 = 'ไม่สามารถสร้างบัญชีได้';
 $lang['account_creation_duplicate_email'] 	 = 'อีเมล์นี้ถูกใช้ไปแล้วหรือรูปแบบไม่ถูกต้อง';
-$lang['account_creation_duplicate_username'] = 'ชื่อผู้ใช้นี้ถูกใช้ไปแล้วหรือรูปแบบไม่ถูกต้อง';
+$lang['account_creation_duplicate_identity'] = 'ชื่อผู้ใช้นี้ถูกใช้ไปแล้วหรือรูปแบบไม่ถูกต้อง';
 $lang['account_creation_missing_default_group'] = 'กลุ่มปริยายยังไม่ถูกตั้ง';
 $lang['account_creation_invalid_default_group'] = 'ชื่อกลุ่มปริยายตั้งไม่ถูกต้อง';
 

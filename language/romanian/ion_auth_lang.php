@@ -18,7 +18,7 @@
 $lang['account_creation_successful'] 	  	 	= 'Cont creat cu succes';
 $lang['account_creation_unsuccessful'] 	 	 	= 'Nu am reușit să creez contul';
 $lang['account_creation_duplicate_email'] 	 	= 'Email deja folosit sau invalid';
-$lang['account_creation_duplicate_username'] 	= 'Numele de utilizator este deja folosit sau este invalid';
+$lang['account_creation_duplicate_identity'] 	= 'Numele de utilizator este deja folosit sau este invalid';
 $lang['account_creation_missing_default_group'] = 'Grupul prestabilit nu a fost setat';
 $lang['account_creation_invalid_default_group'] = 'Ați setat un nume greșit pentru grupul prestabilit';
 

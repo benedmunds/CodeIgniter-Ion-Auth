@@ -18,7 +18,7 @@
 $lang['account_creation_successful']            = '账号创建成功';
 $lang['account_creation_unsuccessful']          = '账号创建失败';
 $lang['account_creation_duplicate_email']       = '电子邮件已被使用或不合法';
-$lang['account_creation_duplicate_username']    = '账号已存在或不合法';
+$lang['account_creation_duplicate_identity']    = '账号已存在或不合法';
 $lang['account_creation_missing_default_group'] = '尚未设定默认群组';
 $lang['account_creation_invalid_default_group'] = '默认群组名称不合法';
 

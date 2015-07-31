@@ -22,7 +22,7 @@
 $lang['account_creation_successful'] 	  	    = 'Üyelik kaydınız başarıyla tamamlandı';
 $lang['account_creation_unsuccessful'] 	 	    = 'Üyelik kaydınız yapılamadı';
 $lang['account_creation_duplicate_email'] 	    = 'E-posta adresi geçersiz ya da daha önceden alınmış';
-$lang['account_creation_duplicate_username']    = 'Kullanıcı adı geçersiz ya da daha önceden alınmış';
+$lang['account_creation_duplicate_identity']    = 'Kullanıcı adı geçersiz ya da daha önceden alınmış';
 $lang['account_creation_missing_default_group'] = 'Herhangi bir varsayılan grup ayarlanmamış';
 $lang['account_creation_invalid_default_group'] = 'Geçersiz bir varsayılan grup seçimi';
 

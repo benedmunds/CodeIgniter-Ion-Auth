@@ -18,7 +18,7 @@
 $lang['account_creation_successful'] 	  	 = 'Регистрацията бе създадена успешно';
 $lang['account_creation_unsuccessful'] 	 	 = 'Неуспешен опит за създаване на регистрация';
 $lang['account_creation_duplicate_email'] 	 = 'Email адреса е вече използван или невалиден';
-$lang['account_creation_duplicate_username'] = 'Потребителското име е вече използвано или невалидно';
+$lang['account_creation_duplicate_identity'] = 'Потребителското име е вече използвано или невалидно';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';

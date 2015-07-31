@@ -18,7 +18,7 @@
 $lang['account_creation_successful']         = 'Kontot har nu skapats';
 $lang['account_creation_unsuccessful']       = 'Det gick inte att skapa kontot';
 $lang['account_creation_duplicate_email']    = 'E-postadressen är ogiltig eller används redan';
-$lang['account_creation_duplicate_username'] = 'Användarnamnet är ogiltigt eller används redan';
+$lang['account_creation_duplicate_identity'] = 'Användarnamnet är ogiltigt eller används redan';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Standard grupp är inte satt';

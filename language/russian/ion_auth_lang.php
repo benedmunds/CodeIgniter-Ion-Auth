@@ -20,7 +20,7 @@
 $lang['account_creation_successful'] 	  	 = 'Учетная запись успешно создана';
 $lang['account_creation_unsuccessful'] 	 	 = 'Невозможно создать учетную запись';
 $lang['account_creation_duplicate_email'] 	 = 'Электронная почта используется или некорректна';
-$lang['account_creation_duplicate_username'] 	 = 'Имя пользователя существует или некорректно';
+$lang['account_creation_duplicate_identity'] 	 = 'Имя пользователя существует или некорректно';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Группа по умолчанию не установлена';

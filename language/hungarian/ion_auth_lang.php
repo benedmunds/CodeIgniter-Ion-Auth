@@ -17,7 +17,7 @@
 $lang['account_creation_successful'] 	  	      = 'Felhasználói fiók sikeresen létrehozva';
 $lang['account_creation_unsuccessful'] 	 	 	    = 'Nem lehet létrehozni a felhasználói fiókot';
 $lang['account_creation_duplicate_email'] 	 	  = 'Az email cím használatban van vagy érvénytelen';
-$lang['account_creation_duplicate_username'] 	  = 'A felhasználó név használatban van vagy érvénytelen';
+$lang['account_creation_duplicate_identity'] 	  = 'A felhasználó név használatban van vagy érvénytelen';
 $lang['account_creation_missing_default_group'] = 'Alapértelmezett csoport nincs megadva';
 $lang['account_creation_invalid_default_group'] = 'Érvénytelen alapértelmezett csoport név';
 

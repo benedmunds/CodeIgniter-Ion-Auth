@@ -21,7 +21,7 @@
 $lang['account_creation_successful']            = 'Compte créé avec succès';
 $lang['account_creation_unsuccessful']          = 'Impossible de créer le compte';
 $lang['account_creation_duplicate_email']       = 'Email déjà utilisé ou invalide';
-$lang['account_creation_duplicate_username']    = 'Nom d\'utilisateur déjà utilisé ou invalide';
+$lang['account_creation_duplicate_identity']    = 'Nom d\'utilisateur déjà utilisé ou invalide';
 $lang['account_creation_missing_default_group'] = 'Le groupe par défaut n\'est pas configuré';
 $lang['account_creation_invalid_default_group'] = 'Le nom du groupe par défaut n\'est pas valide';
 
