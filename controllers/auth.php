@@ -179,9 +179,9 @@ class Auth extends CI_Controller {
 	function forgot_password()
 	{
 		// setting validation rules by checking wheather identity is username or email
-		if($this->config->item('identity', 'ion_auth') == 'username' )
+		if($this->config->item('identity', 'ion_auth') != 'email' )
 		{
-		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_username_identity_label'), 'required');
+		   $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
 		}
 		else
 		{
@@ -196,8 +196,8 @@ class Auth extends CI_Controller {
 				'id' => 'email',
 			);
 
-			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-				$this->data['identity_label'] = $this->lang->line('forgot_password_username_identity_label');
+			if ( $this->config->item('identity', 'ion_auth') != 'email' ){
+				$this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
 			}
 			else
 			{
@@ -210,19 +210,14 @@ class Auth extends CI_Controller {
 		}
 		else
 		{
-			// get identity from username or email
-			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-				$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
-			}
-			else
-			{
-				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
-			}
-	            	if(empty($identity)) {
+			$identity_column = $this->config->item('identity','ion_auth');
+			$identity = $this->ion_auth->where($identity_column, $this->input->post('identity')))->users()->row();
+			
+			if(empty($identity)) {
 
-	            		if($this->config->item('identity', 'ion_auth') == 'username')
+	            		if($this->config->item('identity', 'ion_auth') != 'email')
 		            	{
-                                   $this->ion_auth->set_message('forgot_password_username_not_found');
+                                   $this->ion_auth->set_message('forgot_password_identity_not_found');
 		            	}
 		            	else
 		            	{

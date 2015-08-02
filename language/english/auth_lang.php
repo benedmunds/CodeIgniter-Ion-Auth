@@ -129,7 +129,7 @@ $lang['forgot_password_subheading']              = 'Please enter your %s so we c
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Submit';
 $lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_username_identity_label'] = 'Username';
+$lang['forgot_password_identity_label'] = 'Identity';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'No record of that email address.';
 
