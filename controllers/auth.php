@@ -81,12 +81,12 @@ class Auth extends CI_Controller {
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
 			$this->data['identity'] = array('name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
+				'id'    => 'identity',
+				'type'  => 'text',
 				'value' => $this->form_validation->set_value('identity'),
 			);
 			$this->data['password'] = array('name' => 'password',
-				'id' => 'password',
+				'id'   => 'password',
 				'type' => 'password',
 			);
 
@@ -134,15 +134,15 @@ class Auth extends CI_Controller {
 				'type' => 'password',
 			);
 			$this->data['new_password'] = array(
-				'name' => 'new',
-				'id'   => 'new',
-				'type' => 'password',
+				'name'    => 'new',
+				'id'      => 'new',
+				'type'    => 'password',
 				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 			);
 			$this->data['new_password_confirm'] = array(
-				'name' => 'new_confirm',
-				'id'   => 'new_confirm',
-				'type' => 'password',
+				'name'    => 'new_confirm',
+				'id'      => 'new_confirm',
+				'type'    => 'password',
 				'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 			);
 			$this->data['user_id'] = array(
@@ -212,19 +212,19 @@ class Auth extends CI_Controller {
 		{
 			$identity_column = $this->config->item('identity','ion_auth');
 			$identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
-			
+
 			if(empty($identity)) {
 
 	            		if($this->config->item('identity', 'ion_auth') != 'email')
 		            	{
-                                   $this->ion_auth->set_message('forgot_password_identity_not_found');
+		            		$this->ion_auth->set_error('forgot_password_identity_not_found');
 		            	}
 		            	else
 		            	{
-		            	   $this->ion_auth->set_message('forgot_password_email_not_found');
+		            	   $this->ion_auth->set_error('forgot_password_email_not_found');
 		            	}
 
-		                $this->session->set_flashdata('message', $this->ion_auth->messages());
+		                $this->session->set_flashdata('message', $this->ion_auth->errors());
                 		redirect("auth/forgot_password", 'refresh');
             		}
 
@@ -273,13 +273,13 @@ class Auth extends CI_Controller {
 				$this->data['new_password'] = array(
 					'name' => 'new',
 					'id'   => 'new',
-				'type' => 'password',
+					'type' => 'password',
 					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 				);
 				$this->data['new_password_confirm'] = array(
-					'name' => 'new_confirm',
-					'id'   => 'new_confirm',
-					'type' => 'password',
+					'name'    => 'new_confirm',
+					'id'      => 'new_confirm',
+					'type'    => 'password',
 					'pattern' => '^.{'.$this->data['min_password_length'].'}.*$',
 				);
 				$this->data['user_id'] = array(
@@ -748,10 +748,10 @@ class Auth extends CI_Controller {
 		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
 
 		$this->data['group_name'] = array(
-			'name'  => 'group_name',
-			'id'    => 'group_name',
-			'type'  => 'text',
-			'value' => $this->form_validation->set_value('group_name', $group->name),
+			'name'    => 'group_name',
+			'id'      => 'group_name',
+			'type'    => 'text',
+			'value'   => $this->form_validation->set_value('group_name', $group->name),
 			$readonly => $readonly,
 		);
 		$this->data['group_description'] = array(
