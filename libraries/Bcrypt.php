@@ -17,8 +17,9 @@ class Bcrypt {
   public function hash($input) {
     $hash = crypt($input, $this->getSalt());
 
-    if(strlen($hash) > 13)
+    if(strlen($hash) > 13) {
       return $hash;
+    }
 
     return false;
   }
