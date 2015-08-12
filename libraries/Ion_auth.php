@@ -292,11 +292,11 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('pre_account_creation');
 
 		$email_activation = $this->config->item('email_activation', 'ion_auth');
-		
+
 		$id = $this->ion_auth_model->register($identity, $password, $email, $additional_data, $group_ids);
 
 		if (!$email_activation)
-		{	
+		{
 			if ($id !== FALSE)
 			{
 				$this->set_message('account_creation_successful');
@@ -452,18 +452,18 @@ class Ion_auth
 
 
 	/**
-	 * is_admin
+	 * is_group
 	 *
 	 * @return bool
-	 * @author Ben Edmunds
+	 * @author Ben Edmunds & Carlos Mendez
 	 **/
-	public function is_admin($id=false)
+	public function is_group($g, $id=false)
 	{
-		$this->ion_auth_model->trigger_events('is_admin');
+		$this->ion_auth_model->trigger_events('is_group');
 
-		$admin_group = $this->config->item('admin_group', 'ion_auth');
+		$g = $this->config->item($g.'_group', 'ion_auth');
 
-		return $this->in_group($admin_group, $id);
+		return $this->in_group($g, $id);
 	}
 
 	/**

@@ -57,7 +57,7 @@
 				<li><a href="#forgotten_password">forgotten_password()</a></li>
 				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
 				<li><a href="#logged_in">logged_in()</a></li>
-				<li><a href="#is_admin">is_admin()</a></li>
+				<li><a href="#is_group('admin')">is_group('admin')</a></li>
 				<li><a href="#in_group">in_group()</a></li>
 				<li><a href="#username_check">username_check()</a></li>
 				<li><a href="#email_check">email_check()</a></li>
@@ -313,7 +313,7 @@ Documentation
 		$this->ion_auth->register($username, $password, $email, $additional_data, $group)
 	</pre>
 	<br />
-	
+
 	<a name="create_user"></a>
 	<h2>create_user()</h2>
 	<p>create_user is an alternate method for <a href="#register">register()</a> method.</p>
@@ -345,7 +345,7 @@ Documentation
 		$this->ion_auth->update($id, $data)
 	</pre>
 	<br />
-	
+
 	<a name="update_user"></a>
 	<h2>update_user()</h2>
 	<p>update_user() is an alternate method for <a href="#update">update()</a> method.</p>
@@ -470,8 +470,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="is_admin"></a>
-	<h2>is_admin()</h2>
+	<a name="is_group('admin')"></a>
+	<h2>is_group('admin')</h2>
 	<p>Check to see if the currently logged in user is an admin.</p>
 
 
@@ -487,7 +487,7 @@ Documentation
 
 	<p><b>Usage</b></p>
 	<pre>
-		if (!$this->ion_auth->is_admin())
+		if (!$this->ion_auth->is_group('admin')
 		{
 			$this->session->set_flashdata('message', 'You must be an admin to view this page');
 			redirect('welcome/index');
