@@ -35,7 +35,7 @@
             <?php echo form_input($password_confirm);?>
       </p>
 
-      <?php if ($this->ion_auth->is_admin()): ?>
+      <?php if ($this->ion_auth->is_group('admin'): ?>
 
           <h3><?php echo lang('edit_user_groups_heading');?></h3>
           <?php foreach ($groups as $group):?>
