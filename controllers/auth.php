@@ -789,14 +789,14 @@ class Auth extends CI_Controller {
 		}
 	}
 
-	function _render_page($view, $data=null, $render=false)
+	function _render_page($view, $data=null, $returnhtml=false)//I think this makes more sense
 	{
 
 		$this->viewdata = (empty($data)) ? $this->data: $data;
 
-		$view_html = $this->load->view($view, $this->viewdata, $render);
+		$view_html = $this->load->view($view, $this->viewdata, $returnhtml);
 
-		if (!$render) return $view_html;
+		if ($returnhtml) return $view_html;
 	}
 
 }
