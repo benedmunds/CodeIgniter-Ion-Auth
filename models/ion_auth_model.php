@@ -898,17 +898,6 @@ class Ion_auth_model extends CI_Model
 		// capture default group details
 		$default_group = $query;
 
-		// If identity is taken, use identity_1 or identity_2, etc.
-
-        $original_identity = $identity;
-        for($i = 0; $this->identity_check($identity); $i++)
-        {
-            if($i > 0)
-            {
-                $identity = $original_identity .'_'. $i;
-            }
-        }
-
 		// IP Address
 		$ip_address = $this->_prepare_ip($this->input->ip_address());
 		$salt       = $this->store_salt ? $this->salt() : FALSE;
