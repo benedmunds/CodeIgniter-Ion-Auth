@@ -1,18 +1,23 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
 /**
-* Name:  Auth Lang - Chinese Traditional
-*
-* Author: Bo-Yi Wu
-*         appleboy.tw@gmail.com
-*         @taiwan
-*
-* Location: http://github.com/benedmunds/ion_auth/
-*
-* Created:  03.09.2013
-*
-* Description: Chinese language language file for Ion Auth example views
-*
-*/
+ * Name:  Auth Lang - Chinese Traditional
+ *
+ * Author: Bo-Yi Wu
+ *         appleboy.tw@gmail.com
+ *         @taiwan
+ *
+ * Location: http://github.com/benedmunds/ion_auth/
+ *
+ * Created:  03.09.2013
+ *
+ * Description: Chinese language language file for Ion Auth example views
+ *
+ */
 
 // Errors
 $lang['error_csrf'] = '此表單內容資訊沒通過系統安全認證.';
@@ -54,7 +59,7 @@ $lang['create_user_heading']                           = '建立帳號';
 $lang['create_user_subheading']                        = '請填寫使用者帳號基本資料.';
 $lang['create_user_fname_label']                       = '名字:';
 $lang['create_user_lname_label']                       = '姓氏:';
-$lang['create_user_identity_label']                    = 'Identity:';
+$lang['create_user_identity_label']                    = '帳號:';
 $lang['create_user_company_label']                     = '公司名稱:';
 $lang['create_user_email_label']                       = '電子郵件:';
 $lang['create_user_phone_label']                       = '電話:';
@@ -63,7 +68,7 @@ $lang['create_user_password_confirm_label']            = '確認密碼:';
 $lang['create_user_submit_btn']                        = '建立帳號';
 $lang['create_user_validation_fname_label']            = '名字';
 $lang['create_user_validation_lname_label']            = '姓氏';
-$lang['create_user_validation_identity_label']         = 'Identity';
+$lang['create_user_validation_identity_label']         = '帳號';
 $lang['create_user_validation_email_label']            = '電子郵件';
 $lang['create_user_validation_phone1_label']           = '聯絡電話一';
 $lang['create_user_validation_phone2_label']           = '聯絡電話二';

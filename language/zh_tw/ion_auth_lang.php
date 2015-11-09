@@ -1,18 +1,23 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
+if (! defined('BASEPATH')) {
+    exit('No direct script access allowed');
+}
+
 /**
-* Name:  Ion Auth Lang - Chinese Traditional
-*
-* Author: Bo-Yi Wu
-*         appleboy.tw@gmail.com
-*         @taiwan
-*
-* Location: http://github.com/benedmunds/ion_auth/
-*
-* Created:  03.14.2011
-*
-* Description:  Chinese language file for Ion Auth messages and errors
-*
-*/
+ * Name:  Ion Auth Lang - Chinese Traditional
+ *
+ * Author: Bo-Yi Wu
+ *         appleboy.tw@gmail.com
+ *         @taiwan
+ *
+ * Location: http://github.com/benedmunds/ion_auth/
+ *
+ * Created:  03.14.2011
+ *
+ * Description:  Chinese language file for Ion Auth messages and errors
+ *
+ */
 
 // Account Creation
 $lang['account_creation_successful']         = '帳號建立成功';
@@ -55,20 +60,20 @@ $lang['group_already_exists']       = '群組名稱已重複';
 $lang['group_update_successful']    = '更新群組成功';
 $lang['group_delete_successful']    = '群組已刪除';
 $lang['group_delete_unsuccessful']  = '刪除群組失敗';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
+$lang['group_delete_notallowed']    = '無法刪除管理者群組';
 $lang['group_name_required']        = '群組名稱為必填欄位';
-$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+$lang['group_name_admin_not_alter'] = '不能變更管理者群組名稱';
 
 // Activation Email
 $lang['email_activation_subject']  = '啟動帳號';
 $lang['email_activate_heading']    = '啟動帳號 %s';
-$lang['email_activate_subheading'] = '請點此連結 %s.';
+$lang['email_activate_subheading'] = '請點此連結 %s';
 $lang['email_activate_link']       = '啟動您的帳號';
 
 // Forgot Password Email
 $lang['email_forgotten_password_subject'] = '密碼重設驗證';
 $lang['email_forgot_password_heading']    = '重新啟用密碼 %s';
-$lang['email_forgot_password_subheading'] = '請點此連結 %s.';
+$lang['email_forgot_password_subheading'] = '請點此連結 %s';
 $lang['email_forgot_password_link']       = '重新啟動密碼';
 
 // New Password Email
