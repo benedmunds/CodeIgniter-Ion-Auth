@@ -185,15 +185,15 @@ class Auth extends CI_Controller {
 		}
 		else
 		{
-		   $this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
+		   $this->form_validation->set_rules('identity', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
 		}
 
 
 		if ($this->form_validation->run() == false)
 		{
 			// setup the input
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
+			$this->data['identity'] = array('name' => 'identity',
+				'id' => 'identity',
 			);
 
 			if ( $this->config->item('identity', 'ion_auth') != 'email' ){
@@ -211,7 +211,7 @@ class Auth extends CI_Controller {
 		else
 		{
 			$identity_column = $this->config->item('identity','ion_auth');
-			$identity = $this->ion_auth->where($identity_column, $this->input->post('email'))->users()->row();
+			$identity = $this->ion_auth->where($identity_column, $this->input->post('identity'))->users()->row();
 
 			if(empty($identity)) {
 
