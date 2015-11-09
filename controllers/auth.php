@@ -191,6 +191,7 @@ class Auth extends CI_Controller {
 
 		if ($this->form_validation->run() == false)
 		{
+			$this->data['type'] = $this->config->item('identity','ion_auth');
 			// setup the input
 			$this->data['identity'] = array('name' => 'identity',
 				'id' => 'identity',
