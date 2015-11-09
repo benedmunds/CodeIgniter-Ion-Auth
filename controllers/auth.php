@@ -481,8 +481,7 @@ class Auth extends CI_Controller {
                 'name'  => 'identity',
                 'id'    => 'identity',
                 'type'  => 'text',
-                'value' => $this->form_validation->set_value('identity
-                '),
+                'value' => $this->form_validation->set_value('identity'),
             );
             $this->data['email'] = array(
                 'name'  => 'email',
