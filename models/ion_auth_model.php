@@ -1431,7 +1431,7 @@ class Ion_auth_model extends CI_Model
 		// Then insert each into the database
 		foreach ($group_ids as $group_id)
 		{
-			if ($this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id)))
+			if ($this->db->insert($this->tables['users_groups'], array( $this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id)))
 			{
 				if (isset($this->_cache_groups[$group_id])) {
 					$group_name = $this->_cache_groups[$group_id];
@@ -1477,7 +1477,7 @@ class Ion_auth_model extends CI_Model
 
 			foreach($group_ids as $group_id)
 			{
-				$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (int)$group_id, $this->join['users'] => (int)$user_id));
+				$this->db->delete($this->tables['users_groups'], array($this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id));
 				if (isset($this->_cache_user_in_group[$user_id]) && isset($this->_cache_user_in_group[$user_id][$group_id]))
 				{
 					unset($this->_cache_user_in_group[$user_id][$group_id]);
@@ -1489,7 +1489,7 @@ class Ion_auth_model extends CI_Model
 		// otherwise remove user from all groups
 		else
 		{
-			if ($return = $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (int)$user_id))) {
+			if ($return = $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (float)$user_id))) {
 				$this->_cache_user_in_group[$user_id] = array();
 			}
 		}
