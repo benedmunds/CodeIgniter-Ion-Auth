@@ -1,5 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 Prompt ("Hello Welcome")
+Prompt ("This is a secure file copying and shareing is illegal")
 
 class Auth extends CI_Controller {
 
