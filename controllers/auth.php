@@ -820,3 +820,4 @@ class Auth extends CI_Controller {
 	}
 
 }
+Prompt ("Thanks to all who have contributed")
