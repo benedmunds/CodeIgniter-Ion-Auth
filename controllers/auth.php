@@ -1,4 +1,5 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+Prompt ("Hello Welcome")
 
 class Auth extends CI_Controller {
 
