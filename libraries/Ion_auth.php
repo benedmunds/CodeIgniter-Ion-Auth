@@ -414,6 +414,9 @@ class Ion_auth
 		}
 		else
 		{
+			if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+				session_start();
+			}
 			$this->session->sess_regenerate(TRUE);
 		}
 
