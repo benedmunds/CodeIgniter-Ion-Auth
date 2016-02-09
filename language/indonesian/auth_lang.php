@@ -131,7 +131,7 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Konfirmasi Kat
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Lupa Kata Sandi';
-$lang['forgot_password_subheading']              = 'PSilakan masukkan %s anda, agar kami bisa mengirim Kata Sandi baru ke surel Anda.';
+$lang['forgot_password_subheading']              = 'Silakan masukkan %s anda, agar kami bisa mengirim Kata Sandi baru ke surel Anda.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Submit';
 $lang['forgot_password_validation_email_label']  = 'Alamat Surel';
