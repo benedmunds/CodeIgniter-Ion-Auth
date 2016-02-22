@@ -71,6 +71,7 @@
 				<li><a href="#group">group()</a></li>
 				<li><a href="#groups">groups()</a></li>
 				<li><a href="#get_users_groups">get_users_groups()</a></li>
+				<li><a href="#get_group_users">get_group_users()</a></li>
 				<li><a href="#add_to_group">add_to_group()</a></li>
 				<li><a href="#remove_from_group">remove_from_group()</a></li>
 				<li><a href="#create_group">create_group()</a></li>
@@ -970,6 +971,26 @@ Documentation
 	</pre>
 	<br />
 
+	<a name="get_group_users"></a>
+	<h2>get_group_users()</h2>
+	<p>Get all users who are apart of a certain group.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Id' - integer REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$group_users = $this->ion_auth->get_group_users($group_id)->result();
+	</pre>
+	<br />
+	
 	<a name="add_to_group"></a>
 	<h2>add_to_group()</h2>
 	<p>Add user to group</p>
