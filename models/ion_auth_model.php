@@ -1980,6 +1980,22 @@ class Ion_auth_model extends CI_Model
 		$this->set_message('group_delete_successful');
 		return TRUE;
 	}
+	
+	/**
+	 * get_group_users
+	 *
+	 * @return array
+	 * @author Steve Goodwin
+	 **/
+	public function get_group_users($id)
+	{
+		$this->trigger_events('get_group_users');
+
+		return $this->db->select($this->tables['users_groups'].'.'.$this->join['users'].' as id, '.$this->tables['users'].'.*')
+						->where($this->tables['users_groups'].'.'.$this->join['groups'], $id)
+						->join($this->tables['users'], $this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id')
+						->get($this->tables['users_groups']);
+	}
 
 	public function set_hook($event, $name, $class, $method, $arguments)
 	{
