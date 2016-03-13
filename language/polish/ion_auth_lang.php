@@ -9,8 +9,9 @@
  * 			slav123@gmail.com
  * 			@slavomirj
  *
- *			VRS-Factory
+ *			vertisan
  *			vertisan@vrs-factory.pl
+ *			@vertisan
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
