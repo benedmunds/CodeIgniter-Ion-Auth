@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ip_address` varchar(15) NOT NULL,
+  `ip_address` varchar(45) NOT NULL,
   `username` varchar(100) NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) DEFAULT NULL,

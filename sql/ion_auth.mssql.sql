@@ -1,6 +1,6 @@
 CREATE TABLE users (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varchar(15) NOT NULL,
+    ip_address varchar(45) NOT NULL,
     username varchar(100) NULL,
     password varchar(255) NOT NULL,
     salt varchar(255),
