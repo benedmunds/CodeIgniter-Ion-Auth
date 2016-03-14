@@ -44,6 +44,7 @@
     		<ul>
 			    <li><a href="#config">General</a></li>
     			<li><a href="#use_config">Config Options</a></li>
+    			<li><a href="#ci2_compatibility">CI2 Compatibility</a></li>
     		</ul>
 			<h3>Class Functions</h3>
 			<ul>
@@ -132,6 +133,7 @@ Documentation
 	<ol>
 		<li>Download the latest version: <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master</a></li>
 		<li>Copy the files from this package to the correspoding folder in your application folder.  For example, copy Ion_auth/config/ion_auth.php to system/application/config/ion_auth.php.</li>
+		<li>You can also copy the entire directory structure into your third_party/ folder.  For example, copy everything to /application/third_party/ion_auth/</li>
 		<li>Run the appropriate SQL file from the /sql directory.</li>
 	</ol>
 
@@ -246,6 +248,20 @@ Documentation
 	<h1>Class Function Reference</h1>
 	<p class="important"><strong>NOTE:</strong> Methods available in the model are called through the controller using PHP5 magic.  You should never use ion_auth_model->method() in your applications.</p>
 
+
+	<a name="ci2_compatibility"></a>
+	<h2>Compatibility with CodeIgniter v2</h2>
+
+	<p>
+		CodeIgniter v2 requires the class file names to be lowercase.  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks:
+
+		models/Ion_auth_model.php         =>   models/ion_auth_model.php
+		controllers/Auth.php              =>   controllers/auth.php
+	</p>
+
+
+
+
 	<a name="login"></a>
 	<h2>login()</h2>
 	<p>Logs the user into the system.</p>
@@ -313,7 +329,7 @@ Documentation
 		$this->ion_auth->register($username, $password, $email, $additional_data, $group)
 	</pre>
 	<br />
-	
+
 	<a name="create_user"></a>
 	<h2>create_user()</h2>
 	<p>create_user is an alternate method for <a href="#register">register()</a> method.</p>
@@ -345,7 +361,7 @@ Documentation
 		$this->ion_auth->update($id, $data)
 	</pre>
 	<br />
-	
+
 	<a name="update_user"></a>
 	<h2>update_user()</h2>
 	<p>update_user() is an alternate method for <a href="#update">update()</a> method.</p>
