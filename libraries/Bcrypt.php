@@ -4,6 +4,13 @@
 class Bcrypt {
   private $rounds;
   private $salt_prefix;
+
+  /**
+   * Bcrypt constructor.
+   *
+   * @param array $params
+   * @throws Exception
+   */
   public function __construct($params=array('rounds'=>7, 'salt_prefix'=>'$2y$')) {
 
     if(CRYPT_BLOWFISH != 1) {
@@ -24,6 +31,11 @@ class Bcrypt {
     return false;
   }
 
+  /**
+   * @param $input
+   * @param $existingHash
+   * @return bool
+     */
   public function verify($input, $existingHash) {
     $hash = crypt($input, $existingHash);
     return $hash === $existingHash;
@@ -40,6 +52,12 @@ class Bcrypt {
   }
 
   private $randomState;
+
+
+  /**
+   * @param $count
+   * @return string
+     */
   private function getRandomBytes($count) {
     $bytes = '';
 
@@ -80,6 +98,10 @@ class Bcrypt {
     return $bytes;
   }
 
+  /**
+   * @param $input
+   * @return string
+     */
   private function encodeBytes($input) {
     // The following is code from the PHP Password Hashing Framework
     $itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
