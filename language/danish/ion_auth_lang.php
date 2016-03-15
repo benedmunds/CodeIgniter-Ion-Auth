@@ -15,7 +15,7 @@
 $lang['account_creation_successful'] 			= 'Konto oprettet';
 $lang['account_creation_unsuccessful'] 			= 'Det var ikke muligt at oprette kontoen';
 $lang['account_creation_duplicate_email'] 		= 'Email allerede i brug eller ugyldig';
-$lang['account_creation_duplicate_username'] 	= 'Brugernavn allerede i brug eller ugyldigt';
+$lang['account_creation_duplicate_identity'] 	= 'Brugernavn allerede i brug eller ugyldigt';
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
 $lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
 // Password

@@ -18,11 +18,11 @@
 $lang['account_creation_successful']         = 'Kontot har nu skapats';
 $lang['account_creation_unsuccessful']       = 'Det gick inte att skapa kontot';
 $lang['account_creation_duplicate_email']    = 'E-postadressen är ogiltig eller används redan';
-$lang['account_creation_duplicate_username'] = 'Användarnamnet är ogiltigt eller används redan';
+$lang['account_creation_duplicate_identity'] = 'Användarnamnet är ogiltigt eller används redan';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Standard grupp är inte satt';
+$lang['account_creation_invalid_default_group'] = 'Ogiltlig standard grupp namn satt';
 
 
 // Password

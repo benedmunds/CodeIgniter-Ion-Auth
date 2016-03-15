@@ -23,7 +23,7 @@
 $lang['account_creation_successful']			= 'Konto opprettet';
 $lang['account_creation_unsuccessful']			= 'Klarte ikke å opprette konto';
 $lang['account_creation_duplicate_email']		= 'Emailen er allerede i bruk eller ugyldig';
-$lang['account_creation_duplicate_username']	= 'Brukernavnet er allerede i bruk eller ugyldig';
+$lang['account_creation_duplicate_identity']	= 'Brukernavnet er allerede i bruk eller ugyldig';
 $lang['account_creation_missing_default_group'] = 'Standardgruppe er ikke valgt';
 $lang['account_creation_invalid_default_group'] = 'Ugyldig gruppenavn';
 

@@ -17,7 +17,7 @@
 $lang['account_creation_successful']            = 'تم انشاء حسابك بنجاح';
 $lang['account_creation_unsuccessful']          = 'حدث خطأ اثناء انشاء حسابك لدينا';
 $lang['account_creation_duplicate_email'] 	    = 'هذا البريد الإلكترونى تم استخدامه من قبل او غير صحيح';
-$lang['account_creation_duplicate_username']    = 'اسم المستخدم تم التسجيل به من قبل او غير صحيح';
+$lang['account_creation_duplicate_identity']    = 'اسم المستخدم تم التسجيل به من قبل او غير صحيح';
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
 $lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
 

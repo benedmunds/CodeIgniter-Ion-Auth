@@ -27,7 +27,7 @@
 $lang['account_creation_successful']				= 'Akun Berhasil Dibuat';
 $lang['account_creation_unsuccessful']				= 'Tidak Dapat Membuat Akun';
 $lang['account_creation_duplicate_email']			= 'Email Sudah Digunakan atau Tidak Valid';
-$lang['account_creation_duplicate_username']	    = 'Username Sudah Digunakan atau Tidak Valid';
+$lang['account_creation_duplicate_identity']	    = 'Identitas Sudah Digunakan atau Tidak Valid';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group']		= 'Standar grup tidak diatur';

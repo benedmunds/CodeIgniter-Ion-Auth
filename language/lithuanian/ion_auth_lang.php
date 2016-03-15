@@ -19,7 +19,7 @@
 $lang['account_creation_successful'] 	  	 = 'Vartotojas sėkmingai sukurtas';
 $lang['account_creation_unsuccessful'] 	 	 = 'Neįmanoma sukurti vartotojo';
 $lang['account_creation_duplicate_email'] 	 = 'El, pašto adresas jau yra arba neteisingas';
-$lang['account_creation_duplicate_username'] 	 = 'Prisijungimo vardas jau yra arba nekorektiškas';
+$lang['account_creation_duplicate_identity'] 	 = 'Prisijungimo vardas jau yra arba nekorektiškas';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';

@@ -21,7 +21,7 @@
 $lang['account_creation_successful'] 	  	 = 'Račun je uspješno kreiran';
 $lang['account_creation_unsuccessful'] 	 	 = 'Račun nije kreiran';
 $lang['account_creation_duplicate_email'] 	 = 'Email je već iskorišten ili krivi';
-$lang['account_creation_duplicate_username'] = 'Korisničko ime je već iskorišteno ili krivo';
+$lang['account_creation_duplicate_identity'] = 'Korisničko ime je već iskorišteno ili krivo';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';

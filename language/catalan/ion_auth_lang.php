@@ -20,7 +20,7 @@
 $lang['account_creation_successful']			= 'Compte creat amb èxit';
 $lang['account_creation_unsuccessful']			= 'No ha estat possible crear al compte';
 $lang['account_creation_duplicate_email']		= 'Email en ús o invàlid';
-$lang['account_creation_duplicate_username']	= 'Nom d&#39;usuari en ús o invàlid';
+$lang['account_creation_duplicate_identity']	= 'Nom d&#39;usuari en ús o invàlid';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Default group is not set';

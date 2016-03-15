@@ -4,8 +4,8 @@
 *
 * Author: 	Daeng Muhammad Feisal
 *     http://daengdoang.wordpress.com
-			daengdoang@gmail.com
-			@daengdoang
+*			daengdoang@gmail.com
+*			@daengdoang
 *
 * 
 *
@@ -37,7 +37,7 @@ $lang['index_lname_th']          = 'Nama Akhir';
 $lang['index_email_th']          = 'Email';
 $lang['index_groups_th']         = 'Grup';
 $lang['index_status_th']         = 'Status';
-$lang['index_action_th']         = 'Action';
+$lang['index_action_th']         = 'Aksi';
 $lang['index_active_link']       = 'Aktif';
 $lang['index_inactive_link']     = 'Tidak Aktif';
 $lang['index_create_user_link']  = 'Buat Pengguna baru';
@@ -57,6 +57,7 @@ $lang['create_user_heading']                           = 'Buat Pengguna';
 $lang['create_user_subheading']                        = 'Silakan masukan informasi Pengguna di bawah ini.';
 $lang['create_user_fname_label']                       = 'Nama Awal:';
 $lang['create_user_lname_label']                       = 'Nama Akhir:';
+$lang['create_user_identity_label']                    = 'Identitas:';
 $lang['create_user_company_label']                     = 'Nama Perusahaan:';
 $lang['create_user_email_label']                       = 'Surel:';
 $lang['create_user_phone_label']                       = 'Telepon:';
@@ -65,6 +66,7 @@ $lang['create_user_password_confirm_label']            = 'Konfirmasi Kata Sandi:
 $lang['create_user_submit_btn']                        = 'Buat Pengguna';
 $lang['create_user_validation_fname_label']            = 'Nama Awal';
 $lang['create_user_validation_lname_label']            = 'Nama Akhir';
+$lang['create_user_validation_identity_label']         = 'Identitas';
 $lang['create_user_validation_email_label']            = 'Alamat Surel';
 $lang['create_user_validation_phone1_label']           = 'Bagian Kesatu dari Telepon';
 $lang['create_user_validation_phone2_label']           = 'Bagian Kedua dari Telepon';
@@ -129,7 +131,7 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Konfirmasi Kat
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Lupa Kata Sandi';
-$lang['forgot_password_subheading']              = 'PSilakan masukkan %s anda, agar kami bisa mengirim Kata Sandi baru ke surel Anda.';
+$lang['forgot_password_subheading']              = 'Silakan masukkan %s anda, agar kami bisa mengirim Kata Sandi baru ke surel Anda.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Submit';
 $lang['forgot_password_validation_email_label']  = 'Alamat Surel';

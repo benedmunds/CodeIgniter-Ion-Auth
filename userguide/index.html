@@ -44,6 +44,7 @@
     		<ul>
 			    <li><a href="#config">General</a></li>
     			<li><a href="#use_config">Config Options</a></li>
+    			<li><a href="#ci2_compatibility">CI2 Compatibility</a></li>
     		</ul>
 			<h3>Class Functions</h3>
 			<ul>
@@ -132,6 +133,7 @@ Documentation
 	<ol>
 		<li>Download the latest version: <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/master</a></li>
 		<li>Copy the files from this package to the correspoding folder in your application folder.  For example, copy Ion_auth/config/ion_auth.php to system/application/config/ion_auth.php.</li>
+		<li>You can also copy the entire directory structure into your third_party/ folder.  For example, copy everything to /application/third_party/ion_auth/</li>
 		<li>Run the appropriate SQL file from the /sql directory.</li>
 	</ol>
 
@@ -216,7 +218,7 @@ Documentation
 		<li>'admin_group' - Name of the admin group.  DEFAULT is 'admin'.</li>
 		<li>'join['users'] ' - Users table column you want to join WITH.  DEFAULT is 'user_id'.</li>
 		<li>'join['groups'] ' - Group table column you want to join WITH.  DEFAULT is 'group_id'.</li>
-		<li>'identity' - Column to use for uniquely identifing user/logging in/etc. Usual choices are 'email' OR 'username'. You should add an index in the users table for whatever you set this option to. DEFAULT is 'email'.</li>
+		<li>'identity' - Column to use for uniquely identifing user/logging in/etc. Usual choices are 'email' OR 'username', but any unique key from your table can be used as identity. You should add an index in the users table for whatever you set this option to. DEFAULT is 'email'.</li>
 		<li>'min_password_length' - Minimum length of passwords.  DEFAULT is '8'.</li>
 		<li>'max_password_length' - Maximum length of passwords.  DEFAULT is '20'.</li>
 		<li>'email_activation' - TRUE or FALSE. Sets whether to require email activation or not. DEFAULT is 'false'.</li>
@@ -243,8 +245,23 @@ Documentation
 	</ul>
 	<br />
 
+
+	<a name="ci2_compatibility"></a>
+	<h2>Compatibility with CodeIgniter v2</h2>
+
+	<p>
+		CodeIgniter v2 requires the class file names to be lowercase.  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks:
+
+		models/Ion_auth_model.php         =>   models/ion_auth_model.php
+		controllers/Auth.php              =>   controllers/auth.php
+	</p>
+	<br />
+
+
+
 	<h1>Class Function Reference</h1>
 	<p class="important"><strong>NOTE:</strong> Methods available in the model are called through the controller using PHP5 magic.  You should never use ion_auth_model->method() in your applications.</p>
+
 
 	<a name="login"></a>
 	<h2>login()</h2>
@@ -252,7 +269,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Identity' - string REQUIRED.  Username or email, depending on your configuration.</li>
+		<li>'Identity' - string REQUIRED.  Username, email or any unique value in your users table, depending on your configuration.</li>
 		<li>'Password' - string REQUIRED.</li>
 		<li>'Remember' - boolean OPTIONAL. TRUE sets the user to be remembered if enabled in the configuration.</li>
 	</ol>
@@ -287,7 +304,7 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Username' - string REQUIRED.</li>
+		<li>'Identity' - string REQUIRED. This must be the value that uniquely identifies the user when he is registered. If you chose "email" as $config['identity'] in the configuration file, you must put the email of the new user.</li>
 		<li>'Password' - string REQUIRED.</li>
 		<li>'Email' - string REQUIRED.</li>
 		<li>'Additional Data' - multidimensional array OPTIONAL.</li>
@@ -313,7 +330,7 @@ Documentation
 		$this->ion_auth->register($username, $password, $email, $additional_data, $group)
 	</pre>
 	<br />
-	
+
 	<a name="create_user"></a>
 	<h2>create_user()</h2>
 	<p>create_user is an alternate method for <a href="#register">register()</a> method.</p>
@@ -345,7 +362,7 @@ Documentation
 		$this->ion_auth->update($id, $data)
 	</pre>
 	<br />
-	
+
 	<a name="update_user"></a>
 	<h2>update_user()</h2>
 	<p>update_user() is an alternate method for <a href="#update">update()</a> method.</p>
