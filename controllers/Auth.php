@@ -47,11 +47,11 @@ class Auth extends CI_Controller {
 	// log the user in
 	function login()
 	{
-		$this->data['title'] = "Login";
+		$this->data['title'] = $this->lang->line('login_heading');
 
 		//validate form input
-		$this->form_validation->set_rules('identity', 'Identity', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
+		$this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
 
 		if ($this->form_validation->run() == true)
 		{
@@ -412,7 +412,7 @@ class Auth extends CI_Controller {
 	// create a new user
 	function create_user()
     {
-        $this->data['title'] = "Create User";
+        $this->data['title'] = $this->lang->line('create_user_heading');
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
         {
@@ -522,7 +522,7 @@ class Auth extends CI_Controller {
 	// edit a user
 	function edit_user($id)
 	{
-		$this->data['title'] = "Edit User";
+		$this->data['title'] = $this->lang->line('edit_user_heading');
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
