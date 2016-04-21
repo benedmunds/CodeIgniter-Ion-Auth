@@ -438,7 +438,7 @@ class Ion_auth_model extends CI_Model
 	 * Activation functions
 	 *
 	 * Activate : Validates and removes activation code.
-	 * Deactivae : Updates a users row with an activation code.
+	 * Deactivate : Updates a users row with an activation code.
 	 *
 	 * @author Mathew
 	 */
