@@ -3,18 +3,19 @@
 * Name:  Auth Lang - German
 *
 * Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
+* 		    ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Author: Benjamin Neu (benny@duxu.de)
+* Translation: Benjamin Neu (benny@duxu.de), Max Vogl mail@max-vogl.de
 *         
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  29.07.2013
-* Last-Edit: 22.02.2014
+* Last-Edit: 23.04.2016
 *
 * Description:  German language file for Ion Auth example views
+* Beschreibung:  Deutsche Sprach-Datei für Ion Auth Beispielansichten
 *
 */
 
@@ -59,7 +60,7 @@ $lang['create_user_heading']                           = 'Benutzer anlegen';
 $lang['create_user_subheading']                        = 'Bitte geben Sie die Daten zum Benutzer unten ein.';
 $lang['create_user_fname_label']                       = 'Vorname:';
 $lang['create_user_lname_label']                       = 'Nachname:';
-$lang['create_user_identity_label']                    = 'Identity:';
+$lang['create_user_identity_label']                    = 'Benutzername:';
 $lang['create_user_company_label']                     = 'Firmenname:';
 $lang['create_user_email_label']                       = 'Email:';
 $lang['create_user_phone_label']                       = 'Telefon:';
@@ -68,7 +69,7 @@ $lang['create_user_password_confirm_label']            = 'Kennwort bestätigen:'
 $lang['create_user_submit_btn']                        = 'Benutzer anlegen';
 $lang['create_user_validation_fname_label']            = 'Vorname';
 $lang['create_user_validation_lname_label']            = 'Nachname';
-$lang['create_user_validation_identity_label']         = 'Identity';
+$lang['create_user_validation_identity_label']         = 'Benutzername';
 $lang['create_user_validation_email_label']            = 'Email';
 $lang['create_user_validation_phone1_label']           = 'Erster Teil der Telefonnummer';
 $lang['create_user_validation_phone2_label']           = 'Zweiter Teil der Telefonnummer';
