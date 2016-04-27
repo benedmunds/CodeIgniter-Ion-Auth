@@ -17,7 +17,7 @@
 * Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  11.15.2011
-* Last-Edit:   June 27th 2015
+* Last-Edit: 28.04.2016
 *
 * Description:  Indonesian language file for Ion Auth messages and errors
 *
@@ -64,7 +64,7 @@ $lang['delete_unsuccessful']						= 'Gagal Menghapus Pengguna';
 // Groups
 $lang['group_creation_successful']				    = 'Grup Berhasil Dibuat';
 $lang['group_already_exists']						= 'Nama Grup Sudah Digunakan';
-$lang['group_update_successful']					= 'Detil Grup Berhasil Diubah';
+$lang['group_update_successful']					= 'Rincian Grup Berhasil Diubah';
 $lang['group_delete_successful']					= 'Grup Berhasil Dihapus';
 $lang['group_delete_unsuccessful']				    = 'Gagal Menghapus Grup';
 $lang['group_delete_notallowed']					= 'Tidak Dapat menghapus Grup Administrator';
@@ -75,7 +75,7 @@ $lang['group_name_admin_not_alter']			    	= 'Nama Grup Admin Tidak Bisa Diubah'
 $lang['email_activation_subject']					= 'Aktivasi Akun';
 $lang['email_activate_heading']						= 'Aktifkan Akun dari %s';
 $lang['email_activate_subheading']				    = 'Silahkan klik tautan berikut untuk %s.';
-$lang['email_activate_link']						= 'Aktifkan Akun';
+$lang['email_activate_link']						= 'Aktifkan Akun Anda';
 
 // Forgot Password Email
 $lang['email_forgotten_password_subject']			= 'Verifikasi Lupa Password';
