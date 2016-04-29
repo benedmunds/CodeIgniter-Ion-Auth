@@ -9,6 +9,11 @@ the code and added new features.
 This version drops any backwards compatibility and makes things even more
 awesome then you could expect.
 
+
+##Support
+If you use this to further your career, or put money in your pocket, and would like to support the project please consider a [moral license](https://www.morallicense.com/benedmunds/ion-auth).
+
+
 ##Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
 
