@@ -1,163 +1,159 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - English
+* Name:  Auth Lang - Lithuanian
 *
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Author: Daniel Davis
-*         @ourmaninjapan
+* Translator: Donatas Glodenis
+* 		  dgvirtual@akl.lt
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  03.09.2013
+* Created:  10.05.2016
 *
-* Description:  English language file for Ion Auth example views
+* Description:  Lithuanian language file for Ion Auth example views
 *
 */
 
 // Errors
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_csrf'] = 'Šis formos įrašas nepraėjo mūsų saugumo patikrų.';
 
 // Login
-$lang['login_heading']         = 'Login';
-$lang['login_subheading']      = 'Please login with your email/username and password below.';
-$lang['login_identity_label']  = 'Email/Username:';
-$lang['login_password_label']  = 'Password:';
-$lang['login_remember_label']  = 'Remember Me:';
-$lang['login_submit_btn']      = 'Login';
-$lang['login_forgot_password'] = 'Forgot your password?';
+$lang['login_heading']         = 'Prisijungimas';
+$lang['login_subheading']      = 'Prašome prisijungti įrašant el. pašto adresą arba prisijungimo vardą ir slaptažodį.';
+$lang['login_identity_label']  = 'El. pašto adresas / vartotojo vardas:';
+$lang['login_password_label']  = 'Slaptažodis:';
+$lang['login_remember_label']  = 'Atsiminti mane:';
+$lang['login_submit_btn']      = 'Prisijungti';
+$lang['login_forgot_password'] = 'Pamiršote slaptažodį?';
 
 // Index
-$lang['index_heading']           = 'Users';
-$lang['index_subheading']        = 'Below is a list of the users.';
-$lang['index_fname_th']          = 'First Name';
-$lang['index_lname_th']          = 'Last Name';
-$lang['index_email_th']          = 'Email';
-$lang['index_groups_th']         = 'Groups';
-$lang['index_status_th']         = 'Status';
-$lang['index_action_th']         = 'Action';
-$lang['index_active_link']       = 'Active';
-$lang['index_inactive_link']     = 'Inactive';
-$lang['index_create_user_link']  = 'Create a new user';
-$lang['index_create_group_link'] = 'Create a new group';
+$lang['index_heading']           = 'Vartotojai';
+$lang['index_subheading']        = 'Žemiau pateikiamas vartotojų sąrašas.';
+$lang['index_fname_th']          = 'Vardas';
+$lang['index_lname_th']          = 'Pavardė';
+$lang['index_email_th']          = 'El. pašto adresas';
+$lang['index_groups_th']         = 'Grupės';
+$lang['index_status_th']         = 'Būsena';
+$lang['index_action_th']         = 'Veiksmas';
+$lang['index_active_link']       = 'Aktyvus';
+$lang['index_inactive_link']     = 'Neaktyvus';
+$lang['index_create_user_link']  = 'Sukurti naują vartotoją';
+$lang['index_create_group_link'] = 'Sukurti naują grupę';
 
 // Deactivate User
-$lang['deactivate_heading']                  = 'Deactivate User';
-$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
-$lang['deactivate_confirm_y_label']          = 'Yes:';
-$lang['deactivate_confirm_n_label']          = 'No:';
-$lang['deactivate_submit_btn']               = 'Submit';
-$lang['deactivate_validation_confirm_label'] = 'confirmation';
-$lang['deactivate_validation_user_id_label'] = 'user ID';
+$lang['deactivate_heading']                  = 'Išjungti vartotoją';
+$lang['deactivate_subheading']               = 'Ar tikrai norite išjungti vartotoją \'%s\'';
+$lang['deactivate_confirm_y_label']          = 'Taip:';
+$lang['deactivate_confirm_n_label']          = 'Ne:';
+$lang['deactivate_submit_btn']               = 'Pateikti';
+$lang['deactivate_validation_confirm_label'] = 'patvirtinimas';
+$lang['deactivate_validation_user_id_label'] = 'vartotojo ID';
 
 // Create User
-$lang['create_user_heading']                           = 'Create User';
-$lang['create_user_subheading']                        = 'Please enter the users information below.';
-$lang['create_user_fname_label']                       = 'First Name:';
-$lang['create_user_lname_label']                       = 'Last Name:';
-$lang['create_user_identity_label']                    = 'Identity:';
-$lang['create_user_company_label']                     = 'Company Name:';
-$lang['create_user_email_label']                       = 'Email:';
-$lang['create_user_phone_label']                       = 'Phone:';
-$lang['create_user_password_label']                    = 'Password:';
-$lang['create_user_password_confirm_label']            = 'Confirm Password:';
-$lang['create_user_submit_btn']                        = 'Create User';
-$lang['create_user_validation_fname_label']            = 'First Name';
-$lang['create_user_validation_lname_label']            = 'Last Name';
-$lang['create_user_validation_identity_label']         = 'Identity';
-$lang['create_user_validation_email_label']            = 'Email Address';
-$lang['create_user_validation_phone1_label']           = 'First Part of Phone';
-$lang['create_user_validation_phone2_label']           = 'Second Part of Phone';
-$lang['create_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['create_user_validation_company_label']          = 'Company Name';
-$lang['create_user_validation_password_label']         = 'Password';
-$lang['create_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['create_user_heading']                           = 'Sukurti vartotoją';
+$lang['create_user_subheading']                        = 'Prašome įrašyti vartotojo informaciją.';
+$lang['create_user_fname_label']                       = 'Vardas:';
+$lang['create_user_lname_label']                       = 'Pavardė:';
+$lang['create_user_identity_label']                    = 'Tapatybė:';
+$lang['create_user_company_label']                     = 'Įmonė:';
+$lang['create_user_email_label']                       = 'El. p. adresas:';
+$lang['create_user_phone_label']                       = 'Telefonas:';
+$lang['create_user_password_label']                    = 'Slaptažodis:';
+$lang['create_user_password_confirm_label']            = 'Patvirtinti slaptažodį:';
+$lang['create_user_submit_btn']                        = 'Sukurti vartotoją';
+$lang['create_user_validation_fname_label']            = 'Vardas';
+$lang['create_user_validation_lname_label']            = 'Pavardė';
+$lang['create_user_validation_identity_label']         = 'Tapatybė';
+$lang['create_user_validation_email_label']            = 'El. p. adresas:';
+$lang['create_user_validation_phone1_label']           = 'Pirmoji telefono numerio dalis';
+$lang['create_user_validation_phone2_label']           = 'Antroji telefono numerio dalis';
+$lang['create_user_validation_phone3_label']           = 'Trečioji telefono numerio dalis';
+$lang['create_user_validation_company_label']          = 'Įmonės pavadinimas';
+$lang['create_user_validation_password_label']         = 'Slaptažodis';
+$lang['create_user_validation_password_confirm_label'] = 'Pakartokite slaptažodį';
 
 // Edit User
-$lang['edit_user_heading']                           = 'Edit User';
-$lang['edit_user_subheading']                        = 'Please enter the users information below.';
-$lang['edit_user_fname_label']                       = 'First Name:';
-$lang['edit_user_lname_label']                       = 'Last Name:';
-$lang['edit_user_company_label']                     = 'Company Name:';
-$lang['edit_user_email_label']                       = 'Email:';
+$lang['edit_user_heading']                           = 'Taisyti vartotojo duomenis';
+$lang['edit_user_subheading']                        = 'Prašome įrašyti vartotojo informaciją.';
+$lang['edit_user_fname_label']                       = 'Vardas:';
+$lang['edit_user_lname_label']                       = 'Pavardė:';
+$lang['edit_user_company_label']                     = 'Įmonės pavadinimas:';
+$lang['edit_user_email_label']                       = 'El. p. adresas:';
 $lang['edit_user_phone_label']                       = 'Phone:';
-$lang['edit_user_password_label']                    = 'Password: (if changing password)';
-$lang['edit_user_password_confirm_label']            = 'Confirm Password: (if changing password)';
+$lang['edit_user_password_label']                    = 'Slaptažodis: (if changing password)';
+$lang['edit_user_password_confirm_label']            = 'Confirm Slaptažodis: (if changing password)';
 $lang['edit_user_groups_heading']                    = 'Member of groups';
 $lang['edit_user_submit_btn']                        = 'Save User';
-$lang['edit_user_validation_fname_label']            = 'First Name';
-$lang['edit_user_validation_lname_label']            = 'Last Name';
-$lang['edit_user_validation_email_label']            = 'Email Address';
-$lang['edit_user_validation_phone1_label']           = 'First Part of Phone';
-$lang['edit_user_validation_phone2_label']           = 'Second Part of Phone';
-$lang['edit_user_validation_phone3_label']           = 'Third Part of Phone';
-$lang['edit_user_validation_company_label']          = 'Company Name';
-$lang['edit_user_validation_groups_label']           = 'Groups';
-$lang['edit_user_validation_password_label']         = 'Password';
-$lang['edit_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['edit_user_validation_fname_label']            = 'Vardas';
+$lang['edit_user_validation_lname_label']            = 'Pavardė';
+$lang['edit_user_validation_email_label']            = 'El. p. adresas';
+$lang['edit_user_validation_phone1_label']           = 'Pirmoji telefono numerio dalis';
+$lang['edit_user_validation_phone2_label']           = 'Antroji telefono numerio dalis';
+$lang['edit_user_validation_phone3_label']           = 'Trečioji telefono numerio dalis';
+$lang['edit_user_validation_company_label']          = 'Įmonės pavadinimas';
+$lang['edit_user_validation_groups_label']           = 'Grupės';
+$lang['edit_user_validation_password_label']         = 'Slaptažodis';
+$lang['edit_user_validation_password_confirm_label'] = 'Pakartotinai įveskite slaptažodį';
 
 // Create Group
-$lang['create_group_title']                  = 'Create Group';
-$lang['create_group_heading']                = 'Create Group';
-$lang['create_group_subheading']             = 'Please enter the group information below.';
-$lang['create_group_name_label']             = 'Group Name:';
-$lang['create_group_desc_label']             = 'Description:';
-$lang['create_group_submit_btn']             = 'Create Group';
-$lang['create_group_validation_name_label']  = 'Group Name';
-$lang['create_group_validation_desc_label']  = 'Description';
+$lang['create_group_title']                  = 'Sukurti grupę';
+$lang['create_group_heading']                = 'Sukurti grupę';
+$lang['create_group_subheading']             = 'Prašome įrašyti grupės informaciją.';
+$lang['create_group_name_label']             = 'Grupės pavadinimas:';
+$lang['create_group_desc_label']             = 'Aprašymas:';
+$lang['create_group_submit_btn']             = 'Sukurti grupę';
+$lang['create_group_validation_name_label']  = 'Grupės pavadinimas';
+$lang['create_group_validation_desc_label']  = 'Aprašymas';
 
 // Edit Group
-$lang['edit_group_title']                  = 'Edit Group';
-$lang['edit_group_saved']                  = 'Group Saved';
-$lang['edit_group_heading']                = 'Edit Group';
-$lang['edit_group_subheading']             = 'Please enter the group information below.';
-$lang['edit_group_name_label']             = 'Group Name:';
-$lang['edit_group_desc_label']             = 'Description:';
-$lang['edit_group_submit_btn']             = 'Save Group';
-$lang['edit_group_validation_name_label']  = 'Group Name';
-$lang['edit_group_validation_desc_label']  = 'Description';
+$lang['edit_group_title']                  = 'Keisti grupę';
+$lang['edit_group_saved']                  = 'Grupė įrašyta';
+$lang['edit_group_heading']                = 'Keisti grupę';
+$lang['edit_group_subheading']             = 'Prašome įrašyti grupės informaciją.';
+$lang['edit_group_name_label']             = 'Grupės pavadinimas:';
+$lang['edit_group_desc_label']             = 'Aprašymas:';
+$lang['edit_group_submit_btn']             = 'Įrašyti grupę';
+$lang['edit_group_validation_name_label']  = 'Grupės pavadinimas';
+$lang['edit_group_validation_desc_label']  = 'Aprašymas';
 
-// Change Password
-$lang['change_password_heading']                               = 'Change Password';
-$lang['change_password_old_password_label']                    = 'Old Password:';
-$lang['change_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['change_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['change_password_submit_btn']                            = 'Change';
-$lang['change_password_validation_old_password_label']         = 'Old Password';
-$lang['change_password_validation_new_password_label']         = 'New Password';
-$lang['change_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+// Change Slaptažodis
+$lang['change_password_heading']                               = 'Pakeisti slaptažodį';
+$lang['change_password_old_password_label']                    = 'Senas slaptažodis:';
+$lang['change_password_new_password_label']                    = 'Naujas slaptažodis (mažiausiai %s simbolių):';
+$lang['change_password_new_password_confirm_label']            = 'Patvirtinti naują slaptažodį:';
+$lang['change_password_submit_btn']                            = 'Pakeisti';
+$lang['change_password_validation_old_password_label']         = 'Senas slaptažodis';
+$lang['change_password_validation_new_password_label']         = 'Naujas slaptažodis';
+$lang['change_password_validation_new_password_confirm_label'] = 'Patvirtinti naują slaptažodį';
 
-// Forgot Password
-$lang['forgot_password_heading']                 = 'Forgot Password';
-$lang['forgot_password_subheading']              = 'Please enter your %s so we can send you an email to reset your password.';
+// Forgot password
+$lang['forgot_password_heading']                 = 'Pamiršus slaptažodį';
+$lang['forgot_password_subheading']              = 'Prašome įrašyti savo %s kad galėtume išsiųsti Jums el. laišką slaptažodžio atkūrimui.';
 $lang['forgot_password_email_label']             = '%s:';
-$lang['forgot_password_submit_btn']              = 'Submit';
-$lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_username_identity_label'] = 'Username';
-$lang['forgot_password_email_identity_label']    = 'Email';
-$lang['forgot_password_email_not_found']         = 'No record of that email address.';
+$lang['forgot_password_submit_btn']              = 'Pateikti';
+$lang['forgot_password_validation_email_label']  = 'El. p. adresas';
+$lang['forgot_password_username_identity_label'] = 'Vartotojo vardas';
+$lang['forgot_password_email_identity_label']    = 'El. p. adresas';
+$lang['forgot_password_email_not_found']         = 'Duomenų bazėje tokio el. pašto adreso nėra.';
 
-// Reset Password
-$lang['reset_password_heading']                               = 'Change Password';
-$lang['reset_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['reset_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['reset_password_submit_btn']                            = 'Change';
-$lang['reset_password_validation_new_password_label']         = 'New Password';
-$lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+// Reset password
+$lang['reset_password_heading']                               = 'Pakeisti slaptažodį';
+$lang['reset_password_new_password_label']                    = 'Naujas slaptažodis (mažiausiai %s simboliai/-ių):';
+$lang['reset_password_new_password_confirm_label']            = 'Patvirtinti naują slaptažodį:';
+$lang['reset_password_submit_btn']                            = 'Keisti';
+$lang['reset_password_validation_new_password_label']         = 'Naujas slaptažodis';
+$lang['reset_password_validation_new_password_confirm_label'] = 'Patvirtinti naują slaptažodį';
 
 // Activation Email
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activate_heading']    = 'Aktyvuoti %s paskyrą';
+$lang['email_activate_subheading'] = 'Norėdami %s turite paspausti šią nuorodą.';
+$lang['email_activate_link']       = 'Aktyvuoti paskyrą';
 
-// Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+// Forgot Slaptažodis Email
+$lang['email_forgot_password_heading']    = 'Iš naujo sugeneruoti %s slaptažodį';
+$lang['email_forgot_password_subheading'] = 'Norėdami %s turite paspausti šią nuorodą.';
+$lang['email_forgot_password_link']       = 'Sugeneruoti slaptažodį iš naujo';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+// New Slaptažodis Email
+$lang['email_new_password_heading']    = 'Naujas %s slaptažodis';
+$lang['email_new_password_subheading'] = 'Jums buvo sugeneruotas naujas slaptažodis: %s';
 

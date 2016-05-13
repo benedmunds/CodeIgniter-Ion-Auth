@@ -7,9 +7,11 @@
 *         @benedmunds
 * Translation:  Radas7
 *             radas7@gmail.com
-*
+*               Donatas Glodenis
+*             dgvirtual@akl.lt
 *
 * Created:  2012-03-04
+* Updated:  2016-05-13
 *
 * Description:  Lithuanian language file for Ion Auth messages and errors
 *
@@ -22,8 +24,8 @@ $lang['account_creation_duplicate_email'] 	 = 'El, pašto adresas jau yra arba n
 $lang['account_creation_duplicate_identity'] 	 = 'Prisijungimo vardas jau yra arba nekorektiškas';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Nenustatyta numatytoji grupė';
+$lang['account_creation_invalid_default_group'] = 'Nustatytas neteisingas numatytosios grupės pavadinimas';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Slaptažodis sukurtas';
@@ -42,8 +44,8 @@ $lang['activation_email_unsuccessful']   	 = 'Neįmanoma išsiųsti';
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Sėkminga autorizacija';
 $lang['login_unsuccessful'] 		  	 = 'Klaidingas prisijungimas';
-$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out. Try again later.';
+$lang['login_unsuccessful_not_active'] 		 = 'Paskyra yra neaktyvi';
+$lang['login_timeout']                       = 'Laikinai užrakinta. Pabandykite iš naujo vėliau.';
 $lang['logout_successful'] 		 	 = 'Atsijungta sėkminga';
 
 // Account Changes
@@ -53,26 +55,26 @@ $lang['delete_successful'] 		 	 = 'Vartotojas pašalintas';
 $lang['delete_unsuccessful'] 		 	 = 'Neįmanoma pašalinti vartotojo';
 
 // Groups
-$lang['group_creation_successful']  = 'Group created Successfully';
-$lang['group_already_exists']       = 'Group name already taken';
-$lang['group_update_successful']    = 'Group details updated';
-$lang['group_delete_successful']    = 'Group deleted';
-$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
-$lang['group_name_required'] 		= 'Group name is a required field';
-$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+$lang['group_creation_successful']  = 'Grupė sėkmingai sukurta';
+$lang['group_already_exists']       = 'Grupės vardas jau naudojamas';
+$lang['group_update_successful']    = 'Grupės detalės atnaujintos';
+$lang['group_delete_successful']    = 'Grupė ištrinta';
+$lang['group_delete_unsuccessful'] 	= 'Nepavyksta ištrinti grupės';
+$lang['group_delete_notallowed']    = 'Administratorių grupės ištrinti negalima';
+$lang['group_name_required'] 		= 'Grupės vardą užpildyti būtina';
+$lang['group_name_admin_not_alter'] = 'Admin grupė negali būti pakeista';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Paskyros aktyvavimas';
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activate_heading']    = 'Aktyvuoti %s paskyrą';
+$lang['email_activate_subheading'] = 'Prašome spragtelėti %s nuorodą.';
+$lang['email_activate_link']       = 'Aktyvuokite savo paskyrą';
 // Forgot Password Email
 $lang['email_forgotten_password_subject']    = 'Pamiršto slaptažodžio patvirtinimas';
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgot_password_heading']    = 'Iš naujo generuoti %s slaptažodį';
+$lang['email_forgot_password_subheading'] = 'Prašome paspausti nuorodą norėdami %s.';
+$lang['email_forgot_password_link']       = 'Perkrauti slaptažodį';
 // New Password Email
 $lang['email_new_password_subject']          = 'Naujas slaptažodis';
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_heading']    = 'Naujas %s slaptažodis';
+$lang['email_new_password_subheading'] = 'Jums buvo generuotas naujas slaptažodis: %s';
