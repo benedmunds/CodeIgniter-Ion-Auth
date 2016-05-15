@@ -1089,9 +1089,10 @@ class Ion_auth_model extends CI_Model
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
 			$ip_address = $this->_prepare_ip($this->input->ip_address());
 
-			$this->db->select_max('time');
+			$this->db->select('time');
             if ($this->config->item('track_login_ip_address', 'ion_auth')) $this->db->where('ip_address', $ip_address);
 			else if (strlen($identity) > 0) $this->db->or_where('login', $identity);
+			$this->db->order_by('id', 'desc');
 			$qres = $this->db->get($this->tables['login_attempts'], 1);
 
 			if($qres->num_rows() > 0) {
