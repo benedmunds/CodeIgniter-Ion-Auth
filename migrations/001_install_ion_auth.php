@@ -217,7 +217,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'login' => array(
 				'type' => 'VARCHAR',
 				'constraint' => '100',
-				'null', TRUE
+				'null' => TRUE
 			),
 			'time' => array(
 				'type' => 'INT',
