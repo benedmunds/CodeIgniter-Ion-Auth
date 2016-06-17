@@ -17,62 +17,62 @@
 // Account Creation
 $lang['account_creation_successful']            = 'ගිණුම සැකසුම සාර්ථකයි';
 $lang['account_creation_unsuccessful']          = 'ගිණුම සැකසීමට නොහැක';
-$lang['account_creation_duplicate_email']       = 'Email Already Used or Invalid';
-$lang['account_creation_duplicate_identity']    = 'Identity Already Used or Invalid';
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_duplicate_email']       = 'ඊමේල් ලිපිනය දැනටමත් භාවිතයේ හෝ අවලංගුයි';
+$lang['account_creation_duplicate_identity']    = 'අනන්‍යතාව දැනටමත් භාවිතයේ හෝ අවලංගුයි';
+$lang['account_creation_missing_default_group'] = 'සම්මත සමූහය සකසා නැත';
+$lang['account_creation_invalid_default_group'] = 'අවලංගු සම්මත සමූහ නාමයකි';
 
 
 // Password
-$lang['password_change_successful']          = 'Password Successfully Changed';
-$lang['password_change_unsuccessful']        = 'Unable to Change Password';
-$lang['forgot_password_successful']          = 'Password Reset Email Sent';
-$lang['forgot_password_unsuccessful']        = 'Unable to Reset Password';
+$lang['password_change_successful']          = 'මුර පදය වෙනස් කිරීම සාර්ථකයි';
+$lang['password_change_unsuccessful']        = 'මුර පදය වෙනස් කල නොහැක';
+$lang['forgot_password_successful']          = 'මුර පදය නැවත සැකසුම් ඊමේලය යවා ඇත';
+$lang['forgot_password_unsuccessful']        = 'මුර පදය නැවත සැකසීමට නොහැක';
 
 // Activation
-$lang['activate_successful']                 = 'Account Activated';
-$lang['activate_unsuccessful']               = 'Unable to Activate Account';
-$lang['deactivate_successful']               = 'Account De-Activated';
-$lang['deactivate_unsuccessful']             = 'Unable to De-Activate Account';
-$lang['activation_email_successful']         = 'Activation Email Sent';
-$lang['activation_email_unsuccessful']       = 'Unable to Send Activation Email';
+$lang['activate_successful']                 = 'ගිණුම සක්‍රීය කර ඇත';
+$lang['activate_unsuccessful']               = 'ගිණුම සක්‍රීය කල නොහැක';
+$lang['deactivate_successful']               = 'ගිණුම අක්‍රීය කර ඇත';
+$lang['deactivate_unsuccessful']             = 'ගිණුම අක්‍රීය කල නොහැක';
+$lang['activation_email_successful']         = 'ගිණුම සක්‍රීය ඊමේලය යවා ඇත';
+$lang['activation_email_unsuccessful']       = 'ගිණුම සක්‍රීය ඊමේලය යැවීමට නොහැක';
 
 // Login / Logout
-$lang['login_successful']                    = 'Logged In Successfully';
-$lang['login_unsuccessful']                  = 'Incorrect Login';
-$lang['login_unsuccessful_not_active']       = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
-$lang['logout_successful']                   = 'Logged Out Successfully';
+$lang['login_successful']                    = 'ඇතුලු වීම සාර්ථකයි';
+$lang['login_unsuccessful']                  = 'ඇතුලු වීම වැරදි';
+$lang['login_unsuccessful_not_active']       = 'ගිණුම සක්‍රීය නැත';
+$lang['login_timeout']                       = 'ඇතුලු කාලය ඉක්මවා ඇත. නැවත උත්සාහ කරන්න.';
+$lang['logout_successful']                   = 'පිටවීම සාර්ථකයි';
 
 // Account Changes
-$lang['update_successful']                   = 'Account Information Successfully Updated';
-$lang['update_unsuccessful']                 = 'Unable to Update Account Information';
-$lang['delete_successful']                   = 'User Deleted';
-$lang['delete_unsuccessful']                 = 'Unable to Delete User';
+$lang['update_successful']                   = 'ගිණුම් තොරතුරු සාර්ථකව යාවත්කාලීන කර ඇත';
+$lang['update_unsuccessful']                 = 'ගිණුම් තොරතුරු යාවත්කාලීන කල නොහැක';
+$lang['delete_successful']                   = 'පරිශීලක ඉවත් කර ඇත';
+$lang['delete_unsuccessful']                 = 'පරිශීලක ඉවත් කල නොහැක';
 
 // Groups
-$lang['group_creation_successful']           = 'Group created Successfully';
-$lang['group_already_exists']                = 'Group name already taken';
-$lang['group_update_successful']             = 'Group details updated';
-$lang['group_delete_successful']             = 'Group deleted';
-$lang['group_delete_unsuccessful']           = 'Unable to delete group';
-$lang['group_delete_notallowed']             = 'Can\'t delete the administrators\' group';
-$lang['group_name_required']                 = 'Group name is a required field';
-$lang['group_name_admin_not_alter']          = 'Admin group name can not be changed';
+$lang['group_creation_successful']           = 'සමූහය සාර්ථකව සකස් කර ඇත';
+$lang['group_already_exists']                = 'සමූහය නාමය දැනටමත් භාවිතයේ පවතී';
+$lang['group_update_successful']             = 'සමූහ තොරතුරු යාවත්කලීන කර ඇත';
+$lang['group_delete_successful']             = 'සමූහය ඉවත් කර ඇත';
+$lang['group_delete_unsuccessful']           = 'සමූහය ඉවත් කල නොහැක';
+$lang['group_delete_notallowed']             = 'පාලක සමූහය ඉවත් කල නොහැක';
+$lang['group_name_required']                 = 'සමූහ නාමය අනිවාර්යයි';
+$lang['group_name_admin_not_alter']          = 'පාලක සමූහ නාමය වෙනස් කල නොහැක';
 
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
-$lang['email_activate_heading']              = 'Activate account for %s';
-$lang['email_activate_subheading']           = 'Please click this link to %s.';
-$lang['email_activate_link']                 = 'Activate Your Account';
+$lang['email_activation_subject']            = 'ගිණුම සක්‍රීය කිරීම';
+$lang['email_activate_heading']              = '%s සදහා ගිණුම සක්‍රීය කරන්න';
+$lang['email_activate_subheading']           = 'කරුණාකර මෙම යොමුව මත ක්ලික් කරන්න %s.';
+$lang['email_activate_link']                 = 'ඔබගේ ගිණුම සක්‍රීය කරන්න';
 
 // Forgot Password Email
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_forgot_password_heading']       = 'Reset Password for %s';
-$lang['email_forgot_password_subheading']    = 'Please click this link to %s.';
-$lang['email_forgot_password_link']          = 'Reset Your Password';
+$lang['email_forgotten_password_subject']    = 'අමතක වූ මුර පදය  තහවුරු කිරීම';
+$lang['email_forgot_password_heading']       = '%s සදහා නැවත මුර පදය සැකසුම';
+$lang['email_forgot_password_subheading']    = 'කරුණාකර මෙම යොමුව මත ක්ලික් කරන්න %s.';
+$lang['email_forgot_password_link']          = 'ඔබගේ මුර පදය නැවත සැකසුම';
 
 // New Password Email
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_new_password_heading']          = 'New Password for %s';
-$lang['email_new_password_subheading']       = 'Your password has been reset to: %s';
+$lang['email_new_password_subject']          = 'නව මුර පදය';
+$lang['email_new_password_heading']          = '%s සදහා නව මුර පදය';
+$lang['email_new_password_subheading']       = 'ඔබගේ මුර පදය නැවත සකස් කර ඇත: %s';
