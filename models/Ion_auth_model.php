@@ -14,7 +14,7 @@
 *
 * Created:  10.01.2009
 *
-* Last Change: 3.22.13
+* Last Change: 05-Jul-2016.13
 *
 * Changelog:
 * * 3-22-13 - Additional entropy added - 52aa456eef8b60ad6754b31fbdcc77bb
@@ -1053,7 +1053,7 @@ class Ion_auth_model extends CI_Model
 	 * @param	string $identity
 	 * @return	int
 	 */
-	function get_attempts_num($identity)
+	public function get_attempts_num($identity)
 	{
         if ($this->config->item('track_login_attempts', 'ion_auth')) {
             $ip_address = $this->_prepare_ip($this->input->ip_address());
