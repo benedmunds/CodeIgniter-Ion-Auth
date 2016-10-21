@@ -1129,6 +1129,53 @@ class Ion_auth_model extends CI_Model
 		}
 		return FALSE;
 	}
+    
+	/**
+     * Get all attemps from all users
+     * 
+     * Format of return array is:
+     *      [0] => array("login" => string
+     *                   "ip_address" => string  // only if track_login_ip_address is enabled
+     *                   "attempts_num" => int
+     *                   "last_attempt_time" => int
+     *                   "is_time_locked_out" => boolean)
+     *      [1] => array(...)
+     *      ...
+     *
+     * @return	array
+     */
+    public function get_all_attempts() {
+        if ($this->config->item('track_login_attempts', 'ion_auth')) {
+            // 'login' is used as first identiy
+            $this->db->select('login');
+            $group_by = array('login');
+            if ($this->config->item('track_login_ip_address', 'ion_auth')) {
+                // If we track address, then 'ip_address' is also used as part of identity
+                $ip_address = $this->_prepare_ip($this->input->ip_address());
+                $this->db->select('ip_address');
+                array_push($group_by, "ip_address");
+            }
+            // Compute some useful fields: nb_attemps and last_attemps_time
+            $this->db->select('count(*) as nb_attemps', FALSE);
+            $this->db->select('max(time) as last_attempt_time', FALSE);
+            // Group by identities set above
+            $this->db->group_by($group_by);
+            // Get from table
+            $qres = $this->db->get($this->tables['login_attempts']);
+            // Check if query is good before processing
+            if ($qres !== FALSE) {
+                $res = array();
+                // Loop through result and add is_time_locked_out
+                foreach ($qres->result_array() as $row) {
+                    $row['is_time_locked_out'] = (($row['nb_attemps'] >= $this->config->item('maximum_login_attempts', 'ion_auth')) 
+                            && ($row['last_attempt_time'] > time() - $this->config->item('lockout_time', 'ion_auth')));
+                    array_push($res, $row);
+                }
+                return $res;
+            }
+        }
+        return array();
+    }
 
 	public function limit($limit)
 	{
