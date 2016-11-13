@@ -2,11 +2,11 @@
 /**
 * Name:  Ion Auth Lang - Slovak
 *
-* Author: Kristián Feldsam
-* 		  kristian@feldsam.cz
+* Author: Jakub Vatrt
+* 		  vatrtj@gmail.com
 *
 *
-* Created:  11.05.2012
+* Created:  11.11.2016
 *
 * Description:  Slovak language file for Ion Auth messages and errors
 *
@@ -19,8 +19,8 @@ $lang['account_creation_duplicate_email'] 	 = 'E-mail už existuje alebo je nepl
 $lang['account_creation_duplicate_identity'] = 'Užívateľské meno už existuje alebo je neplatné';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Základná skupina nenastavená';
+$lang['account_creation_invalid_default_group'] = 'Nesprávne meno základnej skupiny';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'Heslo bolo úspešne zmenené';
@@ -40,7 +40,7 @@ $lang['activation_email_unsuccessful']   	 = 'Nedá sa odoslať aktivačný e-ma
 $lang['login_successful'] 		  	         = 'Úspešne prihlásený';
 $lang['login_unsuccessful'] 		  	     = 'Nesprávny e-mail alebo heslo';
 $lang['login_unsuccessful_not_active'] 		 = 'Účet je neaktívny';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
+$lang['login_timeout']                       = 'Dočasne uzamknuté z bezpečnostných dôvodov. Skúste neskôr';
 $lang['logout_successful'] 		 	         = 'Úspešné odhlásenie';
 
 // Account Changes
@@ -50,26 +50,26 @@ $lang['delete_successful'] 		 	         = 'Užívateľ bol zmazaný';
 $lang['delete_unsuccessful'] 		 	     = 'Užívateľ sa nedá zmazať ';
 
 // Groups
-$lang['group_creation_successful']  = 'Group created Successfully';
-$lang['group_already_exists']       = 'Group name already taken';
-$lang['group_update_successful']    = 'Group details updated';
-$lang['group_delete_successful']    = 'Group deleted';
-$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
-$lang['group_name_required'] 		= 'Group name is a required field';
-$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+$lang['group_creation_successful']  = 'Skupina úspešne vytvorená';
+$lang['group_already_exists']       = 'Meno skupiny už existuje';
+$lang['group_update_successful']    = 'Detaily skupiny upravené';
+$lang['group_delete_successful']    = 'Skupina zmazaná';
+$lang['group_delete_unsuccessful'] 	= 'Nemôžem zmazať skupinu';
+$lang['group_delete_notallowed']    = 'Nemôžem zmazať administrátorskú skupinu';
+$lang['group_name_required'] 		= 'Meno skupiny je požadované pole';
+$lang['group_name_admin_not_alter'] = 'Administratorská skupina nemôže byť zmenená';
 
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activation_subject']            = 'Aktivácia účtu';
+$lang['email_activate_heading']    = 'Aktivujte účet na %s';
+$lang['email_activate_subheading'] = 'Prosím kliknite na tento odkaz pre %s.';
+$lang['email_activate_link']       = 'Aktivujte váš účet';
 // Forgot Password Email
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgotten_password_subject']    = 'Obnovenie hesla kontrola';
+$lang['email_forgot_password_heading']    = 'Obnoviť heslo pre %s';
+$lang['email_forgot_password_subheading'] = 'Prosím kliknite na tento odkaz pre %s.';
+$lang['email_forgot_password_link']       = 'Reset vášho hesla';
 // New Password Email
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_subject']          = 'Nové heslo';
+$lang['email_new_password_heading']    = 'Nové heslo pre %s';
+$lang['email_new_password_subheading'] = 'Vaše heslo bolo resetované na: %s';

@@ -6,154 +6,154 @@
 * 		  ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Author: Daniel Davis
-*         @ourmaninjapan
+* Author: Jakub Vatrt
+*         vatrtj@gmail.com
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
-* Created:  03.09.2013
+* Created:  11.11.2016
 *
 * Description:  English language file for Ion Auth example views
 *
 */
 
 // Errors
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_csrf'] = 'Tento formulár neprešiel bezpečnostnou kontrolou.';
 
 // Login
-$lang['login_heading']         = 'Login';
-$lang['login_subheading']      = 'Please login with your email/username and password below.';
-$lang['login_identity_label']  = 'Email/Username:';
-$lang['login_password_label']  = 'Password:';
-$lang['login_remember_label']  = 'Remember Me:';
-$lang['login_submit_btn']      = 'Login';
-$lang['login_forgot_password'] = 'Forgot your password?';
+$lang['login_heading']         = 'Prihlásenie';
+$lang['login_subheading'] = 'Prosím prihláste sa nižšie pomocou svojho emailu alebo užívateľským menom a heslom';
+$lang['login_identity_label'] = 'E-mail / Užívateľské meno:';
+$lang['login_password_label'] = 'Heslo';
+$lang['login_remember_label'] = 'Zampamätať:';
+$lang['login_submit_btn'] = 'Prihlásiť';
+$lang['login_forgot_password'] = 'Zabudli ste heslo?';
 
 // Index
-$lang['index_heading']           = 'Users';
-$lang['index_subheading']        = 'Below is a list of the users.';
-$lang['index_fname_th']          = 'First Name';
-$lang['index_lname_th']          = 'Last Name';
-$lang['index_email_th']          = 'Email';
-$lang['index_groups_th']         = 'Groups';
-$lang['index_status_th']         = 'Status';
-$lang['index_action_th']         = 'Action';
-$lang['index_active_link']       = 'Active';
-$lang['index_inactive_link']     = 'Inactive';
-$lang['index_create_user_link']  = 'Create a new user';
-$lang['index_create_group_link'] = 'Create a new group';
+$lang['index_heading'] = 'Používatelia';
+$lang['index_subheading'] = 'Nižšie je zoznam používateľov.';
+$lang['index_fname_th'] = 'Meno';
+$lang['index_lname_th'] = 'Priezvisko';
+$lang['index_email_th'] = 'Email';
+$lang['index_groups_th'] = 'Skupiny';
+$lang['index_status_th'] = 'Stav';
+$lang['index_action_th'] = 'Akcia';
+$lang['index_active_link'] = 'Aktívne';
+$lang['index_inactive_link'] = 'Neaktívne';
+$lang['index_create_user_link'] = 'Vytvoriť nového používateľa';
+$lang['index_create_group_link'] = 'Vytvoriť novú skupinu';
 
 // Deactivate User
-$lang['deactivate_heading']                  = 'Deactivate User';
-$lang['deactivate_subheading']               = 'Are you sure you want to deactivate the user \'%s\'';
-$lang['deactivate_confirm_y_label']          = 'Yes:';
-$lang['deactivate_confirm_n_label']          = 'No:';
-$lang['deactivate_submit_btn']               = 'Submit';
-$lang['deactivate_validation_confirm_label'] = 'confirmation';
-$lang['deactivate_validation_user_id_label'] = 'user ID';
+$lang['deactivate_heading'] = 'Deaktivovať používateľa';
+$lang['deactivate_subheading'] = 'Ste si istí, že chcete deaktivovať užívateľa \'%s\'';
+$lang['deactivate_confirm_y_label'] = 'Áno';
+$lang['deactivate_confirm_n_label'] = 'Nie';
+$lang['deactivate_submit_btn'] = 'Odoslať';
+$lang['deactivate_validation_confirm_label'] = 'potvrdenie';
+$lang['deactivate_validation_user_id_label'] = 'ID používateľa';
 
 // Create User
-$lang['create_user_heading']                           = 'Create User';
-$lang['create_user_subheading']                        = 'Please enter the users information below.';
-$lang['create_user_fname_label']                       = 'First Name:';
-$lang['create_user_lname_label']                       = 'Last Name:';
-$lang['create_user_identity_label']                    = 'Identity:';
-$lang['create_user_company_label']                     = 'Company Name:';
-$lang['create_user_email_label']                       = 'Email:';
-$lang['create_user_phone_label']                       = 'Phone:';
-$lang['create_user_password_label']                    = 'Password:';
-$lang['create_user_password_confirm_label']            = 'Confirm Password:';
-$lang['create_user_submit_btn']                        = 'Create User';
-$lang['create_user_validation_fname_label']            = 'First Name';
-$lang['create_user_validation_lname_label']            = 'Last Name';
-$lang['create_user_validation_identity_label']         = 'Identity';
-$lang['create_user_validation_email_label']            = 'Email Address';
-$lang['create_user_validation_phone_label']            = 'Phone';
-$lang['create_user_validation_company_label']          = 'Company Name';
-$lang['create_user_validation_password_label']         = 'Password';
-$lang['create_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['create_user_heading'] = 'Vytvoriť používateľa';
+$lang['create_user_subheading'] = 'Prosím, zadajte informácie o používateľovi nižšie.';
+$lang['create_user_fname_label'] = 'Meno:';
+$lang['create_user_lname_label'] = 'Priezvisko:';
+$lang['create_user_identity_label'] = 'Identita:';
+$lang['create_user_company_label'] = 'Názov spoločnosti:';
+$lang['create_user_email_label'] = 'E-mail:';
+$lang['create_user_phone_label'] = 'Telefón:';
+$lang['create_user_password_label'] = 'Heslo';
+$lang['create_user_password_confirm_label'] = 'Potvrdiť heslo:';
+$lang['create_user_submit_btn'] = 'Vytvoriť používateľa';
+$lang['create_user_validation_fname_label'] = 'Meno';
+$lang['create_user_validation_lname_label'] = 'Priezvisko';
+$lang['create_user_validation_identity_label'] = 'Identita';
+$lang['create_user_validation_email_label'] = 'E-mailová adresa';
+$lang['create_user_validation_phone_label'] = 'Phone';
+$lang['create_user_validation_company_label'] = 'Názov spoločnosti';
+$lang['create_user_validation_password_label'] = 'Heslo';
+$lang['create_user_validation_password_confirm_label'] = 'Heslo na potvrdenie';
 
 // Edit User
-$lang['edit_user_heading']                           = 'Edit User';
-$lang['edit_user_subheading']                        = 'Please enter the users information below.';
-$lang['edit_user_fname_label']                       = 'First Name:';
-$lang['edit_user_lname_label']                       = 'Last Name:';
-$lang['edit_user_company_label']                     = 'Company Name:';
-$lang['edit_user_email_label']                       = 'Email:';
-$lang['edit_user_phone_label']                       = 'Phone:';
-$lang['edit_user_password_label']                    = 'Password: (if changing password)';
-$lang['edit_user_password_confirm_label']            = 'Confirm Password: (if changing password)';
-$lang['edit_user_groups_heading']                    = 'Member of groups';
-$lang['edit_user_submit_btn']                        = 'Save User';
-$lang['edit_user_validation_fname_label']            = 'First Name';
-$lang['edit_user_validation_lname_label']            = 'Last Name';
-$lang['edit_user_validation_email_label']            = 'Email Address';
-$lang['edit_user_validation_phone_label']            = 'Phone';
-$lang['edit_user_validation_company_label']          = 'Company Name';
-$lang['edit_user_validation_groups_label']           = 'Groups';
-$lang['edit_user_validation_password_label']         = 'Password';
-$lang['edit_user_validation_password_confirm_label'] = 'Password Confirmation';
+$lang['edit_user_heading'] = 'Upraviť používateľa';
+$lang['edit_user_subheading'] = 'Prosím, zadajte informácie o používateľovi nižšie.';
+$lang['edit_user_fname_label'] = 'Meno:';
+$lang['edit_user_lname_label'] = 'Priezvisko:';
+$lang['edit_user_company_label'] = 'Názov spoločnosti:';
+$lang['edit_user_email_label'] = 'E-mail:';
+$lang['edit_user_phone_label'] = 'Telefón:';
+$lang['edit_user_password_label'] = 'Heslo: (ak meníte heslo)';
+$lang['edit_user_password_confirm_label'] = 'Potvrdiť heslo: (ak meníte heslo)';
+$lang['edit_user_groups_heading'] = 'Člen používateľskej skupiny';
+$lang['edit_user_submit_btn'] = 'Uložiť používateľa';
+$lang['edit_user_validation_fname_label'] = 'Meno';
+$lang['edit_user_validation_lname_label'] = 'Priezvisko';
+$lang['edit_user_validation_email_label'] = 'E-mailová adresa';
+$lang['edit_user_validation_phone_label'] = 'Telefón';
+$lang['edit_user_validation_company_label'] = 'Názov spoločnosti';
+$lang['edit_user_validation_groups_label'] = 'Skupiny používateľa';
+$lang['edit_user_validation_password_label'] = 'Heslo';
+$lang['edit_user_validation_password_confirm_label'] = 'Heslo na potvrdenie';
 
 // Create Group
-$lang['create_group_title']                  = 'Create Group';
-$lang['create_group_heading']                = 'Create Group';
-$lang['create_group_subheading']             = 'Please enter the group information below.';
-$lang['create_group_name_label']             = 'Group Name:';
-$lang['create_group_desc_label']             = 'Description:';
-$lang['create_group_submit_btn']             = 'Create Group';
-$lang['create_group_validation_name_label']  = 'Group Name';
-$lang['create_group_validation_desc_label']  = 'Description';
+$lang['create_group_title'] = 'Vytvoriť skupinu';
+$lang['create_group_heading'] = 'Vytvoriť skupinu';
+$lang['create_group_subheading'] = 'Prosím, zadajte nižšie informácie o skupine.';
+$lang['create_group_name_label'] = 'Názov skupiny:';
+$lang['create_group_desc_label'] = 'Popis:';
+$lang['create_group_submit_btn'] = 'Vytvoriť skupinu';
+$lang['create_group_validation_name_label'] = 'Názov skupiny';
+$lang['create_group_validation_desc_label'] = 'Popis';
 
 // Edit Group
-$lang['edit_group_title']                  = 'Edit Group';
-$lang['edit_group_saved']                  = 'Group Saved';
-$lang['edit_group_heading']                = 'Edit Group';
-$lang['edit_group_subheading']             = 'Please enter the group information below.';
-$lang['edit_group_name_label']             = 'Group Name:';
-$lang['edit_group_desc_label']             = 'Description:';
-$lang['edit_group_submit_btn']             = 'Save Group';
-$lang['edit_group_validation_name_label']  = 'Group Name';
-$lang['edit_group_validation_desc_label']  = 'Description';
+$lang['edit_group_title'] = 'Upraviť skupinu';
+$lang['edit_group_saved'] = 'Skupina uložená';
+$lang['edit_group_heading'] = 'Upraviť skupinu';
+$lang['edit_group_subheading'] = 'Prosím, zadajte informácie o skupine nižšie.';
+$lang['edit_group_name_label'] = 'Názov skupiny:';
+$lang['edit_group_desc_label'] = 'Popis:';
+$lang['edit_group_submit_btn'] = 'Uložiť skupinu';
+$lang['edit_group_validation_name_label'] = 'Názov skupiny';
+$lang['edit_group_validation_desc_label'] = 'Popis';
 
 // Change Password
-$lang['change_password_heading']                               = 'Change Password';
-$lang['change_password_old_password_label']                    = 'Old Password:';
-$lang['change_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['change_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['change_password_submit_btn']                            = 'Change';
-$lang['change_password_validation_old_password_label']         = 'Old Password';
-$lang['change_password_validation_new_password_label']         = 'New Password';
-$lang['change_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+$lang['change_password_heading'] = 'Zmena hesla';
+$lang['change_password_old_password_label'] = 'Staré heslo:';
+$lang['change_password_new_password_label'] = 'Nové heslo (najmenej %s znakov):';
+$lang['change_password_new_password_confirm_label'] = 'Potvrdiť nové heslo:';
+$lang['change_password_submit_btn'] = 'Zmeniť';
+$lang['change_password_validation_old_password_label'] = 'Staré heslo';
+$lang['change_password_validation_new_password_label'] = 'Nové heslo';
+$lang['change_password_validation_new_password_confirm_label'] = 'Potvrdiť nové heslo';
 
 // Forgot Password
-$lang['forgot_password_heading']                 = 'Forgot Password';
-$lang['forgot_password_subheading']              = 'Please enter your %s so we can send you an email to reset your password.';
-$lang['forgot_password_email_label']             = '%s:';
-$lang['forgot_password_submit_btn']              = 'Submit';
-$lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_username_identity_label'] = 'Username';
-$lang['forgot_password_email_identity_label']    = 'Email';
-$lang['forgot_password_email_not_found']         = 'No record of that email address.';
+$lang['forgot_password_heading'] = 'Zabudli ste heslo';
+$lang['forgot_password_subheading'] = 'Zadajte prosím vašu %s, takže vám môžeme poslať e-mail pre resetovanie hesla';
+$lang['forgot_password_email_label'] = '%s:';
+$lang['forgot_password_submit_btn'] = 'Odoslať';
+$lang['forgot_password_validation_email_label'] = 'E-mailová adresa';
+$lang['forgot_password_username_identity_label'] = 'Používateľské meno';
+$lang['forgot_password_email_identity_label'] = 'Email';
+$lang['forgot_password_email_not_found'] = 'Žiadny záznam s toutu e-mailovou adresou.';
 
 // Reset Password
-$lang['reset_password_heading']                               = 'Change Password';
-$lang['reset_password_new_password_label']                    = 'New Password (at least %s characters long):';
-$lang['reset_password_new_password_confirm_label']            = 'Confirm New Password:';
-$lang['reset_password_submit_btn']                            = 'Change';
-$lang['reset_password_validation_new_password_label']         = 'New Password';
-$lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Password';
+$lang['reset_password_heading'] = 'Zmena hesla';
+$lang['reset_password_new_password_label'] = 'Nové heslo (najmenej% s znakov):';
+$lang['reset_password_new_password_confirm_label'] = 'Potvrdiť nové heslo:';
+$lang['reset_password_submit_btn'] = 'Zmeniť';
+$lang['reset_password_validation_new_password_label'] = 'Nové heslo';
+$lang['reset_password_validation_new_password_confirm_label'] = 'Potvrdiť nové heslo';
 
 // Activation Email
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activate_heading'] = 'Aktivovať účet pre %s';
+$lang['email activate nadpis'] = 'Prosím kliknite na tento odkaz %s.';
+$lang['email_activate_link'] = 'Aktivácia vášho účtu';
 
 // Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgot_password_heading'] = 'Vytvoriť nové heslo pre %s';
+$lang['email_forgot_password_subheading'] = 'Prosím kliknite na tento odkaz %s.';
+$lang['email_forgot_password_link'] = 'Reset hesla';
 
 // New Password Email
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_heading'] = 'Nové heslo pre %s';
+$lang['email new_password nadpis'] = 'Vaše heslo bolo obnovené: %s';
 
