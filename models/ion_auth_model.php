@@ -353,6 +353,37 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Return the id with the given identity
+	 *
+	 * @return int
+	 * @author Dan Schaefer <dan@schaeferzone.net>
+	 */
+	public function get_id_from_identity($identity)
+	{
+		$this->trigger_events('get_id_from_identity');
+
+		if (empty($identity))
+		{
+			return FALSE;
+		}
+
+		$this->trigger_events('extra_where');
+
+		$query = $this->db->select($this->identity_column)
+		                  ->where($this->identity_column, $identity)
+		                  ->limit(1)
+		                  ->get($this->tables['users']);
+
+		if ($query->num_rows() !== 1)
+		{
+			return FALSE;
+		}
+
+		$user = $query->row();
+		return $user->id;
+	}
+
+	/**
 	 * Insert a forgotten password key.
 	 *
 	 * @return bool
