@@ -1638,11 +1638,6 @@ class Ion_auth_model extends CI_Model
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], array('id' => $id));
 
-		// if user does not exist in database then it returns FALSE else removes the user from groups
-		if ($this->db->affected_rows() <= 0)
-		{
-		    return FALSE;
-		}
 
 		if ($this->db->trans_status() === FALSE)
 		{
