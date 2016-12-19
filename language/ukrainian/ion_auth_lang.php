@@ -17,63 +17,63 @@
 */
 
 // Account Creation
-$lang['account_creation_successful']        = 'Обліковий запис успішно створено';
-$lang['account_creation_unsuccessful']       = 'Неможливо створити обліковий запис';
-$lang['account_creation_duplicate_email']    = 'Електронна пошта використовується або некоректна';
+$lang['account_creation_successful']		= 'Обліковий запис успішно створено';
+$lang['account_creation_unsuccessful']		= 'Неможливо створити обліковий запис';
+$lang['account_creation_duplicate_email']	= 'Електронна пошта використовується або некоректна';
 $lang['account_creation_duplicate_identity']    = 'Ім`я користувача існує або некоректне';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Група за умовчанням не встановлена';
+$lang['account_creation_invalid_default_group'] = 'Група за умовчанням задана некоректно';
 
 // Password
-$lang['password_change_successful']       = 'Пароль успішно змінено';
-$lang['password_change_unsuccessful']        = 'Пароль неможливо змінити';
-$lang['forgot_password_successful']       = 'Пароль скинутий. На електронну пошту відправлено повідомлення';
-$lang['forgot_password_unsuccessful']       = 'Неможливе скидання пароля';
+$lang['password_change_successful']		= 'Пароль успішно змінено';
+$lang['password_change_unsuccessful']		= 'Пароль неможливо змінити';
+$lang['forgot_password_successful']		= 'Пароль скинутий. На електронну пошту відправлено повідомлення';
+$lang['forgot_password_unsuccessful']		= 'Неможливе скидання пароля';
 
 // Activation
-$lang['activate_successful']          = 'Обліковий запис активовано';
-$lang['activate_unsuccessful']         = 'Не вдалося активувати обліковий запис';
+$lang['activate_successful']		= 'Обліковий запис активовано';
+$lang['activate_unsuccessful']		= 'Не вдалося активувати обліковий запис';
 $lang['deactivate_successful']          = 'Обліковий запис деактивовано';
 $lang['deactivate_unsuccessful']        = 'Неможливо деактивувати обліковий запис';
-$lang['activation_email_successful']        = 'Повідомлення про активацію відправлено';
-$lang['activation_email_unsuccessful']      = 'Повідомлення про активацію неможливо відправити';
+$lang['activation_email_successful']    = 'Повідомлення про активацію відправлено';
+$lang['activation_email_unsuccessful']  = 'Повідомлення про активацію неможливо відправити';
 
 // Login / Logout
-$lang['login_successful']          = 'Авторизація пройшла успішно';
-$lang['login_unsuccessful']          = 'Логін невірний';
-$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
-$lang['logout_successful']         = 'Вихід успішний';
+$lang['login_successful']		= 'Авторизація пройшла успішно';
+$lang['login_unsuccessful']		= 'Логін невірний';
+$lang['login_unsuccessful_not_active'] 	= 'Обліковий запис не активований';
+$lang['login_timeout']			= 'В цілях безпеки можливість входу тимчасово заблокована. Спробуйте зайти пізніше.';
+$lang['logout_successful']		= 'Вихід успішний';
 
 // Account Changes
-$lang['update_successful']         = 'Обліковий запис успішно оновлено';
-$lang['update_unsuccessful']         = 'Неможливо оновити обліковий запис';
-$lang['delete_successful']         = 'Обліковий запис видалено';
-$lang['delete_unsuccessful']         = 'Неможливо видалити обліковий запис';
+$lang['update_successful']		= 'Обліковий запис успішно оновлено';
+$lang['update_unsuccessful']		= 'Неможливо оновити обліковий запис';
+$lang['delete_successful']		= 'Обліковий запис видалено';
+$lang['delete_unsuccessful']		= 'Неможливо видалити обліковий запис';
 
 // Groups
-$lang['group_creation_successful']  = 'Group created Successfully';
-$lang['group_already_exists']       = 'Group name already taken';
-$lang['group_update_successful']    = 'Group details updated';
-$lang['group_delete_successful']    = 'Group deleted';
-$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
-$lang['group_name_required'] 		= 'Group name is a required field';
+$lang['group_creation_successful']  = 'Група створена успішно';
+$lang['group_already_exists']       = 'Група з таким ім\'ям вже існує';
+$lang['group_update_successful']    = 'Дані групи оновлені успішно';
+$lang['group_delete_successful']    = 'Група видалена';
+$lang['group_delete_unsuccessful']  = 'Не вдалося видалити групу';
+$lang['group_delete_notallowed']    = 'Не можна видалити групу адміністраторів';
+$lang['group_name_required'] 	    = 'Ім\'я групи обов\'язкове до заповнення';
 $lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
 
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activation_subject']  = 'Активація облікового запису';
+$lang['email_activate_heading']    = 'Активувати акаунт з ім\'ям  %s';
+$lang['email_activate_subheading'] = 'Натисніть на посилання %s.';
+$lang['email_activate_link']       = 'Активувати ваш акаунт';
 // Forgot Password Email
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgotten_password_subject']	= 'Перевірка забутого пароля';
+$lang['email_forgot_password_heading']		= 'Скидання пароля для користувача %s';
+$lang['email_forgot_password_subheading']	= 'Натисніть на посилання для %s.';
+$lang['email_forgot_password_link']		= 'Відновлення пароля';
 // New Password Email
-$lang['email_new_password_subject']          = 'New Password';
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_subject']	= 'Відновлення пароля';
+$lang['email_new_password_heading']	= 'Новий пароль для %s';
+$lang['email_new_password_subheading']  = 'Пароль змінений на: %s';
