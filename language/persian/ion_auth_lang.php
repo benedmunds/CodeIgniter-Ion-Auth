@@ -10,10 +10,13 @@
 * 		  ghasem.shahabi@gmail.com
 * 		  @GhasemShahabi
 *
+* Modification: pBeez
+* 		  @pbeez
+*
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  10.24.2012
-* Modified: 11.20.2012
+* Modified: 01.01.2017
 *
 * Description:  Persian language file for Ion Auth messages and errors
 *
@@ -26,8 +29,8 @@ $lang['account_creation_duplicate_email'] 	 = 'ایمیل قبلا استفاد�
 $lang['account_creation_duplicate_identity'] = 'نام کاربری قبلا استفاده شده است';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'گروه پیش فرض ذخیره نشده است';
+$lang['account_creation_invalid_default_group'] = 'گروه پیشفرض نامعتبر است';
 
 // Password
 $lang['password_change_successful'] 	 	 = 'رمز عبور عوض شد';
@@ -62,21 +65,21 @@ $lang['group_already_exists']       = 'اين نام گروه قبلا استف�
 $lang['group_update_successful']    = 'جزئيات گروه با موفقيت بروز رساني شد';
 $lang['group_delete_successful']    = 'گروه حذف شد';
 $lang['group_delete_unsuccessful'] 	= 'امكان حذف گروه وجود ندارد';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
-$lang['group_name_required'] 		= 'Group name is a required field';
-$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+$lang['group_delete_notallowed']    = 'نمیتوان گروه مدیریت را پاک کرد';
+$lang['group_name_required'] 		= 'نام گروه لازم است';
+$lang['group_name_admin_not_alter'] = 'نام گروه ادمین را نمیتوان تغییر داد';
 
 // Activation Email
 $lang['email_activation_subject']            = 'فعال سازی حساب کاربري';
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activate_heading']    = 'فعال سازی اکانت %s';
+$lang['email_activate_subheading'] = 'لطفا روی این لینک کلیک کنید: %s';
+$lang['email_activate_link']       = 'فعال سازی اکانت';
 // Forgot Password Email
 $lang['email_forgotten_password_subject']    = 'تایید رمز عبور جدید';
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgot_password_heading']    = 'بازیابی کلمه عبور برای %s';
+$lang['email_forgot_password_subheading'] = 'لطفا روی این لینک کلیک کنید: %s';
+$lang['email_forgot_password_link']       = 'کلمه عبور خود را بازیابی کنید';
 // New Password Email
 $lang['email_new_password_subject']          = 'رمز عبور جدید';
-$lang['email_new_password_heading']    = 'New Password for %s';
-$lang['email_new_password_subheading'] = 'Your password has been reset to: %s';
+$lang['email_new_password_heading']    = 'کلمه عبور جدید برای %s';
+$lang['email_new_password_subheading'] = 'کلمه عبور جدید شما:‌ %s';
