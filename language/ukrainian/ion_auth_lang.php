@@ -19,10 +19,7 @@
 // Account Creation
 $lang['account_creation_successful']		= 'Обліковий запис успішно створено';
 $lang['account_creation_unsuccessful']		= 'Неможливо створити обліковий запис';
-$lang['account_creation_duplicate_email']	= 'Електронна пошта використовується або некоректна';
-$lang['account_creation_duplicate_identity']    = 'Ім`я користувача існує або некоректне';
-
-// TODO Please Translate
+$lang['account_creation_duplicate_identity']    = 'Електронна пошта використовується або некоректна';
 $lang['account_creation_missing_default_group'] = 'Група за умовчанням не встановлена';
 $lang['account_creation_invalid_default_group'] = 'Група за умовчанням задана некоректно';
 
