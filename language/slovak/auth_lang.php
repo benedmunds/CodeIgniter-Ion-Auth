@@ -1,27 +1,29 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
-* Name:  Auth Lang - English
-*
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Author: Jakub Vatrt
-*         vatrtj@gmail.com
-*
-* Location: http://github.com/benedmunds/ion_auth/
-*
-* Created:  11.11.2016
-*
-* Description:  English language file for Ion Auth example views
-*
-*/
+<?php
 
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+/**
+ * Name:  Auth Lang - English
+ *
+ * Author: Ben Edmunds
+ * 		  ben.edmunds@gmail.com
+ *         @benedmunds
+ *
+ * Author: Jakub Vatrt
+ *         vatrtj@gmail.com
+ *
+ * Location: http://github.com/benedmunds/ion_auth/
+ *
+ * Created:  11.11.2016
+ *
+ * Description:  English language file for Ion Auth example views
+ *
+ */
 // Errors
 $lang['error_csrf'] = 'Tento formulár neprešiel bezpečnostnou kontrolou.';
 
 // Login
-$lang['login_heading']         = 'Prihlásenie';
+$lang['login_heading'] = 'Prihlásenie';
 $lang['login_subheading'] = 'Prosím prihláste sa nižšie pomocou svojho emailu alebo užívateľským menom a heslom';
 $lang['login_identity_label'] = 'E-mail / Užívateľské meno:';
 $lang['login_password_label'] = 'Heslo';
