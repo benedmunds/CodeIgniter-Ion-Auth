@@ -37,6 +37,7 @@ $lang['deactivate_successful'] 		  	     = 'Регистрацията е деа
 $lang['deactivate_unsuccessful'] 	  	     = 'Неуспешен опит за деактивиране на регистрацията';
 $lang['activation_email_successful'] 	  	 = 'Изпратен е Email за активиране на регистрацията';
 $lang['activation_email_unsuccessful']   	 = 'Неуспешен опит за изпращане на Email за активация';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'Успешен вход в системата';

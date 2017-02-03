@@ -517,6 +517,11 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('deactivate_unsuccessful');
 			return FALSE;
 		}
+                elseif($this->user()->row()->id == $id)
+                {
+                        $this->set_error('deactivate_current_user_unsuccessful');
+                        return FALSE;
+                }
 
 		$activation_code       = sha1(md5(microtime()));
 		$this->activation_code = $activation_code;

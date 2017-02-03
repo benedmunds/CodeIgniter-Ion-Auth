@@ -40,6 +40,7 @@ $lang['deactivate_successful'] 		  	 = 'Deaktyvuota';
 $lang['deactivate_unsuccessful'] 	  	 = 'Neįmanoma deaktyvuoti';
 $lang['activation_email_successful'] 	  	 = 'Išsiųstas pranešimas į el. paštą';
 $lang['activation_email_unsuccessful']   	 = 'Neįmanoma išsiųsti';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Sėkminga autorizacija';

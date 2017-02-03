@@ -35,6 +35,7 @@ $lang['deactivate_successful']          = 'تم إيقاف حسابك';
 $lang['deactivate_unsuccessful']        = 'لا يمكن إيقاف حسابك';
 $lang['activation_email_successful']    = 'تم إرسال بريد التفعيل';
 $lang['activation_email_unsuccessful']  = 'لا يمكن ارسال بريد التفعيل';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']             = 'تم تسجيل الدخول بنجاح';

@@ -40,6 +40,7 @@ $lang['deactivate_successful']         = '帳號已關閉';
 $lang['deactivate_unsuccessful']       = '關閉帳號失敗';
 $lang['activation_email_successful']   = '已寄送啟動帳號電子郵件';
 $lang['activation_email_unsuccessful'] = '啟動帳號電子郵件失敗';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']   = '登入成功';

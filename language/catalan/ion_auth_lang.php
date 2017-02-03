@@ -40,6 +40,7 @@ $lang['deactivate_successful']					= 'Compte desactivat';
 $lang['deactivate_unsuccessful']				= 'No ha estat possible desactivar el compte';
 $lang['activation_email_successful']			= 'Email d&#39;activació enviat';
 $lang['activation_email_unsuccessful']			= 'No ha estat possible enviar l&#39;email d&#39;activació';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']						= 'Sessió iniciada amb èxit';

@@ -37,6 +37,7 @@ $lang['deactivate_successful'] 		  	     = '계정을 비활성화하였습니�
 $lang['deactivate_unsuccessful'] 	  	     = '계정을 비활성화할 수 없습니다';
 $lang['activation_email_successful'] 	  	 = '계정 활성화 이메일을 보냈습니다';
 $lang['activation_email_unsuccessful']   	 = '계정 활성화 이메일을 보날 수 없습니다';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = '로그인 하였습니다';

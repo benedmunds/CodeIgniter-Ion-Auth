@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth Lang - English
+* Name:  Ion Auth Lang - Filipino
 *
 * Author: Ben Edmunds
 *         ben.edmunds@gmail.com
@@ -10,7 +10,7 @@
 *
 * Created:  03.14.2010
 *
-* Description:  English language file for Ion Auth messages and errors
+* Description:  Filipino language file for Ion Auth messages and errors
 *
 */
 
