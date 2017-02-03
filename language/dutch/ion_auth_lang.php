@@ -39,6 +39,7 @@ $lang['deactivate_successful'] 		  	 = 'Account is gedeactiveerd';
 $lang['deactivate_unsuccessful'] 	  	 = 'Accound deactiveren is mislukt';
 $lang['activation_email_successful'] 	  	 = 'Activatie e-mail is verzonden';
 $lang['activation_email_unsuccessful']   	 = 'Activatie e-mail verzenden is mislukt';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'U bent ingelogd';

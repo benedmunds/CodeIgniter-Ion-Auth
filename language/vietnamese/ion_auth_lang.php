@@ -33,6 +33,7 @@ $lang['deactivate_successful'] 		  	     = 'Đã khoá tài khoản thành công
 $lang['deactivate_unsuccessful'] 	  	     = 'Không thể bất khoá tài khoản vào lúc này';
 $lang['activation_email_successful'] 	  	 = 'Đã gửi mail kích hoạt thành công';
 $lang['activation_email_unsuccessful']   	 = 'Không thể gửi mail kích hoạt vào lúc này';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'Đăng nhập thành công';

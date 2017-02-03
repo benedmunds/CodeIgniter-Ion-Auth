@@ -41,6 +41,7 @@ $lang['deactivate_successful'] 		  	     = 'บัญชีถูกปิดก
 $lang['deactivate_unsuccessful'] 	  	     = 'ไม่สามารถปิดการใช้งานบัญชี';
 $lang['activation_email_successful'] 	  	 = 'ส่งอีเมล์เปิดใช้งานแล้ว';
 $lang['activation_email_unsuccessful']   	 = 'ไม่สามารถส่งอีเมล์เปิดใช้งานรหัสผ่านได้';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'เข้าสู่ระบบสำเร็จ';

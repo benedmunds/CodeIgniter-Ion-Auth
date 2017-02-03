@@ -39,6 +39,7 @@ $lang['deactivate_successful']          = 'Обліковий запис деа�
 $lang['deactivate_unsuccessful']        = 'Неможливо деактивувати обліковий запис';
 $lang['activation_email_successful']    = 'Повідомлення про активацію відправлено';
 $lang['activation_email_unsuccessful']  = 'Повідомлення про активацію неможливо відправити';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']		= 'Авторизація пройшла успішно';

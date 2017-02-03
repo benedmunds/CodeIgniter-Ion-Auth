@@ -50,6 +50,7 @@ $lang['update_successful'] 		 	 = 'Οι Πληροφορίες του Λογαρ
 $lang['update_unsuccessful'] 		 	 = 'Αδυναμία Ενημέρωσης Πληροφοριών Λογαριασμού';
 $lang['delete_successful'] 		 	 = 'Ο Χρήστης Διαγράφηκε';
 $lang['delete_unsuccessful'] 		 	 = 'Αδυναμία Διαγραφής Χρήστη';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Groups
 $lang['group_creation_successful']  = 'Group created Successfully';

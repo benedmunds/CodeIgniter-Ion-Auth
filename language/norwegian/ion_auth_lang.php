@@ -41,6 +41,7 @@ $lang['deactivate_successful']		   = 'Kontoen har blitt deaktivert';
 $lang['deactivate_unsuccessful']	   = 'Klarte ikke å deaktivere konto';
 $lang['activation_email_successful']   = 'E-post for aktivering av konto har blitt sendt';
 $lang['activation_email_unsuccessful'] = 'Klarte ikke å sende e-post for aktivering av konto';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']			   = 'Logget inn';

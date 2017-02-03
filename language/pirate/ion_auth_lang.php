@@ -32,6 +32,7 @@ $lang['deactivate_successful'] 		  	 	= 'Furner be burned down by the Navy';
 $lang['deactivate_unsuccessful'] 	  	 	= 'Shiver me timbers! Account not Deactivated';
 $lang['activation_email_successful'] 	  	= 'Letter in the Bottle Sent';
 $lang['activation_email_unsuccessful']   	= 'Unable to Send Letter in the Bottle';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 		= 'Yarr, welcome aboard!';

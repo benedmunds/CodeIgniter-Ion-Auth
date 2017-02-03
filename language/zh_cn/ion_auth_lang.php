@@ -35,6 +35,7 @@ $lang['deactivate_successful']         = '账号已关闭';
 $lang['deactivate_unsuccessful']       = '账号关闭失败';
 $lang['activation_email_successful']   = '已发送激活账号的电子邮件';
 $lang['activation_email_unsuccessful'] = '发送激活账号的电子邮件失败';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']   = '登录成功';

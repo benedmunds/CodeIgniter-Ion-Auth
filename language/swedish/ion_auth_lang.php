@@ -38,6 +38,7 @@ $lang['deactivate_successful']            = 'Kontot inaktiverades';
 $lang['deactivate_unsuccessful']          = 'Det gick inte att inaktivera kontot';
 $lang['activation_email_successful']      = 'En aktveringslänk har skickats till din e-post';
 $lang['activation_email_unsuccessful']    = 'E-post med aktiveringslänk kunde inte skickas';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']       = 'Du är nu inloggad';

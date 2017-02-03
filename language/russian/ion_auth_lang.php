@@ -37,6 +37,7 @@ $lang['deactivate_successful'] 		  	 = 'Учетная запись деакти
 $lang['deactivate_unsuccessful'] 	  	 = 'Невозможно деактивировать учетную запись';
 $lang['activation_email_successful'] 	  	 = 'Сообщение об активации отправлено';
 $lang['activation_email_unsuccessful']   	 = 'Сообщение об активации невозможно отправить';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Авторизация прошла успешно';

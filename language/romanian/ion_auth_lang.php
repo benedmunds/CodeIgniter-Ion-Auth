@@ -35,6 +35,7 @@ $lang['deactivate_successful'] 		  	     = 'Cont dezactivat';
 $lang['deactivate_unsuccessful'] 	  	     = 'Nu am reușit să dezactivez contul';
 $lang['activation_email_successful'] 	  	 = 'Mailul de activare a fost trimis';
 $lang['activation_email_unsuccessful']   	 = 'Nu am reușit să trimit mailul de activare';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'Conectarea a reușit';

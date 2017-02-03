@@ -45,6 +45,7 @@ $lang['deactivate_successful'] 		  	     = 'حساب کاربري غيرفعال
 $lang['deactivate_unsuccessful'] 	  	     = 'امكان غيرفعال كردن حساب کاربري وجود ندارد';
 $lang['activation_email_successful'] 	  	 = 'ایمیل فعال سازی فرستاده شد';
 $lang['activation_email_unsuccessful']   	 = 'امكان ارسال ایمیل فعال سازی وجود ندارد';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'ورود موفقیت آميز';

@@ -37,6 +37,7 @@ $lang['deactivate_successful']                   = 'Tili suljettu';
 $lang['deactivate_unsuccessful']                 = 'Tilin sulkeminen epäonnistui';
 $lang['activation_email_successful']             = 'Aktivointiviesti lähetetty';
 $lang['activation_email_unsuccessful']           = 'Aktivointiviestiä ei voitu lähettää';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']                        = 'Olet nyt kirjautunut sisään!';
