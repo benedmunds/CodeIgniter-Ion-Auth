@@ -519,7 +519,7 @@ class Ion_auth_model extends CI_Model
 		}
      		elseif($this->user()->row()->id == $id)
                 {
-                        $this->set_error('You cannot deactivate your self.');
+                        $this->set_error('deactivate_current_user_unsuccessful');
                         return FALSE;
                 }
 
