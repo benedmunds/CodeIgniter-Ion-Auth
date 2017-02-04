@@ -522,7 +522,6 @@ class Ion_auth_model extends CI_Model
                         $this->set_error('deactivate_current_user_unsuccessful');
                         return FALSE;
                 }
-
 		$activation_code       = sha1(md5(microtime()));
 		$this->activation_code = $activation_code;
 
@@ -801,7 +800,7 @@ class Ion_auth_model extends CI_Model
 		    'forgotten_password_time' => time()
 		);
 
-		$this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
+		$this->db->update($this->tables['users'], $update, array('email' => $identity));
 
 		$return = $this->db->affected_rows() == 1;
 
