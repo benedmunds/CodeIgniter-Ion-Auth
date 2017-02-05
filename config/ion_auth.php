@@ -42,6 +42,12 @@ $config['join']['users']  = 'user_id';
 $config['join']['groups'] = 'group_id';
 
 /*
+ | table for email in user to use in requesting forgot password code
+ |
+ */
+$config['table_email_forgot_password']  = 'email';
+
+/*
  | -------------------------------------------------------------------------
  | Hash Method (sha1 or bcrypt)
  | -------------------------------------------------------------------------
