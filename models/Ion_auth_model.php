@@ -800,7 +800,7 @@ class Ion_auth_model extends CI_Model
 		    'forgotten_password_time' => time()
 		);
 
-		$this->db->update($this->tables['users'], $update, array($this->config->item('column_email_forgot_password', 'ion_auth')=> $user_email));
+		$this->db->update($this->tables['users'], $update, array('email'=> $user_email));
 
 		$return = $this->db->affected_rows() == 1;
 
