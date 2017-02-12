@@ -1169,15 +1169,11 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('like');
 
-		if (!is_array($like))
-		{
-			$like = array($like => array(
-				'value'    => $value,
-				'position' => $position,
-			));
-		}
-
-		array_push($this->_ion_like, $like);
+		array_push($this->_ion_like, array(
+			'like'     => $like,
+			'value'    => $value,
+			'position' => $position
+		));
 
 		return $this;
 	}
@@ -1333,7 +1329,7 @@ class Ion_auth_model extends CI_Model
 		{
 			foreach ($this->_ion_like as $like)
 			{
-				$this->db->or_like($like);
+				$this->db->or_like($like['like'], $like['value'], $like['position']);
 			}
 
 			$this->_ion_like = array();
