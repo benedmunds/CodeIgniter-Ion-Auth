@@ -1041,7 +1041,7 @@ class Ion_auth_model extends CI_Model
             $last_login = $this->session->userdata('last_check');
             if($last_login+$recheck < time())
             {
-                $query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
+                $query = $this->db->select('id')
                     ->where(array($this->identity_column=>$this->session->userdata('identity'),'active'=>'1'))
                     ->limit(1)
                     ->order_by('id', 'desc')
