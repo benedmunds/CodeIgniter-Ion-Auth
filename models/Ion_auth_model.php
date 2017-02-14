@@ -1766,7 +1766,7 @@ class Ion_auth_model extends CI_Model
 		    'email'                => $user->email,
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login,
-            'last_login'           => time(),
+		    'last_check'           => time(),
 		);
 
 		$this->session->set_userdata($session_data);
