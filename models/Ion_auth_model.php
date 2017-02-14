@@ -1038,7 +1038,7 @@ class Ion_auth_model extends CI_Model
 
         if($recheck!==0)
         {
-            $last_login = $this->session->userdata('last_login');
+            $last_login = $this->session->userdata('last_check');
             if($last_login+$recheck < time())
             {
                 $query = $this->db->select($this->identity_column . ', email, id, password, active, last_login')
@@ -1048,7 +1048,7 @@ class Ion_auth_model extends CI_Model
                     ->get($this->tables['users']);
                 if ($query->num_rows() === 1)
                 {
-                    $this->session->set_userdata('last_login',time());
+                    $this->session->set_userdata('last_check',time());
                 }
                 else
                 {
