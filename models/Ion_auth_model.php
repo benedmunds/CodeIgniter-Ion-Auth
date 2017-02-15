@@ -517,7 +517,7 @@ class Ion_auth_model extends CI_Model
 			$this->set_error('deactivate_unsuccessful');
 			return FALSE;
 		}
-                elseif($this->user()->row()->id == $id)
+                elseif($this->ion_auth->logged_in() && $this->user()->row()->id == $id)
                 {
                         $this->set_error('deactivate_current_user_unsuccessful');
                         return FALSE;
