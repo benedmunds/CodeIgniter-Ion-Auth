@@ -10,6 +10,7 @@ CREATE TABLE users (
     forgotten_password_time int,
     remember_code varchar(40),
     created_on int NOT NULL,
+    updated_at int NOT NULL,
     last_login int,
     active int,
     first_name varchar(50),
