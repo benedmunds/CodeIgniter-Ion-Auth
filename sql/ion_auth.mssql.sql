@@ -66,3 +66,10 @@ CREATE TABLE login_attempts (
   PRIMARY KEY(id),
   CONSTRAINT login_attempts_check_id CHECK(id >= 0)
 );
+
+CREATE TABLE users_last_logins (
+    id int(11) NOT NULL,
+    user_id int(11) NOT NULL,
+    last_login int(11) UNSIGNED NOT NULL
+    PRIMARY KEY(id),
+) ;

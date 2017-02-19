@@ -93,3 +93,14 @@ CREATE TABLE `login_attempts` (
   `time` int(11) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+#
+# Table structure for table 'users_last_logins'
+#
+
+CREATE TABLE `users_last_logins` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `last_login` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
