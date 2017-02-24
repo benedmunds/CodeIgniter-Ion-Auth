@@ -375,7 +375,13 @@ class Ion_auth_model extends CI_Model
         $buffer_valid = false;
 
         if (function_exists('mcrypt_create_iv') && !defined('PHALANGER')) {
-            $buffer = mcrypt_create_iv($raw_salt_len, MCRYPT_DEV_URANDOM);
+            if (version_compare(PHP_VERSION, '7.1.0') >= 0) {
+		$buffer = random_bytes($raw_salt_len);
+	    }
+	    else
+	    {
+		$buffer = mcrypt_create_iv($raw_salt_len, MCRYPT_DEV_URANDOM);
+	    }
             if ($buffer) {
                 $buffer_valid = true;
             }
