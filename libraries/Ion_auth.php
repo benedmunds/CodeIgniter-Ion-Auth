@@ -439,14 +439,31 @@ class Ion_auth
 	 **/
 	public function is_group($check_group)
 	{
-		$user_group = $this->ci->session->userdata('group');
-
-		if(is_array($check_group))
+		$users_groups = $this->ci->ion_auth_model->get_users_groups();
+		$groups = array();
+		foreach ($users_groups as $group)
 		{
-			return in_array($user_group, $check_group);
+    			$groups[] = $group->name;
 		}
-
-		return $user_group == $check_group;
+		$permission = false;
+		if(is_array($check_group)) 
+		{
+    			foreach($check_group as $key => $value)
+    			{
+        			if(in_array($value, $groups)) 
+        			{
+            				$permission = true;
+        			}
+    			}
+		} 
+		else 
+		{
+    			if(in_array($check_group, $groups)) 
+    			{
+        			$permission = true;
+    			}
+		}
+		return $permission;
 	}
 
 	/**
