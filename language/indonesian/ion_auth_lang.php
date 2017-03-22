@@ -47,7 +47,7 @@ $lang['deactivate_successful']						= 'Akun Telah Dinonaktifkan';
 $lang['deactivate_unsuccessful']					= 'Tidak Dapat Menonaktifkan Akun';
 $lang['activation_email_successful']			    = 'Email untuk Aktivasi Telah Dikirim. Silahkan cek inbox atau spam';
 $lang['activation_email_unsuccessful']		        = 'Tidak Dapat Mengirimkan Email Aktivasi';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['deactivate_current_user_unsuccessful']		= 'Anda tidak dapat Nonaktifkan akun anda sendiri.';
 
 // Login / Logout
 $lang['login_successful']							= 'Log In Berhasil';
