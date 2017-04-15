@@ -57,8 +57,8 @@ $lang['create_user_heading']                           = 'Crea Usuari';
 $lang['create_user_subheading']                        = 'Si us plau, introdueix la informació dels usuaris a continuació.';
 $lang['create_user_fname_label']                       = 'Nom:';
 $lang['create_user_lname_label']                       = 'Cognom:';
-$lang['create_user_identity_label']                    = 'Identitat:';
 $lang['create_user_company_label']                     = 'Nom de l\'empresa:';
+$lang['create_user_identity_label']                    = 'Identitat:';
 $lang['create_user_email_label']                       = 'Correu-e:';
 $lang['create_user_phone_label']                       = 'Telèfon:';
 $lang['create_user_password_label']                    = 'Contrasenya:';
@@ -126,14 +126,14 @@ $lang['change_password_validation_new_password_label']         = 'Contrasenya no
 $lang['change_password_validation_new_password_confirm_label'] = 'Confirmar Contrasenya nova';
 
 // Forgot Password
-$lang['forgot_password_heading']                 = 'Contrasenya oblidada';
-$lang['forgot_password_subheading']              = 'Introdueix el teu %s perquè puguem enviar un correu electrònic per restablir la contrasenya.';
-$lang['forgot_password_email_label']             = '%s:';
-$lang['forgot_password_submit_btn']              = 'Envia';
-$lang['forgot_password_validation_email_label']  = 'Adreça de Correu-e';
-$lang['forgot_password_username_identity_label'] = 'Nom d\'usuari';
-$lang['forgot_password_email_identity_label']    = 'Correu-e';
-$lang['forgot_password_email_not_found']         = 'No hi ha registre d\'aquesta adreça de correu electrònic.';
+$lang['forgot_password_heading']                = 'Contrasenya oblidada';
+$lang['forgot_password_subheading']             = 'Introdueix el teu %s perquè puguem enviar un correu electrònic per restablir la contrasenya.';
+$lang['forgot_password_email_label']            = '%s:';
+$lang['forgot_password_submit_btn']             = 'Envia';
+$lang['forgot_password_validation_email_label'] = 'Adreça de Correu-e';
+$lang['forgot_password_identity_label']         = 'Usuari';
+$lang['forgot_password_email_identity_label']   = 'Correu-e';
+$lang['forgot_password_email_not_found']        = 'No hi ha registre d\'aquesta adreça de correu electrònic.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Canvia Contrasenya';
@@ -142,17 +142,3 @@ $lang['reset_password_new_password_confirm_label']            = 'Confirmar Contr
 $lang['reset_password_submit_btn']                            = 'Canvia';
 $lang['reset_password_validation_new_password_label']         = 'Contrasenya nova';
 $lang['reset_password_validation_new_password_confirm_label'] = 'Confirmar nova Contrasenya';
-
-// Activation Email
-$lang['email_activate_heading']    = 'Activa compte per a %s';
-$lang['email_activate_subheading'] = 'Si us plau, feu clic en aquest enllaç per %s.';
-$lang['email_activate_link']       = 'Activa el teu compte';
-
-// Forgot Password Email
-$lang['email_forgot_password_heading']    = 'Restableix la Contrasenya a %s';
-$lang['email_forgot_password_subheading'] = 'Si us plau, feu clic en aquest enllaç per %s.';
-$lang['email_forgot_password_link']       = 'Restableix la teva Contrasenya';
-
-// New Password Email
-$lang['email_new_password_heading']    = 'Contrasenya nova per a %s';
-$lang['email_new_password_subheading'] = 'La teva Contrasenya ha estat restablerta a: %s';
