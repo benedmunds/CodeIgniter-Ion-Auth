@@ -22,7 +22,16 @@ Just copy the files from this package to the corresponding folder in your
 application folder.  For example, copy Ion_auth/config/ion_auth.php to
 application/config/ion_auth.php
 
-You can also copy the libraries and models directories into your third_party/ion_auth folder.  For example, copy  to /application/third_party/ion_auth/.  Then in your controller add the package path and load the library like normal
+You can also copy the libraries and models directories into your third_party/ion_auth folder.  For example, copy  to /application/third_party/ion_auth/.  The directory structure would be:
+
+    controllers/Auth.php
+    views/
+    third_party/ion_auth/libraries/Ion_auth.php
+    third_party/ion_auth/libraries/Bcrypt.php
+    third_party/ion_auth/models/Ion_auth_model.php
+
+
+Then in your controller add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
