@@ -134,6 +134,7 @@ $lang['forgot_password_validation_email_label']  = 'Email Address';
 $lang['forgot_password_identity_label'] = 'Identity';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'No record of that email address.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Change Password';

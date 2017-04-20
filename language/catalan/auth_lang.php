@@ -134,6 +134,7 @@ $lang['forgot_password_validation_email_label'] = 'Adreça de Correu-e';
 $lang['forgot_password_identity_label']         = 'Usuari';
 $lang['forgot_password_email_identity_label']   = 'Correu-e';
 $lang['forgot_password_email_not_found']        = 'No hi ha registre d\'aquesta adreça de correu electrònic.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Canvia Contrasenya';

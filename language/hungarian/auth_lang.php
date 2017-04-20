@@ -132,6 +132,7 @@ $lang['forgot_password_validation_email_label']  = 'E-mail cím';
 $lang['forgot_password_username_identity_label'] = 'Felhasználónév';
 $lang['forgot_password_email_identity_label']    = 'E-mail';
 $lang['forgot_password_email_not_found']         = 'Nem található ez az e-mail cím.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Jelszó változtatása';
