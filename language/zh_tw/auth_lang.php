@@ -140,6 +140,7 @@ $lang['forgot_password_validation_email_label']  = '電子郵件';
 $lang['forgot_password_username_identity_label'] = '帳號';
 $lang['forgot_password_email_identity_label']    = '電子郵件';
 $lang['forgot_password_email_not_found']         = '找不到此電子郵件相關資訊.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = '修改密碼';

@@ -137,6 +137,7 @@ $lang['forgot_password_validation_email_label']  = 'Adres email';
 $lang['forgot_password_username_identity_label'] = 'Użytkownik';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Nie znaleziono w bazie użytkownika o tym adresie.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                    			  = 'Zmiana hasła';

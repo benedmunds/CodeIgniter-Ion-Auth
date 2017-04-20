@@ -134,6 +134,7 @@ $lang['forgot_password_validation_email_label']  = 'El. p. adresas';
 $lang['forgot_password_username_identity_label'] = 'Vartotojo vardas';
 $lang['forgot_password_email_identity_label']    = 'El. p. adresas';
 $lang['forgot_password_email_not_found']         = 'Duomenų bazėje tokio el. pašto adreso nėra.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset password
 $lang['reset_password_heading']                               = 'Pakeisti slaptažodį';

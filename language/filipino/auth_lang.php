@@ -134,6 +134,7 @@ $lang['forgot_password_validation_email_label']  = 'Email Address';
 $lang['forgot_password_identity_label'] = 'Identity';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Walang record ng email address.';
+$lang['forgot_password_identity_not_found']         = 'Walang record ng username.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Palitan ang Password';

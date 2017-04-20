@@ -134,6 +134,7 @@ $lang['forgot_password_validation_email_label']  = 'Email Adress';
 $lang['forgot_password_username_identity_label'] = 'Användarnamn';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Email adressen finns inte i vårt register.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Ändra Lösenord';

@@ -131,6 +131,7 @@ $lang['forgot_password_validation_email_label']  = 'Adresa de email';
 $lang['forgot_password_username_identity_label'] = 'Utilizator';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Nu există nicio înregistrare cu acest email.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Schimbare parolă';

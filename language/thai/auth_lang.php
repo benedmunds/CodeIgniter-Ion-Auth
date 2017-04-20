@@ -142,6 +142,7 @@ $lang['forgot_password_validation_email_label']  = 'ที่อยู่อี�
 $lang['forgot_password_username_identity_label'] = 'ชื่อผู้ใช้';
 $lang['forgot_password_email_identity_label']    = 'อีเมล์';
 $lang['forgot_password_email_not_found']         = 'ไม่พบที่อยู่อีเมล์นี้ในสารบบ';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // ตั้งรหัสผ่านใหม่
 $lang['reset_password_heading']                               = 'ตั้งรหัสผ่านใหม่';
