@@ -141,6 +141,7 @@ $lang['forgot_password_validation_email_label']  = 'Email';
 $lang['forgot_password_username_identity_label'] = 'Логин';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_back']    = 'Вернуться';
+$lang['forgot_password_email_not_found']         = 'No record of that email address.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Изменить пароль';
