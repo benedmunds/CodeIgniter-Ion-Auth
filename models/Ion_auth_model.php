@@ -1046,7 +1046,15 @@ class Ion_auth_model extends CI_Model
         if($recheck!==0)
         {
             $last_login = $this->session->userdata('last_check');
-            if($last_login+$recheck < time())
+                
+            if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+            {
+	       //if remembered-login,then just the session lastlogin will used, because session is refresh by remember-user
+	    }else{
+                    $last_login+=$recheck ;
+            }
+           
+            if($last_login < time())
             {
                 $query = $this->db->select('id')
                     ->where(array($this->identity_column=>$this->session->userdata('identity'),'active'=>'1'))
@@ -1071,7 +1079,7 @@ class Ion_auth_model extends CI_Model
                     {
                         $this->session->unset_userdata( array($identity, 'id', 'user_id') );
                     }
-                    return -1;//to  know the return FALSE is the recheck  function not from session expire
+                      return -1;//to  know the return FALSE is the recheck  function not from session expire
                 }
             }
         }
