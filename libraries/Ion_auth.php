@@ -68,10 +68,10 @@ class Ion_auth
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 
 		//auto-login the user if they are remembered
-		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
-		{
-			$this->ion_auth_model->login_remembered_user();
-		}
+//		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+//		{
+//			$this->ion_auth_model->login_remembered_user();
+//		}
 
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
@@ -443,7 +443,24 @@ class Ion_auth
 	{
 		$this->ion_auth_model->trigger_events('logged_in');
 
-        return $this->ion_auth_model->recheck_session();
+                $sesson_identity=(bool) $this->session->userdata('identity');
+        
+                //auto-login the user if they are remembered
+                if ( ! $sesson_identity && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		{
+			$sesson_identity= $this->ion_auth_model->login_remembered_user();
+		}
+               
+                /**
+                 * just log out the user if detect -1 
+                 */
+                if($this->ion_auth_model->recheck_session() === -1)
+                {
+                        
+                        return FALSE;
+                }
+                
+                return $sesson_identity;
 	}
 
 	/**
