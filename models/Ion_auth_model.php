@@ -1071,7 +1071,7 @@ class Ion_auth_model extends CI_Model
                     {
                         $this->session->unset_userdata( array($identity, 'id', 'user_id') );
                     }
-                    return false;
+                    return -1;//to  know the return FALSE is the recheck  function not from session expire
                 }
             }
         }
