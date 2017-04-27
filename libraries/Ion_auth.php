@@ -439,6 +439,10 @@ class Ion_auth
 
                 $recheck= $this->ion_auth_model->recheck_session();
         
+                if(! is_bool($recheck))//check if the return is bool, else mean the recheck check it that need to log out the user
+                {
+                      return FALSE;  
+                }
                 //auto-login the user if they are remembered
                 if ( ! $recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
