@@ -66,13 +66,7 @@ class Ion_auth
 		$this->load->model('ion_auth_model');
 
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
-
-		//auto-login the user if they are remembered
-		if (!$this->logged_in() && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
-		{
-			$this->ion_auth_model->login_remembered_user();
-		}
-
+	
 		$email_config = $this->config->item('email_config', 'ion_auth');
 
 		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
@@ -442,8 +436,16 @@ class Ion_auth
 	public function logged_in()
 	{
 		$this->ion_auth_model->trigger_events('logged_in');
-
-        return $this->ion_auth_model->recheck_session();
+                
+                $recheck= $this->ion_auth_model->recheck_session();
+        
+                //auto-login the user if they are remembered
+                if ( ! $recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		{
+			$recheck = $this->ion_auth_model->login_remembered_user();
+		}
+                
+                return $recheck;
 	}
 
 	/**
