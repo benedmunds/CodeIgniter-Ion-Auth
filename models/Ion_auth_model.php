@@ -1861,6 +1861,7 @@ class Ion_auth_model extends CI_Model
 		$query = $this->db->select($this->identity_column.', id, email, last_login')
 		                  ->where($this->identity_column, urldecode(get_cookie($this->config->item('identity_cookie_name', 'ion_auth'))))
 		                  ->where('remember_code', get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+				  ->where('active',1)
 		                  ->limit(1)
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
