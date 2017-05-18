@@ -12,7 +12,7 @@
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:    03.09.2013
-* Translated: 09.02.2014
+* Translated: 18.05.2017
 *
 * Description:  Polish language file for Ion Auth example views
 *
@@ -21,7 +21,7 @@
 // Login
 $lang['login_heading']         = 'Login';
 $lang['login_subheading']      = 'Zaloguj się poniżej używając email/username oraz hasła.';
-$lang['login_identity_label']  = 'Email/Username:';
+$lang['login_identity_label']  = 'Nazwa użytkownika:';
 $lang['login_password_label']  = 'Hało:';
 $lang['login_remember_label']  = 'Pamiętaj mnie:';
 $lang['login_submit_btn']      = 'Login';
@@ -55,7 +55,7 @@ $lang['create_user_heading']                		   = 'Dodaj użytkownika';
 $lang['create_user_subheading']             		   = 'Wprowadź poniżej dane użytkownika.';
 $lang['create_user_fname_label']            		   = 'Imię:';
 $lang['create_user_lname_label']            		   = 'Nazwisko:';
-$lang['create_user_identity_label']                    = 'Identity:';
+$lang['create_user_identity_label']                    = 'Nazwa użytkownika:';
 $lang['create_user_company_label']          		   = 'Nazwa firmy:';
 $lang['create_user_email_label']           			   = 'Email:';
 $lang['create_user_phone_label']            		   = 'Telefon:';
@@ -64,7 +64,7 @@ $lang['create_user_password_confirm_label'] 		   = 'Potwierdź hasło:';
 $lang['create_user_submit_btn']             		   = 'Utwórz użytkownika';
 $lang['create_user_validation_fname_label']            = 'Imię';
 $lang['create_user_validation_lname_label']            = 'Nazwisko';
-$lang['create_user_validation_identity_label']         = 'Identity';
+$lang['create_user_validation_identity_label']         = 'Nazwa użytkownika';
 $lang['create_user_validation_email_label']            = 'Adres e-mail';
 $lang['create_user_validation_phone_label']            = 'Telefon';
 $lang['create_user_validation_phone1_label']           = 'Telefon - część pierwsza';
@@ -82,7 +82,7 @@ $lang['edit_user_lname_label']            			 = 'Nazwisko:';
 $lang['edit_user_company_label']          			 = 'Nazwa firmy:';
 $lang['edit_user_email_label']            			 = 'Email:';
 $lang['edit_user_phone_label']            			 = 'Telefon:';
-$lang['edit_user_password_label']         			 = 'Hasło: (jeśli zmieniasz hasło)';
+$lang['edit_user_password_label']         			 = 'Hasło (jeśli zmieniasz hasło)';
 $lang['edit_user_password_confirm_label'] 			 = 'Potwierdź hasło: (jeśli zmieniasz hasło)';
 $lang['edit_user_groups_heading']        		     = 'Czlonek grupy';
 $lang['edit_user_submit_btn']             			 = 'Zapisz użytkownika';
@@ -134,10 +134,10 @@ $lang['forgot_password_subheading']              = 'Proszę wprowadź swój %s a
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Wyślij';
 $lang['forgot_password_validation_email_label']  = 'Adres email';
-$lang['forgot_password_username_identity_label'] = 'Użytkownik';
+$lang['forgot_password_username_identity_label'] = 'Nazwa użytkownika';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Nie znaleziono w bazie użytkownika o tym adresie.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_identity_not_found']      = 'Nie znaleziono użytkownika o tym adresie email.';
 
 // Reset Password
 $lang['reset_password_heading']                    			  = 'Zmiana hasła';
