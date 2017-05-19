@@ -128,18 +128,18 @@ class Ion_auth
 	 * @return mixed boolean / array
 	 * @author Mathew
 	 */
-	public function forgotten_password($identity)    //changed $email to $identity
+	public function forgotten_password($user_email)    //changed $email to $identity
 	{
-		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
+		if ( $this->ion_auth_model->forgotten_password($user_email) )   //changed
 		{
 			// Get user information
       $identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-      $user = $this->where($identifier, $identity)->where('active', 1)->users()->row();  // changed to get_user_by_identity from email
+      $user = $this->where('email', $user_email)->where('active', 1)->users()->row();  // changed to get_user_by_identity from email
 
 			if ($user)
 			{
 				$data = array(
-					'identity'		=> $user->{$this->config->item('identity', 'ion_auth')},
+					'identity'		=> $user->email,
 					'forgotten_password_code' => $user->forgotten_password_code
 				);
 
