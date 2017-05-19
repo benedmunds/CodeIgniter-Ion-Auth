@@ -10,6 +10,7 @@ CREATE TABLE users (
     forgotten_password_time int,
     remember_code varchar(40),
     created_on int NOT NULL,
+    updated_at int NOT NULL,
     last_login int,
     active int,
     first_name varchar(50),
@@ -66,3 +67,10 @@ CREATE TABLE login_attempts (
   PRIMARY KEY(id),
   CONSTRAINT login_attempts_check_id CHECK(id >= 0)
 );
+
+CREATE TABLE users_last_logins (
+    id int(11) NOT NULL,
+    user_id int(11) NOT NULL,
+    last_login int(11) UNSIGNED NOT NULL
+    PRIMARY KEY(id),
+) ;

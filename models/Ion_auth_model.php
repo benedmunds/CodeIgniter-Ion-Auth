@@ -483,7 +483,8 @@ class Ion_auth_model extends CI_Model
 		{
 			$data = array(
 			    'activation_code' => NULL,
-			    'active'          => 1
+			    'active'          => 1,
+                            'updated_at'                => time()
 			);
 
 
@@ -535,7 +536,8 @@ class Ion_auth_model extends CI_Model
 
 		$data = array(
 		    'activation_code' => $activation_code,
-		    'active'          => 0
+		    'active'          => 0,
+                    'updated_at'      => time()
 		);
 
 		$this->trigger_events('extra_where');
@@ -1634,7 +1636,8 @@ class Ion_auth_model extends CI_Model
 
 			return FALSE;
 		}
-
+                //set timestamp
+                $data['updated_at'] = time();
 		// Filter the data passed
 		$data = $this->_filter_data($this->tables['users'], $data);
 
@@ -1717,13 +1720,27 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('update_last_login');
 
-		$this->load->helper('date');
-
 		$this->trigger_events('extra_where');
 
-		$this->db->update($this->tables['users'], array('last_login' => time()), array('id' => $id));
-
-		return $this->db->affected_rows() == 1;
+                $this->db->trans_begin();
+                
+                $last_login=array('last_login' => time());
+                
+		$this->db->update($this->tables['users'],$last_login ,array('id' => $id));
+                
+                $last_login['user_id']=$id;
+                
+		$this->db->insert($this->tables['users_last_logins'],$last_login);
+                
+                if ($this->db->trans_status() === FALSE)
+		{
+			$this->db->trans_rollback();
+			return FALSE;
+		}
+                
+		$this->db->trans_commit();
+                
+		return TRUE;
 	}
 
 	/**
