@@ -27,7 +27,7 @@ $lang['account_creation_invalid_default_group'] = 'Invalid default group name se
 $lang['password_change_successful']          = 'Password Successfully Changed';
 $lang['password_change_unsuccessful']        = 'Unable to Change Password';
 $lang['forgot_password_successful']          = 'Password Reset Email Sent';
-$lang['forgot_password_unsuccessful']        = 'Unable to Reset Password';
+$lang['forgot_password_unsuccessful']        = 'Unable to email the Reset Password link';
 
 // Activation
 $lang['activate_successful']                 = 'Account Activated';
@@ -36,6 +36,7 @@ $lang['deactivate_successful']               = 'Account De-Activated';
 $lang['deactivate_unsuccessful']             = 'Unable to De-Activate Account';
 $lang['activation_email_successful']         = 'Activation Email Sent. Please check your inbox or spam';
 $lang['activation_email_unsuccessful']       = 'Unable to Send Activation Email';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']                    = 'Logged In Successfully';

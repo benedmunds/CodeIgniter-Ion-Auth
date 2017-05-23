@@ -34,6 +34,7 @@ $lang['deactivate_successful'] 		    	= 'Felhasználói fiók inaktiválva';
 $lang['deactivate_unsuccessful'] 	      = 'Nem lehet a felhasználói fiókot inaktiválni';
 $lang['activation_email_successful'] 	  = 'Aktivációs email elküldve';
 $lang['activation_email_unsuccessful']  = 'Nem lehet elküldeni az aktivációs emailt';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 			= 'Sikeres bejelentkés';

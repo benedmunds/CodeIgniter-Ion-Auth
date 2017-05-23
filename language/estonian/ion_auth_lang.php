@@ -38,6 +38,7 @@ $lang['deactivate_successful']               = 'Konto on taas aktiivne';
 $lang['deactivate_unsuccessful']             = 'Konto aktiveerimine ebaõnnestus.';
 $lang['activation_email_successful']         = 'Sinu e-postile saadeti kiri edasise juhendiga.';
 $lang['activation_email_unsuccessful']       = 'Aktiveerimiskirja saatmine ebaõnnestus.';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful']                    = 'Oled sisse logitud';

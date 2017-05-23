@@ -40,6 +40,7 @@ $lang['deactivate_successful'] 		  	     = 'Račun je deaktiviran';
 $lang['deactivate_unsuccessful'] 	  	     = 'De-aktivacija računa noje uspjela';
 $lang['activation_email_successful'] 	  	 = 'Email za aktivaciju je poslan';
 $lang['activation_email_unsuccessful']   	 = 'Slanje mail za aktivaciju nije uspjelo';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'Uspješno prijavljeni';

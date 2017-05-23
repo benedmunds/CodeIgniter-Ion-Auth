@@ -132,6 +132,7 @@ $lang['forgot_password_validation_email_label']  = 'Elektronski naslov';
 $lang['forgot_password_username_identity_label'] = 'Uporabniško ime';
 $lang['forgot_password_email_identity_label']    = 'E-naslov';
 $lang['forgot_password_email_not_found']         = 'No record of that email address.';
+$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
 
 // Ponastavi geslo
 $lang['reset_password_heading']                               = 'Spremeni geslo';

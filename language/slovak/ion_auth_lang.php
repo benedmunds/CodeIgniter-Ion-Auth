@@ -35,6 +35,7 @@ $lang['deactivate_successful'] 		  	     = 'Účet bol deaktivovaný';
 $lang['deactivate_unsuccessful'] 	  	     = 'Nie je možné deaktivovať účet';
 $lang['activation_email_successful'] 	  	 = 'Aktivačný e-mail bol odoslaný';
 $lang['activation_email_unsuccessful']   	 = 'Nedá sa odoslať aktivačný e-mail';
+$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
 
 // Login / Logout
 $lang['login_successful'] 		  	         = 'Úspešne prihlásený';
