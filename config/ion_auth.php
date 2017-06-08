@@ -63,6 +63,21 @@
 	$config['identity']            = 'email';
 		 
 	/**
+	 * An array of words reserved/banned by your 
+	 * system that cannot be used as usernames. 
+	 * Leave empty if you don't want to check 
+	 * against a list.
+	 * 
+	 **/
+	$config['reserved']            = array(
+										'index',
+										'username',
+										'edit',
+										'company',
+										'phone',
+										);
+		 
+	/**
 	 * Minimum Required Length of Password
 	 **/
 	$config['min_password_length'] = 8;

@@ -71,6 +71,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->tables  = $this->config->item('tables', 'ion_auth');
 		$this->columns = $this->config->item('columns', 'ion_auth');
+		$this->reserved = $this->config->item('reserved', 'ion_auth');
 
 		$this->identity_column     = $this->config->item('identity', 'ion_auth');
 		$this->store_salt      	   = $this->config->item('store_salt', 'ion_auth');
@@ -313,6 +314,25 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Checks username against the list of reserved names in
+	 * config. Returns true if username matches a reserved word.
+	 *
+	 * @return bool
+	 * @author Kevin Smith
+	 **/
+	public function username_reserved_check($username = '')
+	{
+		if (in_array($username, $this->reserved))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * Checks email
 	 *
 	 * @return bool
@@ -496,6 +516,13 @@ class Ion_auth_model extends CI_Model
 		}
 	    }
 
+		// Check username against reserved names array.
+		if ($this->username_reserved_check($username))
+		{
+			$this->ion_auth->set_error('account_creation_duplicate_username');
+			return false;
+		}
+	
 	    // If a group ID was passed, use it
 	    if(isset($additional_data['group_id']))
 	    {
