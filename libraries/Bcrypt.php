@@ -38,7 +38,49 @@ class Bcrypt {
      */
   public function verify($input, $existingHash) {
     $hash = crypt($input, $existingHash);
-    return $hash === $existingHash;
+    return $this->_hash_equals($existingHash, $hash);
+  }
+  
+   /**
+   * Polyfill for hash_equals()
+   * Code mainly taken from hash_equals() compat function of CodeIgniter 3
+   *
+   * @param  string  $known_string
+   * @param  string  $user_string
+   * @return  bool
+   */
+  private function _hash_equals($known_string, $user_string)
+  {
+    // For CI3 or PHP >= 5.6
+    if (function_exists('hash_equals')) 
+    {
+      return hash_equals($known_string, $user_string);
+    }
+    
+    // For CI2 with PHP < 5.6
+    // Code from CI3 https://github.com/bcit-ci/CodeIgniter/blob/develop/system/core/compat/hash.php
+    if ( ! is_string($known_string))
+    {
+      trigger_error('hash_equals(): Expected known_string to be a string, '.strtolower(gettype($known_string)).' given', E_USER_WARNING);
+      return FALSE;
+    }
+    elseif ( ! is_string($user_string))
+    {
+      trigger_error('hash_equals(): Expected user_string to be a string, '.strtolower(gettype($user_string)).' given', E_USER_WARNING);
+      return FALSE;
+    }
+    elseif (($length = strlen($known_string)) !== strlen($user_string))
+    {
+      return FALSE;
+    }
+
+    $diff = 0;
+    for ($i = 0; $i < $length; $i++)
+    {
+      $diff |= ord($known_string[$i]) ^ ord($user_string[$i]);
+    }
+
+    return ($diff === 0);
   }
 
   private function getSalt() {
