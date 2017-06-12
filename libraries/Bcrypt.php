@@ -38,7 +38,7 @@ class Bcrypt {
      */
   public function verify($input, $existingHash) {
     $hash = crypt($input, $existingHash);
-    return $this->_hash_equals($existingHash, $hash);
+    return $this->hashEquals($existingHash, $hash);
   }
   
    /**
@@ -49,7 +49,7 @@ class Bcrypt {
    * @param  string  $user_string
    * @return  bool
    */
-  private function _hash_equals($known_string, $user_string)
+  private function hashEquals($known_string, $user_string)
   {
     // For CI3 or PHP >= 5.6
     if (function_exists('hash_equals')) 
