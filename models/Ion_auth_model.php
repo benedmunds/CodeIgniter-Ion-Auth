@@ -932,7 +932,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->insert($this->tables['users'], $user_data);
 
-		$id = $this->db->insert_id();
+		$id = $this->db->insert_id($this->tables['users'] . '_id_seq');
 
 		// add in groups array if it doesn't exists and stop adding into default group if default group ids are set
 		if( isset($default_group->id) && empty($groups) )
@@ -1922,7 +1922,7 @@ class Ion_auth_model extends CI_Model
 
 		// insert the new group
 		$this->db->insert($this->tables['groups'], $data);
-		$group_id = $this->db->insert_id();
+		$group_id = $this->db->insert_id($this->tables['groups'] . '_id_seq');
 
 		// report success
 		$this->set_message('group_creation_successful');
