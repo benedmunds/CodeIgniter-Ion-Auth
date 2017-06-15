@@ -978,7 +978,7 @@ class Ion_auth_model extends CI_Model
 		    			  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
 
-		if($this->is_time_locked_out($identity))
+		if($this->is_max_login_attempts_exceeded($identity))
 		{
 			// Hash something anyway, just to take up time
 			$this->hash_password($password);
@@ -1113,6 +1113,7 @@ class Ion_auth_model extends CI_Model
             if ($this->config->item('track_login_ip_address', 'ion_auth')) {
             	$this->db->where('ip_address', $ip_address);
             }
+            $this->db->where('time >', time() - $this->config->item('lockout_time', 'ion_auth'), FALSE);
             $qres = $this->db->get($this->tables['login_attempts']);
             return $qres->num_rows();
         }
@@ -1123,15 +1124,22 @@ class Ion_auth_model extends CI_Model
 	 * Get a boolean to determine if an account should be locked out due to
 	 * exceeded login attempts within a given period
 	 *
+	 * This function is only a wrapper for is_max_login_attempts_exceeded() since it
+	 * only retrieve attempts within the given period.
+	 * It is kept for retrocompatibility purpose.
+	 *
+	 * @param	string $identity
 	 * @return	boolean
 	 */
 	public function is_time_locked_out($identity) {
-
-		return $this->is_max_login_attempts_exceeded($identity) && $this->get_last_attempt_time($identity) > time() - $this->config->item('lockout_time', 'ion_auth');
+		return $this->is_max_login_attempts_exceeded($identity);
 	}
 
 	/**
 	 * Get the time of the last time a login attempt occured from given IP-address or identity
+	 *
+	 * This function is no longer used.
+	 * It is kept for retrocompatibility purpose.
 	 *
 	 * @param	string $identity
 	 * @return	int
