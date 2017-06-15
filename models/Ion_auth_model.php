@@ -1183,14 +1183,19 @@ class Ion_auth_model extends CI_Model
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
 	 * @param string $identity
+	 * @param int $old_attempts_expire_period: in seconds, any attempts older than this value will be removed.
+	 *                                         It is used for regularly purging the attempts table.
+	 *                                         (for security reason, minimum value is lockout_time config value)
 	 **/
-	public function clear_login_attempts($identity, $expire_period = 86400) {
+	public function clear_login_attempts($identity, $old_attempts_expire_period = 86400) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
+			// Make sure $old_attempts_expire_period is at least equals to lockout_time
+			$old_attempts_expire_period = max($old_attempts_expire_period, $this->config->item('lockout_time', 'ion_auth'));
 			$ip_address = $this->_prepare_ip($this->input->ip_address());
 
 			$this->db->where(array('ip_address' => $ip_address, 'login' => $identity));
 			// Purge obsolete login attempts
-			$this->db->or_where('time <', time() - $expire_period, FALSE);
+			$this->db->or_where('time <', time() - $old_attempts_expire_period, FALSE);
 
 			return $this->db->delete($this->tables['login_attempts']);
 		}
