@@ -11,7 +11,7 @@
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  03.23.2010
-* Updated:  22.10.2014
+* Updated:  06.16.2017
 *
 * Description:  French language file for Ion Auth messages and errors
 *
@@ -44,7 +44,7 @@ $lang['activation_email_unsuccessful'] = 'Impossible d\'envoyer l\'email d\'acti
 $lang['login_successful']              = 'Connecté avec succès';
 $lang['login_unsuccessful']            = 'Erreur lors de la connexion';
 $lang['login_unsuccessful_not_active'] = 'Ce compte est inactif';
-$lang['login_timeout']                 = 'Compte temporairement bloqué suite à de trop nombreuse tentative.  Veuillez réessayer plus tard.';
+$lang['login_timeout']                 = 'Compte temporairement bloqué suite à de trop nombreuses tentatives.  Veuillez réessayer plus tard.';
 $lang['logout_successful']             = 'Déconnexion effectuée avec succès';
 
 // Account Changes
@@ -52,7 +52,7 @@ $lang['update_successful']   = 'Compte utilisateur mis à jour avec succès';
 $lang['update_unsuccessful'] = 'Impossible de mettre à jour le compte utilisateur';
 $lang['delete_successful']   = 'Utilisateur supprimé';
 $lang['delete_unsuccessful'] = 'Impossible de supprimer l\'utilisateur';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['deactivate_current_user_unsuccessful']= 'Vous ne pouvez pas vous désactiver vous-même.';
 
 // Groups
 $lang['group_creation_successful'] = 'Groupe créé avec succès';
