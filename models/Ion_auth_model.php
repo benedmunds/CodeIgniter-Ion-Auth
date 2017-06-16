@@ -1083,14 +1083,18 @@ class Ion_auth_model extends CI_Model
 	 * is_max_login_attempts_exceeded
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param string $identity
+	 * @param string $identity: user's identity
+	 * @param string $ip_address: IP address
+	 *                            Only used if track_login_ip_address set to TRUE.
+	 *                            If NULL (default value), current IP address is used.
+	 *                            Use get_last_attempt_ip($identity) to retrieve user's last IP
 	 * @return boolean
 	 **/
-	public function is_max_login_attempts_exceeded($identity) {
+	public function is_max_login_attempts_exceeded($identity, $ip_address = NULL) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
 			$max_attempts = $this->config->item('maximum_login_attempts', 'ion_auth');
 			if ($max_attempts > 0) {
-				$attempts = $this->get_attempts_num($identity);
+				$attempts = $this->get_attempts_num($identity, $ip_address);
 				return $attempts >= $max_attempts;
 			}
 		}
@@ -1101,13 +1105,17 @@ class Ion_auth_model extends CI_Model
 	 * Get number of attempts to login occured from given IP-address or identity
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param	string $identity
-	 * @return	int
+	 * @param string $identity: user's identity
+	 * @param string $ip_address: IP address
+	 *                            Only used if track_login_ip_address set to TRUE.
+	 *                            If NULL (default value), current IP address is used.
+	 *                            Use get_last_attempt_ip($identity) to retrieve user's last IP
+	 * @return int
 	 */
-	public function get_attempts_num($identity)
+	public function get_attempts_num($identity, $ip_address = NULL)
 	{
         if ($this->config->item('track_login_attempts', 'ion_auth')) {
-            $ip_address = $this->_prepare_ip($this->input->ip_address());
+            if (is_null($ip_address)) $ip_address = $this->_prepare_ip($this->input->ip_address());
             $this->db->select('1', FALSE);
             $this->db->where('login', $identity);
             if ($this->config->item('track_login_ip_address', 'ion_auth')) {
@@ -1128,11 +1136,15 @@ class Ion_auth_model extends CI_Model
 	 * only retrieve attempts within the given period.
 	 * It is kept for retrocompatibility purpose.
 	 *
-	 * @param	string $identity
-	 * @return	boolean
+	 * @param string $identity: user's identity
+	 * @param string $ip_address: IP address
+	 *                            Only used if track_login_ip_address set to TRUE.
+	 *                            If NULL (default value), current IP address is used.
+	 *                            Use get_last_attempt_ip($identity) to retrieve user's last IP
+	 * @return boolean
 	 */
-	public function is_time_locked_out($identity) {
-		return $this->is_max_login_attempts_exceeded($identity);
+	public function is_time_locked_out($identity, $ip_address = NULL) {
+		return $this->is_max_login_attempts_exceeded($identity, $ip_address);
 	}
 
 	/**
@@ -1141,12 +1153,16 @@ class Ion_auth_model extends CI_Model
 	 * This function is no longer used.
 	 * It is kept for retrocompatibility purpose.
 	 *
-	 * @param	string $identity
-	 * @return	int
+	 * @param string $identity: user's identity
+	 * @param string $ip_address: IP address
+	 *                            Only used if track_login_ip_address set to TRUE.
+	 *                            If NULL (default value), current IP address is used.
+	 *                            Use get_last_attempt_ip($identity) to retrieve user's last IP
+	 * @return int
 	 */
-	public function get_last_attempt_time($identity) {
+	public function get_last_attempt_time($identity, $ip_address = NULL) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
-			$ip_address = $this->_prepare_ip($this->input->ip_address());
+			if (is_null($ip_address)) $ip_address = $this->_prepare_ip($this->input->ip_address());
 
 			$this->db->select('time');
 			$this->db->where('login', $identity);
@@ -1165,10 +1181,33 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	* Get the IP address of the last time a login attempt occured from given identity
+	*
+	 * @param string $identity: user's identity
+	* @return string
+	*/
+	public function get_last_attempt_ip($identity) {
+		if ($this->config->item('track_login_attempts', 'ion_auth') && $this->config->item('track_login_ip_address', 'ion_auth')) {
+			$this->db->select('ip_address');
+			$this->db->where('login', $identity);
+			$this->db->order_by('id', 'desc');
+			$qres = $this->db->get($this->tables['login_attempts'], 1);
+
+			if($qres->num_rows() > 0) {
+				return $qres->row()->ip_address;
+			}
+		}
+
+		return '';
+	}
+
+	/**
 	 * increase_login_attempts
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param string $identity
+	 * Note: the current IP address will be used if track_login_ip_address config value is TRUE
+	 *
+	 * @param string $identity: user's identity
 	 **/
 	public function increase_login_attempts($identity) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
@@ -1185,19 +1224,23 @@ class Ion_auth_model extends CI_Model
 	 * clear_login_attempts
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param string $identity
+	 * @param string $identity: user's identity
 	 * @param int $old_attempts_expire_period: in seconds, any attempts older than this value will be removed.
 	 *                                         It is used for regularly purging the attempts table.
 	 *                                         (for security reason, minimum value is lockout_time config value)
+	 * @param string $ip_address: IP address
+	 *                            Only used if track_login_ip_address set to TRUE.
+	 *                            If NULL (default value), current IP address is used.
+	 *                            Use get_last_attempt_ip($identity) to retrieve user's last IP
 	 **/
-	public function clear_login_attempts($identity, $old_attempts_expire_period = 86400) {
+	public function clear_login_attempts($identity, $old_attempts_expire_period = 86400, $ip_address = NULL) {
 		if ($this->config->item('track_login_attempts', 'ion_auth')) {
 			// Make sure $old_attempts_expire_period is at least equals to lockout_time
 			$old_attempts_expire_period = max($old_attempts_expire_period, $this->config->item('lockout_time', 'ion_auth'));
 
 			$this->db->where('login', $identity);
 			if ($this->config->item('track_login_ip_address', 'ion_auth')) {
-				$ip_address = $this->_prepare_ip($this->input->ip_address());
+				if (is_null($ip_address)) $ip_address = $this->_prepare_ip($this->input->ip_address());
 				$this->db->where('ip_address', $ip_address);
 			}
 			// Purge obsolete login attempts
