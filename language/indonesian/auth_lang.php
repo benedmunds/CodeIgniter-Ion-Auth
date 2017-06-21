@@ -12,7 +12,7 @@
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  21.06.2013
-* Last-Edit: 28.04.2016
+* Last-Edit: 21.06.2017
 *
 * Description:  Indonesia language file for Ion Auth example views
 *
@@ -135,7 +135,7 @@ $lang['forgot_password_validation_email_label']  = 'Alamat Surel';
 $lang['forgot_password_username_identity_label'] = 'Nama Pengguna';
 $lang['forgot_password_email_identity_label']    = 'Surel';
 $lang['forgot_password_email_not_found']         = 'Tidak ada data dari surel tersebut.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_identity_not_found']      = 'Tidak ada data dari nama pengguna tersebut.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Ganti Kata Sandi';
