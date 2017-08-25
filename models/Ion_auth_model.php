@@ -62,6 +62,13 @@ class Ion_auth_model extends CI_Model
 	 * @var array
 	 **/
 	public $_ion_where = array();
+	
+	/**
+	 * OR Where
+	 *
+	 * @var array
+	 **/
+	public $_ion_or_where = array();
 
 	/**
 	 * Select
@@ -1285,6 +1292,20 @@ class Ion_auth_model extends CI_Model
 
 		return $this;
 	}
+	
+	public function or_where($where, $value = NULL)
+	{
+		$this->trigger_events('or_where');
+
+		if (!is_array($where))
+		{
+			$where = array($where => $value);
+		}
+
+		array_push($this->_ion_or_where, $where);
+
+		return $this;
+	}
 
 	public function like($like, $value = NULL, $position = 'both')
 	{
@@ -1445,7 +1466,18 @@ class Ion_auth_model extends CI_Model
 
 			$this->_ion_where = array();
 		}
+		
+		// run each or where that was passed
+		if (isset($this->_ion_or_where) && !empty($this->_ion_or_where))
+		{
+			foreach ($this->_ion_or_where as $where)
+			{
+				$this->db->or_where($where);
+			}
 
+			$this->_ion_or_where = array();
+		}
+		
 		if (isset($this->_ion_like) && !empty($this->_ion_like))
 		{
 			foreach ($this->_ion_like as $like)
