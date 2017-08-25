@@ -799,7 +799,8 @@ class Ion_auth_model extends CI_Model
 			}
 		}
 
-		$this->forgotten_password_code = $key;
+		// Limit to 40 characters since that's how our DB field is setup
+		$this->forgotten_password_code = substr($key, 0, 40);
 
 		$this->trigger_events('extra_where');
 
