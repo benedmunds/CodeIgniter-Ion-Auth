@@ -50,7 +50,6 @@ class Migration_Install_ion_auth extends CI_Migration {
 		);
 		$this->db->insert_batch($this->tables['groups'], $data);
 
-
 		// Drop table 'users' if it exists
 		$this->dbforge->drop_table($this->tables['users'], TRUE);
 
@@ -76,7 +75,8 @@ class Migration_Install_ion_auth extends CI_Migration {
 			),
 			'salt' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40'
+				'constraint' => '40',
+				'null'       => TRUE
 			),
 			'email' => array(
 				'type'       => 'VARCHAR',
