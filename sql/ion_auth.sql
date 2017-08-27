@@ -33,7 +33,7 @@ CREATE TABLE `users` (
   `username` varchar(100) NULL,
   `password` varchar(255) NOT NULL,
   `salt` varchar(255) DEFAULT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(254) NOT NULL,
   `activation_code` varchar(40) DEFAULT NULL,
   `forgotten_password_code` varchar(40) DEFAULT NULL,
   `forgotten_password_time` int(11) unsigned DEFAULT NULL,
