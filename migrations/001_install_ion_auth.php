@@ -2,6 +2,12 @@
 
 class Migration_Install_ion_auth extends CI_Migration {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->dbforge();
+	}
+
 	public function up()
 	{
 		// Drop table 'groups' if it exists
