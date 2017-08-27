@@ -3,8 +3,7 @@
 class Migration_Install_ion_auth extends CI_Migration {
 	private $tables;
 
-	public function __construct()
-	{
+	public function __construct() {
 		parent::__construct();
 		$this->load->dbforge();
 
@@ -12,25 +11,24 @@ class Migration_Install_ion_auth extends CI_Migration {
 		$this->tables = $this->config->item('tables', 'ion_auth');
 	}
 
-	public function up()
-	{
+	public function up() {
 		// Drop table 'groups' if it exists
 		$this->dbforge->drop_table($this->tables['groups'], TRUE);
 
 		// Table structure for table 'groups'
 		$this->dbforge->add_field(array(
 			'id' => array(
-				'type' => 'MEDIUMINT',
-				'constraint' => '8',
-				'unsigned' => TRUE,
+				'type'           => 'MEDIUMINT',
+				'constraint'     => '8',
+				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			),
 			'name' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '20',
 			),
 			'description' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '100',
 			)
 		));
@@ -40,13 +38,13 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Dumping data for table 'groups'
 		$data = array(
 			array(
-				'id' => '1',
-				'name' => 'admin',
+				'id'          => '1',
+				'name'        => 'admin',
 				'description' => 'Administrator'
 			),
 			array(
-				'id' => '2',
-				'name' => 'members',
+				'id'          => '2',
+				'name'        => 'members',
 				'description' => 'General User'
 			)
 		);
@@ -59,88 +57,88 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Table structure for table 'users'
 		$this->dbforge->add_field(array(
 			'id' => array(
-				'type' => 'MEDIUMINT',
-				'constraint' => '8',
-				'unsigned' => TRUE,
+				'type'           => 'MEDIUMINT',
+				'constraint'     => '8',
+				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			),
 			'ip_address' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '16'
 			),
 			'username' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '100',
 			),
 			'password' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '80',
 			),
 			'salt' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '40'
 			),
 			'email' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '100'
 			),
 			'activation_code' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '40',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'forgotten_password_code' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '40',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'forgotten_password_time' => array(
-				'type' => 'INT',
+				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned' => TRUE,
-				'null' => TRUE
+				'unsigned'   => TRUE,
+				'null'       => TRUE
 			),
 			'remember_code' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '40',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'created_on' => array(
-				'type' => 'INT',
+				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned' => TRUE,
+				'unsigned'   => TRUE,
 			),
 			'last_login' => array(
-				'type' => 'INT',
+				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned' => TRUE,
-				'null' => TRUE
+				'unsigned'   => TRUE,
+				'null'       => TRUE
 			),
 			'active' => array(
-				'type' => 'TINYINT',
+				'type'       => 'TINYINT',
 				'constraint' => '1',
-				'unsigned' => TRUE,
-				'null' => TRUE
+				'unsigned'   => TRUE,
+				'null'       => TRUE
 			),
 			'first_name' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '50',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'last_name' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '50',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'company' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '100',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'phone' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '20',
-				'null' => TRUE
+				'null'       => TRUE
 			)
 
 		));
@@ -149,21 +147,21 @@ class Migration_Install_ion_auth extends CI_Migration {
 
 		// Dumping data for table 'users'
 		$data = array(
-			'id' => '1',
-			'ip_address' => '127.0.0.1',
-			'username' => 'administrator',
-			'password' => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
-			'salt' => '',
-			'email' => 'admin@admin.com',
-			'activation_code' => '',
+			'id'                      => '1',
+			'ip_address'              => '127.0.0.1',
+			'username'                => 'administrator',
+			'password'                => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
+			'salt'                    => '',
+			'email'                   => 'admin@admin.com',
+			'activation_code'         => '',
 			'forgotten_password_code' => NULL,
-			'created_on' => '1268889823',
-			'last_login' => '1268889823',
-			'active' => '1',
-			'first_name' => 'Admin',
-			'last_name' => 'istrator',
-			'company' => 'ADMIN',
-			'phone' => '0',
+			'created_on'              => '1268889823',
+			'last_login'              => '1268889823',
+			'active'                  => '1',
+			'first_name'              => 'Admin',
+			'last_name'               => 'istrator',
+			'company'                 => 'ADMIN',
+			'phone'                   => '0',
 		);
 		$this->db->insert($this->tables['users'], $data);
 
@@ -174,20 +172,20 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Table structure for table 'users_groups'
 		$this->dbforge->add_field(array(
 			'id' => array(
-				'type' => 'MEDIUMINT',
-				'constraint' => '8',
-				'unsigned' => TRUE,
+				'type'           => 'MEDIUMINT',
+				'constraint'     => '8',
+				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			),
 			'user_id' => array(
-				'type' => 'MEDIUMINT',
+				'type'       => 'MEDIUMINT',
 				'constraint' => '8',
-				'unsigned' => TRUE
+				'unsigned'   => TRUE
 			),
 			'group_id' => array(
-				'type' => 'MEDIUMINT',
+				'type'       => 'MEDIUMINT',
 				'constraint' => '8',
-				'unsigned' => TRUE
+				'unsigned'   => TRUE
 			)
 		));
 		$this->dbforge->add_key('id', TRUE);
@@ -196,13 +194,13 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Dumping data for table 'users_groups'
 		$data = array(
 			array(
-				'id' => '1',
-				'user_id' => '1',
+				'id'       => '1',
+				'user_id'  => '1',
 				'group_id' => '1',
 			),
 			array(
-				'id' => '2',
-				'user_id' => '1',
+				'id'       => '2',
+				'user_id'  => '1',
 				'group_id' => '2',
 			)
 		);
@@ -215,25 +213,25 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Table structure for table 'login_attempts'
 		$this->dbforge->add_field(array(
 			'id' => array(
-				'type' => 'MEDIUMINT',
-				'constraint' => '8',
-				'unsigned' => TRUE,
+				'type'           => 'MEDIUMINT',
+				'constraint'     => '8',
+				'unsigned'       => TRUE,
 				'auto_increment' => TRUE
 			),
 			'ip_address' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '16'
 			),
 			'login' => array(
-				'type' => 'VARCHAR',
+				'type'       => 'VARCHAR',
 				'constraint' => '100',
-				'null' => TRUE
+				'null'       => TRUE
 			),
 			'time' => array(
-				'type' => 'INT',
+				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned' => TRUE,
-				'null' => TRUE
+				'unsigned'   => TRUE,
+				'null'       => TRUE
 			)
 		));
 		$this->dbforge->add_key('id', TRUE);
@@ -241,8 +239,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 
 	}
 
-	public function down()
-	{
+	public function down() {
 		$this->dbforge->drop_table($this->tables['users'], TRUE);
 		$this->dbforge->drop_table($this->tables['groups'], TRUE);
 		$this->dbforge->drop_table($this->tables['users_groups'], TRUE);
