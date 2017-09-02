@@ -4,7 +4,7 @@ CREATE TABLE users (
     username varchar(100) NULL,
     password varchar(255) NOT NULL,
     salt varchar(255),
-    email varchar(100) NOT NULL,
+    email varchar(254) NOT NULL,
     activation_code varchar(40),
     forgotten_password_code varchar(40),
     forgotten_password_time int,
@@ -60,7 +60,7 @@ SET IDENTITY_INSERT users_groups OFF;
 
 CREATE TABLE login_attempts (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varchar(15),
+    ip_address varchar(45),
     login varchar(100) NOT NULL,
 	time datetime,
   PRIMARY KEY(id),
