@@ -56,7 +56,7 @@ INSERT INTO users_groups (user_id, group_id) VALUES
 
 CREATE TABLE "login_attempts" (
     "id" SERIAL NOT NULL,
-    "ip_address" varchar(15),
+    "ip_address" varchar(45),
     "login" varchar(100) NOT NULL,
     "time" int,
   PRIMARY KEY("id"),

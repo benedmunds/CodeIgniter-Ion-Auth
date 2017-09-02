@@ -60,7 +60,7 @@ SET IDENTITY_INSERT users_groups OFF;
 
 CREATE TABLE login_attempts (
     id int NOT NULL IDENTITY(1,1),
-    ip_address varchar(15),
+    ip_address varchar(45),
     login varchar(100) NOT NULL,
 	time datetime,
   PRIMARY KEY(id),

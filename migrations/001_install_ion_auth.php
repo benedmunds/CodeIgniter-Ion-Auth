@@ -63,7 +63,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 			),
 			'ip_address' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '16'
+				'constraint' => '45'
 			),
 			'username' => array(
 				'type'       => 'VARCHAR',
@@ -220,7 +220,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 			),
 			'ip_address' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '16'
+				'constraint' => '45'
 			),
 			'login' => array(
 				'type'       => 'VARCHAR',
