@@ -1,10 +1,10 @@
 CREATE TABLE "users" (
     "id" SERIAL NOT NULL,
-    "ip_address" inet NOT NULL,
-    "username" varchar(100) NOT NULL,
-    "password" varchar(40) NOT NULL,
-    "salt" varchar(40),
-    "email" varchar(100) NOT NULL,
+    "ip_address" varchar(45),
+    "username" varchar(100) NULL,
+    "password" varchar(255) NOT NULL,
+    "salt" varchar(255),
+    "email" varchar(254) NOT NULL,
     "activation_code" varchar(40),
     "forgotten_password_code" varchar(40),
     "forgotten_password_time" int,
@@ -36,6 +36,7 @@ CREATE TABLE "users_groups" (
     "user_id" integer NOT NULL,
     "group_id" integer NOT NULL,
   PRIMARY KEY("id"),
+  CONSTRAINT "uc_users_groups" UNIQUE (user_id, group_id),
   CONSTRAINT "users_groups_check_id" CHECK(id >= 0),
   CONSTRAINT "users_groups_check_user_id" CHECK(user_id >= 0),
   CONSTRAINT "users_groups_check_group_id" CHECK(group_id >= 0)
@@ -45,9 +46,9 @@ CREATE TABLE "users_groups" (
 INSERT INTO groups (id, name, description) VALUES
     (1,'admin','Administrator'),
     (2,'members','General User');
-    
+
 INSERT INTO users (ip_address, username, password, salt, email, activation_code, forgotten_password_code, created_on, last_login, active, first_name, last_name, company, phone) VALUES
-    ('127.0.0.1','administrator','59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4','9462e8eee0','admin@admin.com','',NULL,'1268889823','1268889823','1','Admin','istrator','ADMIN','0');
+    ('127.0.0.1','administrator','$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36','','admin@admin.com','',NULL,'1268889823','1268889823','1','Admin','istrator','ADMIN','0');
 
 INSERT INTO users_groups (user_id, group_id) VALUES
     (1,1),
@@ -55,7 +56,7 @@ INSERT INTO users_groups (user_id, group_id) VALUES
 
 CREATE TABLE "login_attempts" (
     "id" SERIAL NOT NULL,
-    "ip_address" inet NOT NULL,
+    "ip_address" varchar(45),
     "login" varchar(100) NOT NULL,
     "time" int,
   PRIMARY KEY("id"),

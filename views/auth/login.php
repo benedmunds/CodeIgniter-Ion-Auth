@@ -1,6 +1,6 @@
-<h1>Login</h1>
-<p>Please login with your email/username and password below.</p>
-	
+<h1><?php echo lang('login_heading');?></h1>
+<p><?php echo lang('login_subheading');?></p>
+
 <div id="infoMessage"><?php echo $message;?></div>
 <?php
 if(!isset($identity) || !isset($password)):
@@ -18,27 +18,28 @@ if(!isset($identity) || !isset($password)):
 endif;
 ?>
 <?php echo form_open("auth/login");?>
-  	
+
   <p>
-    <label for="identity">Email/Username:</label>
+    <?php echo lang('login_identity_label', 'identity');?>
     <?php echo form_input($identity);?>
   </p>
 
   <p>
-    <label for="password">Password:</label>
+    <?php echo lang('login_password_label', 'password');?>
     <?php echo form_input($password);?>
   </p>
 
   <p>
-    <label for="remember">Remember Me:</label>
+    <?php echo lang('login_remember_label', 'remember');?>
     <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
   </p>
-    
-    
-  <p><?php echo form_submit('submit', 'Login');?></p>
-    
+
+
+  <p><?php echo form_submit('submit', lang('login_submit_btn'));?></p>
+
 <?php echo form_close();?>
 
+<<<<<<< HEAD
 <p><a href="forgot_password">Forgot your password?</a></p>
 <?php
 	$this->load->helper('url');
@@ -50,3 +51,6 @@ endif;
 	
 	echo anchor('auth/login_provider/LinkedIn','Login With LinkedIn.').'<br />';
 ?>
+=======
+<p><a href="forgot_password"><?php echo lang('login_forgot_password');?></a></p>
+>>>>>>> 2

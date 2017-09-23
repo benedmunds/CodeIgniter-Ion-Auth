@@ -3,34 +3,88 @@
 
 class Bcrypt {
   private $rounds;
-  public function __construct($params=array('rounds'=>7)) {
-    
-    
-    $rounds = $params['rounds'];
-    
+  private $salt_prefix;
+
+  /**
+   * Bcrypt constructor.
+   *
+   * @param array $params
+   * @throws Exception
+   */
+  public function __construct($params=array('rounds'=>7, 'salt_prefix'=>'$2y$')) {
+
     if(CRYPT_BLOWFISH != 1) {
       throw new Exception("bcrypt not supported in this installation. See http://php.net/crypt");
     }
 
-    $this->rounds = $rounds;
+    $this->rounds = $params['rounds'];
+    $this->salt_prefix = $params['salt_prefix'];
   }
 
   public function hash($input) {
     $hash = crypt($input, $this->getSalt());
 
-    if(strlen($hash) > 13)
+    if(strlen($hash) > 13) {
       return $hash;
+    }
 
     return false;
   }
 
+  /**
+   * @param $input
+   * @param $existingHash
+   * @return bool
+     */
   public function verify($input, $existingHash) {
     $hash = crypt($input, $existingHash);
-    return $hash === $existingHash;
+    return $this->hashEquals($existingHash, $hash);
+  }
+  
+   /**
+   * Polyfill for hash_equals()
+   * Code mainly taken from hash_equals() compat function of CodeIgniter 3
+   *
+   * @param  string  $known_string
+   * @param  string  $user_string
+   * @return  bool
+   */
+  private function hashEquals($known_string, $user_string)
+  {
+    // For CI3 or PHP >= 5.6
+    if (function_exists('hash_equals')) 
+    {
+      return hash_equals($known_string, $user_string);
+    }
+    
+    // For CI2 with PHP < 5.6
+    // Code from CI3 https://github.com/bcit-ci/CodeIgniter/blob/develop/system/core/compat/hash.php
+    if ( ! is_string($known_string))
+    {
+      trigger_error('hash_equals(): Expected known_string to be a string, '.strtolower(gettype($known_string)).' given', E_USER_WARNING);
+      return FALSE;
+    }
+    elseif ( ! is_string($user_string))
+    {
+      trigger_error('hash_equals(): Expected user_string to be a string, '.strtolower(gettype($user_string)).' given', E_USER_WARNING);
+      return FALSE;
+    }
+    elseif (($length = strlen($known_string)) !== strlen($user_string))
+    {
+      return FALSE;
+    }
+
+    $diff = 0;
+    for ($i = 0; $i < $length; $i++)
+    {
+      $diff |= ord($known_string[$i]) ^ ord($user_string[$i]);
+    }
+
+    return ($diff === 0);
   }
 
   private function getSalt() {
-    $salt = sprintf('$2a$%02d$', $this->rounds);
+    $salt = sprintf($this->salt_prefix.'%02d$', $this->rounds);
 
     $bytes = $this->getRandomBytes(16);
 
@@ -40,6 +94,12 @@ class Bcrypt {
   }
 
   private $randomState;
+
+
+  /**
+   * @param $count
+   * @return string
+     */
   private function getRandomBytes($count) {
     $bytes = '';
 
@@ -48,7 +108,7 @@ class Bcrypt {
       $bytes = openssl_random_pseudo_bytes($count);
     }
 
-    if($bytes === '' && is_readable('/dev/urandom') &&
+    if($bytes === '' && @is_readable('/dev/urandom') &&
        ($hRand = @fopen('/dev/urandom', 'rb')) !== FALSE) {
       $bytes = fread($hRand, $count);
       fclose($hRand);
@@ -80,6 +140,10 @@ class Bcrypt {
     return $bytes;
   }
 
+  /**
+   * @param $input
+   * @return string
+     */
   private function encodeBytes($input) {
     // The following is code from the PHP Password Hashing Framework
     $itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

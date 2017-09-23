@@ -1,7 +1,7 @@
 <html>
 <body>
-	<h1>New Password for <?php echo $identity;?></h1>
-	
-	<p>Your password has been reset to: <?php echo $new_password;?></p>
+	<h1><?php echo sprintf(lang('email_new_password_heading'), $identity);?></h1>
+
+	<p><?php echo sprintf(lang('email_new_password_subheading'), $new_password);?></p>
 </body>
 </html>
