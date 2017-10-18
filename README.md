@@ -73,8 +73,9 @@ Time Based One-Time Password (TOTP) -
 There is a Time Based One-Time Password (TOTP) implementation compatible with Google Authenticator available. Feature branch maintained by [biscofil](https://github.com/biscofil) and is available at [https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp](https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp)
 
 
+
 ## Supported By
-If you want to quickly add secure authentication to PHP apps and APIs, feel free to check out Auth0's PHP SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=codeigniter-ion-auth&utm_content=auth)<img src="http://download.phptownhall.com/auth0.png" height="25" />
+If you want to quickly add secure authentication to PHP apps and APIs, feel free to check out Auth0's PHP SDK and free plan at <a href=https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=codeigniter-ion-auth&utm_content=auth" target="_blank">auth0.com/overview</a><img src="http://download.phptownhall.com/auth0.png" height="25" />
 
 
 
