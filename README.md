@@ -74,7 +74,7 @@ There is a Time Based One-Time Password (TOTP) implementation compatible with Go
 
 
 ## Supported By
-If you want to quickly add secure authentication to PHP apps and APIs, feel free to check out Auth0's PHP SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=codeigniter-ion-auth&utm_content=auth) ![Auth0 Logo](http://download.phptownhall.com/auth0.png)
+If you want to quickly add secure authentication to PHP apps and APIs, feel free to check out Auth0's PHP SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=codeigniter-ion-auth&utm_content=auth) <img src="http://download.phptownhall.com/auth0.png" height="10" />
 
 
 
