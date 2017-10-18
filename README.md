@@ -84,5 +84,5 @@ Feel free to send me an email if you have any problems.
 
 Thanks,    
 -Ben Edmunds       
- ben.edmunds@gmail.com      
- @benedmunds     
+ ben.edmunds@gmail.com   
+ @benedmunds   
