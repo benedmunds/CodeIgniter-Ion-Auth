@@ -19,7 +19,7 @@
 $lang['account_creation_successful'] 	  	 = 'Account is aangemaakt';
 $lang['account_creation_unsuccessful'] 	 	 = 'Account aanmaken is mislukt';
 $lang['account_creation_duplicate_email'] 	 = 'E-mailadres is al in gebruik of ongeldig';
-$lang['account_creation_duplicate_identity'] 	 = 'Gebruikersnaam is al in gebruik of ongeldig';
+$lang['account_creation_duplicate_identity'] = 'Gebruikersnaam is al in gebruik of ongeldig';
 
 // TODO Please Translate
 $lang['account_creation_missing_default_group'] = 'Standaard groep is niet ingesteld';
@@ -39,7 +39,7 @@ $lang['deactivate_successful'] 		  	 = 'Account is gedeactiveerd';
 $lang['deactivate_unsuccessful'] 	  	 = 'Accound deactiveren is mislukt';
 $lang['activation_email_successful'] 	  	 = 'Activatie e-mail is verzonden';
 $lang['activation_email_unsuccessful']   	 = 'Activatie e-mail verzenden is mislukt';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['deactivate_current_user_unsuccessful']= 'U kunt uzelf niet deactiveren.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'U bent ingelogd';
