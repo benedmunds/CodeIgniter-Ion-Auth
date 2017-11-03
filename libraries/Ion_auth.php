@@ -1,24 +1,29 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
 /**
-* Name:  Ion Auth
-*
-* Author: Ben Edmunds
-*		  ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Added Awesomeness: Phil Sturgeon
-*
-* Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  10.01.2009
-*
-* Description:  Modified auth system based on redux_auth with extensive customization.  This is basically what Redux Auth 2 should be.
-* Original Author name has been kept but that does not mean that the method has not been modified.
-*
-* Requirements: PHP5 or above
-*
-*/
+ * Name:    Ion Auth
+ * Author:  Ben Edmunds
+ *           ben.edmunds@gmail.com
+ *           @benedmunds
+ *
+ * Added Awesomeness: Phil Sturgeon
+ *
+ * Created:  10.01.2009
+ *
+ * Description:  Modified auth system based on redux_auth with extensive customization. This is basically what Redux Auth 2 should be.
+ * Original Author name has been kept but that does not mean that the method has not been modified.
+ *
+ * Requirements: PHP5 or above
+ *
+ * @package    CodeIgniter-Ion-Auth
+ * @author     Ben Edmunds
+ * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
+ * @filesource
+ */
+defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Class Ion_auth
+ */
 class Ion_auth
 {
 	/**
@@ -82,8 +87,9 @@ class Ion_auth
 	 *
 	 * Acts as a simple way to call model methods without loads of stupid alias'
 	 *
-	 * @param $method
-	 * @param $arguments
+	 * @param string $method
+	 * @param array  $arguments
+	 *
 	 * @return mixed
 	 * @throws Exception
 	 */
@@ -111,46 +117,46 @@ class Ion_auth
 	 *
 	 * I can't remember where I first saw this, so thank you if you are the original author. -Militis
 	 *
-	 * @access	public
-	 * @param	$var
-	 * @return	mixed
+	 * @param    string $var
+	 *
+	 * @return    mixed
 	 */
 	public function __get($var)
 	{
 		return get_instance()->$var;
 	}
 
-
 	/**
-	 * forgotten password feature
+	 * Forgotten password feature
 	 *
-	 * @param $identity
-	 * @return mixed boolean / array
+	 * @param string $identity
+	 *
+	 * @return array|bool
 	 * @author Mathew
 	 */
-	public function forgotten_password($identity)    //changed $email to $identity
+	public function forgotten_password($identity)
 	{
-		if ( $this->ion_auth_model->forgotten_password($identity) )   //changed
+		if ($this->ion_auth_model->forgotten_password($identity))
 		{
 			// Get user information
-      $identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-      $user = $this->where($identifier, $identity)->where('active', 1)->users()->row();  // changed to get_user_by_identity from email
+			$identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
+			$user = $this->where($identifier, $identity)->where('active', 1)->users()->row();
 
 			if ($user)
 			{
 				$data = array(
-					'identity'		=> $user->{$this->config->item('identity', 'ion_auth')},
+					'identity' => $user->{$this->config->item('identity', 'ion_auth')},
 					'forgotten_password_code' => $user->forgotten_password_code
 				);
 
-				if(!$this->config->item('use_ci_email', 'ion_auth'))
+				if (!$this->config->item('use_ci_email', 'ion_auth'))
 				{
 					$this->set_message('forgot_password_successful');
 					return $data;
 				}
 				else
 				{
-					$message = $this->load->view($this->config->item('email_templates', 'ion_auth').$this->config->item('email_forgot_password', 'ion_auth'), $data, true);
+					$message = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password', 'ion_auth'), $data, TRUE);
 					$this->email->clear();
 					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
 					$this->email->to($user->email);
@@ -185,16 +191,17 @@ class Ion_auth
 	/**
 	 * forgotten_password_complete
 	 *
-	 * @param $code
+	 * @param string $code
+	 *
+	 * @return array|bool
 	 * @author Mathew
-	 * @return bool
 	 */
 	public function forgotten_password_complete($code)
 	{
 		$this->ion_auth_model->trigger_events('pre_password_change');
 
 		$identity = $this->config->item('identity', 'ion_auth');
-		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
+		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
 
 		if (!$profile)
 		{
@@ -215,7 +222,7 @@ class Ion_auth
 			{
 				$this->set_message('password_change_successful');
 				$this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
-					return $data;
+				return $data;
 			}
 			else
 			{
@@ -250,13 +257,14 @@ class Ion_auth
 	/**
 	 * forgotten_password_check
 	 *
-	 * @param $code
+	 * @param string $code
+	 *
+	 * @return object|bool
 	 * @author Michael
-	 * @return bool
 	 */
 	public function forgotten_password_check($code)
 	{
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
+		$profile = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -265,12 +273,14 @@ class Ion_auth
 		}
 		else
 		{
-			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0) {
+			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0)
+			{
 				//Make sure it isn't expired
 				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration) {
+				if (time() - $profile->forgotten_password_time > $expiration)
+				{
 					//it has expired
-					$this->clear_forgotten_password_code($code);
+					$this->ion_auth_model->clear_forgotten_password_code($code);
 					$this->set_error('password_change_unsuccessful');
 					return FALSE;
 				}
@@ -282,13 +292,16 @@ class Ion_auth
 	/**
 	 * register
 	 *
-	 * @param $identity
-	 * @param $password
-	 * @param $email
-	 * @param array $additional_data
-	 * @param array $group_ids
+	 * @param string $identity
+	 * @param string $password
+	 * @param string $email
+	 * @param array  $additional_data
+	 * @param array  $group_ids
+	 *
+	 * @return int|array|bool The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation was
+	 *                        completed; or an array of activation details if CI e-mail validation is enabled; or FALSE
+	 *                        if the operation failed.
 	 * @author Mathew
-	 * @return bool
 	 */
 	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
 	{
@@ -377,9 +390,9 @@ class Ion_auth
 	}
 
 	/**
-	 * logout
+	 * Logout
 	 *
-	 * @return void
+	 * @return true
 	 * @author Mathew
 	 **/
 	public function logout()
@@ -388,14 +401,14 @@ class Ion_auth
 
 		$identity = $this->config->item('identity', 'ion_auth');
 
-                if (substr(CI_VERSION, 0, 1) == '2')
+		if (substr(CI_VERSION, 0, 1) == '2')
 		{
-			$this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
-                }
-                else
-                {
-                	$this->session->unset_userdata( array($identity, 'id', 'user_id') );
-                }
+			$this->session->unset_userdata(array($identity => '', 'id' => '', 'user_id' => ''));
+		}
+		else
+		{
+			$this->session->unset_userdata(array($identity, 'id', 'user_id'));
+		}
 
 		// delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
@@ -417,7 +430,8 @@ class Ion_auth
 		}
 		else
 		{
-			if (version_compare(PHP_VERSION, '7.0.0') >= 0) {
+			if (version_compare(PHP_VERSION, '7.0.0') >= 0)
+			{
 				session_start();
 			}
 			$this->session->sess_regenerate(TRUE);
@@ -428,30 +442,27 @@ class Ion_auth
 	}
 
 	/**
-	 * logged_in
-	 *
-	 * @return bool
+	 * Auto logs-in the user if they are remembered
+	 * @return bool Whether the user is logged in
 	 * @author Mathew
 	 **/
 	public function logged_in()
 	{
 		$this->ion_auth_model->trigger_events('logged_in');
-                
-                $recheck= $this->ion_auth_model->recheck_session();
-        
-                //auto-login the user if they are remembered
-                if ( ! $recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+
+		$recheck = $this->ion_auth_model->recheck_session();
+
+		// auto-login the user if they are remembered
+		if (!$recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$recheck = $this->ion_auth_model->login_remembered_user();
 		}
-                
-                return $recheck;
+
+		return $recheck;
 	}
 
 	/**
-	 * logged_in
-	 *
-	 * @return integer
+	 * @return int|null The user's ID from the session user data or NULL if not found
 	 * @author jrmadsen67
 	 **/
 	public function get_user_id()
@@ -461,17 +472,16 @@ class Ion_auth
 		{
 			return $user_id;
 		}
-		return null;
+		return NULL;
 	}
 
-
 	/**
-	 * is_admin
+	 * @param int|string|bool $id
 	 *
-	 * @return bool
+	 * @return bool Whether the user is an administrator
 	 * @author Ben Edmunds
-	 **/
-	public function is_admin($id=false)
+	 */
+	public function is_admin($id = FALSE)
 	{
 		$this->ion_auth_model->trigger_events('is_admin');
 
@@ -481,16 +491,14 @@ class Ion_auth
 	}
 
 	/**
-	 * in_group
+	 * @param int|string|array $check_group group(s) to check
+	 * @param int|string|bool  $id          user id
+	 * @param bool             $check_all   check if all groups is present, or any of the groups
 	 *
-	 * @param mixed group(s) to check
-	 * @param bool user id
-	 * @param bool check if all groups is present, or any of the groups
-	 *
-	 * @return bool
+	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
 	 * @author Phil Sturgeon
 	 **/
-	public function in_group($check_group, $id=false, $check_all = false)
+	public function in_group($check_group, $id = FALSE, $check_all = FALSE)
 	{
 		$this->ion_auth_model->trigger_events('in_group');
 
