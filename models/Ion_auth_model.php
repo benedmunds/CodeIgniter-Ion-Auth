@@ -1681,6 +1681,7 @@ class Ion_auth_model extends CI_Model
 		// Then insert each into the database
 		foreach ($group_ids as $group_id)
 		{
+			// Cast to float to support bigint data type
 			if ($this->db->insert(
 								  $this->tables['users_groups'],
 								  array(
@@ -1739,6 +1740,7 @@ class Ion_auth_model extends CI_Model
 
 			foreach ($group_ids as $group_id)
 			{
+				// Cast to float to support bigint data type
 				$this->db->delete(
 					$this->tables['users_groups'],
 					array($this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id)
@@ -1754,6 +1756,7 @@ class Ion_auth_model extends CI_Model
 		// otherwise remove user from all groups
 		else
 		{
+			// Cast to float to support bigint data type
 			if ($return = $this->db->delete($this->tables['users_groups'], array($this->join['users'] => (float)$user_id)))
 			{
 				$this->_cache_user_in_group[$user_id] = array();
@@ -1915,7 +1918,6 @@ class Ion_auth_model extends CI_Model
 
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], array('id' => $id));
-
 
 		if ($this->db->trans_status() === FALSE)
 		{
