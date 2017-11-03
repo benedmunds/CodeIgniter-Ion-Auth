@@ -1658,8 +1658,8 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * add_to_group
 	 *
-	 * @param array|int|string $group_ids
-	 * @param bool|int|string  $user_id
+	 * @param array|int|float|string $group_ids
+	 * @param bool|int|float|string  $user_id
 	 *
 	 * @return int
 	 * @author Ben Edmunds
@@ -1714,8 +1714,8 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * remove_from_group
 	 *
-	 * @param array|int|string|bool $group_ids
-	 * @param int|string|bool $user_id
+	 * @param array|int|float|string|bool $group_ids
+	 * @param int|float|string|bool $user_id
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
