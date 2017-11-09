@@ -18,24 +18,27 @@ If you use this to further your career, or put money in your pocket, and would l
 Documentation is located at http://benedmunds.com/ion_auth/
 
 ## Installation
-Just copy the files from this package to the corresponding folder in your
-application folder.  For example, copy Ion_auth/config/ion_auth.php to
-application/config/ion_auth.php
-
-You can also copy the libraries and models directories into your third_party/ion_auth folder.  For example, copy  to /application/third_party/ion_auth/.  The directory structure would be:
-
-    controllers/Auth.php
-    views/
-    third_party/ion_auth/libraries/Ion_auth.php
-    third_party/ion_auth/libraries/Bcrypt.php
-    third_party/ion_auth/models/Ion_auth_model.php
-
+Move the files from this package to the corresponding structure below:
+```shell
+CI                           # → Root Directory
+└── application/
+    ├── controllers/
+    │   └── Auth.php
+    ├── third_party/
+    │   └── ion_auth/
+    │       └── libraries
+    │       │    ├── Bcrypt.php
+    │       │    └── Ion_auth.php
+    │       └── models
+    │            └── Ion_auth_model.php
+    └── views/
+        └── auth/           # → Various view files
+```
 
 Then in your controller add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
-
 
 
 ### CodeIgniter Version 2 Compatibility
