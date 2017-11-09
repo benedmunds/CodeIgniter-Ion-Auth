@@ -7,7 +7,7 @@ but had a ton of bugs and was missing some key features.  So we refactored
 the code and added new features.
 
 This version drops any backwards compatibility and makes things even more
-awesome then you could expect.
+awesome than you could expect.
 
 
 ## Support
