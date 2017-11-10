@@ -59,13 +59,12 @@ CI                          # → Root Directory
         └── auth/           # → Various view files
 ```
 
----
-
-Then in your controller '' add the package path and load the library like normal
+Then in your controller, example `Auth.php` add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
 
+---
 
 ### CodeIgniter Version 2 Compatibility
 CodeIgniter v2 requires the class file names to be lowercase.  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
