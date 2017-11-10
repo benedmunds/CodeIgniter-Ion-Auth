@@ -18,10 +18,34 @@ If you use this to further your career, or put money in your pocket, and would l
 Documentation is located at http://benedmunds.com/ion_auth/
 
 ## Installation
-Move the files from this package to the corresponding structure below:
+There are 2 ways to install this package.
+
+> 1. Move files from this package to the corresponding folder structure:
+
 ```shell
-CI                           # → Root Directory
+CI                          # → Root Directory
 └── application/
+    ├── config/
+    │   └── ion_auth.php
+    ├── controllers/
+    │   └── Auth.php
+    ├── libraries
+    │   ├── Bcrypt.php
+    │   └── Ion_auth.php
+    ├── models
+    │   └── Ion_auth_model.php
+    └── views/
+        └── auth/           # → Various view files
+```
+---
+
+> 2. Move files from this package to the corresponding **third_party** structure:
+
+```shell
+CI                          # → Root Directory
+└── application/
+    ├── config/
+    │   └── ion_auth.php
     ├── controllers/
     │   └── Auth.php
     ├── third_party/
@@ -35,7 +59,9 @@ CI                           # → Root Directory
         └── auth/           # → Various view files
 ```
 
-Then in your controller add the package path and load the library like normal
+---
+
+Then in your controller '' add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
