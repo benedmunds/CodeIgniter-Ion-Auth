@@ -50,6 +50,7 @@ $lang['update_successful']                   = 'Account Information Successfully
 $lang['update_unsuccessful']                 = 'Unable to Update Account Information';
 $lang['delete_successful']                   = 'User Deleted';
 $lang['delete_unsuccessful']                 = 'Unable to Delete User';
+$lang['delete_current_user_unsuccessful']    = 'You cannot Delete your self.';
 
 // Groups
 $lang['group_creation_successful']           = 'Group created Successfully';
