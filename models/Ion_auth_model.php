@@ -1913,20 +1913,29 @@ class Ion_auth_model extends CI_Model
 
 		$this->db->trans_begin();
 
-		// remove user from groups
-		$this->remove_from_group(NULL, $id);
-
-		// delete user from users table should be placed after remove from group
-		$this->db->delete($this->tables['users'], array('id' => $id));
-
-		if ($this->db->trans_status() === FALSE)
+		// do not allow the current logged in user to delete him/her self
+		
+		if ($this->ion_auth->logged_in() && $this->user()->row()->id == $id) 
 		{
-			$this->db->trans_rollback();
-			$this->trigger_events(array('post_delete_user', 'post_delete_user_unsuccessful'));
-			$this->set_error('delete_unsuccessful');
+			$this->set_error('delete_current_user_unsuccessful');
+			$this->set_message('delete_current_user_unsuccessful');
 			return FALSE;
 		}
+		else{
+			// remove user from groups
+			$this->remove_from_group(NULL, $id);
 
+			// delete user from users table should be placed after remove from group
+			$this->db->delete($this->tables['users'], array('id' => $id));
+
+			if ($this->db->trans_status() === FALSE)
+			{
+				$this->db->trans_rollback();
+				$this->trigger_events(array('post_delete_user', 'post_delete_user_unsuccessful'));
+				$this->set_error('delete_unsuccessful');
+				return FALSE;
+			}
+		}
 		$this->db->trans_commit();
 
 		$this->trigger_events(array('post_delete_user', 'post_delete_user_successful'));
