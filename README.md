@@ -53,7 +53,7 @@ CI                          # → Root Directory
     │   └── Auth.php
     ├── third_party/
     │   └── ion_auth/
-    │       └── libraries
+    │       ├── libraries
     │       │    ├── Bcrypt.php
     │       │    └── Ion_auth.php
     │       └── models
