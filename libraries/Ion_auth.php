@@ -303,7 +303,7 @@ class Ion_auth
 	 *                        if the operation failed.
 	 * @author Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array()) //need to test email activation
+	public function register($identity, $password, $email, $additional_data = array(), $group_ids = array())
 	{
 		$this->ion_auth_model->trigger_events('pre_account_creation');
 
@@ -374,7 +374,7 @@ class Ion_auth
 				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_activation_subject'));
 				$this->email->message($message);
 
-				if ($this->email->send() == TRUE)
+				if ($this->email->send() === TRUE)
 				{
 					$this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
 					$this->set_message('activation_email_successful');
