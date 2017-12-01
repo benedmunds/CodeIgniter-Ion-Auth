@@ -38,12 +38,10 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Dumping data for table 'groups'
 		$data = array(
 			array(
-				'id'          => '1',
 				'name'        => 'admin',
 				'description' => 'Administrator'
 			),
 			array(
-				'id'          => '2',
 				'name'        => 'members',
 				'description' => 'General User'
 			)
@@ -147,7 +145,6 @@ class Migration_Install_ion_auth extends CI_Migration {
 
 		// Dumping data for table 'users'
 		$data = array(
-			'id'                      => '1',
 			'ip_address'              => '127.0.0.1',
 			'username'                => 'administrator',
 			'password'                => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
@@ -194,12 +191,10 @@ class Migration_Install_ion_auth extends CI_Migration {
 		// Dumping data for table 'users_groups'
 		$data = array(
 			array(
-				'id'       => '1',
 				'user_id'  => '1',
 				'group_id' => '1',
 			),
 			array(
-				'id'       => '2',
 				'user_id'  => '1',
 				'group_id' => '2',
 			)
