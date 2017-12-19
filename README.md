@@ -69,7 +69,8 @@ Then in your controller, example `Auth.php` add the package path and load the li
 	
 Or autoload by adding the following to application/config/autoload.php
 
-       $autoload['packages'] = array(APPPATH.'third_party/ion_auth');
+	$autoload['packages'] = array(APPPATH.'third_party/ion_auth');
+
 
 ---
 
