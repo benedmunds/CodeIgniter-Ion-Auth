@@ -57,6 +57,7 @@
 				<li><a href="#delete_user">delete_user()</a></li>
 				<li><a href="#forgotten_password">forgotten_password()</a></li>
 				<li><a href="#forgotten_password_complete">forgotten_password_complete()</a></li>
+				<li><a href="#forgotten_password_check">forgotten_password_check()</a></li>
 				<li><a href="#logged_in">logged_in()</a></li>
 				<li><a href="#is_admin">is_admin()</a></li>
 				<li><a href="#in_group">in_group()</a></li>
@@ -465,6 +466,30 @@ Documentation
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
 				redirect("auth/forgot_password", 'refresh');
 			}
+		}
+	</pre>
+	<br />
+	
+	<a name="forgotten_password_check"></a>
+	<h2>forgotten_password_check()</h2>
+	<p>Check to see if the forgotten password code is valid.</p>
+
+	<p><strong>Parameters</strong></p>
+	<ol>
+		<li>'Code' - string REQUIRED.</li>
+	</ol>
+
+	<p><strong>Return</strong></p>
+	<ul>
+		<li>object / bool. Returns the user record if valid, return FALSE if invalid.</li>
+	</ul>
+
+	<p><b>Usage</b></p>
+	<pre>
+		$user = $this->ion_auth->forgotten_password_check($code);
+		if ($user)
+		{
+			//display the password reset form
 		}
 	</pre>
 	<br />
