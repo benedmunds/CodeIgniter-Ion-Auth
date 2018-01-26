@@ -47,12 +47,12 @@ CI                          # → Root Directory
 ```shell
 CI                          # → Root Directory
 └── application/
-    ├── config/
-    │   └── ion_auth.php
     ├── controllers/
     │   └── Auth.php
     ├── third_party/
     │   └── ion_auth/
+    |       ├── config/
+    |       |   └── ion_auth.php
     │       ├── libraries
     │       │    ├── Bcrypt.php
     │       │    └── Ion_auth.php
