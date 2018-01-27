@@ -170,7 +170,6 @@ class Ion_auth_model extends CI_Model
 
 	public function __construct()
 	{
-		parent::__construct();
 		$this->load->database();
 		$this->config->load('ion_auth', TRUE);
 		$this->load->helper('cookie');
