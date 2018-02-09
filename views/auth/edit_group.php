@@ -1,3 +1,10 @@
+<style>
+    * {
+        font-family: sans-serif;
+    }
+</style>
+
+
 <h1><?php echo lang('edit_group_heading');?></h1>
 <p><?php echo lang('edit_group_subheading');?></p>
 

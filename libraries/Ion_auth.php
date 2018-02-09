@@ -39,6 +39,13 @@ class Ion_auth
 	 * @var array
 	 **/
 	public $_extra_where = array();
+        
+        /**
+	 * Holds an array of tables used
+	 *
+	 * @var array
+	 */
+	public $columns = array();
 
 	/**
 	 * extra set
@@ -62,6 +69,8 @@ class Ion_auth
 	public function __construct()
 	{
 		$this->config->load('ion_auth', TRUE);
+                $this->columns = $this->config->item('columns', 'ion_auth');
+                
 		$this->load->library(array('email'));
 		$this->lang->load('ion_auth');
 		$this->load->helper(array('cookie', 'language','url'));
@@ -140,13 +149,13 @@ class Ion_auth
 		{
 			// Get user information
 			$identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-			$user = $this->where($identifier, $identity)->where('active', 1)->users()->row();
+			$user = $this->where($identifier, $identity)->where($this->columns['users']['active'], 1)->users()->row();
 
 			if ($user)
 			{
 				$data = array(
 					'identity' => $user->{$this->config->item('identity', 'ion_auth')},
-					'forgotten_password_code' => $user->forgotten_password_code
+                                        'forgotten_password_code' => $user->{$this->columns['users']['forgotten_password_code']}
 				);
 
 				if (!$this->config->item('use_ci_email', 'ion_auth'))
@@ -159,7 +168,7 @@ class Ion_auth
 					$message = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password', 'ion_auth'), $data, TRUE);
 					$this->email->clear();
 					$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
-					$this->email->to($user->email);
+                                        $this->email->to($user->{$this->columns['users']['email']});
 					$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_forgotten_password_subject'));
 					$this->email->message($message);
 
@@ -201,7 +210,7 @@ class Ion_auth
 		$this->ion_auth_model->trigger_events('pre_password_change');
 
 		$identity = $this->config->item('identity', 'ion_auth');
-		$profile  = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
+		$profile  = $this->where($this->columns['users']['forgotten_password_code'], $code)->users()->row(); // pass the code to profile
 
 		if (!$profile)
 		{
@@ -210,7 +219,7 @@ class Ion_auth
 			return FALSE;
 		}
 
-		$new_password = $this->ion_auth_model->forgotten_password_complete($code, $profile->salt);
+                $new_password = $this->ion_auth_model->forgotten_password_complete($code, $profile->{$this->columns['users']['salt']});
 
 		if ($new_password)
 		{
@@ -230,7 +239,7 @@ class Ion_auth
 
 				$this->email->clear();
 				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
-				$this->email->to($profile->email);
+                                $this->email->to($profile->{$this->columns['users']['email']});
 				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_new_password_subject'));
 				$this->email->message($message);
 
@@ -264,7 +273,7 @@ class Ion_auth
 	 */
 	public function forgotten_password_check($code)
 	{
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
+		$profile = $this->where($this->columns['users']['forgotten_password_code'], $code)->users()->row(); // pass the code to profile
 
 		if (!is_object($profile))
 		{
@@ -277,7 +286,7 @@ class Ion_auth
 			{
 				//Make sure it isn't expired
 				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration)
+                                if (time() - $profile->{$this->columns['users']['forgotten_password_time']} > $expiration)
 				{
 					//it has expired
 					$this->ion_auth_model->clear_forgotten_password_code($code);
@@ -354,7 +363,7 @@ class Ion_auth
 
 			$data = array(
 				'identity'   => $user->{$identity},
-				'id'         => $user->id,
+                                'id'         => $user->{$this->columns['users']['id']},
 				'email'      => $email,
 				'activation' => $activation_code,
 			);
@@ -519,7 +528,7 @@ class Ion_auth
 			$groups_array = array();
 			foreach ($users_groups as $group)
 			{
-				$groups_array[$group->id] = $group->name;
+                                $groups_array[$group->{$this->columns['groups']['id']}] = $group->{$this->columns['groups']['name']};
 			}
 			$this->_cache_user_in_group[$id] = $groups_array;
 		}

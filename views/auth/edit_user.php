@@ -1,3 +1,9 @@
+<style>
+    * {
+        font-family: sans-serif;
+    }
+</style>
+
 <h1><?php echo lang('edit_user_heading');?></h1>
 <p><?php echo lang('edit_user_subheading');?></p>
 
@@ -41,24 +47,24 @@
           <?php foreach ($groups as $group):?>
               <label class="checkbox">
               <?php
-                  $gID=$group['id'];
+                  $gID = $group[$columns['groups']['id']];
                   $checked = null;
                   $item = null;
                   foreach($currentGroups as $grp) {
-                      if ($gID == $grp->id) {
+                      if ($gID == $grp->{$columns['groups']['id']}) {
                           $checked= ' checked="checked"';
                       break;
                       }
                   }
               ?>
-              <input type="checkbox" name="groups[]" value="<?php echo $group['id'];?>"<?php echo $checked;?>>
-              <?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?>
+              <input type="checkbox" name="groups[]" value="<?php echo $group[$columns['groups']['id']];?>"<?php echo $checked;?>>
+              <?php echo htmlspecialchars($group[$columns['groups']['name']],ENT_QUOTES,'UTF-8');?>
               </label>
           <?php endforeach?>
 
       <?php endif ?>
 
-      <?php echo form_hidden('id', $user->id);?>
+      <?php echo form_hidden('id', $user->{$columns['users']['id']});?>
       <?php echo form_hidden($csrf); ?>
 
       <p><?php echo form_submit('submit', lang('edit_user_submit_btn'));?></p>

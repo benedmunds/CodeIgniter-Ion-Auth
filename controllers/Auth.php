@@ -18,6 +18,8 @@ class Auth extends CI_Controller
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 
 		$this->lang->load('auth');
+                $this->columns = $this->config->item('columns', 'ion_auth');
+                $this->data['columns'] = $this->columns;
 	}
 
 	/**
@@ -163,7 +165,7 @@ class Auth extends CI_Controller
 				'name' => 'user_id',
 				'id' => 'user_id',
 				'type' => 'hidden',
-				'value' => $user->id,
+                                'value' => $user->{$this->columns['users']['id']},
 			);
 
 			// render
@@ -195,7 +197,7 @@ class Auth extends CI_Controller
 	public function forgot_password()
 	{
 		// setting validation rules by checking whether identity is username or email
-		if ($this->config->item('identity', 'ion_auth') != 'email')
+		if ($this->config->item('identity', 'ion_auth') != $this->columns['users']['email'])
 		{
 			$this->form_validation->set_rules('identity', $this->lang->line('forgot_password_identity_label'), 'required');
 		}
@@ -213,7 +215,7 @@ class Auth extends CI_Controller
 				'id' => 'identity',
 			);
 
-			if ($this->config->item('identity', 'ion_auth') != 'email')
+			if ($this->config->item('identity', 'ion_auth') != $this->columns['users']['email'])
 			{
 				$this->data['identity_label'] = $this->lang->line('forgot_password_identity_label');
 			}
@@ -234,7 +236,7 @@ class Auth extends CI_Controller
 			if (empty($identity))
 			{
 
-				if ($this->config->item('identity', 'ion_auth') != 'email')
+				if ($this->config->item('identity', 'ion_auth') != $this->columns['users']['email'])
 				{
 					$this->ion_auth->set_error('forgot_password_identity_not_found');
 				}
@@ -458,14 +460,14 @@ class Auth extends CI_Controller
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'trim|required');
-		if ($identity_column !== 'email')
+		if ($identity_column !== $this->columns['users']['email'])
 		{
 			$this->form_validation->set_rules('identity', $this->lang->line('create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
 			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email');
 		}
 		else
 		{
-			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+			$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.' . $this->columns['users']['email'] . ']');
 		}
 		$this->form_validation->set_rules('phone', $this->lang->line('create_user_validation_phone_label'), 'trim');
 		$this->form_validation->set_rules('company', $this->lang->line('create_user_validation_company_label'), 'trim');
@@ -475,14 +477,14 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run() === TRUE)
 		{
 			$email = strtolower($this->input->post('email'));
-			$identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
+			$identity = ($identity_column === $this->columns['users']['email']) ? $email : $this->input->post('identity');
 			$password = $this->input->post('password');
 
 			$additional_data = array(
-				'first_name' => $this->input->post('first_name'),
-				'last_name' => $this->input->post('last_name'),
-				'company' => $this->input->post('company'),
-				'phone' => $this->input->post('phone'),
+				$this->columns['users']['first_name'] => $this->input->post('first_name'),
+				$this->columns['users']['last_name'] => $this->input->post('last_name'),
+				$this->columns['users']['company'] => $this->input->post('company'),
+				$this->columns['users']['phone'] => $this->input->post('phone'),
 			);
 		}
 		if ($this->form_validation->run() === TRUE && $this->ion_auth->register($identity, $password, $email, $additional_data))
@@ -560,7 +562,7 @@ class Auth extends CI_Controller
 	{
 		$this->data['title'] = $this->lang->line('edit_user_heading');
 
-		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
+                if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->{$this->columns['users']['id']} == $id)))
 		{
 			redirect('auth', 'refresh');
 		}
@@ -593,16 +595,16 @@ class Auth extends CI_Controller
 			if ($this->form_validation->run() === TRUE)
 			{
 				$data = array(
-					'first_name' => $this->input->post('first_name'),
-					'last_name' => $this->input->post('last_name'),
-					'company' => $this->input->post('company'),
-					'phone' => $this->input->post('phone'),
+                                    $this->columns['users']['first_name'] => $this->input->post('first_name'),
+                                    $this->columns['users']['last_name'] => $this->input->post('last_name'),
+                                    $this->columns['users']['company'] => $this->input->post('company'),
+                                    $this->columns['users']['phone'] => $this->input->post('phone'),
 				);
 
 				// update the password if it was posted
 				if ($this->input->post('password'))
 				{
-					$data['password'] = $this->input->post('password');
+                                    $data[$this->columns['users']['password']] = $this->input->post('password');
 				}
 
 				// Only allow updating groups if user is admin
@@ -625,7 +627,7 @@ class Auth extends CI_Controller
 				}
 
 				// check to see if we are updating the user
-				if ($this->ion_auth->update($user->id, $data))
+                                if ($this->ion_auth->update($user->{$this->columns['users']['id']}, $data))
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -672,25 +674,25 @@ class Auth extends CI_Controller
 			'name'  => 'first_name',
 			'id'    => 'first_name',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('first_name', $user->first_name),
+			'value' => $this->form_validation->set_value('first_name', $user->{$this->columns['users']['first_name']}),
 		);
 		$this->data['last_name'] = array(
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('last_name', $user->last_name),
+			'value' => $this->form_validation->set_value('last_name', $user->{$this->columns['users']['last_name']}),
 		);
 		$this->data['company'] = array(
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('company', $user->company),
+			'value' => $this->form_validation->set_value('company', $user->{$this->columns['users']['company']}),
 		);
 		$this->data['phone'] = array(
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('phone', $user->phone),
+			'value' => $this->form_validation->set_value('phone', $user->{$this->columns['users']['phone']}),
 		);
 		$this->data['password'] = array(
 			'name' => 'password',
@@ -804,20 +806,20 @@ class Auth extends CI_Controller
 		// pass the user to the view
 		$this->data['group'] = $group;
 
-		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
+		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->{$this->columns['groups']['name']} ? 'readonly' : '';
 
 		$this->data['group_name'] = array(
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
-			'value'   => $this->form_validation->set_value('group_name', $group->name),
+			'value'   => $this->form_validation->set_value('group_name', $group->{$this->columns['groups']['name']}),
 			$readonly => $readonly,
 		);
 		$this->data['group_description'] = array(
 			'name'  => 'group_description',
 			'id'    => 'group_description',
 			'type'  => 'text',
-			'value' => $this->form_validation->set_value('group_description', $group->description),
+                        'value' => $this->form_validation->set_value('group_description', $group->{$this->columns['groups']['description']}),
 		);
 
 		$this->_render_page('auth/edit_group', $this->data);

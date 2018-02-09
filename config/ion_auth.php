@@ -42,6 +42,46 @@ $config['join']['users']  = 'user_id';
 $config['join']['groups'] = 'group_id';
 
 /*
+| -------------------------------------------------------------------------
+| Fields of tables.
+| -------------------------------------------------------------------------
+| Database field names.
+*/
+
+$config['columns']['users']['id']                         = "id";
+$config['columns']['users']['ip_address']                 = "ip_address";
+$config['columns']['users']['username']                   = "username";
+$config['columns']['users']['password']                   = "password";
+$config['columns']['users']['salt']                       = "salt";
+$config['columns']['users']['email']                      = "email";
+$config['columns']['users']['activation_code']            = "activation_code";
+$config['columns']['users']['forgotten_password_code']    = "forgotten_password_code";
+$config['columns']['users']['forgotten_password_time']    = "forgotten_password_time";
+$config['columns']['users']['remember_code']              = "remember_code";
+$config['columns']['users']['created_on']                 = "created_on";
+$config['columns']['users']['last_login']                 = "last_login";
+$config['columns']['users']['active']                     = "active";
+$config['columns']['users']['first_name']                 = "first_name";
+$config['columns']['users']['last_name']                  = "last_name";
+$config['columns']['users']['company']                    = "company";
+$config['columns']['users']['phone']                      = "phone";
+
+$config['columns']['groups']['id']                        = "id";
+$config['columns']['groups']['name']                      = "name";
+$config['columns']['groups']['description']               = "description";
+
+$config['columns']['login_attempts']['id']                = "id";
+$config['columns']['login_attempts']['ip_address']        = "ip_address";
+$config['columns']['login_attempts']['login']             = "login";
+$config['columns']['login_attempts']['time']              = "time";
+
+// Be carefoul with these fields
+$config['columns']['users_groups']['id']                  = "id";
+$config['columns']['users_groups']['user_id']             = "user_id"; 
+$config['columns']['users_groups']['group_id']            = "group_id";
+
+
+/*
  | -------------------------------------------------------------------------
  | Hash Method (sha1 or bcrypt)
  | -------------------------------------------------------------------------
@@ -86,7 +126,7 @@ $config['site_title']                 = "Example.com";       // Site Title, exam
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
 $config['default_group']              = 'members';           // Default group, use name
 $config['admin_group']                = 'admin';             // Default administrators group, use name
-$config['identity']                   = 'email';             // You can use any unique column in your table as identity column. The values in this column, alongside password, will be used for login purposes
+$config['identity']                   = $config['columns']['users']['email'];             // You can use any unique column in your table as identity column. The values in this column, alongside password, will be used for login purposes
 $config['min_password_length']        = 8;                   // Minimum Required Length of Password
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
 $config['email_activation']           = FALSE;               // Email Activation for registration

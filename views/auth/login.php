@@ -1,3 +1,10 @@
+<style>
+    * {
+        font-family: sans-serif;
+    }
+</style>
+
+
 <h1><?php echo lang('login_heading');?></h1>
 <p><?php echo lang('login_subheading');?></p>
 

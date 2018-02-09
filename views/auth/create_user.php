@@ -1,3 +1,10 @@
+<style>
+    * {
+        font-family: sans-serif;
+    }
+</style>
+
+
 <h1><?php echo lang('create_user_heading');?></h1>
 <p><?php echo lang('create_user_subheading');?></p>
 
@@ -16,7 +23,7 @@
       </p>
       
       <?php
-      if($identity_column!=='email') {
+      if($identity_column !== $columns['users']['email']) {
           echo '<p>';
           echo lang('create_user_identity_label', 'identity');
           echo '<br />';
