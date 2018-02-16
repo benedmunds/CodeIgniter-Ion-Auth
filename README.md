@@ -51,8 +51,8 @@ CI                          # → Root Directory
     │   └── Auth.php
     ├── third_party/
     │   └── ion_auth/
-    |       ├── config/
-    |       |   └── ion_auth.php
+    │       ├── config/
+    │       │   └── ion_auth.php
     │       ├── libraries
     │       │    ├── Bcrypt.php
     │       │    └── Ion_auth.php
