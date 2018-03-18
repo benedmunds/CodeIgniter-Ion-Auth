@@ -1065,6 +1065,9 @@ class Ion_auth_model extends CI_Model
 				{
 					$this->remember_user($user->id);
 				}
+                
+				// Regenerate the session (for security purpose: to avoid session fixation)
+				$this->_regenerate_session();
 
 				$this->trigger_events(array('post_login', 'post_login_successful'));
 				$this->set_message('login_successful');
@@ -2113,6 +2116,9 @@ class Ion_auth_model extends CI_Model
 			{
 				$this->remember_user($user->id);
 			}
+            
+			// Regenerate the session (for security purpose: to avoid session fixation)
+			$this->_regenerate_session();
 
 			$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_successful'));
 			return TRUE;
@@ -2588,5 +2594,30 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _prepare_ip($ip_address) {
 		return $ip_address;
+	}
+
+	/**
+	 * Regenerate the session without losing any data
+	 *
+	 */
+	protected function _regenerate_session() {
+
+		if (substr(CI_VERSION, 0, 1) == '2')
+		{
+			// Save sess_time_to_update and set it temporarily to 0
+			// This is done in order to forces the sess_update method to regenerate
+			$old_sess_time_to_update = $this->session->sess_time_to_update;
+			$this->session->sess_time_to_update = 0;
+
+			// Call the sess_update method to actually regenerate the session ID
+			$this->session->sess_update();
+
+			// Restore sess_time_to_update
+			$this->session->sess_time_to_update = $old_sess_time_to_update;
+		}
+		else
+		{
+			$this->session->sess_regenerate(FALSE);
+		}
 	}
 }
