@@ -22,6 +22,17 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
+ | -------------------------------------------------------------------------
+ | Database group name option.
+ | -------------------------------------------------------------------------
+ | Allows to select a specific group for the database connection
+ |
+ | Default is empty: uses default group defined in CI's configuration
+ | (see application/config/database.php, $active_group variable)
+ */
+$config['database_group_name'] = '';
+
+/*
 | -------------------------------------------------------------------------
 | Tables.
 | -------------------------------------------------------------------------
