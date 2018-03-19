@@ -75,10 +75,10 @@ $config['join']['groups'] = 'group_id';
  |
  */
 $config['hash_method']    = 'bcrypt';	// sha1 or bcrypt, bcrypt is STRONGLY recommended
-$config['default_rounds'] = 8;			// This does not apply if random_rounds is set to true
+$config['default_rounds'] = 9;			// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
-$config['min_rounds']     = 5;
-$config['max_rounds']     = 9;
+$config['min_rounds']     = 8;
+$config['max_rounds']     = 10;
 
 /*
  | -------------------------------------------------------------------------
