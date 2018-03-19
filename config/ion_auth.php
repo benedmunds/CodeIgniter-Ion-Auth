@@ -61,8 +61,6 @@ $config['join']['groups'] = 'group_id';
  | IMPORTANT: Based on the recommendation by many professionals, it is highly recommended to use
  | bcrypt instead of sha1.
  |
- | NOTE: If you use bcrypt you will need to increase your password column character limit to (80)
- |
  | Below there is "default_rounds" setting.  This defines how strong the encryption will be,
  | but remember the more rounds you set the longer it will take to hash (CPU usage) So adjust
  | this based on your server hardware.
