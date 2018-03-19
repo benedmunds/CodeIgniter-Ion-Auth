@@ -168,13 +168,22 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected $_cache_groups = array();
 
+	/**
+	 * Database object
+	 *
+	 * @var object
+	 */
+	protected $db;
+
 	public function __construct()
 	{
-		$this->load->database();
 		$this->config->load('ion_auth', TRUE);
 		$this->load->helper('cookie');
 		$this->load->helper('date');
 		$this->lang->load('ion_auth');
+
+		// initialize the database
+		$this->db = $this->load->database($this->config->item('database_group_name', 'ion_auth'), TRUE, TRUE);
 
 		// initialize db tables data
 		$this->tables = $this->config->item('tables', 'ion_auth');
