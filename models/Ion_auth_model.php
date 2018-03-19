@@ -182,6 +182,14 @@ class Ion_auth_model extends CI_Model
 		$this->load->helper('date');
 		$this->lang->load('ion_auth');
 
+		// PHP password_* function sanity check
+		if (!function_exists('password_hash') || !function_exists('password_verify'))
+		{
+			show_error("PHP function password_hash or password_verify not found. " .
+						"Are you using CI 2 and PHP < 5.5? " .
+						"Please upgrade to CI 3, or PHP >= 5.5, or use password_compat.");
+		}
+
 		// initialize the database
 		$this->db = $this->load->database($this->config->item('database_group_name', 'ion_auth'), TRUE, TRUE);
 
