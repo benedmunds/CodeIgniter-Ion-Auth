@@ -309,6 +309,46 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Check if password needs to be rehashed
+	 * If true, then rehash and update it in DB
+	 *
+	 * @param string $hash
+	 * @param string $identity
+	 * @param string $password
+	 *
+	 */
+	public function rehash_password_if_needed($hash, $identity, $password)
+	{
+		if ($this->hash_method === 'bcrypt')
+		{
+			$algo = PASSWORD_BCRYPT;
+			$params = array(
+				'cost' => $this->config->item('bcrypt_default_cost', 'ion_auth')
+			);
+		}
+		else if ($this->hash_method === 'argon2')
+		{
+			$algo = PASSWORD_ARGON2I;
+			$params = $this->config->item('argon2_parameters', 'ion_auth');
+		}
+
+		if (isset($algo) && isset($params))
+		{
+			if (password_needs_rehash($hash, $algo, $params))
+			{
+				if ($this->_set_password_db($identity, $password))
+				{
+					$this->trigger_events(array('rehash_password', 'rehash_password_successful'));
+				}
+				else
+				{
+					$this->trigger_events(array('rehash_password', 'rehash_password_unsuccessful'));
+				}
+			}
+		}
+	}
+
+	/**
 	 * Validates and removes activation code.
 	 *
 	 * @param int|string $id
@@ -469,38 +509,8 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$this->trigger_events('extra_where');
+		$return = $this->_set_password_db($identity, $new);
 
-		$query = $this->db->select('id, password')
-		                  ->where($this->identity_column, $identity)
-		                  ->limit(1)
-		                  ->order_by('id', 'desc')
-		                  ->get($this->tables['users']);
-
-		if ($query->num_rows() !== 1)
-		{
-			$this->trigger_events(array('post_change_password', 'post_change_password_unsuccessful'));
-			$this->set_error('password_change_unsuccessful');
-			return FALSE;
-		}
-
-		$result = $query->row();
-
-		$new = $this->hash_password($new);
-
-		// store the new password and reset the remember code so all remembered instances have to re-login
-		// also clear the forgotten password code
-		$data = array(
-		    'password' => $new,
-		    'remember_code' => NULL,
-		    'forgotten_password_code' => NULL,
-		    'forgotten_password_time' => NULL,
-		);
-
-		$this->trigger_events('extra_where');
-		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
-
-		$return = $this->db->affected_rows() == 1;
 		if ($return)
 		{
 			$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
@@ -546,21 +556,11 @@ class Ion_auth_model extends CI_Model
 
 		$user = $query->row();
 
-		$old_password_matches = $this->hash_password_db($user->id, $old);
-
-		if ($old_password_matches === TRUE)
+		if ($this->hash_password_db($user->id, $old))
 		{
-			// store the new password and reset the remember code so all remembered instances have to re-login
-			$hashed_new_password  = $this->hash_password($new);
-			$data = array(
-			    'password' => $hashed_new_password,
-			    'remember_code' => NULL,
-			);
+			$result = $this->_set_password_db($identity, $new);
 
-			$this->trigger_events('extra_where');
-
-			$successfully_changed_password_in_db = $this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
-			if ($successfully_changed_password_in_db)
+			if ($result)
 			{
 				$this->trigger_events(array('post_change_password', 'post_change_password_successful'));
 				$this->set_message('password_change_successful');
@@ -571,7 +571,7 @@ class Ion_auth_model extends CI_Model
 				$this->set_error('password_change_unsuccessful');
 			}
 
-			return $successfully_changed_password_in_db;
+			return $result;
 		}
 
 		$this->set_error('password_change_unsuccessful');
@@ -854,6 +854,9 @@ class Ion_auth_model extends CI_Model
 				{
 					$this->remember_user($user->id);
 				}
+				
+				// Rehash if needed
+				$this->rehash_password_if_needed($user->password, $identity, $password);
                 
 				// Regenerate the session (for security purpose: to avoid session fixation)
 				$this->session->sess_regenerate(FALSE);
@@ -2318,6 +2321,33 @@ class Ion_auth_model extends CI_Model
 		$this->errors = array();
 
 		return TRUE;
+	}
+
+	/**
+	 * Internal function to set a password in the database
+	 *
+	 * @param string $identity
+	 * @param string $password
+	 *
+	 * @return bool
+	 */
+	protected function _set_password_db($identity, $password)
+	{
+		$hash  = $this->hash_password($password);
+
+		// When setting a new password, invalidate any other token
+		$data = array(
+			'password' => $hash,
+			'remember_code' => NULL,
+			'forgotten_password_code' => NULL,
+			'forgotten_password_time' => NULL
+		);
+
+		$this->trigger_events('extra_where');
+
+		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+
+		return $this->db->affected_rows() == 1;
 	}
 
 	/**
