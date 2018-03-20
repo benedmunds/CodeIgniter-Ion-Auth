@@ -305,7 +305,16 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		return password_verify($password, $hash_password_db->password);
+		// password_hash always starts with $
+		if (strpos($hash_password_db->password, '$') === 0)
+		{
+			return password_verify($password, $hash_password_db->password);
+		}
+		else
+		{
+			// Handle legacy SHA1 @TODO to delete in later revision
+			return $this->_password_verify_sha1_legacy($identity, $password, $hash_password_db->password);
+		}
 	}
 
 	/**
@@ -2403,5 +2412,83 @@ class Ion_auth_model extends CI_Model
 
 		// No luck!
 		return FALSE;
+	}
+
+	/**
+	 * Handle legacy sha1 password
+	 *
+	 * We expect the configuration to still have:
+	 *		store_salt
+	 *		salt_length
+	 *
+	 * @TODO to be removed in later version
+	 *
+	 * @param string	$identity
+	 * @param string	$password
+	 * @param string	$hashed_password_db
+	 *
+	 * @return bool
+	 **/
+	protected function _password_verify_sha1_legacy($identity, $password, $hashed_password_db)
+	{
+		$this->trigger_events('pre_sha1_password_migration');
+
+		if ($this->config->item('store_salt', 'ion_auth'))
+		{
+			// Salt is store at the side, retrieve it
+			$query = $this->db->select('salt')
+							  ->where($this->identity_column, $identity)
+							  ->limit(1)
+							  ->get($this->tables['users']);
+
+			$salt_db = $query->row();
+
+			if ($query->num_rows() !== 1)
+			{
+				$this->trigger_events(array('post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful'));
+				return FALSE;
+			}
+
+			$hashed_password = sha1($password . $salt_db->salt);
+		}
+		else
+		{
+			// Salt is stored along with password
+			$salt_length = $this->config->item('salt_length', 'ion_auth');
+
+			if (!$salt_length)
+			{
+				$this->trigger_events(array('post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful'));
+				return FALSE;
+			}
+
+			$salt = substr($hashed_password_db, 0, $salt_length);
+
+			$hashed_password =  $salt . substr(sha1($salt . $password), 0, -$salt_length);
+		}
+
+		// Now we can compare them
+		if($hashed_password === $hashed_password_db)
+		{
+			// Password is good, migrate it to latest
+			$result = $this->_set_password_db($identity, $password);
+
+			if ($result)
+			{
+				$this->trigger_events(array('post_sha1_password_migration', 'post_sha1_password_migration_successful'));
+			}
+			else
+			{
+				$this->trigger_events(array('post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful'));
+			}
+
+			return $result;
+		}
+		else
+		{
+			// Password mismatch, we cannot migrate...
+			$this->trigger_events(array('post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful'));
+			return FALSE;
+		}
 	}
 }
