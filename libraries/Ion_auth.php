@@ -488,8 +488,17 @@ class Ion_auth
 		}
 
 		// Sanity check for CI2
-		if (substr(CI_VERSION, 0, 1) === '2') {
+		if (substr(CI_VERSION, 0, 1) === '2')
+		{
 			show_error("Ion Auth 3 requires CodeIgniter 3. Update to CI 3 or downgrade to Ion Auth 2.");
+		}
+
+		// Compatibility check for CSPRNG
+		// See functions used in Ion_auth_model::_random_token()
+		if (!function_exists('random_bytes') && !function_exists('mcrypt_create_iv') && !function_exists('openssl_random_pseudo_bytes'))
+		{
+			show_error("No CSPRNG functions to generate random enough token. " .
+				"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
 		}
 	}
 
