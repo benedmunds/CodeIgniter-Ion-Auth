@@ -70,21 +70,26 @@ $config['join']['groups'] = 'group_id';
  | 		You can (and should!) benchmark your server. This can be done easily with this little script:
  | 		https://gist.github.com/Indigo744/24062e07477e937a279bc97b378c3402
  |
- | 		With bcrypt, the "password" password is:
+ | 		With bcrypt, an example hash of "password" is:
  | 		$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
  |
  | Argon2 specific:
  | 		argon2_parameters settings:  This is an array containing the options for the Argon2 algorithm.
  | 		You can define 3 differents keys:
  | 			memory_cost (default PASSWORD_ARGON2_DEFAULT_MEMORY_COST = 1024)
- |				Maximum memory (in bytes) that may be used to compute the Argon2 hash
+ |				Maximum memory (in kBytes) that may be used to compute the Argon2 hash
+ |				The spec recommends setting the memory cost to a power of 2.
  | 			time_cost (default PASSWORD_ARGON2_DEFAULT_TIME_COST = 2 seconds)
  |				Maximum amount of time (in seconds) it may take to compute the Argon2 hash
  | 			threads (default PASSWORD_ARGON2_DEFAULT_THREADS = 2)
  |				Number of threads to use for computing the Argon2 hash
+ |				The spec recommends setting the number of threads to a power of 2.
  |
- | 		There is actually no need with Argon2 to benchmark your server since you can clearly define the
- | 		time cost of the algorithm.
+ | 		You can (and should!) benchmark your server. This can be done easily with this little script:
+ | 		https://gist.github.com/Indigo744/e92356282eb808b94d08d9cc6e37884c
+ |
+ | 		With argon2, an example hash of "password" is:
+ | 		$argon2i$v=19$m=1024,t=2,p=2$VEFSSU4wSzh3cllVdE1JZQ$PDeks/7JoKekQrJa9HlfkXIk8dAeZXOzUxLBwNFbZ44
  |
  |
  | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
