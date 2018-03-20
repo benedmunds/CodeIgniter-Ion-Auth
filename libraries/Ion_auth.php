@@ -61,6 +61,9 @@ class Ion_auth
 	 */
 	public function __construct()
 	{
+		// Check compat first
+		$this->check_compatibility();
+
 		$this->config->load('ion_auth', TRUE);
 		$this->load->library(array('email'));
 		$this->lang->load('ion_auth');
@@ -335,14 +338,7 @@ class Ion_auth
 
 		$identity = $this->config->item('identity', 'ion_auth');
 
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->session->unset_userdata(array($identity => '', 'id' => '', 'user_id' => ''));
-		}
-		else
-		{
-			$this->session->unset_userdata(array($identity, 'id', 'user_id'));
-		}
+		$this->session->unset_userdata(array($identity, 'id', 'user_id'));
 
 		// delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
@@ -357,19 +353,12 @@ class Ion_auth
 		// Destroy the session
 		$this->session->sess_destroy();
 
-		//Recreate the session
-		if (substr(CI_VERSION, 0, 1) == '2')
+		// Recreate the session
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0)
 		{
-			$this->session->sess_create();
+			session_start();
 		}
-		else
-		{
-			if (version_compare(PHP_VERSION, '7.0.0') >= 0)
-			{
-				session_start();
-			}
-			$this->session->sess_regenerate(TRUE);
-		}
+		$this->session->sess_regenerate(TRUE);
 
 		$this->set_message('logout_successful');
 		return TRUE;
@@ -480,6 +469,28 @@ class Ion_auth
 		 * if all, true
 		 */
 		return $check_all;
+	}
+
+	/**
+	 * Check the compatibility with the server
+	 *
+	 * Script will die in case of error
+	 */
+	protected function check_compatibility()
+	{
+		// PHP password_* function sanity check
+		if (!function_exists('password_hash') || !function_exists('password_verify'))
+		{
+			show_error("PHP function password_hash or password_verify not found. " .
+				"Are you using CI 2 and PHP < 5.5? " .
+				"Please upgrade to CI 3, or PHP >= 5.5 " .
+				"or use password_compat (https://github.com/ircmaxell/password_compat).");
+		}
+
+		// Sanity check for CI2
+		if (substr(CI_VERSION, 0, 1) === '2') {
+			show_error("Ion Auth 3 requires CodeIgniter 3. Update to CI 3 or downgrade to Ion Auth 2.");
+		}
 	}
 
 }
