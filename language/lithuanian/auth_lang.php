@@ -155,6 +155,4 @@ $lang['email_forgot_password_subheading'] = 'Norėdami %s turite paspausti šią
 $lang['email_forgot_password_link']       = 'Sugeneruoti slaptažodį iš naujo';
 
 // New Slaptažodis Email
-$lang['email_new_password_heading']    = 'Naujas %s slaptažodis';
-$lang['email_new_password_subheading'] = 'Jums buvo sugeneruotas naujas slaptažodis: %s';
 

@@ -855,61 +855,6 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Forgotten Password Complete
-	 *
-	 * @param    string $code
-	 * @param    bool   $salt
-	 *
-	 * @return    string
-	 * @author    Mathew
-	 */
-	public function forgotten_password_complete($code, $salt = FALSE)
-	{
-		$this->trigger_events('pre_forgotten_password_complete');
-
-		if (empty($code))
-		{
-			$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-			return FALSE;
-		}
-
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
-
-		if ($profile)
-		{
-
-			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0)
-			{
-				//Make sure it isn't expired
-				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration)
-				{
-					//it has expired
-					$this->set_error('forgot_password_expired');
-					$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-					return FALSE;
-				}
-			}
-
-			$password = $this->salt();
-
-			$data = array(
-				'password' => $this->hash_password($password, $salt),
-				'forgotten_password_code' => NULL,
-				'active' => 1,
-			);
-
-			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
-
-			$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_successful'));
-			return $password;
-		}
-
-		$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-		return FALSE;
-	}
-
-	/**
 	 * Register
 	 *
 	 * @param    string $identity
@@ -950,7 +895,7 @@ class Ion_auth_model extends CI_Model
 		$default_group = $query;
 
 		// IP Address
-		$ip_address = $this->_prepare_ip($this->input->ip_address());
+		$ip_address = $this->input->ip_address();
 		$salt = $this->store_salt ? $this->salt() : FALSE;
 		$password = $this->hash_password($password, $salt);
 
@@ -1180,7 +1125,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -1192,25 +1137,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * @deprecated This function is now only a wrapper for is_max_login_attempts_exceeded() since it only retrieve
-	 *             attempts within the given period.
-	 *
-	 * @param string      $identity   User's identity
-	 * @param string|null $ip_address IP address
-	 *                                Only used if track_login_ip_address is set to TRUE.
-	 *                                If NULL (default value), the current IP address is used.
-	 *                                Use get_last_attempt_ip($identity) to retrieve a user's last IP
-	 *
-	 * @return boolean Whether an account is locked due to excessive login attempts within a given period
-	 */
-	public function is_time_locked_out($identity, $ip_address = NULL)
-	{
-		return $this->is_max_login_attempts_exceeded($identity, $ip_address);
-	}
-
-	/**
-	 * @deprecated This function is now only a wrapper for is_max_login_attempts_exceeded() since it only retrieve
-	 *             attempts within the given period.
+	 * Get the last time a login attempt occurred from given identity
 	 *
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
@@ -1230,7 +1157,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -1247,7 +1174,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Get the IP address of the last time a login attempt occured from given identity
+	 * Get the IP address of the last time a login attempt occurred from given identity
 	 *
 	 * @param string $identity User's identity
 	 *
@@ -1287,7 +1214,7 @@ class Ion_auth_model extends CI_Model
 			$data = array('ip_address' => '', 'login' => $identity, 'time' => time());
 			if ($this->config->item('track_login_ip_address', 'ion_auth'))
 			{
-				$data['ip_address'] = $this->_prepare_ip($this->input->ip_address());
+				$data['ip_address'] = $this->input->ip_address();
 			}
 			return $this->db->insert($this->tables['login_attempts'], $data);
 		}
@@ -1321,7 +1248,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -2584,16 +2511,6 @@ class Ion_auth_model extends CI_Model
 		}
 
 		return $filtered_data;
-	}
-
-	/**
-	 * @deprecated Now just returns the given string for backwards compatibility reasons
-	 * @param string $ip_address The IP address
-	 *
-	 * @return string The given IP address
-	 */
-	protected function _prepare_ip($ip_address) {
-		return $ip_address;
 	}
 
 	/**

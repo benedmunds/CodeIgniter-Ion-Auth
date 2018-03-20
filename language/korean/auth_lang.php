@@ -155,7 +155,4 @@ $lang['email_forgot_password_heading']    = '%s 계정 비밀번호 변경';
 $lang['email_forgot_password_subheading'] = '다음 링크를 클릭하여 %s로 접근해 주십시오.';
 $lang['email_forgot_password_link']       = '비밀번호 변경';
 
-// New Password Email
-$lang['email_new_password_heading']    = '%s 비밀번호 초기화';
-$lang['email_new_password_subheading'] = '계정 비밀번호가 %s 로 변경되었습니다.';
 

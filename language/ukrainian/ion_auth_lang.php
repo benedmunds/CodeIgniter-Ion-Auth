@@ -74,7 +74,3 @@ $lang['email_forgotten_password_subject']	= 'Перевірка забутого
 $lang['email_forgot_password_heading']		= 'Скидання пароля для користувача %s';
 $lang['email_forgot_password_subheading']	= 'Натисніть на посилання для %s.';
 $lang['email_forgot_password_link']		= 'Відновлення пароля';
-// New Password Email
-$lang['email_new_password_subject']	= 'Відновлення пароля';
-$lang['email_new_password_heading']	= 'Новий пароль для %s';
-$lang['email_new_password_subheading']  = 'Пароль змінений на: %s';
