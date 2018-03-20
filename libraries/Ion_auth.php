@@ -401,14 +401,7 @@ class Ion_auth
 
 		$identity = $this->config->item('identity', 'ion_auth');
 
-		if (substr(CI_VERSION, 0, 1) == '2')
-		{
-			$this->session->unset_userdata(array($identity => '', 'id' => '', 'user_id' => ''));
-		}
-		else
-		{
-			$this->session->unset_userdata(array($identity, 'id', 'user_id'));
-		}
+		$this->session->unset_userdata(array($identity, 'id', 'user_id'));
 
 		// delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
@@ -423,19 +416,12 @@ class Ion_auth
 		// Destroy the session
 		$this->session->sess_destroy();
 
-		//Recreate the session
-		if (substr(CI_VERSION, 0, 1) == '2')
+		// Recreate the session
+		if (version_compare(PHP_VERSION, '7.0.0') >= 0)
 		{
-			$this->session->sess_create();
+			session_start();
 		}
-		else
-		{
-			if (version_compare(PHP_VERSION, '7.0.0') >= 0)
-			{
-				session_start();
-			}
-			$this->session->sess_regenerate(TRUE);
-		}
+		$this->session->sess_regenerate(TRUE);
 
 		$this->set_message('logout_successful');
 		return TRUE;
