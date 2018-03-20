@@ -190,6 +190,11 @@ class Ion_auth_model extends CI_Model
 					   "Please upgrade to CI 3, or PHP >= 5.5 " .
 					   "or use password_compat (https://github.com/ircmaxell/password_compat).");
 		}
+		
+		// Sanity check for CI2
+		if (substr(CI_VERSION, 0, 1) === '2') {
+			show_error("Ion Auth 3 requires CodeIgniter 3. Update to CI 3 or downgrade to Ion Auth 2.");
+		}
 
 		// initialize the database
 		$this->db = $this->load->database($this->config->item('database_group_name', 'ion_auth'), TRUE, TRUE);
