@@ -2367,7 +2367,6 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// No luck!
-		show_error("Cannot generate a token random enough. " .
-					"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
+		return FALSE;
 	}
 }
