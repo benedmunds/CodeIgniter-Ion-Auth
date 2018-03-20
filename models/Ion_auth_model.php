@@ -186,8 +186,9 @@ class Ion_auth_model extends CI_Model
 		if (!function_exists('password_hash') || !function_exists('password_verify'))
 		{
 			show_error("PHP function password_hash or password_verify not found. " .
-						"Are you using CI 2 and PHP < 5.5? " .
-						"Please upgrade to CI 3, or PHP >= 5.5, or use password_compat.");
+					   "Are you using CI 2 and PHP < 5.5? " .
+					   "Please upgrade to CI 3, or PHP >= 5.5 " .
+					   "or use password_compat (https://github.com/ircmaxell/password_compat).");
 		}
 
 		// initialize the database
