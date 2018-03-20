@@ -54,25 +54,22 @@ $config['join']['groups'] = 'group_id';
 
 /*
  | -------------------------------------------------------------------------
- | Hash Method (sha1 or bcrypt)
+ | Hash Method (only bcrypt is supported for now)
  | -------------------------------------------------------------------------
  | Bcrypt is available in PHP 5.3+
- |
- | IMPORTANT: Based on the recommendation by many professionals, it is highly recommended to use
- | bcrypt instead of sha1.
  |
  | Below there is "default_rounds" setting.  This defines how strong the encryption will be,
  | but remember the more rounds you set the longer it will take to hash (CPU usage) So adjust
  | this based on your server hardware.
  |
- | If you are using Bcrypt the Admin password field also needs to be changed in order to login as admin:
- | $2y$: $2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
+ | With bcrypt, the "password" password is:
+ | $2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
  |
  | Be careful how high you set max_rounds, I would do your own testing on how long it takes
  | to encrypt with x rounds.
  |
  */
-$config['hash_method']    = 'bcrypt';	// sha1 or bcrypt, bcrypt is STRONGLY recommended
+$config['hash_method']    = 'bcrypt';	// only bcrypt is supported for now
 $config['default_rounds'] = 9;			// This does not apply if random_rounds is set to true
 $config['random_rounds']  = FALSE;
 $config['min_rounds']     = 8;
