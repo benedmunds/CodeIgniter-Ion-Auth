@@ -1146,25 +1146,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * @deprecated This function is now only a wrapper for is_max_login_attempts_exceeded() since it only retrieve
-	 *             attempts within the given period.
-	 *
-	 * @param string      $identity   User's identity
-	 * @param string|null $ip_address IP address
-	 *                                Only used if track_login_ip_address is set to TRUE.
-	 *                                If NULL (default value), the current IP address is used.
-	 *                                Use get_last_attempt_ip($identity) to retrieve a user's last IP
-	 *
-	 * @return boolean Whether an account is locked due to excessive login attempts within a given period
-	 */
-	public function is_time_locked_out($identity, $ip_address = NULL)
-	{
-		return $this->is_max_login_attempts_exceeded($identity, $ip_address);
-	}
-
-	/**
-	 * @deprecated This function is now only a wrapper for is_max_login_attempts_exceeded() since it only retrieve
-	 *             attempts within the given period.
+	 * Get the last time a login attempt occurred from given identity
 	 *
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
@@ -1201,7 +1183,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Get the IP address of the last time a login attempt occured from given identity
+	 * Get the IP address of the last time a login attempt occurred from given identity
 	 *
 	 * @param string $identity User's identity
 	 *
