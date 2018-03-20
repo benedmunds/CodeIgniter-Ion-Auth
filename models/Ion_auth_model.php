@@ -250,11 +250,25 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$cost = $this->config->item('bcrypt_default_cost', 'ion_auth');
+		if ($this->hash_method === 'bcrypt')
+		{
+			$algo = PASSWORD_BCRYPT;
+			$params = array(
+				'cost' => $this->config->item('bcrypt_default_cost', 'ion_auth')
+			);
+		}
+		elseif ($this->hash_method === 'argon2')
+		{
+			$algo = PASSWORD_ARGON2I;
+			$params = $this->config->item('argon2_parameters', 'ion_auth');
+		}
 
-		return password_hash($password, PASSWORD_BCRYPT, array(
-			'cost' => $cost
-		));
+		if (isset($algo) && isset($params))
+		{
+			return password_hash($password, $algo, $params);
+		}
+
+		return FALSE;
 	}
 
 	/**

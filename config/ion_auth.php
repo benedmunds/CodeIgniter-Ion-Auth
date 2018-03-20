@@ -54,23 +54,50 @@ $config['join']['groups'] = 'group_id';
 
 /*
  | -------------------------------------------------------------------------
- | Hash Method (only bcrypt is supported for now)
+ | Hash Method (bcrypt or argon2)
  | -------------------------------------------------------------------------
  | Bcrypt is available in PHP 5.3+
+ | Argon2 is available in PHP 7.2
  |
- | Below there is "bcrypt_cost" setting.  This defines how strong the encryption will be.
- | However, higher the cost, longer it will take to hash (CPU usage) So adjust
- | this based on your server hardware.
+ | Argon2 is recommended by expert (it is actually the winner of the Password Hashing Competition
+ | for more information see https://password-hashing.net). So if you can (PHP 7.2), go for it.
  |
- | You can (and should!) benchmark your server. This can be done easily with this little script:
- | https://gist.github.com/Indigo744/24062e07477e937a279bc97b378c3402
+ | Bcrypt specific:
+ | 		bcrypt_default_cost settings:  This defines how strong the encryption will be.
+ | 		However, higher the cost, longer it will take to hash (CPU usage) So adjust
+ | 		this based on your server hardware.
  |
- | With bcrypt, the "password" password is:
- | $2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
+ | 		You can (and should!) benchmark your server. This can be done easily with this little script:
+ | 		https://gist.github.com/Indigo744/24062e07477e937a279bc97b378c3402
+ |
+ | 		With bcrypt, the "password" password is:
+ | 		$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
+ |
+ | Argon2 specific:
+ | 		argon2_parameters settings:  This is an array containing the options for the Argon2 algorithm.
+ | 		You can define 3 differents keys:
+ | 			memory_cost (default PASSWORD_ARGON2_DEFAULT_MEMORY_COST = 1024)
+ |				Maximum memory (in bytes) that may be used to compute the Argon2 hash
+ | 			time_cost (default PASSWORD_ARGON2_DEFAULT_TIME_COST = 2 seconds)
+ |				Maximum amount of time (in seconds) it may take to compute the Argon2 hash
+ | 			threads (default PASSWORD_ARGON2_DEFAULT_THREADS = 2)
+ |				Number of threads to use for computing the Argon2 hash
+ |
+ | 		There is actually no need with Argon2 to benchmark your server since you can clearly define the
+ | 		time cost of the algorithm.
+ |
+ |
+ | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
  |
  */
-$config['hash_method']    		= 'bcrypt';	// only bcrypt is supported for now
-$config['bcrypt_default_cost']	= 9;		// Set cost according to your serveur benchmark
+$config['hash_method']    		= 'bcrypt';	// bcrypt or argon2
+$config['bcrypt_default_cost']	= 9;		// Set cost according to your server benchmark
+$config['argon2_parameters']	= array(
+	// Uncomment param to set a specific value as needed
+	// 'memory_cost' 	=> PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
+	// 'time_cost'  	=> PASSWORD_ARGON2_DEFAULT_TIME_COST,
+	// 'threads'  		=> PASSWORD_ARGON2_DEFAULT_THREADS
+);
 
 /*
  | -------------------------------------------------------------------------
