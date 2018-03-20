@@ -261,6 +261,7 @@ class Ion_auth_model extends CI_Model
 	public function hash_password($password, $salt = FALSE, $use_sha1_override = FALSE)
 	{
 		// Check for empty password, or password containing null char
+		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
 		if (empty($password) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
@@ -307,7 +308,9 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function hash_password_db($id, $password, $use_sha1_override = FALSE)
 	{
-		if (empty($id) || empty($password))
+		// Check for empty id or password, or password containing null char
+		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
+		if (empty($id) || empty($password) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
 		}
