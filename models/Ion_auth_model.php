@@ -2091,9 +2091,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @param int|string|bool $group_id
 	 * @param string|bool     $group_name
-	 * @param string|array    $additional_data IMPORTANT! This was string type $description; strings are still allowed
-	 *                                         to maintain backward compatibility. New projects should pass an array of
-	 *                                         data instead.
+	 * @param array    $additional_data
 	 *
 	 * @return bool
 	 * @author aditya menon
@@ -2128,12 +2126,6 @@ class Ion_auth_model extends CI_Model
 		{
 			$this->set_error('group_name_admin_not_alter');
 			return FALSE;
-		}
-
-		// TODO Third parameter was string type $description; this following code is to maintain backward compatibility
-		if (is_string($additional_data))
-		{
-			$additional_data = array('description' => $additional_data);
 		}
 
 		// filter out any data passed that doesnt have a matching column in the groups table
