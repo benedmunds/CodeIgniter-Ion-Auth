@@ -275,13 +275,13 @@ class Ion_auth_model extends CI_Model
 	 * This function takes a password and validates it
 	 * against an entry in the users table.
 	 *
-	 * @param string|int $id
-	 * @param string     $password
+	 * @param string	$identity
+	 * @param string	$password
 	 *
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function hash_password_db($id, $password)
+	public function hash_password_db($identity, $password)
 	{
 		// Check for empty id or password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -293,7 +293,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		$query = $this->db->select('password')
-		                  ->where('id', $id)
+		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->order_by('id', 'desc')
 		                  ->get($this->tables['users']);
@@ -556,7 +556,7 @@ class Ion_auth_model extends CI_Model
 
 		$user = $query->row();
 
-		if ($this->hash_password_db($user->id, $old))
+		if ($this->hash_password_db($identity, $old))
 		{
 			$result = $this->_set_password_db($identity, $new);
 
@@ -832,7 +832,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$user = $query->row();
 
-			$password = $this->hash_password_db($user->id, $password);
+			$password = $this->hash_password_db($identity, $password);
 
 			if ($password === TRUE)
 			{
