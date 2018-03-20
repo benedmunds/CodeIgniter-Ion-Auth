@@ -58,22 +58,19 @@ $config['join']['groups'] = 'group_id';
  | -------------------------------------------------------------------------
  | Bcrypt is available in PHP 5.3+
  |
- | Below there is "default_rounds" setting.  This defines how strong the encryption will be,
- | but remember the more rounds you set the longer it will take to hash (CPU usage) So adjust
+ | Below there is "bcrypt_cost" setting.  This defines how strong the encryption will be.
+ | However, higher the cost, longer it will take to hash (CPU usage) So adjust
  | this based on your server hardware.
+ |
+ | You can (and should!) benchmark your server. This can be done easily with this little script:
+ | https://gist.github.com/Indigo744/24062e07477e937a279bc97b378c3402
  |
  | With bcrypt, the "password" password is:
  | $2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
  |
- | Be careful how high you set max_rounds, I would do your own testing on how long it takes
- | to encrypt with x rounds.
- |
  */
-$config['hash_method']    = 'bcrypt';	// only bcrypt is supported for now
-$config['default_rounds'] = 9;			// This does not apply if random_rounds is set to true
-$config['random_rounds']  = FALSE;
-$config['min_rounds']     = 8;
-$config['max_rounds']     = 10;
+$config['hash_method']    		= 'bcrypt';	// only bcrypt is supported for now
+$config['bcrypt_default_cost']	= 9;		// Set cost according to your serveur benchmark
 
 /*
  | -------------------------------------------------------------------------

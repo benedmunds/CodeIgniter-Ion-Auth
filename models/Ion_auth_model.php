@@ -205,10 +205,6 @@ class Ion_auth_model extends CI_Model
 
 		// initialize hash method options (Bcrypt)
 		$this->hash_method = $this->config->item('hash_method', 'ion_auth');
-		$this->default_rounds = $this->config->item('default_rounds', 'ion_auth');
-		$this->random_rounds = $this->config->item('random_rounds', 'ion_auth');
-		$this->min_rounds = $this->config->item('min_rounds', 'ion_auth');
-		$this->max_rounds = $this->config->item('max_rounds', 'ion_auth');
 
 		// initialize messages and error
 		$this->messages    = array();
@@ -270,17 +266,11 @@ class Ion_auth_model extends CI_Model
 		// bcrypt
 		if ($use_sha1_override === FALSE)
 		{
-			// Get cost
-			if ($this->random_rounds)
-			{
-				$cost = rand($this->min_rounds, $this->max_rounds);
-			}
-			else
-			{
-				$cost = $this->default_rounds;
-			}
+			$cost = $this->config->item('bcrypt_default_cost', 'ion_auth');
 
-			return password_hash($password, PASSWORD_BCRYPT, array('cost' => $cost));
+			return password_hash($password, PASSWORD_BCRYPT, array(
+				'cost' => $cost
+			));
 		}
 
 
