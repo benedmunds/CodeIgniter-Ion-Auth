@@ -182,6 +182,15 @@ class Ion_auth_model extends CI_Model
 		$this->load->helper('date');
 		$this->lang->load('ion_auth');
 
+		// PHP password_* function sanity check
+		if (!function_exists('password_hash') || !function_exists('password_verify'))
+		{
+			show_error("PHP function password_hash or password_verify not found. " .
+					   "Are you using CI 2 and PHP < 5.5? " .
+					   "Please upgrade to CI 3, or PHP >= 5.5 " .
+					   "or use password_compat (https://github.com/ircmaxell/password_compat).");
+		}
+
 		// initialize the database
 		$this->db = $this->load->database($this->config->item('database_group_name', 'ion_auth'), TRUE, TRUE);
 
@@ -196,10 +205,6 @@ class Ion_auth_model extends CI_Model
 
 		// initialize hash method options (Bcrypt)
 		$this->hash_method = $this->config->item('hash_method', 'ion_auth');
-		$this->default_rounds = $this->config->item('default_rounds', 'ion_auth');
-		$this->random_rounds = $this->config->item('random_rounds', 'ion_auth');
-		$this->min_rounds = $this->config->item('min_rounds', 'ion_auth');
-		$this->max_rounds = $this->config->item('max_rounds', 'ion_auth');
 
 		// initialize messages and error
 		$this->messages    = array();
@@ -236,23 +241,6 @@ class Ion_auth_model extends CI_Model
 		// initialize our hooks object
 		$this->_ion_hooks = new stdClass;
 
-		// load the bcrypt class if needed
-		if ($this->hash_method == 'bcrypt')
-		{
-			if ($this->random_rounds)
-			{
-				$rand = rand($this->min_rounds,$this->max_rounds);
-				$params = array('rounds' => $rand);
-			}
-			else
-			{
-				$params = array('rounds' => $this->default_rounds);
-			}
-
-			$params['salt_prefix'] = $this->config->item('salt_prefix', 'ion_auth');
-			$this->load->library('bcrypt',$params);
-		}
-
 		$this->trigger_events('model_constructor');
 	}
 
@@ -268,15 +256,21 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function hash_password($password, $salt = FALSE, $use_sha1_override = FALSE)
 	{
-		if (empty($password))
+		// Check for empty password, or password containing null char
+		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
+		if (empty($password) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
 		}
 
 		// bcrypt
-		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
+		if ($use_sha1_override === FALSE)
 		{
-			return $this->bcrypt->hash($password);
+			$cost = $this->config->item('bcrypt_default_cost', 'ion_auth');
+
+			return password_hash($password, PASSWORD_BCRYPT, array(
+				'cost' => $cost
+			));
 		}
 
 
@@ -304,7 +298,9 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function hash_password_db($id, $password, $use_sha1_override = FALSE)
 	{
-		if (empty($id) || empty($password))
+		// Check for empty id or password, or password containing null char
+		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
+		if (empty($id) || empty($password) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
 		}
@@ -325,14 +321,9 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// bcrypt
-		if ($use_sha1_override === FALSE && $this->hash_method == 'bcrypt')
+		if ($use_sha1_override === FALSE)
 		{
-			if ($this->bcrypt->verify($password,$hash_password_db->password))
-			{
-				return TRUE;
-			}
-
-			return FALSE;
+			return password_verify($password, $hash_password_db->password);
 		}
 
 		// sha1
