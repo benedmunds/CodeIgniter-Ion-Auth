@@ -187,8 +187,6 @@ Documentation
 		<li>$config['email_templates']</li>
 		<li>$config['email_activate']</li>
 		<li>$config['email_forgot_password']</li>
-		<li>$config['salt_length']</li>
-		<li>$config['store_salt'] </li>
 		<li>$config['forgot_password_expiration'] </li>
 		<li>$config['track_login_attempts'] </li>
 		<li>$config['maximum_login_attempts'] </li>
@@ -229,8 +227,6 @@ Documentation
 		<li>'email_templates' -  Folder where the email view templates are stored. DEFAULT is 'auth/email/'.</li>
 		<li>'email_activate' -  Filname of the email activation view template. DEFAULT is 'activate.tpl.php'.</li>
 		<li>'email_forgot_password' -  Filname of the forgot password email view template. DEFAULT is 'forgot_password.tpl.php'.</li>
-		<li>'salt_length' -  Length of the encryption salt. DEFAULT is '10'.</li>
-		<li>'store_salt' -  TRUE or FALSE.  Store the salt in a separate database column or not. This can be useful for integrating with existing apps. DEFAULT is 'false'.</li>
 		<li>'forgot_password_expiration' - Number of seconds before a forgot password request expires. If set to 0, requests will not expire. DEFAULT is 0.</li>
 		<li>'track_login_attempts' - Track the number of failed login attempts for each user or ip. DEFAULT is 'false'.</li>
 		<li>'maximum_login_attempts' - Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is
@@ -765,7 +761,6 @@ Documentation
 				[ip_address] => 127.0.0.1
 				[username] => administrator
 				[password] => 59beecdf7fc966e2f17fd8f65a4a9aeb09d4a3d4
-				[salt] => 9462e8eee0
 				[email] => admin@admin.com
 				[activation_code] => 19e181f2ccc2a7ea58a2c0aa2b69f4355e636ef4
 				[forgotten_password_code] => 81dce1d0bc2c10fbdec7a87f1ff299ed7e4c9e4a
