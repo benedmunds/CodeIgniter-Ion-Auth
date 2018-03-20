@@ -147,7 +147,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 		$data = array(
 			'ip_address'              => '127.0.0.1',
 			'username'                => 'administrator',
-			'password'                => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
+			'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
 			'salt'                    => '',
 			'email'                   => 'admin@admin.com',
 			'activation_code'         => '',
