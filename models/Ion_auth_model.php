@@ -864,61 +864,6 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Forgotten Password Complete
-	 *
-	 * @param    string $code
-	 * @param    bool   $salt
-	 *
-	 * @return    string
-	 * @author    Mathew
-	 */
-	public function forgotten_password_complete($code, $salt = FALSE)
-	{
-		$this->trigger_events('pre_forgotten_password_complete');
-
-		if (empty($code))
-		{
-			$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-			return FALSE;
-		}
-
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); //pass the code to profile
-
-		if ($profile)
-		{
-
-			if ($this->config->item('forgot_password_expiration', 'ion_auth') > 0)
-			{
-				//Make sure it isn't expired
-				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration)
-				{
-					//it has expired
-					$this->set_error('forgot_password_expired');
-					$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-					return FALSE;
-				}
-			}
-
-			$password = $this->salt();
-
-			$data = array(
-				'password' => $this->hash_password($password, $salt),
-				'forgotten_password_code' => NULL,
-				'active' => 1,
-			);
-
-			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
-
-			$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_successful'));
-			return $password;
-		}
-
-		$this->trigger_events(array('post_forgotten_password_complete', 'post_forgotten_password_complete_unsuccessful'));
-		return FALSE;
-	}
-
-	/**
 	 * Register
 	 *
 	 * @param    string $identity

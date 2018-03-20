@@ -165,14 +165,6 @@ $config['email_forgot_password'] = 'forgot_password.tpl.php';
 
 /*
  | -------------------------------------------------------------------------
- | Forgot Password Complete Email Template
- | -------------------------------------------------------------------------
- | Default: new_password.tpl.php
- */
-$config['email_forgot_password_complete'] = 'new_password.tpl.php';
-
-/*
- | -------------------------------------------------------------------------
  | Salt options
  | -------------------------------------------------------------------------
  | salt_length Default: 22

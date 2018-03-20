@@ -155,7 +155,4 @@ $lang['email_forgot_password_heading']    = '%s İçin Şifre Sıfırlama';
 $lang['email_forgot_password_subheading'] = 'Bağlantıya basarak %s.';
 $lang['email_forgot_password_link']       = 'Şifrenizi Sıfırlayınız';
 
-// New Password Email
-$lang['email_new_password_heading']    = '%s İçin Yeni Şifre';
-$lang['email_new_password_subheading'] = 'Şifreniz %s olarak değiştirildi';
 

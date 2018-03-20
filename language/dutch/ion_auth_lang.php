@@ -75,10 +75,6 @@ $lang['email_forgotten_password_subject']    = 'Verificatie vergeten wachtwoord'
 $lang['email_forgot_password_heading']    = 'Reset wachtwoord voor %s';
 $lang['email_forgot_password_subheading'] = 'Gelieve op deze link te klikken om %s.';
 $lang['email_forgot_password_link']       = 'Reset uw wachtwoord';
-// New Password Email
-$lang['email_new_password_subject']          = 'Nieuw wachtwoord';
-$lang['email_new_password_heading']    = 'Nieuw wachtwoord voor %s';
-$lang['email_new_password_subheading'] = 'Uw wachtwoord is aangepast naar: %s';
 
 /* End of file ion_auth_lang.php */
 /* Location: ./system/application/language/dutch/ion_auth_lang.php */

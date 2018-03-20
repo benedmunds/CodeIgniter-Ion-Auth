@@ -157,6 +157,3 @@ $lang['email_forgot_password_heading']    = 'Zresetuj hasło dla %s';
 $lang['email_forgot_password_subheading'] = 'Proszę klilknąć na link aby %s.';
 $lang['email_forgot_password_link']       = 'Resetuj hasło';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nowe hasło dla %s';
-$lang['email_new_password_subheading'] = 'Twoje hasło zostało zresetowane na: %s';

@@ -158,7 +158,4 @@ $lang['email_forgot_password_heading']    = 'Wachtwoord resetten voor %s';
 $lang['email_forgot_password_subheading'] = 'Gelieve op deze link te klikken om %s.';
 $lang['email_forgot_password_link']       = 'Reset uw wachtwoord';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nieuw wachtwoord voor %s';
-$lang['email_new_password_subheading'] = 'Je wachtwoord werd gereset naar: %s';
 

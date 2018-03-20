@@ -73,7 +73,3 @@ $lang['email_forgot_password_heading']    	= 'Redefinido a senha para %s';
 $lang['email_forgot_password_subheading'] 	= 'Por favor, clique neste link para %s.';
 $lang['email_forgot_password_link']       	= 'Redefina sua senha';
 
-// New Password Email
-$lang['email_new_password_subject']         = 'Nova senha';
-$lang['email_new_password_heading']    		= 'Nova senha para %s';
-$lang['email_new_password_subheading'] 		= 'Sua senha foi redefinida para: %s';

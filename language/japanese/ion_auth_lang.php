@@ -78,7 +78,3 @@ $lang['email_forgotten_password_subject']    = '忘れたパスワードの確�
 $lang['email_forgot_password_heading']    = '%s のパスワードのリセット';
 $lang['email_forgot_password_subheading'] = 'こちらのリンクをクリックしてください。 %s';
 $lang['email_forgot_password_link']       = 'パスワードのリセット';
-// New Password Email
-$lang['email_new_password_subject']          = '新しいパスワード';
-$lang['email_new_password_heading']    = '新しいパスワード： %s';
-$lang['email_new_password_subheading'] = 'パスワードをリセットすることができました: %s';

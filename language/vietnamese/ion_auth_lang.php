@@ -70,7 +70,3 @@ $lang['email_forgot_password_heading']    = 'Khôi phục mật khẩu cho %s';
 $lang['email_forgot_password_subheading'] = 'Vui lòng click vào link này để %s.';
 $lang['email_forgot_password_link']       = 'Khôi phục mật khẩu của bạn';
 
-// New Password Email
-$lang['email_new_password_subject']          = 'Mật khẩu mới';
-$lang['email_new_password_heading']    = 'Mật khẩu mới của %s';
-$lang['email_new_password_subheading'] = 'Mật khẩu của bạn đã được đổi thành: %s';
