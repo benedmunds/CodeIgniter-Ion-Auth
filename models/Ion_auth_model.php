@@ -904,7 +904,7 @@ class Ion_auth_model extends CI_Model
 		$default_group = $query;
 
 		// IP Address
-		$ip_address = $this->_prepare_ip($this->input->ip_address());
+		$ip_address = $this->input->ip_address();
 		$salt = $this->store_salt ? $this->salt() : FALSE;
 		$password = $this->hash_password($password, $salt);
 
@@ -1134,7 +1134,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -1184,7 +1184,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -1241,7 +1241,7 @@ class Ion_auth_model extends CI_Model
 			$data = array('ip_address' => '', 'login' => $identity, 'time' => time());
 			if ($this->config->item('track_login_ip_address', 'ion_auth'))
 			{
-				$data['ip_address'] = $this->_prepare_ip($this->input->ip_address());
+				$data['ip_address'] = $this->input->ip_address();
 			}
 			return $this->db->insert($this->tables['login_attempts'], $data);
 		}
@@ -1275,7 +1275,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if (!isset($ip_address))
 				{
-					$ip_address = $this->_prepare_ip($this->input->ip_address());
+					$ip_address = $this->input->ip_address();
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
@@ -2538,16 +2538,6 @@ class Ion_auth_model extends CI_Model
 		}
 
 		return $filtered_data;
-	}
-
-	/**
-	 * @deprecated Now just returns the given string for backwards compatibility reasons
-	 * @param string $ip_address The IP address
-	 *
-	 * @return string The given IP address
-	 */
-	protected function _prepare_ip($ip_address) {
-		return $ip_address;
 	}
 
 	/**
