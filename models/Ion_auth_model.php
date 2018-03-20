@@ -190,8 +190,6 @@ class Ion_auth_model extends CI_Model
 
 		// initialize data
 		$this->identity_column = $this->config->item('identity', 'ion_auth');
-		$this->store_salt = $this->config->item('store_salt', 'ion_auth');
-		$this->salt_length = $this->config->item('salt_length', 'ion_auth');
 		$this->join = $this->config->item('join', 'ion_auth');
 
 		// initialize hash method options (Bcrypt)
@@ -239,13 +237,11 @@ class Ion_auth_model extends CI_Model
 	 * Hashes the password to be stored in the database.
 	 *
 	 * @param string $password
-	 * @param bool   $salt
-	 * @param bool   $use_sha1_override
 	 *
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hash_password($password, $salt = FALSE, $use_sha1_override = FALSE)
+	public function hash_password($password)
 	{
 		// Check for empty password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -254,26 +250,11 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		// bcrypt
-		if ($use_sha1_override === FALSE)
-		{
-			$cost = $this->config->item('bcrypt_default_cost', 'ion_auth');
+		$cost = $this->config->item('bcrypt_default_cost', 'ion_auth');
 
-			return password_hash($password, PASSWORD_BCRYPT, array(
-				'cost' => $cost
-			));
-		}
-
-
-		if ($this->store_salt && $salt)
-		{
-			return sha1($password . $salt);
-		}
-		else
-		{
-			$salt = $this->salt();
-			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
-		}
+		return password_hash($password, PASSWORD_BCRYPT, array(
+			'cost' => $cost
+		));
 	}
 
 	/**
@@ -282,12 +263,11 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @param string|int $id
 	 * @param string     $password
-	 * @param bool       $use_sha1_override
 	 *
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function hash_password_db($id, $password, $use_sha1_override = FALSE)
+	public function hash_password_db($id, $password)
 	{
 		// Check for empty id or password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -298,7 +278,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('password, salt')
+		$query = $this->db->select('password')
 		                  ->where('id', $id)
 		                  ->limit(1)
 		                  ->order_by('id', 'desc')
@@ -311,132 +291,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		// bcrypt
-		if ($use_sha1_override === FALSE)
-		{
-			return password_verify($password, $hash_password_db->password);
-		}
-
-		// sha1
-		if ($this->store_salt)
-		{
-			$db_password = sha1($password . $hash_password_db->salt);
-		}
-		else
-		{
-			$salt = substr($hash_password_db->password, 0, $this->salt_length);
-
-			$db_password =  $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
-		}
-
-		if($db_password == $hash_password_db->password)
-		{
-			return TRUE;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-
-	/**
-	 * Generates a random salt value for forgotten passwords or any other keys. Uses SHA1.
-	 *
-	 * @param string $password
-	 *
-	 * @return false|string
-	 * @author Mathew
-	 */
-	public function hash_code($password)
-	{
-		return $this->hash_password($password, FALSE, TRUE);
-	}
-
-	/**
-	 * Generates a random salt value.
-	 *
-	 * Salt generation code taken from https://github.com/ircmaxell/password_compat/blob/master/lib/password.php
-	 *
-	 * @return bool|string
-	 * @author Anthony Ferrera
-	 */
-	public function salt()
-	{
-		$raw_salt_len = 16;
-
-		$buffer = '';
-		$buffer_valid = FALSE;
-
-		if (function_exists('random_bytes'))
-		{
-			$buffer = random_bytes($raw_salt_len);
-			if ($buffer)
-			{
-				$buffer_valid = TRUE;
-			}
-		}
-
-		if (!$buffer_valid && function_exists('mcrypt_create_iv') && !defined('PHALANGER'))
-		{
-			$buffer = mcrypt_create_iv($raw_salt_len, MCRYPT_DEV_URANDOM);
-			if ($buffer)
-			{
-				$buffer_valid = TRUE;
-			}
-		}
-
-		if (!$buffer_valid && function_exists('openssl_random_pseudo_bytes'))
-		{
-			$buffer = openssl_random_pseudo_bytes($raw_salt_len);
-			if ($buffer)
-			{
-				$buffer_valid = TRUE;
-			}
-		}
-
-		if (!$buffer_valid && @is_readable('/dev/urandom'))
-		{
-			$f = fopen('/dev/urandom', 'r');
-			$read = strlen($buffer);
-			while ($read < $raw_salt_len)
-			{
-				$buffer .= fread($f, $raw_salt_len - $read);
-				$read = strlen($buffer);
-			}
-			fclose($f);
-			if ($read >= $raw_salt_len)
-			{
-				$buffer_valid = TRUE;
-			}
-		}
-
-		if (!$buffer_valid || strlen($buffer) < $raw_salt_len)
-		{
-			$bl = strlen($buffer);
-			for ($i = 0; $i < $raw_salt_len; $i++)
-			{
-				if ($i < $bl)
-				{
-					$buffer[$i] = $buffer[$i] ^ chr(mt_rand(0, 255));
-				}
-				else
-				{
-					$buffer .= chr(mt_rand(0, 255));
-				}
-			}
-		}
-
-		$salt = $buffer;
-
-		// encode string with the Base64 variant used by crypt
-		$base64_digits = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-		$bcrypt64_digits = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-		$base64_string = base64_encode($salt);
-		$salt = strtr(rtrim($base64_string, '='), $base64_digits, $bcrypt64_digits);
-
-		$salt = substr($salt, 0, $this->salt_length);
-
-		return $salt;
+		return password_verify($password, $hash_password_db->password);
 	}
 
 	/**
@@ -602,7 +457,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('id, password, salt')
+		$query = $this->db->select('id, password')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->order_by('id', 'desc')
@@ -617,7 +472,7 @@ class Ion_auth_model extends CI_Model
 
 		$result = $query->row();
 
-		$new = $this->hash_password($new, $result->salt);
+		$new = $this->hash_password($new);
 
 		// store the new password and reset the remember code so all remembered instances have to re-login
 		// also clear the forgotten password code
@@ -662,7 +517,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$query = $this->db->select('id, password, salt')
+		$query = $this->db->select('id, password')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->order_by('id', 'desc')
@@ -682,7 +537,7 @@ class Ion_auth_model extends CI_Model
 		if ($old_password_matches === TRUE)
 		{
 			// store the new password and reset the remember code so all remembered instances have to re-login
-			$hashed_new_password  = $this->hash_password($new, $user->salt);
+			$hashed_new_password  = $this->hash_password($new);
 			$data = array(
 			    'password' => $hashed_new_password,
 			    'remember_code' => NULL,
@@ -794,19 +649,8 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		// All some more randomness
-		$activation_code_part = "";
-		if (function_exists("openssl_random_pseudo_bytes"))
-		{
-			$activation_code_part = openssl_random_pseudo_bytes(128);
-		}
-
-		for ($i = 0; $i < 1024; $i++)
-		{
-			$activation_code_part = sha1($activation_code_part . mt_rand() . microtime());
-		}
-
-		$key = $this->hash_code($activation_code_part . $identity);
+		// Generate forgotten key
+		$key = $this->_random_token(40);
 
 		// If enable query strings is set, then we need to replace any unsafe characters so that the code can still work
 		if ($key != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE)
@@ -887,8 +731,8 @@ class Ion_auth_model extends CI_Model
 
 		// IP Address
 		$ip_address = $this->input->ip_address();
-		$salt = $this->store_salt ? $this->salt() : FALSE;
-		$password = $this->hash_password($password, $salt);
+
+		$password = $this->hash_password($password);
 
 		// Users table.
 		$data = array(
@@ -900,11 +744,6 @@ class Ion_auth_model extends CI_Model
 			'created_on' => time(),
 			'active' => ($manual_activation === FALSE ? 1 : 0)
 		);
-
-		if ($this->store_salt)
-		{
-			$data['salt'] = $salt;
-		}
 
 		// filter out any data passed that doesnt have a matching column in the users table
 		// and merge the set user data and the additional data
@@ -1784,7 +1623,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$data['password'] = $this->hash_password($data['password'], $user->salt);
+					$data['password'] = $this->hash_password($data['password']);
 				}
 				else
 				{
@@ -1948,9 +1787,9 @@ class Ion_auth_model extends CI_Model
 
 		$user = $this->user($id)->row();
 
-		$salt = $this->salt();
+		$code = $this->_random_token(40);
 
-		$this->db->update($this->tables['users'], array('remember_code' => $salt), array('id' => $id));
+		$this->db->update($this->tables['users'], array('remember_code' => $code), array('id' => $id));
 
 		if ($this->db->affected_rows() > -1)
 		{
@@ -1973,7 +1812,7 @@ class Ion_auth_model extends CI_Model
 
 			set_cookie(array(
 			    'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
-			    'value'  => $salt,
+			    'value'  => $code,
 			    'expire' => $expire
 			));
 
@@ -2499,4 +2338,36 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+
+	/** Generate a random token
+	 * Inspired from http://php.net/manual/en/function.random-bytes.php#118932
+	 *
+	 * @param int $result_length
+	 * @return string
+	 */
+	protected function _random_token($result_length = 32)
+	{
+		if(!isset($result_length) || intval($result_length) <= 8 ){
+			$result_length = 32;
+		}
+
+		// Try random_bytes: PHP 7
+		if (function_exists('random_bytes')) {
+			return bin2hex(random_bytes($result_length / 2));
+		}
+
+		// Try mcrypt
+		if (function_exists('mcrypt_create_iv')) {
+			return bin2hex(mcrypt_create_iv($result_length / 2, MCRYPT_DEV_URANDOM));
+		}
+
+		// Try openssl
+		if (function_exists('openssl_random_pseudo_bytes')) {
+			return bin2hex(openssl_random_pseudo_bytes($result_length / 2));
+		}
+
+		// No luck!
+		show_error("Cannot generate a token random enough. " .
+					"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
+	}
 }
