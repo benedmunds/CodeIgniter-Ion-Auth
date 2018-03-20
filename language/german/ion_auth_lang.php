@@ -79,7 +79,3 @@ $lang['email_forgotten_password_subject'] = 'Vergessenes Kennwort Verifikation';
 $lang['email_forgot_password_heading']    = 'Kennwort zurücksetzen für %s';
 $lang['email_forgot_password_subheading'] = 'Bitte klicken Sie auf diesen Link, um %s.';
 $lang['email_forgot_password_link']       = 'Ihr Kennwort zurückzusetzen';
-// New Password Email
-$lang['email_new_password_subject']    = 'Neues Password';
-$lang['email_new_password_heading']    = 'Neues Password für %s';
-$lang['email_new_password_subheading'] = 'Ihr Passwort wurde zurückgesetzt auf: %s';

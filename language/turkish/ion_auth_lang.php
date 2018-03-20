@@ -76,7 +76,3 @@ $lang['email_forgot_password_heading']          = '%s için şifre sıfırlama';
 $lang['email_forgot_password_subheading']       = 'Bağlantıya tıklayarak %s.';
 $lang['email_forgot_password_link']             = 'şifrenizi sıfırlayınız';
 
-// New Password Email
-$lang['email_new_password_subject']             = 'Yeni Şifre';
-$lang['email_new_password_heading']             = '%s için yeni şifre';
-$lang['email_new_password_subheading']          = 'Şifreniz %s olarak değiştirildi';

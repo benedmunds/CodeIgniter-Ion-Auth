@@ -73,7 +73,3 @@ $lang['email_forgotten_password_subject']    = 'Verificació de contrasenya obli
 $lang['email_forgot_password_heading']    = 'Restableix contrasenya a %s';
 $lang['email_forgot_password_subheading'] = 'Si us plau, cliqueu el link per %s.';
 $lang['email_forgot_password_link']       = 'Restableix la teva contrasenya';
-// New Password Email
-$lang['email_new_password_subject']          = 'Nova contrasenya';
-$lang['email_new_password_heading']    = 'Nova contrasenya per a %s';
-$lang['email_new_password_subheading'] = 'La teva contrasenya s&#39;ha restablert a: %s';

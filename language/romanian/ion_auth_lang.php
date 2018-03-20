@@ -72,7 +72,3 @@ $lang['email_forgot_password_heading']    	= 'Resetarea parolei pentru %s';
 $lang['email_forgot_password_subheading'] 	= 'Dați clic pe această adresă pentru %s.';
 $lang['email_forgot_password_link']       	= 'Resetarea parolei';
 
-// New Password Email
-$lang['email_new_password_subject']         = 'Parola nouă';
-$lang['email_new_password_heading']    		= 'Parola nouă pentru %s';
-$lang['email_new_password_subheading'] 		= 'Parola a fost resetată: %s';

@@ -167,7 +167,4 @@ $lang['email_forgot_password_heading']    = 'Nulstil kodeordet for %s';
 $lang['email_forgot_password_subheading'] = 'Tryk på dette link for at %s.';
 $lang['email_forgot_password_link']       = 'Nulstil Dit Kodeordet';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nyt kodeord for %s';
-$lang['email_new_password_subheading'] = 'Dit kodeord er blevet nulstillet til: %s';
 
