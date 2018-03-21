@@ -70,33 +70,48 @@ $config['join']['groups'] = 'group_id';
  | 		You can (and should!) benchmark your server. This can be done easily with this little script:
  | 		https://gist.github.com/Indigo744/24062e07477e937a279bc97b378c3402
  |
- | 		With bcrypt, the "password" password is:
+ | 		With bcrypt, an example hash of "password" is:
  | 		$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
  |
+ |		A specific parameter bcrypt_admin_cost is available for user in admin group.
+ |		It is recommended to have a stronger hashing for administrators.
+ |
  | Argon2 specific:
- | 		argon2_parameters settings:  This is an array containing the options for the Argon2 algorithm.
+ | 		argon2_default_params settings:  This is an array containing the options for the Argon2 algorithm.
  | 		You can define 3 differents keys:
  | 			memory_cost (default PASSWORD_ARGON2_DEFAULT_MEMORY_COST = 1024)
- |				Maximum memory (in bytes) that may be used to compute the Argon2 hash
+ |				Maximum memory (in kBytes) that may be used to compute the Argon2 hash
+ |				The spec recommends setting the memory cost to a power of 2.
  | 			time_cost (default PASSWORD_ARGON2_DEFAULT_TIME_COST = 2 seconds)
  |				Maximum amount of time (in seconds) it may take to compute the Argon2 hash
  | 			threads (default PASSWORD_ARGON2_DEFAULT_THREADS = 2)
  |				Number of threads to use for computing the Argon2 hash
+ |				The spec recommends setting the number of threads to a power of 2.
  |
- | 		There is actually no need with Argon2 to benchmark your server since you can clearly define the
- | 		time cost of the algorithm.
+ | 		You can (and should!) benchmark your server. This can be done easily with this little script:
+ | 		https://gist.github.com/Indigo744/e92356282eb808b94d08d9cc6e37884c
  |
+ | 		With argon2, an example hash of "password" is:
+ | 		$argon2i$v=19$m=1024,t=2,p=2$VEFSSU4wSzh3cllVdE1JZQ$PDeks/7JoKekQrJa9HlfkXIk8dAeZXOzUxLBwNFbZ44
+ |
+ |		A specific parameter argon2_admin_params is available for user in admin group.
+ |		It is recommended to have a stronger hashing for administrators.
  |
  | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
  |
  */
-$config['hash_method']    		= 'bcrypt';	// bcrypt or argon2
-$config['bcrypt_default_cost']	= 9;		// Set cost according to your server benchmark
-$config['argon2_parameters']	= array(
-	// Uncomment param to set a specific value as needed
-	// 'memory_cost' 	=> PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
-	// 'time_cost'  	=> PASSWORD_ARGON2_DEFAULT_TIME_COST,
-	// 'threads'  		=> PASSWORD_ARGON2_DEFAULT_THREADS
+$config['hash_method']				= 'bcrypt';	// bcrypt or argon2
+$config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
+$config['bcrypt_admin_cost']		= 12;		// Cost for user in admin group
+$config['argon2_default_params']	= array(
+	'memory_cost'	=> 1 << 12,	// 4MB
+	'time_cost'		=> 2,
+	'threads'		=> 2
+);
+$config['argon2_admin_params']		= array(
+	'memory_cost'	=> 1 << 14,	// 16MB
+	'time_cost'		=> 4,
+	'threads'		=> 2
 );
 
 /*

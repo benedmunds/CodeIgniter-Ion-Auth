@@ -236,12 +236,13 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Hashes the password to be stored in the database.
 	 *
+	 * @param string $identity
 	 * @param string $password
 	 *
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hash_password($password)
+	public function hash_password($identity, $password)
 	{
 		// Check for empty password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -250,20 +251,10 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		if ($this->hash_method === 'bcrypt')
-		{
-			$algo = PASSWORD_BCRYPT;
-			$params = array(
-				'cost' => $this->config->item('bcrypt_default_cost', 'ion_auth')
-			);
-		}
-		else if ($this->hash_method === 'argon2')
-		{
-			$algo = PASSWORD_ARGON2I;
-			$params = $this->config->item('argon2_parameters', 'ion_auth');
-		}
+		$algo = $this->_get_hash_algo();
+		$params = $this->_get_hash_parameters($identity);
 
-		if (isset($algo) && isset($params))
+		if ($algo !== FALSE && $params !== FALSE)
 		{
 			return password_hash($password, $algo, $params);
 		}
@@ -328,20 +319,10 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function rehash_password_if_needed($hash, $identity, $password)
 	{
-		if ($this->hash_method === 'bcrypt')
-		{
-			$algo = PASSWORD_BCRYPT;
-			$params = array(
-				'cost' => $this->config->item('bcrypt_default_cost', 'ion_auth')
-			);
-		}
-		else if ($this->hash_method === 'argon2')
-		{
-			$algo = PASSWORD_ARGON2I;
-			$params = $this->config->item('argon2_parameters', 'ion_auth');
-		}
+		$algo = $this->_get_hash_algo();
+		$params = $this->_get_hash_parameters($identity);
 
-		if (isset($algo) && isset($params))
+		if ($algo !== FALSE && $params !== FALSE)
 		{
 			if (password_needs_rehash($hash, $algo, $params))
 			{
@@ -656,6 +637,35 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Get user ID from identity
+	 *
+	 * @param $identity string
+	 *
+	 * @return bool|int
+	 */
+	public function get_user_id_from_identity($identity = '')
+	{
+		if (empty($identity))
+		{
+			return FALSE;
+		}
+
+		$query = $this->db->select('id')
+						  ->where($this->identity_column, $identity)
+						  ->limit(1)
+						  ->get($this->tables['users']);
+
+		if ($query->num_rows() !== 1)
+		{
+			return FALSE;
+		}
+
+		$user = $query->row();
+
+		return $user->id;
+	}
+
+	/**
 	 * Insert a forgotten password key.
 	 *
 	 * @param    string $identity
@@ -755,7 +765,7 @@ class Ion_auth_model extends CI_Model
 		// IP Address
 		$ip_address = $this->input->ip_address();
 
-		$password = $this->hash_password($password);
+		$password = $this->hash_password($identity, $password);
 
 		// Users table.
 		$data = array(
@@ -829,7 +839,7 @@ class Ion_auth_model extends CI_Model
 		if ($this->is_max_login_attempts_exceeded($identity))
 		{
 			// Hash something anyway, just to take up time
-			$this->hash_password($password);
+			$this->hash_password($identity, $password);
 
 			$this->trigger_events('post_login_unsuccessful');
 			$this->set_error('login_timeout');
@@ -878,7 +888,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// Hash something anyway, just to take up time
-		$this->hash_password($password);
+		$this->hash_password($identity, $password);
 
 		$this->increase_login_attempts($identity);
 
@@ -1435,6 +1445,64 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * @param int|string|array $check_group group(s) to check
+	 * @param int|string|bool  $id          user id
+	 * @param bool             $check_all   check if all groups is present, or any of the groups
+	 *
+	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
+	 * @author Phil Sturgeon
+	 **/
+	public function in_group($check_group, $id = FALSE, $check_all = FALSE)
+	{
+		$this->ion_auth_model->trigger_events('in_group');
+
+		$id || $id = $this->session->userdata('user_id');
+
+		if (!is_array($check_group))
+		{
+			$check_group = array($check_group);
+		}
+
+		if (isset($this->_cache_user_in_group[$id]))
+		{
+			$groups_array = $this->_cache_user_in_group[$id];
+		}
+		else
+		{
+			$users_groups = $this->get_users_groups($id)->result();
+			$groups_array = array();
+			foreach ($users_groups as $group)
+			{
+				$groups_array[$group->id] = $group->name;
+			}
+			$this->_cache_user_in_group[$id] = $groups_array;
+		}
+		foreach ($check_group as $key => $value)
+		{
+			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
+
+			/**
+			 * if !all (default), in_array
+			 * if all, !in_array
+			 */
+			if (in_array($value, $groups) xor $check_all)
+			{
+				/**
+				 * if !all (default), true
+				 * if all, false
+				 */
+				return !$check_all;
+			}
+		}
+
+		/**
+		 * if !all (default), false
+		 * if all, true
+		 */
+		return $check_all;
+	}
+
+	/**
 	 * add_to_group
 	 *
 	 * @param array|int|float|string $group_ids
@@ -1649,7 +1717,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$data['password'] = $this->hash_password($data['password']);
+					$data['password'] = $this->hash_password($user->{$this->identity_column}, $data['password']);
 				}
 				else
 				{
@@ -2342,7 +2410,7 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _set_password_db($identity, $password)
 	{
-		$hash  = $this->hash_password($password);
+		$hash  = $this->hash_password($identity, $password);
 
 		// When setting a new password, invalidate any other token
 		$data = array(
@@ -2412,6 +2480,68 @@ class Ion_auth_model extends CI_Model
 
 		// No luck!
 		return FALSE;
+	}
+
+	/** Retrieve hash parameter according to options
+	 *
+	 * @param string	$identity
+	 *
+	 * @return array|bool
+	 */
+	protected function _get_hash_parameters($identity)
+	{
+		// Check if user is administrator or not
+		$is_admin = FALSE;
+		$user_id = $this->get_user_id_from_identity($identity);
+		if ($user_id && $this->in_group($this->config->item('admin_group', 'ion_auth'), $user_id))
+		{
+			$is_admin = TRUE;
+		}
+
+		$params = FALSE;
+		switch ($this->hash_method)
+		{
+			case 'bcrypt':
+				$params = array(
+					'cost' => $is_admin ? $this->config->item('bcrypt_admin_cost', 'ion_auth')
+										: $this->config->item('bcrypt_default_cost', 'ion_auth')
+				);
+				break;
+
+			case 'argon2':
+				$params = $is_admin ? $this->config->item('argon2_admin_params', 'ion_auth')
+									: $this->config->item('argon2_default_params', 'ion_auth');
+				break;
+
+			default:
+				// Do nothing
+		}
+
+		return $params;
+	}
+
+	/** Retrieve hash algorithm according to options
+	 *
+	 * @return string|bool
+	 */
+	protected function _get_hash_algo()
+	{
+		$algo = FALSE;
+		switch ($this->hash_method)
+		{
+			case 'bcrypt':
+				$algo = PASSWORD_BCRYPT;
+				break;
+
+			case 'argon2':
+				$algo = PASSWORD_ARGON2I;
+				break;
+
+			default:
+				// Do nothing
+		}
+
+		return $algo;
 	}
 
 	/**
