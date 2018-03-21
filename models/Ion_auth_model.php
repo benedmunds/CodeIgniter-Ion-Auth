@@ -279,43 +279,29 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @param string	$identity
 	 * @param string	$password
+	 * @param string	$hash_password_db
 	 *
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function hash_password_db($identity, $password)
+	public function verify_password($identity, $password, $hash_password_db)
 	{
 		// Check for empty id or password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
-		if (empty($id) || empty($password) || strpos($password, "\0") !== FALSE)
-		{
-			return FALSE;
-		}
-
-		$this->trigger_events('extra_where');
-
-		$query = $this->db->select('password')
-		                  ->where($this->identity_column, $identity)
-		                  ->limit(1)
-		                  ->order_by('id', 'desc')
-		                  ->get($this->tables['users']);
-
-		$hash_password_db = $query->row();
-
-		if ($query->num_rows() !== 1)
+		if (empty($password) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
 		}
 
 		// password_hash always starts with $
-		if (strpos($hash_password_db->password, '$') === 0)
+		if (strpos($hash_password_db, '$') === 0)
 		{
-			return password_verify($password, $hash_password_db->password);
+			return password_verify($password, $hash_password_db);
 		}
 		else
 		{
 			// Handle legacy SHA1 @TODO to delete in later revision
-			return $this->_password_verify_sha1_legacy($identity, $password, $hash_password_db->password);
+			return $this->_password_verify_sha1_legacy($identity, $password, $hash_password_db);
 		}
 	}
 
@@ -557,7 +543,7 @@ class Ion_auth_model extends CI_Model
 
 		$user = $query->row();
 
-		if ($this->hash_password_db($identity, $old))
+		if ($this->verify_password($identity, $old, $user->password))
 		{
 			$result = $this->_set_password_db($identity, $new);
 
@@ -862,9 +848,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$user = $query->row();
 
-			$password = $this->hash_password_db($identity, $password);
-
-			if ($password === TRUE)
+			if ($this->verify_password($identity, $password, $user->password) === TRUE)
 			{
 				if ($user->active == 0)
 				{
