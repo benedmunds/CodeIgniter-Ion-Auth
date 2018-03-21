@@ -91,9 +91,14 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'unsigned'   => TRUE,
 				'null'       => TRUE
 			),
+			'remember_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE
+			),
 			'remember_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
 			),
 			'created_on' => array(
