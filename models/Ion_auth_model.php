@@ -234,6 +234,17 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Getter to the DB connection used by Ion Auth
+	 * May prove useful for debugging
+	 *
+	 * @return object
+	 */
+	public function db()
+	{
+		return $this->db;
+	}
+
+	/**
 	 * Hashes the password to be stored in the database.
 	 *
 	 * @param string $identity
