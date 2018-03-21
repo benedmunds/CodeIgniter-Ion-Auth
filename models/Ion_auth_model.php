@@ -1435,6 +1435,64 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * @param int|string|array $check_group group(s) to check
+	 * @param int|string|bool  $id          user id
+	 * @param bool             $check_all   check if all groups is present, or any of the groups
+	 *
+	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
+	 * @author Phil Sturgeon
+	 **/
+	public function in_group($check_group, $id = FALSE, $check_all = FALSE)
+	{
+		$this->ion_auth_model->trigger_events('in_group');
+
+		$id || $id = $this->session->userdata('user_id');
+
+		if (!is_array($check_group))
+		{
+			$check_group = array($check_group);
+		}
+
+		if (isset($this->_cache_user_in_group[$id]))
+		{
+			$groups_array = $this->_cache_user_in_group[$id];
+		}
+		else
+		{
+			$users_groups = $this->get_users_groups($id)->result();
+			$groups_array = array();
+			foreach ($users_groups as $group)
+			{
+				$groups_array[$group->id] = $group->name;
+			}
+			$this->_cache_user_in_group[$id] = $groups_array;
+		}
+		foreach ($check_group as $key => $value)
+		{
+			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
+
+			/**
+			 * if !all (default), in_array
+			 * if all, !in_array
+			 */
+			if (in_array($value, $groups) xor $check_all)
+			{
+				/**
+				 * if !all (default), true
+				 * if all, false
+				 */
+				return !$check_all;
+			}
+		}
+
+		/**
+		 * if !all (default), false
+		 * if all, true
+		 */
+		return $check_all;
+	}
+
+	/**
 	 * add_to_group
 	 *
 	 * @param array|int|float|string $group_ids
