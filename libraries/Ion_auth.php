@@ -422,15 +422,6 @@ class Ion_auth
 				"or use password_compat (https://github.com/ircmaxell/password_compat).");
 		}
 
-		// PHP hash_equals function sanity check
-		if (!function_exists('hash_equals'))
-		{
-			show_error("PHP function hash_equals not found. " .
-				"Are you using CI 2 and PHP < 5.6? " .
-				"Please upgrade to CI 3, or PHP >= 5.6 " .
-				"or use a polyfill (http://php.net/manual/fr/function.hash-equals.php#115635).");
-		}
-
 		// Sanity check for CI2
 		if (substr(CI_VERSION, 0, 1) === '2')
 		{
