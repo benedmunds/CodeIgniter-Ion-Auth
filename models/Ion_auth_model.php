@@ -467,6 +467,7 @@ class Ion_auth_model extends CI_Model
 		if ($this->db->count_all_results($this->tables['users']) > 0)
 		{
 			$data = array(
+			    'forgotten_password_selector' => NULL,
 			    'forgotten_password_code' => NULL,
 			    'forgotten_password_time' => NULL
 			);
@@ -667,7 +668,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @param    string $identity
 	 *
-	 * @return    bool
+	 * @return    bool|string
 	 * @author  Mathew
 	 * @updated Ryan
 	 */
@@ -679,44 +680,59 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		// Generate forgotten key
-		$key = $this->_random_token(40);
-
-		// If enable query strings is set, then we need to replace any unsafe characters so that the code can still work
-		if ($key != '' && $this->config->item('permitted_uri_chars') != '' && $this->config->item('enable_query_strings') == FALSE)
-		{
-			// preg_quote() in PHP 5.3 escapes -, so the str_replace() and addition of - to preg_quote() is to maintain backwards
-			// compatibility as many are unaware of how characters in the permitted_uri_chars will be parsed as a regex pattern
-			if (!preg_match("|^[" . str_replace(array('\\-', '\-'), '-', preg_quote($this->config->item('permitted_uri_chars'), '-')) . "]+$|i", $key))
-			{
-				$key = preg_replace("/[^" . $this->config->item('permitted_uri_chars') . "]+/i", "-", $key);
-			}
-		}
-
-		// Limit to 40 characters since that's how our DB field is setup
-		$this->forgotten_password_code = substr($key, 0, 40);
-
-		$this->trigger_events('extra_where');
+		// Generate random token: smaller size because it will be in the URL
+		$token = $this->_generate_selector_validator_couple(20, 80);
 
 		$update = array(
-			'forgotten_password_code' => $key,
+			'forgotten_password_selector' => $token->selector,
+			'forgotten_password_code' => $token->validator_hashed,
 			'forgotten_password_time' => time()
 		);
 
+		$this->trigger_events('extra_where');
 		$this->db->update($this->tables['users'], $update, array($this->identity_column => $identity));
 
-		$return = $this->db->affected_rows() == 1;
-
-		if ($return)
+		if ($this->db->affected_rows() === 1)
 		{
 			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_successful'));
+			return $token->user_code;
 		}
 		else
 		{
 			$this->trigger_events(array('post_forgotten_password', 'post_forgotten_password_unsuccessful'));
+			return FALSE;
+		}
+	}
+
+	/**
+	 * Get a user from a forgotten password key.
+	 *
+	 * @param    string $user_code
+	 *
+	 * @return    bool|object
+	 * @author  Mathew
+	 * @updated Ryan
+	 */
+	public function forgotten_password_get_user($user_code)
+	{
+		// Retrieve the token object from the code
+		$token = $this->_retrieve_selector_validator_couple($user_code);
+
+		// Retrieve the user according to this selector
+		$user = $this->where('forgotten_password_selector', $token->selector)->users()->row();
+
+		if ($user)
+		{
+			// Check the hash against the validator
+			if ($user->forgotten_password_code && $this->verify_password($user->{$this->identity_column},
+					$token->validator,
+					$user->forgotten_password_code))
+			{
+				return $user;
+			}
 		}
 
-		return $return;
+		return FALSE;
 	}
 
 	/**

@@ -139,17 +139,21 @@ class Ion_auth
 	 */
 	public function forgotten_password($identity)
 	{
-		if ($this->ion_auth_model->forgotten_password($identity))
-		{
-			// Get user information
-			$identifier = $this->ion_auth_model->identity_column; // use model identity column, so it can be overridden in a controller
-			$user = $this->where($identifier, $identity)->where('active', 1)->users()->row();
+		// Retrieve user information
+		$user = $this->where($this->ion_auth_model->identity_column, $identity)
+					 ->where('active', 1)
+					 ->users()->row();
 
-			if ($user)
+		if ($user)
+		{
+			// Generate code
+			$code = $this->ion_auth_model->forgotten_password($identity);
+
+			if ($code)
 			{
 				$data = array(
-					'identity' => $user->{$this->config->item('identity', 'ion_auth')},
-					'forgotten_password_code' => $user->forgotten_password_code
+					'identity' => $identity,
+					'forgotten_password_code' => $code
 				);
 
 				if (!$this->config->item('use_ci_email', 'ion_auth'))
@@ -171,24 +175,12 @@ class Ion_auth
 						$this->set_message('forgot_password_successful');
 						return TRUE;
 					}
-					else
-					{
-						$this->set_error('forgot_password_unsuccessful');
-						return FALSE;
-					}
 				}
 			}
-			else
-			{
-				$this->set_error('forgot_password_unsuccessful');
-				return FALSE;
-			}
 		}
-		else
-		{
-			$this->set_error('forgot_password_unsuccessful');
-			return FALSE;
-		}
+
+		$this->set_error('forgot_password_unsuccessful');
+		return FALSE;
 	}
 
 	/**
@@ -201,9 +193,9 @@ class Ion_auth
 	 */
 	public function forgotten_password_check($code)
 	{
-		$profile = $this->where('forgotten_password_code', $code)->users()->row(); // pass the code to profile
+		$user = $this->ion_auth_model->forgotten_password_get_user($code);
 
-		if (!is_object($profile))
+		if (!is_object($user))
 		{
 			$this->set_error('password_change_unsuccessful');
 			return FALSE;
@@ -214,7 +206,7 @@ class Ion_auth
 			{
 				//Make sure it isn't expired
 				$expiration = $this->config->item('forgot_password_expiration', 'ion_auth');
-				if (time() - $profile->forgotten_password_time > $expiration)
+				if (time() - $user->forgotten_password_time > $expiration)
 				{
 					//it has expired
 					$this->ion_auth_model->clear_forgotten_password_code($code);
@@ -222,7 +214,7 @@ class Ion_auth
 					return FALSE;
 				}
 			}
-			return $profile;
+			return $user;
 		}
 	}
 
