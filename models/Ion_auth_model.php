@@ -247,13 +247,13 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Hashes the password to be stored in the database.
 	 *
-	 * @param string $identity
 	 * @param string $password
+	 * @param string $identity
 	 *
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hash_password($identity, $password)
+	public function hash_password($password, $identity = NULL)
 	{
 		// Check for empty password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -762,7 +762,8 @@ class Ion_auth_model extends CI_Model
 		// IP Address
 		$ip_address = $this->input->ip_address();
 
-		$password = $this->hash_password($identity, $password);
+		// Do not pass $identity as user is not known yet so there is no need
+		$password = $this->hash_password($password);
 
 		// Users table.
 		$data = array(
@@ -836,7 +837,7 @@ class Ion_auth_model extends CI_Model
 		if ($this->is_max_login_attempts_exceeded($identity))
 		{
 			// Hash something anyway, just to take up time
-			$this->hash_password($identity, $password);
+			$this->hash_password($password);
 
 			$this->trigger_events('post_login_unsuccessful');
 			$this->set_error('login_timeout');
@@ -883,7 +884,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// Hash something anyway, just to take up time
-		$this->hash_password($identity, $password);
+		$this->hash_password($password);
 
 		$this->increase_login_attempts($identity);
 
@@ -1712,7 +1713,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$data['password'] = $this->hash_password($user->{$this->identity_column}, $data['password']);
+					$data['password'] = $this->hash_password($data['password'], $user->{$this->identity_column});
 				}
 				else
 				{
@@ -2405,7 +2406,7 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _set_password_db($identity, $password)
 	{
-		$hash  = $this->hash_password($identity, $password);
+		$hash  = $this->hash_password($password, $identity);
 
 		// When setting a new password, invalidate any other token
 		$data = array(
