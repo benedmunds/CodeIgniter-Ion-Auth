@@ -867,7 +867,7 @@ class Ion_auth_model extends CI_Model
 
 				if ($remember && $this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($user->id);
+					$this->remember_user($identity);
 				}
 				
 				// Rehash if needed
@@ -1864,16 +1864,16 @@ class Ion_auth_model extends CI_Model
 	 * Implemented as described in
 	 * https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 	 *
-	 * @param int|string $id
+	 * @param string $identity
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
 	 */
-	public function remember_user($id)
+	public function remember_user($identity)
 	{
 		$this->trigger_events('pre_remember_user');
 
-		if (!$id)
+		if (!$identity)
 		{
 			return FALSE;
 		}
@@ -1883,20 +1883,20 @@ class Ion_auth_model extends CI_Model
 		// The validator will strictly validate the user and should be more complex
 		$validator = $this->_random_token(128);
 		// Of course, we store the validator hash to avoid session stealing if DB is leaked
-		$validator_hashed = hash($this->config->item('remember_me_hash_method', 'ion_auth'), $validator);
+		$validator_hashed = $this->hash_password($validator, $identity);
 
 		if ($validator_hashed)
 		{
 			$this->db->update($this->tables['users'],
 				array('remember_selector' => $selector,
 					  'remember_code' => $validator_hashed),
-				array('id' => $id));
+				array($this->identity_column => $identity));
 
-		if ($this->db->affected_rows() > -1)
-		{
-			$this->_set_remember_cookie_info($selector, $validator);
-			$this->trigger_events(array('post_remember_user', 'remember_user_successful'));
-			return TRUE;
+			if ($this->db->affected_rows() > -1)
+			{
+				$this->_set_remember_cookie_info($selector, $validator);
+				$this->trigger_events(array('post_remember_user', 'remember_user_successful'));
+				return TRUE;
 			}
 		}
 
@@ -1943,8 +1943,9 @@ class Ion_auth_model extends CI_Model
 			$user = $query->row();
 
 			// Check the code against the validator
-			$validator_hashed = hash($this->config->item('remember_me_hash_method', 'ion_auth'), $remember_token_validator);
-			if ($user->remember_code && hash_equals($user->remember_code, $validator_hashed))
+			if ($user->remember_code && $this->verify_password($user->{$this->identity_column},
+																$remember_token_validator,
+																$user->remember_code))
 			{
 				$this->update_last_login($user->id);
 
@@ -1953,7 +1954,7 @@ class Ion_auth_model extends CI_Model
 				// extend the users cookies if the option is enabled
 				if ($this->config->item('user_extend_on_login', 'ion_auth'))
 				{
-					$this->remember_user($user->id);
+					$this->remember_user($user->{$this->identity_column});
 				}
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
@@ -2484,14 +2485,17 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @return array|bool
 	 */
-	protected function _get_hash_parameters($identity)
+	protected function _get_hash_parameters($identity = NULL)
 	{
 		// Check if user is administrator or not
 		$is_admin = FALSE;
-		$user_id = $this->get_user_id_from_identity($identity);
-		if ($user_id && $this->in_group($this->config->item('admin_group', 'ion_auth'), $user_id))
+		if ($identity)
 		{
-			$is_admin = TRUE;
+			$user_id = $this->get_user_id_from_identity($identity);
+			if ($user_id && $this->in_group($this->config->item('admin_group', 'ion_auth'), $user_id))
+			{
+				$is_admin = TRUE;
+			}
 		}
 
 		$params = FALSE;
