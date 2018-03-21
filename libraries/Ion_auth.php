@@ -341,14 +341,7 @@ class Ion_auth
 		$this->session->unset_userdata(array($identity, 'id', 'user_id'));
 
 		// delete the remember me cookies if they exist
-		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
-		{
-			delete_cookie($this->config->item('identity_cookie_name', 'ion_auth'));
-		}
-		if (get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
-		{
-			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
-		}
+		delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 
 		// Destroy the session
 		$this->session->sess_destroy();
@@ -376,7 +369,7 @@ class Ion_auth
 		$recheck = $this->ion_auth_model->recheck_session();
 
 		// auto-login the user if they are remembered
-		if (!$recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		if (!$recheck && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$recheck = $this->ion_auth_model->login_remembered_user();
 		}

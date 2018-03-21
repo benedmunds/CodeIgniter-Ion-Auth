@@ -150,10 +150,8 @@ $config['recheck_timer']              = 0;                   /* The number of se
  | Cookie options.
  | -------------------------------------------------------------------------
  | remember_cookie_name Default: remember_code
- | identity_cookie_name Default: identity
  */
 $config['remember_cookie_name'] = 'remember_code';
-$config['identity_cookie_name'] = 'identity';
 
 /*
  | -------------------------------------------------------------------------
