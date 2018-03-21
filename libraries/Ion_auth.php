@@ -341,14 +341,7 @@ class Ion_auth
 		$this->session->unset_userdata(array($identity, 'id', 'user_id'));
 
 		// delete the remember me cookies if they exist
-		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
-		{
-			delete_cookie($this->config->item('identity_cookie_name', 'ion_auth'));
-		}
-		if (get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
-		{
-			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
-		}
+		delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 
 		// Destroy the session
 		$this->session->sess_destroy();
@@ -376,7 +369,7 @@ class Ion_auth
 		$recheck = $this->ion_auth_model->recheck_session();
 
 		// auto-login the user if they are remembered
-		if (!$recheck && get_cookie($this->config->item('identity_cookie_name', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		if (!$recheck && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$recheck = $this->ion_auth_model->login_remembered_user();
 		}
@@ -427,6 +420,15 @@ class Ion_auth
 				"Are you using CI 2 and PHP < 5.5? " .
 				"Please upgrade to CI 3, or PHP >= 5.5 " .
 				"or use password_compat (https://github.com/ircmaxell/password_compat).");
+		}
+
+		// PHP hash_equals function sanity check
+		if (!function_exists('hash_equals'))
+		{
+			show_error("PHP function hash_equals not found. " .
+				"Are you using CI 2 and PHP < 5.6? " .
+				"Please upgrade to CI 3, or PHP >= 5.6 " .
+				"or use a polyfill (http://php.net/manual/fr/function.hash-equals.php#115635).");
 		}
 
 		// Sanity check for CI2

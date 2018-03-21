@@ -116,6 +116,19 @@ $config['argon2_admin_params']		= array(
 
 /*
  | -------------------------------------------------------------------------
+ | Hash Method for remember me token
+ | -------------------------------------------------------------------------
+ |
+ | Accept any value accepted by the hash() function: http://php.net/manual/en/function.hash.php
+ |
+ | It is recommended to use at least a hash from the SHA-2 family
+ | SHA-384 is recommended as it is the only one (with SHA-224) to be less impacted by length extension attack
+ |
+ */
+$config['remember_me_hash_method'] = 'sha384';
+
+/*
+ | -------------------------------------------------------------------------
  | Authentication options.
  | -------------------------------------------------------------------------
  | maximum_login_attempts: This maximum is not enforced by the library, but is
@@ -150,10 +163,8 @@ $config['recheck_timer']              = 0;                   /* The number of se
  | Cookie options.
  | -------------------------------------------------------------------------
  | remember_cookie_name Default: remember_code
- | identity_cookie_name Default: identity
  */
 $config['remember_cookie_name'] = 'remember_code';
-$config['identity_cookie_name'] = 'identity';
 
 /*
  | -------------------------------------------------------------------------
