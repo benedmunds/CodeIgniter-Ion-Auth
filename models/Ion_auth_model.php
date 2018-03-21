@@ -1878,23 +1878,35 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		// The selector is a simple token to retrieve the user
-		$selector = $this->_random_token(40);
-		// The validator will strictly validate the user and should be more complex
-		$validator = $this->_random_token(128);
-		// Of course, we store the validator hash to avoid session stealing if DB is leaked
-		$validator_hashed = $this->hash_password($validator, $identity);
+		// Generate random tokens
+		$token = $this->_generate_selector_validator_couple();
 
-		if ($validator_hashed)
+		if ($token->validator_hashed)
 		{
 			$this->db->update($this->tables['users'],
-				array('remember_selector' => $selector,
-					  'remember_code' => $validator_hashed),
-				array($this->identity_column => $identity));
+								array('remember_selector' => $token->selector,
+									  'remember_code' => $token->validator_hashed),
+								array($this->identity_column => $identity));
 
 			if ($this->db->affected_rows() > -1)
 			{
-				$this->_set_remember_cookie_info($selector, $validator);
+				// if the user_expire is set to zero we'll set the expiration two years from now.
+				if($this->config->item('user_expire', 'ion_auth') === 0)
+				{
+					$expire = (60*60*24*365*2);
+				}
+				// otherwise use what is set
+				else
+				{
+					$expire = $this->config->item('user_expire', 'ion_auth');
+				}
+
+				set_cookie(array(
+					'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
+					'value'  => $token->user_code,
+					'expire' => $expire
+				));
+
 				$this->trigger_events(array('post_remember_user', 'remember_user_successful'));
 				return TRUE;
 			}
@@ -1916,13 +1928,11 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_login_remembered_user');
 
-		// Selector: it will be use to find the user
-		$remember_token_selector = NULL;
-		// Validator: it will be use to validate the user
-		$remember_token_validator = NULL;
+		// Retrieve token from cookie
+		$remember_cookie = get_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
+		$token = $this->_retrieve_selector_validator_couple($remember_cookie);
 
-		// check for existing cookie
-		if (!$this->_get_remember_cookie_info($remember_token_selector, $remember_token_validator))
+		if ($token === FALSE)
 		{
 			$this->trigger_events(array('post_login_remembered_user', 'post_login_remembered_user_unsuccessful'));
 			return FALSE;
@@ -1931,7 +1941,7 @@ class Ion_auth_model extends CI_Model
 		// get the user with the selector
 		$this->trigger_events('extra_where');
 		$query = $this->db->select($this->identity_column . ', id, email, remember_code, last_login')
-						  ->where('remember_selector', $remember_token_selector)
+						  ->where('remember_selector', $token->selector)
 						  ->where('active', 1)
 						  ->limit(1)
 						  ->get($this->tables['users']);
@@ -1944,7 +1954,7 @@ class Ion_auth_model extends CI_Model
 
 			// Check the code against the validator
 			if ($user->remember_code && $this->verify_password($user->{$this->identity_column},
-																$remember_token_validator,
+																$token->validator,
 																$user->remember_code))
 			{
 				$this->update_last_login($user->id);
@@ -2545,64 +2555,64 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Generate a random selector/validator couple
+	 *
+	 * @param $selector_size int	size of the selector token
+	 * @param $validator_size int	size of the validator token
+	 *
+	 * @return object
+	 * 			->selector			simple token to retrieve the user (to store in DB)
+	 * 			->validator_hashed	token (hashed) to validate the user (to store in DB)
+	 * 			->user_code			code to be used user-side (in cookie or URL)
+	 */
+	protected function _generate_selector_validator_couple($selector_size = 40, $validator_size = 128)
+	{
+		// The selector is a simple token to retrieve the user
+		$selector = $this->_random_token($selector_size);
+
+		// The validator will strictly validate the user and should be more complex
+		$validator = $this->_random_token($validator_size);
+
+		// The validator is hashed for storing in DB (avoid session stealing in case of DB leaked)
+		$validator_hashed = $this->hash_password($validator);
+
+		// The code to be used user-side
+		$user_code = "$selector.$validator";
+
+		return (object) array(
+			'selector' => $selector,
+			'validator_hashed' => $validator_hashed,
+			'user_code' => $user_code,
+		);
+	}
+
+	/**
 	 * Retrieve remember cookie info
 	 *
-	 * @param $selector		string (output var)
-	 * @param $validator	string (output var)
+	 * @param $user_code	string
 	 *
-	 * @return bool
+	 * @return object
+	 * 			->selector		simple token to retrieve the user in DB
+	 * 			->validator		token to validate the user (check against hashed value in DB)
 	 */
-	protected function _get_remember_cookie_info(&$selector, &$validator)
+	protected function _retrieve_selector_validator_couple($user_code)
 	{
-		// Init out vars
-		$selector = NULL;
-		$validator = NULL;
-
-		$remember_cookie = get_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
-
-		// Check cookie
-		if ($remember_cookie)
+		// Check code
+		if ($user_code)
 		{
-			$remember_tokens = explode(':', $remember_cookie);
+			$tokens = explode('.', $user_code);
 
 			// Check tokens
-			if (count($remember_tokens) === 2)
+			if (count($tokens) === 2)
 			{
-				$selector = $remember_tokens[0];
-				$validator = $remember_tokens[1];
-				return TRUE;
+				return (object) array(
+					'selector' => $tokens[0],
+					'validator' => $tokens[1]
+				);
 			}
 		}
 
 		return FALSE;
-	}
-
-	/**
-	 * Set remember cookie info
-	 *
-	 * @param $selector		string
-	 * @param $validator	string
-	 */
-	protected function _set_remember_cookie_info($selector, $validator)
-	{
-		$remember_cookie = "$selector:$validator";
-
-		// if the user_expire is set to zero we'll set the expiration two years from now.
-		if($this->config->item('user_expire', 'ion_auth') === 0)
-		{
-			$expire = (60*60*24*365*2);
-		}
-		// otherwise use what is set
-		else
-		{
-			$expire = $this->config->item('user_expire', 'ion_auth');
-		}
-
-		set_cookie(array(
-			'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
-			'value'  => $remember_cookie,
-			'expire' => $expire
-		));
 	}
 
 	/**
