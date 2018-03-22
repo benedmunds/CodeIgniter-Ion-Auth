@@ -277,18 +277,18 @@ class Ion_auth_model extends CI_Model
 	 * This function takes a password and validates it
 	 * against an entry in the users table.
 	 *
-	 * @param string	$identity
 	 * @param string	$password
 	 * @param string	$hash_password_db
+	 * @param string	$identity			optional @deprecated only for BC SHA1
 	 *
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function verify_password($identity, $password, $hash_password_db)
+	public function verify_password($password, $hash_password_db, $identity = NULL)
 	{
 		// Check for empty id or password, or password containing null char
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
-		if (empty($password) || strpos($password, "\0") !== FALSE)
+		if (empty($password) || empty($hash_password_db) || strpos($password, "\0") !== FALSE)
 		{
 			return FALSE;
 		}
@@ -544,7 +544,7 @@ class Ion_auth_model extends CI_Model
 
 		$user = $query->row();
 
-		if ($this->verify_password($identity, $old, $user->password))
+		if ($this->verify_password($old, $user->password, $identity))
 		{
 			$result = $this->_set_password_db($identity, $new);
 
@@ -724,9 +724,7 @@ class Ion_auth_model extends CI_Model
 		if ($user)
 		{
 			// Check the hash against the validator
-			if ($user->forgotten_password_code && $this->verify_password($user->{$this->identity_column},
-					$token->validator,
-					$user->forgotten_password_code))
+			if ($this->verify_password($token->validator, $user->forgotten_password_code))
 			{
 				return $user;
 			}
@@ -865,7 +863,7 @@ class Ion_auth_model extends CI_Model
 		{
 			$user = $query->row();
 
-			if ($this->verify_password($identity, $password, $user->password) === TRUE)
+			if ($this->verify_password($password, $user->password, $identity))
 			{
 				if ($user->active == 0)
 				{
@@ -1969,9 +1967,8 @@ class Ion_auth_model extends CI_Model
 			$user = $query->row();
 
 			// Check the code against the validator
-			if ($user->remember_code && $this->verify_password($user->{$this->identity_column},
-																$token->validator,
-																$user->remember_code))
+			$identity = $user->{$this->identity_column};
+			if ($this->verify_password($token->validator, $user->remember_code, $identity))
 			{
 				$this->update_last_login($user->id);
 
