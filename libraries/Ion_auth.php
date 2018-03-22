@@ -193,7 +193,7 @@ class Ion_auth
 	 */
 	public function forgotten_password_check($code)
 	{
-		$user = $this->ion_auth_model->forgotten_password_get_user($code);
+		$user = $this->ion_auth_model->get_user_by_forgotten_password_code($code);
 
 		if (!is_object($user))
 		{

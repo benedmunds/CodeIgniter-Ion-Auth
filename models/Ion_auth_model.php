@@ -713,7 +713,7 @@ class Ion_auth_model extends CI_Model
 	 * @author  Mathew
 	 * @updated Ryan
 	 */
-	public function forgotten_password_get_user($user_code)
+	public function get_user_by_forgotten_password_code($user_code)
 	{
 		// Retrieve the token object from the code
 		$token = $this->_retrieve_selector_validator_couple($user_code);
