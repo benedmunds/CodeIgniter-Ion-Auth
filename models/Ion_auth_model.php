@@ -449,35 +449,52 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Finds the user with the given forgotten password code and clears the forgotten password fields
+	 * Clear the forgotten password code for a user
 	 *
-	 * @param string $code
+	 * @param string $identity
 	 *
 	 * @return bool Success
 	 */
-	public function clear_forgotten_password_code($code) {
+	public function clear_forgotten_password_code($identity) {
 
-		if (empty($code))
+		if (empty($identity))
 		{
 			return FALSE;
 		}
 
-		$this->db->where('forgotten_password_code', $code);
+		$data = array(
+			'forgotten_password_selector' => NULL,
+			'forgotten_password_code' => NULL,
+			'forgotten_password_time' => NULL
+		);
 
-		if ($this->db->count_all_results($this->tables['users']) > 0)
+		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+
+		return TRUE;
+	}
+
+	/**
+	 * Clear the remember code for a user
+	 *
+	 * @param string $identity
+	 *
+	 * @return bool Success
+	 */
+	public function clear_remember_code($identity) {
+
+		if (empty($identity))
 		{
-			$data = array(
-			    'forgotten_password_selector' => NULL,
-			    'forgotten_password_code' => NULL,
-			    'forgotten_password_time' => NULL
-			);
-
-			$this->db->update($this->tables['users'], $data, array('forgotten_password_code' => $code));
-
-			return TRUE;
+			return FALSE;
 		}
 
-		return FALSE;
+		$data = array(
+			'remember_selector' => NULL,
+			'remember_code' => NULL
+		);
+
+		$this->db->update($this->tables['users'], $data, array($this->identity_column => $identity));
+
+		return TRUE;
 	}
 
 	/**
@@ -880,10 +897,18 @@ class Ion_auth_model extends CI_Model
 				$this->update_last_login($user->id);
 
 				$this->clear_login_attempts($identity);
+				$this->clear_forgotten_password_code($identity);
 
-				if ($remember && $this->config->item('remember_users', 'ion_auth'))
+				if ($this->config->item('remember_users', 'ion_auth'))
 				{
-					$this->remember_user($identity);
+					if ($remember)
+					{
+						$this->remember_user($identity);
+					}
+					else
+					{
+						$this->clear_remember_code($identity);
+					}
 				}
 				
 				// Rehash if needed
@@ -1968,19 +1993,21 @@ class Ion_auth_model extends CI_Model
 			// Retrieve the information
 			$user = $query->row();
 
+			$identity = $user->{$this->identity_column};
+
 			// Check the code against the validator
-			if ($user->remember_code && $this->verify_password($user->{$this->identity_column},
-																$token->validator,
-																$user->remember_code))
+			if ($user->remember_code && $this->verify_password($identity, $token->validator, $user->remember_code))
 			{
 				$this->update_last_login($user->id);
 
 				$this->set_session($user);
 
+				$this->clear_forgotten_password_code($identity);
+
 				// extend the users cookies if the option is enabled
 				if ($this->config->item('user_extend_on_login', 'ion_auth'))
 				{
-					$this->remember_user($user->{$this->identity_column});
+					$this->remember_user($identity);
 				}
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
