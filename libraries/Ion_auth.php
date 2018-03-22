@@ -209,7 +209,8 @@ class Ion_auth
 				if (time() - $user->forgotten_password_time > $expiration)
 				{
 					//it has expired
-					$this->ion_auth_model->clear_forgotten_password_code($code);
+					$identity = $user->{$this->config->item('identity', 'ion_auth')};
+					$this->ion_auth_model->clear_forgotten_password_code($identity);
 					$this->set_error('password_change_unsuccessful');
 					return FALSE;
 				}
@@ -334,6 +335,10 @@ class Ion_auth
 
 		// delete the remember me cookies if they exist
 		delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
+
+		// Clear all codes
+		$this->ion_auth_model->clear_forgotten_password_code($identity);
+		$this->ion_auth_model->clear_remember_code($identity);
 
 		// Destroy the session
 		$this->session->sess_destroy();
