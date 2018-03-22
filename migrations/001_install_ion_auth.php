@@ -80,9 +80,14 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'constraint' => '40',
 				'null'       => TRUE
 			),
+			'forgotten_password_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE
+			),
 			'forgotten_password_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
 			),
 			'forgotten_password_time' => array(
