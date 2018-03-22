@@ -1829,7 +1829,7 @@ class Ion_auth_model extends CI_Model
 		// if the user_expire is set to zero we'll set the expiration two years from now.
 		if($this->config->item('user_expire', 'ion_auth') === 0)
 		{
-			$expire = (60*60*24*365*2);
+			$expire = 63072000; // 2 years = 60*60*24*365*2 = 63072000 seconds
 		}
 		// otherwise use what is set
 		else
