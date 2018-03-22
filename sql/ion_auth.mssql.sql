@@ -20,6 +20,7 @@ CREATE TABLE users (
     phone varchar(20),
   PRIMARY KEY(id),
   CONSTRAINT uc_email UNIQUE (email),
+  CONSTRAINT uc_activation_selector UNIQUE (activation_selector),
   CONSTRAINT uc_forgotten_password_selector UNIQUE (forgotten_password_selector),
   CONSTRAINT uc_remember_selector UNIQUE (remember_selector),
   CONSTRAINT users_check_id CHECK(id >= 0),

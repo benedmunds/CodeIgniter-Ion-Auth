@@ -1,5 +1,12 @@
 
 #
+# activation feature upgrade
+#
+ALTER TABLE `users`
+  ADD     COLUMN `activation_selector`  varchar(255) AFTER `email`,
+  MODIFY  COLUMN `activation_code`      varchar(255);
+
+#
 # Remember_me feature upgrade
 #
 ALTER TABLE `users`
@@ -19,6 +26,10 @@ ALTER TABLE `users`
 ALTER TABLE `users`
   ADD CONSTRAINT uc_email
     UNIQUE (email);
+
+ALTER TABLE `users`
+  ADD CONSTRAINT uc_activation_selector
+    UNIQUE (activation_selector);
 
 ALTER TABLE `users`
   ADD CONSTRAINT uc_remember_selector

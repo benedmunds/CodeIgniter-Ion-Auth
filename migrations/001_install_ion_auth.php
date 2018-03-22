@@ -76,9 +76,15 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'constraint' => '254',
 				'unique' => TRUE
 			),
+			'activation_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE,
+				'unique' => TRUE
+			),
 			'activation_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
 			),
 			'forgotten_password_selector' => array(
