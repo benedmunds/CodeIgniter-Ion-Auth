@@ -339,7 +339,7 @@ class Ion_auth_model extends CI_Model
 	 * Validates and removes activation code.
 	 *
 	 * @param int|string $id
-	 * @param bool       $code
+	 * @param bool       $code		if omitted, simply activate the user without check
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -348,56 +348,60 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_activate');
 
-		if ($code !== FALSE)
+		$token = $this->_retrieve_selector_validator_couple($code);
+
+		if ($token !== FALSE)
 		{
-			$query = $this->db->select($this->identity_column)
-			                  ->where('activation_code', $code)
+			// A token was provided, we need to check it
+
+			$query = $this->db->select(array($this->identity_column, 'activation_code'))
+			                  ->where('activation_selector', $token->selector)
 			                  ->where('id', $id)
 			                  ->limit(1)
-			                  ->order_by('id', 'desc')
 			                  ->get($this->tables['users']);
 
-			$query->row();
-
-			if ($query->num_rows() !== 1)
+			if ($query->num_rows() === 1)
 			{
-				$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
-				$this->set_error('activate_unsuccessful');
-				return FALSE;
+				$user = $query->row();
+
+				if ($this->verify_password($token->validator, $user->activation_code))
+				{
+					$data = array(
+						'activation_selector' => NULL,
+						'activation_code' => NULL,
+						'active'          => 1
+					);
+
+					$this->trigger_events('extra_where');
+					$this->db->update($this->tables['users'], $data, array('id' => $id));
+					return TRUE;
+				}
 			}
+		}
+		else
+		{
+			// A token was NOT provided, simply activate the user
 
 			$data = array(
+			    'activation_selector' => NULL,
 			    'activation_code' => NULL,
 			    'active'          => 1
 			);
 
 			$this->trigger_events('extra_where');
 			$this->db->update($this->tables['users'], $data, array('id' => $id));
-		}
-		else
-		{
-			$data = array(
-			    'activation_code' => NULL,
-			    'active'          => 1
-			);
 
-			$this->trigger_events('extra_where');
-			$this->db->update($this->tables['users'], $data, array('id' => $id));
+			if ($this->db->affected_rows() === 1)
+			{
+				$this->trigger_events(array('post_activate', 'post_activate_successful'));
+				$this->set_message('activate_successful');
+				return TRUE;
+			}
 		}
 
-		$return = $this->db->affected_rows() == 1;
-		if ($return)
-		{
-			$this->trigger_events(array('post_activate', 'post_activate_successful'));
-			$this->set_message('activate_successful');
-		}
-		else
-		{
-			$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
-			$this->set_error('activate_unsuccessful');
-		}
-
-		return $return;
+		$this->trigger_events(array('post_activate', 'post_activate_unsuccessful'));
+		$this->set_error('activate_unsuccessful');
+		return FALSE;
 	}
 
 
@@ -424,11 +428,12 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		$activation_code = sha1(md5(microtime()));
-		$this->activation_code = $activation_code;
+		$token = $this->_generate_selector_validator_couple(20, 40);
+		$this->activation_code = $token->user_code;
 
 		$data = array(
-		    'activation_code' => $activation_code,
+		    'activation_selector' => $token->selector,
+		    'activation_code' => $token->validator_hashed,
 		    'active'          => 0
 		);
 
