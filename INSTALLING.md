@@ -15,7 +15,6 @@ CI                          # → Root Directory
     ├── controllers/
     │   └── Auth.php
     ├── libraries
-    │   ├── Bcrypt.php
     │   └── Ion_auth.php
     ├── models
     │   └── Ion_auth_model.php
@@ -39,7 +38,6 @@ CI                          # → Root Directory
     │       ├── config/
     │       │   └── ion_auth.php
     │       ├── libraries
-    │       │    ├── Bcrypt.php
     │       │    └── Ion_auth.php
     │       └── models
     │            └── Ion_auth_model.php

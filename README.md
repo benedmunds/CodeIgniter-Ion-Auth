@@ -48,20 +48,13 @@ Password: password
 It is highly recommended that you use encrypted database sessions for security!
 
 
-### Optimization
-It is recommended that you add the following columns as a unique index:
- 1. The identity column (see option `$config['identity']`)
- 2. The remember_selector column
- 3. The forgotten_password_selector column
-
-
 ### Options
 Time Based One-Time Password (TOTP) -
 There is a Time Based One-Time Password (TOTP) implementation compatible with Google Authenticator available. Feature branch maintained by [biscofil](https://github.com/biscofil) and is available at [https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp](https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp)
 
 
 ## For Help
-Feel free to send me an email if you have any problems.
+Feel free to open an issue or send me an email if you have any problems.
 
 
 Thanks,    
