@@ -79,12 +79,13 @@ $config['join']['groups'] = 'group_id';
  | Argon2 specific:
  | 		argon2_default_params settings:  This is an array containing the options for the Argon2 algorithm.
  | 		You can define 3 differents keys:
- | 			memory_cost (default PASSWORD_ARGON2_DEFAULT_MEMORY_COST = 1024)
+ | 			memory_cost (default 4096 kB)
  |				Maximum memory (in kBytes) that may be used to compute the Argon2 hash
  |				The spec recommends setting the memory cost to a power of 2.
- | 			time_cost (default PASSWORD_ARGON2_DEFAULT_TIME_COST = 2 seconds)
- |				Maximum amount of time (in seconds) it may take to compute the Argon2 hash
- | 			threads (default PASSWORD_ARGON2_DEFAULT_THREADS = 2)
+ | 			time_cost (default 2)
+ |				Number of iterations (used to tune the running time independently of the memory size).
+                This defines how strong the encryption will be.
+ | 			threads (default 2)
  |				Number of threads to use for computing the Argon2 hash
  |				The spec recommends setting the number of threads to a power of 2.
  |
