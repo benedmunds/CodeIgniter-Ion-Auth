@@ -79,12 +79,13 @@ $config['join']['groups'] = 'group_id';
  | Argon2 specific:
  | 		argon2_default_params settings:  This is an array containing the options for the Argon2 algorithm.
  | 		You can define 3 differents keys:
- | 			memory_cost (default PASSWORD_ARGON2_DEFAULT_MEMORY_COST = 1024)
+ | 			memory_cost (default 4096 kB)
  |				Maximum memory (in kBytes) that may be used to compute the Argon2 hash
  |				The spec recommends setting the memory cost to a power of 2.
- | 			time_cost (default PASSWORD_ARGON2_DEFAULT_TIME_COST = 2 seconds)
- |				Maximum amount of time (in seconds) it may take to compute the Argon2 hash
- | 			threads (default PASSWORD_ARGON2_DEFAULT_THREADS = 2)
+ | 			time_cost (default 2)
+ |				Number of iterations (used to tune the running time independently of the memory size).
+                This defines how strong the encryption will be.
+ | 			threads (default 2)
  |				Number of threads to use for computing the Argon2 hash
  |				The spec recommends setting the number of threads to a power of 2.
  |
@@ -127,7 +128,10 @@ $config['site_title']                 = "Example.com";       // Site Title, exam
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
 $config['default_group']              = 'members';           // Default group, use name
 $config['admin_group']                = 'admin';             // Default administrators group, use name
-$config['identity']                   = 'email';             // You can use any unique column in your table as identity column. The values in this column, alongside password, will be used for login purposes
+$config['identity']                   = 'email';             /* You can use any unique column in your table as identity column.
+															    The values in this column, alongside password, will be used for login purposes
+															    IMPORTANT: If you are changing it from the default (email),
+															    		   update the UNIQUE constraint in your DB */
 $config['min_password_length']        = 8;                   // Minimum Required Length of Password
 $config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
 $config['email_activation']           = FALSE;               // Email Activation for registration
@@ -140,7 +144,9 @@ $config['track_login_ip_address']     = TRUE;                // Track login atte
 $config['maximum_login_attempts']     = 3;                   // The maximum number of failed login attempts.
 $config['lockout_time']               = 600;                 /* The number of seconds to lockout an account due to exceeded attempts
 																You should not use a value below 60 (1 minute) */
-$config['forgot_password_expiration'] = 0;                   // The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
+$config['forgot_password_expiration'] = 1800;                /* The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
+                   												30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password)
+                   												You should not set a value too high, as it would be a security issue! */
 $config['recheck_timer']              = 0;                   /* The number of seconds after which the session is checked again against database to see if the user still exists and is active.
 																Leave 0 if you don't want session recheck. if you really think you need to recheck the session against database, we would
 																recommend a higher value, as this would affect performance */

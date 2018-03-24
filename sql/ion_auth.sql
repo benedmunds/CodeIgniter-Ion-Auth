@@ -47,7 +47,11 @@ CREATE TABLE `users` (
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT `uc_email` UNIQUE (`email`),
+  CONSTRAINT `uc_activation_selector` UNIQUE (`activation_selector`),
+  CONSTRAINT `uc_forgotten_password_selector` UNIQUE (`forgotten_password_selector`),
+  CONSTRAINT `uc_remember_selector` UNIQUE (`remember_selector`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
