@@ -77,7 +77,3 @@ $lang['email_forgot_password_heading']    = '重新啟用密碼 %s';
 $lang['email_forgot_password_subheading'] = '請點此連結 %s';
 $lang['email_forgot_password_link']       = '重新啟動密碼';
 
-// New Password Email
-$lang['email_new_password_subject']    = '新密碼';
-$lang['email_new_password_heading']    = '新密碼 %s';
-$lang['email_new_password_subheading'] = '您的密碼已重置為: %s';

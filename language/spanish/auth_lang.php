@@ -157,6 +157,3 @@ $lang['email_forgot_password_heading']    = 'Reestablecer contraseña para %s';
 $lang['email_forgot_password_subheading'] = 'Por favor ingresa en este link para %s.';
 $lang['email_forgot_password_link']       = 'Restablecer Tu Contraseña';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nueva contraseña para %s';
-$lang['email_new_password_subheading'] = 'Tu contraseña ha sido restablecida a: %s';

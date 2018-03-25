@@ -319,12 +319,14 @@ class Auth extends CI_Controller
 			}
 			else
 			{
+				$identity = $user->{$this->config->item('identity', 'ion_auth')};
+
 				// do we have a valid request?
 				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->input->post('user_id'))
 				{
 
 					// something fishy might be up
-					$this->ion_auth->clear_forgotten_password_code($code);
+					$this->ion_auth->clear_forgotten_password_code($identity);
 
 					show_error($this->lang->line('error_csrf'));
 
@@ -332,8 +334,6 @@ class Auth extends CI_Controller
 				else
 				{
 					// finally change the password
-					$identity = $user->{$this->config->item('identity', 'ion_auth')};
-
 					$change = $this->ion_auth->reset_password($identity, $this->input->post('new'));
 
 					if ($change)

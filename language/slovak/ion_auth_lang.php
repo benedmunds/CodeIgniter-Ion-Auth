@@ -70,7 +70,3 @@ $lang['email_forgotten_password_subject']    = 'Obnovenie hesla kontrola';
 $lang['email_forgot_password_heading']    = 'Obnoviť heslo pre %s';
 $lang['email_forgot_password_subheading'] = 'Prosím kliknite na tento odkaz pre %s.';
 $lang['email_forgot_password_link']       = 'Reset vášho hesla';
-// New Password Email
-$lang['email_new_password_subject']          = 'Nové heslo';
-$lang['email_new_password_heading']    = 'Nové heslo pre %s';
-$lang['email_new_password_subheading'] = 'Vaše heslo bolo resetované na: %s';

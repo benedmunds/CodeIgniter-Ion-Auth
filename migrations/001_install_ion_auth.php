@@ -71,23 +71,31 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'type'       => 'VARCHAR',
 				'constraint' => '80',
 			),
-			'salt' => array(
-				'type'       => 'VARCHAR',
-				'constraint' => '40',
-				'null'       => TRUE
-			),
 			'email' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '254'
+				'constraint' => '254',
+				'unique' => TRUE
+			),
+			'activation_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE,
+				'unique' => TRUE
 			),
 			'activation_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
+			),
+			'forgotten_password_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE,
+				'unique' => TRUE
 			),
 			'forgotten_password_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
 			),
 			'forgotten_password_time' => array(
@@ -96,9 +104,15 @@ class Migration_Install_ion_auth extends CI_Migration {
 				'unsigned'   => TRUE,
 				'null'       => TRUE
 			),
+			'remember_selector' => array(
+				'type'       => 'VARCHAR',
+				'constraint' => '255',
+				'null'       => TRUE,
+                'unique' => TRUE
+			),
 			'remember_code' => array(
 				'type'       => 'VARCHAR',
-				'constraint' => '40',
+				'constraint' => '255',
 				'null'       => TRUE
 			),
 			'created_on' => array(
@@ -147,8 +161,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 		$data = array(
 			'ip_address'              => '127.0.0.1',
 			'username'                => 'administrator',
-			'password'                => '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36',
-			'salt'                    => '',
+			'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
 			'email'                   => 'admin@admin.com',
 			'activation_code'         => '',
 			'forgotten_password_code' => NULL,

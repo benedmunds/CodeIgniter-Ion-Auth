@@ -150,6 +150,3 @@ $lang['email_forgot_password_heading']    = 'بازیابی کلمه عبور ب
 $lang['email_forgot_password_subheading'] = 'لطفا روی این لینک کلیک کنید %s';
 $lang['email_forgot_password_link']       = 'کلمه عبور خود را بازیابی کنید';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'کلمه عبور جدید برای %s';
-$lang['email_new_password_subheading'] = 'کلمه عبور جدید شما: %s';

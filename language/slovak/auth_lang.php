@@ -154,7 +154,5 @@ $lang['email_forgot_password_heading'] = 'Vytvoriť nové heslo pre %s';
 $lang['email_forgot_password_subheading'] = 'Prosím kliknite na tento odkaz %s.';
 $lang['email_forgot_password_link'] = 'Reset hesla';
 
-// New Password Email
-$lang['email_new_password_heading'] = 'Nové heslo pre %s';
 $lang['email new_password nadpis'] = 'Vaše heslo bolo obnovené: %s';
 
