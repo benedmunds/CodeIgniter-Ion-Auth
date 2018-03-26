@@ -23,7 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Class Ion Auth Model
- * @property Bcrypt $bcrypt The Bcrypt library
  * @property Ion_auth $ion_auth The Ion_auth library
  */
 class Ion_auth_model extends CI_Model
@@ -638,6 +637,8 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * Identity check
+	 *
+	 * @param $identity string
 	 *
 	 * @return bool
 	 * @author Mathew
