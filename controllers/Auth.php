@@ -7,6 +7,7 @@
  */
 class Auth extends CI_Controller
 {
+	public $data = [];
 
 	public function __construct()
 	{
@@ -366,6 +367,8 @@ class Auth extends CI_Controller
 	 */
 	public function activate($id, $code = FALSE)
 	{
+		$activation = FALSE;
+
 		if ($code !== FALSE)
 		{
 			$activation = $this->ion_auth->activate($id, $code);
@@ -863,9 +866,9 @@ class Auth extends CI_Controller
 	public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
 	{
 
-		$this->viewdata = (empty($data)) ? $this->data : $data;
+		$viewdata = (empty($data)) ? $this->data : $data;
 
-		$view_html = $this->load->view($view, $this->viewdata, $returnhtml);
+		$view_html = $this->load->view($view, $viewdata, $returnhtml);
 
 		// This will return html on 3rd argument being true
 		if ($returnhtml)
