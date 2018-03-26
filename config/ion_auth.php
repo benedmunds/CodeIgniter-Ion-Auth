@@ -104,16 +104,16 @@ $config['join']['groups'] = 'group_id';
 $config['hash_method']				= 'bcrypt';	// bcrypt or argon2
 $config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 $config['bcrypt_admin_cost']		= 12;		// Cost for user in admin group
-$config['argon2_default_params']	= array(
+$config['argon2_default_params']	= [
 	'memory_cost'	=> 1 << 12,	// 4MB
 	'time_cost'		=> 2,
 	'threads'		=> 2
-);
-$config['argon2_admin_params']		= array(
+];
+$config['argon2_admin_params']		= [
 	'memory_cost'	=> 1 << 14,	// 16MB
 	'time_cost'		=> 4,
 	'threads'		=> 2
-);
+];
 
 /*
  | -------------------------------------------------------------------------
@@ -168,9 +168,9 @@ $config['remember_cookie_name'] = 'remember_code';
  | 	  array  = Manually set your email config settings
  */
 $config['use_ci_email'] = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
-$config['email_config'] = array(
+$config['email_config'] = [
 	'mailtype' => 'html',
-);
+];
 
 /*
  | -------------------------------------------------------------------------
