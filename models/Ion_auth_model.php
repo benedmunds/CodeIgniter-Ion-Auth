@@ -1495,7 +1495,7 @@ class Ion_auth_model extends CI_Model
 	 **/
 	public function in_group($check_group, $id = FALSE, $check_all = FALSE)
 	{
-		$this->ion_auth_model->trigger_events('in_group');
+		$this->trigger_events('in_group');
 
 		$id || $id = $this->session->userdata('user_id');
 
