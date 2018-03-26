@@ -28,6 +28,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Ion_auth_model extends CI_Model
 {
 	/**
+	 * Max cookie lifetime constant
+	 */
+	const MAX_COOKIE_LIFETIME = 63072000; // 2 years = 60*60*24*365*2 = 63072000 seconds;
+
+	/**
 	 * Holds an array of tables used
 	 *
 	 * @var array
@@ -1858,7 +1863,7 @@ class Ion_auth_model extends CI_Model
 		// if the user_expire is set to zero we'll set the expiration two years from now.
 		if($this->config->item('user_expire', 'ion_auth') === 0)
 		{
-			$expire = 63072000; // 2 years = 60*60*24*365*2 = 63072000 seconds
+			$expire = self::MAX_COOKIE_LIFETIME;
 		}
 		// otherwise use what is set
 		else
@@ -1938,7 +1943,7 @@ class Ion_auth_model extends CI_Model
 				// if the user_expire is set to zero we'll set the expiration two years from now.
 				if($this->config->item('user_expire', 'ion_auth') === 0)
 				{
-					$expire = (60*60*24*365*2);
+					$expire = self::MAX_COOKIE_LIFETIME;
 				}
 				// otherwise use what is set
 				else
