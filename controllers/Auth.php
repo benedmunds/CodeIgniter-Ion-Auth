@@ -7,6 +7,7 @@
  */
 class Auth extends CI_Controller
 {
+	public $data = [];
 
 	public function __construct()
 	{
@@ -34,7 +35,7 @@ class Auth extends CI_Controller
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
 			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			show_error('You must be an administrator to view this page.');
 		}
 		else
 		{
@@ -115,7 +116,7 @@ class Auth extends CI_Controller
 		$this->data['title'] = "Logout";
 
 		// log the user out
-		$logout = $this->ion_auth->logout();
+		$this->ion_auth->logout();
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
@@ -370,6 +371,8 @@ class Auth extends CI_Controller
 	 */
 	public function activate($id, $code = FALSE)
 	{
+		$activation = FALSE;
+
 		if ($code !== FALSE)
 		{
 			$activation = $this->ion_auth->activate($id, $code);
@@ -403,7 +406,7 @@ class Auth extends CI_Controller
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			show_error('You must be an administrator to view this page.');
 		}
 
 		$id = (int)$id;
@@ -428,7 +431,7 @@ class Auth extends CI_Controller
 				// do we have a valid request?
 				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
 				{
-					return show_error($this->lang->line('error_csrf'));
+					show_error($this->lang->line('error_csrf'));
 				}
 
 				// do we have the right userlevel?
@@ -867,9 +870,9 @@ class Auth extends CI_Controller
 	public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
 	{
 
-		$this->viewdata = (empty($data)) ? $this->data : $data;
+		$viewdata = (empty($data)) ? $this->data : $data;
 
-		$view_html = $this->load->view($view, $this->viewdata, $returnhtml);
+		$view_html = $this->load->view($view, $viewdata, $returnhtml);
 
 		// This will return html on 3rd argument being true
 		if ($returnhtml)
