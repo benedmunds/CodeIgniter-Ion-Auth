@@ -400,7 +400,7 @@ class Ion_auth
 
 		$admin_group = $this->config->item('admin_group', 'ion_auth');
 
-		return $this->in_group($admin_group, $id);
+		return $this->ion_auth_model->in_group($admin_group, $id);
 	}
 
 	/**
