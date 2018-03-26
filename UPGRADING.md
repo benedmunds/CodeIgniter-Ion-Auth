@@ -38,6 +38,8 @@ The config file has changed:
     - `argon2_default_params` is added for the Argon2 hash method
     - `bcrypt_admin_cost` and `argon2_admin_params` are added to tweak the hash
     parameters for users in the admin group
+- For the **Authentication options** part:
+    - `max_password_length` is removed as it is not good practice to limit password's length
 - For the **Cookie options** part:
     - `random_identity_cookie_name` is removed as it doesn't serve any purpose anymore
 - The **Forgot Password Complete Email Template** part is completely removed because
