@@ -119,10 +119,13 @@ $config['argon2_admin_params']		= [
  | -------------------------------------------------------------------------
  | Authentication options.
  | -------------------------------------------------------------------------
- | maximum_login_attempts: This maximum is not enforced by the library, but is
- | used by $this->ion_auth->is_max_login_attempts_exceeded().
- | The controller should check this function and act
- | appropriately. If this variable set to 0, there is no maximum.
+ | maximum_login_attempts: 	This maximum is not enforced by the library, but is used by
+ | 							is_max_login_attempts_exceeded().
+ | 							The controller should check this function and act appropriately.
+ | 							If this variable set to 0, there is no maximum.
+ | min_password_length:		This minimum is not enforced directly by the library.
+ | 							The controller should define a validation rule to enforce it.
+ | 							See the Auth controller for an example implementation.
  */
 $config['site_title']                 = "Example.com";       // Site Title, example.com
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com
@@ -132,8 +135,7 @@ $config['identity']                   = 'email';             /* You can use any 
 															    The values in this column, alongside password, will be used for login purposes
 															    IMPORTANT: If you are changing it from the default (email),
 															    		   update the UNIQUE constraint in your DB */
-$config['min_password_length']        = 8;                   // Minimum Required Length of Password
-$config['max_password_length']        = 20;                  // Maximum Allowed Length of Password
+$config['min_password_length']        = 8;                   // Minimum Required Length of Password (not enforced by lib - see note above)
 $config['email_activation']           = FALSE;               // Email Activation for registration
 $config['manual_activation']          = FALSE;               // Manual Activation for registration
 $config['remember_users']             = TRUE;                // Allow users to be remembered and enable auto-login
