@@ -34,7 +34,7 @@ class Auth extends CI_Controller
 		else if (!$this->ion_auth->is_admin()) // remove this elseif if you want to enable this for non-admins
 		{
 			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			show_error('You must be an administrator to view this page.');
 		}
 		else
 		{
@@ -399,7 +399,7 @@ class Auth extends CI_Controller
 		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
 		{
 			// redirect them to the home page because they must be an administrator to view this
-			return show_error('You must be an administrator to view this page.');
+			show_error('You must be an administrator to view this page.');
 		}
 
 		$id = (int)$id;
@@ -424,7 +424,7 @@ class Auth extends CI_Controller
 				// do we have a valid request?
 				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
 				{
-					return show_error($this->lang->line('error_csrf'));
+					show_error($this->lang->line('error_csrf'));
 				}
 
 				// do we have the right userlevel?
