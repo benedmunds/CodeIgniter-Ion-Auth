@@ -39,6 +39,8 @@ class Auth extends CI_Controller
 		}
 		else
 		{
+			$this->data['title'] = $this->lang->line('index_heading');
+			
 			// set the flash data error message if there is one
 			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -198,6 +200,8 @@ class Auth extends CI_Controller
 	 */
 	public function forgot_password()
 	{
+		$this->data['title'] = $this->lang->line('forgot_password_heading');
+		
 		// setting validation rules by checking whether identity is username or email
 		if ($this->config->item('identity', 'ion_auth') != 'email')
 		{
@@ -281,6 +285,8 @@ class Auth extends CI_Controller
 			show_404();
 		}
 
+		$this->data['title'] = $this->lang->line('reset_password_heading');
+		
 		$user = $this->ion_auth->forgotten_password_check($code);
 
 		if ($user)
