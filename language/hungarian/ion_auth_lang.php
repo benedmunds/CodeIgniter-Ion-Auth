@@ -71,7 +71,3 @@ $lang['email_forgot_password_heading']    		= 'Új jelszó beállítása %s szá
 $lang['email_forgot_password_subheading'] 		= 'Kattintson a linkre az %s érdekében.';
 $lang['email_forgot_password_link']       		= 'Új jelszó beállítása';
 
-// New Password Email
-$lang['email_new_password_subject']       	= 'Új jelszó';
-$lang['email_new_password_heading']    			= 'új jelszó %s számára';
-$lang['email_new_password_subheading'] 			= 'Jelszava megváltozott a következőre: %s';

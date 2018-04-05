@@ -157,7 +157,4 @@ $lang['email_forgot_password_heading']    = 'Poništi lozinku za %s';
 $lang['email_forgot_password_subheading'] = 'Klikni ovaj link za %s.';
 $lang['email_forgot_password_link']       = 'Poništi lozinku';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nova lozinka za %s';
-$lang['email_new_password_subheading'] = 'Vaša lozinka je poništena: %s';
 

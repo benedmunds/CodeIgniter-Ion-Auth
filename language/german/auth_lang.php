@@ -162,6 +162,3 @@ $lang['email_forgot_password_heading']    = 'Kennwort für %s zurücksetzen';
 $lang['email_forgot_password_subheading'] = 'Bitte drücken Sie diese Link um zu %s.';
 $lang['email_forgot_password_link']       = 'Ihr Kennwort zurückstellen';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Neues Kennwort für %s';
-$lang['email_new_password_subheading'] = 'Ihr Kennwort wurde af %s zurückgesetzt';

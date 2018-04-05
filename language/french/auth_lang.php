@@ -136,7 +136,7 @@ $lang['forgot_password_validation_email_label']  = 'Adresse Email';
 $lang['forgot_password_username_identity_label'] = 'Nom d\'utilisateur';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Cette adresse email n\'est pas enregistrée chez nous.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_identity_not_found']      = 'Ce nom d\'utilisateur n\'est pas enregistré chez nous.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Modifier le mot de passe';
@@ -156,7 +156,4 @@ $lang['email_forgot_password_heading']    = 'Changer le mot de passe pour %s';
 $lang['email_forgot_password_subheading'] = 'Veuillez cliquer sur ce lien pour %s';
 $lang['email_forgot_password_link']       = 'Changer votre mot de passe';
 
-// New Password Email
-$lang['email_new_password_heading']    = 'Nouveau mot de passe pour %s';
-$lang['email_new_password_subheading'] = 'Votre mot de passe a été changé pour : %s';
 

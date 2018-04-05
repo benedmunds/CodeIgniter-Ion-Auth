@@ -73,7 +73,3 @@ $lang['email_forgot_password_heading']       = 'I-reset ang Password para sa %s'
 $lang['email_forgot_password_subheading']    = 'Mangyaring i-click ang link na ito  %s.';
 $lang['email_forgot_password_link']          = 'I-reset ang Iyong Password';
 
-// New Password Email
-$lang['email_new_password_subject']          = 'Bagong Password';
-$lang['email_new_password_heading']          = 'Bagong Password para sa %s';
-$lang['email_new_password_subheading']       = 'Ang iyong password ay i-reset sa: %s';
