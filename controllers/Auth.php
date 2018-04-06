@@ -850,7 +850,8 @@ class Auth extends CI_Controller
 	 */
 	public function _valid_csrf_nonce(){
 		$csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
-		if ($csrfkey && $csrfkey === $this->session->flashdata('csrfvalue')){
+		if ($csrfkey && $csrfkey === $this->session->flashdata('csrfvalue'))
+		{
 			return TRUE;
 		}
 			return FALSE;
