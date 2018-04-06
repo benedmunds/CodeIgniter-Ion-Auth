@@ -43,6 +43,9 @@ $lang['deactivate_current_user_unsuccessful']= 'আপনি নিজেকে 
 
 // Login / Logout
 $lang['login_successful']                    = 'আপনি সফলভাবে প্রবেশ করেছেন';
+$lang['login_unsuccessful']                  = 'প্রবেশ করা যাচ্ছেনা';
+$lang['login_unsuccessful_not_active']       = 'অ্যাকাউন্টটি নিষ্ক্রিয়';
+$lang['login_timeout']                       = 'অস্থায়ীভাবে লক হয়েছে। পরে আবার চেষ্টা করুণ।';
 $lang['login_unsuccessful']                  = 'লগইন করা যাচ্ছেনা';
 $lang['login_unsuccessful_not_active']       = 'অ্যাকাউন্টটি নিষ্ক্রিয়';
 $lang['login_timeout']                       = 'অস্থায়ীভাবে লগ আউট হয়েছে। পরে আবার চেষ্টা করুণ।';

@@ -563,6 +563,15 @@ class Auth extends CI_Controller
 			$this->_render_page('auth/create_user', $this->data);
 		}
 	}
+	/**
+	* Redirect a user checking if is admin
+	*/
+	public function redirectUser(){
+		if ($this->ion_auth->is_admin()){
+			redirect('auth', 'refresh');
+		}
+		redirect('/', 'refresh');
+	}
 
 	/**
 	 * Edit a user
@@ -642,28 +651,14 @@ class Auth extends CI_Controller
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->set_flashdata('message', $this->ion_auth->messages());
-					if ($this->ion_auth->is_admin())
-					{
-						redirect('auth', 'refresh');
-					}
-					else
-					{
-						redirect('/', 'refresh');
-					}
+					$this->redirectUser();
 
 				}
 				else
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
-					if ($this->ion_auth->is_admin())
-					{
-						redirect('auth', 'refresh');
-					}
-					else
-					{
-						redirect('/', 'refresh');
-					}
+					$this->redirectUser();
 
 				}
 
@@ -853,17 +848,13 @@ class Auth extends CI_Controller
 	/**
 	 * @return bool Whether the posted CSRF token matches
 	 */
-	public function _valid_csrf_nonce()
-	{
+	public function _valid_csrf_nonce(){
 		$csrfkey = $this->input->post($this->session->flashdata('csrfkey'));
 		if ($csrfkey && $csrfkey === $this->session->flashdata('csrfvalue'))
 		{
 			return TRUE;
 		}
-		else
-		{
 			return FALSE;
-		}
 	}
 
 	/**
