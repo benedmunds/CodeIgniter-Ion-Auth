@@ -3,6 +3,8 @@ Ion Auth Changelog
 
 ## xx March 2018 - Ion Auth 3
 
+ - **General:**
+    - No longer work for empty password or password above 4096 bytes (DOS protection)
  - **New server requirements:**
     - Drop CodeIgniter 2 support
     - Drop PHP < 5.6 support

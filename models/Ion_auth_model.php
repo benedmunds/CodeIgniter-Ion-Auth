@@ -32,6 +32,11 @@ class Ion_auth_model extends CI_Model
 	 */
 	const MAX_COOKIE_LIFETIME = 63072000; // 2 years = 60*60*24*365*2 = 63072000 seconds;
 
+    /**
+     * Max password size constant
+     */
+    const MAX_PASSWORD_SIZE_BYTES = 4096;
+
 	/**
 	 * Holds an array of tables used
 	 *
@@ -259,9 +264,11 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function hash_password($password, $identity = NULL)
 	{
-		// Check for empty password, or password containing null char
+		// Check for empty password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
-		if (empty($password) || strpos($password, "\0") !== FALSE)
+        // Long password may pose DOS issue (note: strlen gives size in bytes and not in multibyte symbol)
+		if (empty($password) || strpos($password, "\0") !== FALSE ||
+            strlen($password) > self::MAX_PASSWORD_SIZE_BYTES)
 		{
 			return FALSE;
 		}
@@ -290,9 +297,11 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function verify_password($password, $hash_password_db, $identity = NULL)
 	{
-		// Check for empty id or password, or password containing null char
+		// Check for empty id or password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
-		if (empty($password) || empty($hash_password_db) || strpos($password, "\0") !== FALSE)
+        // Long password may pose DOS issue (note: strlen gives size in bytes and not in multibyte symbol)
+		if (empty($password) || empty($hash_password_db) || strpos($password, "\0") !== FALSE
+            || strlen($password) > self::MAX_PASSWORD_SIZE_BYTES)
 		{
 			return FALSE;
 		}
@@ -806,6 +815,12 @@ class Ion_auth_model extends CI_Model
 
 		// Do not pass $identity as user is not known yet so there is no need
 		$password = $this->hash_password($password);
+
+        if ($password === FALSE)
+        {
+            $this->set_error('account_creation_unsuccessful');
+            return FALSE;
+        }
 
 		// Users table.
 		$data = [
@@ -1762,6 +1777,14 @@ class Ion_auth_model extends CI_Model
 				if( ! empty($data['password']))
 				{
 					$data['password'] = $this->hash_password($data['password'], $user->{$this->identity_column});
+                    if ($data['password'] === FALSE)
+                    {
+                        $this->db->trans_rollback();
+                        $this->trigger_events(['post_update_user', 'post_update_user_unsuccessful']);
+                        $this->set_error('update_unsuccessful');
+
+                        return FALSE;
+                    }
 				}
 				else
 				{
@@ -2466,7 +2489,12 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _set_password_db($identity, $password)
 	{
-		$hash  = $this->hash_password($password, $identity);
+		$hash = $this->hash_password($password, $identity);
+
+        if ($hash === FALSE)
+        {
+            return FALSE;
+        }
 
 		// When setting a new password, invalidate any other token
 		$data = [

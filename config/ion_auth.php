@@ -126,6 +126,9 @@ $config['argon2_admin_params']		= [
  | min_password_length:		This minimum is not enforced directly by the library.
  | 							The controller should define a validation rule to enforce it.
  | 							See the Auth controller for an example implementation.
+ |
+ | The library will fail for empty password or password size above 4096 bytes.
+ | This is an arbitrary (long) value to protect against DOS attack.
  */
 $config['site_title']                 = "Example.com";       // Site Title, example.com
 $config['admin_email']                = "admin@example.com"; // Admin Email, admin@example.com

@@ -306,11 +306,12 @@ Documentation
         </li>
         <li>
             <strong>min_password_length</strong> Default is '8'<br/>
-            Minimum length of passwords.
-        </li>
-        <li>
-            <strong>max_password_length</strong> Default is '20'<br/>
-            Maximum length of passwords.
+            Minimum length of passwords.<br/>
+            This minimum is not enforced directly by the library.<br/>
+            The controller should define a validation rule to enforce it.<br/>
+            See the Auth controller for an example implementation.<br/><br/>
+            Additional note: the library will fail for empty password or password size above 4096 bytes.<br/>
+            This is an arbitrary (long) value to protect against DOS attack.
         </li>
         <li>
             <strong>email_activation</strong> Default is 'false'<br/>
