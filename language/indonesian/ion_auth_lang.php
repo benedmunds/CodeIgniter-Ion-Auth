@@ -79,7 +79,7 @@ $lang['email_activate_subheading']				    = 'Silahkan klik tautan berikut untuk 
 $lang['email_activate_link']						= 'Aktifkan Akun Anda';
 
 // Forgot Password Email
-$lang['email_forgotten_password_subject']			= 'Verifikasi Lupa Password';
+$lang['email_forgotten_password_subject']			= 'Verifikasi Lupa Kata Sandi';
 $lang['email_forgot_password_heading']				= 'Setel Ulang Kata Sandi untuk %s';
 $lang['email_forgot_password_subheading']			= 'Silahkan klik tautan berikut untuk %s.';
 $lang['email_forgot_password_link']					= 'Setel Ulang Kata Sandi';
