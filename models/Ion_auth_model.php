@@ -1543,7 +1543,7 @@ class Ion_auth_model extends CI_Model
 		}
 		foreach ($check_group as $key => $value)
 		{
-			$groups = (is_string($value)) ? $groups_array : array_keys($groups_array);
+			$groups = (is_numeric($value)) ? array_keys($groups_array) : $groups_array;
 
 			/**
 			 * if !all (default), in_array
