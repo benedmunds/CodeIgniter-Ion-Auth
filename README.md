@@ -17,9 +17,6 @@ If you use this to further your career, or put money in your pocket, and would l
 ## Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
 
-## Supported By
-If you want to quickly add secure authentication to PHP apps and APIs, feel free to check out Auth0's PHP SDK and free plan at [auth0.com/overview](https://auth0.com/overview?utm_source=GHsponsor&utm_medium=GHsponsor&utm_campaign=codeigniter-ion-auth&utm_content=auth) <img src="https://camo.githubusercontent.com/a5239b0ec31b7586e445f5057bc857e2193d0adc/687474703a2f2f70617373706f72746a732e6f72672f696d616765732f737570706f727465645f6c6f676f2e737667" alt="" data-canonical-src="http://passportjs.org/images/supported_logo.svg" width="24">
-
 ## Installation
 There are 2 ways to install this package.
 
@@ -66,7 +63,7 @@ Then in your controller, example `Auth.php` add the package path and load the li
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
-	
+
 Or autoload by adding the following to application/config/autoload.php
 
 	$autoload['packages'] = array(APPPATH.'third_party/ion_auth');
@@ -113,7 +110,7 @@ There is a Time Based One-Time Password (TOTP) implementation compatible with Go
 Feel free to send me an email if you have any problems.
 
 
-Thanks,    
--Ben Edmunds       
- ben.edmunds@gmail.com   
- [@benedmunds](http://twitter.com/benedmunds)   
+Thanks,
+-Ben Edmunds
+ ben.edmunds@gmail.com
+ [@benedmunds](http://twitter.com/benedmunds)
