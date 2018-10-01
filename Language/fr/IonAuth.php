@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
 /**
 * Name:  Ion Auth Lang - French
 *
@@ -15,6 +16,7 @@
 *
 * Description:  French language file for Ion Auth messages and errors
 *
+* @package Codeigniter-Ion-Auth
 */
 
 // Account Creation
@@ -24,7 +26,6 @@ $lang['account_creation_duplicate_email']       = 'Email déjà utilisé ou inva
 $lang['account_creation_duplicate_identity']    = 'Nom d\'utilisateur déjà utilisé ou invalide';
 $lang['account_creation_missing_default_group'] = 'Le groupe par défaut n\'est pas configuré';
 $lang['account_creation_invalid_default_group'] = 'Le nom du groupe par défaut n\'est pas valide';
-
 
 // Password
 $lang['password_change_successful']   = 'Le mot de passe a été changé avec succès';
@@ -75,4 +76,3 @@ $lang['email_forgotten_password_subject'] = 'Mot de Passe Oublié - Vérificatio
 $lang['email_forgot_password_heading']    = 'Réinitialiser le mot de passe pour %s';
 $lang['email_forgot_password_subheading'] = 'Veuillez cliquer sur ce lien pour %s.';
 $lang['email_forgot_password_link']       = 'Réinitialiser votre mot de passe';
-

@@ -1,4 +1,5 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php
+
 /**
 * Name:  Auth Lang - English
 *
@@ -17,6 +18,7 @@
 *
 * Description:  French language file for Ion Auth example views
 *
+* @package Codeigniter-Ion-Auth
 */
 
 // Errors
@@ -155,5 +157,3 @@ $lang['email_activate_link']       = 'Activer votre compte';
 $lang['email_forgot_password_heading']    = 'Changer le mot de passe pour %s';
 $lang['email_forgot_password_subheading'] = 'Veuillez cliquer sur ce lien pour %s';
 $lang['email_forgot_password_link']       = 'Changer votre mot de passe';
-
-
