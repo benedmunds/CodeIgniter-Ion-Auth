@@ -34,13 +34,13 @@ class Auth extends Controller
 	 *
 	 * @var \CodeIgniter\Validation\Validation
 	 */
-	private $form_validation;
+	private $validation;
 
 
 	public function __construct()
 	{
 		$this->ionAuth = new \App\Libraries\IonAuth();
-		$this->form_validation = \Config\Services::validation();
+		$this->validation = \Config\Services::validation();
 		helper(['form', 'url']);
 		$this->configIonAuth = config('IonAuth');
 		$this->session = \Config\Services::session();
@@ -69,7 +69,7 @@ class Auth extends Controller
 			$this->data['title'] = lang('Auth.index_heading');
 
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->form_validation->listErrors()) ? $this->form_validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 			//list the users
 			$this->data['users'] = $this->ionAuth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
@@ -88,11 +88,11 @@ class Auth extends Controller
 		$this->data['title'] = lang('Auth.login_heading');
 
 		// validate form input
-		$this->form_validation->setRule('identity', str_replace(':', '', lang('Auth.login_identity_label')), 'required');
-		$this->form_validation->setRule('password', str_replace(':', '', lang('Auth.login_password_label')), 'required');
+		$this->validation->setRule('identity', str_replace(':', '', lang('Auth.login_identity_label')), 'required');
+		$this->validation->setRule('password', str_replace(':', '', lang('Auth.login_password_label')), 'required');
 
 		//if ($this->form_validation->run() === TRUE)
-		if ($this->form_validation->withRequest($this->request)->run())
+		if ($this->validation->withRequest($this->request)->run())
 		{
 			// check to see if the user is logging in
 			// check for "remember me"
@@ -119,7 +119,7 @@ class Auth extends Controller
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
 			//$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->data['message'] = ($this->form_validation->listErrors()) ? $this->form_validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 			$this->data['identity'] = [
 				'name' => 'identity',
@@ -159,9 +159,9 @@ class Auth extends Controller
 	 */
 	public function change_password()
 	{
-		$this->form_validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
-		$this->form_validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
-		$this->form_validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
+		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
+		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
+		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
 		if (!$this->ionAuth->logged_in())
 		{
@@ -171,11 +171,11 @@ class Auth extends Controller
 
 		$user = $this->ionAuth->user()->row();
 
-		if ($this->form_validation->run() === FALSE)
+		if ($this->validation->run() === FALSE)
 		{
 			// display the form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->form_validation->listErrors()) ? $this->form_validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 			$this->data['min_password_length'] = $this->configIonAuth->min_password_length;
 			$this->data['old_password'] = [
@@ -236,15 +236,15 @@ class Auth extends Controller
 		// setting validation rules by checking whether identity is username or email
 		if ($this->configIonAuth->identity != 'email')
 		{
-			$this->form_validation->setRule('identity', lang('Auth.forgot_password_identity_label'), 'required');
+			$this->validation->setRule('identity', lang('Auth.forgot_password_identity_label'), 'required');
 		}
 		else
 		{
-			$this->form_validation->setRule('identity', lang('Auth.forgot_password_validation_email_label'), 'required|valid_email');
+			$this->validation->setRule('identity', lang('Auth.forgot_password_validation_email_label'), 'required|valid_email');
 		}
 
 
-		if ($this->form_validation->run() === FALSE)
+		if ($this->validation->run() === FALSE)
 		{
 			$this->data['type'] = $this->configIonAuth->identity;
 			// setup the input
@@ -263,7 +263,7 @@ class Auth extends Controller
 			}
 
 			// set any errors and display the form
-			$this->data['message'] = ($this->form_validation->listErrors()) ? $this->form_validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
 		}
 		else
@@ -327,15 +327,15 @@ class Auth extends Controller
 		{
 			// if the code is valid then display the password reset form
 
-			$this->form_validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
-			$this->form_validation->setRule('new_confirm', lang('Auth.reset_password_validation_new_password_confirm_label'), 'required');
+			$this->validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
+			$this->validation->setRule('new_confirm', lang('Auth.reset_password_validation_new_password_confirm_label'), 'required');
 
-			if ($this->form_validation->run() === FALSE)
+			if ($this->validation->run() === FALSE)
 			{
 				// display the form
 
 				// set the flash data error message if there is one
-				$this->data['message'] = ($this->form_validation->listErrors()) ? $this->form_validation->listErrors() : $this->session->getFlashdata('message');
+				$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 				$this->data['min_password_length'] = $this->configIonAuth->min_password_length;
 				$this->data['new_password'] = [
@@ -454,10 +454,10 @@ class Auth extends Controller
 
 		$id = (int)$id;
 
-		$this->form_validation->setRule('confirm', lang('Auth.deactivate_validation_confirm_label'), 'required');
-		$this->form_validation->setRule('id', lang('Auth.deactivate_validation_user_id_label'), 'required|alpha_numeric');
+		$this->validation->setRule('confirm', lang('Auth.deactivate_validation_confirm_label'), 'required');
+		$this->validation->setRule('id', lang('Auth.deactivate_validation_user_id_label'), 'required|alpha_numeric');
 
-		if (! $this->form_validation->withRequest($this->request)->run())
+		if (! $this->validation->withRequest($this->request)->run())
 		{
 			// insert csrf check
 			$this->data['csrf'] = $this->_get_csrf_nonce();
@@ -506,23 +506,23 @@ class Auth extends Controller
 		$this->data['identity_column'] = $identity_column;
 
 		// validate form input
-		$this->form_validation->setRule('first_name', lang('Auth.create_user_validation_fname_label'), 'trim|required');
-		$this->form_validation->setRule('last_name', lang('Auth.create_user_validation_lname_label'), 'trim|required');
+		$this->validation->setRule('first_name', lang('Auth.create_user_validation_fname_label'), 'trim|required');
+		$this->validation->setRule('last_name', lang('Auth.create_user_validation_lname_label'), 'trim|required');
 		if ($identity_column !== 'email')
 		{
-			$this->form_validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
-			$this->form_validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email');
+			$this->validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
+			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email');
 		}
 		else
 		{
-			$this->form_validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
-		$this->form_validation->setRule('phone', lang('Auth.create_user_validation_phone_label'), 'trim');
-		$this->form_validation->setRule('company', lang('Auth.create_user_validation_company_label'), 'trim');
-		$this->form_validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
-		$this->form_validation->setRule('password_confirm', lang('Auth.create_user_validation_password_confirm_label'), 'required');
+		$this->validation->setRule('phone', lang('Auth.create_user_validation_phone_label'), 'trim');
+		$this->validation->setRule('company', lang('Auth.create_user_validation_company_label'), 'trim');
+		$this->validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
+		$this->validation->setRule('password_confirm', lang('Auth.create_user_validation_password_confirm_label'), 'required');
 
-		if ($this->form_validation->withRequest($this->request)->run())
+		if ($this->validation->withRequest($this->request)->run())
 		{
 			$email = strtolower($this->request->getPost('email'));
 			$identity = ($identity_column === 'email') ? $email : $this->request->getPost('identity');
@@ -535,7 +535,7 @@ class Auth extends Controller
 				'phone' => $this->request->getPost('phone'),
 			];
 		}
-		if ($this->form_validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))
+		if ($this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))
 		{
 			// check to see if we are creating the user
 			// redirect them back to the admin page
@@ -546,7 +546,7 @@ class Auth extends Controller
 		{
 			// display the create user form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->form_validation->listErrors() ? $this->form_validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+			$this->data['message'] = ($this->validation->listErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
 
 			$this->data['first_name'] = [
 				'name' => 'first_name',
@@ -634,10 +634,10 @@ class Auth extends Controller
 		$currentGroups = $this->ionAuth->get_users_groups($id)->getResult();
 
 		// validate form input
-		$this->form_validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
-		$this->form_validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'trim|required');
-		$this->form_validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'trim|required');
-		$this->form_validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
+		$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
+		$this->validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'trim|required');
+		$this->validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'trim|required');
+		$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -651,11 +651,11 @@ class Auth extends Controller
 			// update the password if it was posted
 			if ($this->request->getPost('password'))
 			{
-				$this->form_validation->setRule('password', lang('Auth.edit_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
-				$this->form_validation->setRule('password_confirm', lang('Auth.edit_user_validation_password_confirm_label'), 'required');
+				$this->validation->setRule('password', lang('Auth.edit_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
+				$this->validation->setRule('password_confirm', lang('Auth.edit_user_validation_password_confirm_label'), 'required');
 			}
 
-			if ($this->form_validation->withRequest($this->request)->run())
+			if ($this->validation->withRequest($this->request)->run())
 			{
 				$data = [
 					'first_name' => $this->request->getPost('first_name'),
@@ -709,7 +709,7 @@ class Auth extends Controller
 		$this->data['csrf'] = $this->_get_csrf_nonce();
 
 		// set the flash data error message if there is one
-		$this->data['message'] = ($this->form_validation->listErrors() ? $this->form_validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+		$this->data['message'] = ($this->validation->listErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
 
 		// pass the user to the view
 		$this->data['user'] = $user;
@@ -768,9 +768,9 @@ class Auth extends Controller
 		}
 
 		// validate form input
-		$this->form_validation->setRule('group_name', lang('Auth.create_group_validation_name_label'), 'trim|required|alpha_dash');
+		$this->validation->setRule('group_name', lang('Auth.create_group_validation_name_label'), 'trim|required|alpha_dash');
 
-		if ($this->form_validation->withRequest($this->request)->run())
+		if ($this->validation->withRequest($this->request)->run())
 		{
 			$new_group_id = $this->ionAuth->create_group($this->request->getPost('group_name'), $this->request->getPost('description'));
 			if ($new_group_id)
@@ -785,7 +785,7 @@ class Auth extends Controller
 		{
 			// display the create group form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->form_validation->listErrors() ? $this->form_validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+			$this->data['message'] = ($this->validation->listErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
 
 			$this->data['group_name'] = [
 				'name'  => 'group_name',
@@ -827,11 +827,11 @@ class Auth extends Controller
 		$group = $this->ionAuth->group($id)->row();
 
 		// validate form input
-		$this->form_validation->setRule('group_name', lang('Auth.edit_group_validation_name_label'), 'required|alpha_dash');
+		$this->validation->setRule('group_name', lang('Auth.edit_group_validation_name_label'), 'required|alpha_dash');
 
 		if (isset($_POST) && !empty($_POST))
 		{
-			if ($this->form_validation->withRequest($this->request)->run())
+			if ($this->validation->withRequest($this->request)->run())
 			{
 				$group_update = $this->ionAuth->update_group($id, $_POST['group_name'], $_POST['group_description']);
 
@@ -848,7 +848,7 @@ class Auth extends Controller
 		}
 
 		// set the flash data error message if there is one
-		$this->data['message'] = ($this->form_validation->listErrors() ? $this->form_validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+		$this->data['message'] = ($this->validation->listErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
 
 		// pass the user to the view
 		$this->data['group'] = $group;
