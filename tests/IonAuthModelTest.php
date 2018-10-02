@@ -36,4 +36,16 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 		$this->assertFalse($model->emailCheck(''));
 		$this->assertFalse($model->emailCheck('email@undefined.unknown'));
 	}
+
+	/**
+	 * Test clearLoginAttempts()
+	 *
+	 * @return void
+	 */
+	public function testClearLoginAttempts()
+	{
+		$model = new IonAuthModel();
+		$this->assertTrue($model->clearLoginAttempts('admin@admin.com'));
+	}
+
 }

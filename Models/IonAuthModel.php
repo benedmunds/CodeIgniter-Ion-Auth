@@ -954,7 +954,7 @@ class IonAuthModel
 
 				$this->update_last_login($user->id);
 
-				$this->clear_login_attempts($identity);
+				$this->clearLoginAttempts($identity);
 				$this->clear_forgotten_password_code($identity);
 
 				if ($this->config->remember_users)
@@ -1182,43 +1182,43 @@ class IonAuthModel
 	}
 
 	/**
-	 * clear_login_attempts
+	 * Clear login attempts
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param string      $identity                   User's identity
-	 * @param int         $old_attempts_expire_period In seconds, any attempts older than this value will be removed.
+	 * @param string      $identity                User's identity
+	 * @param integer     $oldAttemptsAxpirePeriod In seconds, any attempts older than this value will be removed.
 	 *                                                It is used for regularly purging the attempts table.
 	 *                                                (for security reason, minimum value is lockout_time config value)
-	 * @param string|null $ip_address                 IP address
-	 *                                                Only used if track_login_ip_address is set to TRUE.
+	 * @param string|null $ipAddress               IP address
+	 *                                                Only used if track_login_ipAddress is set to TRUE.
 	 *                                                If NULL (default value), the current IP address is used.
 	 *                                                Use get_last_attempt_ip($identity) to retrieve a user's last IP
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
-	public function clear_login_attempts($identity, $old_attempts_expire_period = 86400, $ip_address = NULL): bool
+	public function clearLoginAttempts(string $identity, int $oldAttemptsAxpirePeriod = 86400, $ipAddress = null): bool
 	{
 		if ($this->config->track_login_attempts)
 		{
-			// Make sure $old_attempts_expire_period is at least equals to lockout_time
-			$old_attempts_expire_period = max($old_attempts_expire_period, $this->config->lockout_time);
+			// Make sure $oldAttemptsAxpirePeriod is at least equals to lockout_time
+			$oldAttemptsAxpirePeriod = max($oldAttemptsAxpirePeriod, $this->config->lockout_time);
 
 			$builder = $this->db->table($this->tables['login_attempts']);
 			$builder->where('login', $identity);
 			if ($this->config->track_login_ip_address)
 			{
-				if (!isset($ip_address))
+				if (! isset($ipAddress))
 				{
-					$ip_address = \Config\Services::request()->getIPAddress();
+					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$builder->where('ip_address', $ip_address);
+				$builder->where('ip_address', $ipAddress);
 			}
 			// Purge obsolete login attempts
-			$builder->orWhere('time <', time() - $old_attempts_expire_period, FALSE);
+			$builder->orWhere('time <', time() - $oldAttemptsAxpirePeriod, false);
 
 			return $builder->delete() === false ? false: true;
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
