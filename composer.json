@@ -1,0 +1,16 @@
+{
+    "name": "bvrignaud/code-igniter-ion-auth",
+    "description": "Simple and Lightweight Auth System for CodeIgniter",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ben EDMUNDS"
+        },
+        {
+            "name": "Benoit VRIGNAUD",
+            "email": "benoit.vrignaud@zaclys.net"
+        }
+    ],
+    "require": {}
+}
