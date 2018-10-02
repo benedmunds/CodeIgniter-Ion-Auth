@@ -654,27 +654,28 @@ class IonAuthModel
 	}
 
 	/**
-	 * Checks email
+	 * Checks email to see if the email is already registered.
 	 *
-	 * @param string $email
+	 * @param string $email Email to check
 	 *
-	 * @return bool
+	 * @return boolean true if the user is registered false if the user is not registered.
 	 * @author Mathew
 	 */
-	public function email_check($email = '')
+	public function emailCheck(string $email = ''): bool
 	{
-		$this->trigger_events('email_check');
+		$this->trigger_events('emailCheck');
 
 		if (empty($email))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$this->trigger_events('extra_where');
 
-		return $this->db->where('email', $email)
+		return $this->db->table($this->tables['users'])
+						->where('email', $email)
 						->limit(1)
-						->count_all_results($this->tables['users']) > 0;
+						->countAllResults() > 0;
 	}
 
 	/**
