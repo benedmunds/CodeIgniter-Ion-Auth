@@ -109,7 +109,7 @@ class IonAuth
 	{
 		if (!method_exists( $this->ionAuthModel, $method) )
 		{
-			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
+			throw new \Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
 		if($method == 'create_user')
 		{
