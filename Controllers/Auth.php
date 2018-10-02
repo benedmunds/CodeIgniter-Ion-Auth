@@ -52,13 +52,13 @@ class Auth extends Controller
 	 */
 	public function index()
 	{
-		if (! $this->ionAuth->logged_in())
+		if (! $this->ionAuth->loggedIn())
 		{
 			// redirect them to the login page
 			//redirect('auth/login', 'refresh');
 			return redirect('auth/login');
 		}
-		else if (! $this->ionAuth->is_admin()) // remove this elseif if you want to enable this for non-admins
+		else if (! $this->ionAuth->isAdmin()) // remove this elseif if you want to enable this for non-admins
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			//show_error('You must be an administrator to view this page.');
@@ -74,7 +74,7 @@ class Auth extends Controller
 			$this->data['users'] = $this->ionAuth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
 			{
-				$this->data['users'][$k]->groups = $this->ionAuth->get_users_groups($user->id)->getResult();
+				$this->data['users'][$k]->groups = $this->ionAuth->getUsersGroups($user->id)->getResult();
 			}
 			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
 		}
@@ -163,7 +163,7 @@ class Auth extends Controller
 		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
 		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
-		if (!$this->ionAuth->logged_in())
+		if (!$this->ionAuth->loggedIn())
 		{
 			//redirect('auth/login', 'refresh');
 			return redirect('auth/login');
@@ -209,7 +209,7 @@ class Auth extends Controller
 		{
 			$identity = $this->session->userdata('identity');
 
-			$change = $this->ionAuth->change_password($identity, $this->request->getPost('old'), $this->request->getPost('new'));
+			$change = $this->ionAuth->changePassword($identity, $this->request->getPost('old'), $this->request->getPost('new'));
 
 			if ($change)
 			{
@@ -276,11 +276,11 @@ class Auth extends Controller
 
 				if ($this->configIonAuth->identity != 'email')
 				{
-					$this->ionAuth->set_error('forgot_password_identity_not_found');
+					$this->ionAuth->setError('forgot_password_identity_not_found');
 				}
 				else
 				{
-					$this->ionAuth->set_error('forgot_password_email_not_found');
+					$this->ionAuth->setError('forgot_password_email_not_found');
 				}
 
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
@@ -379,7 +379,7 @@ class Auth extends Controller
 				else
 				{
 					// finally change the password
-					$change = $this->ionAuth->reset_password($identity, $this->request->getPost('new'));
+					$change = $this->ionAuth->resetPassword($identity, $this->request->getPost('new'));
 
 					if ($change)
 					{
@@ -420,7 +420,7 @@ class Auth extends Controller
 		{
 			$activation = $this->ionAuth->activate($id, $code);
 		}
-		else if ($this->ionAuth->is_admin())
+		else if ($this->ionAuth->isAdmin())
 		{
 			$activation = $this->ionAuth->activate($id);
 		}
@@ -446,7 +446,7 @@ class Auth extends Controller
 	 */
 	public function deactivate($id = NULL)
 	{
-		if (!$this->ionAuth->logged_in() || !$this->ionAuth->is_admin())
+		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			throw new \Exception('You must be an administrator to view this page.');
@@ -477,7 +477,7 @@ class Auth extends Controller
 				}
 
 				// do we have the right userlevel?
-				if ($this->ionAuth->logged_in() && $this->ionAuth->is_admin())
+				if ($this->ionAuth->loggedIn() && $this->ionAuth->isAdmin())
 				{
 					$this->ionAuth->deactivate($id);
 				}
@@ -496,7 +496,7 @@ class Auth extends Controller
 	{
 		$this->data['title'] = lang('Auth.create_user_heading');
 
-		if (!$this->ionAuth->logged_in() || !$this->ionAuth->is_admin())
+		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
 		{
 			return redirect('auth');
 		}
@@ -608,7 +608,7 @@ class Auth extends Controller
 	 */
 	public function redirectUser()
 	{
-		if ($this->ionAuth->is_admin())
+		if ($this->ionAuth->isAdmin())
 		{
 			return redirect('/auth');
 		}
@@ -624,14 +624,14 @@ class Auth extends Controller
 	{
 		$this->data['title'] = lang('Auth.edit_user_heading');
 
-		if (!$this->ionAuth->logged_in() || (!$this->ionAuth->is_admin() && !($this->ionAuth->user()->row()->id == $id)))
+		if (!$this->ionAuth->loggedIn() || (!$this->ionAuth->isAdmin() && !($this->ionAuth->user()->row()->id == $id)))
 		{
 			return redirect('/auth');
 		}
 
 		$user = $this->ionAuth->user($id)->row();
-		$groups = $this->ionAuth->groups()->result_array();
-		$currentGroups = $this->ionAuth->get_users_groups($id)->getResult();
+		$groups = $this->ionAuth->groups()->resultArray();
+		$currentGroups = $this->ionAuth->getUsersGroups($id)->getResult();
 
 		// validate form input
 		$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
@@ -671,7 +671,7 @@ class Auth extends Controller
 				}
 
 				// Only allow updating groups if user is admin
-				if ($this->ionAuth->is_admin())
+				if ($this->ionAuth->isAdmin())
 				{
 					// Update the groups user belongs to
 					$groupData = $this->request->getPost('groups');
@@ -679,11 +679,11 @@ class Auth extends Controller
 					if (isset($groupData) && !empty($groupData))
 					{
 
-						$this->ionAuth->remove_from_group('', $id);
+						$this->ionAuth->removeFromGroup('', $id);
 
 						foreach ($groupData as $grp)
 						{
-							$this->ionAuth->add_to_group($grp, $id);
+							$this->ionAuth->addToGroup($grp, $id);
 						}
 					}
 				}
@@ -762,7 +762,7 @@ class Auth extends Controller
 	{
 		$this->data['title'] = lang('Auth.create_group_title');
 
-		if (!$this->ionAuth->logged_in() || !$this->ionAuth->is_admin())
+		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
 		{
 			return redirect('/auth');
 		}
@@ -819,7 +819,7 @@ class Auth extends Controller
 
 		$this->data['title'] = lang('Auth.edit_group_title');
 
-		if (!$this->ionAuth->logged_in() || !$this->ionAuth->is_admin())
+		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
 		{
 			return redirect('/auth');
 		}
@@ -833,7 +833,7 @@ class Auth extends Controller
 		{
 			if ($this->validation->withRequest($this->request)->run())
 			{
-				$group_update = $this->ionAuth->update_group($id, $_POST['group_name'], $_POST['group_description']);
+				$group_update = $this->ionAuth->updateGroup($id, $_POST['group_name'], $_POST['group_description']);
 
 				if ($group_update)
 				{

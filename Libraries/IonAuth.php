@@ -70,7 +70,7 @@ class IonAuth
 	public function __construct()
 	{
 		// Check compat first
-		$this->check_compatibility();
+		$this->checkCompatibility();
 
 		$this->config = new \Config\IonAuth();
 
@@ -91,7 +91,7 @@ class IonAuth
 			$this->email->initialize($email_config);
 		}
 
-		$this->ionAuthModel->trigger_events('library_constructor');
+		$this->ionAuthModel->triggerEvents('library_constructor');
 	}
 
 	/**
@@ -146,7 +146,7 @@ class IonAuth
 	 * @return array|bool
 	 * @author Mathew
 	 */
-	public function forgotten_password($identity)
+	public function forgottenPassword($identity)
 	{
 		// Retrieve user information
 		$user = $this->where($this->ionAuthModel->identity_column, $identity)
@@ -156,7 +156,7 @@ class IonAuth
 		if ($user)
 		{
 			// Generate code
-			$code = $this->ionAuthModel->forgotten_password($identity);
+			$code = $this->ionAuthModel->forgottenPassword($identity);
 
 			if ($code)
 			{
@@ -167,7 +167,7 @@ class IonAuth
 
 				if (!$this->config->use_ci_email)
 				{
-					$this->set_message('forgot_password_successful');
+					$this->setMessage('forgot_password_successful');
 					return $data;
 				}
 				else
@@ -181,14 +181,14 @@ class IonAuth
 
 					if ($this->email->send())
 					{
-						$this->set_message('forgot_password_successful');
+						$this->setMessage('forgot_password_successful');
 						return TRUE;
 					}
 				}
 			}
 		}
 
-		$this->set_error('forgot_password_unsuccessful');
+		$this->setError('forgot_password_unsuccessful');
 		return FALSE;
 	}
 
@@ -200,13 +200,13 @@ class IonAuth
 	 * @return object|bool
 	 * @author Michael
 	 */
-	public function forgotten_password_check($code)
+	public function forgottenPasswordCheck($code)
 	{
-		$user = $this->ionAuthModel->get_user_by_forgotten_password_code($code);
+		$user = $this->ionAuthModel->getUserByForgottenPasswordCode($code);
 
 		if (!is_object($user))
 		{
-			$this->set_error('password_change_unsuccessful');
+			$this->setError('password_change_unsuccessful');
 			return FALSE;
 		}
 		else
@@ -219,8 +219,8 @@ class IonAuth
 				{
 					//it has expired
 					$identity = $user->{$this->config->identity};
-					$this->ionAuthModel->clear_forgotten_password_code($identity);
-					$this->set_error('password_change_unsuccessful');
+					$this->ionAuthModel->clearForgottenPasswordCode($identity);
+					$this->setError('password_change_unsuccessful');
 					return FALSE;
 				}
 			}
@@ -244,7 +244,7 @@ class IonAuth
 	 */
 	public function register($identity, $password, $email, $additional_data = [], $group_ids = [])
 	{
-		$this->ionAuthModel->trigger_events('pre_account_creation');
+		$this->ionAuthModel->triggerEvents('pre_account_creation');
 
 		$email_activation = $this->config->email_activation;
 
@@ -254,14 +254,14 @@ class IonAuth
 		{
 			if ($id !== FALSE)
 			{
-				$this->set_message('account_creation_successful');
-				$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_successful']);
+				$this->setMessage('account_creation_successful');
+				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful']);
 				return $id;
 			}
 			else
 			{
-				$this->set_error('account_creation_unsuccessful');
-				$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_unsuccessful']);
+				$this->setError('account_creation_unsuccessful');
+				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
 				return FALSE;
 			}
 		}
@@ -269,7 +269,7 @@ class IonAuth
 		{
 			if (!$id)
 			{
-				$this->set_error('account_creation_unsuccessful');
+				$this->setError('account_creation_unsuccessful');
 				return FALSE;
 			}
 
@@ -277,12 +277,12 @@ class IonAuth
 			$deactivate = $this->ionAuthModel->deactivate($id);
 
 			// the deactivate method call adds a message, here we need to clear that
-			$this->ionAuthModel->clear_messages();
+			$this->ionAuthModel->clearMessages();
 
 			if (!$deactivate)
 			{
-				$this->set_error('deactivate_unsuccessful');
-				$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_unsuccessful']);
+				$this->setError('deactivate_unsuccessful');
+				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
 				return FALSE;
 			}
 
@@ -298,8 +298,8 @@ class IonAuth
 			];
 			if(!$this->config->use_ci_email)
 			{
-				$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
-				$this->set_message('activation_email_successful');
+				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
+				$this->setMessage('activation_email_successful');
 				return $data;
 			}
 			else
@@ -314,15 +314,15 @@ class IonAuth
 
 				if ($this->email->send() === TRUE)
 				{
-					$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
-					$this->set_message('activation_email_successful');
+					$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
+					$this->setMessage('activation_email_successful');
 					return $id;
 				}
 
 			}
 
-			$this->ionAuthModel->trigger_events(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
-			$this->set_error('activation_email_unsuccessful');
+			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
+			$this->setError('activation_email_unsuccessful');
 			return FALSE;
 		}
 	}
@@ -335,7 +335,7 @@ class IonAuth
 	 **/
 	public function logout()
 	{
-		$this->ionAuthModel->trigger_events('logout');
+		$this->ionAuthModel->triggerEvents('logout');
 
 		$identity = $this->config->identity;
 
@@ -345,8 +345,8 @@ class IonAuth
 		delete_cookie($this->config->remember_cookie_name);
 
 		// Clear all codes
-		$this->ionAuthModel->clear_forgotten_password_code($identity);
-		$this->ionAuthModel->clear_remember_code($identity);
+		$this->ionAuthModel->clearForgottenPasswordCode($identity);
+		$this->ionAuthModel->clearRememberCode($identity);
 
 		// Destroy the session
 		$this->session->sess_destroy();
@@ -358,7 +358,7 @@ class IonAuth
 		}
 		$this->session->sess_regenerate(TRUE);
 
-		$this->set_message('logout_successful');
+		$this->setMessage('logout_successful');
 		return TRUE;
 	}
 
@@ -367,16 +367,16 @@ class IonAuth
 	 * @return bool Whether the user is logged in
 	 * @author Mathew
 	 **/
-	public function logged_in()
+	public function loggedIn()
 	{
-		$this->ionAuthModel->trigger_events('logged_in');
+		$this->ionAuthModel->triggerEvents('logged_in');
 
-		$recheck = $this->ionAuthModel->recheck_session();
+		$recheck = $this->ionAuthModel->recheckSession();
 
 		// auto-login the user if they are remembered
 		if (!$recheck && get_cookie($this->config->remember_cookie_name))
 		{
-			$recheck = $this->ionAuthModel->login_remembered_user();
+			$recheck = $this->ionAuthModel->loginRememberedUser();
 		}
 
 		return $recheck;
@@ -386,7 +386,7 @@ class IonAuth
 	 * @return int|null The user's ID from the session user data or NULL if not found
 	 * @author jrmadsen67
 	 **/
-	public function get_user_id()
+	public function getUserId()
 	{
 		$user_id = $this->session->userdata('user_id');
 		if (!empty($user_id))
@@ -402,13 +402,13 @@ class IonAuth
 	 * @return bool Whether the user is an administrator
 	 * @author Ben Edmunds
 	 */
-	public function is_admin($id = FALSE)
+	public function isAdmin($id = FALSE)
 	{
-		$this->ionAuthModel->trigger_events('is_admin');
+		$this->ionAuthModel->triggerEvents('is_admin');
 
 		$admin_group = $this->config->admin_group;
 
-		return $this->ionAuthModel->in_group($admin_group, $id);
+		return $this->ionAuthModel->inGroup($admin_group, $id);
 	}
 
 	/**
@@ -416,7 +416,7 @@ class IonAuth
 	 *
 	 * Script will die in case of error
 	 */
-	protected function check_compatibility()
+	protected function checkCompatibility()
 	{
         /*
 		// PHP password_* function sanity check
@@ -440,7 +440,7 @@ class IonAuth
 
         /*
 		// Compatibility check for CSPRNG
-		// See functions used in Ion_auth_model::_random_token()
+		// See functions used in Ion_auth_model::_randomToken()
 		if (!function_exists('random_bytes') && !function_exists('mcrypt_create_iv') && !function_exists('openssl_random_pseudo_bytes'))
 		{
 			show_error("No CSPRNG functions to generate random enough token. " .
