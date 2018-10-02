@@ -10,8 +10,7 @@
     <input type="radio" name="confirm" value="no" />
   </p>
 
-  <?php echo form_hidden($csrf); ?>
-  <?php echo form_hidden(['id' => $user->id]); ?>
+  <?php echo form_hidden('id', $user->id); ?>
 
   <p><?php echo form_submit('submit', lang('Auth.deactivate_submit_btn'));?></p>
 

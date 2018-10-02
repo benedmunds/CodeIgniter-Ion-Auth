@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Ang form na ito post ay hindi pumasa sa aming mga pagsusuri ng seguridad.';
+$lang['error_security'] = 'Ang form na ito post ay hindi pumasa sa aming mga pagsusuri ng seguridad.';
 
 // Login
 $lang['login_heading']         = 'Mag-login';

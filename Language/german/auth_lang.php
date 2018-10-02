@@ -20,7 +20,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Dieses Formular hat unsere Sicherheitskontrollen nicht bestanden.';
+$lang['error_security'] = 'Dieses Formular hat unsere Sicherheitskontrollen nicht bestanden.';
 
 // Login
 $lang['login_heading']         = 'Einloggen';

@@ -21,7 +21,7 @@
 
 return [
 	// Errors
-	'error_csrf' => 'This form post did not pass our security checks.',
+	'error_security' => 'This form post did not pass our security checks.',
 
 	// Login
 	'login_heading'         => 'Login',

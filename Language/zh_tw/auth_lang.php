@@ -20,7 +20,7 @@ if (! defined('BASEPATH')) {
  */
 
 // Errors
-$lang['error_csrf'] = '此表單內容資訊沒通過系統安全認證.';
+$lang['error_security'] = '此表單內容資訊沒通過系統安全認證.';
 
 // Login
 $lang['login_heading']         = '登入';

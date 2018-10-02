@@ -26,7 +26,7 @@ $lang['link_english'] = 'Engelsk';
 $lang['link_spanish'] = 'Spansk';
 
 // Errors
-$lang['error_csrf'] = 'Formularet bestod ikke vores sikkerhedskontrol.';
+$lang['error_security'] = 'Formularet bestod ikke vores sikkerhedskontrol.';
 
 // Login
 $lang['login_heading']         = 'Login';

@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Tento formulár neprešiel bezpečnostnou kontrolou.';
+$lang['error_security'] = 'Tento formulár neprešiel bezpečnostnou kontrolou.';
 
 // Login
 $lang['login_heading']         = 'Prihlásenie';

@@ -21,7 +21,7 @@
  */
 
 // Errors
-$lang['error_csrf'] = 'Форма не прошла проверку безопасности.';
+$lang['error_security'] = 'Форма не прошла проверку безопасности.';
 
 // Login
 $lang['login_heading']         = 'Вход';

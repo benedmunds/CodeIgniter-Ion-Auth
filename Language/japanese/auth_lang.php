@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'セキュリティに問題が生じ送信できませんでした。';
+$lang['error_security'] = 'セキュリティに問題が生じ送信できませんでした。';
 
 // Login
 $lang['login_heading']         = 'ログイン';

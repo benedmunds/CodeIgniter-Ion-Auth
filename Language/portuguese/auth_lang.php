@@ -16,7 +16,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'O envio desse formulario não atendeu a requisitos de segurança.';
+$lang['error_security'] = 'O envio desse formulario não atendeu a requisitos de segurança.';
 
 // Login
 $lang['login_heading']         = 'Login';

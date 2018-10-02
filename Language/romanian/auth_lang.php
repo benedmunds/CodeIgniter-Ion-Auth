@@ -15,7 +15,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Acest formular nu a trecut de verificările de securitate.';
+$lang['error_security'] = 'Acest formular nu a trecut de verificările de securitate.';
 
 // Login
 $lang['login_heading']         = 'Conectare';

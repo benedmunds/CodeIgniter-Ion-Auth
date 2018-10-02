@@ -21,7 +21,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = '该表单提交未通过我们的安全性检查.';
+$lang['error_security'] = '该表单提交未通过我们的安全性检查.';
 
 // Login
 $lang['login_heading']         = '登录';

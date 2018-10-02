@@ -23,7 +23,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Dette skjemaet ble stoppet i sikkerhetskontrollen vår.';
+$lang['error_security'] = 'Dette skjemaet ble stoppet i sikkerhetskontrollen vår.';
 
 // Login
 $lang['login_heading']         = 'Logg inn';

@@ -16,7 +16,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_security'] = 'This form post did not pass our security checks.';
 
 // Login
 $lang['login_heading']         = 'Bejelentkezés';

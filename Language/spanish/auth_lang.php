@@ -21,7 +21,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Este formulario no pasó nuestras pruebas de seguridad.';
+$lang['error_security'] = 'Este formulario no pasó nuestras pruebas de seguridad.';
 
 // Login
 $lang['login_heading']         = 'Ingresar';

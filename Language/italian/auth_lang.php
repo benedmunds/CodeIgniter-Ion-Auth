@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Il form non ha superato i controlli di sicurezza';
+$lang['error_security'] = 'Il form non ha superato i controlli di sicurezza';
 
 // Login
 $lang['login_heading']         = 'Accedi';

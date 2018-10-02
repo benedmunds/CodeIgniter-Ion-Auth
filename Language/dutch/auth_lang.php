@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Het CSRF token is verlopen of ongeldig.';
+$lang['error_security'] = 'Het CSRF token is verlopen of ongeldig.';
 
 // Login
 $lang['login_heading']         = 'Login';

@@ -23,7 +23,7 @@
 
 return [
 	// Errors
-	'error_csrf' => 'La validation de ce formulaire a échoué.',
+	'error_security' => 'La validation de ce formulaire a échoué.',
 
 	// Login
 	'login_heading'         => 'Se connecter',

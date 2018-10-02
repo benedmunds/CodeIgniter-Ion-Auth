@@ -19,7 +19,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'এই ফর্মের ডাটা নিরাপদ নহে, এটি আমাদের নিরাপত্তা সংক্রান্ত শর্তগুলো পূরণ করতে পারেনি।';
+$lang['error_security'] = 'এই ফর্মের ডাটা নিরাপদ নহে, এটি আমাদের নিরাপত্তা সংক্রান্ত শর্তগুলো পূরণ করতে পারেনি।';
 
 // Login
 $lang['login_heading']         = 'প্রবেশ করুন';
@@ -145,7 +145,7 @@ $lang['reset_password_new_password_confirm_label']            = 'নুতুন
 $lang['reset_password_submit_btn']                            = 'পরিবর্তন করুন';
 $lang['reset_password_validation_new_password_label']         = 'নুতুন পাসওয়ার্ড';
 $lang['reset_password_validation_new_password_confirm_label'] = 'নুতুন পাসওয়ার্ডটি আবার দিন';
-$lang['error_csrf'] = 'This form post did not pass our security checks.';
+$lang['error_security'] = 'This form post did not pass our security checks.';
 
 // Login
 $lang['login_heading']         = 'Login';

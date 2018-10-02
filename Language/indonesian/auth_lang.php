@@ -19,7 +19,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Form yang dikirim tidak lulus pemeriksaan keamanan kami.';
+$lang['error_security'] = 'Form yang dikirim tidak lulus pemeriksaan keamanan kami.';
 
 // Login
 $lang['login_heading']         = 'Login';

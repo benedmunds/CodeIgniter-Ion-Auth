@@ -356,7 +356,6 @@ class Auth extends Controller
 					'type' => 'hidden',
 					'value' => $user->id,
 				];
-				$this->data['csrf'] = $this->_get_csrf_nonce();
 				$this->data['code'] = $code;
 
 				// render
@@ -367,14 +366,12 @@ class Auth extends Controller
 				$identity = $user->{$this->configIonAuth->identity};
 
 				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $user->id != $this->request->getPost('user_id'))
+				if ($user->id != $this->request->getPost('user_id'))
 				{
-
 					// something fishy might be up
 					$this->ionAuth->clear_forgotten_password_code($identity);
 
-					throw new \Exception(lang('Auth.error_csrf'));
-
+					throw new \Exception(lang('Auth.error_security'));
 				}
 				else
 				{
@@ -459,9 +456,8 @@ class Auth extends Controller
 
 		if (! $this->validation->withRequest($this->request)->run())
 		{
-			// insert csrf check
-			$this->data['csrf'] = $this->_get_csrf_nonce();
 			$this->data['user'] = $this->ionAuth->user($id)->row();
+			var_dump($this->data['user']);
 
 			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
 		}
@@ -471,9 +467,9 @@ class Auth extends Controller
 			if ($this->request->getPost('confirm') == 'yes')
 			{
 				// do we have a valid request?
-				if ($this->_valid_csrf_nonce() === FALSE || $id != $this->request->getPost('id'))
+				if ($id != $this->request->getPost('id'))
 				{
-					throw new \Exception(lang('Auth.error_csrf'));
+					throw new \Exception(lang('Auth.error_security'));
 				}
 
 				// do we have the right userlevel?
@@ -642,10 +638,10 @@ class Auth extends Controller
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->request->getPost('id'))
+			if ($id != $this->request->getPost('id'))
 			{
-				//show_error(lang('Auth.error_csrf'));
-				throw new \Exception(lang('Auth.error_csrf'));
+				//show_error(lang('Auth.error_security'));
+				throw new \Exception(lang('Auth.error_security'));
 			}
 
 			// update the password if it was posted
@@ -706,7 +702,6 @@ class Auth extends Controller
 		}
 
 		// display the edit user form
-		$this->data['csrf'] = $this->_get_csrf_nonce();
 
 		// set the flash data error message if there is one
 		$this->data['message'] = ($this->validation->listErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
@@ -870,33 +865,6 @@ class Auth extends Controller
 		];
 
 		return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
-	}
-
-	/**
-	 * @return array A CSRF key-value pair
-	 */
-	public function _get_csrf_nonce(): array
-	{
-		helper('text');
-		$key = random_string('alnum', 8);
-		$value = random_string('alnum', 20);
-		$this->session->setFlashdata('csrfkey', $key);
-		$this->session->setFlashdata('csrfvalue', $value);
-
-		return [$key => $value];
-	}
-
-	/**
-	 * @return bool Whether the posted CSRF token matches
-	 */
-	public function _valid_csrf_nonce(){
-		//$csrfkey = $this->request->getPost($this->session->flashdata('csrfkey'));
-		$csrfkey = $this->request->getPost($this->session->getFlashdata('csrfkey'));
-		if ($csrfkey && $csrfkey === $this->session->getFlashdata('csrfvalue'))
-		{
-			return TRUE;
-		}
-			return FALSE;
 	}
 
     /**

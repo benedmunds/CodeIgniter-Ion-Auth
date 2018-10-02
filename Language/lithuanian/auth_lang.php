@@ -14,7 +14,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Šis formos įrašas nepraėjo mūsų saugumo patikrų.';
+$lang['error_security'] = 'Šis formos įrašas nepraėjo mūsų saugumo patikrų.';
 
 // Login
 $lang['login_heading']         = 'Prisijungimas';

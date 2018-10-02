@@ -15,7 +15,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = '폼 전송값이 보안 검사를 통과하지 못했습니다.';
+$lang['error_security'] = '폼 전송값이 보안 검사를 통과하지 못했습니다.';
 
 // Login
 $lang['login_heading']         = '로그인';

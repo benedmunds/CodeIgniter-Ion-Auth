@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Aquest formulari no ha passat els controls de seguretat.';
+$lang['error_security'] = 'Aquest formulari no ha passat els controls de seguretat.';
 
 // Login
 $lang['login_heading']         = 'Inicia sessió';

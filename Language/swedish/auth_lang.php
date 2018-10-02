@@ -18,7 +18,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Detta formulär klarade inte av våra säkerhetskontroller.';
+$lang['error_security'] = 'Detta formulär klarade inte av våra säkerhetskontroller.';
 
 // Login
 $lang['login_heading']         = 'Logga in';

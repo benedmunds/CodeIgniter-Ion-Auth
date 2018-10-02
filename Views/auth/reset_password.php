@@ -15,7 +15,6 @@
 	</p>
 
 	<?php echo form_input($user_id);?>
-	<?php echo form_hidden($csrf); ?>
 
 	<p><?php echo form_submit('submit', lang('Auth.reset_password_submit_btn'));?></p>
 

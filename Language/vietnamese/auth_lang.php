@@ -15,7 +15,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Có lỗi xảy ra trong quá trình đăng nhập.';
+$lang['error_security'] = 'Có lỗi xảy ra trong quá trình đăng nhập.';
 
 // Login
 $lang['login_heading']         = 'Đăng nhập';

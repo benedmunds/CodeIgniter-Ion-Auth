@@ -15,7 +15,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Gönderilen form verisi güvenlik kontrolünden geçemedi.';
+$lang['error_security'] = 'Gönderilen form verisi güvenlik kontrolünden geçemedi.';
 
 // Login
 $lang['login_heading']         = 'Giriş';

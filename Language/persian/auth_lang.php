@@ -14,7 +14,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'لطفا از رفرش صفحه خودداری نمایید';
+$lang['error_security'] = 'لطفا از رفرش صفحه خودداری نمایید';
 
 // Login
 $lang['login_heading']         = 'ورود اعضا';

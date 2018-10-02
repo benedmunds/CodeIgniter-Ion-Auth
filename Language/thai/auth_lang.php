@@ -22,7 +22,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'POST ฟอร์มนี้ไม่ผ่านการตรวจสอบความปลอดภัย';
+$lang['error_security'] = 'POST ฟอร์มนี้ไม่ผ่านการตรวจสอบความปลอดภัย';
 
 // Login
 $lang['login_heading']         = 'เข้าสู่ระบบ';

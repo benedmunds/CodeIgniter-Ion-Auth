@@ -16,7 +16,7 @@
 */
 
 // Napaka
-$lang['error_csrf'] = 'Slednji obrazec ni ustrezal našim varnostnim zahtevam.';
+$lang['error_security'] = 'Slednji obrazec ni ustrezal našim varnostnim zahtevam.';
 
 // Prijava
 $lang['login_heading']         = 'Prijava';

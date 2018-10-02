@@ -21,7 +21,7 @@
 */
 
 // Errors
-$lang['error_csrf'] = 'Obrazac ne prolazi provjere.';
+$lang['error_security'] = 'Obrazac ne prolazi provjere.';
 
 // Login
 $lang['login_heading']         = 'Prijava';
