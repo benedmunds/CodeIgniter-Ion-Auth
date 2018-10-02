@@ -1,6 +1,4 @@
-<?php
-// namespace App\Libraries;
-namespace IonAuth\Libraries;
+<?php namespace IonAuth\Libraries;
 
 /**
  * Name:    Ion Auth
@@ -32,7 +30,7 @@ class IonAuth
 
 	/**
 	 *
-	 * @var \App\Models\IonAuthModel
+	 * @var \IonAuth\Models\IonAuthModel
 	 */
 	private $ionAuthModel;
 
@@ -82,7 +80,7 @@ class IonAuth
 
 		//$this->session = \Config\Services::session();   //$this->load->library('session');
 
-		$this->ionAuthModel = new \App\Models\IonAuthModel();
+		$this->ionAuthModel = new \IonAuth\Models\IonAuthModel();
 
 		$this->_cache_user_in_group =& $this->ionAuthModel->_cache_user_in_group;
 

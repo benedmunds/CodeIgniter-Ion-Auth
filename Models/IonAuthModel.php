@@ -20,7 +20,7 @@
  * @filesource
  */
 
-namespace App\Models;
+namespace IonAuth\Models;
 
 use \CodeIgniter\Database\ConnectionInterface;
 

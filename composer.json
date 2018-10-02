@@ -22,7 +22,9 @@
 	},
 	"autoload": {
 		"psr-4" : {
-			"IonAuth\\Libraries\\" : "Libraries/"
+			"IonAuth\\Controllers\\" : "Controllers/",
+			"IonAuth\\Libraries\\" : "Libraries/",
+			"IonAuth\\Models\\" : "Models/"
 		}
 	}
 }

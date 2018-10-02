@@ -7,7 +7,7 @@
  * @license https://opensource.org/licenses/MIT	MIT License
  */
 
-use App\Models\IonAuthModel;
+use IonAuth\Models\IonAuthModel;
 
 /**
  * IonAuthModel tests

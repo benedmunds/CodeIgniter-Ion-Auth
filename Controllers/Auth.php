@@ -1,4 +1,4 @@
-<?php namespace App\Controllers;
+<?php namespace IonAuth\Controllers;
 
 use CodeIgniter\Controller;
 
@@ -20,7 +20,7 @@ class Auth extends Controller
 
 	/**
 	 *
-	 * @var \App\Libraries\IonAuth
+	 * @var \IonAuth\Libraries\IonAuth
 	 */
 	private $ionAuth;
 
@@ -39,7 +39,7 @@ class Auth extends Controller
 
 	public function __construct()
 	{
-		$this->ionAuth = new \App\Libraries\IonAuth();
+		$this->ionAuth = new \IonAuth\Libraries\IonAuth();
 		$this->validation = \Config\Services::validation();
 		helper(['form', 'url']);
 		$this->configIonAuth = config('IonAuth');
