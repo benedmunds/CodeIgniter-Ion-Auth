@@ -2,7 +2,8 @@
     "name": "bvrignaud/code-igniter-ion-auth",
     "description": "Simple and Lightweight Auth System for CodeIgniter",
     "type": "library",
-    "license": "MIT",
+	"license": "MIT",
+	"homepage": "http://benedmunds.com/ion_auth",
     "authors": [
         {
             "name": "Ben EDMUNDS"
@@ -12,5 +13,11 @@
             "email": "benoit.vrignaud@zaclys.net"
         }
     ],
-    "require": {}
+	"require": {
+		"php": ">=7.1"
+	},
+	"require-dev": {
+        "phpunit/phpunit": "^7.3",
+        "codeigniter4/codeigniter4-standard": "^1.0"
+    }
 }
