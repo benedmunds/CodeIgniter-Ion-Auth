@@ -199,7 +199,7 @@ class IonAuthModel
 
 	public function __construct()
 	{
-		$this->config = new \IonAuth\Config\IonAuth();
+		$this->config = config('IonAuth');
 		helper(['cookie', 'date']);
 		$this->session = \Config\Services::session();
 
