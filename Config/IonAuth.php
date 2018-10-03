@@ -220,9 +220,9 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | Message Delimiters.
 	 | -------------------------------------------------------------------------
 	 */
-	public $delimitersSource       = 'config'; // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
-	public $message_start_delimiter = '<p>';    // Message start delimiter
-	public $message_end_delimiter   = '</p>';   // Message end delimiter
+	public $delimitersSource      = 'config'; // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
+	public $messageStartDelimiter = '<p>';    // Message start delimiter
+	public $messageEndDelimiter   = '</p>';   // Message end delimiter
 	public $errorStartDelimiter   = '<p>';    // Error message start delimiter
 	public $errorEndDelimiter     = '</p>';   // Error message end delimiter
 

@@ -242,18 +242,18 @@ class IonAuthModel
 			$error_prefix = $form_validation_class->getProperty("_error_prefix");
 			$error_prefix->setAccessible(TRUE);
 			$this->errorStartDelimiter = $error_prefix->getValue($this->form_validation);
-			$this->message_start_delimiter = $this->errorStartDelimiter;
+			$this->messageStartDelimiter = $this->errorStartDelimiter;
 
 			$error_suffix = $form_validation_class->getProperty("_error_suffix");
 			$error_suffix->setAccessible(TRUE);
 			$this->errorEndDelimiter = $error_suffix->getValue($this->form_validation);
-			$this->message_end_delimiter = $this->errorEndDelimiter;
+			$this->messageEndDelimiter = $this->errorEndDelimiter;
 		}
 		else
 		{
 			// use delimiters from config
-			$this->message_start_delimiter = $this->config->message_start_delimiter;
-			$this->message_end_delimiter = $this->config->message_end_delimiter;
+			$this->messageStartDelimiter = $this->config->messageStartDelimiter;
+			$this->messageEndDelimiter = $this->config->messageEndDelimiter;
 			$this->errorStartDelimiter = $this->config->errorStartDelimiter;
 			$this->errorEndDelimiter = $this->config->errorEndDelimiter;
 		}
@@ -2338,8 +2338,8 @@ class IonAuthModel
 	 */
 	public function setMessageDelimiters($start_delimiter, $end_delimiter)
 	{
-		$this->message_start_delimiter = $start_delimiter;
-		$this->message_end_delimiter   = $end_delimiter;
+		$this->messageStartDelimiter = $start_delimiter;
+		$this->messageEndDelimiter   = $end_delimiter;
 
 		return TRUE;
 	}
@@ -2395,7 +2395,7 @@ class IonAuthModel
 		{
 			//$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
             $messageLang = lang($message) ? lang($message) : '##' . $message . '##';
-			$_output .= $this->message_start_delimiter . $messageLang . $this->message_end_delimiter;
+			$_output .= $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
 		}
 
 		return $_output;
@@ -2419,7 +2419,7 @@ class IonAuthModel
 			foreach ($this->messages as $message)
 			{
 				$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
-				$_output[] = $this->message_start_delimiter . $messageLang . $this->message_end_delimiter;
+				$_output[] = $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
 			}
 			return $_output;
 		}
