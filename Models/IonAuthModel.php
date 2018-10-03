@@ -163,28 +163,28 @@ class IonAuthModel
 	protected $errors;
 
 	/**
-	 * error start delimiter
+	 * Error start delimiter
 	 *
 	 * @var string
 	 */
-	protected $error_start_delimiter;
+	protected $errorStartDelimiter;
 
 	/**
-	 * error end delimiter
+	 * Error end delimiter
 	 *
 	 * @var string
 	 */
-	protected $error_end_delimiter;
+	protected $errorEndDelimiter;
 
 	/**
-	 * caching of users and their groups
+	 * Caching of users and their groups
 	 *
 	 * @var array
 	 */
-	public $_cache_user_in_group = [];
+	public $_cacheUserInGroup = [];
 
 	/**
-	 * caching of groups
+	 * Caching of groups
 	 *
 	 * @var array
 	 */
@@ -204,8 +204,8 @@ class IonAuthModel
 		$this->session = \Config\Services::session();
 
 		// initialize the database
-		$group_name = $this->config->database_group_name;
-		if (empty($group_name)) 
+		$groupName = $this->config->databaseGroupName;
+		if (empty($groupName))
 		{
 			// By default, use CI's db that should be already loaded
 			$this->db = \Config\Database::connect();
@@ -213,7 +213,7 @@ class IonAuthModel
 		else
 		{
 			// For specific group name, open a new specific connection
-			$this->db = \Config\Database::connect($this->config->database_group_name);
+			$this->db = \Config\Database::connect($this->config->databaseGroupName);
 		}
 
 		// initialize db tables data
@@ -229,10 +229,10 @@ class IonAuthModel
 		// initialize messages and error
 		$this->messages    = [];
 		$this->errors      = [];
-		$delimiters_source = $this->config->delimiters_source;
+		$delimitersSource = $this->config->delimitersSource;
 
 		// load the error delimeters either from the config file or use what's been supplied to form validation
-		if ($delimiters_source === 'form_validation')
+		if ($delimitersSource === 'form_validation')
 		{
 			// load in delimiters from form_validation
 			// to keep this simple we'll load the value using reflection since these properties are protected
@@ -241,21 +241,21 @@ class IonAuthModel
 
 			$error_prefix = $form_validation_class->getProperty("_error_prefix");
 			$error_prefix->setAccessible(TRUE);
-			$this->error_start_delimiter = $error_prefix->getValue($this->form_validation);
-			$this->message_start_delimiter = $this->error_start_delimiter;
+			$this->errorStartDelimiter = $error_prefix->getValue($this->form_validation);
+			$this->message_start_delimiter = $this->errorStartDelimiter;
 
 			$error_suffix = $form_validation_class->getProperty("_error_suffix");
 			$error_suffix->setAccessible(TRUE);
-			$this->error_end_delimiter = $error_suffix->getValue($this->form_validation);
-			$this->message_end_delimiter = $this->error_end_delimiter;
+			$this->errorEndDelimiter = $error_suffix->getValue($this->form_validation);
+			$this->message_end_delimiter = $this->errorEndDelimiter;
 		}
 		else
 		{
 			// use delimiters from config
 			$this->message_start_delimiter = $this->config->message_start_delimiter;
 			$this->message_end_delimiter = $this->config->message_end_delimiter;
-			$this->error_start_delimiter = $this->config->error_start_delimiter;
-			$this->error_end_delimiter = $this->config->error_end_delimiter;
+			$this->errorStartDelimiter = $this->config->errorStartDelimiter;
+			$this->errorEndDelimiter = $this->config->errorEndDelimiter;
 		}
 
 		// initialize our hooks object
@@ -284,7 +284,7 @@ class IonAuthModel
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hashPassword($password, $identity = NULL)
+	public function hashPassword($password, $identity = null)
 	{
 		// Check for empty password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -292,18 +292,18 @@ class IonAuthModel
 		if (empty($password) || strpos($password, "\0") !== FALSE ||
 			strlen($password) > self::MAX_PASSWORD_SIZE_BYTES)
 		{
-			return FALSE;
+			return false;
 		}
 
 		$algo = $this->_getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
-		if ($algo !== FALSE && $params !== FALSE)
+		if ($algo !== false && $params !== false)
 		{
 			return password_hash($password, $algo, $params);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -311,32 +311,32 @@ class IonAuthModel
 	 * against an entry in the users table.
 	 *
 	 * @param string	$password
-	 * @param string	$hash_password_db
+	 * @param string	$hashPasswordDb
 	 * @param string	$identity			optional @deprecated only for BC SHA1
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Mathew
 	 */
-	public function verifyPassword($password, $hash_password_db, $identity = NULL)
+	public function verifyPassword(string $password, string $hashPasswordDb, $identity = null): bool
 	{
 		// Check for empty id or password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
 		// Long password may pose DOS issue (note: strlen gives size in bytes and not in multibyte symbol)
-		if (empty($password) || empty($hash_password_db) || strpos($password, "\0") !== FALSE
+		if (empty($password) || empty($hashPasswordDb) || strpos($password, "\0") !== false
 			|| strlen($password) > self::MAX_PASSWORD_SIZE_BYTES)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// password_hash always starts with $
-		if (strpos($hash_password_db, '$') === 0)
+		if (strpos($hashPasswordDb, '$') === 0)
 		{
-			return password_verify($password, $hash_password_db);
+			return password_verify($password, $hashPasswordDb);
 		}
 		else
 		{
 			// Handle legacy SHA1 @TODO to delete in later revision
-			return $this->_passwordVerifySha1Legacy($identity, $password, $hash_password_db);
+			return $this->_passwordVerifySha1Legacy($identity, $password, $hashPasswordDb);
 		}
 	}
 
@@ -354,7 +354,7 @@ class IonAuthModel
 		$algo = $this->_getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
-		if ($algo !== FALSE && $params !== FALSE)
+		if ($algo !== false && $params !== false)
 		{
 			if (password_needs_rehash($hash, $algo, $params))
 			{
@@ -379,13 +379,13 @@ class IonAuthModel
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function activate($id, $code = FALSE)
+	public function activate($id, $code = false)
 	{
 		$this->triggerEvents('pre_activate');
 
 		$token = $this->_retrieveSelectorValidatorCouple($code);
 
-		if ($token !== FALSE)
+		if ($token !== false)
 		{
 			// A token was provided, we need to check it
 
@@ -436,7 +436,7 @@ class IonAuthModel
 
 		$this->triggerEvents(['post_activate', 'post_activate_unsuccessful']);
 		$this->setError('activate_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -1429,18 +1429,18 @@ class IonAuthModel
 
 			// verify if group name or group id was used and create and put elements in different arrays
 			$group_ids = [];
-			$group_names = [];
+			$groupNames = [];
 			foreach($groups as $group)
 			{
 				if(is_numeric($group)) $group_ids[] = $group;
-				else $group_names[] = $group;
+				else $groupNames[] = $group;
 			}
-			$or_where_in = (!empty($group_ids) && !empty($group_names)) ? 'or_where_in' : 'where_in';
+			$or_where_in = (!empty($group_ids) && !empty($groupNames)) ? 'or_where_in' : 'where_in';
 			// if group name was used we do one more join with groups
-			if(!empty($group_names))
+			if(!empty($groupNames))
 			{
 				$builder->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
-				$builder->where_in($this->tables['groups'] . '.name', $group_names);
+				$builder->where_in($this->tables['groups'] . '.name', $groupNames);
 			}
 			if(!empty($group_ids))
 			{
@@ -1564,9 +1564,9 @@ class IonAuthModel
 			$check_group = [$check_group];
 		}
 
-		if (isset($this->_cache_user_in_group[$id]))
+		if (isset($this->_cacheUserInGroup[$id]))
 		{
-			$groups_array = $this->_cache_user_in_group[$id];
+			$groups_array = $this->_cacheUserInGroup[$id];
 		}
 		else
 		{
@@ -1576,7 +1576,7 @@ class IonAuthModel
 			{
 				$groups_array[$group->id] = $group->name;
 			}
-			$this->_cache_user_in_group[$id] = $groups_array;
+			$this->_cacheUserInGroup[$id] = $groups_array;
 		}
 		foreach ($check_group as $key => $value)
 		{
@@ -1636,15 +1636,15 @@ class IonAuthModel
 			{
 				if (isset($this->_cache_groups[$group_id]))
 				{
-					$group_name = $this->_cache_groups[$group_id];
+					$groupName = $this->_cache_groups[$group_id];
 				}
 				else
 				{
 					$group = $this->group($group_id)->result();
-					$group_name = $group[0]->name;
-					$this->_cache_groups[$group_id] = $group_name;
+					$groupName = $group[0]->name;
+					$this->_cache_groups[$group_id] = $groupName;
 				}
-				$this->_cache_user_in_group[$user_id][$group_id] = $group_name;
+				$this->_cacheUserInGroup[$user_id][$group_id] = $groupName;
 
 				// Return the number of groups added
 				$return++;
@@ -1693,9 +1693,9 @@ class IonAuthModel
 				);
 				*/
 				$builder->delete([$this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id]);
-				if (isset($this->_cache_user_in_group[$user_id]) && isset($this->_cache_user_in_group[$user_id][$group_id]))
+				if (isset($this->_cacheUserInGroup[$user_id]) && isset($this->_cacheUserInGroup[$user_id][$group_id]))
 				{
-					unset($this->_cache_user_in_group[$user_id][$group_id]);
+					unset($this->_cacheUserInGroup[$user_id][$group_id]);
 				}
 			}
 
@@ -1708,7 +1708,7 @@ class IonAuthModel
 			//if ($return = $this->db->delete($this->tables['users_groups'], [$this->join['users'] => (float)$user_id]))
 			if ($return = $builder->delete([$this->join['users'] => (float)$user_id]))
 			{
-				$this->_cache_user_in_group[$user_id] = [];
+				$this->_cacheUserInGroup[$user_id] = [];
 			}
 		}
 		return $return;
@@ -2016,7 +2016,7 @@ class IonAuthModel
 				}
 
 				set_cookie([
-					'name'   => $this->config->remember_cookie_name,
+					'name'   => $this->config->rememberCookieName,
 					'value'  => $token->user_code,
 					'expire' => $expire
 				]);
@@ -2043,7 +2043,7 @@ class IonAuthModel
 		$this->triggerEvents('pre_login_remembered_user');
 
 		// Retrieve token from cookie
-		$remember_cookie = get_cookie($this->config->remember_cookie_name);
+		$remember_cookie = get_cookie($this->config->rememberCookieName);
 		$token = $this->_retrieveSelectorValidatorCouple($remember_cookie);
 
 		if ($token === FALSE)
@@ -2090,7 +2090,7 @@ class IonAuthModel
 				return TRUE;
 			}
 		}
-		delete_cookie($this->config->remember_cookie_name);
+		delete_cookie($this->config->rememberCookieName);
 
 		$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_unsuccessful']);
 		return FALSE;
@@ -2100,31 +2100,31 @@ class IonAuthModel
 	/**
 	 * create_group
 	 *
-	 * @param string|bool $group_name
+	 * @param string|bool $groupName
 	 * @param string      $group_description
 	 * @param array       $additional_data
 	 *
 	 * @return int|bool The ID of the inserted group, or FALSE on failure
 	 * @author aditya menon
 	 */
-	public function createGroup($group_name = FALSE, $group_description = '', $additional_data = [])
+	public function createGroup($groupName = FALSE, $group_description = '', $additional_data = [])
 	{
 		// bail if the group name was not passed
-		if(!$group_name)
+		if(!$groupName)
 		{
-			$this->setError('group_name_required');
+			$this->setError('groupName_required');
 			return FALSE;
 		}
 
 		// bail if the group name already exists
-		$existing_group = $this->db->table($this->tables['groups'])->where(['name' => $group_name])->countAllResults();
+		$existing_group = $this->db->table($this->tables['groups'])->where(['name' => $groupName])->countAllResults();
 		if($existing_group !== 0)
 		{
 			$this->setError('group_already_exists');
 			return FALSE;
 		}
 
-		$data = ['name'=>$group_name,'description'=>$group_description];
+		$data = ['name'=>$groupName,'description'=>$group_description];
 
 		// filter out any data passed that doesnt have a matching column in the groups table
 		// and merge the set group data and the additional data
@@ -2146,13 +2146,13 @@ class IonAuthModel
 	 * update_group
 	 *
 	 * @param int|string|bool $group_id
-	 * @param string|bool     $group_name
+	 * @param string|bool     $groupName
 	 * @param array    $additional_data
 	 *
 	 * @return bool
 	 * @author aditya menon
 	 */
-	public function updateGroup($group_id = FALSE, $group_name = FALSE, $additional_data = []): bool
+	public function updateGroup($group_id = FALSE, $groupName = FALSE, $additional_data = []): bool
 	{
 		if (empty($group_id))
 		{
@@ -2161,26 +2161,26 @@ class IonAuthModel
 
 		$data = [];
 
-		if (!empty($group_name))
+		if (!empty($groupName))
 		{
 			// we are changing the name, so do some checks
 
 			// bail if the group name already exists
-			$existing_group = $this->db->table($this->tables['groups'])->getWhere(['name' => $group_name])->getRow();
+			$existing_group = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
 			if (isset($existing_group->id) && $existing_group->id != $group_id)
 			{
 				$this->setError('group_already_exists');
 				return FALSE;
 			}
 
-			$data['name'] = $group_name;
+			$data['name'] = $groupName;
 		}
 
 		// restrict change of name of the admin group
 		$group = $this->db->table($this->tables['groups'])->getWhere(['id' => $group_id])->getRow();
-		if ($this->config->admin_group === $group->name && $group_name !== $group->name)
+		if ($this->config->admin_group === $group->name && $groupName !== $group->name)
 		{
-			$this->setError('group_name_admin_not_alter');
+			$this->setError('groupName_admin_not_alter');
 			return FALSE;
 		}
 
@@ -2357,8 +2357,8 @@ class IonAuthModel
 	 */
 	public function setErrorDelimiters($start_delimiter, $end_delimiter)
 	{
-		$this->error_start_delimiter = $start_delimiter;
-		$this->error_end_delimiter   = $end_delimiter;
+		$this->errorStartDelimiter = $start_delimiter;
+		$this->errorEndDelimiter   = $end_delimiter;
 
 		return TRUE;
 	}
@@ -2475,7 +2475,7 @@ class IonAuthModel
 		foreach ($this->errors as $error)
 		{
 			$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
-			$_output .= $this->error_start_delimiter . $errorLang . $this->error_end_delimiter;
+			$_output .= $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
 		}
 
 		return $_output;
@@ -2499,7 +2499,7 @@ class IonAuthModel
 			foreach ($this->errors as $error)
 			{
 				$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
-				$_output[] = $this->error_start_delimiter . $errorLang . $this->error_end_delimiter;
+				$_output[] = $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
 			}
 			return $_output;
 		}

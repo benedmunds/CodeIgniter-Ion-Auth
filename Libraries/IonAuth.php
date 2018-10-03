@@ -60,7 +60,7 @@ class IonAuth
 	 *
 	 * @var array
 	 **/
-	public $_cache_user_in_group;
+	public $_cacheUserInGroup;
 
 	/**
 	 * __construct
@@ -82,7 +82,7 @@ class IonAuth
 
 		$this->ionAuthModel = new \IonAuth\Models\IonAuthModel();
 
-		$this->_cache_user_in_group =& $this->ionAuthModel->_cache_user_in_group;
+		$this->_cacheUserInGroup =& $this->ionAuthModel->_cacheUserInGroup;
 
 		$email_config = $this->config->email_config;
 
@@ -172,7 +172,7 @@ class IonAuth
 				}
 				else
 				{
-					$message = $this->load->view($this->config->email_templates . $this->config->email_forgot_password, $data, TRUE);
+					$message = $this->load->view($this->config->emailTemplates . $this->config->email_forgot_password, $data, TRUE);
 					$this->email->clear();
 					$this->email->from($this->config->admin_email, $this->config->site_title);
 					$this->email->to($user->email);
@@ -267,10 +267,10 @@ class IonAuth
 		}
 		else
 		{
-			if (!$id)
+			if (! $id)
 			{
 				$this->setError('account_creation_unsuccessful');
-				return FALSE;
+				return false;
 			}
 
 			// deactivate so the user much follow the activation flow
@@ -279,24 +279,24 @@ class IonAuth
 			// the deactivate method call adds a message, here we need to clear that
 			$this->ionAuthModel->clearMessages();
 
-			if (!$deactivate)
+			if (! $deactivate)
 			{
 				$this->setError('deactivate_unsuccessful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
-				return FALSE;
+				return false;
 			}
 
-			$activation_code = $this->ionAuthModel->activation_code;
-			$identity        = $this->config->identity;
-			$user            = $this->ionAuthModel->user($id)->row();
+			$activationCode = $this->ionAuthModel->activation_code;
+			$identity       = $this->config->identity;
+			$user           = $this->ionAuthModel->user($id)->row();
 
 			$data = [
 				'identity'   => $user->{$identity},
 				'id'         => $user->id,
 				'email'      => $email,
-				'activation' => $activation_code,
+				'activation' => $activationCode,
 			];
-			if(!$this->config->use_ci_email)
+			if (! $this->config->use_ci_email)
 			{
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
 				$this->setMessage('activation_email_successful');
@@ -304,7 +304,7 @@ class IonAuth
 			}
 			else
 			{
-				$message = $this->load->view($this->config->email_templates . $this->config->email_activate, $data, true);
+				$message = $this->load->view($this->config->emailTemplates . $this->config->email_activate, $data, true);
 
 				$this->email->clear();
 				$this->email->from($this->config->admin_email, $this->config->site_title);
@@ -342,7 +342,7 @@ class IonAuth
 		$this->session->unset_userdata([$identity, 'id', 'user_id']);
 
 		// delete the remember me cookies if they exist
-		delete_cookie($this->config->remember_cookie_name);
+		delete_cookie($this->config->rememberCookieName);
 
 		// Clear all codes
 		$this->ionAuthModel->clearForgottenPasswordCode($identity);
@@ -374,7 +374,7 @@ class IonAuth
 		$recheck = $this->ionAuthModel->recheckSession();
 
 		// auto-login the user if they are remembered
-		if (!$recheck && get_cookie($this->config->remember_cookie_name))
+		if (!$recheck && get_cookie($this->config->rememberCookieName))
 		{
 			$recheck = $this->ionAuthModel->loginRememberedUser();
 		}

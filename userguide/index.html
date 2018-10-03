@@ -128,11 +128,7 @@ Documentation
 
 	<a name="requirements"></a>
 	<h2>Server requirements</h2>
-    Ion Auth 3 needs <strong>CodeIgniter 3</strong> and <strong>PHP 5.6</strong>.<br/>
-    It should work on 5.3.7 as well, but we strongly advise you NOT to run such old versions of PHP,
-    because of potential security and performance issues.<br/>
-    If running an old PHP version, you may need
-    <a href="https://github.com/ircmaxell/password_compat" target="_blank">password_compat</a>.
+    Ion Auth 4 needs <strong>CodeIgniter 4</strong> and <strong>PHP 7.1</strong>.<br/>
 
     <a name="install"></a>
 	<h2>Installation</h2>
@@ -140,7 +136,7 @@ Documentation
 	<ol>
 		<li>
             Download the latest version:
-            <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/3">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/3</a>
+            <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/4">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/4</a>
         </li>
 		<li>Copy the files from this package to the correspoding folder in your application folder.  For example, copy Ion_auth/config/ion_auth.php to system/application/config/ion_auth.php.</li>
 		<li>You can also copy the entire directory structure into your third_party/ folder.  For example, copy everything to /application/third_party/ion_auth/</li>
@@ -160,7 +156,7 @@ Documentation
 	<ol>
 		<li>
             Download the latest version:
-            <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/3">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/3</a>
+            <a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/4">https://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/4</a>
         </li>
 		<li>Overwrite "libraries/ion_auth.php" and "models/ion_auth_model.php" with the new versions.</li>
 		<li>Overwrite "language/*" with the news versions.</li>
@@ -175,7 +171,7 @@ Documentation
 	<h2>Loading Ion Auth</h2>
 
 	<p>You load Ion Auth just link any other library:</p>
-	<pre>$this->load->library('ion_auth');</pre>
+	<pre>$ionAuth = new \IonAuth\Libraries\IonAuth();</pre>
 
 	<p>You can also autoload the library.</p>
 
@@ -366,7 +362,7 @@ Documentation
 
     <ul>
         <li>
-            <strong>remember_cookie_name</strong> Default is 'remember_code'<br/>
+            <strong>rememberCookieName</strong> Default is 'remember_code'<br/>
             Cookie name for the "Remember me" feature.
         </li>
     </ul>
@@ -384,7 +380,7 @@ Documentation
 
     <ul>
         <li>
-            <strong>email_templates</strong> Default is 'auth/email/'<br/>
+            <strong>emailTemplates</strong> Default is 'auth/email/'<br/>
             Folder where the email view templates are stored.
         </li>
         <li>
@@ -409,11 +405,11 @@ Documentation
             Ending delimiter for messages.
         </li>
         <li>
-            <strong>error_start_delimiter</strong> Default is '&lt;p&gt;'<br/>
+            <strong>errorStartDelimiter</strong> Default is '&lt;p&gt;'<br/>
             Starting delimiter for errors.
         </li>
         <li>
-            <strong>error_end_delimiter</strong> Default is '&lt;/p&gt;'<br/>
+            <strong>errorEndDelimiter</strong> Default is '&lt;/p&gt;'<br/>
             Ending delimiter for errors.
         </li>
     </ul>

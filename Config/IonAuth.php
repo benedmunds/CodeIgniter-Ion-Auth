@@ -22,41 +22,47 @@
  * @filesource
  */
 
+/**
+ * Configuration file for Ion Auth
+ *
+ * @package CodeIgniter-Ion-Auth
+ */
 class IonAuth extends \CodeIgniter\Config\BaseConfig
 {
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Database group name option.
-	 | -------------------------------------------------------------------------
-	 | Allows to select a specific group for the database connection
-	 |
-	 | Default is empty: uses default group defined in CI's configuration
-	 | (see application/config/database.php, $active_group variable)
+	/**
+	 * Database group name option.
+	 * -------------------------------------------------------------------------
+	 * Allows to select a specific group for the database connection
+	 *
+	 * Default is empty: uses default group defined in CI's configuration
+	 * (see application/config/database.php, $active_group variable)
+	 *
+	 * @var string
 	 */
-	public $database_group_name = '';
+	public $databaseGroupName = '';
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Tables.
-	 | -------------------------------------------------------------------------
-	 | Database table names.
+	/**
+	 * Tables (Database table names)
+	 *
+	 * @var array
 	 */
 	public $tables = [
-		'users' => 'users',
-		'groups' => 'groups',
-		'users_groups' => 'users_groups',
+		'users'          => 'users',
+		'groups'         => 'groups',
+		'users_groups'   => 'users_groups',
 		'login_attempts' => 'login_attempts',
 	];
 
-	/*
-	 | Users table column and Group table column you want to join WITH.
-	 |
-	 | Joins from users.id
-	 | Joins from groups.id
+	/**
+	 * Users table column and Group table column you want to join WITH.
+	 * Joins from users.id
+	 * Joins from groups.id
+	 *
+	 * @var array
 	 */
 	public $join = [
-		'users' => 'user_id',
+		'users'  => 'user_id',
 		'groups' => 'group_id',
 	];
 
@@ -163,13 +169,13 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 																	Leave 0 if you don't want session recheck. if you really think you need to recheck the session against database, we would
 																	recommend a higher value, as this would affect performance */
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Cookie options.
-	 | -------------------------------------------------------------------------
-	 | remember_cookie_name Default: remember_code
+	/**
+	 * Cookie options.
+	 * rememberCookieName Default: remember_code
+	 *
+	 * @var string
 	 */
-	public $remember_cookie_name = 'remember_code';
+	public $rememberCookieName = 'remember_code';
 
 	/*
 	 | -------------------------------------------------------------------------
@@ -184,14 +190,14 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 		'mailtype' => 'html',
 	];
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Email templates.
-	 | -------------------------------------------------------------------------
-	 | Folder where email templates are stored.
-	 | Default: auth/
+	/**
+	 * Email templates.
+	 * Folder where email templates are stored.
+	 * Default: auth/
+	 *
+	 * @var string
 	 */
-	public $email_templates = 'auth/email/';
+	public $emailTemplates = 'auth/email/';
 
 	/*
 	 | -------------------------------------------------------------------------
@@ -214,10 +220,10 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | Message Delimiters.
 	 | -------------------------------------------------------------------------
 	 */
-	public $delimiters_source       = 'config'; // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
+	public $delimitersSource       = 'config'; // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
 	public $message_start_delimiter = '<p>';    // Message start delimiter
 	public $message_end_delimiter   = '</p>';   // Message end delimiter
-	public $error_start_delimiter   = '<p>';    // Error message start delimiter
-	public $error_end_delimiter     = '</p>';   // Error message end delimiter
+	public $errorStartDelimiter   = '<p>';    // Error message start delimiter
+	public $errorEndDelimiter     = '</p>';   // Error message end delimiter
 
 }

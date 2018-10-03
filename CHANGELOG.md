@@ -1,6 +1,14 @@
 Ion Auth Changelog
 ===================================
 
+## xx Octobre 2018 - Ion Auth 4
+
+- **General:**
+	- Migration from CodeIgniter 3 to CodeIgniter 4
+ - **New server requirements:**
+    - Drop CodeIgniter 3 support
+    - Drop PHP < 7.1 support
+
 ## xx March 2018 - Ion Auth 3
 
  - **General:**

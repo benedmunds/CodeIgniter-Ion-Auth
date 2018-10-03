@@ -10,19 +10,23 @@
  */
 class Auth extends \CodeIgniter\Controller
 {
+	/**
+	 * 
+	 * @var array
+	 */
 	public $data = [];
 
 	/**
 	 * 
-	 * @var \App\Config\IonAuth
+	 * @var \IonAuth\Config\IonAuth
 	 */
-	private $configIonAuth;
+	protected $configIonAuth;
 
 	/**
 	 *
 	 * @var \IonAuth\Libraries\IonAuth
 	 */
-	private $ionAuth;
+	protected $ionAuth;
 
 	/**
 	 *
@@ -44,11 +48,13 @@ class Auth extends \CodeIgniter\Controller
 		helper(['form', 'url']);
 		$this->configIonAuth = config('IonAuth');
 		$this->session = \Config\Services::session();
-		// TODO: $this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
+		// TODO: $this->form_validation->set_error_delimiters($this->config->item('errorStartDelimiter', 'ion_auth'), $this->config->item('errorEndDelimiter', 'ion_auth'));
 	}
 
 	/**
 	 * Redirect if needed, otherwise display the user list
+	 *
+	 * @return string
 	 */
 	public function index()
 	{
@@ -82,6 +88,8 @@ class Auth extends \CodeIgniter\Controller
 
 	/**
 	 * Log the user in
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function login()
 	{
@@ -110,7 +118,7 @@ class Auth extends \CodeIgniter\Controller
 				// if the login was un-successful
 				// redirect them back to the login page
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				//redirect('auth/login', 'refresh'); // use redirects instead of loading views for compatibility with MY_Controller libraries
+				// use redirects instead of loading views for compatibility with MY_Controller libraries
 				return redirect('auth/login');
 			}
 		}
@@ -118,7 +126,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
-			//$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			// $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 			$this->data['identity'] = [
@@ -140,22 +148,25 @@ class Auth extends \CodeIgniter\Controller
 
 	/**
 	 * Log the user out
+	 *
+	 * @return \CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function logout()
 	{
-		$this->data['title'] = "Logout";
+		$this->data['title'] = 'Logout';
 
 		// log the user out
 		$this->ionAuth->logout();
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		//redirect('auth/login', 'refresh');
 		return redirect('auth/login');
 	}
 
 	/**
 	 * Change password
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function change_password()
 	{
@@ -163,15 +174,14 @@ class Auth extends \CodeIgniter\Controller
 		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
 		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
-		if (!$this->ionAuth->loggedIn())
+		if (! $this->ionAuth->loggedIn())
 		{
-			//redirect('auth/login', 'refresh');
 			return redirect('auth/login');
 		}
 
 		$user = $this->ionAuth->user()->row();
 
-		if ($this->validation->run() === FALSE)
+		if ($this->validation->run() === false)
 		{
 			// display the form
 			// set the flash data error message if there is one
@@ -220,7 +230,6 @@ class Auth extends \CodeIgniter\Controller
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				//redirect('auth/change_password', 'refresh');
 				return redirect('auth/change_password');
 			}
 		}
@@ -228,6 +237,8 @@ class Auth extends \CodeIgniter\Controller
 
 	/**
 	 * Forgot password
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function forgot_password()
 	{
@@ -284,8 +295,7 @@ class Auth extends \CodeIgniter\Controller
 				}
 
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				//redirect("auth/forgot_password", 'refresh');
-				return redirect("auth/forgot_password");
+				return redirect('auth/forgot_password');
 			}
 
 			// run the forgotten password method to email an activation code to the user
@@ -295,14 +305,12 @@ class Auth extends \CodeIgniter\Controller
 			{
 				// if there were no errors
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				//redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
-				return redirect("auth/login"); //we should display a confirmation page here instead of the login page
+				return redirect('auth/login'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				//redirect("auth/forgot_password", 'refresh');
-				return redirect("auth/forgot_password");
+				return redirect('auth/forgot_password');
 			}
 		}
 	}
@@ -312,15 +320,15 @@ class Auth extends \CodeIgniter\Controller
 	 *
 	 * @param string|null $code The reset code
 	 */
-	public function reset_password($code = NULL)
+	public function reset_password($code = null)
 	{
-		if (!$code)
+		if (! $code)
 		{
 			show_404();
 		}
 
 		$this->data['title'] = lang('Auth.reset_password_heading');
-		
+
 		$user = $this->ionAuth->forgotten_password_check($code);
 
 		if ($user)
@@ -382,13 +390,11 @@ class Auth extends \CodeIgniter\Controller
 					{
 						// if the password was successfully changed
 						$this->session->setFlashdata('message', $this->ionAuth->messages());
-						//redirect("auth/login", 'refresh');
 						return redirect("auth/login");
 					}
 					else
 					{
 						$this->session->setFlashdata('message', $this->ionAuth->errors());
-						//redirect('auth/reset_password/' . $code, 'refresh');
 						return redirect('auth/reset_password/' . $code);
 					}
 				}
@@ -398,7 +404,6 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// if the code is invalid then send them back to the forgot password page
 			$this->session->setFlashdata('message', $this->ionAuth->errors());
-			//redirect("auth/forgot_password", 'refresh');
 			return redirect("auth/forgot_password");
 		}
 	}
@@ -480,7 +485,6 @@ class Auth extends \CodeIgniter\Controller
 			}
 
 			// redirect them back to the auth page
-			//redirect('auth', 'refresh');
 			return redirect('/auth');
 		}
 	}
