@@ -50,40 +50,40 @@
 				<li><a href="#login">login()</a></li>
 				<li><a href="#logout">logout()</a></li>
 				<li><a href="#register">register()</a></li>
-				<li><a href="#create_user">create_user()</a></li>
+				<li><a href="#createUser">createUser()</a></li>
 				<li><a href="#update">update()</a></li>
-				<li><a href="#update_user">update_user()</a></li>
-				<li><a href="#delete_user">delete_user()</a></li>
-				<li><a href="#forgotten_password">forgotten_password()</a></li>
-				<li><a href="#forgotten_password_check">forgotten_password_check()</a></li>
-				<li><a href="#logged_in">logged_in()</a></li>
-				<li><a href="#is_admin">is_admin()</a></li>
-				<li><a href="#in_group">in_group()</a></li>
-				<li><a href="#username_check">username_check()</a></li>
-				<li><a href="#email_check">email_check()</a></li>
-				<li><a href="#identity_check">identity_check()</a></li>
-				<li><a href="#is_max_login_attempts_exceeded">is_max_login_attempts_exceeded()</a></li>
-				<li><a href="#get_attempts_num">get_attempts_num()</a></li>
-				<li><a href="#increase_login_attempts">increase_login_attempts()</a></li>
+				<li><a href="#updateUser">updateUser()</a></li>
+				<li><a href="#deleteUser">deleteUser()</a></li>
+				<li><a href="#forgottenPassword">forgottenPassword()</a></li>
+				<li><a href="#forgottenPasswordCheck">forgottenPasswordCheck()</a></li>
+				<li><a href="#loggedIn">loggedIn()</a></li>
+				<li><a href="#isAdmin">isAdmin()</a></li>
+				<li><a href="#inGroup">inGroup()</a></li>
+				<li><a href="#usernameCheck">usernameCheck()</a></li>
+				<li><a href="#emailCheck">emailCheck()</a></li>
+				<li><a href="#identityCheck">identityCheck()</a></li>
+				<li><a href="#isMaxLoginAttemptsExceeded">isMaxLoginAttemptsExceeded()</a></li>
+				<li><a href="#getAttemptsNum">getAttemptsNum()</a></li>
+				<li><a href="#increaseLoginAttempts">increaseLoginAttempts()</a></li>
 				<li><a href="#clear_login_attempts">clear_login_attempts()</a></li>
 				<li><a href="#user">user()</a></li>
 				<li><a href="#users">users()</a></li>
 				<li><a href="#group">group()</a></li>
 				<li><a href="#groups">groups()</a></li>
-				<li><a href="#get_users_groups">get_users_groups()</a></li>
-				<li><a href="#add_to_group">add_to_group()</a></li>
-				<li><a href="#remove_from_group">remove_from_group()</a></li>
-				<li><a href="#create_group">create_group()</a></li>
-				<li><a href="#update_group">update_group()</a></li>
-				<li><a href="#delete_group">delete_group()</a></li>
+				<li><a href="#getUsersGroups">getUsersGroups()</a></li>
+				<li><a href="#addToGroup">addToGroup()</a></li>
+				<li><a href="#removeFromGroup">removeFromGroup()</a></li>
+				<li><a href="#createGroup">createGroup()</a></li>
+				<li><a href="#updateGroup">updateGroup()</a></li>
+				<li><a href="#deleteGroup">deleteGroup()</a></li>
 				<li><a href="#messages">messages()</a></li>
 				<li><a href="#messages_array">messages_array()</a></li>
-				<li><a href="#set_message_delimiters">set_message_delimiters()</a></li>
+				<li><a href="#setMessageDelimiters">setMessageDelimiters()</a></li>
 				<li><a href="#errors">errors()</a></li>
-				<li><a href="#errors_array">errors_array()</a></li>
-				<li><a href="#set_error_delimiters">set_error_delimiters()</a></li>
-        <li><a href="#trigger_events">trigger_events()</a></li>
-        <li><a href="#set_hook">set_hook()</a></li>
+				<li><a href="#errorsArray">errorsArray()</a></li>
+				<li><a href="#setErrorDelimiters">setErrorDelimiters()</a></li>
+				<li><a href="#triggerEvents">triggerEvents()</a></li>
+				<li><a href="#setHook">setHook()</a></li>
 			</ul>
     	</td>
 	</tr>
@@ -340,7 +340,7 @@ Documentation
         <li>
             <strong>maximum_login_attempts</strong> Default is 3<br/>
             Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is
-            used by $this->ion_auth->is_max_login_attempts_exceeded(). The controller should check this function and act appropriately.
+            used by $this->ionAuth->isMaxLoginAttemptsExceeded(). The controller should check this function and act appropriately.
             If set to 0, there is no maximum.
         </li>
         <li>
@@ -441,7 +441,7 @@ Documentation
 		$identity = 'ben.edmunds@gmail.com';
 		$password = '12345678';
 		$remember = TRUE; // remember the user
-		$this->ion_auth->login($identity, $password, $remember);
+		$this->ionAuth->login($identity, $password, $remember);
 	</pre>
 	<br />
 
@@ -451,7 +451,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		$this->ion_auth->logout();
+		$this->ionAuth->logout();
 	</pre>
 	<br />
 
@@ -484,13 +484,13 @@ Documentation
 								);
 		$group = array('1'); // Sets user to admin.
 
-		$this->ion_auth->register($username, $password, $email, $additional_data, $group)
+		$this->ionAuth->register($username, $password, $email, $additional_data, $group)
 	</pre>
 	<br />
 
-	<a name="create_user"></a>
-	<h2>create_user()</h2>
-	<p>create_user is an alternate method for <a href="#register">register()</a> method.</p>
+	<a name="createUser"></a>
+	<h2>createUser()</h2>
+	<p>createUser is an alternate method for <a href="#register">register()</a> method.</p>
 	<br />
 
 	<a name="update"></a>
@@ -516,17 +516,17 @@ Documentation
 					'last_name' => 'Edmunds',
 					'password' => '123456789',
 					 );
-		$this->ion_auth->update($id, $data)
+		$this->ionAuth->update($id, $data)
 	</pre>
 	<br />
 
-	<a name="update_user"></a>
-	<h2>update_user()</h2>
-	<p>update_user() is an alternate method for <a href="#update">update()</a> method.</p>
+	<a name="updateUser"></a>
+	<h2>updateUser()</h2>
+	<p>updateUser() is an alternate method for <a href="#update">update()</a> method.</p>
 	<br />
 
-	<a name="delete_user"></a>
-	<h2>delete_user()</h2>
+	<a name="deleteUser"></a>
+	<h2>deleteUser()</h2>
 	<p>Delete a user.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -542,12 +542,12 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
 		$id = 12;
-		$this->ion_auth->delete_user($id)
+		$this->ionAuth->deleteUser($id)
 	</pre>
 	<br />
 
 	<a name="forgotten_password"></a>
-	<h2>forgotten_password()</h2>
+	<h2>forgottenPassword()</h2>
 	<p>Resets a users password by emailing the user a reset code.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -566,35 +566,35 @@ Documentation
 		//Working code for this example is in the example Auth controller in the github repo
 		function forgot_password()
 		{
-			$this->form_validation->set_rules('email', 'Email Address', 'required');
-			if ($this->form_validation->run() == false) {
+			$this->validation->setRule('email', 'Email Address', 'required');
+			if ($this->validation->run() == false) {
 				//setup the input
 				$this->data['email'] = array('name'    => 'email',
 											 'id'      => 'email',
 											);
 				//set any errors and display the form
-				$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-				$this->load->view('auth/forgot_password', $this->data);
+				$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->flashdata('message');
+				return view('auth/forgot_password', $this->data);
 			}
 			else {
 				//run the forgotten password method to email an activation code to the user
-				$forgotten = $this->ion_auth->forgotten_password($this->input->post('email'));
+				$forgotten = $this->ionAuth->forgottenPassword($this->request->getPost('email'));
 
 				if ($forgotten) { //if there were no errors
-					$this->session->set_flashdata('message', $this->ion_auth->messages());
-					redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+					$this->session->setFlashdata('message', $this->ionAuth->messages());
+					return redirect("auth/login"); //we should display a confirmation page here instead of the login page
 				}
 				else {
-					$this->session->set_flashdata('message', $this->ion_auth->errors());
-					redirect("auth/forgot_password", 'refresh');
+					$this->session->setFlashdata('message', $this->ionAuth->errors());
+					return redirect("auth/forgot_password");
 				}
 			}
 		}
 	</pre>
 	<br />
 
-	<a name="forgotten_password_check"></a>
-	<h2>forgotten_password_check()</h2>
+	<a name="forgottenPasswordCheck"></a>
+	<h2>forgottenPasswordCheck()</h2>
 	<p>Check to see if the forgotten password code is valid.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -609,7 +609,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		$user = $this->ion_auth->forgotten_password_check($code);
+		$user = $this->ionAuth->forgottenPasswordCheck($code);
 		if ($user)
 		{
 			//display the password reset form
@@ -617,8 +617,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="logged_in"></a>
-	<h2>logged_in()</h2>
+	<a name="loggedIn"></a>
+	<h2>loggedIn()</h2>
 	<p>Check to see if a user is logged in.</p>
 
 	<p><strong>Return</strong></p>
@@ -628,15 +628,15 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		if (!$this->ion_auth->logged_in())
+		if (!$this->ionAuth->loggedIn())
 		{
-			redirect('auth/login');
+			return redirect('auth/login');
 		}
 	</pre>
 	<br />
 
-	<a name="is_admin"></a>
-	<h2>is_admin()</h2>
+	<a name="isAdmin"></a>
+	<h2>isAdmin()</h2>
 	<p>Check to see if the currently logged in user is an admin.</p>
 
 
@@ -652,7 +652,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		if (!$this->ion_auth->is_admin())
+		if (!$this->ionAuth->isAdmin())
 		{
 			$this->session->set_flashdata('message', 'You must be an admin to view this page');
 			redirect('welcome/index');
@@ -660,8 +660,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="in_group"></a>
-	<h2>in_group()</h2>
+	<a name="inGroup"></a>
+	<h2>inGroup()</h2>
 	<p>Check to see if a user is in a group(s).</p>
 
 	<p><strong>Parameters</strong></p>
@@ -680,7 +680,7 @@ Documentation
 	<pre>
 		# single group (by name)
 		$group = 'gangstas';
-		if (!$this->ion_auth->in_group($group))
+		if (!$this->ionAuth->inGroup($group))
 		{
 			$this->session->set_flashdata('message', 'You must be a gangsta to view this page');
 			redirect('welcome/index');
@@ -688,7 +688,7 @@ Documentation
 
 		# single group (by id)
 		$group = 1;
-		if (!$this->ion_auth->in_group($group))
+		if (!$this->ionAuth->inGroup($group))
 		{
 			$this->session->set_flashdata('message', 'You must be part of the group 1 to view this page');
 			redirect('welcome/index');
@@ -696,28 +696,28 @@ Documentation
 
 		# multiple groups (by name)
 		$group = array('gangstas', 'hoodrats');
-		if (!$this->ion_auth->in_group($group))
+		if (!$this->ionAuth->inGroup($group))
 			$this->session->set_flashdata('message', 'You must be a gangsta OR a hoodrat to view this page');
 			redirect('welcome/index');
 		}
 
 		# multiple groups (by id)
 		$group = array(1, 2);
-		if (!$this->ion_auth->in_group($group))
+		if (!$this->ionAuth->inGroup($group))
 			$this->session->set_flashdata('message', 'You must be a part of group 1 or 2 to view this page');
 			redirect('welcome/index');
 		}
 
 		# multiple groups (by id and name)
 		$group = array('gangstas', 2);
-		if (!$this->ion_auth->in_group($group))
+		if (!$this->ionAuth->inGroup($group))
 			$this->session->set_flashdata('message', 'You must be a part of the gangstas or group 2');
 			redirect('welcome/index');
 		}
 
 		# multiple groups (by id) and check if all exist
 		$group = array(1, 2);
-		if (!$this->ion_auth->in_group($group, false, true))
+		if (!$this->ionAuth->inGroup($group, false, true))
 			$this->session->set_flashdata('message', 'You must be a part of group 1 and 2 to view this page');
 			redirect('welcome/index');
 		}
@@ -725,8 +725,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="username_check"></a>
-	<h2>username_check()</h2>
+	<a name="usernameCheck"></a>
+	<h2>usernameCheck()</h2>
 	<p>Check to see if the username is already registered.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -749,16 +749,16 @@ Documentation
 								'first_name' => $this->input->post('first_name'),
 								'last_name' => $this->input->post('last_name'),
 								);
-		if (!$this->ion_auth->username_check($username))
+		if (!$this->ionAuth->usernameCheck($username))
 		{
 			$group_name = 'users';
-			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+			$this->ionAuth->register($username, $password, $email, $additional_data, $group_name)
 		}
 	</pre>
 	<br />
 
-	<a name="email_check"></a>
-	<h2>email_check()</h2>
+	<a name="emailCheck"></a>
+	<h2>emailCheck()</h2>
 	<p>Check to see if the email is already registered.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -781,16 +781,16 @@ Documentation
 								'first_name' => $this->input->post('first_name'),
 								'last_name' => $this->input->post('last_name'),
 								);
-		if (!$this->ion_auth->email_check($email))
+		if (!$this->ionAuth->emailCheck($email))
 		{
 			$group_name = 'users';
-			$this->ion_auth->register($username, $password, $email, $additional_data, $group_name)
+			$this->ionAuth->register($username, $password, $email, $additional_data, $group_name)
 		}
 	</pre>
 	<br />
 
-	<a name="identity_check"></a>
-	<h2>identity_check()</h2>
+	<a name="identityCheck"></a>
+	<h2>identityCheck()</h2>
 	<p>Check to see if the identity is already registered.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -806,21 +806,21 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
 		//This is a lame example but it works.
-		$user = $this->ion_auth->user();
+		$user = $this->ionAuth->user();
 		$data = array(
 					'identity' => $this->input->post('identity'),
 					'first_name' => $this->input->post('first_name'),
 					'last_name' => $this->input->post('last_name'),
 					 );
-		if ($data['identity'] === $user->username || $data['identity'] === $user->email || $this->ion_auth->identity_check($data['identity']) === FALSE)
+		if ($data['identity'] === $user->username || $data['identity'] === $user->email || $this->ionAuth->identityCheck($data['identity']) === FALSE)
 		{
-			$this->ion_auth->update_user($user->id, $data)
+			$this->ionAuth->updateUser($user->id, $data)
 		}
 	</pre>
 	<br />
 
-	<a name="is_max_login_attempts_exceeded"></a>
-	<h2>is_max_login_attempts_exceeded()</h2>
+	<a name="isMaxLoginAttemptsExceeded"></a>
+	<h2>isMaxLoginAttemptsExceeded()</h2>
 	<p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.
 	   The controller must call this method and take any necessary actions. Login attempt limits are not enforced in the library.</p>
 
@@ -837,7 +837,7 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
 		$identity = 'ben.edmunds@gmail.com';
-		if ($this->ion_auth->is_max_login_attempts_exceeded($identity))
+		if ($this->ionAuth->isMaxLoginAttemptsExceeded($identity))
 		{
 			$this->session->set_flashdata('message', 'You have too many login attempts');
 			redirect('welcome/index');
@@ -845,8 +845,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="get_attempts_num"></a>
-	<h2>get_attempts_num()</h2>
+	<a name="getAttemptsNum"></a>
+	<h2>getAttemptsNum()</h2>
 	<p>Returns the number of failed login attempts for this identity or ip address.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -862,12 +862,12 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
 		$identity = 'ben.edmunds@gmail.com';
-		$num_attempts = $this->ion_auth->get_attempts_num($identity);
+		$num_attempts = $this->ionAuth->getAttemptsNum($identity);
 	</pre>
 	<br />
 
-	<a name="increase_login_attempts"></a>
-	<h2>increase_login_attempts()</h2>
+	<a name="increaseLoginAttempts"></a>
+	<h2>increaseLoginAttempts()</h2>
 	<p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.
 	   This method is automatically called during the login() method if the login failed.</p>
 
@@ -880,8 +880,8 @@ Documentation
 	<pre>
 		$identity = 'ben.edmunds@gmail.com';
 		$password = '12345678';
-		if ($this->ion_auth->login($identity, $password) == FALSE) {
-			$this->ion_auth->increase_login_attempts($identity)
+		if ($this->ionAuth->login($identity, $password) == FALSE) {
+			$this->ionAuth->increaseLoginAttempts($identity)
 		}
 	</pre>
 	<br />
@@ -900,8 +900,8 @@ Documentation
 	<pre>
 		$identity = 'ben.edmunds@gmail.com';
 		$password = '12345678';
-		if ($this->ion_auth->login($identity, $password) == TRUE) {
-			$this->ion_auth->clear_login_attempts($identity)
+		if ($this->ionAuth->login($identity, $password) == TRUE) {
+			$this->ionAuth->clear_login_attempts($identity)
 		}
 	</pre>
 	<br />
@@ -942,7 +942,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		$user = $this->ion_auth->user()->row();
+		$user = $this->ionAuth->user()->row();
 		echo $user->email;
 	</pre>
 	<br />
@@ -964,41 +964,41 @@ Documentation
 
  	<p><strong>Usage</strong></p>
  	<pre>
-		$users = $this->ion_auth->users()->result(); // get all users
+		$users = $this->ionAuth->users()->result(); // get all users
  	</pre>
  	<br />
 	<pre>
-		$users = $this->ion_auth->users(1)->result(); // get users from group with id of '1'
+		$users = $this->ionAuth->users(1)->result(); // get users from group with id of '1'
 	</pre>
 	<br />
 
 	<pre>
-		$users = $this->ion_auth->users('members)->result(); // get users from 'members' group
+		$users = $this->ionAuth->users('members)->result(); // get users from 'members' group
 	</pre>
 	<br />
 	<pre>
-		$users = $this->ion_auth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
+		$users = $this->ionAuth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
 	</pre>
 	<br />
 	<pre>
-		$users = $this->ion_auth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
+		$users = $this->ionAuth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
 	</pre>
 	<br />
 	<pre>
-		$users = $this->ion_auth->users(1)->result(); // get users from group with id of '1'
+		$users = $this->ionAuth->users(1)->result(); // get users from group with id of '1'
 	</pre>
 	<br />
 
 	<pre>
-		$users = $this->ion_auth->users('members)->result(); // get users from 'members' group
+		$users = $this->ionAuth->users('members)->result(); // get users from 'members' group
 	</pre>
 	<br />
 	<pre>
-		$users = $this->ion_auth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
+		$users = $this->ionAuth->users(array('admin','members'))->result(); // get users from 'admin' and 'members' group
 	</pre>
 	<br />
 	<pre>
-		$users = $this->ion_auth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
+		$users = $this->ionAuth->users(array('admin',4,'members'))->result(); // get users from 'admin' group, 'members' group and group with id '4'
 	</pre>
 
 	<a name="group"></a>
@@ -1018,7 +1018,7 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
 		$group_id = 2;
-		$group = $this->ion_auth->group($group_id)->result();
+		$group = $this->ionAuth->group($group_id)->result();
 	</pre>
 	<br />
 
@@ -1033,7 +1033,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		$groups = $this->ion_auth->groups()->result();
+		$groups = $this->ionAuth->groups()->result();
 	</pre>
 	<br />
 
@@ -1053,14 +1053,14 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ion_auth->messages();
+			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$errors = $this->ion_auth->errors();
+			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
 	</pre>
@@ -1087,9 +1087,9 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ion_auth->messages_array();
+			$messages = $this->ionAuth->messages_array();
 			foreach ($messages as $message)
 			{
 				echo $message;
@@ -1097,7 +1097,7 @@ Documentation
 		}
 		else
 		{
-			$errors = $this->ion_auth->errors_array();
+			$errors = $this->ionAuth->errorsArray();
 			foreach ($errors as $error)
 			{
 				echo $error;
@@ -1106,8 +1106,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="get_users_groups"></a>
-	<h2>get_users_groups()</h2>
+	<a name="getUsersGroups"></a>
+	<h2>getUsersGroups()</h2>
 	<p>Get all groups a user is part of.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1130,12 +1130,12 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-		$user_groups = $this->ion_auth->get_users_groups($user->id)->result();
+		$user_groups = $this->ionAuth->getUsersGroups($user->id)->result();
 	</pre>
 	<br />
 
-	<a name="add_to_group"></a>
-	<h2>add_to_group()</h2>
+	<a name="addToGroup"></a>
+	<h2>addToGroup()</h2>
 	<p>Add user to group</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1152,15 +1152,15 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
         // pass an array of group ID's and user ID
-        $this->ion_auth->add_to_group(array('1', '3', '6'), $user_id);
+        $this->ionAuth->addToGroup(array('1', '3', '6'), $user_id);
 
         // pass a single ID and user ID
-        $this->ion_auth->add_to_group(1, $user_id);
+        $this->ionAuth->addToGroup(1, $user_id);
 	</pre>
 	<br />
 
-	<a name="remove_from_group"></a>
-	<h2>remove_from_group()</h2>
+	<a name="removeFromGroup"></a>
+	<h2>removeFromGroup()</h2>
 	<p>Remove user from group(s)</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1177,18 +1177,18 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
         // pass an array of group ID's and user ID
-        $this->ion_auth->remove_from_group(array('1', '3', '6'), $user_id);
+        $this->ionAuth->removeFromGroup(array('1', '3', '6'), $user_id);
 
         // pass a single ID and user ID
-        $this->ion_auth->remove_from_group(1, $user_id);
+        $this->ionAuth->removeFromGroup(1, $user_id);
 
         // pass NULL to remove user from all groups
-        $this->ion_auth->remove_from_group(NULL, $user_id);
+        $this->ionAuth->removeFromGroup(NULL, $user_id);
 	</pre>
 	<br />
 
-<a name="create_group"></a>
-	<h2>create_group()</h2>
+<a name="createGroup"></a>
+	<h2>createGroup()</h2>
 	<p>Create a group</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1205,11 +1205,11 @@ Documentation
 	<p><strong>Usage</strong></p>
 	<pre>
         // pass the right arguments and it's done
-        $group = $this->ion_auth->create_group('new_test_group', 'This is a test description');
+        $group = $this->ionAuth->createGroup('new_test_group', 'This is a test description');
 
         if(!$group)
         {
-        	$view_errors = $this->ion_auth->messages();
+        	$view_errors = $this->ionAuth->messages();
       	}
       	else
       	{
@@ -1219,8 +1219,8 @@ Documentation
 	</pre>
 	<br />
 
-<a name="update_group"></a>
-	<h2>update_group()</h2>
+<a name="updateGroup"></a>
+	<h2>updateGroup()</h2>
 	<p>Update details of a group</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1243,11 +1243,11 @@ Documentation
 				$group_description = 'I changed the name yay';
 
         // pass the right arguments and it's done
-        $group_update = $this->ion_auth->update_group($group_id, $group_name, $group_description);
+        $group_update = $this->ionAuth->updateGroup($group_id, $group_name, $group_description);
 
         if(!$group_update)
         {
-        	$view_errors = $this->ion_auth->messages();
+        	$view_errors = $this->ionAuth->messages();
       	}
       	else
       	{
@@ -1256,8 +1256,8 @@ Documentation
 	</pre>
 	<br />
 
-<a name="delete_group"></a>
-	<h2>delete_group()</h2>
+<a name="deleteGroup"></a>
+	<h2>deleteGroup()</h2>
 	<p>Remove a group. Removes the group details from the configured 'groups' table. Users belonging to the group are stripped of this status (references to this group are removed from users_groups), but user data itself remains untouched.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1276,11 +1276,11 @@ Documentation
 				$group_id = 2;
 
         // pass the right arguments and it's done
-        $group_delete = $this->ion_auth->delete_group($group_id);
+        $group_delete = $this->ionAuth->deleteGroup($group_id);
 
         if(!$group_delete)
         {
-        	$view_errors = $this->ion_auth->messages();
+        	$view_errors = $this->ionAuth->messages();
       	}
       	else
       	{
@@ -1290,8 +1290,8 @@ Documentation
 	<br />
 
 
-	<a name="set_message_delimiters"></a>
-	<h2>set_message_delimiters()</h2>
+	<a name="setMessageDelimiters"></a>
+	<h2>setMessageDelimiters()</h2>
 	<p>Set the message delimiters.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1307,16 +1307,16 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
-			$messages = $this->ion_auth->messages();
+			$this->ionAuth->setMessageDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
-			$errors = $this->ion_auth->errors();
+			$this->ionAuth->setErrorDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
 	</pre>
@@ -1338,21 +1338,21 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ion_auth->messages();
+			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$errors = $this->ion_auth->errors();
+			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
 	</pre>
 	<br />
 
-	<a name="errors_array"></a>
-	<h2>errors_array()</h2>
+	<a name="errorsArray"></a>
+	<h2>errorsArray()</h2>
 	<p>Get error messages as an array.</p>
 
 	<p><strong>Return</strong></p>
@@ -1372,9 +1372,9 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ion_auth->messages_array();
+			$messages = $this->ionAuth->messages_array();
 			foreach ($messages as $message)
 			{
 				echo $message;
@@ -1382,7 +1382,7 @@ Documentation
 		}
 		else
 		{
-			$errors = $this->ion_auth->errors_array();
+			$errors = $this->ionAuth->errorsArray();
 			foreach ($errors as $error)
 			{
 				echo $error;
@@ -1391,8 +1391,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="set_error_delimiters"></a>
-	<h2>set_error_delimiters()</h2>
+	<a name="setErrorDelimiters"></a>
+	<h2>setErrorDelimiters()</h2>
 	<p>Set the error delimiters.</p>
 
 	<p><strong>Parameters</strong></p>
@@ -1408,25 +1408,25 @@ Documentation
 					'first_name' => 'Ben',
 					'last_name' => 'Edmunds',
 					 );
-		if ($this->ion_auth->update_user($id, $data))
+		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$this->ion_auth->set_message_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
-			$messages = $this->ion_auth->messages();
+			$this->ionAuth->setMessageDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$this->ion_auth->set_error_delimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
-			$errors = $this->ion_auth->errors();
+			$this->ionAuth->setErrorDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
 	</pre>
 	<br />
 
-	<a name="set_hook"></a>
-  <h2>set_hook()</h2>
+	<a name="setHook"></a>
+  <h2>setHook()</h2>
   <p>
-  	Set a single or multiple functions to be called when trigged by trigger_events().
+  	Set a single or multiple functions to be called when trigged by triggerEvents().
   	See an example here: <a href="https://gist.github.com/657de89b26decda2b2fa" target="_blank">https://gist.github.com/657de89b26decda2b2fa</a>
   </p>
 
@@ -1450,7 +1450,7 @@ Documentation
 			/*
       	make sure we loaded ion_auth2
         The following does not need to go in __construct() it just needs to be set before
-        you trigger_events().
+        you triggerEvents().
       */
       $event = 'socialpush';
       $class = 'Accounts';
@@ -1458,24 +1458,24 @@ Documentation
 
       $name = 'activate_sendmail';
       $method = 'email';
-      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $this->ionAuth->setHook($event, $name, $class, $method, $args);
       $name = 'call_Twitter';
       $method = 'twitter';
-      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $this->ionAuth->setHook($event, $name, $class, $method, $args);
       $name = 'call_MailChimp_API';
       $method = 'mailchimp';
-      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $this->ionAuth->setHook($event, $name, $class, $method, $args);
       $name = 'call_Facebook_API';
       $method = 'facebook';
-      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $this->ionAuth->setHook($event, $name, $class, $method, $args);
       $name = 'call_gPlus_API';
       $method = 'gplus';
-      $this->ion_auth->set_hook($event, $name, $class, $method, $args);
+      $this->ionAuth->setHook($event, $name, $class, $method, $args);
     }
 
     public function Post_Message($one)
     {
-      $this->ion_auth->trigger_events('socialpush');
+      $this->ionAuth->triggerEvents('socialpush');
     }
     public function email($content, $who)
     {
@@ -1503,9 +1503,9 @@ Documentation
 
 
 
-	<a name="trigger_events"></a>
-	<h2>trigger_events()</h2>
-	<p>Call Additional functions to run that were registered with <a href="#set_hook">set_hook()</a>.</p>
+	<a name="triggerEvents"></a>
+	<h2>triggerEvents()</h2>
+	<p>Call Additional functions to run that were registered with <a href="#setHook">setHook()</a>.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
@@ -1514,7 +1514,7 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-	 $this->ion_auth->trigger_events('socialpush');
+	 $this->ionAuth->triggerEvents('socialpush');
 	</pre>
 	<br />
 
