@@ -1,14 +1,14 @@
 <?php namespace IonAuth\Controllers;
 
-use CodeIgniter\Controller;
-
 /**
  * Class Auth
  *
- * @property Ion_auth|Ion_auth_model $ion_auth        The ION Auth spark
+ * @property Ion_auth|Ion_auth_model $ion_auth      The ION Auth spark
  * @package  CodeIgniter-Ion-Auth
+ * @author   Ben Edmunds
+ * @license  https://opensource.org/licenses/MIT	MIT License
  */
-class Auth extends Controller
+class Auth extends \CodeIgniter\Controller
 {
 	public $data = [];
 

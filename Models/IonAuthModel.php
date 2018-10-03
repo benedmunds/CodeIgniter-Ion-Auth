@@ -1,4 +1,5 @@
-<?php
+<?php namespace IonAuth\Models;
+
 /**
  * Name:    Ion Auth Model
  * Author:  Ben Edmunds
@@ -19,8 +20,6 @@
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
  */
-
-namespace IonAuth\Models;
 
 use \CodeIgniter\Database\ConnectionInterface;
 
@@ -200,7 +199,7 @@ class IonAuthModel
 
 	public function __construct()
 	{
-		$this->config = new \Config\IonAuth();
+		$this->config = new \IonAuth\Config\IonAuth();
 		helper(['cookie', 'date']);
 		$this->session = \Config\Services::session();
 

@@ -1,4 +1,5 @@
-<?php namespace Config;
+<?php namespace IonAuth\Config;
+
 /**
  * Name:    Ion Auth
  * Author:  Ben Edmunds
@@ -16,8 +17,8 @@
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds
+ * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
- * @license    MIT
  * @filesource
  */
 
