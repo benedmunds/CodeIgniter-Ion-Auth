@@ -108,7 +108,6 @@ class Auth extends \CodeIgniter\Controller
 		$this->validation->setRule('identity', str_replace(':', '', lang('Auth.login_identity_label')), 'required');
 		$this->validation->setRule('password', str_replace(':', '', lang('Auth.login_password_label')), 'required');
 
-		//if ($this->form_validation->run() === TRUE)
 		if ($this->validation->withRequest($this->request)->run())
 		{
 			// check to see if the user is logging in
@@ -139,19 +138,19 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 			$this->data['identity'] = [
-				'name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
+				'name'  => 'identity',
+				'id'    => 'identity',
+				'type'  => 'text',
 				'value' => set_value('identity'),
 			];
 
 			$this->data['password'] = [
 				'name' => 'password',
-				'id' => 'password',
+				'id'   => 'password',
 				'type' => 'password',
 			];
 
-			return $this->_renderPage('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'login', $this->data);
 		}
 	}
 
