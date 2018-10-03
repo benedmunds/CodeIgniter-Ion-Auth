@@ -753,13 +753,13 @@ class IonAuthModel
 		$update = [
 			'forgotten_password_selector' => $token->selector,
 			'forgotten_password_code' => $token->validator_hashed,
-			'forgotten_password_time' => time()
+			'forgotten_password_time' => time(),
 		];
 
 		$this->triggerEvents('extra_where');
-		$this->db->update($this->tables['users'], $update, [$this->identity_column => $identity]);
+		$this->db->table($this->tables['users'])->update($update, [$this->identity_column => $identity]);
 
-		if ($this->db->affected_rows() === 1)
+		if ($this->db->affectedRows() === 1)
 		{
 			$this->triggerEvents(['post_forgotten_password', 'post_forgotten_password_successful']);
 			return $token->user_code;
@@ -767,7 +767,7 @@ class IonAuthModel
 		else
 		{
 			$this->triggerEvents(['post_forgotten_password', 'post_forgotten_password_unsuccessful']);
-			return FALSE;
+			return false;
 		}
 	}
 

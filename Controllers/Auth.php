@@ -250,7 +250,7 @@ class Auth extends \CodeIgniter\Controller
 	public function forgot_password()
 	{
 		$this->data['title'] = lang('Auth.forgot_password_heading');
-		
+
 		// setting validation rules by checking whether identity is username or email
 		if ($this->configIonAuth->identity != 'email')
 		{
@@ -261,14 +261,13 @@ class Auth extends \CodeIgniter\Controller
 			$this->validation->setRule('identity', lang('Auth.forgot_password_validation_email_label'), 'required|valid_email');
 		}
 
-
-		if ($this->validation->run() === FALSE)
+		if (! $this->validation->withRequest($this->request)->run())
 		{
 			$this->data['type'] = $this->configIonAuth->identity;
 			// setup the input
 			$this->data['identity'] = [
 				'name' => 'identity',
-				'id' => 'identity',
+				'id'   => 'identity',
 			];
 
 			if ($this->configIonAuth->identity != 'email')
@@ -282,12 +281,12 @@ class Auth extends \CodeIgniter\Controller
 
 			// set any errors and display the form
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
-			return $this->_renderPage($this->viewsFolder . 'forgot_password', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
 		}
 		else
 		{
-			$identity_column = $this->configIonAuth->identity;
-			$identity = $this->ionAuth->where($identity_column, $this->request->getPost('identity'))->users()->row();
+			$identityColumn = $this->configIonAuth->identity;
+			$identity = $this->ionAuth->where($identityColumn, $this->request->getPost('identity'))->users()->row();
 
 			if (empty($identity))
 			{
@@ -302,7 +301,7 @@ class Auth extends \CodeIgniter\Controller
 				}
 
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				return redirect('auth/forgot_password');
+				return redirect('/auth/forgot_password');
 			}
 
 			// run the forgotten password method to email an activation code to the user
@@ -312,12 +311,12 @@ class Auth extends \CodeIgniter\Controller
 			{
 				// if there were no errors
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect('auth/login'); //we should display a confirmation page here instead of the login page
+				return redirect('/auth/login'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
-				return redirect('auth/forgot_password');
+				return redirect('/auth/forgot_password');
 			}
 		}
 	}
@@ -509,15 +508,15 @@ class Auth extends \CodeIgniter\Controller
 		}
 
 		$tables = $this->configIonAuth->tables;
-		$identity_column = $this->configIonAuth->identity;
-		$this->data['identity_column'] = $identity_column;
+		$identityColumn = $this->configIonAuth->identity;
+		$this->data['identity_column'] = $identityColumn;
 
 		// validate form input
 		$this->validation->setRule('first_name', lang('Auth.create_user_validation_fname_label'), 'trim|required');
 		$this->validation->setRule('last_name', lang('Auth.create_user_validation_lname_label'), 'trim|required');
-		if ($identity_column !== 'email')
+		if ($identityColumn !== 'email')
 		{
-			$this->validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identity_column . ']');
+			$this->validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identityColumn . ']');
 			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email');
 		}
 		else
@@ -532,7 +531,7 @@ class Auth extends \CodeIgniter\Controller
 		if ($this->validation->withRequest($this->request)->run())
 		{
 			$email = strtolower($this->request->getPost('email'));
-			$identity = ($identity_column === 'email') ? $email : $this->request->getPost('identity');
+			$identity = ($identityColumn === 'email') ? $email : $this->request->getPost('identity');
 			$password = $this->request->getPost('password');
 
 			$additional_data = [
