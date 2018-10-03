@@ -10,6 +10,7 @@
  */
 class Auth extends \CodeIgniter\Controller
 {
+
 	/**
 	 * 
 	 * @var array
@@ -39,6 +40,14 @@ class Auth extends \CodeIgniter\Controller
 	 * @var \CodeIgniter\Validation\Validation
 	 */
 	private $validation;
+
+	/**
+	 * Views folder
+	 * Set it to 'auth' if your views files are in the standard application/Views/auth
+	 *
+	 * @var string
+	 */
+	protected $viewsFolder = 'IonAuth\Views\auth';
 
 
 	public function __construct()
@@ -82,7 +91,7 @@ class Auth extends \CodeIgniter\Controller
 			{
 				$this->data['users'][$k]->groups = $this->ionAuth->getUsersGroups($user->id)->getResult();
 			}
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'index', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'index', $this->data);
 		}
 	}
 
@@ -142,7 +151,7 @@ class Auth extends \CodeIgniter\Controller
 				'type' => 'password',
 			];
 
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
+			return $this->_renderPage('auth' . DIRECTORY_SEPARATOR . 'login', $this->data);
 		}
 	}
 
@@ -213,7 +222,7 @@ class Auth extends \CodeIgniter\Controller
 			];
 
 			// render
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'change_password', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'change_password', $this->data);
 		}
 		else
 		{
@@ -275,7 +284,7 @@ class Auth extends \CodeIgniter\Controller
 
 			// set any errors and display the form
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
+			return $this->_renderPage($this->viewsFolder . 'forgot_password', $this->data);
 		}
 		else
 		{
@@ -367,7 +376,7 @@ class Auth extends \CodeIgniter\Controller
 				$this->data['code'] = $code;
 
 				// render
-				return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
+				return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'reset_password', $this->data);
 			}
 			else
 			{
@@ -464,7 +473,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['user'] = $this->ionAuth->user($id)->row();
 			var_dump($this->data['user']);
 
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
 		}
 		else
 		{
@@ -597,7 +606,7 @@ class Auth extends \CodeIgniter\Controller
 				'value' => set_value('password_confirm'),
 			];
 
-			return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'create_user', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'create_user', $this->data);
 		}
 	}
 
@@ -751,7 +760,7 @@ class Auth extends \CodeIgniter\Controller
 		];
 		$this->data['ionAuth'] = $this->ionAuth;
 
-		return $this->_render_page('auth/edit_user', $this->data);
+		return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'edit_user', $this->data);
 	}
 
 	/**
@@ -799,7 +808,7 @@ class Auth extends \CodeIgniter\Controller
 				'value' => set_value('description'),
 			];
 
-			return $this->_render_page('auth/create_group', $this->data);
+			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'create_group', $this->data);
 		}
 	}
 
@@ -868,25 +877,21 @@ class Auth extends \CodeIgniter\Controller
 			'value' => set_value('group_description', $group->description),
 		];
 
-		return $this->_render_page('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		//return $this->_renderPage('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
+		return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 	}
 
-    /**
-	 * @param string     $view
-	 * @param array|null $data
-	 * @param bool       $returnhtml
+	/**
+	 * Render the specified view
 	 *
-	 * @return mixed
+	 * @param string     $view The name of the file to load
+	 * @param array|null $data An array of key/value pairs to make available within the view.
+	 *
+	 * @return string
 	 */
-	public function _render_page($view, $data = NULL, $returnhtml = FALSE)//I think this makes more sense
+	public function _renderPage(string $view, $data = null): string
 	{
 		$viewdata = (empty($data)) ? $this->data : $data;
-		$view_html = view($view, $viewdata);
-		/*// This will return html on 3rd argument being true
-		if ($returnhtml)
-		{
-			return $view_html;
-		}*/
-        return $view_html;
+		return view($view, $viewdata);
 	}
 }
