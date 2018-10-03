@@ -134,7 +134,6 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
-			// $this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
 			$this->data['identity'] = [
@@ -307,7 +306,7 @@ class Auth extends \CodeIgniter\Controller
 			}
 
 			// run the forgotten password method to email an activation code to the user
-			$forgotten = $this->ionAuth->forgotten_password($identity->{$this->configIonAuth->identity});
+			$forgotten = $this->ionAuth->forgottenPassword($identity->{$this->configIonAuth->identity});
 
 			if ($forgotten)
 			{
@@ -337,7 +336,7 @@ class Auth extends \CodeIgniter\Controller
 
 		$this->data['title'] = lang('Auth.reset_password_heading');
 
-		$user = $this->ionAuth->forgotten_password_check($code);
+		$user = $this->ionAuth->forgottenPasswordCheck($code);
 
 		if ($user)
 		{
@@ -346,7 +345,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
 			$this->validation->setRule('new_confirm', lang('Auth.reset_password_validation_new_password_confirm_label'), 'required');
 
-			if ($this->validation->run() === FALSE)
+			if ($this->validation->run() === false)
 			{
 				// display the form
 
