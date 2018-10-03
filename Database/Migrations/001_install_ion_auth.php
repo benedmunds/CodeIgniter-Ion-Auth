@@ -1,27 +1,33 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php namespace IonAuth\Database\Migrations;
 
-class Migration_Install_ion_auth extends CI_Migration {
+class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
+{
 	private $tables;
 
-	public function __construct() {
-		parent::__construct();
-		$this->load->dbforge();
+	public function __construct()
+	{
+		$config = config('IonAuth');
 
-		$this->load->config('ion_auth', TRUE);
-		$this->tables = $this->config->item('tables', 'ion_auth');
+		// initialize the database
+		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
+
+		parent::__construct();
+
+		$this->tables = $config->tables;
 	}
 
-	public function up() {
+	public function up()
+	{
 		// Drop table 'groups' if it exists
-		$this->dbforge->drop_table($this->tables['groups'], TRUE);
+		$this->forge->dropTable($this->tables['groups'], true);
 
 		// Table structure for table 'groups'
-		$this->dbforge->add_field([
+		$this->forge->addField([
 			'id' => [
 				'type'           => 'MEDIUMINT',
 				'constraint'     => '8',
-				'unsigned'       => TRUE,
-				'auto_increment' => TRUE
+				'unsigned'       => true,
+				'auto_increment' => true,
 			],
 			'name' => [
 				'type'       => 'VARCHAR',
@@ -30,38 +36,38 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'description' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '100',
-			]
+			],
 		]);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table($this->tables['groups']);
+		$this->forge->addKey('id', true);
+		$this->forge->createTable($this->tables['groups']);
 
 		// Dumping data for table 'groups'
 		$data = [
 			[
 				'name'        => 'admin',
-				'description' => 'Administrator'
+				'description' => 'Administrator',
 			],
 			[
 				'name'        => 'members',
-				'description' => 'General User'
-			]
+				'description' => 'General User',
+			],
 		];
-		$this->db->insert_batch($this->tables['groups'], $data);
+		$this->db->table($this->tables['groups'])->insertBatch($data);
 
 		// Drop table 'users' if it exists
-		$this->dbforge->drop_table($this->tables['users'], TRUE);
+		$this->forge->dropTable($this->tables['users'], true);
 
 		// Table structure for table 'users'
-		$this->dbforge->add_field([
+		$this->forge->addField([
 			'id' => [
 				'type'           => 'MEDIUMINT',
 				'constraint'     => '8',
-				'unsigned'       => TRUE,
-				'auto_increment' => TRUE
+				'unsigned'       => true,
+				'auto_increment' => true,
 			],
 			'ip_address' => [
 				'type'       => 'VARCHAR',
-				'constraint' => '45'
+				'constraint' => '45',
 			],
 			'username' => [
 				'type'       => 'VARCHAR',
@@ -74,87 +80,87 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'email' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '254',
-				'unique' => TRUE
+				'unique'     => true,
 			],
 			'activation_selector' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE,
-				'unique' => TRUE
+				'null'       => true,
+				'unique'     => true,
 			],
 			'activation_code' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'forgotten_password_selector' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE,
-				'unique' => TRUE
+				'null'       => true,
+				'unique'     => true,
 			],
 			'forgotten_password_code' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'forgotten_password_time' => [
 				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned'   => TRUE,
-				'null'       => TRUE
+				'unsigned'   => true,
+				'null'       => true,
 			],
 			'remember_selector' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE,
-                'unique' => TRUE
+				'null'       => true,
+				'unique'     => true,
 			],
 			'remember_code' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '255',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'created_on' => [
 				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned'   => TRUE,
+				'unsigned'   => true,
 			],
 			'last_login' => [
 				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned'   => TRUE,
-				'null'       => TRUE
+				'unsigned'   => true,
+				'null'       => true,
 			],
 			'active' => [
 				'type'       => 'TINYINT',
 				'constraint' => '1',
-				'unsigned'   => TRUE,
-				'null'       => TRUE
+				'unsigned'   => true,
+				'null'       => true,
 			],
 			'first_name' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '50',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'last_name' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '50',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'company' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '100',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'phone' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '20',
-				'null'       => TRUE
-			]
+				'null'       => true,
+			],
 		]);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table($this->tables['users']);
+		$this->forge->addKey('id', true);
+		$this->forge->createTable($this->tables['users']);
 
 		// Dumping data for table 'users'
 		$data = [
@@ -163,7 +169,7 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
 			'email'                   => 'admin@admin.com',
 			'activation_code'         => '',
-			'forgotten_password_code' => NULL,
+			'forgotten_password_code' => null,
 			'created_on'              => '1268889823',
 			'last_login'              => '1268889823',
 			'active'                  => '1',
@@ -172,33 +178,32 @@ class Migration_Install_ion_auth extends CI_Migration {
 			'company'                 => 'ADMIN',
 			'phone'                   => '0',
 		];
-		$this->db->insert($this->tables['users'], $data);
-
+		$this->db->table($this->tables['users'])->insert($data);
 
 		// Drop table 'users_groups' if it exists
-		$this->dbforge->drop_table($this->tables['users_groups'], TRUE);
+		$this->forge->dropTable($this->tables['users_groups'], true);
 
 		// Table structure for table 'users_groups'
-		$this->dbforge->add_field([
+		$this->forge->addField([
 			'id' => [
 				'type'           => 'MEDIUMINT',
 				'constraint'     => '8',
-				'unsigned'       => TRUE,
-				'auto_increment' => TRUE
+				'unsigned'       => true,
+				'auto_increment' => true,
 			],
 			'user_id' => [
 				'type'       => 'MEDIUMINT',
 				'constraint' => '8',
-				'unsigned'   => TRUE
+				'unsigned'   => true,
 			],
 			'group_id' => [
 				'type'       => 'MEDIUMINT',
 				'constraint' => '8',
-				'unsigned'   => TRUE
-			]
+				'unsigned'   => true,
+			],
 		]);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table($this->tables['users_groups']);
+		$this->forge->addKey('id', true);
+		$this->forge->createTable($this->tables['users_groups']);
 
 		// Dumping data for table 'users_groups'
 		$data = [
@@ -209,47 +214,46 @@ class Migration_Install_ion_auth extends CI_Migration {
 			[
 				'user_id'  => '1',
 				'group_id' => '2',
-			]
+			],
 		];
-		$this->db->insert_batch($this->tables['users_groups'], $data);
-
+		$this->db->table($this->tables['users_groups'])->insertBatch($data);
 
 		// Drop table 'login_attempts' if it exists
-		$this->dbforge->drop_table($this->tables['login_attempts'], TRUE);
+		$this->forge->dropTable($this->tables['login_attempts'], true);
 
 		// Table structure for table 'login_attempts'
-		$this->dbforge->add_field([
+		$this->forge->addField([
 			'id' => [
 				'type'           => 'MEDIUMINT',
 				'constraint'     => '8',
-				'unsigned'       => TRUE,
-				'auto_increment' => TRUE
+				'unsigned'       => true,
+				'auto_increment' => true,
 			],
 			'ip_address' => [
 				'type'       => 'VARCHAR',
-				'constraint' => '45'
+				'constraint' => '45',
 			],
 			'login' => [
 				'type'       => 'VARCHAR',
 				'constraint' => '100',
-				'null'       => TRUE
+				'null'       => true,
 			],
 			'time' => [
 				'type'       => 'INT',
 				'constraint' => '11',
-				'unsigned'   => TRUE,
-				'null'       => TRUE
+				'unsigned'   => true,
+				'null'       => true,
 			]
 		]);
-		$this->dbforge->add_key('id', TRUE);
-		$this->dbforge->create_table($this->tables['login_attempts']);
-
+		$this->forge->addKey('id', true);
+		$this->forge->createTable($this->tables['login_attempts']);
 	}
 
-	public function down() {
-		$this->dbforge->drop_table($this->tables['users'], TRUE);
-		$this->dbforge->drop_table($this->tables['groups'], TRUE);
-		$this->dbforge->drop_table($this->tables['users_groups'], TRUE);
-		$this->dbforge->drop_table($this->tables['login_attempts'], TRUE);
+	public function down()
+	{
+		$this->forge->dropTable($this->tables['users'], true);
+		$this->forge->dropTable($this->tables['groups'], true);
+		$this->forge->dropTable($this->tables['users_groups'], true);
+		$this->forge->dropTable($this->tables['login_attempts'], true);
 	}
 }
