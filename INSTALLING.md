@@ -54,7 +54,7 @@ https://github.com/iamfiscus/codeigniter-ion-auth-migration).
 ---
 
 ### Use it
-The most conveniant way is to create a new controller like this :
+The most convenient way is to create a new controller like this :
 ```php
 <?php namespace App\Controllers;
 
