@@ -3,20 +3,13 @@ Installing Ion Auth.
 
 Before installing, please check that you are meeting the minimum server requirements.
 
-There are 3 ways to install this package.
+There are differents ways to install this package.
 
-> 1. Move folder from this package to the root folder:
+
+> 1. With composer
 
 ```shell
-CI                          # → Root Directory
-└── application/
-├── ion-auth/               # → Ion-auth directory
-├── public
-├──...
-```
-Then in your Config/Autoload.php, add this :
-```php
-'IonAuth' => ROOTPATH . 'YOUR-ION_AUTH-FOLDER',
+$ composer require https://github.com/benedmunds/CodeIgniter-Ion-Auth:dev-4
 ```
 
 ---
@@ -31,8 +24,14 @@ Then in your Config/Autoload.php, add this :
 ```php
 'IonAuth' => ROOTPATH . 'Code-Igniter-Ion-Auth',
 ```
+
+---
+
+> 3. Download the archive, and move folder from this package to the root folder:
+
+```shell
 CI                          # → Root Directory
-└── application/
+├── application/
 ├── ion-auth/               # → Ion-auth directory
 ├── public
 ├──...
@@ -46,13 +45,6 @@ Then in your Config/Autoload.php, add this :
 ---
 
 
-> 3. Install it with composer
-
-```shell
-$ composer require https://github.com/benedmunds/CodeIgniter-Ion-Auth:dev-4
-```
-
----
 
 ### Relational DB Setup
 Then just run the appropriate SQL file (if you're using migrations you can
