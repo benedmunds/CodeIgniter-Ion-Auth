@@ -41,15 +41,10 @@ Then in your Config/Autoload.php, add this :
 'IonAuth' => ROOTPATH . 'YOUR-ION_AUTH-FOLDER',
 ```
 
-
 ---
 
-
-
 ### Relational DB Setup
-Then just run the appropriate SQL file (if you're using migrations you can
-get the migrations from JD here:
-https://github.com/iamfiscus/codeigniter-ion-auth-migration).
+Then just run the appropriate SQL file or if you prefere, use the migration file (in Database/Migrations/).
 
 ---
 
