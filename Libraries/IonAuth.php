@@ -72,7 +72,7 @@ class IonAuth
 		// Check compat first
 		$this->checkCompatibility();
 
-		$this->config = config('IonAuth');
+		$this->config = config('IonAuth\\Config\\IonAuth');
 
 		//$this->load->library(['email']);
 		//$this->lang->load('ion_auth');
