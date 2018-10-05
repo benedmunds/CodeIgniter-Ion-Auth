@@ -63,6 +63,11 @@ class IonAuth
 	public $_cacheUserInGroup;
 
 	/**
+	 * @var \CodeIgniter\Email\Email
+	 */
+	protected $email;
+
+	/**
 	 * __construct
 	 *
 	 * @author Ben
@@ -74,7 +79,7 @@ class IonAuth
 
 		$this->config = config('IonAuth\\Config\\IonAuth');
 
-		//$this->load->library(['email']);
+		$this->email = \Config\Services::email();
 		//$this->lang->load('ion_auth');
 		//$this->load->helper(['cookie', 'language','url']);
 
