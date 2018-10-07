@@ -177,7 +177,7 @@ class IonAuth
 				}
 				else
 				{
-					$message = $this->load->view($this->config->emailTemplates . $this->config->emailForgotPassword, $data, TRUE);
+					$message = $this->load->view($this->config->emailTemplates . $this->config->emailForgotPassword, $data, true);
 					$this->email->clear();
 					$this->email->from($this->config->adminEmail, $this->config->siteTitle);
 					$this->email->to($user->email);
@@ -187,14 +187,14 @@ class IonAuth
 					if ($this->email->send())
 					{
 						$this->setMessage('forgot_password_successful');
-						return TRUE;
+						return true;
 					}
 				}
 			}
 		}
 
 		$this->setError('forgot_password_unsuccessful');
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -212,7 +212,7 @@ class IonAuth
 		if (!is_object($user))
 		{
 			$this->setError('password_change_unsuccessful');
-			return FALSE;
+			return false;
 		}
 		else
 		{
@@ -226,7 +226,7 @@ class IonAuth
 					$identity = $user->{$this->config->identity};
 					$this->ionAuthModel->clearForgottenPasswordCode($identity);
 					$this->setError('password_change_unsuccessful');
-					return FALSE;
+					return false;
 				}
 			}
 			return $user;
@@ -243,7 +243,7 @@ class IonAuth
 	 * @param array  $group_ids
 	 *
 	 * @return int|array|bool The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation was
-	 *                        completed; or an array of activation details if CI e-mail validation is enabled; or FALSE
+	 *                        completed; or an array of activation details if CI e-mail validation is enabled; or false
 	 *                        if the operation failed.
 	 * @author Mathew
 	 */
@@ -257,7 +257,7 @@ class IonAuth
 
 		if (!$emailActivation)
 		{
-			if ($id !== FALSE)
+			if ($id !== false)
 			{
 				$this->setMessage('account_creation_successful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful']);
@@ -267,7 +267,7 @@ class IonAuth
 			{
 				$this->setError('account_creation_unsuccessful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
-				return FALSE;
+				return false;
 			}
 		}
 		else
@@ -317,7 +317,7 @@ class IonAuth
 				$this->email->subject($this->config->siteTitle . ' - ' . $this->lang->line('emailActivation_subject'));
 				$this->email->message($message);
 
-				if ($this->email->send() === TRUE)
+				if ($this->email->send() === true)
 				{
 					$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
 					$this->setMessage('activation_email_successful');
@@ -328,7 +328,7 @@ class IonAuth
 
 			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
 			$this->setError('activation_email_unsuccessful');
-			return FALSE;
+			return false;
 		}
 	}
 
@@ -361,10 +361,10 @@ class IonAuth
 		{
 			session_start();
 		}
-		$this->session->sess_regenerate(TRUE);
+		$this->session->sess_regenerate(true);
 
 		$this->setMessage('logout_successful');
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -407,7 +407,7 @@ class IonAuth
 	 * @return bool Whether the user is an administrator
 	 * @author Ben Edmunds
 	 */
-	public function isAdmin($id = FALSE)
+	public function isAdmin($id = false)
 	{
 		$this->ionAuthModel->triggerEvents('is_admin');
 
