@@ -337,14 +337,14 @@ class IonAuth
 	 *
 	 * @return true
 	 * @author Mathew
-	 **/
-	public function logout()
+	 */
+	public function logout(): bool
 	{
 		$this->ionAuthModel->triggerEvents('logout');
 
 		$identity = $this->config->identity;
 
-		$this->session->unset_userdata([$identity, 'id', 'user_id']);
+		session()->remove([$identity, 'id', 'user_id']);
 
 		// delete the remember me cookies if they exist
 		delete_cookie($this->config->rememberCookieName);
@@ -354,14 +354,14 @@ class IonAuth
 		$this->ionAuthModel->clearRememberCode($identity);
 
 		// Destroy the session
-		$this->session->sess_destroy();
+		session()->destroy();
 
 		// Recreate the session
 		if (version_compare(PHP_VERSION, '7.0.0') >= 0)
 		{
 			session_start();
 		}
-		$this->session->sess_regenerate(true);
+		session_regenerate_id(true);
 
 		$this->setMessage('logout_successful');
 		return true;
