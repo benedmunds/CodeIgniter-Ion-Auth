@@ -24,8 +24,8 @@ return [
 	'account_creation_unsuccessful' 	 	    => 'Üyelik kaydınız yapılamadı',
 	'account_creation_duplicate_email' 	    => 'E-posta adresi geçersiz ya da daha önceden alınmış',
 	'account_creation_duplicate_identity'    => 'Kullanıcı adı geçersiz ya da daha önceden alınmış',
-	'account_creation_missing_default_group' => 'Herhangi bir varsayılan grup ayarlanmamış',
-	'account_creation_invalid_default_group' => 'Geçersiz bir varsayılan grup seçimi',
+	'account_creation_missing_defaultGroup' => 'Herhangi bir varsayılan grup ayarlanmamış',
+	'account_creation_invalid_defaultGroup' => 'Geçersiz bir varsayılan grup seçimi',
 
 	// Password
 	'password_change_successful' 	 	    => 'Şifreniz değiştirildi',
@@ -66,14 +66,14 @@ return [
 	'group_name_admin_not_alter'             => 'Yönetici grup adı değiştirilemez',
 
 	// Activation Email
-	'email_activation_subject'               => 'Hesap Etkinleştirme',
-	'email_activate_heading'                 => '%s için hesap etkinleştirme',
-	'email_activate_subheading'              => 'Bu linke tıklayarak %s.',
-	'email_activate_link'                    => 'hesabınızı etkinleştirin',
+	'emailActivation_subject'               => 'Hesap Etkinleştirme',
+	'emailActivate_heading'                 => '%s için hesap etkinleştirme',
+	'emailActivate_subheading'              => 'Bu linke tıklayarak %s.',
+	'emailActivate_link'                    => 'hesabınızı etkinleştirin',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'       => 'Şifremi Unuttum',
-	'email_forgot_password_heading'          => '%s için şifre sıfırlama',
-	'email_forgot_password_subheading'       => 'Bağlantıya tıklayarak %s.',
-	'email_forgot_password_link'             => 'şifrenizi sıfırlayınız',
+	'emailForgotPassword_heading'          => '%s için şifre sıfırlama',
+	'emailForgotPassword_subheading'       => 'Bağlantıya tıklayarak %s.',
+	'emailForgotPassword_link'             => 'şifrenizi sıfırlayınız',
 ];

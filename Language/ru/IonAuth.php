@@ -22,8 +22,8 @@ return [
 	'account_creation_unsuccessful' 	 	 => 'Невозможно создать учетную запись',
 	'account_creation_duplicate_email' 	 => 'Электронная почта используется или некорректна',
 	'account_creation_duplicate_username' 	 => 'Имя пользователя существует или некорректно',
-	'account_creation_missing_default_group' => 'Группа по умолчанию не установлена',
-	'account_creation_invalid_default_group' => 'Группа по умолчанию задана некорректно',
+	'account_creation_missing_defaultGroup' => 'Группа по умолчанию не установлена',
+	'account_creation_invalid_defaultGroup' => 'Группа по умолчанию задана некорректно',
 
 	// Password
 	'password_change_successful' 	 	 => 'Пароль успешно изменен',
@@ -62,13 +62,13 @@ return [
 	'group_delete_notallowed'    => 'Нельзя удалить группу администраторов',
 	'group_name_required' 		=> 'Имя группы обязательно к заполнению',
 	// Activation Email
-	'email_activation_subject'            => 'Активация учетной записи',
-	'email_activate_heading'    => 'Активировать акаунт с именем  %s',
-	'email_activate_subheading' => 'Нажмите на ссылку %s.',
-	'email_activate_link'       => 'Активировать ваш акаунт',
+	'emailActivation_subject'            => 'Активация учетной записи',
+	'emailActivate_heading'    => 'Активировать акаунт с именем  %s',
+	'emailActivate_subheading' => 'Нажмите на ссылку %s.',
+	'emailActivate_link'       => 'Активировать ваш акаунт',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Проверка забытого пароля',
-	'email_forgot_password_heading'    => 'Сброс пароля для пользователя %s',
-	'email_forgot_password_subheading' => 'Нажмите на ссылку для %s.',
-	'email_forgot_password_link'       => 'Восстановления пароля',
+	'emailForgotPassword_heading'    => 'Сброс пароля для пользователя %s',
+	'emailForgotPassword_subheading' => 'Нажмите на ссылку для %s.',
+	'emailForgotPassword_link'       => 'Восстановления пароля',
 ];

@@ -214,7 +214,7 @@ Documentation
     <h3>Hash method</h3>
     <ul>
         <li>
-            <strong>hash_method</strong> Default is 'bcrypt'<br/>
+            <strong>hashMethod</strong> Default is 'bcrypt'<br/>
             The method to hash the password before storing in database.
             You can choose between bcrypt (from PHP 5.3) or argon2 (from PHP 7.2)<br/>
 
@@ -227,14 +227,14 @@ Documentation
         <li><strong>Bcrypt-specific options:</strong><br/>
             <ul>
                 <li>
-                    <strong>bcrypt_default_cost</strong> Default is 10<br/>
+                    <strong>bcryptDefaultCost</strong> Default is 10<br/>
                     This defines how strong the encryption will be.<br/>
                     However, higher the cost, longer it will take to hash (CPU usage).
                     So adjust this based on your server hardware.
                 </li>
                 <li>
-                    <strong>bcrypt_admin_cost</strong> Default is 12<br/>
-                    Same as bcrypt_default_cost, but for users in the admin group.<br/>
+                    <strong>bcryptAdminCost</strong> Default is 12<br/>
+                    Same as bcryptDefaultCost, but for users in the admin group.<br/>
                     It is recommended to have a stronger hashing for administrators.
                 </li>
             </ul>
@@ -249,7 +249,7 @@ Documentation
         <li><strong>Argon2-specific options:</strong><br/>
             <ul>
                 <li>
-                    <strong>argon2_default_params</strong> Default is ['memory_cost' => 1 << 12, 'time_cost' => 2, 'threads' => 2]<br/>
+                    <strong>argon2DefaultParams</strong> Default is ['memory_cost' => 1 << 12, 'time_cost' => 2, 'threads' => 2]<br/>
                     This is an array containing the options for the Argon2 algorithm. The following keys can be set: <br/>
                     <strong>['memory_cost']</strong>: Maximum memory (in kBytes) that may be used to compute the Argon2 hash.
                     The spec recommends setting the memory cost to a power of 2.<br/>
@@ -259,8 +259,8 @@ Documentation
                     The spec recommends setting the memory cost to a power of 2.
                 </li>
                 <li>
-                    <strong>argon2_admin_params</strong> Default is ['memory_cost' => 1 << 14, 'time_cost' => 4, 'threads' => 2]<br/>
-                    Same as argon2_default_params, but for users in the admin group.<br/>
+                    <strong>argon2AdminParams</strong> Default is ['memory_cost' => 1 << 14, 'time_cost' => 4, 'threads' => 2]<br/>
+                    Same as argon2DefaultParams, but for users in the admin group.<br/>
                     It is recommended to have a stronger hashing for administrators.
                 </li>
             </ul>
@@ -279,19 +279,19 @@ Documentation
 
     <ul>
         <li>
-            <strong>site_title</strong><br/>
+            <strong>siteTitle</strong><br/>
             The title of your site, used for email.
         </li>
         <li>
-            <strong>admin_email</strong> Default is 'admin@example.com'<br/>
+            <strong>adminEmail</strong> Default is 'admin@example.com'<br/>
             Your administrator email address.
         </li>
         <li>
-            <strong>default_group</strong> Default is 'members'<br/>
+            <strong>defaultGroup</strong> Default is 'members'<br/>
             Name of the default user group.
         </li>
         <li>
-            <strong>admin_group</strong> Default is 'admin'<br/>
+            <strong>adminGroup</strong> Default is 'admin'<br/>
             Name of the admin group.
         </li>
         <li>
@@ -301,7 +301,7 @@ Documentation
             IMPORTANT: If you are changing it from the default (email), update the UNIQUE constraint in your DB.
         </li>
         <li>
-            <strong>min_password_length</strong> Default is '8'<br/>
+            <strong>minPasswordLength</strong> Default is '8'<br/>
             Minimum length of passwords.<br/>
             This minimum is not enforced directly by the library.<br/>
             The controller should define a validation rule to enforce it.<br/>
@@ -310,47 +310,47 @@ Documentation
             This is an arbitrary (long) value to protect against DOS attack.
         </li>
         <li>
-            <strong>email_activation</strong> Default is 'false'<br/>
+            <strong>emailActivation</strong> Default is 'false'<br/>
             TRUE or FALSE. Sets whether to require email activation or not.
         </li>
         <li>
-            <strong>manual_activation</strong> Default is 'false'<br/>
+            <strong>manualActivation</strong> Default is 'false'<br/>
             TRUE or FALSE. Sets whether to require manual activation (probably by an admin user) or not.
         </li>
         <li>
-            <strong>remember_users</strong> Default is 'true'<br/>
+            <strong>rememberUsers</strong> Default is 'true'<br/>
             TRUE or FALSE. Sets whether to enable 'remember me' functionality or not.
         </li>
         <li>
-            <strong>user_expire</strong> Default is '86500'<br/>
+            <strong>userExpire</strong> Default is '86500'<br/>
             Sets how long to remember the user for in seconds. Set to zero for no expiration.
         </li>
         <li>
-            <strong>user_extend_on_login</strong> Default is 'false'<br/>
+            <strong>userExtendonLogin</strong> Default is 'false'<br/>
             TRUE or FALSE. Extend the users session expiration on login.
         </li>
         <li>
-            <strong>track_login_attempts</strong> Default is 'false'<br/>
-            Track the number of failed login attempts for each user or ip (see track_login_ip_address option).
+            <strong>trackLoginAttempts</strong> Default is 'false'<br/>
+            Track the number of failed login attempts for each user or ip (see trackLoginIpAddress option).
         </li>
         <li>
-            <strong>track_login_ip_address</strong> Default is 'true'<br/>
+            <strong>trackLoginIpAddress</strong> Default is 'true'<br/>
             Track login attempts by IP Address, if FALSE will track based on identity.
         </li>
         <li>
-            <strong>maximum_login_attempts</strong> Default is 3<br/>
+            <strong>maximumLoginAttempts</strong> Default is 3<br/>
             Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is
             used by $this->ionAuth->isMaxLoginAttemptsExceeded(). The controller should check this function and act appropriately.
             If set to 0, there is no maximum.
         </li>
         <li>
-            <strong>forgot_password_expiration</strong> Default is 1800<br/>
+            <strong>forgotPasswordExpiration</strong> Default is 1800<br/>
             Number of seconds before a forgot password request expires. If set to 0, requests will not expire.<br/>
             30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password).<br/>
             You should not set a value too high (or 0), as it could lead to security issue!
         </li>
         <li>
-            <strong>recheck_timer</strong> Default is 0<br/>
+            <strong>recheckTimer</strong> Default is 0<br/>
             The number of seconds after which the session is checked again against database to
             see if the user still exists and is active.<br/>
             Leave 0 if you don't want session recheck. if you really think you need to recheck the session
@@ -384,11 +384,11 @@ Documentation
             Folder where the email view templates are stored.
         </li>
         <li>
-            <strong>email_activate</strong> Default is 'activate.tpl.php'<br/>
+            <strong>emailActivate</strong> Default is 'activate.tpl.php'<br/>
             Filname of the email activation view template.
         </li>
         <li>
-            <strong>email_forgot_password</strong> Default is 'forgot_password.tpl.php'<br/>
+            <strong>emailForgotPassword</strong> Default is 'forgot_password.tpl.php'<br/>
             Filname of the forgot password email view template.
         </li>
     </ul>
@@ -831,7 +831,7 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if maximum_login_attempts is exceeded FALSE if not or if login attempts not tracked.</li>
+		<li>boolean.  TRUE if maximumLoginAttempts is exceeded FALSE if not or if login attempts not tracked.</li>
 	</ul>
 
 	<p><strong>Usage</strong></p>

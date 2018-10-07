@@ -25,8 +25,8 @@ return [
 	'account_creation_unsuccessful'       => '無法建立帳號',
 	'account_creation_duplicate_email'    => '電子郵件已被使用或不合法',
 	'account_creation_duplicate_identity' => '帳號已存在或不合法',
-	'account_creation_missing_default_group' => '尚未設定預設群組',
-	'account_creation_invalid_default_group' => '預設群組名稱不合法',
+	'account_creation_missing_defaultGroup' => '尚未設定預設群組',
+	'account_creation_invalid_defaultGroup' => '預設群組名稱不合法',
 
 	// Password
 	'password_change_successful'   => '密碼變更成功',
@@ -67,14 +67,14 @@ return [
 	'group_name_admin_not_alter' => '不能變更管理者群組名稱',
 
 	// Activation Email
-	'email_activation_subject'  => '啟動帳號',
-	'email_activate_heading'    => '啟動帳號 %s',
-	'email_activate_subheading' => '請點此連結 %s',
-	'email_activate_link'       => '啟動您的帳號',
+	'emailActivation_subject'  => '啟動帳號',
+	'emailActivate_heading'    => '啟動帳號 %s',
+	'emailActivate_subheading' => '請點此連結 %s',
+	'emailActivate_link'       => '啟動您的帳號',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject' => '密碼重設驗證',
-	'email_forgot_password_heading'    => '重新啟用密碼 %s',
-	'email_forgot_password_subheading' => '請點此連結 %s',
-	'email_forgot_password_link'       => '重新啟動密碼',
+	'emailForgotPassword_heading'    => '重新啟用密碼 %s',
+	'emailForgotPassword_subheading' => '請點此連結 %s',
+	'emailForgotPassword_link'       => '重新啟動密碼',
 ];

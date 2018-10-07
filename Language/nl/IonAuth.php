@@ -23,8 +23,8 @@ return [
 	'account_creation_duplicate_identity' => 'Gebruikersnaam is al in gebruik of ongeldig',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Standaard groep is niet ingesteld',
-	'account_creation_invalid_default_group' => 'Standaard groepsnaam is ongeldig',
+	'account_creation_missing_defaultGroup' => 'Standaard groep is niet ingesteld',
+	'account_creation_invalid_defaultGroup' => 'Standaard groepsnaam is ongeldig',
 
 
 	// Password
@@ -66,14 +66,14 @@ return [
 	'group_name_admin_not_alter' => 'De naam van de administrator groep is niet aanpasbaar',
 
 	// Activation Email
-	'email_activation_subject'            => 'Account activering',
-	'email_activate_heading'    => 'Activeer account voor %s',
-	'email_activate_subheading' => 'Gelieve op deze link te klikken om %s.',
-	'email_activate_link'       => 'Activeer uw account',
+	'emailActivation_subject'            => 'Account activering',
+	'emailActivate_heading'    => 'Activeer account voor %s',
+	'emailActivate_subheading' => 'Gelieve op deze link te klikken om %s.',
+	'emailActivate_link'       => 'Activeer uw account',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Verificatie vergeten wachtwoord',
-	'email_forgot_password_heading'    => 'Reset wachtwoord voor %s',
-	'email_forgot_password_subheading' => 'Gelieve op deze link te klikken om %s.',
-	'email_forgot_password_link'       => 'Reset uw wachtwoord',
+	'emailForgotPassword_heading'    => 'Reset wachtwoord voor %s',
+	'emailForgotPassword_subheading' => 'Gelieve op deze link te klikken om %s.',
+	'emailForgotPassword_link'       => 'Reset uw wachtwoord',
 ];

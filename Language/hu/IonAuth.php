@@ -19,8 +19,8 @@ return [
 	'account_creation_unsuccessful' 	 	 	    => 'Nem lehet létrehozni a felhasználói fiókot',
 	'account_creation_duplicate_email' 	 	  => 'Az email cím használatban van vagy érvénytelen',
 	'account_creation_duplicate_identity' 	  => 'A felhasználó név használatban van vagy érvénytelen',
-	'account_creation_missing_default_group' => 'Alapértelmezett csoport nincs megadva',
-	'account_creation_invalid_default_group' => 'Érvénytelen alapértelmezett csoport név',
+	'account_creation_missing_defaultGroup' => 'Alapértelmezett csoport nincs megadva',
+	'account_creation_invalid_defaultGroup' => 'Érvénytelen alapértelmezett csoport név',
 
 	// Password
 	'password_change_successful' 	 	 	=> 'A jelszó sikeresen megváltoztatva',
@@ -61,14 +61,14 @@ return [
 	'group_name_admin_not_alter' 			=> 'Az admin csoport neve nem változtatható meg',
 
 	// Activation Email
-	'email_activation_subject'         => 'Felhasználói fiók aktiválása',
-	'email_activate_heading'    				=> '%s felhasználói fiókjának aktiválása',
-	'email_activate_subheading' 				=> 'Kattintson a linkre, hogy %s.',
-	'email_activate_link'       				=> 'Aktiválja felhasználói fiókját',
+	'emailActivation_subject'         => 'Felhasználói fiók aktiválása',
+	'emailActivate_heading'    				=> '%s felhasználói fiókjának aktiválása',
+	'emailActivate_subheading' 				=> 'Kattintson a linkre, hogy %s.',
+	'emailActivate_link'       				=> 'Aktiválja felhasználói fiókját',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    	=> 'Elfelejtett jelszó visszaigazolása',
-	'email_forgot_password_heading'    		=> 'Új jelszó beállítása %s számára',
-	'email_forgot_password_subheading' 		=> 'Kattintson a linkre az %s érdekében.',
-	'email_forgot_password_link'       		=> 'Új jelszó beállítása',
+	'emailForgotPassword_heading'    		=> 'Új jelszó beállítása %s számára',
+	'emailForgotPassword_subheading' 		=> 'Kattintson a linkre az %s érdekében.',
+	'emailForgotPassword_link'       		=> 'Új jelszó beállítása',
 ];

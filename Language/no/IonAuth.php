@@ -25,8 +25,8 @@ return [
 	'account_creation_unsuccessful'			=> 'Klarte ikke å opprette konto',
 	'account_creation_duplicate_email'		=> 'E-posten er allerede i bruk eller ugyldig',
 	'account_creation_duplicate_identity'	=> 'Brukernavnet er allerede i bruk eller ugyldig',
-	'account_creation_missing_default_group' => 'Standardgruppe er ikke valgt',
-	'account_creation_invalid_default_group' => 'Ugyldig gruppenavn',
+	'account_creation_missing_defaultGroup' => 'Standardgruppe er ikke valgt',
+	'account_creation_invalid_defaultGroup' => 'Ugyldig gruppenavn',
 
 
 	// Password
@@ -68,14 +68,14 @@ return [
 	'group_name_admin_not_alter' => 'Admingruppenavnet kan ikke endres',
 
 	// Activation Email
-	'email_activation_subject'  => 'Aktivering av konto',
-	'email_activate_heading'	   => 'Aktivér konto for %s',
-	'email_activate_subheading' => 'Klikk på denne linken for å %s.',
-	'email_activate_link'	   => 'Aktivér konto',
+	'emailActivation_subject'  => 'Aktivering av konto',
+	'emailActivate_heading'	   => 'Aktivér konto for %s',
+	'emailActivate_subheading' => 'Klikk på denne linken for å %s.',
+	'emailActivate_link'	   => 'Aktivér konto',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject' => 'Glemt passord: bekreftelse',
-	'email_forgot_password_heading'    => 'Tilbakestill passord for %s',
-	'email_forgot_password_subheading' => 'Klikk på denne linken for å %s.',
-	'email_forgot_password_link'       => 'Tilbakestill passord',
+	'emailForgotPassword_heading'    => 'Tilbakestill passord for %s',
+	'emailForgotPassword_subheading' => 'Klikk på denne linken for å %s.',
+	'emailForgotPassword_link'       => 'Tilbakestill passord',
 ];

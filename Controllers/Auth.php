@@ -178,7 +178,7 @@ class Auth extends \CodeIgniter\Controller
 	public function change_password()
 	{
 		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
-		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
+		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
 		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
 		if (! $this->ionAuth->loggedIn())
@@ -194,7 +194,7 @@ class Auth extends \CodeIgniter\Controller
 			// set the flash data error message if there is one
 			$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
-			$this->data['min_password_length'] = $this->configIonAuth->min_password_length;
+			$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 			$this->data['old_password'] = [
 				'name' => 'old',
 				'id' => 'old',
@@ -204,13 +204,13 @@ class Auth extends \CodeIgniter\Controller
 				'name' => 'new',
 				'id' => 'new',
 				'type' => 'password',
-				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+				'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 			];
 			$this->data['new_password_confirm'] = [
 				'name' => 'new_confirm',
 				'id' => 'new_confirm',
 				'type' => 'password',
-				'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+				'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 			];
 			$this->data['user_id'] = [
 				'name' => 'user_id',
@@ -341,7 +341,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// if the code is valid then display the password reset form
 
-			$this->validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[new_confirm]');
+			$this->validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
 			$this->validation->setRule('new_confirm', lang('Auth.reset_password_validation_new_password_confirm_label'), 'required');
 
 			if ($this->validation->run() === false)
@@ -351,18 +351,18 @@ class Auth extends \CodeIgniter\Controller
 				// set the flash data error message if there is one
 				$this->data['message'] = ($this->validation->listErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 
-				$this->data['min_password_length'] = $this->configIonAuth->min_password_length;
+				$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 				$this->data['new_password'] = [
 					'name' => 'new',
 					'id' => 'new',
 					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+					'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 				];
 				$this->data['new_password_confirm'] = [
 					'name' => 'new_confirm',
 					'id' => 'new_confirm',
 					'type' => 'password',
-					'pattern' => '^.{' . $this->data['min_password_length'] . '}.*$',
+					'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 				];
 				$this->data['user_id'] = [
 					'name' => 'user_id',
@@ -525,7 +525,7 @@ class Auth extends \CodeIgniter\Controller
 		}
 		$this->validation->setRule('phone', lang('Auth.create_user_validation_phone_label'), 'trim');
 		$this->validation->setRule('company', lang('Auth.create_user_validation_company_label'), 'trim');
-		$this->validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
+		$this->validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[password_confirm]');
 		$this->validation->setRule('password_confirm', lang('Auth.create_user_validation_password_confirm_label'), 'required');
 
 		if ($this->validation->withRequest($this->request)->run())
@@ -657,7 +657,7 @@ class Auth extends \CodeIgniter\Controller
 			// update the password if it was posted
 			if ($this->request->getPost('password'))
 			{
-				$this->validation->setRule('password', lang('Auth.edit_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->min_password_length . ']|matches[password_confirm]');
+				$this->validation->setRule('password', lang('Auth.edit_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[password_confirm]');
 				$this->validation->setRule('password_confirm', lang('Auth.edit_user_validation_password_confirm_label'), 'required');
 			}
 
@@ -858,7 +858,7 @@ class Auth extends \CodeIgniter\Controller
 		// pass the user to the view
 		$this->data['group'] = $group;
 
-		$readonly = $this->configIonAuth->admin_group === $group->name ? 'readonly' : '';
+		$readonly = $this->configIonAuth->adminGroup === $group->name ? 'readonly' : '';
 
 		$this->data['group_name'] = [
 			'name'    => 'group_name',

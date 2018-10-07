@@ -155,12 +155,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Bekreft nytt passord',
 
 	// Activation Email
-	'email_activate_heading'    => 'Aktivér konto for %s',
-	'email_activate_subheading' => 'Klikk denne linken for å %s.',
-	'email_activate_link'       => 'Aktivér din konto',
+	'emailActivate_heading'    => 'Aktivér konto for %s',
+	'emailActivate_subheading' => 'Klikk denne linken for å %s.',
+	'emailActivate_link'       => 'Aktivér din konto',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'Tilbakestill passord for %s',
-	'email_forgot_password_subheading' => 'Klikk denne linken for å %s.',
-	'email_forgot_password_link'       => 'Tilbakestill passordet ditt',
+	'emailForgotPassword_heading'    => 'Tilbakestill passord for %s',
+	'emailForgotPassword_subheading' => 'Klikk denne linken for å %s.',
+	'emailForgotPassword_link'       => 'Tilbakestill passordet ditt',
 ];

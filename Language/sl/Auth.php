@@ -144,14 +144,14 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Potrdi novo geslo',
 
 	// Aktivacijsko sporočilo
-	'email_activate_heading'    => 'Aktivirajte računa za %s',
-	'email_activate_subheading' => 'Prosimo, sledite povezavi do %s.',
-	'email_activate_link'       => 'Aktivirajte vaš račun',
+	'emailActivate_heading'    => 'Aktivirajte računa za %s',
+	'emailActivate_subheading' => 'Prosimo, sledite povezavi do %s.',
+	'emailActivate_link'       => 'Aktivirajte vaš račun',
 
 	// Pozabljeno geslo sporočilo
-	'email_forgot_password_heading'    => 'Ponastavite geslo za %s',
-	'email_forgot_password_subheading' => 'Prosimo, sledite povezavi do %s.',
-	'email_forgot_password_link'       => 'Ponastavite geslo',
+	'emailForgotPassword_heading'    => 'Ponastavite geslo za %s',
+	'emailForgotPassword_subheading' => 'Prosimo, sledite povezavi do %s.',
+	'emailForgotPassword_link'       => 'Ponastavite geslo',
 
 	// Novo geslo sporočilo
 ];

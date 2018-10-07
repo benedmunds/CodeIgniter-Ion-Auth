@@ -142,12 +142,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'تایید کلمه عبور جدید',
 
 	// Activation Email
-	'email_activate_heading'    => 'فعال سازی اکانت %s',
-	'email_activate_subheading' => 'لطفا روی این لینک کلیک کنید %s',
-	'email_activate_link'       => 'اکانت خود را فعال کنید',
+	'emailActivate_heading'    => 'فعال سازی اکانت %s',
+	'emailActivate_subheading' => 'لطفا روی این لینک کلیک کنید %s',
+	'emailActivate_link'       => 'اکانت خود را فعال کنید',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'بازیابی کلمه عبور برای %s',
-	'email_forgot_password_subheading' => 'لطفا روی این لینک کلیک کنید %s',
-	'email_forgot_password_link'       => 'کلمه عبور خود را بازیابی کنید',
+	'emailForgotPassword_heading'    => 'بازیابی کلمه عبور برای %s',
+	'emailForgotPassword_subheading' => 'لطفا روی این لینک کلیک کنید %s',
+	'emailForgotPassword_link'       => 'کلمه عبور خود را بازیابی کنید',
 ];

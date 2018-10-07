@@ -60,14 +60,14 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'            => 'Kích hoạt tài khoản',
-	'email_activate_heading'    => 'Kích hoạt tài khoản của %s',
-	'email_activate_subheading' => 'Vui lòng click vào link này để %s.',
-	'email_activate_link'       => 'Kích hoạt tài khoản',
+	'emailActivation_subject'            => 'Kích hoạt tài khoản',
+	'emailActivate_heading'    => 'Kích hoạt tài khoản của %s',
+	'emailActivate_subheading' => 'Vui lòng click vào link này để %s.',
+	'emailActivate_link'       => 'Kích hoạt tài khoản',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Xác nhận quên mật khẩu',
-	'email_forgot_password_heading'    => 'Khôi phục mật khẩu cho %s',
-	'email_forgot_password_subheading' => 'Vui lòng click vào link này để %s.',
-	'email_forgot_password_link'       => 'Khôi phục mật khẩu của bạn',
+	'emailForgotPassword_heading'    => 'Khôi phục mật khẩu cho %s',
+	'emailForgotPassword_subheading' => 'Vui lòng click vào link này để %s.',
+	'emailForgotPassword_link'       => 'Khôi phục mật khẩu của bạn',
 ];

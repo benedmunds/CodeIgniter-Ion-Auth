@@ -20,8 +20,8 @@ return [
 	'account_creation_unsuccessful'          => 'Hindi magawang i-Lumikha ng Account',
 	'account_creation_duplicate_email'       => 'Email ay Nagamit na o Hindi wastong',
 	'account_creation_duplicate_identity'    => 'Pagkakakilanlan ay Nagamit na o Hindi wastong',
-	'account_creation_missing_default_group' => 'Default na grupo ay hindi nakatakda',
-	'account_creation_invalid_default_group' => 'Hindi wasto ang default na ngalan ng grupo',
+	'account_creation_missing_defaultGroup' => 'Default na grupo ay hindi nakatakda',
+	'account_creation_invalid_defaultGroup' => 'Hindi wasto ang default na ngalan ng grupo',
 
 
 	// Password
@@ -63,14 +63,14 @@ return [
 	'group_name_admin_not_alter'          => 'Hndi Maaaring Palitan ang Ngalan sa Grupo',
 
 	// Activation Email
-	'email_activation_subject'            => 'Account Activation',
-	'email_activate_heading'              => 'I-activate account para sa %s',
-	'email_activate_subheading'           => 'Mangyaring i-click ang link na ito  %s.',
-	'email_activate_link'                 => 'I-activate ang Iyong Account',
+	'emailActivation_subject'            => 'Account Activation',
+	'emailActivate_heading'              => 'I-activate account para sa %s',
+	'emailActivate_subheading'           => 'Mangyaring i-click ang link na ito  %s.',
+	'emailActivate_link'                 => 'I-activate ang Iyong Account',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Nakalimutan mo ba ang Verification Password',
-	'email_forgot_password_heading'       => 'I-reset ang Password para sa %s',
-	'email_forgot_password_subheading'    => 'Mangyaring i-click ang link na ito  %s.',
-	'email_forgot_password_link'          => 'I-reset ang Iyong Password',
+	'emailForgotPassword_heading'       => 'I-reset ang Password para sa %s',
+	'emailForgotPassword_subheading'    => 'Mangyaring i-click ang link na ito  %s.',
+	'emailForgotPassword_link'          => 'I-reset ang Iyong Password',
 ];

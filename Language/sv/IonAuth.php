@@ -22,8 +22,8 @@ return [
 	'account_creation_duplicate_identity' => 'Användarnamnet är ogiltigt eller används redan',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Standard grupp är inte satt',
-	'account_creation_invalid_default_group' => 'Ogiltlig standard grupp namn satt',
+	'account_creation_missing_defaultGroup' => 'Standard grupp är inte satt',
+	'account_creation_invalid_defaultGroup' => 'Ogiltlig standard grupp namn satt',
 
 
 	// Password
@@ -65,14 +65,14 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'   => 'Kontoaktivering',
-	'email_activate_heading'     => 'Kontoaktivering för %s',
-	'email_activate_subheading'  => 'Klicka denna länk för att %s.',
-	'email_activate_link'        => 'aktivera ditt konto',
+	'emailActivation_subject'   => 'Kontoaktivering',
+	'emailActivate_heading'     => 'Kontoaktivering för %s',
+	'emailActivate_subheading'  => 'Klicka denna länk för att %s.',
+	'emailActivate_link'        => 'aktivera ditt konto',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject' => 'Glömt lösenordsverifikation',
-	'email_forgot_password_heading'    => 'Glömt lösenord för %s',
-	'email_forgot_password_subheading' => 'Klicka denna länk för att %s.',
-	'email_forgot_password_link'       => 'återställa ditt lösenord',
+	'emailForgotPassword_heading'    => 'Glömt lösenord för %s',
+	'emailForgotPassword_subheading' => 'Klicka denna länk för att %s.',
+	'emailForgotPassword_link'       => 'återställa ditt lösenord',
 ];

@@ -25,8 +25,8 @@ return [
 	'account_creation_unsuccessful' 	 	 => 'ไม่สามารถสร้างบัญชีได้',
 	'account_creation_duplicate_email' 	 => 'อีเมล์นี้ถูกใช้ไปแล้วหรือรูปแบบไม่ถูกต้อง',
 	'account_creation_duplicate_identity' => 'ชื่อผู้ใช้นี้ถูกใช้ไปแล้วหรือรูปแบบไม่ถูกต้อง',
-	'account_creation_missing_default_group' => 'กลุ่มปริยายยังไม่ถูกตั้ง',
-	'account_creation_invalid_default_group' => 'ชื่อกลุ่มปริยายตั้งไม่ถูกต้อง',
+	'account_creation_missing_defaultGroup' => 'กลุ่มปริยายยังไม่ถูกตั้ง',
+	'account_creation_invalid_defaultGroup' => 'ชื่อกลุ่มปริยายตั้งไม่ถูกต้อง',
 
 
 	// Password
@@ -68,14 +68,14 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'            => 'การเปิดใช้บัญชี',
-	'email_activate_heading'    => 'เปิดใช้บัญชี %s',
-	'email_activate_subheading' => 'กรุณาคลิกลิงค์นี้เพื่อ%s',
-	'email_activate_link'       => 'เปิดใช้Your บัญชี',
+	'emailActivation_subject'            => 'การเปิดใช้บัญชี',
+	'emailActivate_heading'    => 'เปิดใช้บัญชี %s',
+	'emailActivate_subheading' => 'กรุณาคลิกลิงค์นี้เพื่อ%s',
+	'emailActivate_link'       => 'เปิดใช้Your บัญชี',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'การยืนยันลืมรหัสผ่าน',
-	'email_forgot_password_heading'    => 'ล้างรหัสผ่านสำหรับ%s',
-	'email_forgot_password_subheading' => 'กรุณาคลิกลิงค์นี้เพื่อ%s',
-	'email_forgot_password_link'       => 'ล้างรหัสผ่าน',
+	'emailForgotPassword_heading'    => 'ล้างรหัสผ่านสำหรับ%s',
+	'emailForgotPassword_subheading' => 'กรุณาคลิกลิงค์นี้เพื่อ%s',
+	'emailForgotPassword_link'       => 'ล้างรหัสผ่าน',
 ];

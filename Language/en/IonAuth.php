@@ -22,8 +22,8 @@ return [
 	'account_creation_unsuccessful'          => 'Unable to Create Account',
 	'account_creation_duplicate_email'       => 'Email Already Used or Invalid',
 	'account_creation_duplicate_identity'    => 'Identity Already Used or Invalid',
-	'account_creation_missing_default_group' => 'Default group is not set',
-	'account_creation_invalid_default_group' => 'Invalid default group name set',
+	'account_creation_missing_defaultGroup' => 'Default group is not set',
+	'account_creation_invalid_defaultGroup' => 'Invalid default group name set',
 
 	// Password
 	'password_change_successful'          => 'Password Successfully Changed',
@@ -64,15 +64,15 @@ return [
 	'group_name_admin_not_alter'          => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'            => 'Account Activation',
-	'email_activate_heading'              => 'Activate account for %s',
-	'email_activate_subheading'           => 'Please click this link to %s.',
-	'email_activate_link'                 => 'Activate Your Account',
+	'emailActivation_subject'            => 'Account Activation',
+	'emailActivate_heading'              => 'Activate account for %s',
+	'emailActivate_subheading'           => 'Please click this link to %s.',
+	'emailActivate_link'                 => 'Activate Your Account',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Forgotten Password Verification',
-	'email_forgot_password_heading'       => 'Reset Password for %s',
-	'email_forgot_password_subheading'    => 'Please click this link to %s.',
-	'email_forgot_password_link'          => 'Reset Your Password',
+	'emailForgotPassword_heading'       => 'Reset Password for %s',
+	'emailForgotPassword_subheading'    => 'Please click this link to %s.',
+	'emailForgotPassword_link'          => 'Reset Your Password',
 
 ];

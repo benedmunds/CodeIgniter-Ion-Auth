@@ -24,8 +24,8 @@ return [
 	'account_creation_duplicate_identity'    => 'Ім`я користувача існує або некоректне',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Група за умовчанням не встановлена',
-	'account_creation_invalid_default_group' => 'Група за умовчанням задана некоректно',
+	'account_creation_missing_defaultGroup' => 'Група за умовчанням не встановлена',
+	'account_creation_invalid_defaultGroup' => 'Група за умовчанням задана некоректно',
 
 	// Password
 	'password_change_successful'		=> 'Пароль успішно змінено',
@@ -66,13 +66,13 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'  => 'Активація облікового запису',
-	'email_activate_heading'    => 'Активувати акаунт з ім\'ям  %s',
-	'email_activate_subheading' => 'Натисніть на посилання %s.',
-	'email_activate_link'       => 'Активувати ваш акаунт',
+	'emailActivation_subject'  => 'Активація облікового запису',
+	'emailActivate_heading'    => 'Активувати акаунт з ім\'ям  %s',
+	'emailActivate_subheading' => 'Натисніть на посилання %s.',
+	'emailActivate_link'       => 'Активувати ваш акаунт',
 	// Forgot Password Email
 	'email_forgotten_password_subject'	=> 'Перевірка забутого пароля',
-	'email_forgot_password_heading'		=> 'Скидання пароля для користувача %s',
-	'email_forgot_password_subheading'	=> 'Натисніть на посилання для %s.',
-	'email_forgot_password_link'		=> 'Відновлення пароля',
+	'emailForgotPassword_heading'		=> 'Скидання пароля для користувача %s',
+	'emailForgotPassword_subheading'	=> 'Натисніть на посилання для %s.',
+	'emailForgotPassword_link'		=> 'Відновлення пароля',
 ];

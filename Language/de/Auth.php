@@ -154,12 +154,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Neues Kennwort bestätigen',
 
 	// Activation Email
-	'email_activate_heading'    => 'Konto für %s aktivieren',
-	'email_activate_subheading' => 'Bitte drücken Sie auf dieses Link um zu %s',
-	'email_activate_link'       => 'Aktivieren Sie Ihr Konto',
+	'emailActivate_heading'    => 'Konto für %s aktivieren',
+	'emailActivate_subheading' => 'Bitte drücken Sie auf dieses Link um zu %s',
+	'emailActivate_link'       => 'Aktivieren Sie Ihr Konto',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'Kennwort für %s zurücksetzen',
-	'email_forgot_password_subheading' => 'Bitte drücken Sie diese Link um zu %s.',
-	'email_forgot_password_link'       => 'Ihr Kennwort zurückstellen',
+	'emailForgotPassword_heading'    => 'Kennwort für %s zurücksetzen',
+	'emailForgotPassword_subheading' => 'Bitte drücken Sie diese Link um zu %s.',
+	'emailForgotPassword_link'       => 'Ihr Kennwort zurückstellen',
 ];

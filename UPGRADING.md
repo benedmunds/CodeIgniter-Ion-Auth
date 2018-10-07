@@ -30,13 +30,13 @@ This is a bit more complex, depending on your configuration.
 The config file has changed:
 
 - For the **Hash Method** part:
-    - `hash_method` now only accepts `bcrypt` or the newer `argon2` (PHP 7.2)
+    - `hashMethod` now only accepts `bcrypt` or the newer `argon2` (PHP 7.2)
     (`sha1` is no longer supported for security considerations, see note below)
-    - `default_rounds` is modified to `bcrypt_default_cost`
+    - `default_rounds` is modified to `bcryptDefaultCost`
     - `random_rounds`, `min_rounds`, `max_rounds` and `salt_prefix` are removed
     as they don't serve any purpose anymore
-    - `argon2_default_params` is added for the Argon2 hash method
-    - `bcrypt_admin_cost` and `argon2_admin_params` are added to tweak the hash
+    - `argon2DefaultParams` is added for the Argon2 hash method
+    - `bcryptAdminCost` and `argon2AdminParams` are added to tweak the hash
     parameters for users in the admin group
 - For the **Authentication options** part:
     - `max_password_length` is removed as it is not good practice to limit password's length
@@ -44,7 +44,7 @@ The config file has changed:
     - `random_identity_cookie_name` is removed as it doesn't serve any purpose anymore
 - The **Forgot Password Complete Email Template** part is completely removed because
   the feature doesn't exists anymore due to security issue.
-    - `email_forgot_password_complete` is removed
+    - `emailForgotPassword_complete` is removed
 - The **Salt options** part is completely removed due to the removing of the
   SHA1 hash method
     - `salt_length` and `store_salt` are removed

@@ -30,8 +30,8 @@ return [
 	'account_creation_duplicate_identity' => 'Podana nazwa użytkownika jest nieprawidłowa lub została już użyta',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Domyślna grupa nie jest ustawiona',
-	'account_creation_invalid_default_group' => 'Nieprawidłowa nazwa domyślnej grupy',
+	'account_creation_missing_defaultGroup' => 'Domyślna grupa nie jest ustawiona',
+	'account_creation_invalid_defaultGroup' => 'Nieprawidłowa nazwa domyślnej grupy',
 
 
 	// Password
@@ -73,13 +73,13 @@ return [
 	'group_name_admin_not_alter' => 'Nazwa grupy administracyjnej nie może zostać zmieniona!',
 
 	// Activation Email
-	'email_activation_subject'  => 'Aktywacja Konta',
-	'email_activate_heading'    => 'Aktywuj konto dla %s',
-	'email_activate_subheading' => 'Przejdź do tego adresu aby aktywować swoje konto %s.',
-	'email_activate_link'       => 'Aktywacja konta',
+	'emailActivation_subject'  => 'Aktywacja Konta',
+	'emailActivate_heading'    => 'Aktywuj konto dla %s',
+	'emailActivate_subheading' => 'Przejdź do tego adresu aby aktywować swoje konto %s.',
+	'emailActivate_link'       => 'Aktywacja konta',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Resetowanie hasła',
-	'email_forgot_password_heading'    	 => 'Zresetuj hasło dla %s',
-	'email_forgot_password_subheading' 	 => 'Przejdź do tego adresu aby zresetować swoje hasło %s.',
-	'email_forgot_password_link'       	 => 'Resetowanie hasła',
+	'emailForgotPassword_heading'    	 => 'Zresetuj hasło dla %s',
+	'emailForgotPassword_subheading' 	 => 'Przejdź do tego adresu aby zresetować swoje hasło %s.',
+	'emailForgotPassword_link'       	 => 'Resetowanie hasła',
 ];

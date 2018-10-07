@@ -25,8 +25,8 @@ return [
 	'account_creation_duplicate_identity' 	 => 'Prisijungimo vardas jau yra arba nekorektiškas',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Nenustatyta numatytoji grupė',
-	'account_creation_invalid_default_group' => 'Nustatytas neteisingas numatytosios grupės pavadinimas',
+	'account_creation_missing_defaultGroup' => 'Nenustatyta numatytoji grupė',
+	'account_creation_invalid_defaultGroup' => 'Nustatytas neteisingas numatytosios grupės pavadinimas',
 
 	// Password
 	'password_change_successful' 	 	 => 'Slaptažodis sukurtas',
@@ -67,13 +67,13 @@ return [
 	'group_name_admin_not_alter' => 'Admin grupė negali būti pakeista',
 
 	// Activation Email
-	'email_activation_subject'            => 'Paskyros aktyvavimas',
-	'email_activate_heading'    => 'Aktyvuoti %s paskyrą',
-	'email_activate_subheading' => 'Prašome spragtelėti %s nuorodą.',
-	'email_activate_link'       => 'Aktyvuokite savo paskyrą',
+	'emailActivation_subject'            => 'Paskyros aktyvavimas',
+	'emailActivate_heading'    => 'Aktyvuoti %s paskyrą',
+	'emailActivate_subheading' => 'Prašome spragtelėti %s nuorodą.',
+	'emailActivate_link'       => 'Aktyvuokite savo paskyrą',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Pamiršto slaptažodžio patvirtinimas',
-	'email_forgot_password_heading'    => 'Iš naujo generuoti %s slaptažodį',
-	'email_forgot_password_subheading' => 'Prašome paspausti nuorodą norėdami %s.',
-	'email_forgot_password_link'       => 'Perkrauti slaptažodį',
+	'emailForgotPassword_heading'    => 'Iš naujo generuoti %s slaptažodį',
+	'emailForgotPassword_subheading' => 'Prašome paspausti nuorodą norėdami %s.',
+	'emailForgotPassword_link'       => 'Perkrauti slaptažodį',
 ];

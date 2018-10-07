@@ -27,8 +27,8 @@ return [
 	'account_creation_duplicate_identity' => 'Der Benutzername ist ungültig oder wird bereits verwendet',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Standard-Gruppe ist nicht gesetzt',
-	'account_creation_invalid_default_group' => 'Ungültiger Standard-Gruppenname',
+	'account_creation_missing_defaultGroup' => 'Standard-Gruppe ist nicht gesetzt',
+	'account_creation_invalid_defaultGroup' => 'Ungültiger Standard-Gruppenname',
 
 
 	// Password
@@ -70,14 +70,14 @@ return [
 	'group_name_admin_not_alter' => 'Admin-Gruppenname kann nicht geändert werden',
 
 	// Activation Email
-	'email_activation_subject'  => 'Aktivierung des Kontos',
-	'email_activate_heading'    => 'Konto aktivieren für %s',
-	'email_activate_subheading' => 'Bitte klicken Sie auf diesen Link, um %s.',
-	'email_activate_link'       => 'Aktivieren Sie Ihr Benutzerkonto',
+	'emailActivation_subject'  => 'Aktivierung des Kontos',
+	'emailActivate_heading'    => 'Konto aktivieren für %s',
+	'emailActivate_subheading' => 'Bitte klicken Sie auf diesen Link, um %s.',
+	'emailActivate_link'       => 'Aktivieren Sie Ihr Benutzerkonto',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject' => 'Vergessenes Kennwort Verifikation',
-	'email_forgot_password_heading'    => 'Kennwort zurücksetzen für %s',
-	'email_forgot_password_subheading' => 'Bitte klicken Sie auf diesen Link, um %s.',
-	'email_forgot_password_link'       => 'Ihr Kennwort zurückzusetzen',
+	'emailForgotPassword_heading'    => 'Kennwort zurücksetzen für %s',
+	'emailForgotPassword_subheading' => 'Bitte klicken Sie auf diesen Link, um %s.',
+	'emailForgotPassword_link'       => 'Ihr Kennwort zurückzusetzen',
 ];

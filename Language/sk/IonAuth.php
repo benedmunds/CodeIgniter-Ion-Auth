@@ -20,8 +20,8 @@ return [
 	'account_creation_duplicate_identity' => 'Užívateľské meno už existuje alebo je neplatné',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Základná skupina nenastavená',
-	'account_creation_invalid_default_group' => 'Nesprávne meno základnej skupiny',
+	'account_creation_missing_defaultGroup' => 'Základná skupina nenastavená',
+	'account_creation_invalid_defaultGroup' => 'Nesprávne meno základnej skupiny',
 
 	// Password
 	'password_change_successful' 	 	 => 'Heslo bolo úspešne zmenené',
@@ -62,13 +62,13 @@ return [
 	'group_name_admin_not_alter' => 'Administratorská skupina nemôže byť zmenená',
 
 	// Activation Email
-	'email_activation_subject'            => 'Aktivácia účtu',
-	'email_activate_heading'    => 'Aktivujte účet na %s',
-	'email_activate_subheading' => 'Prosím kliknite na tento odkaz pre %s.',
-	'email_activate_link'       => 'Aktivujte váš účet',
+	'emailActivation_subject'            => 'Aktivácia účtu',
+	'emailActivate_heading'    => 'Aktivujte účet na %s',
+	'emailActivate_subheading' => 'Prosím kliknite na tento odkaz pre %s.',
+	'emailActivate_link'       => 'Aktivujte váš účet',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Obnovenie hesla kontrola',
-	'email_forgot_password_heading'    => 'Obnoviť heslo pre %s',
-	'email_forgot_password_subheading' => 'Prosím kliknite na tento odkaz pre %s.',
-	'email_forgot_password_link'       => 'Reset vášho hesla',
+	'emailForgotPassword_heading'    => 'Obnoviť heslo pre %s',
+	'emailForgotPassword_subheading' => 'Prosím kliknite na tento odkaz pre %s.',
+	'emailForgotPassword_link'       => 'Reset vášho hesla',
 ];

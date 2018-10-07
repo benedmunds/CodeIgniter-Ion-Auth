@@ -146,14 +146,14 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Patvirtinti naują slaptažodį',
 
 	// Activation Email
-	'email_activate_heading'    => 'Aktyvuoti %s paskyrą',
-	'email_activate_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
-	'email_activate_link'       => 'Aktyvuoti paskyrą',
+	'emailActivate_heading'    => 'Aktyvuoti %s paskyrą',
+	'emailActivate_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
+	'emailActivate_link'       => 'Aktyvuoti paskyrą',
 
 	// Forgot Slaptažodis Email
-	'email_forgot_password_heading'    => 'Iš naujo sugeneruoti %s slaptažodį',
-	'email_forgot_password_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
-	'email_forgot_password_link'       => 'Sugeneruoti slaptažodį iš naujo',
+	'emailForgotPassword_heading'    => 'Iš naujo sugeneruoti %s slaptažodį',
+	'emailForgotPassword_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
+	'emailForgotPassword_link'       => 'Sugeneruoti slaptažodį iš naujo',
 
 	// New Slaptažodis Email
 ];

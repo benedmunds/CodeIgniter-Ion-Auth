@@ -21,8 +21,8 @@ return [
 	'account_creation_unsuccessful'       	=> 'Não foi possível criar a conta',
 	'account_creation_duplicate_email'    	=> 'Email em uso ou inválido',
 	'account_creation_duplicate_identity' 	=> 'Nome de usuário em uso ou inválido',
-	'account_creation_missing_default_group' => 'Grupo padrão não está definido',
-	'account_creation_invalid_default_group' => 'Nome padrão do grupo definido é inválido',
+	'account_creation_missing_defaultGroup' => 'Grupo padrão não está definido',
+	'account_creation_invalid_defaultGroup' => 'Nome padrão do grupo definido é inválido',
 
 	// Password
 	'password_change_successful'         => 'Senha alterada com sucesso',
@@ -63,14 +63,14 @@ return [
 	'group_name_admin_not_alter' 		=> 'Nome do grupo administrador não pode ser alterado',
 
 	// Activation Email
-	'email_activation_subject'           => 'Ativação da conta',
-	'email_activate_heading'    			=> 'Ative sua conta para %s',
-	'email_activate_subheading' 			=> 'Por favor, clique neste link para %s.',
-	'email_activate_link'       			=> 'Ative sua conta',
+	'emailActivation_subject'           => 'Ativação da conta',
+	'emailActivate_heading'    			=> 'Ative sua conta para %s',
+	'emailActivate_subheading' 			=> 'Por favor, clique neste link para %s.',
+	'emailActivate_link'       			=> 'Ative sua conta',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'   => 'Esqueci a senha',
-	'email_forgot_password_heading'    	=> 'Redefinido a senha para %s',
-	'email_forgot_password_subheading' 	=> 'Por favor, clique neste link para %s.',
-	'email_forgot_password_link'       	=> 'Redefina sua senha',
+	'emailForgotPassword_heading'    	=> 'Redefinido a senha para %s',
+	'emailForgotPassword_subheading' 	=> 'Por favor, clique neste link para %s.',
+	'emailForgotPassword_link'       	=> 'Redefina sua senha',
 ];

@@ -20,8 +20,8 @@ return [
 	'account_creation_unsuccessful' 	 	 	=> 'Nu am reușit să creez contul',
 	'account_creation_duplicate_email' 	 	=> 'Email deja folosit sau invalid',
 	'account_creation_duplicate_identity' 	=> 'Numele de utilizator este deja folosit sau este invalid',
-	'account_creation_missing_default_group' => 'Grupul prestabilit nu a fost setat',
-	'account_creation_invalid_default_group' => 'Ați setat un nume greșit pentru grupul prestabilit',
+	'account_creation_missing_defaultGroup' => 'Grupul prestabilit nu a fost setat',
+	'account_creation_invalid_defaultGroup' => 'Ați setat un nume greșit pentru grupul prestabilit',
 
 	// Password
 	'password_change_successful' 	 	 => 'Parolă schimbată cu succes',
@@ -62,14 +62,14 @@ return [
 	'group_name_admin_not_alter' 		=> 'Numele grupului administratorilor nu poate fi schimbat',
 
 	// Activation Email
-	'email_activation_subject'           => 'Activarea contului',
-	'email_activate_heading'    			=> 'Activarea contului pentru %s',
-	'email_activate_subheading' 			=> 'Dați clic pe această adresă pentru %s.',
-	'email_activate_link'       			=> 'Activarea contul',
+	'emailActivation_subject'           => 'Activarea contului',
+	'emailActivate_heading'    			=> 'Activarea contului pentru %s',
+	'emailActivate_subheading' 			=> 'Dați clic pe această adresă pentru %s.',
+	'emailActivate_link'       			=> 'Activarea contul',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'   => 'Verificarea parolei uitate',
-	'email_forgot_password_heading'    	=> 'Resetarea parolei pentru %s',
-	'email_forgot_password_subheading' 	=> 'Dați clic pe această adresă pentru %s.',
-	'email_forgot_password_link'       	=> 'Resetarea parolei',
+	'emailForgotPassword_heading'    	=> 'Resetarea parolei pentru %s',
+	'emailForgotPassword_subheading' 	=> 'Dați clic pe această adresă pentru %s.',
+	'emailForgotPassword_link'       	=> 'Resetarea parolei',
 ];

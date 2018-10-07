@@ -150,12 +150,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => '新しいパスワードの確認',
 
 	// Activation Email
-	'email_activate_heading'    => 'アカウントの有効化： %s',
-	'email_activate_subheading' => 'このリンクをクリックして%s。',
-	'email_activate_link'       => 'アカウントを有効にして下さい',
+	'emailActivate_heading'    => 'アカウントの有効化： %s',
+	'emailActivate_subheading' => 'このリンクをクリックして%s。',
+	'emailActivate_link'       => 'アカウントを有効にして下さい',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'パスワードのリセット： %s',
-	'email_forgot_password_subheading' => 'このリンクをクリックして%s。',
-	'email_forgot_password_link'       => 'パスワードをリセットして下さい',
+	'emailForgotPassword_heading'    => 'パスワードのリセット： %s',
+	'emailForgotPassword_subheading' => 'このリンクをクリックして%s。',
+	'emailForgotPassword_link'       => 'パスワードをリセットして下さい',
 ];

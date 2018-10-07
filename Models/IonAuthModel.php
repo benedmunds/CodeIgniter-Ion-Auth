@@ -224,7 +224,7 @@ class IonAuthModel
 		$this->join = $this->config->join;
 
 		// initialize hash method options (Bcrypt)
-		$this->hash_method = $this->config->hash_method;
+		$this->hashMethod = $this->config->hashMethod;
 
 		// initialize messages and error
 		$this->messages    = [];
@@ -816,29 +816,29 @@ class IonAuthModel
 	{
 		$this->triggerEvents('pre_register');
 
-		$manual_activation = $this->config->manual_activation;
+		$manualActivation = $this->config->manualActivation;
 
 		if ($this->identityCheck($identity))
 		{
 			$this->setError('account_creation_duplicate_identity');
 			return FALSE;
 		}
-		else if (!$this->config->default_group && empty($groups))
+		else if (!$this->config->defaultGroup && empty($groups))
 		{
-			$this->setError('account_creation_missing_default_group');
+			$this->setError('account_creation_missing_defaultGroup');
 			return FALSE;
 		}
 
 		// check if the default set in config exists in database
-		$query = $this->db->table($this->tables['groups'])->where(['name' => $this->config->default_group], 1)->get()->getRow();
+		$query = $this->db->table($this->tables['groups'])->where(['name' => $this->config->defaultGroup], 1)->get()->getRow();
 		if (!isset($query->id) && empty($groups))
 		{
-			$this->setError('account_creation_invalid_default_group');
+			$this->setError('account_creation_invalid_defaultGroup');
 			return FALSE;
 		}
 
 		// capture default group details
-		$default_group = $query;
+		$defaultGroup = $query;
 
 		// IP Address
 		$ip_address = \Config\Services::request()->getIPAddress();
@@ -860,7 +860,7 @@ class IonAuthModel
 			'email' => $email,
 			'ip_address' => $ip_address,
 			'created_on' => time(),
-			'active' => ($manual_activation === FALSE ? 1 : 0)
+			'active' => ($manualActivation === FALSE ? 1 : 0)
 		];
 
 		// filter out any data passed that doesnt have a matching column in the users table
@@ -874,9 +874,9 @@ class IonAuthModel
 		$id = $this->db->insertId($this->tables['users'] . '_id_seq');
 
 		// add in groups array if it doesn't exists and stop adding into default group if default group ids are set
-		if (isset($default_group->id) && empty($groups))
+		if (isset($defaultGroup->id) && empty($groups))
 		{
-			$groups[] = $default_group->id;
+			$groups[] = $defaultGroup->id;
 		}
 
 		if (!empty($groups))
@@ -956,7 +956,7 @@ class IonAuthModel
 				$this->clearLoginAttempts($identity);
 				$this->clearForgottenPasswordCode($identity);
 
-				if ($this->config->remember_users)
+				if ($this->config->rememberUsers)
 				{
 					if ($remember)
 					{
@@ -993,13 +993,13 @@ class IonAuthModel
 	}
 
 	/**
-	 * Verifies if the session should be rechecked according to the configuration item recheck_timer. If it does, then
+	 * Verifies if the session should be rechecked according to the configuration item recheckTimer. If it does, then
 	 * it will check if the user is still active
 	 * @return bool
 	 */
 	public function recheckSession()
 	{
-		$recheck = (NULL !== $this->config->recheck_timer) ? $this->config->recheck_timer : 0;
+		$recheck = (NULL !== $this->config->recheckTimer) ? $this->config->recheckTimer : 0;
 
 		if ($recheck !== 0)
 		{
@@ -1040,7 +1040,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity   user's identity
 	 * @param string|null $ip_address IP address
-	 *                                Only used if track_login_ip_address is set to TRUE.
+	 *                                Only used if trackLoginIpAddress is set to TRUE.
 	 *                                If NULL (default value), the current IP address is used.
 	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1048,9 +1048,9 @@ class IonAuthModel
 	 */
 	public function isMaxLoginAttemptsExceeded($identity, $ip_address = NULL)
 	{
-		if ($this->config->track_login_attempts)
+		if ($this->config->trackLoginAttempts)
 		{
-			$max_attempts = $this->config->maximum_login_attempts;
+			$max_attempts = $this->config->maximumLoginAttempts;
 			if ($max_attempts > 0)
 			{
 				$attempts = $this->getAttemptsNum($identity, $ip_address);
@@ -1066,7 +1066,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
-	 *                                Only used if track_login_ip_address is set to TRUE.
+	 *                                Only used if trackLoginIpAddress is set to TRUE.
 	 *                                If NULL (default value), the current IP address is used.
 	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1074,12 +1074,12 @@ class IonAuthModel
 	 */
 	public function getAttemptsNum($identity, $ip_address = NULL): int
 	{
-		if ($this->config->track_login_attempts)
+		if ($this->config->trackLoginAttempts)
 		{
 			$builder = $this->db->table($this->tables['login_attempts']);
 			//$builder->select('1', FALSE);
 			$builder->where('login', $identity);
-			if ($this->config->track_login_ip_address)
+			if ($this->config->trackLoginIpAddress)
 			{
 				if (!isset($ip_address))
 				{
@@ -1087,7 +1087,7 @@ class IonAuthModel
 				}
 				$builder->where('ip_address', $ip_address);
 			}
-			$builder->where('time >', time() - $this->config->lockout_time, FALSE);
+			$builder->where('time >', time() - $this->config->lockoutTime, FALSE);
 			//$qres = $builder->get();
 			return $builder->countAllResults();
 		}
@@ -1099,7 +1099,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
-	 *                                Only used if track_login_ip_address is set to TRUE.
+	 *                                Only used if trackLoginIpAddress is set to TRUE.
 	 *                                If NULL (default value), the current IP address is used.
 	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1107,11 +1107,11 @@ class IonAuthModel
 	 */
 	public function getLastAttemptTime($identity, $ip_address = NULL)
 	{
-		if ($this->config->track_login_attempts)
+		if ($this->config->trackLoginAttempts)
 		{
 			$this->db->select('time');
 			$this->db->where('login', $identity);
-			if ($this->config->track_login_ip_address)
+			if ($this->config->trackLoginIpAddress)
 			{
 				if (!isset($ip_address))
 				{
@@ -1140,7 +1140,7 @@ class IonAuthModel
 	 */
 	public function getLastAttemptIp($identity)
 	{
-		if ($this->config->track_login_attempts && $this->config->track_login_ip_address)
+		if ($this->config->trackLoginAttempts && $this->config->trackLoginIpAddress)
 		{
 			$this->db->select('ip_address');
 			$this->db->where('login', $identity);
@@ -1159,7 +1159,7 @@ class IonAuthModel
 	/**
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * Note: the current IP address will be used if track_login_ip_address config value is TRUE
+	 * Note: the current IP address will be used if trackLoginIpAddress config value is TRUE
 	 *
 	 * @param string $identity User's identity
 	 *
@@ -1167,10 +1167,10 @@ class IonAuthModel
 	 */
 	public function increaseLoginAttempts($identity)
 	{
-		if ($this->config->track_login_attempts)
+		if ($this->config->trackLoginAttempts)
 		{
 			$data = ['ip_address' => '', 'login' => $identity, 'time' => time()];
-			if ($this->config->track_login_ip_address)
+			if ($this->config->trackLoginIpAddress)
 			{
 				$data['ip_address'] = \Config\Services::request()->getIPAddress();
 			}
@@ -1187,7 +1187,7 @@ class IonAuthModel
 	 * @param string      $identity                User's identity
 	 * @param integer     $oldAttemptsAxpirePeriod In seconds, any attempts older than this value will be removed.
 	 *                                                It is used for regularly purging the attempts table.
-	 *                                                (for security reason, minimum value is lockout_time config value)
+	 *                                                (for security reason, minimum value is lockoutTime config value)
 	 * @param string|null $ipAddress               IP address
 	 *                                                Only used if track_login_ipAddress is set to TRUE.
 	 *                                                If NULL (default value), the current IP address is used.
@@ -1197,14 +1197,14 @@ class IonAuthModel
 	 */
 	public function clearLoginAttempts(string $identity, int $oldAttemptsAxpirePeriod = 86400, $ipAddress = null): bool
 	{
-		if ($this->config->track_login_attempts)
+		if ($this->config->trackLoginAttempts)
 		{
-			// Make sure $oldAttemptsAxpirePeriod is at least equals to lockout_time
-			$oldAttemptsAxpirePeriod = max($oldAttemptsAxpirePeriod, $this->config->lockout_time);
+			// Make sure $oldAttemptsAxpirePeriod is at least equals to lockoutTime
+			$oldAttemptsAxpirePeriod = max($oldAttemptsAxpirePeriod, $this->config->lockoutTime);
 
 			$builder = $this->db->table($this->tables['login_attempts']);
 			$builder->where('login', $identity);
-			if ($this->config->track_login_ip_address)
+			if ($this->config->trackLoginIpAddress)
 			{
 				if (! isset($ipAddress))
 				{
@@ -1924,15 +1924,15 @@ class IonAuthModel
 	{
 		$this->triggerEvents('set_lang');
 
-		// if the user_expire is set to zero we'll set the expiration two years from now.
-		if($this->config->user_expire === 0)
+		// if the userExpire is set to zero we'll set the expiration two years from now.
+		if($this->config->userExpire === 0)
 		{
 			$expire = self::MAX_COOKIE_LIFETIME;
 		}
 		// otherwise use what is set
 		else
 		{
-			$expire = $this->config->user_expire;
+			$expire = $this->config->userExpire;
 		}
 
 		set_cookie([
@@ -2004,15 +2004,15 @@ class IonAuthModel
 
 			if ($this->db->affectedRows() > -1)
 			{
-				// if the user_expire is set to zero we'll set the expiration two years from now.
-				if($this->config->user_expire === 0)
+				// if the userExpire is set to zero we'll set the expiration two years from now.
+				if($this->config->userExpire === 0)
 				{
 					$expire = self::MAX_COOKIE_LIFETIME;
 				}
 				// otherwise use what is set
 				else
 				{
-					$expire = $this->config->user_expire;
+					$expire = $this->config->userExpire;
 				}
 
 				set_cookie([
@@ -2078,7 +2078,7 @@ class IonAuthModel
 				$this->clearForgottenPasswordCode($identity);
 
 				// extend the users cookies if the option is enabled
-				if ($this->config->user_extend_on_login)
+				if ($this->config->userExtendonLogin)
 				{
 					$this->rememberUser($identity);
 				}
@@ -2178,7 +2178,7 @@ class IonAuthModel
 
 		// restrict change of name of the admin group
 		$group = $this->db->table($this->tables['groups'])->getWhere(['id' => $group_id])->getRow();
-		if ($this->config->admin_group === $group->name && $groupName !== $group->name)
+		if ($this->config->adminGroup === $group->name && $groupName !== $group->name)
 		{
 			$this->setError('groupName_admin_not_alter');
 			return FALSE;
@@ -2214,7 +2214,7 @@ class IonAuthModel
 			return FALSE;
 		}
 		$group = $this->group($group_id)->row();
-		if($group->name == $this->config->admin_group)
+		if($group->name == $this->config->adminGroup)
 		{
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_notallowed']);
 			$this->setError('group_delete_notallowed');
@@ -2625,25 +2625,25 @@ class IonAuthModel
 		if ($identity)
 		{
 			$user_id = $this->getUserIdFromIdentity($identity);
-			if ($user_id && $this->inGroup($this->config->admin_group, $user_id))
+			if ($user_id && $this->inGroup($this->config->adminGroup, $user_id))
 			{
 				$is_admin = TRUE;
 			}
 		}
 
 		$params = FALSE;
-		switch ($this->hash_method)
+		switch ($this->hashMethod)
 		{
 			case 'bcrypt':
 				$params = [
-					'cost' => $is_admin ? $this->config->bcrypt_admin_cost
-										: $this->config->bcrypt_default_cost
+					'cost' => $is_admin ? $this->config->bcryptAdminCost
+										: $this->config->bcryptDefaultCost
 				];
 				break;
 
 			case 'argon2':
-				$params = $is_admin ? $this->config->argon2_admin_params
-									: $this->config->argon2_default_params;
+				$params = $is_admin ? $this->config->argon2AdminParams
+									: $this->config->argon2DefaultParams;
 				break;
 
 			default:
@@ -2660,7 +2660,7 @@ class IonAuthModel
 	protected function _getHashAlgo()
 	{
 		$algo = FALSE;
-		switch ($this->hash_method)
+		switch ($this->hashMethod)
 		{
 			case 'bcrypt':
 				$algo = PASSWORD_BCRYPT;

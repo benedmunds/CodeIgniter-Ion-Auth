@@ -25,7 +25,7 @@ Ion Auth Changelog
     - Higher default hashing parameters (e.g. higher cost for bcrypt)
     - Allows different hashing parameters for admins
     - Remove `random_rounds` bcrypt feature
-    - Better default value for `forgot_password_expiration`
+    - Better default value for `forgotPasswordExpiration`
  - **Updated features:**
      - Update _Remember me_ feature for more security
      - Update _Password Reset_ feature for more security

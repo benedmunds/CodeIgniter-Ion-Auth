@@ -20,8 +20,8 @@ return [
 	'account_creation_unsuccessful' 	 	      => 'No se ha podido crear la cuenta',
 	'account_creation_duplicate_email' 	    => 'Email en uso o inválido',
 	'account_creation_duplicate_identity'    => 'Nombre de usuario en uso o inválido',
-	'account_creation_missing_default_group' => 'No se ha especificado grupo por defecto',
-	'account_creation_invalid_default_group' => 'Nombre de grupo no válido',
+	'account_creation_missing_defaultGroup' => 'No se ha especificado grupo por defecto',
+	'account_creation_invalid_defaultGroup' => 'Nombre de grupo no válido',
 
 	// Password
 	'password_change_successful' 	 	        => 'Contraseña renovada con éxito',
@@ -62,14 +62,14 @@ return [
 	'group_name_admin_not_alter'             => 'El nombre del grupo de administradores no puede ser modificado',
 
 	// Activation Email
-	'email_activation_subject'               => 'Activación de la cuenta',
-	'email_activate_heading'                 => 'Cuenta activada para %s',
-	'email_activate_subheading'              => 'Por favor, haga click en este link para %s.',
-	'email_activate_link'                    => 'Activa tu cuenta',
+	'emailActivation_subject'               => 'Activación de la cuenta',
+	'emailActivate_heading'                 => 'Cuenta activada para %s',
+	'emailActivate_subheading'              => 'Por favor, haga click en este link para %s.',
+	'emailActivate_link'                    => 'Activa tu cuenta',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'       => 'Verificación de contraseña olvidada',
-	'email_forgot_password_heading'          => 'Resetea contraseña para %s',
-	'email_forgot_password_subheading'       => 'Por favor, haga click en este link para %s.',
-	'email_forgot_password_link'             => 'Resetea tu contraseña',
+	'emailForgotPassword_heading'          => 'Resetea contraseña para %s',
+	'emailForgotPassword_subheading'       => 'Por favor, haga click en este link para %s.',
+	'emailForgotPassword_link'             => 'Resetea tu contraseña',
 ];

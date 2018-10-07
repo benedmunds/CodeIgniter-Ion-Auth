@@ -146,12 +146,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Confirm New Password',
 
 	// Activation Email
-	'email_activate_heading'    => 'Activate account for %s',
-	'email_activate_subheading' => 'Please click this link to %s.',
-	'email_activate_link'       => 'Activate Your Account',
+	'emailActivate_heading'    => 'Activate account for %s',
+	'emailActivate_subheading' => 'Please click this link to %s.',
+	'emailActivate_link'       => 'Activate Your Account',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'Reset Password for %s',
-	'email_forgot_password_subheading' => 'Please click this link to %s.',
-	'email_forgot_password_link'       => 'Reset Your Password',
+	'emailForgotPassword_heading'    => 'Reset Password for %s',
+	'emailForgotPassword_subheading' => 'Please click this link to %s.',
+	'emailForgotPassword_link'       => 'Reset Your Password',
 ];

@@ -31,8 +31,8 @@ return [
 	'account_creation_duplicate_identity'	    => 'Identitas Sudah Digunakan atau Tidak Valid',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group'		=> 'Standar grup tidak diatur',
-	'account_creation_invalid_default_group'		=> 'Pengaturan Nama Grup Standar Tidak Valid',
+	'account_creation_missing_defaultGroup'		=> 'Standar grup tidak diatur',
+	'account_creation_invalid_defaultGroup'		=> 'Pengaturan Nama Grup Standar Tidak Valid',
 
 
 	// Password
@@ -74,14 +74,14 @@ return [
 	'group_name_admin_not_alter'			    	=> 'Nama Grup Admin Tidak Bisa Diubah',
 
 	// Activation Email
-	'email_activation_subject'					=> 'Aktivasi Akun',
-	'email_activate_heading'						=> 'Aktifkan Akun dari %s',
-	'email_activate_subheading'				    => 'Silahkan klik tautan berikut untuk %s.',
-	'email_activate_link'						=> 'Aktifkan Akun Anda',
+	'emailActivation_subject'					=> 'Aktivasi Akun',
+	'emailActivate_heading'						=> 'Aktifkan Akun dari %s',
+	'emailActivate_subheading'				    => 'Silahkan klik tautan berikut untuk %s.',
+	'emailActivate_link'						=> 'Aktifkan Akun Anda',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'			=> 'Verifikasi Lupa Password',
-	'email_forgot_password_heading'				=> 'Setel Ulang Kata Sandi untuk %s',
-	'email_forgot_password_subheading'			=> 'Silahkan klik tautan berikut untuk %s.',
-	'email_forgot_password_link'					=> 'Setel Ulang Kata Sandi',
+	'emailForgotPassword_heading'				=> 'Setel Ulang Kata Sandi untuk %s',
+	'emailForgotPassword_subheading'			=> 'Silahkan klik tautan berikut untuk %s.',
+	'emailForgotPassword_link'					=> 'Setel Ulang Kata Sandi',
 ];

@@ -30,8 +30,8 @@ return [
 	'account_creation_duplicate_identity' => 'نام کاربری قبلا استفاده شده است',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'گروه پیش فرض ذخیره نشده است',
-	'account_creation_invalid_default_group' => 'گروه پیشفرض نامعتبر است',
+	'account_creation_missing_defaultGroup' => 'گروه پیش فرض ذخیره نشده است',
+	'account_creation_invalid_defaultGroup' => 'گروه پیشفرض نامعتبر است',
 
 	// Password
 	'password_change_successful' 	 	 => 'رمز عبور عوض شد',
@@ -72,13 +72,13 @@ return [
 	'group_name_admin_not_alter' => 'نام گروه ادمین را نمیتوان تغییر داد',
 
 	// Activation Email
-	'email_activation_subject'            => 'فعال سازی حساب کاربري',
-	'email_activate_heading'    => 'فعال سازی اکانت %s',
-	'email_activate_subheading' => 'لطفا روی این لینک کلیک کنید: %s',
-	'email_activate_link'       => 'فعال سازی اکانت',
+	'emailActivation_subject'            => 'فعال سازی حساب کاربري',
+	'emailActivate_heading'    => 'فعال سازی اکانت %s',
+	'emailActivate_subheading' => 'لطفا روی این لینک کلیک کنید: %s',
+	'emailActivate_link'       => 'فعال سازی اکانت',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'تایید رمز عبور جدید',
-	'email_forgot_password_heading'    => 'بازیابی کلمه عبور برای %s',
-	'email_forgot_password_subheading' => 'لطفا روی این لینک کلیک کنید: %s',
-	'email_forgot_password_link'       => 'کلمه عبور خود را بازیابی کنید',
+	'emailForgotPassword_heading'    => 'بازیابی کلمه عبور برای %s',
+	'emailForgotPassword_subheading' => 'لطفا روی این لینک کلیک کنید: %s',
+	'emailForgotPassword_link'       => 'کلمه عبور خود را بازیابی کنید',
 ];

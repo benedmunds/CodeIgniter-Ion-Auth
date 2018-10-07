@@ -20,8 +20,8 @@ return [
 	'account_creation_unsuccessful' 	 	 => 'Impossibile creare l\'account.',
 	'account_creation_duplicate_email' 	 => 'Email gi&agrave; in uso o non valida.',
 	'account_creation_duplicate_identity' 	 => 'Nome utente gi&agrave; in uso o non valido.',
-	'account_creation_missing_default_group' => 'Gruppo predefinito non impostato',
-	'account_creation_invalid_default_group' => 'Nome del gruppo predefinito non valido',
+	'account_creation_missing_defaultGroup' => 'Gruppo predefinito non impostato',
+	'account_creation_invalid_defaultGroup' => 'Nome del gruppo predefinito non valido',
 
 
 	// Password
@@ -63,13 +63,13 @@ return [
 	'group_name_admin_not_alter' => 'Il nome del gruppo amministratori non pu&ograve; essere modificato',
 
 	// Activation Email
-	'email_activation_subject'            => 'Attivazione Account',
-	'email_activate_heading'    => 'Attiva account per %s',
-	'email_activate_subheading' => 'Si prega di cliccare su questo collegamento per %s.',
-	'email_activate_link'       => 'Attiva il tuo Account',
+	'emailActivation_subject'            => 'Attivazione Account',
+	'emailActivate_heading'    => 'Attiva account per %s',
+	'emailActivate_subheading' => 'Si prega di cliccare su questo collegamento per %s.',
+	'emailActivate_link'       => 'Attiva il tuo Account',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Verifica il cambio password dimenticata',
-	'email_forgot_password_heading'    => 'Reimposta Password per %s',
-	'email_forgot_password_subheading' => 'Si prega di cliccare su questo collegamento per %s.',
-	'email_forgot_password_link'       => 'Reimposta la tua Password',
+	'emailForgotPassword_heading'    => 'Reimposta Password per %s',
+	'emailForgotPassword_subheading' => 'Si prega di cliccare su questo collegamento per %s.',
+	'emailForgotPassword_link'       => 'Reimposta la tua Password',
 ];

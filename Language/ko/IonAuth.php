@@ -22,8 +22,8 @@ return [
 	'account_creation_duplicate_identity' => '이 계정명은 사용중이거나 올바르지 않습니다',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Default group is not set',
-	'account_creation_invalid_default_group' => 'Invalid default group name set',
+	'account_creation_missing_defaultGroup' => 'Default group is not set',
+	'account_creation_invalid_defaultGroup' => 'Invalid default group name set',
 
 	// Password
 	'password_change_successful' 	 	 => '비밀번호를 바꾸었습니다',
@@ -64,13 +64,13 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'            => '계정 활성화 방법을 보내드립니다',
-	'email_activate_heading'    => 'Activate account for %s',
-	'email_activate_subheading' => 'Please click this link to %s.',
-	'email_activate_link'       => 'Activate Your Account',
+	'emailActivation_subject'            => '계정 활성화 방법을 보내드립니다',
+	'emailActivate_heading'    => 'Activate account for %s',
+	'emailActivate_subheading' => 'Please click this link to %s.',
+	'emailActivate_link'       => 'Activate Your Account',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => '잊어버린 비밀번호를 찾는 절차를 보내드립니다',
-	'email_forgot_password_heading'    => 'Reset Password for %s',
-	'email_forgot_password_subheading' => 'Please click this link to %s.',
-	'email_forgot_password_link'       => 'Reset Your Password',
+	'emailForgotPassword_heading'    => 'Reset Password for %s',
+	'emailForgotPassword_subheading' => 'Please click this link to %s.',
+	'emailForgotPassword_link'       => 'Reset Your Password',
 ];

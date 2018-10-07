@@ -5,7 +5,7 @@
 <?php echo form_open('auth/reset_password/' . $code);?>
 
 	<p>
-		<label for="new_password"><?php echo sprintf(lang('Auth.reset_password_new_password_label'), $min_password_length);?></label> <br />
+		<label for="new_password"><?php echo sprintf(lang('Auth.reset_password_new_password_label'), $minPasswordLength);?></label> <br />
 		<?php echo form_input($new_password);?>
 	</p>
 

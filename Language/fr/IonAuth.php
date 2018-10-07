@@ -25,8 +25,8 @@ return [
 	'account_creation_unsuccessful'          => 'Impossible de créer le compte',
 	'account_creation_duplicate_email'       => 'Email déjà utilisé ou invalide',
 	'account_creation_duplicate_identity'    => 'Nom d\'utilisateur déjà utilisé ou invalide',
-	'account_creation_missing_default_group' => 'Le groupe par défaut n\'est pas configuré',
-	'account_creation_invalid_default_group' => 'Le nom du groupe par défaut n\'est pas valide',
+	'account_creation_missing_defaultGroup' => 'Le groupe par défaut n\'est pas configuré',
+	'account_creation_invalid_defaultGroup' => 'Le nom du groupe par défaut n\'est pas valide',
 
 	// Password
 	'password_change_successful'   => 'Le mot de passe a été changé avec succès',
@@ -67,14 +67,14 @@ return [
 	'group_name_admin_not_alter' => 'Le nom du groupe Admin ne peut pas être modifié',
 
 	// Activation Email
-	'email_activation_subject'  => 'Activation du compte',
-	'email_activate_heading'    => 'Activer le compte pour %s',
-	'email_activate_subheading' => 'S\'il vous plaît cliquer sur ce lien pour %s.',
-	'email_activate_link'       => 'Activez votre compte',
+	'emailActivation_subject'  => 'Activation du compte',
+	'emailActivate_heading'    => 'Activer le compte pour %s',
+	'emailActivate_subheading' => 'S\'il vous plaît cliquer sur ce lien pour %s.',
+	'emailActivate_link'       => 'Activez votre compte',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject' => 'Mot de Passe Oublié - Vérification',
-	'email_forgot_password_heading'    => 'Réinitialiser le mot de passe pour %s',
-	'email_forgot_password_subheading' => 'Veuillez cliquer sur ce lien pour %s.',
-	'email_forgot_password_link'       => 'Réinitialiser votre mot de passe',
+	'emailForgotPassword_heading'    => 'Réinitialiser le mot de passe pour %s',
+	'emailForgotPassword_subheading' => 'Veuillez cliquer sur ce lien pour %s.',
+	'emailForgotPassword_link'       => 'Réinitialiser votre mot de passe',
 ];

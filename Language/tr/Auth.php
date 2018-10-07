@@ -147,12 +147,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Yeni Şifre Tekrarı',
 
 	// Activation Email
-	'email_activate_heading'    => '%s İçin Hesap Etkinleştirme',
-	'email_activate_subheading' => 'Bağlantıya basarak %s.',
-	'email_activate_link'       => 'Hesabınızı Etkinleştiriniz',
+	'emailActivate_heading'    => '%s İçin Hesap Etkinleştirme',
+	'emailActivate_subheading' => 'Bağlantıya basarak %s.',
+	'emailActivate_link'       => 'Hesabınızı Etkinleştiriniz',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => '%s İçin Şifre Sıfırlama',
-	'email_forgot_password_subheading' => 'Bağlantıya basarak %s.',
-	'email_forgot_password_link'       => 'Şifrenizi Sıfırlayınız',
+	'emailForgotPassword_heading'    => '%s İçin Şifre Sıfırlama',
+	'emailForgotPassword_subheading' => 'Bağlantıya basarak %s.',
+	'emailForgotPassword_link'       => 'Şifrenizi Sıfırlayınız',
 ];

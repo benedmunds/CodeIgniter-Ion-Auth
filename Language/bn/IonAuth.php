@@ -23,8 +23,8 @@ return [
 	'account_creation_unsuccessful'          => 'অ্যাকাউন্টটি তৈরি করা যাচ্ছেনা',
 	'account_creation_duplicate_email'       => 'ইমেলটি ইতিমধ্যে ব্যবহৃত হয়েছে অথবা এটি ভুল',
 	'account_creation_duplicate_identity'    => 'এটি ইতিমধ্যে ব্যবহৃত হয়েছে অথবা ভুল',
-	'account_creation_missing_default_group' => 'পূর্বনির্ধারিত গ্রুপ সেট করা হয়নি',
-	'account_creation_invalid_default_group' => 'পূর্বনির্ধারিত দলটি ভুল হয়েছে',
+	'account_creation_missing_defaultGroup' => 'পূর্বনির্ধারিত গ্রুপ সেট করা হয়নি',
+	'account_creation_invalid_defaultGroup' => 'পূর্বনির্ধারিত দলটি ভুল হয়েছে',
 
 
 	// Password
@@ -69,16 +69,16 @@ return [
 	'group_name_admin_not_alter'          => 'অ্যাডমিনিস্ট্রেটরদের দলটির নাম সংস্করণ করা যাবেনা',
 
 	// Activation Email
-	'email_activation_subject'            => 'অ্যাকাউন্ট সক্রিয়করণ',
-	'email_activate_heading'              => '%s এর জন্য অ্যাকাউন্ট সক্রিয়করণ প্রক্রিয়া',
-	'email_activate_subheading'           => 'দয়া করে এই লিঙ্কটি ক্লিক করুণ %s.',
-	'email_activate_link'                 => 'আপনার অ্যাকাউন্ট টি সক্রিয় করুণ',
+	'emailActivation_subject'            => 'অ্যাকাউন্ট সক্রিয়করণ',
+	'emailActivate_heading'              => '%s এর জন্য অ্যাকাউন্ট সক্রিয়করণ প্রক্রিয়া',
+	'emailActivate_subheading'           => 'দয়া করে এই লিঙ্কটি ক্লিক করুণ %s.',
+	'emailActivate_link'                 => 'আপনার অ্যাকাউন্ট টি সক্রিয় করুণ',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'ভুলে যাওয়া পাসওয়ার্ড পুনরূদ্ধার',
-	'email_forgot_password_heading'       => '%s এর জন্য পাসওয়ার্ড পুনরূদ্ধার করন প্রক্রিয়া',
-	'email_forgot_password_subheading'    => 'দয়া করে এই লিঙ্কটি ক্লিক করুণ %s.',
-	'email_forgot_password_link'          => 'আপনার অ্যাকাউন্ট টি পুনরূদ্ধার করুণ',
+	'emailForgotPassword_heading'       => '%s এর জন্য পাসওয়ার্ড পুনরূদ্ধার করন প্রক্রিয়া',
+	'emailForgotPassword_subheading'    => 'দয়া করে এই লিঙ্কটি ক্লিক করুণ %s.',
+	'emailForgotPassword_link'          => 'আপনার অ্যাকাউন্ট টি পুনরূদ্ধার করুণ',
 
 	// New Password Email
 	'email_new_password_subject'          => 'নতুন পাসওয়ার্ড',

@@ -150,12 +150,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => 'Conferma Nuova Password',
 
 	// Activation Email
-	'email_activate_heading'    => 'Attivare l\'account per %s',
-	'email_activate_subheading' => 'Cliccare il seguente link per %s.',
-	'email_activate_link'       => 'Attiva il tuo Account',
+	'emailActivate_heading'    => 'Attivare l\'account per %s',
+	'emailActivate_subheading' => 'Cliccare il seguente link per %s.',
+	'emailActivate_link'       => 'Attiva il tuo Account',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => 'Reimposta la Password per %s',
-	'email_forgot_password_subheading' => 'Cliccare il seguente link per %s.',
-	'email_forgot_password_link'       => 'Reimposta la tua Password',
+	'emailForgotPassword_heading'    => 'Reimposta la Password per %s',
+	'emailForgotPassword_subheading' => 'Cliccare il seguente link per %s.',
+	'emailForgotPassword_link'       => 'Reimposta la tua Password',
 ];

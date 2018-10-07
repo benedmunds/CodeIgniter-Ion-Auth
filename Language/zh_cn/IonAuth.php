@@ -20,8 +20,8 @@ return [
 	'account_creation_unsuccessful'          => '账号创建失败',
 	'account_creation_duplicate_email'       => '电子邮件已被使用或不合法',
 	'account_creation_duplicate_identity'    => '账号已存在或不合法',
-	'account_creation_missing_default_group' => '尚未设定默认群组',
-	'account_creation_invalid_default_group' => '默认群组名称不合法',
+	'account_creation_missing_defaultGroup' => '尚未设定默认群组',
+	'account_creation_invalid_defaultGroup' => '默认群组名称不合法',
 
 	// Password
 	'password_change_successful'   => '密码已修改',
@@ -62,13 +62,13 @@ return [
 	'group_name_admin_not_alter' => 'Admin group name can not be changed',
 
 	// Activation Email
-	'email_activation_subject'         => '帐号激活',
-	'email_activate_heading'    => 'Activate account for %s',
-	'email_activate_subheading' => 'Please click this link to %s.',
-	'email_activate_link'       => 'Activate Your Account',
+	'emailActivation_subject'         => '帐号激活',
+	'emailActivate_heading'    => 'Activate account for %s',
+	'emailActivate_subheading' => 'Please click this link to %s.',
+	'emailActivate_link'       => 'Activate Your Account',
 	// Forgot Password Email
 	'email_forgotten_password_subject' => '密码重设验证',
-	'email_forgot_password_heading'    => 'Reset Password for %s',
-	'email_forgot_password_subheading' => 'Please click this link to %s.',
-	'email_forgot_password_link'       => 'Reset Your Password',
+	'emailForgotPassword_heading'    => 'Reset Password for %s',
+	'emailForgotPassword_subheading' => 'Please click this link to %s.',
+	'emailForgotPassword_link'       => 'Reset Your Password',
 ];

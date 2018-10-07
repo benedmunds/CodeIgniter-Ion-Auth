@@ -77,7 +77,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | for more information see https://password-hashing.net). So if you can (PHP 7.2), go for it.
 	 |
 	 | Bcrypt specific:
-	 | 		bcrypt_default_cost settings:  This defines how strong the encryption will be.
+	 | 		bcryptDefaultCost settings:  This defines how strong the encryption will be.
 	 | 		However, higher the cost, longer it will take to hash (CPU usage) So adjust
 	 | 		this based on your server hardware.
 	 |
@@ -87,11 +87,11 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | 		With bcrypt, an example hash of "password" is:
 	 | 		$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
 	 |
-	 |		A specific parameter bcrypt_admin_cost is available for user in admin group.
+	 |		A specific parameter bcryptAdminCost is available for user in admin group.
 	 |		It is recommended to have a stronger hashing for administrators.
 	 |
 	 | Argon2 specific:
-	 | 		argon2_default_params settings:  This is an array containing the options for the Argon2 algorithm.
+	 | 		argon2DefaultParams settings:  This is an array containing the options for the Argon2 algorithm.
 	 | 		You can define 3 differents keys:
 	 | 			memory_cost (default 4096 kB)
 	 |				Maximum memory (in kBytes) that may be used to compute the Argon2 hash
@@ -109,21 +109,21 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | 		With argon2, an example hash of "password" is:
 	 | 		$argon2i$v=19$m=1024,t=2,p=2$VEFSSU4wSzh3cllVdE1JZQ$PDeks/7JoKekQrJa9HlfkXIk8dAeZXOzUxLBwNFbZ44
 	 |
-	 |		A specific parameter argon2_admin_params is available for user in admin group.
+	 |		A specific parameter argon2AdminParams is available for user in admin group.
 	 |		It is recommended to have a stronger hashing for administrators.
 	 |
 	 | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
 	 |
 	 */
-	public $hash_method           = 'bcrypt';  // bcrypt or argon2
-	public $bcrypt_default_cost   = 10;        // Set cost according to your server benchmark - but no lower than 10 (default PHP value)
-	public $bcrypt_admin_cost     = 12;        // Cost for user in admin group
-	public $argon2_default_params = [
+	public $hashMethod          = 'bcrypt';  // bcrypt or argon2
+	public $bcryptDefaultCost   = 10;        // Set cost according to your server benchmark - but no lower than 10 (default PHP value)
+	public $bcryptAdminCost     = 12;        // Cost for user in admin group
+	public $argon2DefaultParams = [
 		'memory_cost'	=> 1 << 12,	// 4MB
 		'time_cost'		=> 2,
 		'threads'		=> 2
 	];
-	public $argon2_admin_params	= [
+	public $argon2AdminParams   = [
 		'memory_cost'	=> 1 << 14,	// 16MB
 		'time_cost'		=> 4,
 		'threads'		=> 2
@@ -133,39 +133,39 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | -------------------------------------------------------------------------
 	 | Authentication options.
 	 | -------------------------------------------------------------------------
-	 | maximum_login_attempts: 	This maximum is not enforced by the library, but is used by
+	 | maximumLoginAttempts: 	This maximum is not enforced by the library, but is used by
 	 | 							is_max_login_attempts_exceeded().
 	 | 							The controller should check this function and act appropriately.
 	 | 							If this variable set to 0, there is no maximum.
-	 | min_password_length:		This minimum is not enforced directly by the library.
+	 | minPasswordLength:		This minimum is not enforced directly by the library.
 	 | 							The controller should define a validation rule to enforce it.
 	 | 							See the Auth controller for an example implementation.
 	 |
 	 | The library will fail for empty password or password size above 4096 bytes.
 	 | This is an arbitrary (long) value to protect against DOS attack.
 	 */
-	public $site_title                 = "Example.com";       // Site Title, example.com
-	public $admin_email                = "admin@example.com"; // Admin Email, admin@example.com
-	public $default_group              = 'members';           // Default group, use name
-	public $admin_group                = 'admin';             // Default administrators group, use name
-	public $identity                   = 'email';             /* You can use any unique column in your table as identity column.
+	public $siteTitle                = 'Example.com';       // Site Title, example.com
+	public $adminEmail               = 'admin@example.com'; // Admin Email, admin@example.com
+	public $defaultGroup             = 'members';           // Default group, use name
+	public $adminGroup               = 'admin';             // Default administrators group, use name
+	public $identity                 = 'email';             /* You can use any unique column in your table as identity column.
 																	IMPORTANT: If you are changing it from the default (email),
 																				update the UNIQUE constraint in your DB */
-	public $min_password_length        = 8;                   // Minimum Required Length of Password (not enforced by lib - see note above)
-	public $email_activation           = FALSE;               // Email Activation for registration
-	public $manual_activation          = FALSE;               // Manual Activation for registration
-	public $remember_users             = TRUE;                // Allow users to be remembered and enable auto-login
-	public $user_expire                = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
-	public $user_extend_on_login       = FALSE;               // Extend the users cookies every time they auto-login
-	public $track_login_attempts       = TRUE;                // Track the number of failed login attempts for each user or ip.
-	public $track_login_ip_address     = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
-	public $maximum_login_attempts     = 3;                   // The maximum number of failed login attempts.
-	public $lockout_time               = 600;                 /* The number of seconds to lockout an account due to exceeded attempts
+	public $minPasswordLength        = 8;                   // Minimum Required Length of Password (not enforced by lib - see note above)
+	public $emailActivation          = FALSE;               // Email Activation for registration
+	public $manualActivation         = FALSE;               // Manual Activation for registration
+	public $rememberUsers            = TRUE;                // Allow users to be remembered and enable auto-login
+	public $userExpire               = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
+	public $userExtendonLogin        = FALSE;               // Extend the users cookies every time they auto-login
+	public $trackLoginAttempts       = TRUE;                // Track the number of failed login attempts for each user or ip.
+	public $trackLoginIpAddress      = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
+	public $maximumLoginAttempts     = 3;                   // The maximum number of failed login attempts.
+	public $lockoutTime              = 600;                 /* The number of seconds to lockout an account due to exceeded attempts
 																	You should not use a value below 60 (1 minute) */
-	public $forgot_password_expiration = 1800;                /* The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
+	public $forgotPasswordExpiration = 1800;                /* The number of seconds after which a forgot password request will expire. If set to 0, forgot password requests will not expire.
 																	30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password)
 																	You should not set a value too high, as it would be a security issue! */
-	public $recheck_timer              = 0;                   /* The number of seconds after which the session is checked again against database to see if the user still exists and is active.
+	public $recheckTimer             = 0;                   /* The number of seconds after which the session is checked again against database to see if the user still exists and is active.
 																	Leave 0 if you don't want session recheck. if you really think you need to recheck the session against database, we would
 																	recommend a higher value, as this would affect performance */
 
@@ -181,12 +181,12 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | -------------------------------------------------------------------------
 	 | Email options.
 	 | -------------------------------------------------------------------------
-	 | email_config:
+	 | emailConfig:
 	 | 	  'file' = Use the default CI config or use from a config file
 	 | 	  array  = Manually set your email config settings
 	 */
-	public $use_ci_email = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
-	public $email_config = [
+	public $useCiEmail  = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+	public $emailConfig = [
 		'mailtype' => 'html',
 	];
 
@@ -205,7 +205,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | -------------------------------------------------------------------------
 	 | Default: activate.tpl.php
 	 */
-	public $email_activate = 'activate.tpl.php';
+	public $emailActivate = 'activate.tpl.php';
 
 	/*
 	 | -------------------------------------------------------------------------
@@ -213,7 +213,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | -------------------------------------------------------------------------
 	 | Default: forgot_password.tpl.php
 	 */
-	public $email_forgot_password = 'forgot_password.tpl.php';
+	public $emailForgotPassword = 'forgot_password.tpl.php';
 
 	/*
 	 | -------------------------------------------------------------------------

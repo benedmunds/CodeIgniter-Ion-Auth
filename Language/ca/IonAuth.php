@@ -22,8 +22,8 @@ return [
 	'account_creation_unsuccessful'          => 'No ha estat possible crear el compte',
 	'account_creation_duplicate_email'       => 'Email en ús o invàlid',
 	'account_creation_duplicate_identity'    => 'Nom d&#39;usuari en ús o invàlid',
-	'account_creation_missing_default_group' => 'No s&#39;ha establert grup per defecte',
-	'account_creation_invalid_default_group' => 'Conjunt de noms de grup per defecte invalid',
+	'account_creation_missing_defaultGroup' => 'No s&#39;ha establert grup per defecte',
+	'account_creation_invalid_defaultGroup' => 'Conjunt de noms de grup per defecte invalid',
 
 
 	// Password
@@ -65,13 +65,13 @@ return [
 	'group_name_admin_not_alter' => 'El nom del grup Admin no es pot canviar',
 
 	// Activation Email
-	'email_activation_subject'            => 'Activació del compte',
-	'email_activate_heading'    => 'Activar el compte de %s',
-	'email_activate_subheading' => 'Si us plau, cliqueu el link per %s.',
-	'email_activate_link'       => 'Activa el teu compte',
+	'emailActivation_subject'            => 'Activació del compte',
+	'emailActivate_heading'    => 'Activar el compte de %s',
+	'emailActivate_subheading' => 'Si us plau, cliqueu el link per %s.',
+	'emailActivate_link'       => 'Activa el teu compte',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Verificació de contrasenya oblidada',
-	'email_forgot_password_heading'    => 'Restableix contrasenya a %s',
-	'email_forgot_password_subheading' => 'Si us plau, cliqueu el link per %s.',
-	'email_forgot_password_link'       => 'Restableix la teva contrasenya',
+	'emailForgotPassword_heading'    => 'Restableix contrasenya a %s',
+	'emailForgotPassword_subheading' => 'Si us plau, cliqueu el link per %s.',
+	'emailForgotPassword_link'       => 'Restableix la teva contrasenya',
 ];

@@ -153,12 +153,12 @@ return [
 	'reset_password_validation_new_password_confirm_label' => '确认新密码',
 
 	// Activation Email
-	'email_activate_heading'    => '激活用户 %s',
-	'email_activate_subheading' => '请点击连接跳转至 %s.',
-	'email_activate_link'       => '激活您的账户',
+	'emailActivate_heading'    => '激活用户 %s',
+	'emailActivate_subheading' => '请点击连接跳转至 %s.',
+	'emailActivate_link'       => '激活您的账户',
 
 	// Forgot Password Email
-	'email_forgot_password_heading'    => '重置 %s 的密码',
-	'email_forgot_password_subheading' => '请点击连接跳转至 %s.',
-	'email_forgot_password_link'       => '重置您的密码',
+	'emailForgotPassword_heading'    => '重置 %s 的密码',
+	'emailForgotPassword_subheading' => '请点击连接跳转至 %s.',
+	'emailForgotPassword_link'       => '重置您的密码',
 ];

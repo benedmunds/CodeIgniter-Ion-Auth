@@ -22,8 +22,8 @@ return [
 	'account_creation_duplicate_identity' => 'Потребителското име е вече използвано или невалидно',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'Default group is not set',
-	'account_creation_invalid_default_group' => 'Invalid default group name set',
+	'account_creation_missing_defaultGroup' => 'Default group is not set',
+	'account_creation_invalid_defaultGroup' => 'Invalid default group name set',
 
 	// Password
 	'password_change_successful' 	 	 => 'Паролата бе сменена успешно',
@@ -66,13 +66,13 @@ return [
 
 	//TO DO Please translate
 	// Activation Email
-	'email_activation_subject'            => 'Активиране на регистрацията',
-	'email_activate_heading'    => 'Activate account for %s',
-	'email_activate_subheading' => 'Please click this link to %s.',
-	'email_activate_link'       => 'Activate Your Account',
+	'emailActivation_subject'            => 'Активиране на регистрацията',
+	'emailActivate_heading'    => 'Activate account for %s',
+	'emailActivate_subheading' => 'Please click this link to %s.',
+	'emailActivate_link'       => 'Activate Your Account',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Проверка за забравена парола',
-	'email_forgot_password_heading'    => 'Reset Password for %s',
-	'email_forgot_password_subheading' => 'Please click this link to %s.',
-	'email_forgot_password_link'       => 'Reset Your Password',
+	'emailForgotPassword_heading'    => 'Reset Password for %s',
+	'emailForgotPassword_subheading' => 'Please click this link to %s.',
+	'emailForgotPassword_link'       => 'Reset Your Password',
 ];

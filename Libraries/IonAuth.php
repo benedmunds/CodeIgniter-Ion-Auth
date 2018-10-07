@@ -89,11 +89,11 @@ class IonAuth
 
 		$this->_cacheUserInGroup =& $this->ionAuthModel->_cacheUserInGroup;
 
-		$email_config = $this->config->email_config;
+		$emailConfig = $this->config->emailConfig;
 
-		if ($this->config->use_ci_email && isset($email_config) && is_array($email_config))
+		if ($this->config->useCiEmail && isset($emailConfig) && is_array($emailConfig))
 		{
-			$this->email->initialize($email_config);
+			$this->email->initialize($emailConfig);
 		}
 
 		$this->ionAuthModel->triggerEvents('library_constructor');
@@ -170,18 +170,18 @@ class IonAuth
 					'forgotten_password_code' => $code
 				];
 
-				if (!$this->config->use_ci_email)
+				if (!$this->config->useCiEmail)
 				{
 					$this->setMessage('forgot_password_successful');
 					return $data;
 				}
 				else
 				{
-					$message = $this->load->view($this->config->emailTemplates . $this->config->email_forgot_password, $data, TRUE);
+					$message = $this->load->view($this->config->emailTemplates . $this->config->emailForgotPassword, $data, TRUE);
 					$this->email->clear();
-					$this->email->from($this->config->admin_email, $this->config->site_title);
+					$this->email->from($this->config->adminEmail, $this->config->siteTitle);
 					$this->email->to($user->email);
-					$this->email->subject($this->config->site_title . ' - ' . $this->lang->line('email_forgotten_password_subject'));
+					$this->email->subject($this->config->siteTitle . ' - ' . $this->lang->line('email_forgotten_password_subject'));
 					$this->email->message($message);
 
 					if ($this->email->send())
@@ -216,10 +216,10 @@ class IonAuth
 		}
 		else
 		{
-			if ($this->config->forgot_password_expiration > 0)
+			if ($this->config->forgotPasswordExpiration > 0)
 			{
 				//Make sure it isn't expired
-				$expiration = $this->config->forgot_password_expiration;
+				$expiration = $this->config->forgotPasswordExpiration;
 				if (time() - $user->forgotten_password_time > $expiration)
 				{
 					//it has expired
@@ -251,11 +251,11 @@ class IonAuth
 	{
 		$this->ionAuthModel->triggerEvents('pre_account_creation');
 
-		$email_activation = $this->config->email_activation;
+		$emailActivation = $this->config->emailActivation;
 
 		$id = $this->ionAuthModel->register($identity, $password, $email, $additional_data, $group_ids);
 
-		if (!$email_activation)
+		if (!$emailActivation)
 		{
 			if ($id !== FALSE)
 			{
@@ -301,7 +301,7 @@ class IonAuth
 				'email'      => $email,
 				'activation' => $activationCode,
 			];
-			if (! $this->config->use_ci_email)
+			if (! $this->config->useCiEmail)
 			{
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
 				$this->setMessage('activation_email_successful');
@@ -309,12 +309,12 @@ class IonAuth
 			}
 			else
 			{
-				$message = $this->load->view($this->config->emailTemplates . $this->config->email_activate, $data, true);
+				$message = $this->load->view($this->config->emailTemplates . $this->config->emailActivate, $data, true);
 
 				$this->email->clear();
-				$this->email->from($this->config->admin_email, $this->config->site_title);
+				$this->email->from($this->config->adminEmail, $this->config->siteTitle);
 				$this->email->to($email);
-				$this->email->subject($this->config->site_title . ' - ' . $this->lang->line('email_activation_subject'));
+				$this->email->subject($this->config->siteTitle . ' - ' . $this->lang->line('emailActivation_subject'));
 				$this->email->message($message);
 
 				if ($this->email->send() === TRUE)
@@ -411,9 +411,9 @@ class IonAuth
 	{
 		$this->ionAuthModel->triggerEvents('is_admin');
 
-		$admin_group = $this->config->admin_group;
+		$adminGroup = $this->config->adminGroup;
 
-		return $this->ionAuthModel->inGroup($admin_group, $id);
+		return $this->ionAuthModel->inGroup($adminGroup, $id);
 	}
 
 	/**

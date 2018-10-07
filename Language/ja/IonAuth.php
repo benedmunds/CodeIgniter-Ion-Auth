@@ -28,8 +28,8 @@ return [
 	'account_creation_duplicate_identity' => 'ユーザー名が登録済みまたは不正です',
 
 	// TODO Please Translate
-	'account_creation_missing_default_group' => 'デフォルトグループが設定されていません',
-	'account_creation_invalid_default_group' => 'デフォルトグループの名前が無効です',
+	'account_creation_missing_defaultGroup' => 'デフォルトグループが設定されていません',
+	'account_creation_invalid_defaultGroup' => 'デフォルトグループの名前が無効です',
 
 	// Password
 	'password_change_successful' 	 	 => 'パスワードを変更しました',
@@ -70,13 +70,13 @@ return [
 	'group_name_admin_not_alter' => '管理者グループ名は変更できません',
 
 	// Activation Email
-	'email_activation_subject'            => 'アカウントの承認',
-	'email_activate_heading'    => '%s アカウントを有効化します',
-	'email_activate_subheading' => 'このリンクをクリックして %s',
-	'email_activate_link'       => 'アカウントを有効にして下さい',
+	'emailActivation_subject'            => 'アカウントの承認',
+	'emailActivate_heading'    => '%s アカウントを有効化します',
+	'emailActivate_subheading' => 'このリンクをクリックして %s',
+	'emailActivate_link'       => 'アカウントを有効にして下さい',
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => '忘れたパスワードの確認',
-	'email_forgot_password_heading'    => '%s のパスワードのリセット',
-	'email_forgot_password_subheading' => 'こちらのリンクをクリックしてください。 %s',
-	'email_forgot_password_link'       => 'パスワードのリセット',
+	'emailForgotPassword_heading'    => '%s のパスワードのリセット',
+	'emailForgotPassword_subheading' => 'こちらのリンクをクリックしてください。 %s',
+	'emailForgotPassword_link'       => 'パスワードのリセット',
 ];
