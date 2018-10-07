@@ -127,7 +127,7 @@ class Auth extends \CodeIgniter\Controller
 				// redirect them back to the login page
 				$this->session->setFlashdata('message', $this->ionAuth->errors());
 				// use redirects instead of loading views for compatibility with MY_Controller libraries
-				return redirect('auth/login');
+				return redirect()->back()->withInput();
 			}
 		}
 		else
@@ -167,7 +167,7 @@ class Auth extends \CodeIgniter\Controller
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect('auth/login');
+		return redirect('/auth/login');
 	}
 
 	/**
