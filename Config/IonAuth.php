@@ -119,14 +119,14 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	public $bcryptDefaultCost   = 10;        // Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 	public $bcryptAdminCost     = 12;        // Cost for user in admin group
 	public $argon2DefaultParams = [
-		'memory_cost'	=> 1 << 12,	// 4MB
-		'time_cost'		=> 2,
-		'threads'		=> 2
+		'memory_cost' => 1 << 12, // 4MB
+		'time_cost'   => 2,
+		'threads'     => 2,
 	];
 	public $argon2AdminParams   = [
-		'memory_cost'	=> 1 << 14,	// 16MB
-		'time_cost'		=> 4,
-		'threads'		=> 2
+		'memory_cost' => 1 << 14, // 16MB
+		'time_cost'   => 4,
+		'threads'     => 2,
 	];
 
 	/*
@@ -152,13 +152,13 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 																	IMPORTANT: If you are changing it from the default (email),
 																				update the UNIQUE constraint in your DB */
 	public $minPasswordLength        = 8;                   // Minimum Required Length of Password (not enforced by lib - see note above)
-	public $emailActivation          = FALSE;               // Email Activation for registration
-	public $manualActivation         = FALSE;               // Manual Activation for registration
-	public $rememberUsers            = TRUE;                // Allow users to be remembered and enable auto-login
+	public $emailActivation          = false;               // Email Activation for registration
+	public $manualActivation         = false;               // Manual Activation for registration
+	public $rememberUsers            = true;                // Allow users to be remembered and enable auto-login
 	public $userExpire               = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
-	public $userExtendonLogin        = FALSE;               // Extend the users cookies every time they auto-login
-	public $trackLoginAttempts       = TRUE;                // Track the number of failed login attempts for each user or ip.
-	public $trackLoginIpAddress      = TRUE;                // Track login attempts by IP Address, if FALSE will track based on identity. (Default: TRUE)
+	public $userExtendonLogin        = false;               // Extend the users cookies every time they auto-login
+	public $trackLoginAttempts       = true;                // Track the number of failed login attempts for each user or ip.
+	public $trackLoginIpAddress      = true;                // Track login attempts by IP Address, if false will track based on identity. (Default: true)
 	public $maximumLoginAttempts     = 3;                   // The maximum number of failed login attempts.
 	public $lockoutTime              = 600;                 /* The number of seconds to lockout an account due to exceeded attempts
 																	You should not use a value below 60 (1 minute) */
@@ -185,7 +185,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | 	  'file' = Use the default CI config or use from a config file
 	 | 	  array  = Manually set your email config settings
 	 */
-	public $useCiEmail  = FALSE; // Send Email using the builtin CI email class, if false it will return the code and the identity
+	public $useCiEmail  = false; // Send Email using the builtin CI email class, if false it will return the code and the identity
 	public $emailConfig = [
 		'mailtype' => 'html',
 	];
@@ -199,19 +199,23 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 */
 	public $emailTemplates = 'auth/email/';
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Activate Account Email Template
-	 | -------------------------------------------------------------------------
-	 | Default: activate.tpl.php
+	/**
+	 * -------------------------------------------------------------------------
+	 * Activate Account Email Template
+	 * -------------------------------------------------------------------------
+	 * Default: activate.tpl.php
+	 *
+	 * @var string
 	 */
 	public $emailActivate = 'activate.tpl.php';
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Forgot Password Email Template
-	 | -------------------------------------------------------------------------
-	 | Default: forgot_password.tpl.php
+	/**
+	 * -------------------------------------------------------------------------
+	 * Forgot Password Email Template
+	 * -------------------------------------------------------------------------
+	 * Default: forgot_password.tpl.php
+	 *
+	 * @var string
 	 */
 	public $emailForgotPassword = 'forgot_password.tpl.php';
 
