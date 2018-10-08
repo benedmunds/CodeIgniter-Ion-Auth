@@ -34,13 +34,13 @@ return [
 	'forgot_password_unsuccessful'		=> 'Неможливе скидання пароля',
 
 	// Activation
-	'activate_successful'		=> 'Обліковий запис активовано',
-	'activate_unsuccessful'		=> 'Не вдалося активувати обліковий запис',
-	'deactivate_successful'          => 'Обліковий запис деактивовано',
-	'deactivate_unsuccessful'        => 'Неможливо деактивувати обліковий запис',
-	'activation_email_successful'    => 'Повідомлення про активацію відправлено',
-	'activation_email_unsuccessful'  => 'Повідомлення про активацію неможливо відправити',
-	'deactivate_current_user_unsuccessful'=> 'You cannot De-Activate your self.',
+	'activate_successful'                  => 'Обліковий запис активовано',
+	'activate_unsuccessful'                => 'Не вдалося активувати обліковий запис',
+	'deactivate_successful'                => 'Обліковий запис деактивовано',
+	'deactivate_unsuccessful'              => 'Неможливо деактивувати обліковий запис',
+	'activation_email_successful'          => 'Повідомлення про активацію відправлено',
+	'activation_email_unsuccessful'        => 'Повідомлення про активацію неможливо відправити',
+	'deactivate_current_user_unsuccessful' => 'Ви не можете самі деактивувати свій обліковий запис',
 
 	// Login / Logout
 	'login_successful'		=> 'Авторизація пройшла успішно',
