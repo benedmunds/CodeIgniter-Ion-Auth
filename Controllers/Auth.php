@@ -290,7 +290,6 @@ class Auth extends \CodeIgniter\Controller
 
 			if (empty($identity))
 			{
-
 				if ($this->configIonAuth->identity != 'email')
 				{
 					$this->ionAuth->setError('forgot_password_identity_not_found');

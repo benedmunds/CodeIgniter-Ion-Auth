@@ -148,10 +148,10 @@ class IonAuth
 	 *
 	 * @param string $identity
 	 *
-	 * @return array|bool
+	 * @return array|boolean
 	 * @author Mathew
 	 */
-	public function forgottenPassword($identity)
+	public function forgottenPassword(string $identity)
 	{
 		// Retrieve user information
 		$user = $this->where($this->ionAuthModel->identity_column, $identity)
@@ -170,7 +170,7 @@ class IonAuth
 					'forgotten_password_code' => $code
 				];
 
-				if (!$this->config->useCiEmail)
+				if (! $this->config->useCiEmail)
 				{
 					$this->setMessage('forgot_password_successful');
 					return $data;
