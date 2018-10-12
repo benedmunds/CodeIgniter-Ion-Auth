@@ -193,11 +193,11 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	/**
 	 * Email templates.
 	 * Folder where email templates are stored.
-	 * Default: auth/
+	 * Default: IonAuth\\Views\\auth\\email\\
 	 *
 	 * @var string
 	 */
-	public $emailTemplates = 'auth/email/';
+	public $emailTemplates = 'IonAuth\\Views\\auth\\email\\';
 
 	/**
 	 * -------------------------------------------------------------------------

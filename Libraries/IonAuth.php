@@ -166,8 +166,8 @@ class IonAuth
 			if ($code)
 			{
 				$data = [
-					'identity' => $identity,
-					'forgotten_password_code' => $code
+					'identity'              => $identity,
+					'forgottenPasswordCode' => $code,
 				];
 
 				if (! $this->config->useCiEmail)
@@ -177,16 +177,16 @@ class IonAuth
 				}
 				else
 				{
-					$message = $this->load->view($this->config->emailTemplates . $this->config->emailForgotPassword, $data, true);
+					$message = view($this->config->emailTemplates . $this->config->emailForgotPassword, $data);
 					$this->email->clear();
-					$this->email->from($this->config->adminEmail, $this->config->siteTitle);
-					$this->email->to($user->email);
-					$this->email->subject($this->config->siteTitle . ' - ' . $this->lang->line('email_forgotten_password_subject'));
-					$this->email->message($message);
-
+					$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
+					$this->email->setTo($user->email);
+					$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.email_forgotten_password_subject'));
+					$this->email->setMessage($message);
+					$test = $this->email->send();
 					if ($this->email->send())
 					{
-						$this->setMessage('forgot_password_successful');
+						$this->setMessage('IonAuth.forgot_password_successful');
 						return true;
 					}
 				}
@@ -440,7 +440,7 @@ class IonAuth
 		{
 			show_error("Ion Auth 3 requires CodeIgniter 3. Update to CI 3 or downgrade to Ion Auth 2.");
 		}
-         * 
+         *
          */
 
         /*
@@ -451,7 +451,7 @@ class IonAuth
 			show_error("No CSPRNG functions to generate random enough token. " .
 				"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
 		}
-         * 
+         *
          */
 	}
 
