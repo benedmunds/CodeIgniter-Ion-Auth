@@ -30,14 +30,14 @@ ALTER TABLE users
   ADD CONSTRAINT uc_email
     UNIQUE (email);
 
-ALTER TABLE users
-  ADD CONSTRAINT uc_activation_selector
-    UNIQUE (activation_selector);
-
-ALTER TABLE users
-  ADD CONSTRAINT uc_remember_selector
-    UNIQUE (remember_selector);
-
-ALTER TABLE users
-  ADD CONSTRAINT uc_forgotten_password_selector
-    UNIQUE (forgotten_password_selector);
+CREATE UNIQUE INDEX uc_activation_selector 
+  ON users (activation_selector)
+  WHERE activation_selector IS NOT NULL
+    
+CREATE UNIQUE INDEX uc_remember_selector 
+  ON users (remember_selector)
+  WHERE remember_selector IS NOT NULL
+    
+CREATE UNIQUE INDEX uc_forgotten_password_selector 
+  ON users (forgotten_password_selector)
+  WHERE forgotten_password_selector IS NOT NULL

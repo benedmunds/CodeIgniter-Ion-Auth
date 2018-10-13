@@ -20,13 +20,22 @@ CREATE TABLE users (
     phone varchar(20),
   PRIMARY KEY(id),
   CONSTRAINT uc_email UNIQUE (email),
-  CONSTRAINT uc_activation_selector UNIQUE (activation_selector),
-  CONSTRAINT uc_forgotten_password_selector UNIQUE (forgotten_password_selector),
-  CONSTRAINT uc_remember_selector UNIQUE (remember_selector),
   CONSTRAINT users_check_id CHECK(id >= 0),
   CONSTRAINT users_check_active CHECK(active >= 0)
 );
 
+/* Create index on col that can by NULL */
+CREATE UNIQUE INDEX uc_activation_selector 
+  ON users (activation_selector)
+  WHERE activation_selector IS NOT NULL
+    
+CREATE UNIQUE INDEX uc_remember_selector 
+  ON users (remember_selector)
+  WHERE remember_selector IS NOT NULL
+    
+CREATE UNIQUE INDEX uc_forgotten_password_selector 
+  ON users (forgotten_password_selector)
+  WHERE forgotten_password_selector IS NOT NULL
 
 CREATE TABLE groups (
     id int NOT NULL IDENTITY(1,1),
