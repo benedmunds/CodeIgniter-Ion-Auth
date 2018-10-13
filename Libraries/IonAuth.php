@@ -369,17 +369,19 @@ class IonAuth
 
 	/**
 	 * Auto logs-in the user if they are remembered
-	 * @return bool Whether the user is logged in
+	 *
 	 * @author Mathew
-	 **/
-	public function loggedIn()
+	 *
+	 * @return boolean Whether the user is logged in
+	 */
+	public function loggedIn(): bool
 	{
 		$this->ionAuthModel->triggerEvents('logged_in');
 
 		$recheck = $this->ionAuthModel->recheckSession();
 
 		// auto-login the user if they are remembered
-		if (!$recheck && get_cookie($this->config->rememberCookieName))
+		if (! $recheck && get_cookie($this->config->rememberCookieName))
 		{
 			$recheck = $this->ionAuthModel->loginRememberedUser();
 		}
