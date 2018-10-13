@@ -437,15 +437,6 @@ class IonAuth
          */
 
         /*
-		// Sanity check for CI2
-		if (substr(CI_VERSION, 0, 1) === '2')
-		{
-			show_error("Ion Auth 3 requires CodeIgniter 3. Update to CI 3 or downgrade to Ion Auth 2.");
-		}
-         *
-         */
-
-        /*
 		// Compatibility check for CSPRNG
 		// See functions used in Ion_auth_model::_randomToken()
 		if (!function_exists('random_bytes') && !function_exists('mcrypt_create_iv') && !function_exists('openssl_random_pseudo_bytes'))
