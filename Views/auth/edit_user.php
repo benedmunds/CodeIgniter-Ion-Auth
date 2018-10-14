@@ -11,7 +11,7 @@
       </p>
 
       <p>
-            <?php echo form_label(lang('edit_user_lname_label'), 'last_name');?> <br />
+            <?php echo form_label(lang('Auth.edit_user_lname_label'), 'last_name');?> <br />
             <?php echo form_input($last_name);?>
       </p>
 
