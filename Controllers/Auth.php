@@ -449,14 +449,19 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Deactivate the user
 	 *
-	 * @param int|string|null $id The user ID
+	 * @param integer|string|null $id The user ID
+	 *
+	 * @throw Exception
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
-	public function deactivate($id = NULL)
+	public function deactivate($id = null)
 	{
-		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
+		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
 			// redirect them to the home page because they must be an administrator to view this
 			throw new \Exception('You must be an administrator to view this page.');
+			// TODO : I think it could be nice to have a dedicated exception like '\IonAuth\Exception\NotAllowed
 		}
 
 		$id = (int)$id;
@@ -467,14 +472,12 @@ class Auth extends \CodeIgniter\Controller
 		if (! $this->validation->withRequest($this->request)->run())
 		{
 			$this->data['user'] = $this->ionAuth->user($id)->row();
-			var_dump($this->data['user']);
-
 			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'deactivate_user', $this->data);
 		}
 		else
 		{
 			// do we really want to deactivate?
-			if ($this->request->getPost('confirm') == 'yes')
+			if ($this->request->getPost('confirm') === 'yes')
 			{
 				// do we have a valid request?
 				if ($id != $this->request->getPost('id'))
