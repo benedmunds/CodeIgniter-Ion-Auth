@@ -261,7 +261,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->validation->setRule('identity', lang('Auth.forgot_password_validation_email_label'), 'required|valid_email');
 		}
 
-		if (! $this->validation->withRequest($this->request)->run())
+		if (! ($this->request->getPost() && $this->validation->withRequest($this->request)->run()))
 		{
 			$this->data['type'] = $this->configIonAuth->identity;
 			// setup the input
@@ -527,7 +527,7 @@ class Auth extends \CodeIgniter\Controller
 		$this->validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[password_confirm]');
 		$this->validation->setRule('password_confirm', lang('Auth.create_user_validation_password_confirm_label'), 'required');
 
-		if ($this->validation->withRequest($this->request)->run())
+		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
 			$email = strtolower($this->request->getPost('email'));
 			$identity = ($identityColumn === 'email') ? $email : $this->request->getPost('identity');
@@ -540,7 +540,7 @@ class Auth extends \CodeIgniter\Controller
 				'phone' => $this->request->getPost('phone'),
 			];
 		}
-		if ($this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))
+		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))
 		{
 			// check to see if we are creating the user
 			// redirect them back to the admin page
@@ -660,7 +660,7 @@ class Auth extends \CodeIgniter\Controller
 				$this->validation->setRule('password_confirm', lang('Auth.edit_user_validation_password_confirm_label'), 'required');
 			}
 
-			if ($this->validation->withRequest($this->request)->run())
+			if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 			{
 				$data = [
 					'first_name' => $this->request->getPost('first_name'),
@@ -774,7 +774,7 @@ class Auth extends \CodeIgniter\Controller
 		// validate form input
 		$this->validation->setRule('group_name', lang('Auth.create_group_validation_name_label'), 'trim|required|alpha_dash');
 
-		if ($this->validation->withRequest($this->request)->run())
+		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
 			$new_group_id = $this->ionAuth->create_group($this->request->getPost('group_name'), $this->request->getPost('description'));
 			if ($new_group_id)
@@ -833,7 +833,7 @@ class Auth extends \CodeIgniter\Controller
 		// validate form input
 		$this->validation->setRule('group_name', lang('Auth.edit_group_validation_name_label'), 'required|alpha_dash');
 
-		if (isset($_POST) && !empty($_POST))
+		if ($this->request->getPost())
 		{
 			if ($this->validation->withRequest($this->request)->run())
 			{
