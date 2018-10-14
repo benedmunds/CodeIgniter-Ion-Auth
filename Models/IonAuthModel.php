@@ -2467,7 +2467,7 @@ class IonAuthModel
 		$output = '';
 		foreach ($this->errors as $error)
 		{
-			$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
+			$errorLang = lang($error) ? lang($error) : '##' . $error . '##';
 			$output .= $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
 		}
 
