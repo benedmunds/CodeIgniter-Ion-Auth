@@ -146,17 +146,17 @@ class IonAuthModel
 	 *
 	 * @var \CodeIgniter\Database\ResultInterface
 	 */
-	protected $response = NULL;
+	protected $response = null;
 
 	/**
-	 * message (uses lang file)
+	 * Message (uses lang file)
 	 *
 	 * @var string
 	 */
 	protected $messages;
 
 	/**
-	 * error message (uses lang file)
+	 * Error message (uses lang file)
 	 *
 	 * @var string
 	 */
@@ -221,14 +221,14 @@ class IonAuthModel
 
 		// initialize data
 		$this->identity_column = $this->config->identity;
-		$this->join = $this->config->join;
+		$this->join            = $this->config->join;
 
 		// initialize hash method options (Bcrypt)
 		$this->hashMethod = $this->config->hashMethod;
 
 		// initialize messages and error
-		$this->messages    = [];
-		$this->errors      = [];
+		$this->messages   = [];
+		$this->errors     = [];
 		$delimitersSource = $this->config->delimitersSource;
 
 		// load the error delimeters either from the config file or use what's been supplied to form validation
@@ -1513,7 +1513,7 @@ class IonAuthModel
 
 		// if no id was passed use the current users id
 		$id = isset($id) ? $id : $this->session->get('user_id');
-        
+
 		$this->limit(1);
 		$this->orderBy($this->tables['users'].'.id', 'desc');
 		$this->where($this->tables['users'].'.id', $id);
@@ -1672,7 +1672,7 @@ class IonAuthModel
 		{
 			return FALSE;
 		}
-		
+
 		$builder = $this->db->table($this->tables['users_groups']);
 
 		// if group id(s) are passed remove user from the group(s)
@@ -1723,7 +1723,7 @@ class IonAuthModel
 	public function groups()
 	{
 		$this->triggerEvents('groups');
-		
+
 		$builder = $this->db->table($this->tables['groups']);
 
 		// run each where that was passed
@@ -2381,8 +2381,6 @@ class IonAuthModel
 	}
 
 	/**
-	 * messages
-	 *
 	 * Get the messages
 	 *
 	 * @return string
@@ -2390,15 +2388,14 @@ class IonAuthModel
 	 */
 	public function messages(): string
 	{
-		$_output = '';
+		$output = '';
 		foreach ($this->messages as $message)
 		{
-			//$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
             $messageLang = lang($message) ? lang($message) : '##' . $message . '##';
-			$_output .= $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
+			$output .= $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
 		}
 
-		return $_output;
+		return $output;
 	}
 
 	/**
@@ -2445,8 +2442,6 @@ class IonAuthModel
 	}
 
 	/**
-	 * set_error
-	 *
 	 * Set an error message
 	 *
 	 * @param string $error The error to set
@@ -2454,7 +2449,7 @@ class IonAuthModel
 	 * @return string The given error
 	 * @author Ben Edmunds
 	 */
-	public function setError($error)
+	public function setError(string $error): string
 	{
 		$this->errors[] = $error;
 
@@ -2462,28 +2457,24 @@ class IonAuthModel
 	}
 
 	/**
-	 * errors
-	 *
 	 * Get the error message
 	 *
 	 * @return string
 	 * @author Ben Edmunds
 	 */
-	public function errors()
+	public function errors(): string
 	{
-		$_output = '';
+		$output = '';
 		foreach ($this->errors as $error)
 		{
 			$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
-			$_output .= $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
+			$output .= $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
 		}
 
-		return $_output;
+		return $output;
 	}
 
 	/**
-	 * errors as array
-	 *
 	 * Get the error messages as an array
 	 *
 	 * @param bool $langify
@@ -2491,17 +2482,17 @@ class IonAuthModel
 	 * @return array
 	 * @author Raul Baldner Junior
 	 */
-	public function errorsArray($langify = TRUE)
+	public function errorsArray($langify = TRUE): array
 	{
 		if ($langify)
 		{
-			$_output = [];
+			$output = [];
 			foreach ($this->errors as $error)
 			{
 				$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
-				$_output[] = $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
+				$output[] = $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
 			}
-			return $_output;
+			return $output;
 		}
 		else
 		{
@@ -2510,18 +2501,16 @@ class IonAuthModel
 	}
 
 	/**
-	 * clear_errors
-	 *
 	 * Clear Errors
 	 *
 	 * @return true
 	 * @author Ben Edmunds
 	 */
-	public function clearErrors()
+	public function clearErrors(): boolean
 	{
 		$this->errors = [];
 
-		return TRUE;
+		return true;
 	}
 
 	/**

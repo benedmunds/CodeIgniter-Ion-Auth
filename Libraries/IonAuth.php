@@ -17,6 +17,7 @@
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds
+ * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
  */
@@ -26,6 +27,9 @@
  */
 class IonAuth
 {
+	/**
+	 * @var \IonAuth\Config\IonAuth
+	 */
 	private $config;
 
 	/**
@@ -35,28 +39,28 @@ class IonAuth
 	private $ionAuthModel;
 
 	/**
-	 * account status ('not_activated', etc ...)
+	 * Account status ('not_activated', etc ...)
 	 *
 	 * @var string
 	 **/
 	protected $status;
 
 	/**
-	 * extra where
+	 * Extra where
 	 *
 	 * @var array
 	 **/
 	public $_extra_where = [];
 
 	/**
-	 * extra set
+	 * Extra set
 	 *
 	 * @var array
 	 **/
 	public $_extra_set = [];
 
 	/**
-	 * caching of users and their groups
+	 * Caching of users and their groups
 	 *
 	 * @var array
 	 **/
@@ -134,9 +138,9 @@ class IonAuth
 	 *
 	 * I can't remember where I first saw this, so thank you if you are the original author. -Militis
 	 *
-	 * @param    string $var
+	 * @param  string $var
 	 *
-	 * @return    mixed
+	 * @return mixed
 	 */
 	public function __get($var)
 	{
@@ -198,18 +202,18 @@ class IonAuth
 	}
 
 	/**
-	 * forgotten_password_check
+	 * Forgotten password check
 	 *
 	 * @param string $code
 	 *
-	 * @return object|bool
+	 * @return object|boolean
 	 * @author Michael
 	 */
 	public function forgottenPasswordCheck($code)
 	{
 		$user = $this->ionAuthModel->getUserByForgottenPasswordCode($code);
 
-		if (!is_object($user))
+		if (! is_object($user))
 		{
 			$this->setError('password_change_unsuccessful');
 			return false;
@@ -234,7 +238,7 @@ class IonAuth
 	}
 
 	/**
-	 * register
+	 * Register
 	 *
 	 * @param string $identity
 	 * @param string $password
@@ -255,7 +259,7 @@ class IonAuth
 
 		$id = $this->ionAuthModel->register($identity, $password, $email, $additional_data, $group_ids);
 
-		if (!$emailActivation)
+		if (! $emailActivation)
 		{
 			if ($id !== false)
 			{
@@ -323,7 +327,6 @@ class IonAuth
 					$this->setMessage('activation_email_successful');
 					return $id;
 				}
-
 			}
 
 			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
@@ -390,17 +393,19 @@ class IonAuth
 	}
 
 	/**
+	 * Get user id
+	 *
 	 * @return int|null The user's ID from the session user data or NULL if not found
 	 * @author jrmadsen67
 	 **/
 	public function getUserId()
 	{
-		$user_id = $this->session->userdata('user_id');
-		if (!empty($user_id))
+		$userId = $this->session->userdata('user_id');
+		if (!empty($userId))
 		{
-			return $user_id;
+			return $userId;
 		}
-		return NULL;
+		return null;
 	}
 
 	/**
