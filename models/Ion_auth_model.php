@@ -46,7 +46,27 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * activation code
-	 *
+	 * 
+	 * Set by deactivate() function
+	 * Also set on register() function, if email_activation 
+	 * option is activated
+	 * 
+	 * This is the value devs should give to the user 
+	 * (in an email, usually)
+	 * 
+	 * It contains the *user* version of the activation code
+	 * It's a value of the form "selector.validator" 
+	 * 
+	 * This is not the same activation_code as the one in DB.
+	 * The DB contains a *hashed* version of the validator
+	 * and a selector in another column.
+	 * 
+	 * THe selector is not private, and only used to lookup
+	 * the validator.
+	 * 
+	 * The validator is private, and to be only known by the user
+	 * So in case of DB leak, nothing could be actually used.
+	 * 
 	 * @var string
 	 */
 	public $activation_code;
@@ -2644,6 +2664,7 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * Generate a random selector/validator couple
+	 * This is a user code
 	 *
 	 * @param $selector_size int	size of the selector token
 	 * @param $validator_size int	size of the validator token
@@ -2677,7 +2698,7 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Retrieve remember cookie info
 	 *
-	 * @param $user_code	string
+	 * @param $user_code string	A user code of the form "selector.validator"
 	 *
 	 * @return object
 	 * 			->selector		simple token to retrieve the user in DB
