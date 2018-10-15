@@ -204,8 +204,7 @@ class IonAuthModel
 		$this->session = \Config\Services::session();
 
 		// initialize the database
-		$groupName = $this->config->databaseGroupName;
-		if (empty($groupName))
+		if (empty($this->config->databaseGroupName))
 		{
 			// By default, use CI's db that should be already loaded
 			$this->db = \Config\Database::connect();
@@ -932,13 +931,10 @@ class IonAuthModel
 			return false;
 		}
 
-		$rows = $query->getResult();
-		//if ($query->numRows() === 1)
-		if (count($rows) === 1)
-		{
-			//$user = $query->row();
-			$user = $query->getRow();
+		$user = $query->getRow();
 
+		if (isset($user))
+		{
 			if ($this->verifyPassword($password, $user->password, $identity))
 			{
 				if ($user->active == 0)
@@ -1035,26 +1031,26 @@ class IonAuthModel
 	}
 
 	/**
-	 * is_max_login_attempts_exceeded
+	 * Check if max login attempts exceeded
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * @param string      $identity   user's identity
-	 * @param string|null $ip_address IP address
-	 *                                Only used if trackLoginIpAddress is set to TRUE.
-	 *                                If NULL (default value), the current IP address is used.
-	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
+	 * @param string      $identity  user's identity
+	 * @param string|null $ipAddress IP address
+	 *                               Only used if trackLoginIpAddress is set to TRUE.
+	 *                               If NULL (default value), the current IP address is used.
+	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
 	 * @return boolean
 	 */
-	public function isMaxLoginAttemptsExceeded($identity, $ip_address = NULL)
+	public function isMaxLoginAttemptsExceeded(string $identity, string $ipAddress = null): bool
 	{
 		if ($this->config->trackLoginAttempts)
 		{
-			$max_attempts = $this->config->maximumLoginAttempts;
-			if ($max_attempts > 0)
+			$maxAttempts = $this->config->maximumLoginAttempts;
+			if ($maxAttempts > 0)
 			{
-				$attempts = $this->getAttemptsNum($identity, $ip_address);
-				return $attempts >= $max_attempts;
+				$attempts = $this->getAttemptsNum($identity, $ipAddress);
+				return $attempts >= $maxAttempts;
 			}
 		}
 		return false;
@@ -1072,7 +1068,7 @@ class IonAuthModel
 	 *
 	 * @return int
 	 */
-	public function getAttemptsNum($identity, $ip_address = NULL): int
+	public function getAttemptsNum(string $identity, string $ipAddress = null): int
 	{
 		if ($this->config->trackLoginAttempts)
 		{
@@ -1081,11 +1077,11 @@ class IonAuthModel
 			$builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
-				if (!isset($ip_address))
+				if (!isset($ipAddress))
 				{
-					$ip_address = \Config\Services::request()->getIPAddress();
+					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$builder->where('ip_address', $ip_address);
+				$builder->where('ip_address', $ipAddress);
 			}
 			$builder->where('time >', time() - $this->config->lockoutTime, false);
 			//$qres = $builder->get();
