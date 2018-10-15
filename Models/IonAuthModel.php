@@ -435,7 +435,7 @@ class IonAuthModel
 		}
 
 		$this->triggerEvents(['post_activate', 'post_activate_unsuccessful']);
-		$this->setError('activate_unsuccessful');
+		$this->setError('IonAuth.activate_unsuccessful');
 		return false;
 	}
 
@@ -453,12 +453,12 @@ class IonAuthModel
 
 		if (!isset($id))
 		{
-			$this->setError('deactivate_unsuccessful');
+			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
 		else if ((new \App\Libraries\IonAuth())->logged_in() && $this->user()->row()->id == $id)
 		{
-			$this->setError('deactivate_current_user_unsuccessful');
+			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
 		}
 
@@ -481,7 +481,7 @@ class IonAuthModel
 		}
 		else
 		{
-			$this->setError('deactivate_unsuccessful');
+			$this->setError('IonAuth.deactivate_unsuccessful');
 		}
 
 		return $return;
@@ -569,7 +569,7 @@ class IonAuthModel
 		else
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
-			$this->setError('password_change_unsuccessful');
+			$this->setError('IonAuth.password_change_unsuccessful');
 		}
 
 		return $return;
@@ -600,7 +600,7 @@ class IonAuthModel
 		if ($query->numRows() !== 1)
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
-			$this->setError('password_change_unsuccessful');
+			$this->setError('IonAuth.password_change_unsuccessful');
 			return false;
 		}
 
@@ -618,13 +618,13 @@ class IonAuthModel
 			else
 			{
 				$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
-				$this->setError('password_change_unsuccessful');
+				$this->setError('IonAuth.password_change_unsuccessful');
 			}
 
 			return $result;
 		}
 
-		$this->setError('password_change_unsuccessful');
+		$this->setError('IonAuth.password_change_unsuccessful');
 		return FALSE;
 	}
 
@@ -820,12 +820,12 @@ class IonAuthModel
 
 		if ($this->identityCheck($identity))
 		{
-			$this->setError('account_creation_duplicate_identity');
+			$this->setError('IonAuth.account_creation_duplicate_identity');
 			return false;
 		}
 		else if (!$this->config->defaultGroup && empty($groups))
 		{
-			$this->setError('account_creation_missing_defaultGroup');
+			$this->setError('IonAuth.account_creation_missing_defaultGroup');
 			return false;
 		}
 
@@ -833,7 +833,7 @@ class IonAuthModel
 		$query = $this->db->table($this->tables['groups'])->where(['name' => $this->config->defaultGroup], 1)->get()->getRow();
 		if (!isset($query->id) && empty($groups))
 		{
-			$this->setError('account_creation_invalid_defaultGroup');
+			$this->setError('IonAuth.account_creation_invalid_defaultGroup');
 			return false;
 		}
 
@@ -894,22 +894,22 @@ class IonAuthModel
 	}
 
 	/**
-	 * login
+	 * Login
 	 *
-	 * @param    string $identity
-	 * @param    string $password
-	 * @param    bool   $remember
+	 * @param string  $identity
+	 * @param string  $password
+	 * @param boolean $remember
 	 *
-	 * @return    bool
-	 * @author    Mathew
+	 * @return boolean
+	 * @author Mathew
 	 */
-	public function login($identity, $password, $remember=false)
+	public function login(string $identity, string $password, bool $remember = false): bool
 	{
 		$this->triggerEvents('pre_login');
 
 		if (empty($identity) || empty($password))
 		{
-			$this->setError('login_unsuccessful');
+			$this->setError('IonAuth.login_unsuccessful');
 			return false;
 		}
 
@@ -927,7 +927,7 @@ class IonAuthModel
 			$this->hashPassword($password);
 
 			$this->triggerEvents('post_login_unsuccessful');
-			$this->setError('login_timeout');
+			$this->setError('IonAuth.login_timeout');
 
 			return false;
 		}
@@ -944,7 +944,7 @@ class IonAuthModel
 				if ($user->active == 0)
 				{
 					$this->triggerEvents('post_login_unsuccessful');
-					$this->setError('login_unsuccessful_not_active');
+					$this->setError('IonAuth.login_unsuccessful_not_active');
 
 					return false;
 				}
@@ -977,7 +977,7 @@ class IonAuthModel
 				$this->triggerEvents(['post_login', 'post_login_successful']);
 				$this->setMessage('login_successful');
 
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -987,7 +987,7 @@ class IonAuthModel
 		$this->increaseLoginAttempts($identity);
 
 		$this->triggerEvents('post_login_unsuccessful');
-		$this->setError('login_unsuccessful');
+		$this->setError('IonAuth.login_unsuccessful');
 
 		return false;
 	}
@@ -1804,10 +1804,10 @@ class IonAuthModel
 		if (array_key_exists($this->identity_column, $data) && $this->identityCheck($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
 		{
 			$this->db->transRollback();
-			$this->setError('account_creation_duplicate_identity');
+			$this->setError('IonAuth.account_creation_duplicate_identity');
 
 			$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
-			$this->setError('update_unsuccessful');
+			$this->setError('IonAuth.update_unsuccessful');
 
 			return false;
 		}
@@ -1826,7 +1826,7 @@ class IonAuthModel
 					{
 						$this->db->trans_rollback();
 						$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
-						$this->setError('update_unsuccessful');
+						$this->setError('IonAuth.update_unsuccessful');
 
 						return false;
 					}
@@ -1847,7 +1847,7 @@ class IonAuthModel
 			$this->db->transRollback();
 
 			$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
-			$this->setError('update_unsuccessful');
+			$this->setError('IonAuth.update_unsuccessful');
 			return false;
 		}
 
@@ -1882,7 +1882,7 @@ class IonAuthModel
 		{
 			$this->db->trans_rollback();
 			$this->triggerEvents(['post_delete_user', 'post_delete_user_unsuccessful']);
-			$this->setError('delete_unsuccessful');
+			$this->setError('IonAuth.delete_unsuccessful');
 			return false;
 		}
 
@@ -2112,7 +2112,7 @@ class IonAuthModel
 		// bail if the group name was not passed
 		if(!$groupName)
 		{
-			$this->setError('groupName_required');
+			$this->setError('IonAuth.groupName_required');
 			return false;
 		}
 
@@ -2120,7 +2120,7 @@ class IonAuthModel
 		$existing_group = $this->db->table($this->tables['groups'])->where(['name' => $groupName])->countAllResults();
 		if($existing_group !== 0)
 		{
-			$this->setError('group_already_exists');
+			$this->setError('IonAuth.group_already_exists');
 			return false;
 		}
 
@@ -2169,7 +2169,7 @@ class IonAuthModel
 			$existing_group = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
 			if (isset($existing_group->id) && $existing_group->id != $group_id)
 			{
-				$this->setError('group_already_exists');
+				$this->setError('IonAuth.group_already_exists');
 				return false;
 			}
 
@@ -2180,7 +2180,7 @@ class IonAuthModel
 		$group = $this->db->table($this->tables['groups'])->getWhere(['id' => $group_id])->getRow();
 		if ($this->config->adminGroup === $group->name && $groupName !== $group->name)
 		{
-			$this->setError('groupName_admin_not_alter');
+			$this->setError('IonAuth.groupName_admin_not_alter');
 			return false;
 		}
 
@@ -2217,7 +2217,7 @@ class IonAuthModel
 		if($group->name == $this->config->adminGroup)
 		{
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_notallowed']);
-			$this->setError('group_delete_notallowed');
+			$this->setError('IonAuth.group_delete_notallowed');
 			return false;
 		}
 
@@ -2234,7 +2234,7 @@ class IonAuthModel
 		{
 			$this->db->trans_rollback();
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_unsuccessful']);
-			$this->setError('group_delete_unsuccessful');
+			$this->setError('IonAuth.group_delete_unsuccessful');
 			return false;
 		}
 
