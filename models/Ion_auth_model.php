@@ -72,13 +72,6 @@ class Ion_auth_model extends CI_Model
 	public $activation_code;
 
 	/**
-	 * forgotten password key
-	 *
-	 * @var string
-	 */
-	public $forgotten_password_code;
-
-	/**
 	 * new password
 	 *
 	 * @var string
