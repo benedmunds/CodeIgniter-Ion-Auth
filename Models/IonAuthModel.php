@@ -289,7 +289,7 @@ class IonAuthModel
 		// Check for empty password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
 		// Long password may pose DOS issue (note: strlen gives size in bytes and not in multibyte symbol)
-		if (empty($password) || strpos($password, "\0") !== FALSE ||
+		if (empty($password) || strpos($password, "\0") !== false ||
 			strlen($password) > self::MAX_PASSWORD_SIZE_BYTES)
 		{
 			return false;
@@ -454,12 +454,12 @@ class IonAuthModel
 		if (!isset($id))
 		{
 			$this->setError('deactivate_unsuccessful');
-			return FALSE;
+			return false;
 		}
 		else if ((new \App\Libraries\IonAuth())->logged_in() && $this->user()->row()->id == $id)
 		{
 			$this->setError('deactivate_current_user_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$token = $this->_generateSelectorValidatorCouple(20, 40);
@@ -499,7 +499,7 @@ class IonAuthModel
 
 		if (empty($identity))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$data = [
@@ -527,7 +527,7 @@ class IonAuthModel
 
 		if (empty($identity))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$data = [
@@ -556,7 +556,7 @@ class IonAuthModel
 
 		if (!$this->identityCheck($identity)) {
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
-			return FALSE;
+			return false;
 		}
 
 		$return = $this->_setPasswordDb($identity, $new);
@@ -601,7 +601,7 @@ class IonAuthModel
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
 			$this->setError('password_change_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$user = $query->row();
@@ -821,12 +821,12 @@ class IonAuthModel
 		if ($this->identityCheck($identity))
 		{
 			$this->setError('account_creation_duplicate_identity');
-			return FALSE;
+			return false;
 		}
 		else if (!$this->config->defaultGroup && empty($groups))
 		{
 			$this->setError('account_creation_missing_defaultGroup');
-			return FALSE;
+			return false;
 		}
 
 		// check if the default set in config exists in database
@@ -834,7 +834,7 @@ class IonAuthModel
 		if (!isset($query->id) && empty($groups))
 		{
 			$this->setError('account_creation_invalid_defaultGroup');
-			return FALSE;
+			return false;
 		}
 
 		// capture default group details
@@ -846,10 +846,10 @@ class IonAuthModel
 		// Do not pass $identity as user is not known yet so there is no need
 		$password = $this->hashPassword($password);
 
-		if ($password === FALSE)
+		if ($password === false)
 		{
 			$this->setError('account_creation_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		// Users table.
@@ -860,7 +860,7 @@ class IonAuthModel
 			'email' => $email,
 			'ip_address' => $ip_address,
 			'created_on' => time(),
-			'active' => ($manualActivation === FALSE ? 1 : 0)
+			'active' => ($manualActivation === false ? 1 : 0)
 		];
 
 		// filter out any data passed that doesnt have a matching column in the users table
@@ -890,7 +890,7 @@ class IonAuthModel
 
 		$this->triggerEvents('post_register');
 
-		return (isset($id)) ? $id : FALSE;
+		return (isset($id)) ? $id : false;
 	}
 
 	/**
@@ -903,14 +903,14 @@ class IonAuthModel
 	 * @return    bool
 	 * @author    Mathew
 	 */
-	public function login($identity, $password, $remember=FALSE)
+	public function login($identity, $password, $remember=false)
 	{
 		$this->triggerEvents('pre_login');
 
 		if (empty($identity) || empty($password))
 		{
 			$this->setError('login_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$this->triggerEvents('extra_where');
@@ -929,7 +929,7 @@ class IonAuthModel
 			$this->triggerEvents('post_login_unsuccessful');
 			$this->setError('login_timeout');
 
-			return FALSE;
+			return false;
 		}
 
 		$rows = $query->getResult();
@@ -946,7 +946,7 @@ class IonAuthModel
 					$this->triggerEvents('post_login_unsuccessful');
 					$this->setError('login_unsuccessful_not_active');
 
-					return FALSE;
+					return false;
 				}
 
 				$this->setSession($user);
@@ -972,7 +972,7 @@ class IonAuthModel
 				$this->rehashPasswordIfNeeded($user->password, $identity, $password);
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
-				$this->session->regenerate(FALSE);
+				$this->session->regenerate(false);
 
 				$this->triggerEvents(['post_login', 'post_login_successful']);
 				$this->setMessage('login_successful');
@@ -989,7 +989,7 @@ class IonAuthModel
 		$this->triggerEvents('post_login_unsuccessful');
 		$this->setError('login_unsuccessful');
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -1026,7 +1026,7 @@ class IonAuthModel
 
 					$this->session->unset_userdata([$identity, 'id', 'user_id']);
 
-					return FALSE;
+					return false;
 				}
 			}
 		}
@@ -1057,7 +1057,7 @@ class IonAuthModel
 				return $attempts >= $max_attempts;
 			}
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -1077,7 +1077,7 @@ class IonAuthModel
 		if ($this->config->trackLoginAttempts)
 		{
 			$builder = $this->db->table($this->tables['login_attempts']);
-			//$builder->select('1', FALSE);
+			//$builder->select('1', false);
 			$builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
@@ -1087,7 +1087,7 @@ class IonAuthModel
 				}
 				$builder->where('ip_address', $ip_address);
 			}
-			$builder->where('time >', time() - $this->config->lockoutTime, FALSE);
+			$builder->where('time >', time() - $this->config->lockoutTime, false);
 			//$qres = $builder->get();
 			return $builder->countAllResults();
 		}
@@ -1177,7 +1177,7 @@ class IonAuthModel
 			$builder = $this->db->table($this->tables['login_attempts']);
 			return $builder->insert($data);
 		}
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -1531,7 +1531,7 @@ class IonAuthModel
 	 * @return \CodeIgniter\Database\ResultInterface
 	 * @author Ben Edmunds
 	 */
-	public function getUsersGroups($id = FALSE)
+	public function getUsersGroups($id = false)
 	{
 		$this->triggerEvents('get_users_group');
 
@@ -1553,7 +1553,7 @@ class IonAuthModel
 	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
 	 * @author Phil Sturgeon
 	 **/
-	public function inGroup($check_group, $id = FALSE, $check_all = FALSE)
+	public function inGroup($check_group, $id = false, $check_all = false)
 	{
 		$this->triggerEvents('in_group');
 
@@ -1612,7 +1612,7 @@ class IonAuthModel
 	 * @return int
 	 * @author Ben Edmunds
 	 */
-	public function addToGroup($group_ids, $user_id = FALSE)
+	public function addToGroup($group_ids, $user_id = false)
 	{
 		$this->triggerEvents('add_to_group');
 
@@ -1663,14 +1663,14 @@ class IonAuthModel
 	 * @return bool
 	 * @author Ben Edmunds
 	 */
-	public function removeFromGroup($group_ids = FALSE, $user_id = FALSE)
+	public function removeFromGroup($group_ids = false, $user_id = false)
 	{
 		$this->triggerEvents('remove_from_group');
 
 		// user id is required
 		if (empty($user_id))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$builder = $this->db->table($this->tables['users_groups']);
@@ -1809,7 +1809,7 @@ class IonAuthModel
 			$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
 			$this->setError('update_unsuccessful');
 
-			return FALSE;
+			return false;
 		}
 
 		// Filter the data passed
@@ -1822,13 +1822,13 @@ class IonAuthModel
 				if( ! empty($data['password']))
 				{
 					$data['password'] = $this->hashPassword($data['password'], $user->{$this->identity_column});
-					if ($data['password'] === FALSE)
+					if ($data['password'] === false)
 					{
 						$this->db->trans_rollback();
 						$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
 						$this->setError('update_unsuccessful');
 
-						return FALSE;
+						return false;
 					}
 				}
 				else
@@ -1842,13 +1842,13 @@ class IonAuthModel
 		$this->triggerEvents('extra_where');
 		$this->db->table($this->tables['users'])->update($data, ['id' => $user->id]);
 
-		if ($this->db->transStatus() === FALSE)
+		if ($this->db->transStatus() === false)
 		{
 			$this->db->transRollback();
 
 			$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
 			$this->setError('update_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$this->db->transCommit();
@@ -1878,12 +1878,12 @@ class IonAuthModel
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], ['id' => $id]);
 
-		if ($this->db->trans_status() === FALSE)
+		if ($this->db->trans_status() === false)
 		{
 			$this->db->trans_rollback();
 			$this->triggerEvents(['post_delete_user', 'post_delete_user_unsuccessful']);
 			$this->setError('delete_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$this->db->trans_commit();
@@ -1990,7 +1990,7 @@ class IonAuthModel
 
 		if (!$identity)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Generate random tokens
@@ -2027,7 +2027,7 @@ class IonAuthModel
 		}
 
 		$this->triggerEvents(['post_remember_user', 'remember_user_unsuccessful']);
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -2046,10 +2046,10 @@ class IonAuthModel
 		$remember_cookie = get_cookie($this->config->rememberCookieName);
 		$token = $this->_retrieveSelectorValidatorCouple($remember_cookie);
 
-		if ($token === FALSE)
+		if ($token === false)
 		{
 			$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_unsuccessful']);
-			return FALSE;
+			return false;
 		}
 
 		// get the user with the selector
@@ -2084,7 +2084,7 @@ class IonAuthModel
 				}
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
-				$this->session->sess_regenerate(FALSE);
+				$this->session->sess_regenerate(false);
 
 				$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_successful']);
 				return TRUE;
@@ -2093,7 +2093,7 @@ class IonAuthModel
 		delete_cookie($this->config->rememberCookieName);
 
 		$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_unsuccessful']);
-		return FALSE;
+		return false;
 	}
 
 
@@ -2104,16 +2104,16 @@ class IonAuthModel
 	 * @param string      $group_description
 	 * @param array       $additional_data
 	 *
-	 * @return int|bool The ID of the inserted group, or FALSE on failure
+	 * @return int|bool The ID of the inserted group, or false on failure
 	 * @author aditya menon
 	 */
-	public function createGroup($groupName = FALSE, $group_description = '', $additional_data = [])
+	public function createGroup($groupName = false, $group_description = '', $additional_data = [])
 	{
 		// bail if the group name was not passed
 		if(!$groupName)
 		{
 			$this->setError('groupName_required');
-			return FALSE;
+			return false;
 		}
 
 		// bail if the group name already exists
@@ -2121,7 +2121,7 @@ class IonAuthModel
 		if($existing_group !== 0)
 		{
 			$this->setError('group_already_exists');
-			return FALSE;
+			return false;
 		}
 
 		$data = ['name'=>$groupName,'description'=>$group_description];
@@ -2152,11 +2152,11 @@ class IonAuthModel
 	 * @return bool
 	 * @author aditya menon
 	 */
-	public function updateGroup($group_id = FALSE, $groupName = FALSE, $additional_data = []): bool
+	public function updateGroup($group_id = false, $groupName = false, $additional_data = []): bool
 	{
 		if (empty($group_id))
 		{
-			return FALSE;
+			return false;
 		}
 
 		$data = [];
@@ -2170,7 +2170,7 @@ class IonAuthModel
 			if (isset($existing_group->id) && $existing_group->id != $group_id)
 			{
 				$this->setError('group_already_exists');
-				return FALSE;
+				return false;
 			}
 
 			$data['name'] = $groupName;
@@ -2181,7 +2181,7 @@ class IonAuthModel
 		if ($this->config->adminGroup === $group->name && $groupName !== $group->name)
 		{
 			$this->setError('groupName_admin_not_alter');
-			return FALSE;
+			return false;
 		}
 
 		// filter out any data passed that doesnt have a matching column in the groups table
@@ -2206,19 +2206,19 @@ class IonAuthModel
 	 * @return bool
 	 * @author aditya menon
 	 */
-	public function deleteGroup($group_id = FALSE)
+	public function deleteGroup($group_id = false)
 	{
 		// bail if mandatory param not set
 		if(!$group_id || empty($group_id))
 		{
-			return FALSE;
+			return false;
 		}
 		$group = $this->group($group_id)->row();
 		if($group->name == $this->config->adminGroup)
 		{
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_notallowed']);
 			$this->setError('group_delete_notallowed');
-			return FALSE;
+			return false;
 		}
 
 		$this->triggerEvents('pre_delete_group');
@@ -2230,12 +2230,12 @@ class IonAuthModel
 		// remove the group itself
 		$this->db->table($this->tables['groups'])->delete(['id' => $group_id]);
 
-		if ($this->db->trans_status() === FALSE)
+		if ($this->db->trans_status() === false)
 		{
 			$this->db->trans_rollback();
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_unsuccessful']);
 			$this->setError('group_delete_unsuccessful');
-			return FALSE;
+			return false;
 		}
 
 		$this->db->trans_commit();
@@ -2298,7 +2298,7 @@ class IonAuthModel
 			return call_user_func_array([$hook->class, $hook->method], $hook->arguments);
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -2525,9 +2525,9 @@ class IonAuthModel
 	{
 		$hash = $this->hashPassword($password, $identity);
 
-		if ($hash === FALSE)
+		if ($hash === false)
 		{
-			return FALSE;
+			return false;
 		}
 
 		// When setting a new password, invalidate any other token
@@ -2598,7 +2598,7 @@ class IonAuthModel
 		}
 
 		// No luck!
-		return FALSE;
+		return false;
 	}
 
 	/** Retrieve hash parameter according to options
@@ -2610,7 +2610,7 @@ class IonAuthModel
 	protected function _getHashParameters($identity = NULL)
 	{
 		// Check if user is administrator or not
-		$is_admin = FALSE;
+		$is_admin = false;
 		if ($identity)
 		{
 			$user_id = $this->getUserIdFromIdentity($identity);
@@ -2620,7 +2620,7 @@ class IonAuthModel
 			}
 		}
 
-		$params = FALSE;
+		$params = false;
 		switch ($this->hashMethod)
 		{
 			case 'bcrypt':
@@ -2648,7 +2648,7 @@ class IonAuthModel
 	 */
 	protected function _getHashAlgo()
 	{
-		$algo = FALSE;
+		$algo = false;
 		switch ($this->hashMethod)
 		{
 			case 'bcrypt':
@@ -2724,7 +2724,7 @@ class IonAuthModel
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -2760,7 +2760,7 @@ class IonAuthModel
 			if ($query->numRows() !== 1)
 			{
 				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-				return FALSE;
+				return false;
 			}
 
 			$hashed_password = sha1($password . $salt_db->salt);
@@ -2773,7 +2773,7 @@ class IonAuthModel
 			if (!$salt_length)
 			{
 				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-				return FALSE;
+				return false;
 			}
 
 			$salt = substr($hashed_password_db, 0, $salt_length);
@@ -2802,7 +2802,7 @@ class IonAuthModel
 		{
 			// Password mismatch, we cannot migrate...
 			$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-			return FALSE;
+			return false;
 		}
 	}
 }

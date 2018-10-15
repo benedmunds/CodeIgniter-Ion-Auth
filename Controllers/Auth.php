@@ -419,11 +419,11 @@ class Auth extends \CodeIgniter\Controller
 	 * @param int         $id   The user ID
 	 * @param string|bool $code The activation code
 	 */
-	public function activate($id, $code = FALSE)
+	public function activate($id, $code = false)
 	{
-		$activation = FALSE;
+		$activation = false;
 
-		if ($code !== FALSE)
+		if ($code !== false)
 		{
 			$activation = $this->ionAuth->activate($id, $code);
 		}
