@@ -373,10 +373,45 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Check a user activation code
+	 *
+	 * @param int|string $id		the user identifier
+	 * @param bool       $code		the activation code 
+	 * 								It's the *user* one, containing "selector.validator"
+	 * 								the one you got in activation_code member
+	 * 								if omitted, simply activate the user without check
+	 *
+	 * @return bool
+	 * @author Mathew
+	 */
+	public function check_user_code_activation($id, $code)
+	{
+		$token = $this->_retrieve_selector_validator_couple($code);
+	
+		$query = $this->db->select([$this->identity_column, 'activation_code'])
+							->where('activation_selector', $token->selector)
+							->where('id', $id)
+							->limit(1)
+							->get($this->tables['users']);
+
+		if ($query->num_rows() === 1)
+		{
+			$user = $query->row();
+
+			if ($this->verify_password($token->validator, $user->activation_code))
+			{
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
+	/**
 	 * Validates and removes activation code.
 	 *
-	 * @param int|string $id
-	 * @param bool       $code		if omitted, simply activate the user without check
+	 * @param int|string $id		the user identifier
+	 * @param bool       $code		the *user* activation code 
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -385,40 +420,8 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_activate');
 
-		$token = $this->_retrieve_selector_validator_couple($code);
-
-		if ($token !== FALSE)
+		if ($code === FALSE || $this->check_user_code_activation($id, $code) === TRUE)
 		{
-			// A token was provided, we need to check it
-
-			$query = $this->db->select([$this->identity_column, 'activation_code'])
-			                  ->where('activation_selector', $token->selector)
-			                  ->where('id', $id)
-			                  ->limit(1)
-			                  ->get($this->tables['users']);
-
-			if ($query->num_rows() === 1)
-			{
-				$user = $query->row();
-
-				if ($this->verify_password($token->validator, $user->activation_code))
-				{
-					$data = [
-						'activation_selector' => NULL,
-						'activation_code' => NULL,
-						'active'          => 1
-					];
-
-					$this->trigger_events('extra_where');
-					$this->db->update($this->tables['users'], $data, ['id' => $id]);
-					return TRUE;
-				}
-			}
-		}
-		else
-		{
-			// A token was NOT provided, simply activate the user
-
 			$data = [
 			    'activation_selector' => NULL,
 			    'activation_code' => NULL,
