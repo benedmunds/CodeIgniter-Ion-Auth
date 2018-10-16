@@ -1831,8 +1831,8 @@ class IonAuthModel
 		$this->db->transCommit();
 
 		$this->triggerEvents(['post_update_user', 'post_update_user_successful']);
-		$this->setMessage('update_successful');
-		return TRUE;
+		$this->setMessage('IonAuth.update_successful');
+		return true;
 	}
 
 	/**
@@ -2170,9 +2170,9 @@ class IonAuthModel
 
 		$this->db->table($this->tables['groups'])->update($data, ['id' => $group_id]);
 
-		$this->setMessage('group_update_successful');
+		$this->setMessage('IonAuth.group_update_successful');
 
-		return TRUE;
+		return true;
 	}
 
 	/**
