@@ -63,14 +63,13 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Redirect if needed, otherwise display the user list
 	 *
-	 * @return string
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function index()
 	{
 		if (! $this->ionAuth->loggedIn())
 		{
 			// redirect them to the login page
-			//redirect('auth/login', 'refresh');
 			return redirect('auth/login');
 		}
 		else if (! $this->ionAuth->isAdmin()) // remove this elseif if you want to enable this for non-admins
@@ -84,7 +83,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['title'] = lang('Auth.index_heading');
 
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors() : $this->session->getFlashdata('message');
 			//list the users
 			$this->data['users'] = $this->ionAuth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
