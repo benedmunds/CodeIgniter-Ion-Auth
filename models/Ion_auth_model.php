@@ -373,34 +373,29 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
-	 * Check a user activation code
+	 * Get a user by its activation code
 	 *
-	 * @param int|string $id		the user identifier
-	 * @param bool       $code		the activation code 
+	 * @param bool       $user_code	the activation code 
 	 * 								It's the *user* one, containing "selector.validator"
 	 * 								the one you got in activation_code member
-	 * 								if omitted, simply activate the user without check
 	 *
-	 * @return bool
-	 * @author Mathew
+	 * @return    bool|object
+	 * @author Indigo
 	 */
-	public function check_user_code_activation($id, $code)
+	public function get_user_by_activation_code($user_code)
 	{
-		$token = $this->_retrieve_selector_validator_couple($code);
+		// Retrieve the token object from the code
+		$token = $this->_retrieve_selector_validator_couple($user_code);
 	
-		$query = $this->db->select([$this->identity_column, 'activation_code'])
-							->where('activation_selector', $token->selector)
-							->where('id', $id)
-							->limit(1)
-							->get($this->tables['users']);
+		// Retrieve the user according to this selector
+		$user = $this->where('activation_selector', $token->selector)->users()->row();
 
-		if ($query->num_rows() === 1)
+		if ($user)
 		{
-			$user = $query->row();
-
+			// Check the hash against the validator
 			if ($this->verify_password($token->validator, $user->activation_code))
 			{
-				return TRUE;
+				return $user;
 			}
 		}
 
@@ -412,6 +407,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @param int|string $id		the user identifier
 	 * @param bool       $code		the *user* activation code 
+	 * 								if omitted, simply activate the user without check
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -420,7 +416,13 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_activate');
 
-		if ($code === FALSE || $this->check_user_code_activation($id, $code) === TRUE)
+		if ($code !== FALSE) {
+			$user = $this->get_user_by_activation_code($code);
+		}
+
+		// Activate if no code is given
+		// Or if a user was found with this code, and that it matches the id
+		if ($code === FALSE || ($user && $user->id === $id))
 		{
 			$data = [
 			    'activation_selector' => NULL,
