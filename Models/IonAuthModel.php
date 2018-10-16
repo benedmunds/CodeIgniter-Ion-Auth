@@ -153,28 +153,28 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	protected $messages;
+	protected $messages = [];
 
 	/**
 	 * Error message (uses lang file)
 	 *
 	 * @var string
 	 */
-	protected $errors;
+	protected $errors = [];
 
 	/**
-	 * Error start delimiter
+	 * Errors templates (single, list)
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $errorStartDelimiter;
+	protected $errorsTemplates = [];
 
 	/**
-	 * Error end delimiter
+	 * Messages templates (single, list).
 	 *
-	 * @var string
+	 * @var array
 	 */
-	protected $errorEndDelimiter;
+	protected $messagessTemplates = [];
 
 	/**
 	 * Caching of users and their groups
@@ -225,37 +225,16 @@ class IonAuthModel
 		// initialize hash method options (Bcrypt)
 		$this->hashMethod = $this->config->hashMethod;
 
-		// initialize messages and error
-		$this->messages   = [];
-		$this->errors     = [];
-		$delimitersSource = $this->config->delimitersSource;
-
-		// load the error delimeters either from the config file or use what's been supplied to form validation
-		if ($delimitersSource === 'form_validation')
-		{
-			// load in delimiters from form_validation
-			// to keep this simple we'll load the value using reflection since these properties are protected
-			$this->load->library('form_validation');
-			$form_validation_class = new ReflectionClass("CI_Form_validation");
-
-			$error_prefix = $form_validation_class->getProperty("_error_prefix");
-			$error_prefix->setAccessible(TRUE);
-			$this->errorStartDelimiter = $error_prefix->getValue($this->form_validation);
-			$this->messageStartDelimiter = $this->errorStartDelimiter;
-
-			$error_suffix = $form_validation_class->getProperty("_error_suffix");
-			$error_suffix->setAccessible(TRUE);
-			$this->errorEndDelimiter = $error_suffix->getValue($this->form_validation);
-			$this->messageEndDelimiter = $this->errorEndDelimiter;
-		}
-		else
-		{
-			// use delimiters from config
-			$this->messageStartDelimiter = $this->config->messageStartDelimiter;
-			$this->messageEndDelimiter = $this->config->messageEndDelimiter;
-			$this->errorStartDelimiter = $this->config->errorStartDelimiter;
-			$this->errorEndDelimiter = $this->config->errorEndDelimiter;
-		}
+		// load the errors and messages template from the config file
+		$this->errorsTemplates    = [
+			'single' => empty($this->config->templates['errors']['single']) ?
+							config('Validation')->templates['single'] :
+							$this->config->templates['errors']['single'],
+			'list'   => empty($this->config->templates['errors']['single']) ?
+							config('Validation')->templates['single'] :
+							$this->config->templates['errors']['single'],
+		];
+		$this->messagesTemplates = $this->config->templates['messages'];
 
 		// initialize our hooks object
 		$this->_ion_hooks = new \stdClass();
@@ -2322,46 +2301,50 @@ class IonAuthModel
 	}
 
 	/**
-	 * set_message_delimiters
+	 * Set the message templates
 	 *
-	 * Set the message delimiters
-	 *
-	 * @param string $start_delimiter
-	 * @param string $end_delimiter
+	 * @param string $single Template for single message
+	 * @param string $list	 Template for list messages
 	 *
 	 * @return true
 	 * @author Ben Edmunds
 	 */
-	public function setMessageDelimiters($start_delimiter, $end_delimiter)
+	public function setMessageTemplate(string $single = '', string $list = ''): bool
 	{
-		$this->messageStartDelimiter = $start_delimiter;
-		$this->messageEndDelimiter   = $end_delimiter;
+		if (! empty($single)) {
+			$this->messagesTemplates['single'] = $single;
+		}
 
-		return TRUE;
+		if (!empty($list)) {
+			$this->messagesTemplates['list'] = $list;
+		}
+
+		return true;
 	}
 
 	/**
-	 * set_error_delimiters
+	 * Set the errors templates
 	 *
-	 * Set the error delimiters
-	 *
-	 * @param string $start_delimiter
-	 * @param string $end_delimiter
+	 * @param string $single Template for single error
+	 * @param string $list	 Template for list errors
 	 *
 	 * @return true
-	 * @author Ben Edmunds
+	 * @author Benoit VRIGNAUD
 	 */
-	public function setErrorDelimiters($start_delimiter, $end_delimiter)
+	public function setErrorsTemplate(string $single = '', string $list = ''): bool
 	{
-		$this->errorStartDelimiter = $start_delimiter;
-		$this->errorEndDelimiter   = $end_delimiter;
+		if (! empty($single)) {
+			$this->errorsTemplates['single'] = $single;
+		}
 
-		return TRUE;
+		if (!empty($list)) {
+			$this->errorsTemplate['list'] = $list;
+		}
+
+		return true;
 	}
 
 	/**
-	 * set_message
-	 *
 	 * Set a message
 	 *
 	 * @param string $message The message
@@ -2369,7 +2352,7 @@ class IonAuthModel
 	 * @return string The given message
 	 * @author Ben Edmunds
 	 */
-	public function setMessage($message)
+	public function setMessage(string $message): string
 	{
 		$this->messages[] = $message;
 
@@ -2384,19 +2367,19 @@ class IonAuthModel
 	 */
 	public function messages(): string
 	{
-		$output = '';
-		foreach ($this->messages as $message)
-		{
-            $messageLang = lang($message) ? lang($message) : '##' . $message . '##';
-			$output .= $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
+		if (empty($this->messages)) {
+			return '';
 		}
 
-		return $output;
+		$messageLang = [];
+		foreach ($this->messages as $message)
+		{
+            $messageLang[] = lang($message) !== $message ? lang($message) : '##' . $message . '##';
+		}
+		return view($this->messagesTemplates['list'], ['messages' => $messageLang]);
 	}
 
 	/**
-	 * messages as array
-	 *
 	 * Get the messages as an array
 	 *
 	 * @param bool $langify
@@ -2404,17 +2387,17 @@ class IonAuthModel
 	 * @return array
 	 * @author Raul Baldner Junior
 	 */
-	public function messagesArray($langify = TRUE)
+	public function messagesArray(bool $langify = true): array
 	{
 		if ($langify)
 		{
-			$_output = [];
+			$output = [];
 			foreach ($this->messages as $message)
 			{
-				$messageLang = $this->lang->line($message) ? $this->lang->line($message) : '##' . $message . '##';
-				$_output[] = $this->messageStartDelimiter . $messageLang . $this->messageEndDelimiter;
+				$messageLang = lang($message) !== $message ? lang($message) : '##' . $message . '##';
+				$output[] = view($this->messagesTemplates['signle'], ['message' => $messageLang]);
 			}
-			return $_output;
+			return $output;
 		}
 		else
 		{
@@ -2460,14 +2443,15 @@ class IonAuthModel
 	 */
 	public function errors(): string
 	{
-		$output = '';
-		foreach ($this->errors as $error)
-		{
-			$errorLang = lang($error) ? lang($error) : '##' . $error . '##';
-			$output .= $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
+		if (empty($this->errors)) {
+			return '';
 		}
 
-		return $output;
+		$errors = [];
+		foreach ($this->errors as $error) {
+			$errors[] = lang($error) !== $error ? lang($error) : '##' . $error . '##';
+		}
+		return view($this->errorsTemplates['list'], ['errors' => $errors]);
 	}
 
 	/**
@@ -2478,15 +2462,15 @@ class IonAuthModel
 	 * @return array
 	 * @author Raul Baldner Junior
 	 */
-	public function errorsArray($langify = TRUE): array
+	public function errorsArray(bool $langify = true): array
 	{
 		if ($langify)
 		{
 			$output = [];
 			foreach ($this->errors as $error)
 			{
-				$errorLang = lang('IonAuth.' . $error) ? lang('IonAuth.' . $error) : '##' . $error . '##';
-				$output[] = $this->errorStartDelimiter . $errorLang . $this->errorEndDelimiter;
+				$errorLang = lang($error) !== $error ? lang($error) : '##' . $error . '##';
+				$output[] = view($this->errorsTemplates['single'], ['error' => $errorLang]);
 			}
 			return $output;
 		}

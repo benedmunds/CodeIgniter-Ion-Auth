@@ -219,15 +219,24 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 */
 	public $emailForgotPassword = 'forgot_password.tpl.php';
 
-	/*
-	 | -------------------------------------------------------------------------
-	 | Message Delimiters.
-	 | -------------------------------------------------------------------------
+	/**
+	 * Specifies the views that are used to display the
+	 * errors and messages.
+	 *
+	 * @var array
 	 */
-	public $delimitersSource      = 'config'; // "config" = use the settings defined here, "form_validation" = use the settings defined in CI's form validation library
-	public $messageStartDelimiter = '<p>';    // Message start delimiter
-	public $messageEndDelimiter   = '</p>';   // Message end delimiter
-	public $errorStartDelimiter   = '<p>';    // Error message start delimiter
-	public $errorEndDelimiter     = '</p>';   // Error message end delimiter
+	public $templates = [
 
+		// templates for errors
+		'errors'   => [
+			// 'list'   => 'IonAuth\Views\Errors\list',		// default is 'CodeIgniter\Validation\Views\list'
+			// 'single' => 'IonAuth\Views\Errors\single',	// default is 'CodeIgniter\Validation\Views\single'
+		],
+
+		// templates for messages
+		'messages' => [
+			'list'   => 'IonAuth\Views\Messages\list',
+			'single' => 'IonAuth\Views\Messages\single',
+		],
+	];
 }

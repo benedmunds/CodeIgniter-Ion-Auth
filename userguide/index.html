@@ -77,11 +77,11 @@
 				<li><a href="#updateGroup">updateGroup()</a></li>
 				<li><a href="#deleteGroup">deleteGroup()</a></li>
 				<li><a href="#messages">messages()</a></li>
-				<li><a href="#messages_array">messages_array()</a></li>
-				<li><a href="#setMessageDelimiters">setMessageDelimiters()</a></li>
+				<li><a href="#messagesArray">messagesArray()</a></li>
+				<li><a href="#setMessageTemplate">setMessageTemplate()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#errorsArray">errorsArray()</a></li>
-				<li><a href="#setErrorDelimiters">setErrorDelimiters()</a></li>
+				<li><a href="#setErrorsTemplate">setErrorsTemplate()</a></li>
 				<li><a href="#triggerEvents">triggerEvents()</a></li>
 				<li><a href="#setHook">setHook()</a></li>
 			</ul>
@@ -393,26 +393,31 @@ Documentation
         </li>
     </ul>
 
-    <h3>Message Delimiters</h3>
-
-    <ul>
+    <h3>Errors and Messages Templates</h3>
+	<ul>
         <li>
-            <strong>messageStartDelimiter</strong> Default is '&lt;p&gt;'<br/>
-            Starting delimiter for messages.
+            <strong>templates['errors']['list']</strong> Default is specified in 'Config/Validation.php'<br/>
+            Template for list errors.
         </li>
         <li>
-            <strong>messageEndDelimiter</strong> Default is '&lt;/p&gt;'<br/>
-            Ending delimiter for messages.
+            <strong>templates['errors']['single']</strong> Default is specified in 'Config/Validation.php'<br/>
+            Template for single error.
         </li>
         <li>
-            <strong>errorStartDelimiter</strong> Default is '&lt;p&gt;'<br/>
-            Starting delimiter for errors.
+            <strong>templates['messages']['list']</strong> Default is 'IonAuth\Views\Messages\list'<br/>
+            Template for list messages.
         </li>
         <li>
-            <strong>errorEndDelimiter</strong> Default is '&lt;/p&gt;'<br/>
-            Ending delimiter for errors.
+            <strong>templates['messages']['single']</strong> Default is 'IonAuth\Views\Messages\single'<br/>
+            Template for single message.
         </li>
-    </ul>
+	</ul>
+	<p>
+		<i>cf :
+			<a href="https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display" target="_blank">
+				https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display</a>
+		</i>
+	</p>
 
 	<br />
 
@@ -1066,8 +1071,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="messages_array"></a>
-	<h2>messages_array()</h2>
+	<a name="messagesArray"></a>
+	<h2>messagesArray()</h2>
 	<p>Get messages as an array.</p>
 
 	<p><strong>Return</strong></p>
@@ -1089,7 +1094,7 @@ Documentation
 					 );
 		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ionAuth->messages_array();
+			$messages = $this->ionAuth->messagesArray();
 			foreach ($messages as $message)
 			{
 				echo $message;
@@ -1290,14 +1295,14 @@ Documentation
 	<br />
 
 
-	<a name="setMessageDelimiters"></a>
-	<h2>setMessageDelimiters()</h2>
-	<p>Set the message delimiters.</p>
+	<a name="setMessageTemplate"></a>
+	<h2>setMessageTemplate()</h2>
+	<p>Set the message templates.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Start Delimiter' - string REQUIRED.</li>
-		<li>'End Delimiter' - string REQUIRED.</li>
+		<li>'Single template' - string OPTIONAL.</li>
+		<li>'List template' - string OPTIONAL.</li>
 	</ol>
 
 	<p><strong>Usage</strong></p>
@@ -1309,13 +1314,13 @@ Documentation
 					 );
 		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$this->ionAuth->setMessageDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$this->ionAuth->setMessageTemplate('', 'list_message');
 			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$this->ionAuth->setErrorDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$this->ionAuth->setErrorsTemplate('','list_errors');
 			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
@@ -1374,7 +1379,7 @@ Documentation
 					 );
 		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$messages = $this->ionAuth->messages_array();
+			$messages = $this->ionAuth->messagesArray();
 			foreach ($messages as $message)
 			{
 				echo $message;
@@ -1391,14 +1396,14 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="setErrorDelimiters"></a>
-	<h2>setErrorDelimiters()</h2>
-	<p>Set the error delimiters.</p>
+	<a name="setErrorsTemplate"></a>
+	<h2>setErrorsTemplate()</h2>
+	<p>Set the error templates.</p>
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'Start Delimiter' - string REQUIRED.</li>
-		<li>'End Delimiter' - string REQUIRED.</li>
+		<li>'Single template' - string OPTIONAL.</li>
+		<li>'List template' - string OPTIONAL.</li>
 	</ol>
 
 	<p><strong>Usage</strong></p>
@@ -1410,13 +1415,13 @@ Documentation
 					 );
 		if ($this->ionAuth->updateUser($id, $data))
 		{
-			$this->ionAuth->setMessageDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$this->ionAuth->setMessageTemplate('','message_list');
 			$messages = $this->ionAuth->messages();
 			echo $messages;
 		}
 		else
 		{
-			$this->ionAuth->setErrorDelimiters('&lt;p&gt;&lt;strong&gt;','&lt;/strong&gt;&lt;/p&gt;');
+			$this->ionAuth->setErrorsTemplate('', 'error_list');
 			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
