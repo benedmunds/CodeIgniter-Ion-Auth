@@ -950,7 +950,7 @@ class IonAuthModel
 				$this->session->regenerate(false);
 
 				$this->triggerEvents(['post_login', 'post_login_successful']);
-				$this->setMessage('login_successful');
+				$this->setMessage('IonAuth.login_successful');
 
 				return true;
 			}

@@ -365,7 +365,7 @@ class IonAuth
 		}
 		session_regenerate_id(true);
 
-		$this->setMessage('logout_successful');
+		$this->setMessage('IonAuth.logout_successful');
 		return true;
 	}
 
