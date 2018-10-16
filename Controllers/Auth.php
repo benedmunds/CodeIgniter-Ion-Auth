@@ -626,9 +626,11 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Edit a user
 	 *
-	 * @param int|string $id
+	 * @param integer $id User id
+	 *
+	 * @return string string|\CodeIgniter\HTTP\RedirectResponse
 	 */
-	public function edit_user($id)
+	public function edit_user(int $id)
 	{
 		$this->data['title'] = lang('Auth.edit_user_heading');
 
@@ -637,18 +639,18 @@ class Auth extends \CodeIgniter\Controller
 			return redirect('/auth');
 		}
 
-		$user = $this->ionAuth->user($id)->row();
-		$groups = $this->ionAuth->groups()->resultArray();
+		$user          = $this->ionAuth->user($id)->row();
+		$groups        = $this->ionAuth->groups()->resultArray();
 		$currentGroups = $this->ionAuth->getUsersGroups($id)->getResult();
 
-		// validate form input
-		$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
-		$this->validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'trim|required');
-		$this->validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'trim|required');
-		$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
-
-		if (isset($_POST) && !empty($_POST))
+		if (! empty($_POST))
 		{
+			// validate form input
+			$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
+			$this->validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'trim|required');
+			$this->validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'trim|required');
+			$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
+
 			// do we have a valid request?
 			if ($id != $this->request->getPost('id'))
 			{
@@ -667,9 +669,9 @@ class Auth extends \CodeIgniter\Controller
 			{
 				$data = [
 					'first_name' => $this->request->getPost('first_name'),
-					'last_name' => $this->request->getPost('last_name'),
-					'company' => $this->request->getPost('company'),
-					'phone' => $this->request->getPost('phone'),
+					'last_name'  => $this->request->getPost('last_name'),
+					'company'    => $this->request->getPost('company'),
+					'phone'      => $this->request->getPost('phone'),
 				];
 
 				// update the password if it was posted
@@ -684,9 +686,8 @@ class Auth extends \CodeIgniter\Controller
 					// Update the groups user belongs to
 					$groupData = $this->request->getPost('groups');
 
-					if (isset($groupData) && !empty($groupData))
+					if (! empty($groupData))
 					{
-
 						$this->ionAuth->removeFromGroup('', $id);
 
 						foreach ($groupData as $grp)
@@ -709,7 +710,6 @@ class Auth extends \CodeIgniter\Controller
 					$this->session->setFlashdata('message', $this->ionAuth->errors());
 					return $this->redirectUser();
 				}
-
 			}
 		}
 
@@ -719,8 +719,8 @@ class Auth extends \CodeIgniter\Controller
 		$this->data['message'] = ($this->validation->getErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
 
 		// pass the user to the view
-		$this->data['user'] = $user;
-		$this->data['groups'] = $groups;
+		$this->data['user']          = $user;
+		$this->data['groups']        = $groups;
 		$this->data['currentGroups'] = $currentGroups;
 
 		$this->data['first_name'] = [
@@ -750,12 +750,12 @@ class Auth extends \CodeIgniter\Controller
 		$this->data['password'] = [
 			'name' => 'password',
 			'id'   => 'password',
-			'type' => 'password'
+			'type' => 'password',
 		];
 		$this->data['password_confirm'] = [
 			'name' => 'password_confirm',
 			'id'   => 'password_confirm',
-			'type' => 'password'
+			'type' => 'password',
 		];
 		$this->data['ionAuth'] = $this->ionAuth;
 
