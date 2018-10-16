@@ -13,10 +13,11 @@
  * Description:  Modified auth system based on redux_auth with extensive customization. This is basically what Redux Auth 2 should be.
  * Original Author name has been kept but that does not mean that the method has not been modified.
  *
- * Requirements: PHP5.6 or above
+ * Requirements: PHP 7.1 or above
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds
+ * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
  */
