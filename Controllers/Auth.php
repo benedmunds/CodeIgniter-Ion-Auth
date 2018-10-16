@@ -487,7 +487,8 @@ class Auth extends \CodeIgniter\Controller
 				// do we have the right userlevel?
 				if ($this->ionAuth->loggedIn() && $this->ionAuth->isAdmin())
 				{
-					$this->ionAuth->deactivate($id);
+					$message = $this->ionAuth->deactivate($id) ? $this->ionAuth->messages() : $this->ionAuth->errors();
+					$this->session->setFlashdata('message', $message);
 				}
 			}
 
