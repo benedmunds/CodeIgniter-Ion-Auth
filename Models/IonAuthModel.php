@@ -226,13 +226,13 @@ class IonAuthModel
 		$this->hashMethod = $this->config->hashMethod;
 
 		// load the errors and messages template from the config file
-		$this->errorsTemplates    = [
+		$this->errorsTemplates   = [
 			'single' => empty($this->config->templates['errors']['single']) ?
 							config('Validation')->templates['single'] :
 							$this->config->templates['errors']['single'],
-			'list'   => empty($this->config->templates['errors']['single']) ?
-							config('Validation')->templates['single'] :
-							$this->config->templates['errors']['single'],
+			'list'   => empty($this->config->templates['errors']['list']) ?
+							config('Validation')->templates['list'] :
+							$this->config->templates['errors']['list'],
 		];
 		$this->messagesTemplates = $this->config->templates['messages'];
 
