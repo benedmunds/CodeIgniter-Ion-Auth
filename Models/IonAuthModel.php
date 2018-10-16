@@ -352,13 +352,13 @@ class IonAuthModel
 	/**
 	 * Validates and removes activation code.
 	 *
-	 * @param int|string $id
-	 * @param bool       $code		if omitted, simply activate the user without check
+	 * @param integer|string $id   User id
+	 * @param boolean        $code If omitted, simply activate the user without check
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, $code = false)
+	public function activate($id, bool $code = false): bool
 	{
 		$this->triggerEvents('pre_activate');
 
@@ -368,11 +368,12 @@ class IonAuthModel
 		{
 			// A token was provided, we need to check it
 
-			$query = $this->db->select([$this->identity_column, 'activation_code'])
-			                  ->where('activation_selector', $token->selector)
-			                  ->where('id', $id)
-			                  ->limit(1)
-			                  ->get($this->tables['users']);
+			$query = $this->db->table($this->tables['users'])
+							  ->select([$this->identity_column, 'activation_code'])
+							  ->where('activation_selector', $token->selector)
+							  ->where('id', $id)
+							  ->limit(1)
+							  ->get();
 
 			if ($query->numRows() === 1)
 			{
@@ -381,14 +382,14 @@ class IonAuthModel
 				if ($this->verifyPassword($token->validator, $user->activation_code))
 				{
 					$data = [
-						'activation_selector' => NULL,
-						'activation_code' => NULL,
-						'active'          => 1
+						'activation_selector' => null,
+						'activation_code'     => null,
+						'active'              => 1,
 					];
 
 					$this->triggerEvents('extra_where');
 					$this->db->update($this->tables['users'], $data, ['id' => $id]);
-					return TRUE;
+					return true;
 				}
 			}
 		}
@@ -397,9 +398,9 @@ class IonAuthModel
 			// A token was NOT provided, simply activate the user
 
 			$data = [
-				'activation_selector' => NULL,
-				'activation_code' => NULL,
-				'active'          => 1
+				'activation_selector' => null,
+				'activation_code'     => null,
+				'active'              => 1,
 			];
 
 			$this->triggerEvents('extra_where');
@@ -408,8 +409,8 @@ class IonAuthModel
 			if ($this->db->affectedRows() === 1)
 			{
 				$this->triggerEvents(['post_activate', 'post_activate_successful']);
-				$this->setMessage('activate_successful');
-				return TRUE;
+				$this->setMessage('IonAuth.activate_successful');
+				return true;
 			}
 		}
 
@@ -423,31 +424,31 @@ class IonAuthModel
 	 *
 	 * @param int|string|null $id
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Mathew
 	 */
-	public function deactivate($id = NULL)
+	public function deactivate($id = null): bool
 	{
 		$this->triggerEvents('deactivate');
 
-		if (!isset($id))
+		if (! isset($id))
 		{
 			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
-		else if ((new \App\Libraries\IonAuth())->logged_in() && $this->user()->row()->id == $id)
+		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id == $id)
 		{
 			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
 		}
 
-		$token = $this->_generateSelectorValidatorCouple(20, 40);
+		$token                 = $this->_generateSelectorValidatorCouple(20, 40);
 		$this->activation_code = $token->user_code;
 
 		$data = [
 			'activation_selector' => $token->selector,
-			'activation_code' => $token->validator_hashed,
-			'active'          => 0
+			'activation_code'     => $token->validator_hashed,
+			'active'              => 0,
 		];
 
 		$this->triggerEvents('extra_where');
@@ -456,7 +457,7 @@ class IonAuthModel
 		$return = $this->db->affectedRows() == 1;
 		if ($return)
 		{
-			$this->setMessage('deactivate_successful');
+			$this->setMessage('IonAuth.deactivate_successful');
 		}
 		else
 		{

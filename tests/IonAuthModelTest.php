@@ -37,6 +37,19 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test :
+	 *  - deactivate
+	 *  - activate
+	 *
+	 * @return void
+	 */
+	public function testActivateDeactivate()
+	{
+		$this->assertTrue($this->model->deactivate(1));
+		$this->assertTrue($this->model->activate(1));
+	}
+
+	/**
 	 * Test emailCheck
 	 *
 	 * @return void
