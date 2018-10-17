@@ -227,10 +227,9 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 */
 	public $templates = [
 
-		// templates for errors
+		// templates for errors cf : https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
 		'errors'   => [
-			// 'list'   => 'IonAuth\Views\Errors\list',		// default is 'CodeIgniter\Validation\Views\list'
-			// 'single' => 'IonAuth\Views\Errors\single',	// default is 'CodeIgniter\Validation\Views\single'
+			'list' => 'list',
 		],
 
 		// templates for messages

@@ -42,6 +42,14 @@ class Auth extends \CodeIgniter\Controller
 	private $validation;
 
 	/**
+	 * Validation list template.
+	 *
+	 * @var string
+	 * @see https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
+	 */
+	protected $validationListTemplate = 'list';
+
+	/**
 	 * Views folder
 	 * Set it to 'auth' if your views files are in the standard application/Views/auth
 	 *
@@ -52,12 +60,16 @@ class Auth extends \CodeIgniter\Controller
 
 	public function __construct()
 	{
-		$this->ionAuth = new \IonAuth\Libraries\IonAuth();
+		$this->ionAuth    = new \IonAuth\Libraries\IonAuth();
 		$this->validation = \Config\Services::validation();
 		helper(['form', 'url']);
 		$this->configIonAuth = config('IonAuth');
 		$this->session       = \Config\Services::session();
-		// TODO: $this->form_validation->set_error_delimiters($this->config->item('errorStartDelimiter', 'ion_auth'), $this->config->item('errorEndDelimiter', 'ion_auth'));
+
+		if (! empty($this->configIonAuth->templates['errors']['list']))
+		{
+			$this->validationListTemplate = $this->configIonAuth->templates['errors']['list'];
+		}
 	}
 
 	/**
@@ -83,7 +95,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['title'] = lang('Auth.index_heading');
 
 			// set the flash data error message if there is one
-			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : $this->session->getFlashdata('message');
 			//list the users
 			$this->data['users'] = $this->ionAuth->users()->result();
 			foreach ($this->data['users'] as $k => $user)
@@ -124,7 +136,7 @@ class Auth extends \CodeIgniter\Controller
 			{
 				// if the login was un-successful
 				// redirect them back to the login page
-				$this->session->setFlashdata('message', $this->ionAuth->errors());
+				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				// use redirects instead of loading views for compatibility with MY_Controller libraries
 				return redirect()->back()->withInput();
 			}
@@ -133,7 +145,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// the user is not logging in so display the login page
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : $this->session->getFlashdata('message');
 
 			$this->data['identity'] = [
 				'name'  => 'identity',
@@ -191,7 +203,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// display the form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors($this->validationListTemplate) : $this->session->getFlashdata('message');
 
 			$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 			$this->data['old_password'] = [
@@ -235,7 +247,7 @@ class Auth extends \CodeIgniter\Controller
 			}
 			else
 			{
-				$this->session->setFlashdata('message', $this->ionAuth->errors());
+				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				return redirect('auth/change_password');
 			}
 		}
@@ -279,7 +291,7 @@ class Auth extends \CodeIgniter\Controller
 			}
 
 			// set any errors and display the form
-			$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : $this->session->getFlashdata('message');
 			return $this->_renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'forgot_password', $this->data);
 		}
 		else
@@ -298,7 +310,7 @@ class Auth extends \CodeIgniter\Controller
 					$this->ionAuth->setError('Auth.forgot_password_email_not_found');
 				}
 
-				$this->session->setFlashdata('message', $this->ionAuth->errors());
+				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				return redirect('/auth/forgot_password');
 			}
 
@@ -313,7 +325,7 @@ class Auth extends \CodeIgniter\Controller
 			}
 			else
 			{
-				$this->session->setFlashdata('message', $this->ionAuth->errors());
+				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				return redirect('/auth/forgot_password');
 			}
 		}
@@ -347,7 +359,7 @@ class Auth extends \CodeIgniter\Controller
 				// display the form
 
 				// set the flash data error message if there is one
-				$this->data['message'] = ($this->validation->getErrors()) ? $this->validation->listErrors() : $this->session->getFlashdata('message');
+				$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : $this->session->getFlashdata('message');
 
 				$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 				$this->data['new_password'] = [
@@ -398,7 +410,7 @@ class Auth extends \CodeIgniter\Controller
 					}
 					else
 					{
-						$this->session->setFlashdata('message', $this->ionAuth->errors());
+						$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 						return redirect('auth/reset_password/' . $code);
 					}
 				}
@@ -407,7 +419,7 @@ class Auth extends \CodeIgniter\Controller
 		else
 		{
 			// if the code is invalid then send them back to the forgot password page
-			$this->session->setFlashdata('message', $this->ionAuth->errors());
+			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 			return redirect("auth/forgot_password");
 		}
 	}
@@ -440,7 +452,7 @@ class Auth extends \CodeIgniter\Controller
 		else
 		{
 			// redirect them to the forgot password page
-			$this->session->setFlashdata('message', $this->ionAuth->errors());
+			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 			return redirect('/auth/forgot_password');
 		}
 	}
@@ -487,7 +499,7 @@ class Auth extends \CodeIgniter\Controller
 				// do we have the right userlevel?
 				if ($this->ionAuth->loggedIn() && $this->ionAuth->isAdmin())
 				{
-					$message = $this->ionAuth->deactivate($id) ? $this->ionAuth->messages() : $this->ionAuth->errors();
+					$message = $this->ionAuth->deactivate($id) ? $this->ionAuth->messages() : $this->ionAuth->errors($this->validationListTemplate);
 					$this->session->setFlashdata('message', $message);
 				}
 			}
@@ -554,7 +566,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// display the create user form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->validation->getErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
 			$this->data['first_name'] = [
 				'name' => 'first_name',
@@ -707,7 +719,7 @@ class Auth extends \CodeIgniter\Controller
 				else
 				{
 					// redirect them back to the admin page if admin, or to the base url if non admin
-					$this->session->setFlashdata('message', $this->ionAuth->errors());
+					$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 					return $this->redirectUser();
 				}
 			}
@@ -716,7 +728,7 @@ class Auth extends \CodeIgniter\Controller
 		// display the edit user form
 
 		// set the flash data error message if there is one
-		$this->data['message'] = ($this->validation->getErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+		$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
 		// pass the user to the view
 		$this->data['user']          = $user;
@@ -792,7 +804,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// display the create group form
 			// set the flash data error message if there is one
-			$this->data['message'] = ($this->validation->getErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
 			$this->data['group_name'] = [
 				'name'  => 'group_name',
@@ -848,14 +860,14 @@ class Auth extends \CodeIgniter\Controller
 				}
 				else
 				{
-					$this->session->setFlashdata('message', $this->ionAuth->errors());
+					$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				}
 				return redirect('/auth');
 			}
 		}
 
 		// set the flash data error message if there is one
-		$this->data['message'] = ($this->validation->getErrors() ? $this->validation->listErrors() : ($this->ionAuth->errors() ? $this->ionAuth->errors() : $this->session->getFlashdata('message')));
+		$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
 		// pass the user to the view
 		$this->data['group'] = $group;

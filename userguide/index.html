@@ -81,7 +81,6 @@
 				<li><a href="#setMessageTemplate">setMessageTemplate()</a></li>
 				<li><a href="#errors">errors()</a></li>
 				<li><a href="#errorsArray">errorsArray()</a></li>
-				<li><a href="#setErrorsTemplate">setErrorsTemplate()</a></li>
 				<li><a href="#triggerEvents">triggerEvents()</a></li>
 				<li><a href="#setHook">setHook()</a></li>
 			</ul>
@@ -397,11 +396,11 @@ Documentation
 	<ul>
         <li>
             <strong>templates['errors']['list']</strong> Default is specified in 'Config/Validation.php'<br/>
-            Template for list errors.
-        </li>
-        <li>
-            <strong>templates['errors']['single']</strong> Default is specified in 'Config/Validation.php'<br/>
-            Template for single error.
+			Template for list errors.<br>
+			<i>cf :
+				<a href="https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display" target="_blank">
+					https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display</a>
+			</i>
         </li>
         <li>
             <strong>templates['messages']['list']</strong> Default is 'IonAuth\Views\Messages\list'<br/>
@@ -412,12 +411,6 @@ Documentation
             Template for single message.
         </li>
 	</ul>
-	<p>
-		<i>cf :
-			<a href="https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display" target="_blank">
-				https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display</a>
-		</i>
-	</p>
 
 	<br />
 
@@ -1320,7 +1313,6 @@ Documentation
 		}
 		else
 		{
-			$this->ionAuth->setErrorsTemplate('','list_errors');
 			$errors = $this->ionAuth->errors();
 			echo $errors;
 		}
@@ -1392,38 +1384,6 @@ Documentation
 			{
 				echo $error;
 			}
-		}
-	</pre>
-	<br />
-
-	<a name="setErrorsTemplate"></a>
-	<h2>setErrorsTemplate()</h2>
-	<p>Set the error templates.</p>
-
-	<p><strong>Parameters</strong></p>
-	<ol>
-		<li>'Single template' - string OPTIONAL.</li>
-		<li>'List template' - string OPTIONAL.</li>
-	</ol>
-
-	<p><strong>Usage</strong></p>
-	<pre>
-		$id = 12;
-		$data = array(
-					'first_name' => 'Ben',
-					'last_name' => 'Edmunds',
-					 );
-		if ($this->ionAuth->updateUser($id, $data))
-		{
-			$this->ionAuth->setMessageTemplate('','message_list');
-			$messages = $this->ionAuth->messages();
-			echo $messages;
-		}
-		else
-		{
-			$this->ionAuth->setErrorsTemplate('', 'error_list');
-			$errors = $this->ionAuth->errors();
-			echo $errors;
 		}
 	</pre>
 	<br />

@@ -120,7 +120,7 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	 */
 	public function testErrors()
 	{
-		$this->assertEmpty($this->model->Errors());
+		$this->assertEmpty($this->model->errors());
 
 		$this->model->setError('Test error !');
 		$this->assertContains('Test error !', $this->model->errors());
@@ -139,7 +139,21 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 
 		$this->assertEquals('Test string', $this->model->errorsArray(false)[0]);
 
-		//$this->assertEquals('<span class="help-block">Test string</span>', $this->model->errorsArray()[0]);
+		$this->assertEquals('##Test string##', $this->model->errorsArray()[0]);
+	}
+
+	/**
+	 * Test getErrors()
+	 *
+	 * @return void
+	 */
+	public function testGetErrors()
+	{
+		$this->assertEmpty($this->model->getErrors());
+
+		$this->model->setError('Test string');
+
+		$this->assertEquals('Test string', $this->model->getErrors()[0]);
 	}
 
 }

@@ -164,13 +164,6 @@ class IonAuthModel
 	protected $errors = [];
 
 	/**
-	 * Errors templates (single, list)
-	 *
-	 * @var array
-	 */
-	protected $errorsTemplates = [];
-
-	/**
 	 * Messages templates (single, list).
 	 *
 	 * @var array
@@ -226,15 +219,7 @@ class IonAuthModel
 		// initialize hash method options (Bcrypt)
 		$this->hashMethod = $this->config->hashMethod;
 
-		// load the errors and messages template from the config file
-		$this->errorsTemplates   = [
-			'single' => empty($this->config->templates['errors']['single']) ?
-							config('Validation')->templates['single'] :
-							$this->config->templates['errors']['single'],
-			'list'   => empty($this->config->templates['errors']['list']) ?
-							config('Validation')->templates['list'] :
-							$this->config->templates['errors']['list'],
-		];
+		// load the messages template from the config file
 		$this->messagesTemplates = $this->config->templates['messages'];
 
 		// initialize our hooks object
@@ -2325,28 +2310,6 @@ class IonAuthModel
 	}
 
 	/**
-	 * Set the errors templates
-	 *
-	 * @param string $single Template for single error
-	 * @param string $list	 Template for list errors
-	 *
-	 * @return true
-	 * @author Benoit VRIGNAUD
-	 */
-	public function setErrorsTemplate(string $single = '', string $list = ''): bool
-	{
-		if (! empty($single)) {
-			$this->errorsTemplates['single'] = $single;
-		}
-
-		if (!empty($list)) {
-			$this->errorsTemplate['list'] = $list;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Set a message
 	 *
 	 * @param string $message The message
@@ -2440,24 +2403,30 @@ class IonAuthModel
 	/**
 	 * Get the error message
 	 *
+	 * @param string $template @see https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
+	 *
 	 * @return string
 	 * @author Ben Edmunds
 	 */
-	public function errors(): string
+	public function errors(string $template = 'list'): string
 	{
-		if (empty($this->errors)) {
-			return '';
+		if (! array_key_exists($template, config('Validation')->templates))
+		{
+			throw new \CodeIgniter\Exceptions\ConfigException(lang('Validation.invalidTemplate', [$template]));
 		}
 
 		$errors = [];
 		foreach ($this->errors as $error) {
 			$errors[] = lang($error) !== $error ? lang($error) : '##' . $error . '##';
 		}
-		return view($this->errorsTemplates['list'], ['errors' => $errors]);
+
+		return view(config('Validation')->templates[$template], ['errors' => $errors]);
 	}
 
 	/**
 	 * Get the error messages as an array
+	 *
+	 * @deprecated No longer used by internal code and not recommended.
 	 *
 	 * @param bool $langify
 	 *
@@ -2471,8 +2440,32 @@ class IonAuthModel
 			$output = [];
 			foreach ($this->errors as $error)
 			{
-				$errorLang = lang($error) !== $error ? lang($error) : '##' . $error . '##';
-				$output[] = view($this->errorsTemplates['single'], ['error' => $errorLang]);
+				$output[] = lang($error) !== $error ? lang($error) : '##' . $error . '##';
+			}
+			return $output;
+		}
+		else
+		{
+			return $this->errors;
+		}
+	}
+
+	/**
+	 * Get the error messages as an array
+	 *
+	 * @param bool $langify
+	 *
+	 * @return array
+	 * @author Benoit VRIGNAUD
+	 */
+	public function getErrors(bool $langify = true): array
+	{
+		if ($langify)
+		{
+			$output = [];
+			foreach ($this->errors as $error)
+			{
+				$output[] = lang($error);
 			}
 			return $output;
 		}
