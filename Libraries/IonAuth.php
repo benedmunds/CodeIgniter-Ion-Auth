@@ -250,7 +250,7 @@ class IonAuth
 	 *                        if the operation failed.
 	 * @author Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = [], $group_ids = [])
+	public function register(string $identity, string $password, string $email, array $additional_data = [], array $group_ids = [])
 	{
 		$this->ionAuthModel->triggerEvents('pre_account_creation');
 
@@ -262,13 +262,13 @@ class IonAuth
 		{
 			if ($id !== false)
 			{
-				$this->setMessage('account_creation_successful');
+				$this->setMessage('IonAuth.account_creation_successful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful']);
 				return $id;
 			}
 			else
 			{
-				$this->setError('account_creation_unsuccessful');
+				$this->setError('IonAuth.account_creation_unsuccessful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
 				return false;
 			}
@@ -277,7 +277,7 @@ class IonAuth
 		{
 			if (! $id)
 			{
-				$this->setError('account_creation_unsuccessful');
+				$this->setError('IonAuth.account_creation_unsuccessful');
 				return false;
 			}
 
@@ -289,7 +289,7 @@ class IonAuth
 
 			if (! $deactivate)
 			{
-				$this->setError('deactivate_unsuccessful');
+				$this->setError('IonAuth.deactivate_unsuccessful');
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful']);
 				return false;
 			}
@@ -307,7 +307,7 @@ class IonAuth
 			if (! $this->config->useCiEmail)
 			{
 				$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
-				$this->setMessage('activation_email_successful');
+				$this->setMessage('IonAuth.activation_email_successful');
 				return $data;
 			}
 			else
@@ -323,13 +323,13 @@ class IonAuth
 				if ($this->email->send() === true)
 				{
 					$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
-					$this->setMessage('activation_email_successful');
+					$this->setMessage('IonAuth.activation_email_successful');
 					return $id;
 				}
 			}
 
 			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
-			$this->setError('activation_email_unsuccessful');
+			$this->setError('IonAuth.activation_email_unsuccessful');
 			return false;
 		}
 	}

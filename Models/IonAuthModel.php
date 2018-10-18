@@ -768,16 +768,16 @@ class IonAuthModel
 	/**
 	 * Register
 	 *
-	 * @param    string $identity
-	 * @param    string $password
-	 * @param    string $email
-	 * @param    array  $additional_data
-	 * @param    array  $groups
+	 * @param string $identity
+	 * @param string $password
+	 * @param string $email
+	 * @param array  $additional_data
+	 * @param array  $groups
 	 *
-	 * @return    bool
-	 * @author    Mathew
+	 * @return integer|boolean
+	 * @author Mathew
 	 */
-	public function register($identity, $password, $email, $additional_data = [], $groups = [])
+	public function register(string $identity, string $password, string $email, array $additional_data = [], array $groups = [])
 	{
 		$this->triggerEvents('pre_register');
 
@@ -788,7 +788,7 @@ class IonAuthModel
 			$this->setError('IonAuth.account_creation_duplicate_identity');
 			return false;
 		}
-		else if (!$this->config->defaultGroup && empty($groups))
+		else if (! $this->config->defaultGroup && empty($groups))
 		{
 			$this->setError('IonAuth.account_creation_missing_defaultGroup');
 			return false;
@@ -813,7 +813,7 @@ class IonAuthModel
 
 		if ($password === false)
 		{
-			$this->setError('account_creation_unsuccessful');
+			$this->setError('IonAuth.account_creation_unsuccessful');
 			return false;
 		}
 

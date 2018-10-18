@@ -516,13 +516,13 @@ class Auth extends \CodeIgniter\Controller
 	{
 		$this->data['title'] = lang('Auth.create_user_heading');
 
-		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
+		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect('auth');
+			return redirect('/auth');
 		}
 
-		$tables = $this->configIonAuth->tables;
-		$identityColumn = $this->configIonAuth->identity;
+		$tables                        = $this->configIonAuth->tables;
+		$identityColumn                = $this->configIonAuth->identity;
 		$this->data['identity_column'] = $identityColumn;
 
 		// validate form input
@@ -544,15 +544,15 @@ class Auth extends \CodeIgniter\Controller
 
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
-			$email = strtolower($this->request->getPost('email'));
+			$email    = strtolower($this->request->getPost('email'));
 			$identity = ($identityColumn === 'email') ? $email : $this->request->getPost('identity');
 			$password = $this->request->getPost('password');
 
 			$additional_data = [
 				'first_name' => $this->request->getPost('first_name'),
-				'last_name' => $this->request->getPost('last_name'),
-				'company' => $this->request->getPost('company'),
-				'phone' => $this->request->getPost('phone'),
+				'last_name'  => $this->request->getPost('last_name'),
+				'company'    => $this->request->getPost('company'),
+				'phone'      => $this->request->getPost('phone'),
 			];
 		}
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))

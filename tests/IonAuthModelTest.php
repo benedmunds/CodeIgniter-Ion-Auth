@@ -1,4 +1,5 @@
-<?php
+<?php namespace IonAuth\Tests;
+
 /**
  * IonAuthModel tests
  *
@@ -59,6 +60,19 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 		$this->assertTrue($this->model->emailCheck('admin@admin.com'));
 		$this->assertFalse($this->model->emailCheck(''));
 		$this->assertFalse($this->model->emailCheck('email@undefined.unknown'));
+	}
+
+	/**
+	 * Test register
+	 *
+	 * @return void
+	 */
+	public function testRegister()
+	{
+		$identity = random_string();
+		$password = random_string();
+		$email    = random_string();
+		$this->assertGreaterThan(1, $this->model->register($identity, $password, $email));
 	}
 
 	/**
