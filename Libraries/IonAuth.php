@@ -186,7 +186,6 @@ class IonAuth
 					$this->email->setTo($user->email);
 					$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.email_forgotten_password_subject'));
 					$this->email->setMessage($message);
-					$test = $this->email->send();
 					if ($this->email->send())
 					{
 						$this->setMessage('IonAuth.forgot_password_successful');
