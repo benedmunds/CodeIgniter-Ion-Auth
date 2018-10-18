@@ -46,17 +46,30 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * activation code
-	 *
+	 * 
+	 * Set by deactivate() function
+	 * Also set on register() function, if email_activation 
+	 * option is activated
+	 * 
+	 * This is the value devs should give to the user 
+	 * (in an email, usually)
+	 * 
+	 * It contains the *user* version of the activation code
+	 * It's a value of the form "selector.validator" 
+	 * 
+	 * This is not the same activation_code as the one in DB.
+	 * The DB contains a *hashed* version of the validator
+	 * and a selector in another column.
+	 * 
+	 * THe selector is not private, and only used to lookup
+	 * the validator.
+	 * 
+	 * The validator is private, and to be only known by the user
+	 * So in case of DB leak, nothing could be actually used.
+	 * 
 	 * @var string
 	 */
 	public $activation_code;
-
-	/**
-	 * forgotten password key
-	 *
-	 * @var string
-	 */
-	public $forgotten_password_code;
 
 	/**
 	 * new password
@@ -360,10 +373,41 @@ class Ion_auth_model extends CI_Model
 	}
 
 	/**
+	 * Get a user by its activation code
+	 *
+	 * @param bool       $user_code	the activation code 
+	 * 								It's the *user* one, containing "selector.validator"
+	 * 								the one you got in activation_code member
+	 *
+	 * @return    bool|object
+	 * @author Indigo
+	 */
+	public function get_user_by_activation_code($user_code)
+	{
+		// Retrieve the token object from the code
+		$token = $this->_retrieve_selector_validator_couple($user_code);
+	
+		// Retrieve the user according to this selector
+		$user = $this->where('activation_selector', $token->selector)->users()->row();
+
+		if ($user)
+		{
+			// Check the hash against the validator
+			if ($this->verify_password($token->validator, $user->activation_code))
+			{
+				return $user;
+			}
+		}
+
+		return FALSE;
+	}
+
+	/**
 	 * Validates and removes activation code.
 	 *
-	 * @param int|string $id
-	 * @param bool       $code		if omitted, simply activate the user without check
+	 * @param int|string $id		the user identifier
+	 * @param bool       $code		the *user* activation code 
+	 * 								if omitted, simply activate the user without check
 	 *
 	 * @return bool
 	 * @author Mathew
@@ -372,40 +416,14 @@ class Ion_auth_model extends CI_Model
 	{
 		$this->trigger_events('pre_activate');
 
-		$token = $this->_retrieve_selector_validator_couple($code);
-
-		if ($token !== FALSE)
-		{
-			// A token was provided, we need to check it
-
-			$query = $this->db->select([$this->identity_column, 'activation_code'])
-			                  ->where('activation_selector', $token->selector)
-			                  ->where('id', $id)
-			                  ->limit(1)
-			                  ->get($this->tables['users']);
-
-			if ($query->num_rows() === 1)
-			{
-				$user = $query->row();
-
-				if ($this->verify_password($token->validator, $user->activation_code))
-				{
-					$data = [
-						'activation_selector' => NULL,
-						'activation_code' => NULL,
-						'active'          => 1
-					];
-
-					$this->trigger_events('extra_where');
-					$this->db->update($this->tables['users'], $data, ['id' => $id]);
-					return TRUE;
-				}
-			}
+		if ($code !== FALSE) {
+			$user = $this->get_user_by_activation_code($code);
 		}
-		else
-		{
-			// A token was NOT provided, simply activate the user
 
+		// Activate if no code is given
+		// Or if a user was found with this code, and that it matches the id
+		if ($code === FALSE || ($user && $user->id === $id))
+		{
 			$data = [
 			    'activation_selector' => NULL,
 			    'activation_code' => NULL,
@@ -2644,6 +2662,7 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * Generate a random selector/validator couple
+	 * This is a user code
 	 *
 	 * @param $selector_size int	size of the selector token
 	 * @param $validator_size int	size of the validator token
@@ -2677,7 +2696,7 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Retrieve remember cookie info
 	 *
-	 * @param $user_code	string
+	 * @param $user_code string	A user code of the form "selector.validator"
 	 *
 	 * @return object
 	 * 			->selector		simple token to retrieve the user in DB
