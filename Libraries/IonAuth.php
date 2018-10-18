@@ -175,7 +175,7 @@ class IonAuth
 
 				if (! $this->config->useCiEmail)
 				{
-					$this->setMessage('forgot_password_successful');
+					$this->setMessage('IonAuth.forgot_password_successful');
 					return $data;
 				}
 				else
@@ -196,7 +196,7 @@ class IonAuth
 			}
 		}
 
-		$this->setError('forgot_password_unsuccessful');
+		$this->setError('IonAuth.forgot_password_unsuccessful');
 		return false;
 	}
 
@@ -214,7 +214,7 @@ class IonAuth
 
 		if (! is_object($user))
 		{
-			$this->setError('password_change_unsuccessful');
+			$this->setError('IonAuth.password_change_unsuccessful');
 			return false;
 		}
 		else
@@ -228,7 +228,7 @@ class IonAuth
 					//it has expired
 					$identity = $user->{$this->config->identity};
 					$this->ionAuthModel->clearForgottenPasswordCode($identity);
-					$this->setError('password_change_unsuccessful');
+					$this->setError('IonAuth.password_change_unsuccessful');
 					return false;
 				}
 			}
