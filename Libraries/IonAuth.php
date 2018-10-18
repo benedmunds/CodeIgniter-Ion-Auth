@@ -281,7 +281,7 @@ class IonAuth
 				return false;
 			}
 
-			// deactivate so the user much follow the activation flow
+			// deactivate so the user must follow the activation flow
 			$deactivate = $this->ionAuthModel->deactivate($id);
 
 			// the deactivate method call adds a message, here we need to clear that

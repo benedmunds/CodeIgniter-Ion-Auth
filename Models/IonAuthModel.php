@@ -61,16 +61,29 @@ class IonAuthModel
 	/**
 	 * Activation code
 	 *
-	 * @var string
-	 */
-	public $activation_code;
-
-	/**
-	 * Forgotten password key
+	 * Set by deactivate() function
+	 * Also set on register() function, if email_activation
+	 * option is activated
+	 *
+	 * This is the value devs should give to the user
+	 * (in an email, usually)
+	 *
+	 * It contains the *user* version of the activation code
+	 * It's a value of the form "selector.validator"
+	 *
+	 * This is not the same activation_code as the one in DB.
+	 * The DB contains a *hashed* version of the validator
+	 * and a selector in another column.
+	 *
+	 * THe selector is not private, and only used to lookup
+	 * the validator.
+	 *
+	 * The validator is private, and to be only known by the user
+	 * So in case of DB leak, nothing could be actually used.
 	 *
 	 * @var string
 	 */
-	public $forgotten_password_code;
+	public $activation_code;
 
 	/**
 	 * new password
@@ -335,10 +348,41 @@ class IonAuthModel
 	}
 
 	/**
+	 * Get a user by its activation code
+	 *
+	 * @param boolean $userCode The activation code
+	 *                          It's the *user* one, containing "selector.validator"
+	 *                          the one you got in activation_code member
+	 *
+	 * @return boolean|object
+	 * @author Indigo
+	 */
+	public function getUserByActivationCode($userCode)
+	{
+		// Retrieve the token object from the code
+		$token = $this->_retrieveSelectorValidatorCouple($userCode);
+
+		// Retrieve the user according to this selector
+		$user = $this->where('activation_selector', $token->selector)->users()->row();
+
+		if ($user)
+		{
+			// Check the hash against the validator
+			if ($this->verify_password($token->validator, $user->activation_code))
+			{
+				return $user;
+			}
+		}
+
+		return false;
+	}
+
+	/**
 	 * Validates and removes activation code.
 	 *
-	 * @param integer|string $id   User id
-	 * @param boolean        $code If omitted, simply activate the user without check
+	 * @param integer|string $id   The user identifier
+	 * @param boolean        $code The *user* activation code
+	 *                             if omitted, simply activate the user without check
 	 *
 	 * @return boolean
 	 * @author Mathew
@@ -347,41 +391,14 @@ class IonAuthModel
 	{
 		$this->triggerEvents('pre_activate');
 
-		$token = $this->_retrieveSelectorValidatorCouple($code);
-
-		if ($token !== false)
+		if ($code !== false)
 		{
-			// A token was provided, we need to check it
-
-			$query = $this->db->table($this->tables['users'])
-							  ->select([$this->identity_column, 'activation_code'])
-							  ->where('activation_selector', $token->selector)
-							  ->where('id', $id)
-							  ->limit(1)
-							  ->get();
-
-			if ($query->numRows() === 1)
-			{
-				$user = $query->row();
-
-				if ($this->verifyPassword($token->validator, $user->activation_code))
-				{
-					$data = [
-						'activation_selector' => null,
-						'activation_code'     => null,
-						'active'              => 1,
-					];
-
-					$this->triggerEvents('extra_where');
-					$this->db->update($this->tables['users'], $data, ['id' => $id]);
-					return true;
-				}
-			}
+			$user = $this->getUserByActivationCode($code);
 		}
-		else
+		// Activate if no code is given
+		// Or if a user was found with this code, and that it matches the id
+		if ($code === false || ($user && $user->id === $id))
 		{
-			// A token was NOT provided, simply activate the user
-
 			$data = [
 				'activation_selector' => null,
 				'activation_code'     => null,
@@ -2643,6 +2660,7 @@ class IonAuthModel
 
 	/**
 	 * Generate a random selector/validator couple
+	 * This is a user code
 	 *
 	 * @param $selector_size int	size of the selector token
 	 * @param $validator_size int	size of the validator token
@@ -2676,18 +2694,18 @@ class IonAuthModel
 	/**
 	 * Retrieve remember cookie info
 	 *
-	 * @param $user_code	string
+	 * @param $userCode string A user code of the form "selector.validator"
 	 *
 	 * @return object
 	 * 			->selector		simple token to retrieve the user in DB
 	 * 			->validator		token to validate the user (check against hashed value in DB)
 	 */
-	protected function _retrieveSelectorValidatorCouple($user_code)
+	protected function _retrieveSelectorValidatorCouple(string $userCode)
 	{
 		// Check code
-		if ($user_code)
+		if ($userCode)
 		{
-			$tokens = explode('.', $user_code);
+			$tokens = explode('.', $userCode);
 
 			// Check tokens
 			if (count($tokens) === 2)
