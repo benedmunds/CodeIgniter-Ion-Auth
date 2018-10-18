@@ -114,6 +114,19 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test users()
+	 *
+	 * @return void
+	 */
+	public function testUsers()
+	{
+		$this->assertNotEmpty($this->model->users());
+		$this->assertNotEmpty($this->model->users('admin'));
+		$this->assertNotEmpty($this->model->users(random_string()));
+		$this->assertNotEmpty($this->model->users(1000));
+	}
+
+	/**
 	 * Test setMessage()
 	 *
 	 * @return void

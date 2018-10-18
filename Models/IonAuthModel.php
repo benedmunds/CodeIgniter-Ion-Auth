@@ -1355,20 +1355,20 @@ class IonAuthModel
 	}
 
 	/**
-	 * users
+	 * Users
 	 *
-	 * @param array|null $groups
+	 * @param array|string|integer null $groups
 	 *
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function users($groups = NULL)
+	public function users($groups = null)
 	{
 		$this->triggerEvents('users');
 
 		$builder = $this->db->table($this->tables['users']);
 
-		if (isset($this->_ion_select) && !empty($this->_ion_select))
+		if (! empty($this->_ion_select))
 		{
 			foreach ($this->_ion_select as $select)
 			{
@@ -1381,9 +1381,9 @@ class IonAuthModel
 		{
 			// default selects
 			$builder->select([
-				$this->tables['users'].'.*',
-				$this->tables['users'].'.id as id',
-				$this->tables['users'].'.id as user_id'
+				$this->tables['users'] . '.*',
+				$this->tables['users'] . '.id as id',
+				$this->tables['users'] . '.id as user_id',
 			]);
 		}
 
@@ -1391,47 +1391,53 @@ class IonAuthModel
 		if (isset($groups))
 		{
 			// build an array if only one group was passed
-			if (!is_array($groups))
+			if (! is_array($groups))
 			{
 				$groups = [$groups];
 			}
 
 			// join and then run a where_in against the group ids
-			if (isset($groups) && !empty($groups))
+			if (! empty($groups))
 			{
 				$builder->distinct();
 				$builder->join(
 					$this->tables['users_groups'],
-					$this->tables['users_groups'].'.'.$this->join['users'].'='.$this->tables['users'].'.id',
+					$this->tables['users_groups'] . '.' . $this->join['users'] . '=' . $this->tables['users'] . '.id',
 					'inner'
 				);
 			}
 
 			// verify if group name or group id was used and create and put elements in different arrays
-			$group_ids = [];
+			$groupIds   = [];
 			$groupNames = [];
-			foreach($groups as $group)
+			foreach ($groups as $group)
 			{
-				if(is_numeric($group)) $group_ids[] = $group;
-				else $groupNames[] = $group;
+				if (is_numeric($group))
+				{
+					$groupIds[] = $group;
+				}
+				else
+				{
+					$groupNames[] = $group;
+				}
 			}
-			$or_where_in = (!empty($group_ids) && !empty($groupNames)) ? 'or_where_in' : 'where_in';
+			$orWhereIn = (! empty($groupIds) && ! empty($groupNames)) ? 'orWhereIn' : 'whereIn';
 			// if group name was used we do one more join with groups
-			if(!empty($groupNames))
+			if (! empty($groupNames))
 			{
 				$builder->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
-				$builder->where_in($this->tables['groups'] . '.name', $groupNames);
+				$builder->whereIn($this->tables['groups'] . '.name', $groupNames);
 			}
-			if(!empty($group_ids))
+			if (! empty($groupIds))
 			{
-				$builder->{$or_where_in}($this->tables['users_groups'].'.'.$this->join['groups'], $group_ids);
+				$builder->{$orWhereIn}($this->tables['users_groups'] . '.' . $this->join['groups'], $groupIds);
 			}
 		}
 
 		$this->triggerEvents('extra_where');
 
 		// run each where that was passed
-		if (isset($this->_ion_where) && !empty($this->_ion_where))
+		if (! empty($this->_ion_where))
 		{
 			foreach ($this->_ion_where as $where)
 			{
@@ -1441,11 +1447,11 @@ class IonAuthModel
 			$this->_ion_where = [];
 		}
 
-		if (isset($this->_ion_like) && !empty($this->_ion_like))
+		if (! empty($this->_ion_like))
 		{
 			foreach ($this->_ion_like as $like)
 			{
-				$builder->or_like($like['like'], $like['value'], $like['position']);
+				$builder->orLike($like['like'], $like['value'], $like['position']);
 			}
 
 			$this->_ion_like = [];
@@ -1455,14 +1461,14 @@ class IonAuthModel
 		{
 			$builder->limit($this->_ion_limit, $this->_ion_offset);
 
-			$this->_ion_limit  = NULL;
-			$this->_ion_offset = NULL;
+			$this->_ion_limit  = null;
+			$this->_ion_offset = null;
 		}
 		else if (isset($this->_ion_limit))
 		{
 			$builder->limit($this->_ion_limit);
 
-			$this->_ion_limit  = NULL;
+			$this->_ion_limit  = null;
 		}
 
 		// set the order
@@ -1470,8 +1476,8 @@ class IonAuthModel
 		{
 			$builder->orderBy($this->_ion_order_by, $this->_ion_order);
 
-			$this->_ion_order    = NULL;
-			$this->_ion_order_by = NULL;
+			$this->_ion_order    = null;
+			$this->_ion_order_by = null;
 		}
 
 		$this->response = $builder->get();
