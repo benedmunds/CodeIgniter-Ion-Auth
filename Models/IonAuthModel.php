@@ -497,26 +497,21 @@ class IonAuthModel
 	 *
 	 * @param string $identity
 	 *
-	 * @return bool Success
+	 * @return boolean Success
 	 */
-	public function clearRememberCode($identity): bool
+	public function clearRememberCode(string $identity): bool
 	{
-
 		if (empty($identity))
 		{
 			return false;
 		}
 
 		$data = [
-			'remember_selector' => NULL,
-			'remember_code' => NULL
+			'remember_selector' => null,
+			'remember_code'     => null,
 		];
 
-		//$this->db->update($this->tables['users'], $data, [$this->identity_column => $identity]);
-		$builder = $this->db->table($this->tables['users']);
-		return $builder->update($data, [$this->identity_column => $identity]);
-
-		//return TRUE;
+		return $this->db->table($this->tables['users'])->update($data, [$this->identity_column => $identity]);
 	}
 
 	/**
