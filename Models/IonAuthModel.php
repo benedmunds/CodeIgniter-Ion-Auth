@@ -2570,35 +2570,41 @@ class IonAuthModel
 	}
 
 
-	/** Generate a random token
+	/**
+	 * Generate a random token
 	 * Inspired from http://php.net/manual/en/function.random-bytes.php#118932
 	 *
 	 * @param int $result_length
+	 *
 	 * @return string
 	 */
-	protected function _randomToken($result_length = 32)
+	protected function _randomToken(int $result_length = 32): string
 	{
-		if(!isset($result_length) || intval($result_length) <= 8 ){
+		if($result_length <= 8 )
+		{
 			$result_length = 32;
 		}
 
 		// Try random_bytes: PHP 7
-		if (function_exists('random_bytes')) {
+		if (function_exists('random_bytes'))
+		{
 			return bin2hex(random_bytes($result_length / 2));
 		}
 
 		// Try mcrypt
-		if (function_exists('mcrypt_create_iv')) {
+		if (function_exists('mcrypt_create_iv'))
+		{
 			return bin2hex(mcrypt_create_iv($result_length / 2, MCRYPT_DEV_URANDOM));
 		}
 
 		// Try openssl
-		if (function_exists('openssl_random_pseudo_bytes')) {
+		if (function_exists('openssl_random_pseudo_bytes'))
+		{
 			return bin2hex(openssl_random_pseudo_bytes($result_length / 2));
 		}
 
 		// No luck!
-		return false;
+		throw new \Exception('Unable to generate a random token');
 	}
 
 	/** Retrieve hash parameter according to options
