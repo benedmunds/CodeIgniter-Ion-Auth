@@ -200,7 +200,7 @@ class IonAuthModel
 	/**
 	 * Database object
 	 *
-	 * @var ConnectionInterface
+	 * @var \CodeIgniter\Database\BaseConnection
 	 */
 	protected $db;
 
@@ -1076,34 +1076,35 @@ class IonAuthModel
 	/**
 	 * Get the last time a login attempt occurred from given identity
 	 *
-	 * @param string      $identity   User's identity
-	 * @param string|null $ip_address IP address
-	 *                                Only used if trackLoginIpAddress is set to TRUE.
-	 *                                If NULL (default value), the current IP address is used.
-	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
+	 * @param string      $identity  User's identity
+	 * @param string|null $ipAddress IP address
+	 *                               Only used if trackLoginIpAddress is set to TRUE.
+	 *                               If NULL (default value), the current IP address is used.
+	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
-	 * @return int The time of the last login attempt for a given IP-address or identity
+	 * @return integer The time of the last login attempt for a given IP-address or identity
 	 */
-	public function getLastAttemptTime($identity, $ip_address = NULL)
+	public function getLastAttemptTime(string $identity, $ipAddress = null): int
 	{
 		if ($this->config->trackLoginAttempts)
 		{
-			$this->db->select('time');
-			$this->db->where('login', $identity);
+			$builder = $this->db->table($this->tables['login_attempts']);
+			$builder->select('time');
+			$builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
-				if (!isset($ip_address))
+				if (! isset($ipAddress))
 				{
-					$ip_address = \Config\Services::request()->getIPAddress();
+					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$this->db->where('ip_address', $ip_address);
+				$builder->where('ip_address', $ipAddress);
 			}
-			$this->db->orderBy('id', 'desc');
-			$qres = $this->db->get($this->tables['login_attempts'], 1);
+			$builder->orderBy('id', 'desc');
+			$qres = $builder->get(1);
 
-			if ($qres->numRows() > 0)
+			if ($qres->getRow())
 			{
-				return $qres->row()->time;
+				return $qres->getRow()->time;
 			}
 		}
 

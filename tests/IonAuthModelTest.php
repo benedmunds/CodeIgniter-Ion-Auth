@@ -86,12 +86,30 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test getLastAttemptTime()
+	 *
+	 * @return void
+	 */
+	public function testGetLastAttemptTime()
+	{
+		config('IonAuth')->trackLoginAttempts = true;
+
+		$this->model->login('admin@admin.com', random_string());
+
+		$this->assertGreaterThan(0, $this->model->getLastAttemptTime('admin@admin.com'));
+
+		config('IonAuth')->trackLoginAttempts = false;
+		$this->assertEquals(0, $this->model->getLastAttemptTime('admin@admin.com'));
+	}
+
+	/**
 	 * Test clearLoginAttempts()
 	 *
 	 * @return void
 	 */
 	public function testClearLoginAttempts()
 	{
+		config('IonAuth')->trackLoginAttempts = true;
 		$this->assertTrue($this->model->clearLoginAttempts('admin@admin.com'));
 	}
 
