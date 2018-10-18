@@ -474,27 +474,22 @@ class IonAuthModel
 	 *
 	 * @param string $identity
 	 *
-	 * @return bool Success
+	 * @return boolean Success
 	 */
-	public function clearForgottenPasswordCode($identity): bool
+	public function clearForgottenPasswordCode(string $identity): bool
 	{
-
 		if (empty($identity))
 		{
 			return false;
 		}
 
 		$data = [
-			'forgotten_password_selector' => NULL,
-			'forgotten_password_code' => NULL,
-			'forgotten_password_time' => NULL
+			'forgotten_password_selector' => null,
+			'forgotten_password_code'     => null,
+			'forgotten_password_time'     => null,
 		];
 
-		//$this->db->update($this->tables['users'], $data, [$this->identity_column => $identity]);
-		$builder = $this->db->table($this->tables['users']);
-		return $builder->update($data, [$this->identity_column => $identity]);
-
-		//return TRUE;
+		return $this->db->table($this->tables['users'])->update($data, [$this->identity_column => $identity]);
 	}
 
 	/**
