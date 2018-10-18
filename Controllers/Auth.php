@@ -335,12 +335,14 @@ class Auth extends \CodeIgniter\Controller
 	 * Reset password - final step for forgotten password
 	 *
 	 * @param string|null $code The reset code
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function reset_password($code = null)
 	{
 		if (! $code)
 		{
-			show_404();
+			throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
 		}
 
 		$this->data['title'] = lang('Auth.reset_password_heading');
@@ -354,7 +356,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->validation->setRule('new', lang('Auth.reset_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
 			$this->validation->setRule('new_confirm', lang('Auth.reset_password_validation_new_password_confirm_label'), 'required');
 
-			if ($this->validation->run() === false)
+			if (! $this->request->getPost() || $this->validation->withRequest($this->request)->run() === false)
 			{
 				// display the form
 
@@ -393,7 +395,7 @@ class Auth extends \CodeIgniter\Controller
 				if ($user->id != $this->request->getPost('user_id'))
 				{
 					// something fishy might be up
-					$this->ionAuth->clear_forgotten_password_code($identity);
+					$this->ionAuth->clearForgottenPasswordCode($identity);
 
 					throw new \Exception(lang('Auth.error_security'));
 				}
@@ -406,12 +408,12 @@ class Auth extends \CodeIgniter\Controller
 					{
 						// if the password was successfully changed
 						$this->session->setFlashdata('message', $this->ionAuth->messages());
-						return redirect("auth/login");
+						return redirect('/auth/login');
 					}
 					else
 					{
 						$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-						return redirect('auth/reset_password/' . $code);
+						return redirect('/auth/reset_password/' . $code);
 					}
 				}
 			}
@@ -420,7 +422,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// if the code is invalid then send them back to the forgot password page
 			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-			return redirect("auth/forgot_password");
+			return redirect('/auth/forgot_password');
 		}
 	}
 

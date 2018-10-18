@@ -63,6 +63,16 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test getUserByForgottenPasswordCode
+	 *
+	 * @return void
+	 */
+	public function testGetUserByForgottenPasswordCode()
+	{
+		$this->assertFalse($this->model->getUserByForgottenPasswordCode(random_string() . '.' . random_string()));
+	}
+
+	/**
 	 * Test register
 	 *
 	 * @return void

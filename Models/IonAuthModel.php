@@ -546,7 +546,7 @@ class IonAuthModel
 		if ($return)
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_successful']);
-			$this->setMessage('password_change_successful');
+			$this->setMessage('IonAuth.password_change_successful');
 		}
 		else
 		{
@@ -595,7 +595,7 @@ class IonAuthModel
 			if ($result)
 			{
 				$this->triggerEvents(['post_change_password', 'post_change_password_successful']);
-				$this->setMessage('password_change_successful');
+				$this->setMessage('IonAuth.password_change_successful');
 			}
 			else
 			{
@@ -756,16 +756,16 @@ class IonAuthModel
 	/**
 	 * Get a user from a forgotten password key.
 	 *
-	 * @param    string $user_code
+	 * @param string $userCode Forgotten password key
 	 *
-	 * @return    bool|object
+	 * @return  boolean|object
 	 * @author  Mathew
 	 * @updated Ryan
 	 */
-	public function getUserByForgottenPasswordCode($user_code)
+	public function getUserByForgottenPasswordCode(string $userCode)
 	{
 		// Retrieve the token object from the code
-		$token = $this->_retrieveSelectorValidatorCouple($user_code);
+		$token = $this->_retrieveSelectorValidatorCouple($userCode);
 
 		// Retrieve the user according to this selector
 		$user = $this->where('forgotten_password_selector', $token->selector)->users()->row();
@@ -779,7 +779,7 @@ class IonAuthModel
 			}
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
