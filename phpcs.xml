@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<ruleset>
-    <rule ref="vendor/codeigniter4/codeigniter4-standard/CodeIgniter4/ruleset.xml"></rule>
-    <file>src</file>
-</ruleset>
