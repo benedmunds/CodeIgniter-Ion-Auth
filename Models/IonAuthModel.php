@@ -1810,7 +1810,7 @@ class IonAuthModel
 					$data['password'] = $this->hashPassword($data['password'], $user->{$this->identity_column});
 					if ($data['password'] === false)
 					{
-						$this->db->trans_rollback();
+						$this->db->transRollback();
 						$this->triggerEvents(['post_update_user', 'post_update_user_unsuccessful']);
 						$this->setError('IonAuth.update_unsuccessful');
 
@@ -1856,7 +1856,7 @@ class IonAuthModel
 	{
 		$this->triggerEvents('pre_delete_user');
 
-		$this->db->trans_begin();
+		$this->db->transBegin();
 
 		// remove user from groups
 		$this->removeFromGroup(NULL, $id);
@@ -1864,15 +1864,15 @@ class IonAuthModel
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], ['id' => $id]);
 
-		if ($this->db->trans_status() === false)
+		if ($this->db->transStatus() === false)
 		{
-			$this->db->trans_rollback();
+			$this->db->transRollback();
 			$this->triggerEvents(['post_delete_user', 'post_delete_user_unsuccessful']);
 			$this->setError('IonAuth.delete_unsuccessful');
 			return false;
 		}
 
-		$this->db->trans_commit();
+		$this->db->transCommit();
 
 		$this->triggerEvents(['post_delete_user', 'post_delete_user_successful']);
 		$this->setMessage('delete_successful');
@@ -2123,7 +2123,7 @@ class IonAuthModel
 		$group_id = $this->db->insertId($this->tables['groups'] . '_id_seq');
 
 		// report success
-		$this->setMessage('group_creation_successful');
+		$this->setMessage('IonAuth.group_creation_successful');
 		// return the brand new group id
 		return $group_id;
 	}
@@ -2209,22 +2209,22 @@ class IonAuthModel
 
 		$this->triggerEvents('pre_delete_group');
 
-		$this->db->trans_begin();
+		$this->db->transBegin();
 
 		// remove all users from this group
 		$this->db->table($this->tables['users_groups'])->delete([$this->join['groups'] => $group_id]);
 		// remove the group itself
 		$this->db->table($this->tables['groups'])->delete(['id' => $group_id]);
 
-		if ($this->db->trans_status() === false)
+		if ($this->db->transStatus() === false)
 		{
-			$this->db->trans_rollback();
+			$this->db->transRollback();
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_unsuccessful']);
 			$this->setError('IonAuth.group_delete_unsuccessful');
 			return false;
 		}
 
-		$this->db->trans_commit();
+		$this->db->transCommit();
 
 		$this->triggerEvents(['post_delete_group', 'post_delete_group_successful']);
 		$this->setMessage('group_delete_successful');

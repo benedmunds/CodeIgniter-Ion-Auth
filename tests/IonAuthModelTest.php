@@ -127,6 +127,18 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test createGroup(), updateGroup(), DeleteGroup()
+	 *
+	 * @return void
+	 */
+	public function testCreateUpdateDeleteGroup()
+	{
+		$idGroup = $this->model->createGroup(random_string());
+		$this->model->updateGroup($idGroup, random_string());
+		$this->assertTrue($this->model->deleteGroup($idGroup));
+	}
+
+	/**
 	 * Test setMessage()
 	 *
 	 * @return void
