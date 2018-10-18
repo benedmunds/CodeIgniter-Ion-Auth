@@ -2550,10 +2550,9 @@ class IonAuthModel
 	 *
 	 * @return array
 	 */
-	protected function _filterData($table, $data)
+	protected function _filterData(string $table, $data): array
 	{
 		$filtered_data = [];
-		//$columns = $this->db->list_fields($table);
 		$columns = $this->db->getFieldNames($table);
 
 		if (is_array($data))
@@ -2561,7 +2560,9 @@ class IonAuthModel
 			foreach ($columns as $column)
 			{
 				if (array_key_exists($column, $data))
+				{
 					$filtered_data[$column] = $data[$column];
+				}
 			}
 		}
 
