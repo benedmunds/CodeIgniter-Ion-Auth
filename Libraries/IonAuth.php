@@ -39,13 +39,6 @@ class IonAuth
 	private $ionAuthModel;
 
 	/**
-	 * Account status ('not_activated', etc ...)
-	 *
-	 * @var string
-	 **/
-	protected $status;
-
-	/**
 	 * Extra where
 	 *
 	 * @var array

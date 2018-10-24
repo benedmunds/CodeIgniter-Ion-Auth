@@ -86,13 +86,6 @@ class IonAuthModel
 	public $activation_code;
 
 	/**
-	 * new password
-	 *
-	 * @var string
-	 */
-	public $new_password;
-
-	/**
 	 * Identity
 	 *
 	 * @var string
