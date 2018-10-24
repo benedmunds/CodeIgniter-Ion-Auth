@@ -46,13 +46,6 @@ class IonAuth
 	public $_extra_where = [];
 
 	/**
-	 * Extra set
-	 *
-	 * @var array
-	 **/
-	public $_extra_set = [];
-
-	/**
 	 * Caching of users and their groups
 	 *
 	 * @var array
