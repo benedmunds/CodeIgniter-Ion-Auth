@@ -26,11 +26,17 @@ class IonAuthLibraryTest extends \CIUnitTestCase
 		$this->assertFalse($ionAuthLibrary->loggedIn());
 	}
 
-	/*
-	public function testLogout()
+	/**
+	 * Test isAdmin()
+	 *
+	 * @return void
+	 */
+	public function testIsAdmin()
 	{
 		$ionAuthLibrary = new \IonAuth\Libraries\IonAuth();
-		$this->assertTrue($ionAuthLibrary->logout());
+
+		$this->assertTrue($ionAuthLibrary->isAdmin(1));
+
+		$this->assertFalse($ionAuthLibrary->isAdmin(2));
 	}
-	*/
 }
