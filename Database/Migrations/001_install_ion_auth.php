@@ -2,8 +2,18 @@
 
 class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 {
+	/**
+	 * Tables
+	 *
+	 * @var array
+	 */
 	private $tables;
 
+	/**
+	 * Construct
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		$config = config('IonAuth');
@@ -16,6 +26,11 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 		$this->tables = $config->tables;
 	}
 
+	/**
+	 * Up
+	 *
+	 * @return void
+	 */
 	public function up()
 	{
 		// Drop table 'groups' if it exists
@@ -249,6 +264,11 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 		$this->forge->createTable($this->tables['login_attempts']);
 	}
 
+	/**
+	 * Down
+	 *
+	 * @return void
+	 */
 	public function down()
 	{
 		$this->forge->dropTable($this->tables['users'], true);
