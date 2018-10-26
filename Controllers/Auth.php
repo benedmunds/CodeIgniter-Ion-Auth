@@ -828,19 +828,21 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Edit a group
 	 *
-	 * @param int|string $id
+	 * @param integer $id Group id
+	 *
+	 * @return string|CodeIgniter\Http\Response
 	 */
-	public function edit_group($id)
+	public function edit_group(int $id = 0)
 	{
 		// bail if no group id given
-		if (!$id || empty($id))
+		if (! $id)
 		{
 			return redirect('/auth');
 		}
 
 		$this->data['title'] = lang('Auth.edit_group_title');
 
-		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
+		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
 			return redirect('/auth');
 		}
@@ -854,9 +856,9 @@ class Auth extends \CodeIgniter\Controller
 		{
 			if ($this->validation->withRequest($this->request)->run())
 			{
-				$group_update = $this->ionAuth->updateGroup($id, $_POST['group_name'], $_POST['group_description']);
+				$groupUpdate = $this->ionAuth->updateGroup($id, $this->request->getPost('group_name'), ['description' => $this->request->getPost('group_description')]);
 
-				if ($group_update)
+				if ($groupUpdate)
 				{
 					$this->session->setFlashdata('message', lang('Auth.edit_group_saved'));
 				}
@@ -869,14 +871,14 @@ class Auth extends \CodeIgniter\Controller
 		}
 
 		// set the flash data error message if there is one
-		$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
+		$this->data['message'] = $this->validation->listErrors($this->validationListTemplate) ?: ($this->ionAuth->errors($this->validationListTemplate) ?: $this->session->getFlashdata('message'));
 
 		// pass the user to the view
 		$this->data['group'] = $group;
 
 		$readonly = $this->configIonAuth->adminGroup === $group->name ? 'readonly' : '';
 
-		$this->data['group_name'] = [
+		$this->data['group_name']        = [
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
@@ -890,7 +892,6 @@ class Auth extends \CodeIgniter\Controller
 			'value' => set_value('group_description', $group->description),
 		];
 
-		//return $this->renderPage('auth' . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 		return $this->renderPage($this->viewsFolder . DIRECTORY_SEPARATOR . 'edit_group', $this->data);
 	}
 

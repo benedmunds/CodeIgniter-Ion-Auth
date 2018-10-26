@@ -2112,31 +2112,31 @@ class IonAuthModel
 	}
 
 	/**
-	 * update_group
+	 * Update group
 	 *
-	 * @param int|string|bool $group_id
-	 * @param string|bool     $groupName
-	 * @param array    $additional_data
+	 * @param integer $groupId        Group id
+	 * @param string  $groupName      Group name
+	 * @param array   $additionalData Additional datas
 	 *
 	 * @return bool
 	 * @author aditya menon
 	 */
-	public function updateGroup($group_id = false, $groupName = false, $additional_data = []): bool
+	public function updateGroup(int $groupId, string $groupName = '', array $additionalData = []): bool
 	{
-		if (empty($group_id))
+		if (! $groupId)
 		{
 			return false;
 		}
 
 		$data = [];
 
-		if (!empty($groupName))
+		if (! empty($groupName))
 		{
 			// we are changing the name, so do some checks
 
 			// bail if the group name already exists
-			$existing_group = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
-			if (isset($existing_group->id) && $existing_group->id != $group_id)
+			$existingGroup = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
+			if (isset($existingGroup->id) && $existingGroup->id != $groupId)
 			{
 				$this->setError('IonAuth.group_already_exists');
 				return false;
@@ -2146,7 +2146,7 @@ class IonAuthModel
 		}
 
 		// restrict change of name of the admin group
-		$group = $this->db->table($this->tables['groups'])->getWhere(['id' => $group_id])->getRow();
+		$group = $this->db->table($this->tables['groups'])->getWhere(['id' => $groupId])->getRow();
 		if ($this->config->adminGroup === $group->name && $groupName !== $group->name)
 		{
 			$this->setError('IonAuth.groupName_admin_not_alter');
@@ -2155,12 +2155,12 @@ class IonAuthModel
 
 		// filter out any data passed that doesnt have a matching column in the groups table
 		// and merge the set group data and the additional data
-		if (!empty($additional_data))
+		if (! empty($additionalData))
 		{
-			$data = array_merge($this->_filterData($this->tables['groups'], $additional_data), $data);
+			$data = array_merge($this->_filterData($this->tables['groups'], $additionalData), $data);
 		}
 
-		$this->db->table($this->tables['groups'])->update($data, ['id' => $group_id]);
+		$this->db->table($this->tables['groups'])->update($data, ['id' => $groupId]);
 
 		$this->setMessage('IonAuth.group_update_successful');
 
