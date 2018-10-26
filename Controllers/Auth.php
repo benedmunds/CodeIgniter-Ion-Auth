@@ -898,14 +898,25 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Render the specified view
 	 *
-	 * @param string     $view The name of the file to load
-	 * @param array|null $data An array of key/value pairs to make available within the view.
+	 * @param string     $view       The name of the file to load
+	 * @param array|null $data       An array of key/value pairs to make available within the view.
+	 * @param boolean    $returnHtml If true return html string
 	 *
-	 * @return string
+	 * @return string|void
 	 */
-	protected function renderPage(string $view, $data = null): string
+	protected function renderPage(string $view, $data = null, bool $returnHtml = true): string
 	{
-		$viewdata = (empty($data)) ? $this->data : $data;
-		return view($view, $viewdata);
+		$viewdata = $data ?: $this->data;
+
+		$viewHtml = view($view, $viewdata);
+
+		if ($returnHtml)
+		{
+			return $viewHtml;
+		}
+		else
+		{
+			echo $viewHtml;
+		}
 	}
 }
