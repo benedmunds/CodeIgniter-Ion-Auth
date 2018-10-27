@@ -2769,7 +2769,7 @@ class IonAuthModel
 
 			$salt = substr($hashedPasswordDb, 0, $saltLength);
 
-			$hashed_password =  $salt . substr(sha1($salt . $password), 0, -$salt_length);
+			$hashedPassword =  $salt . substr(sha1($salt . $password), 0, -$saltLength);
 		}
 
 		// Now we can compare them
