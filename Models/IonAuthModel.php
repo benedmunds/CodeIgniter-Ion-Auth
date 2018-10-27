@@ -1189,7 +1189,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function limit($limit)
+	public function limit(int $limit): self
 	{
 		$this->triggerEvents('limit');
 		$this->_ion_limit = $limit;
