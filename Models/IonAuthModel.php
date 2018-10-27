@@ -551,7 +551,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function changePassword($identity, $old, $new)
+	public function changePassword(string $identity, string $old, string $new)
 	{
 		$this->triggerEvents('pre_change_password');
 
