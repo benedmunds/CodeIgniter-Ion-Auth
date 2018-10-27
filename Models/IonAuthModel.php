@@ -1633,7 +1633,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author Ben Edmunds
 	 */
-	public function removeFromGroup($group_ids = false, $user_id = false)
+	public function removeFromGroup($group_ids = false, $user_id = false): bool
 	{
 		$this->triggerEvents('remove_from_group');
 
