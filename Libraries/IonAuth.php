@@ -40,13 +40,6 @@ class IonAuth
 	private $ionAuthModel;
 
 	/**
-	 * Caching of users and their groups
-	 *
-	 * @var array
-	 **/
-	protected $cacheUserInGroup;
-
-	/**
 	 * @var \CodeIgniter\Email\Email
 	 */
 	protected $email;
@@ -69,8 +62,6 @@ class IonAuth
 		$this->session = session();
 
 		$this->ionAuthModel = new \IonAuth\Models\IonAuthModel();
-
-		$this->cacheUserInGroup =& $this->ionAuthModel->cacheUserInGroup;
 
 		$emailConfig = $this->config->emailConfig;
 
