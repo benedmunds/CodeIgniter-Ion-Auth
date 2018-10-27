@@ -119,7 +119,7 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	public $_ion_limit = NULL;
+	protected $ionLimit = NULL;
 
 	/**
 	 * Offset
