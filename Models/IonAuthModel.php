@@ -189,7 +189,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	protected $_cache_groups = [];
+	protected $cacheGroups = [];
 
 	/**
 	 * Database object
