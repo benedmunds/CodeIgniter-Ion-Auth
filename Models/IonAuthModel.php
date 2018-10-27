@@ -1225,7 +1225,7 @@ class IonAuthModel
 			$where = [$where => $value];
 		}
 
-		array_push($this->_ion_where, $where);
+		array_push($this->ionWhere, $where);
 
 		return $this;
 	}
