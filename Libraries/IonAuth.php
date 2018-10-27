@@ -325,7 +325,7 @@ class IonAuth
 
 		$identity = $this->config->identity;
 
-		session()->remove([$identity, 'id', 'user_id']);
+		$this->session->remove([$identity, 'id', 'user_id']);
 
 		// delete the remember me cookies if they exist
 		delete_cookie($this->config->rememberCookieName);
