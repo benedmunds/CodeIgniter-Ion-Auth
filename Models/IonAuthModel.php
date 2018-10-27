@@ -126,7 +126,7 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	public $_ion_offset = NULL;
+	protected $ionOffset = NULL;
 
 	/**
 	 * Order By
