@@ -1576,45 +1576,45 @@ class IonAuthModel
 	/**
 	 * add_to_group
 	 *
-	 * @param array|int|float|string $group_ids
+	 * @param array|int|float|string $groupIds
 	 * @param bool|int|float|string  $user_id
 	 *
 	 * @return int
 	 * @author Ben Edmunds
 	 */
-	public function addToGroup($group_ids, $user_id = false): int
+	public function addToGroup($groupIds, $user_id = false): int
 	{
 		$this->triggerEvents('add_to_group');
 
 		// if no id was passed use the current users id
 		$user_id || $user_id = $this->session->get('user_id');
 
-		if(!is_array($group_ids))
+		if(!is_array($groupIds))
 		{
-			$group_ids = [$group_ids];
+			$groupIds = [$groupIds];
 		}
 
 		$return = 0;
 
 		// Then insert each into the database
-		foreach ($group_ids as $group_id)
+		foreach ($groupIds as $groupId)
 		{
 			// Cast to float to support bigint data type
 			if ($this->db->table($this->tables['users_groups'])->insert([
-																	$this->join['groups'] => (float)$group_id,
+																	$this->join['groups'] => (float)$groupId,
 																	$this->join['users']  => (float)$user_id  ]))
 			{
-				if (isset($this->_cache_groups[$group_id]))
+				if (isset($this->_cache_groups[$groupId]))
 				{
-					$groupName = $this->_cache_groups[$group_id];
+					$groupName = $this->_cache_groups[$groupId];
 				}
 				else
 				{
-					$group = $this->group($group_id)->result();
+					$group = $this->group($groupId)->result();
 					$groupName = $group[0]->name;
-					$this->_cache_groups[$group_id] = $groupName;
+					$this->_cache_groups[$groupId] = $groupName;
 				}
-				$this->cacheUserInGroup[$user_id][$group_id] = $groupName;
+				$this->cacheUserInGroup[$user_id][$groupId] = $groupName;
 
 				// Return the number of groups added
 				$return++;
@@ -1627,13 +1627,13 @@ class IonAuthModel
 	/**
 	 * remove_from_group
 	 *
-	 * @param array|int|float|string|bool $group_ids
+	 * @param array|int|float|string|bool $groupIds
 	 * @param int|float|string|bool $user_id
 	 *
 	 * @return bool
 	 * @author Ben Edmunds
 	 */
-	public function removeFromGroup($group_ids = false, $user_id = false): bool
+	public function removeFromGroup($groupIds = false, $user_id = false): bool
 	{
 		$this->triggerEvents('remove_from_group');
 
@@ -1646,26 +1646,26 @@ class IonAuthModel
 		$builder = $this->db->table($this->tables['users_groups']);
 
 		// if group id(s) are passed remove user from the group(s)
-		if (!empty($group_ids))
+		if (!empty($groupIds))
 		{
-			if (!is_array($group_ids))
+			if (!is_array($groupIds))
 			{
-				$group_ids = [$group_ids];
+				$groupIds = [$groupIds];
 			}
 
-			foreach ($group_ids as $group_id)
+			foreach ($groupIds as $groupId)
 			{
 				// Cast to float to support bigint data type
 				/*
 				$this->db->delete(
 					$this->tables['users_groups'],
-					[$this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id]
+					[$this->join['groups'] => (float)$groupId, $this->join['users'] => (float)$user_id]
 				);
 				*/
-				$builder->delete([$this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id]);
-				if (isset($this->cacheUserInGroup[$user_id]) && isset($this->cacheUserInGroup[$user_id][$group_id]))
+				$builder->delete([$this->join['groups'] => (float)$groupId, $this->join['users'] => (float)$user_id]);
+				if (isset($this->cacheUserInGroup[$user_id]) && isset($this->cacheUserInGroup[$user_id][$groupId]))
 				{
-					unset($this->cacheUserInGroup[$user_id][$group_id]);
+					unset($this->cacheUserInGroup[$user_id][$groupId]);
 				}
 			}
 
@@ -2104,12 +2104,12 @@ class IonAuthModel
 
 		// insert the new group
 		$this->db->table($this->tables['groups'])->insert($data);
-		$group_id = $this->db->insertId($this->tables['groups'] . '_id_seq');
+		$groupId = $this->db->insertId($this->tables['groups'] . '_id_seq');
 
 		// report success
 		$this->setMessage('IonAuth.group_creation_successful');
 		// return the brand new group id
-		return $group_id;
+		return $groupId;
 	}
 
 	/**
@@ -2171,7 +2171,7 @@ class IonAuthModel
 	/**
 	 * delete_group
 	 *
-	 * @param int|string|bool $group_id
+	 * @param int|string|bool $groupId
 	 *
 	 * @return bool
 	 * @author aditya menon
@@ -2179,11 +2179,11 @@ class IonAuthModel
 	public function deleteGroup($groupId = false): bool
 	{
 		// bail if mandatory param not set
-		if(!$group_id || empty($group_id))
+		if(!$groupId || empty($groupId))
 		{
 			return false;
 		}
-		$group = $this->group($group_id)->row();
+		$group = $this->group($groupId)->row();
 		if($group->name == $this->config->adminGroup)
 		{
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_notallowed']);
@@ -2196,9 +2196,9 @@ class IonAuthModel
 		$this->db->transBegin();
 
 		// remove all users from this group
-		$this->db->table($this->tables['users_groups'])->delete([$this->join['groups'] => $group_id]);
+		$this->db->table($this->tables['users_groups'])->delete([$this->join['groups'] => $groupId]);
 		// remove the group itself
-		$this->db->table($this->tables['groups'])->delete(['id' => $group_id]);
+		$this->db->table($this->tables['groups'])->delete(['id' => $groupId]);
 
 		if ($this->db->transStatus() === false)
 		{
