@@ -1433,7 +1433,7 @@ class IonAuthModel
 
 		if (! empty($this->ionLike))
 		{
-			foreach ($this->_ion_like as $like)
+			foreach ($this->ionLike as $like)
 			{
 				$builder->orLike($like['like'], $like['value'], $like['position']);
 			}
