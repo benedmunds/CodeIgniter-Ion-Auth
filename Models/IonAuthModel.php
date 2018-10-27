@@ -1275,7 +1275,7 @@ class IonAuthModel
 		$this->triggerEvents('order_by');
 
 		$this->ionOrderBy = $by;
-		$this->_ion_order    = $order;
+		$this->ionOrder    = $order;
 
 		return $this;
 	}
