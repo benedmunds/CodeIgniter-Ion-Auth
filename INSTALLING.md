@@ -3,7 +3,7 @@ Installing Ion Auth.
 
 Before installing, please check that you are meeting the minimum server requirements.
 
-There are differents ways to install this package.
+There are different ways to install this package.
 
 
 > 1. With composer
