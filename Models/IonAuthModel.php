@@ -1202,7 +1202,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function offset($offset)
+	public function offset(int $offset): self
 	{
 		$this->triggerEvents('offset');
 		$this->_ion_offset = $offset;
