@@ -705,7 +705,7 @@ class IonAuthModel
 	 * @author  Mathew
 	 * @updated Ryan
 	 */
-	public function forgottenPassword($identity)
+	public function forgottenPassword(string $identity)
 	{
 		if (empty($identity))
 		{
