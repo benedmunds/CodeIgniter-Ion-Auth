@@ -1139,7 +1139,8 @@ class IonAuthModel
 				$data['ip_address'] = \Config\Services::request()->getIPAddress();
 			}
 			$builder = $this->db->table($this->tables['login_attempts']);
-			return $builder->insert($data);
+			$builder->insert($data);
+			return true;
 		}
 		return false;
 	}
