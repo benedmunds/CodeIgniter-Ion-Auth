@@ -107,7 +107,7 @@ class IonAuth
 		{
 			return call_user_func_array([$this, 'update'], $arguments);
 		}
-		return call_user_func_array( [$this->ionAuthModel, $method], $arguments);
+		return call_user_func_array([$this->ionAuthModel, $method], $arguments);
 	}
 
 	/**
