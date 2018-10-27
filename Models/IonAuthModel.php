@@ -182,7 +182,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	public $_cacheUserInGroup = [];
+	protected $cacheUserInGroup = [];
 
 	/**
 	 * Caching of groups
