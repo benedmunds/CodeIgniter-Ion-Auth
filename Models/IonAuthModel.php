@@ -1237,7 +1237,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function like($like, $value = NULL, $position = 'both')
+	public function like(string $like, $value = NULL, $position = 'both'): self
 	{
 		$this->triggerEvents('like');
 
