@@ -856,7 +856,7 @@ class IonAuthModel
 
 		$this->triggerEvents('post_register');
 
-		return (isset($id)) ? $id : false;
+		return $id ?? false;
 	}
 
 	/**
