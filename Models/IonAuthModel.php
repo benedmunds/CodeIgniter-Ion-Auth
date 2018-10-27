@@ -1431,7 +1431,7 @@ class IonAuthModel
 			$this->ionWhere = [];
 		}
 
-		if (! empty($this->_ion_like))
+		if (! empty($this->ionLike))
 		{
 			foreach ($this->_ion_like as $like)
 			{
