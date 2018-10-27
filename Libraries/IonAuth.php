@@ -40,13 +40,6 @@ class IonAuth
 	private $ionAuthModel;
 
 	/**
-	 * Extra where
-	 *
-	 * @var array
-	 **/
-	public $_extra_where = [];
-
-	/**
 	 * Caching of users and their groups
 	 *
 	 * @var array
