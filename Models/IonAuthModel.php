@@ -1359,7 +1359,7 @@ class IonAuthModel
 				$builder->select($select);
 			}
 
-			$this->_ion_select = [];
+			$this->ionSelect = [];
 		}
 		else
 		{
