@@ -1423,7 +1423,7 @@ class IonAuthModel
 		// run each where that was passed
 		if (! empty($this->ionWhere))
 		{
-			foreach ($this->_ion_where as $where)
+			foreach ($this->ionWhere as $where)
 			{
 				$builder->where($where);
 			}
