@@ -2094,7 +2094,7 @@ class IonAuthModel
 			return false;
 		}
 
-		$data = ['name'=>$groupName,'description'=>$group_description];
+		$data = ['name'=>$groupName,'description'=>$groupDescription];
 
 		// filter out any data passed that doesnt have a matching column in the groups table
 		// and merge the set group data and the additional data
