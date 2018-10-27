@@ -2743,7 +2743,7 @@ class IonAuthModel
 			// Salt is store at the side, retrieve it
 			$query = $this->db->table($this->tables['users'])
 							  ->select('salt')
-							  ->where($this->identity_column, $identity)
+							  ->where($this->identityColumn, $identity)
 							  ->limit(1)
 							  ->get();
 
