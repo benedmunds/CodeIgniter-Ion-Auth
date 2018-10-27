@@ -1441,7 +1441,7 @@ class IonAuthModel
 			$this->ionLike = [];
 		}
 
-		if (isset($this->_ion_limit) && isset($this->_ion_offset))
+		if (isset($this->ionLimit) && isset($this->ionOffset))
 		{
 			$builder->limit($this->_ion_limit, $this->_ion_offset);
 
