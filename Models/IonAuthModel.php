@@ -98,7 +98,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	public $_ion_where = [];
+	protected $ionWhere = [];
 
 	/**
 	 * Select
