@@ -1523,7 +1523,7 @@ class IonAuthModel
 	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
 	 * @author Phil Sturgeon
 	 **/
-	public function inGroup($check_group, $id = false, $check_all = false)
+	public function inGroup($check_group, $id = false, bool $check_all = false): bool
 	{
 		$this->triggerEvents('in_group');
 
