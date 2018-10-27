@@ -2759,7 +2759,7 @@ class IonAuthModel
 		else
 		{
 			// Salt is stored along with password
-			$salt_length = $this->config->salt_length;
+			$saltLength = $this->config->salt_length;
 
 			if (!$salt_length)
 			{
