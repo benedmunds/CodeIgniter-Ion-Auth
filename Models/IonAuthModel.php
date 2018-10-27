@@ -1428,7 +1428,7 @@ class IonAuthModel
 				$builder->where($where);
 			}
 
-			$this->_ion_where = [];
+			$this->ionWhere = [];
 		}
 
 		if (! empty($this->_ion_like))
