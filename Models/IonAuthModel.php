@@ -1698,33 +1698,33 @@ class IonAuthModel
 		$builder = $this->db->table($this->tables['groups']);
 
 		// run each where that was passed
-		if (isset($this->_ion_where) && !empty($this->_ion_where))
+		if (isset($this->ionWhere) && !empty($this->ionWhere))
 		{
-			foreach ($this->_ion_where as $where)
+			foreach ($this->ionWhere as $where)
 			{
 				$builder->where($where);
 			}
-			$this->_ion_where = [];
+			$this->ionWhere = [];
 		}
 
-		if (isset($this->_ion_limit) && isset($this->_ion_offset))
+		if (isset($this->ionLimit) && isset($this->ionOffset))
 		{
-			$builder->limit($this->_ion_limit, $this->_ion_offset);
+			$builder->limit($this->ionLimit, $this->ionOffset);
 
-			$this->_ion_limit  = NULL;
-			$this->_ion_offset = NULL;
+			$this->ionLimit  = NULL;
+			$this->ionOffset = NULL;
 		}
-		else if (isset($this->_ion_limit))
+		else if (isset($this->ionLimit))
 		{
-			$builder->limit($this->_ion_limit);
+			$builder->limit($this->ionLimit);
 
-			$this->_ion_limit  = NULL;
+			$this->ionLimit  = NULL;
 		}
 
 		// set the order
-		if (isset($this->_ion_order_by) && isset($this->_ion_order))
+		if (isset($this->ionOrderBy) && isset($this->ionOrder))
 		{
-			$builder->orderBy($this->_ion_order_by, $this->_ion_order);
+			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
 		}
 
 		$this->response = $builder->get();
