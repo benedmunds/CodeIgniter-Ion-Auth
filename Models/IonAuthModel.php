@@ -1192,7 +1192,7 @@ class IonAuthModel
 	public function limit(int $limit): self
 	{
 		$this->triggerEvents('limit');
-		$this->_ion_limit = $limit;
+		$this->ionLimit = $limit;
 
 		return $this;
 	}
