@@ -1421,7 +1421,7 @@ class IonAuthModel
 		$this->triggerEvents('extra_where');
 
 		// run each where that was passed
-		if (! empty($this->_ion_where))
+		if (! empty($this->ionWhere))
 		{
 			foreach ($this->_ion_where as $where)
 			{
