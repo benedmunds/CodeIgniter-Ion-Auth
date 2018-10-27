@@ -2767,7 +2767,7 @@ class IonAuthModel
 				return false;
 			}
 
-			$salt = substr($hashed_password_db, 0, $salt_length);
+			$salt = substr($hashedPasswordDb, 0, $saltLength);
 
 			$hashed_password =  $salt . substr(sha1($salt . $password), 0, -$salt_length);
 		}
