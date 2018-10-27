@@ -2176,7 +2176,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author aditya menon
 	 */
-	public function deleteGroup($group_id = false)
+	public function deleteGroup($groupId = false): bool
 	{
 		// bail if mandatory param not set
 		if(!$group_id || empty($group_id))
