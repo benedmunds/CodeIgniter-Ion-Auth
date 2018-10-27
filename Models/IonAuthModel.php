@@ -1216,7 +1216,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function where($where, $value = NULL)
+	public function where($where, $value = NULL): self
 	{
 		$this->triggerEvents('where');
 
