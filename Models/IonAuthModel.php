@@ -1354,7 +1354,7 @@ class IonAuthModel
 
 		if (! empty($this->ionSelect))
 		{
-			foreach ($this->_ion_select as $select)
+			foreach ($this->ionSelect as $select)
 			{
 				$builder->select($select);
 			}
