@@ -1,4 +1,5 @@
-<?php namespace IonAuth\Controllers;
+<?php
+namespace IonAuth\Controllers;
 
 /**
  * Class Auth

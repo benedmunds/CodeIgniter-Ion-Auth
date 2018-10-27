@@ -1,4 +1,5 @@
-<?php namespace Tests;
+<?php
+namespace Tests;
 
 /**
  * IonAuth librarie tests

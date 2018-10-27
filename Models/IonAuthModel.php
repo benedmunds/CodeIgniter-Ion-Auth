@@ -1,4 +1,5 @@
-<?php namespace IonAuth\Models;
+<?php
+namespace IonAuth\Models;
 
 /**
  * Name:    Ion Auth Model

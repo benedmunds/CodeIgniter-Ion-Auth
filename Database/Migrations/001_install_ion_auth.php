@@ -1,4 +1,5 @@
-<?php namespace IonAuth\Database\Migrations;
+<?php
+namespace IonAuth\Database\Migrations;
 
 class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 {

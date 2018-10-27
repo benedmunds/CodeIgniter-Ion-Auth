@@ -1,4 +1,5 @@
-<?php namespace IonAuth\Config;
+<?php
+namespace IonAuth\Config;
 
 /**
  * Name:    Ion Auth
