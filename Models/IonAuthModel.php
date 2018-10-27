@@ -320,7 +320,7 @@ class IonAuthModel
 	 * @param string $password
 	 *
 	 */
-	public function rehashPasswordIfNeeded($hash, $identity, $password)
+	public function rehashPasswordIfNeeded(string $hash, string $identity, string $password)
 	{
 		$algo = $this->_getHashAlgo();
 		$params = $this->_getHashParameters($identity);
