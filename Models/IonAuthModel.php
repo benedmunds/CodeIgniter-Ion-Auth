@@ -1346,7 +1346,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function users($groups = null)
+	public function users($groups = null): self
 	{
 		$this->triggerEvents('users');
 
