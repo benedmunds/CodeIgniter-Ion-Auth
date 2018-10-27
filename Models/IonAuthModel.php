@@ -1452,7 +1452,7 @@ class IonAuthModel
 		{
 			$builder->limit($this->ionLimit);
 
-			$this->_ion_limit  = null;
+			$this->ionLimit  = null;
 		}
 
 		// set the order
