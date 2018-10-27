@@ -2761,7 +2761,7 @@ class IonAuthModel
 			// Salt is stored along with password
 			$saltLength = $this->config->salt_length;
 
-			if (!$salt_length)
+			if (!$saltLength)
 			{
 				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
 				return false;
