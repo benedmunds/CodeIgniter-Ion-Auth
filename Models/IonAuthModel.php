@@ -112,7 +112,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	public $_ion_like = [];
+	protected $ionLike = [];
 
 	/**
 	 * Limit
