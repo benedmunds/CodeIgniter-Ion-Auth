@@ -66,7 +66,7 @@ class IonAuth
 		$this->email = \Config\Services::email();
 		//$this->load->helper(['cookie', 'language','url']);
 
-		//$this->session = \Config\Services::session();   //$this->load->library('session');
+		$this->session = session();
 
 		$this->ionAuthModel = new \IonAuth\Models\IonAuthModel();
 
