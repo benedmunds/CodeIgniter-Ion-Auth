@@ -378,7 +378,7 @@ class IonAuth
 	 **/
 	public function getUserId()
 	{
-		$userId = $this->session->userdata('user_id');
+		$userId = $this->session->get('user_id');
 		if (!empty($userId))
 		{
 			return $userId;
