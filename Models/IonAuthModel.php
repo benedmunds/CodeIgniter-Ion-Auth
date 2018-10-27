@@ -1456,7 +1456,7 @@ class IonAuthModel
 		}
 
 		// set the order
-		if (isset($this->_ion_order_by) && isset($this->_ion_order))
+		if (isset($this->ionOrderBy) && isset($this->ionOrder))
 		{
 			$builder->orderBy($this->_ion_order_by, $this->_ion_order);
 
