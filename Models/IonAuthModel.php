@@ -673,7 +673,7 @@ class IonAuthModel
 	 *
 	 * @return bool|int
 	 */
-	public function getUserIdFromIdentity($identity = '')
+	public function getUserIdFromIdentity(string $identity = '')
 	{
 		if (empty($identity))
 		{
