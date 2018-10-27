@@ -1448,7 +1448,7 @@ class IonAuthModel
 			$this->ionLimit  = null;
 			$this->ionOffset = null;
 		}
-		else if (isset($this->_ion_limit))
+		else if (isset($this->ionLimit))
 		{
 			$builder->limit($this->_ion_limit);
 
