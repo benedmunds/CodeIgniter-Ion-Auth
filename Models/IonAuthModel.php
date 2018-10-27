@@ -1129,7 +1129,7 @@ class IonAuthModel
 	 *
 	 * @return bool
 	 */
-	public function increaseLoginAttempts($identity)
+	public function increaseLoginAttempts(string $identity): bool
 	{
 		if ($this->config->trackLoginAttempts)
 		{
