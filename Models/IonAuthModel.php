@@ -133,7 +133,7 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	public $_ion_order_by = NULL;
+	protected $ionOrderBy = NULL;
 
 	/**
 	 * Order
