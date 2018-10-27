@@ -2747,7 +2747,7 @@ class IonAuthModel
 							  ->limit(1)
 							  ->get();
 
-			$salt_db = $query->row();
+			$saltDb = $query->row();
 
 			if ($query->numRows() !== 1)
 			{
