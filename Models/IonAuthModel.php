@@ -2773,7 +2773,7 @@ class IonAuthModel
 		}
 
 		// Now we can compare them
-		if($hashed_password === $hashed_password_db)
+		if($hashedPassword === $hashedPasswordDb)
 		{
 			// Password is good, migrate it to latest
 			$result = $this->_setPasswordDb($identity, $password);
