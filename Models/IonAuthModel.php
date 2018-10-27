@@ -171,7 +171,7 @@ class IonAuthModel
 	protected $errors = [];
 
 	/**
-	 * Messages templates (single, list).
+	 * Message templates (single, list).
 	 *
 	 * @var array
 	 */
