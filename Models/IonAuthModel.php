@@ -1460,7 +1460,7 @@ class IonAuthModel
 		{
 			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
 
-			$this->_ion_order    = null;
+			$this->ionOrder    = null;
 			$this->_ion_order_by = null;
 		}
 
