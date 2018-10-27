@@ -175,7 +175,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	protected $messagessTemplates = [];
+	protected $messageTemplates = [];
 
 	/**
 	 * Caching of users and their groups
