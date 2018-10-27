@@ -2755,7 +2755,7 @@ class IonAuthModel
 				return false;
 			}
 
-			$hashed_password = sha1($password . $salt_db->salt);
+			$hashedPassword = sha1($password . $saltDb->salt);
 		}
 		else
 		{
