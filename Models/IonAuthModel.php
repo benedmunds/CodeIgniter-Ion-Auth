@@ -2008,7 +2008,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author Ben Edmunds
 	 */
-	public function loginRememberedUser()
+	public function loginRememberedUser(): bool
 	{
 		$this->triggerEvents('pre_login_remembered_user');
 
