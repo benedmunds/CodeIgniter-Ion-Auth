@@ -1035,7 +1035,7 @@ class IonAuthModel
 	 *
 	 * @return int
 	 */
-	public function getAttemptsNum(string $identity, string $ipAddress = null): int
+	public function getAttemptsNum(string $identity, $ipAddress = null): int
 	{
 		if ($this->config->trackLoginAttempts)
 		{
