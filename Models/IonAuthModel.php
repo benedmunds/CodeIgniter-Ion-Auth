@@ -1438,7 +1438,7 @@ class IonAuthModel
 				$builder->orLike($like['like'], $like['value'], $like['position']);
 			}
 
-			$this->_ion_like = [];
+			$this->ionLike = [];
 		}
 
 		if (isset($this->_ion_limit) && isset($this->_ion_offset))
