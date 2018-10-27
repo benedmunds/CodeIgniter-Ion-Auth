@@ -87,11 +87,11 @@ class IonAuthModel
 	public $activation_code;
 
 	/**
-	 * Identity
+	 * Identity column
 	 *
 	 * @var string
 	 */
-	public $identity;
+	public $identityColumn;
 
 	/**
 	 * Where
@@ -483,7 +483,7 @@ class IonAuthModel
 			'forgotten_password_time'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identity_column => $identity]);
+		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
 	}
 
 	/**
@@ -505,7 +505,7 @@ class IonAuthModel
 			'remember_code'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identity_column => $identity]);
+		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
 	}
 
 	/**
@@ -558,7 +558,7 @@ class IonAuthModel
 		$this->triggerEvents('extra_where');
 
 		$query = $this->db->select('id, password')
-		                  ->where($this->identity_column, $identity)
+		                  ->where($this->identityColumn, $identity)
 		                  ->limit(1)
 		                  ->orderBy('id', 'desc')
 		                  ->get($this->tables['users']);
@@ -661,7 +661,7 @@ class IonAuthModel
 		}
 
 		$builder = $this->db->table($this->tables['users']);
-		return $builder->where($this->identity_column, $identity)
+		return $builder->where($this->identityColumn, $identity)
 					   ->limit(1)
 					   ->countAllResults() > 0;
 	}
@@ -682,7 +682,7 @@ class IonAuthModel
 
 		$builder = $this->db->table($this->tables['users']);
 		$query = $builder->select('id')
-						 ->where($this->identity_column, $identity)
+						 ->where($this->identityColumn, $identity)
 						 ->limit(1)
 						 ->get();
 
@@ -723,7 +723,7 @@ class IonAuthModel
 		];
 
 		$this->triggerEvents('extra_where');
-		$this->db->table($this->tables['users'])->update($update, [$this->identity_column => $identity]);
+		$this->db->table($this->tables['users'])->update($update, [$this->identityColumn => $identity]);
 
 		if ($this->db->affectedRows() === 1)
 		{
@@ -820,7 +820,7 @@ class IonAuthModel
 
 		// Users table.
 		$data = [
-			$this->identity_column => $identity,
+			$this->identityColumn => $identity,
 			'username' => $identity,
 			'password' => $password,
 			'email' => $email,
@@ -881,8 +881,8 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 		$query = $this->db->table($this->tables['users'])
-						  ->select($this->identity_column . ', email, id, password, active, last_login')
-						  ->where($this->identity_column, $identity)
+						  ->select($this->identityColumn . ', email, id, password, active, last_login')
+						  ->where($this->identityColumn, $identity)
 						  ->limit(1)
 						  ->orderBy('id', 'desc')
 						  ->get();
@@ -971,7 +971,7 @@ class IonAuthModel
 			{
 				$query = $this->db->select('id')
 								  ->where([
-									  $this->identity_column => $this->session->get('identity'),
+									  $this->identityColumn => $this->session->get('identity'),
 									  'active' => '1'
 								  ])
 								  ->limit(1)
@@ -1771,7 +1771,7 @@ class IonAuthModel
 
 		$this->db->transBegin();
 
-		if (array_key_exists($this->identity_column, $data) && $this->identityCheck($data[$this->identity_column]) && $user->{$this->identity_column} !== $data[$this->identity_column])
+		if (array_key_exists($this->identityColumn, $data) && $this->identityCheck($data[$this->identityColumn]) && $user->{$this->identityColumn} !== $data[$this->identityColumn])
 		{
 			$this->db->transRollback();
 			$this->setError('IonAuth.account_creation_duplicate_identity');
@@ -1785,13 +1785,13 @@ class IonAuthModel
 		// Filter the data passed
 		$data = $this->_filterData($this->tables['users'], $data);
 
-		if (array_key_exists($this->identity_column, $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
+		if (array_key_exists($this->identityColumn, $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 		{
 			if (array_key_exists('password', $data))
 			{
 				if( ! empty($data['password']))
 				{
-					$data['password'] = $this->hashPassword($data['password'], $user->{$this->identity_column});
+					$data['password'] = $this->hashPassword($data['password'], $user->{$this->identityColumn});
 					if ($data['password'] === false)
 					{
 						$this->db->transRollback();
@@ -1927,8 +1927,8 @@ class IonAuthModel
 		$this->triggerEvents('pre_set_session');
 
 		$session_data = [
-		    'identity'             => $user->{$this->identity_column},
-		    $this->identity_column => $user->{$this->identity_column},
+		    'identity'             => $user->{$this->identityColumn},
+		    $this->identityColumn => $user->{$this->identityColumn},
 		    'email'                => $user->email,
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login,
@@ -1970,7 +1970,7 @@ class IonAuthModel
 		{
 			$this->db->table('users')->update(['remember_selector' => $token->selector,
 								  			   'remember_code' => $token->validator_hashed ],
-											   [$this->identity_column => $identity]);
+											   [$this->identityColumn => $identity]);
 
 			if ($this->db->affectedRows() > -1)
 			{
@@ -2025,7 +2025,7 @@ class IonAuthModel
 		// get the user with the selector
 		$this->triggerEvents('extra_where');
 		$query = $this->db->table($this->tables['users'])
-						  ->select($this->identity_column . ', id, email, remember_code, last_login')
+						  ->select($this->identityColumn . ', id, email, remember_code, last_login')
 						  ->where('remember_selector', $token->selector)
 						  ->where('active', 1)
 						  ->limit(1)
@@ -2038,7 +2038,7 @@ class IonAuthModel
 			$user = $query->row();
 
 			// Check the code against the validator
-			$identity = $user->{$this->identity_column};
+			$identity = $user->{$this->identityColumn};
 			if ($this->verifyPassword($token->validator, $user->remember_code, $identity))
 			{
 				$this->updateLastLogin($user->id);
@@ -2524,7 +2524,7 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		$this->db->table($this->tables['users'])->update($data, [$this->identity_column => $identity]);
+		$this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
 
 		return $this->db->affectedRows() == 1;
 	}
