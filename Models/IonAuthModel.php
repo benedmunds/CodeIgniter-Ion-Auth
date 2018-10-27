@@ -220,7 +220,7 @@ class IonAuthModel
 		$this->tables = $this->config->tables;
 
 		// initialize data
-		$this->identity_column = $this->config->identity;
+		$this->identityColumn = $this->config->identity;
 		$this->join            = $this->config->join;
 
 		// initialize hash method options (Bcrypt)
