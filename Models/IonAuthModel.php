@@ -1009,7 +1009,7 @@ class IonAuthModel
 	 *
 	 * @return boolean
 	 */
-	public function isMaxLoginAttemptsExceeded(string $identity, string $ipAddress = null): bool
+	public function isMaxLoginAttemptsExceeded(string $identity, $ipAddress = null): bool
 	{
 		if ($this->config->trackLoginAttempts)
 		{
