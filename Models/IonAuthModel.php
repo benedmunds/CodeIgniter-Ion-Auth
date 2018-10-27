@@ -960,7 +960,7 @@ class IonAuthModel
 	 * it will check if the user is still active
 	 * @return bool
 	 */
-	public function recheckSession()
+	public function recheckSession(): bool
 	{
 		$recheck = (NULL !== $this->config->recheckTimer) ? $this->config->recheckTimer : 0;
 
