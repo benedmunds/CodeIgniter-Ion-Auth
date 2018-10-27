@@ -140,7 +140,7 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	public $_ion_order = NULL;
+	protected $ionOrder = NULL;
 
 	/**
 	 * Hooks
