@@ -1461,7 +1461,7 @@ class IonAuthModel
 			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
 
 			$this->ionOrder    = null;
-			$this->_ion_order_by = null;
+			$this->ionOrderBy = null;
 		}
 
 		$this->response = $builder->get();
