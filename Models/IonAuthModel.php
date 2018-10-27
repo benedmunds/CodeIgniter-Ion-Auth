@@ -351,7 +351,7 @@ class IonAuthModel
 	 * @return boolean|object
 	 * @author Indigo
 	 */
-	public function getUserByActivationCode($userCode)
+	public function getUserByActivationCode(string $userCode)
 	{
 		// Retrieve the token object from the code
 		$token = $this->_retrieveSelectorValidatorCouple($userCode);
