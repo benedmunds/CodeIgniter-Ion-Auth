@@ -335,7 +335,7 @@ class IonAuth
 		$this->ionAuthModel->clearRememberCode($identity);
 
 		// Destroy the session
-		session()->destroy();
+		$this->session->destroy();
 
 		// Recreate the session
 		if (version_compare(PHP_VERSION, '7.0.0') >= 0)
