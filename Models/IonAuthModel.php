@@ -1270,7 +1270,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function orderBy($by, $order='desc')
+	public function orderBy(string $by, $order='desc'): self
 	{
 		$this->triggerEvents('order_by');
 
