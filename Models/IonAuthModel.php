@@ -105,7 +105,7 @@ class IonAuthModel
 	 *
 	 * @var array
 	 */
-	public $_ion_select = [];
+	protected $ionSelect = [];
 
 	/**
 	 * Like
