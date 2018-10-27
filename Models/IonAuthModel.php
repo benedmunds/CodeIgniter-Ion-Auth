@@ -1329,7 +1329,7 @@ class IonAuthModel
 	/**
 	 * @return int
 	 */
-	public function numRows()
+	public function numRows(): int
 	{
 		$this->triggerEvents(['num_rows']);
 
