@@ -44,7 +44,7 @@ class IonAuth
 	 *
 	 * @var array
 	 **/
-	public $_cacheUserInGroup;
+	protected $cacheUserInGroup;
 
 	/**
 	 * @var \CodeIgniter\Email\Email
