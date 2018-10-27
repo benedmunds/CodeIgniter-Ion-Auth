@@ -651,7 +651,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author Mathew
 	 */
-	public function identityCheck($identity = '')
+	public function identityCheck(string $identity = '')
 	{
 		$this->triggerEvents('identity_check');
 
