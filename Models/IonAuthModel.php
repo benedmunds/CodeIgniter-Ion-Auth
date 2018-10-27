@@ -230,7 +230,7 @@ class IonAuthModel
 		$this->messagesTemplates = $this->config->templates['messages'];
 
 		// initialize our hooks object
-		$this->_ion_hooks = new \stdClass();
+		$this->ionHooks = new \stdClass();
 
 		$this->triggerEvents('model_constructor');
 	}
