@@ -1534,9 +1534,9 @@ class IonAuthModel
 			$check_group = [$check_group];
 		}
 
-		if (isset($this->_cacheUserInGroup[$id]))
+		if (isset($this->cacheUserInGroup[$id]))
 		{
-			$groups_array = $this->_cacheUserInGroup[$id];
+			$groups_array = $this->cacheUserInGroup[$id];
 		}
 		else
 		{
@@ -1546,7 +1546,7 @@ class IonAuthModel
 			{
 				$groups_array[$group->id] = $group->name;
 			}
-			$this->_cacheUserInGroup[$id] = $groups_array;
+			$this->cacheUserInGroup[$id] = $groups_array;
 		}
 		foreach ($check_group as $key => $value)
 		{
@@ -1614,7 +1614,7 @@ class IonAuthModel
 					$groupName = $group[0]->name;
 					$this->_cache_groups[$group_id] = $groupName;
 				}
-				$this->_cacheUserInGroup[$user_id][$group_id] = $groupName;
+				$this->cacheUserInGroup[$user_id][$group_id] = $groupName;
 
 				// Return the number of groups added
 				$return++;
@@ -1663,9 +1663,9 @@ class IonAuthModel
 				);
 				*/
 				$builder->delete([$this->join['groups'] => (float)$group_id, $this->join['users'] => (float)$user_id]);
-				if (isset($this->_cacheUserInGroup[$user_id]) && isset($this->_cacheUserInGroup[$user_id][$group_id]))
+				if (isset($this->cacheUserInGroup[$user_id]) && isset($this->cacheUserInGroup[$user_id][$group_id]))
 				{
-					unset($this->_cacheUserInGroup[$user_id][$group_id]);
+					unset($this->cacheUserInGroup[$user_id][$group_id]);
 				}
 			}
 
@@ -1678,7 +1678,7 @@ class IonAuthModel
 			//if ($return = $this->db->delete($this->tables['users_groups'], [$this->join['users'] => (float)$user_id]))
 			if ($return = $builder->delete([$this->join['users'] => (float)$user_id]))
 			{
-				$this->_cacheUserInGroup[$user_id] = [];
+				$this->cacheUserInGroup[$user_id] = [];
 			}
 		}
 		return $return;
