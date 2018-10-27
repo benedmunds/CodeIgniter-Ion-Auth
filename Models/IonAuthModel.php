@@ -2228,6 +2228,7 @@ class IonAuthModel
 		$this->_ion_hooks->{$event}[$name]->class     = $class;
 		$this->_ion_hooks->{$event}[$name]->method    = $method;
 		$this->_ion_hooks->{$event}[$name]->arguments = $arguments;
+            return $this;
 	}
 
 	/**
