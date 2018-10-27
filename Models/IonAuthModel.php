@@ -1255,7 +1255,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function select($select)
+	public function select($select): self
 	{
 		$this->triggerEvents('select');
 
