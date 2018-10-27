@@ -187,8 +187,6 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	 */
 	public function testErrors()
 	{
-		$this->assertEmpty($this->model->errors());
-
 		$this->model->setError('Test error !');
 		$this->assertContains('Test error !', $this->model->errors());
 	}
