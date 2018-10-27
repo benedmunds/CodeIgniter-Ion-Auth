@@ -187,7 +187,7 @@ class IonAuth
 	 * @return object|boolean
 	 * @author Michael
 	 */
-	public function forgottenPasswordCheck($code)
+	public function forgottenPasswordCheck(string $code)
 	{
 		$user = $this->ionAuthModel->getUserByForgottenPasswordCode($code);
 
