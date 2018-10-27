@@ -1352,7 +1352,7 @@ class IonAuthModel
 
 		$builder = $this->db->table($this->tables['users']);
 
-		if (! empty($this->_ion_select))
+		if (! empty($this->ionSelect))
 		{
 			foreach ($this->_ion_select as $select)
 			{
