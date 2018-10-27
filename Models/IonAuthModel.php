@@ -1102,7 +1102,7 @@ class IonAuthModel
 	 *
 	 * @return string
 	 */
-	public function getLastAttemptIp($identity)
+	public function getLastAttemptIp(string $identity)
 	{
 		if ($this->config->trackLoginAttempts && $this->config->trackLoginIpAddress)
 		{
