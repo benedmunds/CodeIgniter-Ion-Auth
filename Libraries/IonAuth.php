@@ -70,7 +70,7 @@ class IonAuth
 
 		$this->ionAuthModel = new \IonAuth\Models\IonAuthModel();
 
-		$this->_cacheUserInGroup =& $this->ionAuthModel->_cacheUserInGroup;
+		$this->cacheUserInGroup =& $this->ionAuthModel->cacheUserInGroup;
 
 		$emailConfig = $this->config->emailConfig;
 
