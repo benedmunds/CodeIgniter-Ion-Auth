@@ -147,7 +147,7 @@ class IonAuthModel
 	 *
 	 * @var object
 	 */
-	protected $_ion_hooks;
+	protected $ionHooks;
 
 	/**
 	 * Response
