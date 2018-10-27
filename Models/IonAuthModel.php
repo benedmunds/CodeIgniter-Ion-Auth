@@ -2180,12 +2180,12 @@ class IonAuthModel
 	public function deleteGroup($groupId = false): bool
 	{
 		// bail if mandatory param not set
-		if(!$groupId || empty($groupId))
+		if (! $groupId || empty($groupId))
 		{
 			return false;
 		}
 		$group = $this->group($groupId)->row();
-		if($group->name == $this->config->adminGroup)
+		if ($group->name === $this->config->adminGroup)
 		{
 			$this->triggerEvents(['post_delete_group', 'post_delete_group_notallowed']);
 			$this->setError('IonAuth.group_delete_notallowed');
@@ -2213,7 +2213,7 @@ class IonAuthModel
 
 		$this->triggerEvents(['post_delete_group', 'post_delete_group_successful']);
 		$this->setMessage('group_delete_successful');
-		return TRUE;
+		return true;
 	}
 
 	/**
