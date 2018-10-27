@@ -1259,7 +1259,7 @@ class IonAuthModel
 	{
 		$this->triggerEvents('select');
 
-		$this->_ion_select[] = $select;
+		$this->ionSelect[] = $select;
 
 		return $this;
 	}
