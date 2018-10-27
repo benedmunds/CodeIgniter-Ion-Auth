@@ -1836,7 +1836,7 @@ class IonAuthModel
 	 * @return bool
 	 * @author Phil Sturgeon
 	 */
-	public function deleteUser($id)
+	public function deleteUser($id): bool
 	{
 		$this->triggerEvents('pre_delete_user');
 
