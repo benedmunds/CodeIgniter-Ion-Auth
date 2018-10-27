@@ -742,13 +742,13 @@ class Auth extends \CodeIgniter\Controller
 			'name'  => 'first_name',
 			'id'    => 'first_name',
 			'type'  => 'text',
-			'value' => set_value('first_name', $user->first_name),
+			'value' => set_value('first_name', $user->first_name ?: ''),
 		];
 		$this->data['last_name'] = [
 			'name'  => 'last_name',
 			'id'    => 'last_name',
 			'type'  => 'text',
-			'value' => set_value('last_name', $user->last_name),
+			'value' => set_value('last_name', $user->last_name ?: ''),
 		];
 		$this->data['company'] = [
 			'name'  => 'company',
