@@ -1582,7 +1582,7 @@ class IonAuthModel
 	 * @return int
 	 * @author Ben Edmunds
 	 */
-	public function addToGroup($group_ids, $user_id = false)
+	public function addToGroup($group_ids, $user_id = false): int
 	{
 		$this->triggerEvents('add_to_group');
 
