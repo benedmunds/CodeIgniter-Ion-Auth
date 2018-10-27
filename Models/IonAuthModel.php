@@ -255,7 +255,7 @@ class IonAuthModel
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hashPassword($password, $identity = null)
+	public function hashPassword(string $password, $identity = null)
 	{
 		// Check for empty password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
