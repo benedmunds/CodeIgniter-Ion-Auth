@@ -2734,7 +2734,7 @@ class IonAuthModel
 	 *
 	 * @return bool
 	 **/
-	protected function _passwordVerifySha1Legacy($identity, $password, $hashed_password_db)
+	protected function _passwordVerifySha1Legacy($identity, $password, $hashedPasswordDb)
 	{
 		$this->triggerEvents('pre_sha1_password_migration');
 
