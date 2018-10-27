@@ -2077,7 +2077,7 @@ class IonAuthModel
 	 * @return int|bool The ID of the inserted group, or false on failure
 	 * @author aditya menon
 	 */
-	public function createGroup($groupName = false, $group_description = '', $additional_data = [])
+	public function createGroup($groupName = false, string $groupDescription = '', array $additionalData = [])
 	{
 		// bail if the group name was not passed
 		if(!$groupName)
