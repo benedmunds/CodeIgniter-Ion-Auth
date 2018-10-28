@@ -17,6 +17,18 @@ namespace Tests;
 class IonAuthLibraryTest extends \CIUnitTestCase
 {
 	/**
+	 * Test register()
+	 *
+	 * @return void
+	 */
+	public function testRegister()
+	{
+		$ionAuthLibrary = new \IonAuth\Libraries\IonAuth();
+
+		$this->assertGreaterThan(1, $ionAuthLibrary->register(random_string(), random_string(), random_string()));
+	}
+
+	/**
 	 * Test loggedIn()
 	 *
 	 * @return void

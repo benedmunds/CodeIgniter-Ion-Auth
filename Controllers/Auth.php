@@ -439,14 +439,16 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Activate the user
 	 *
-	 * @param int         $id   The user ID
-	 * @param string|bool $code The activation code
+	 * @param integer $id   The user ID
+	 * @param string  $code The activation code
+	 *
+	 * @return \CodeIgniter\HTTP\RedirectResponse
 	 */
-	public function activate($id, $code = false)
+	public function activate(int $id, string $code = ''): \CodeIgniter\HTTP\RedirectResponse
 	{
 		$activation = false;
 
-		if ($code !== false)
+		if (! $code)
 		{
 			$activation = $this->ionAuth->activate($id, $code);
 		}

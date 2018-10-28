@@ -191,24 +191,24 @@ class IonAuth
 	/**
 	 * Register
 	 *
-	 * @param string $identity
-	 * @param string $password
-	 * @param string $email
-	 * @param array  $additional_data
-	 * @param array  $group_ids
+	 * @param string $identity       Identity
+	 * @param string $password       Password
+	 * @param string $email          Email
+	 * @param array  $additionalData Additional data
+	 * @param array  $groupIds       Groups id
 	 *
 	 * @return int|array|bool The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation was
 	 *                        completed; or an array of activation details if CI e-mail validation is enabled; or false
 	 *                        if the operation failed.
 	 * @author Mathew
 	 */
-	public function register(string $identity, string $password, string $email, array $additional_data = [], array $group_ids = [])
+	public function register(string $identity, string $password, string $email, array $additionalData = [], array $groupIds = [])
 	{
 		$this->ionAuthModel->triggerEvents('pre_account_creation');
 
 		$emailActivation = $this->config->emailActivation;
 
-		$id = $this->ionAuthModel->register($identity, $password, $email, $additional_data, $group_ids);
+		$id = $this->ionAuthModel->register($identity, $password, $email, $additionalData, $groupIds);
 
 		if (! $emailActivation)
 		{
@@ -264,13 +264,13 @@ class IonAuth
 			}
 			else
 			{
-				$message = $this->load->view($this->config->emailTemplates . $this->config->emailActivate, $data, true);
+				$message = view($this->config->emailTemplates . $this->config->emailActivate, $data);
 
 				$this->email->clear();
-				$this->email->from($this->config->adminEmail, $this->config->siteTitle);
-				$this->email->to($email);
-				$this->email->subject($this->config->siteTitle . ' - ' . $this->lang->line('emailActivation_subject'));
-				$this->email->message($message);
+				$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
+				$this->email->setTo($email);
+				$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'));
+				$this->email->setMessage($message);
 
 				if ($this->email->send() === true)
 				{
