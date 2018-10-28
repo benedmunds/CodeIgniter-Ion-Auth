@@ -2545,38 +2545,37 @@ class IonAuthModel
 		return $filtered_data;
 	}
 
-
 	/**
 	 * Generate a random token
 	 * Inspired from http://php.net/manual/en/function.random-bytes.php#118932
 	 *
-	 * @param int $result_length
+	 * @param int $resultLength
 	 *
 	 * @return string
 	 */
-	protected function _randomToken(int $result_length = 32): string
+	protected function _randomToken(int $resultLength = 32): string
 	{
-		if($result_length <= 8 )
+		if($resultLength <= 8 )
 		{
-			$result_length = 32;
+			$resultLength = 32;
 		}
 
 		// Try random_bytes: PHP 7
 		if (function_exists('random_bytes'))
 		{
-			return bin2hex(random_bytes($result_length / 2));
+			return bin2hex(random_bytes($resultLength / 2));
 		}
 
 		// Try mcrypt
 		if (function_exists('mcrypt_create_iv'))
 		{
-			return bin2hex(mcrypt_create_iv($result_length / 2, MCRYPT_DEV_URANDOM));
+			return bin2hex(mcrypt_create_iv($resultLength / 2, MCRYPT_DEV_URANDOM));
 		}
 
 		// Try openssl
 		if (function_exists('openssl_random_pseudo_bytes'))
 		{
-			return bin2hex(openssl_random_pseudo_bytes($result_length / 2));
+			return bin2hex(openssl_random_pseudo_bytes($resultLength / 2));
 		}
 
 		// No luck!
