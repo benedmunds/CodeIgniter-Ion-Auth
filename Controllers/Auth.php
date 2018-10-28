@@ -474,13 +474,13 @@ class Auth extends \CodeIgniter\Controller
 	/**
 	 * Deactivate the user
 	 *
-	 * @param integer|string|null $id The user ID
+	 * @param integer $id The user ID
 	 *
 	 * @throw Exception
 	 *
 	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
-	public function deactivate($id = null)
+	public function deactivate(int $id = 0)
 	{
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
@@ -489,10 +489,8 @@ class Auth extends \CodeIgniter\Controller
 			// TODO : I think it could be nice to have a dedicated exception like '\IonAuth\Exception\NotAllowed
 		}
 
-		$id = (int)$id;
-
 		$this->validation->setRule('confirm', lang('Auth.deactivate_validation_confirm_label'), 'required');
-		$this->validation->setRule('id', lang('Auth.deactivate_validation_user_id_label'), 'required|alpha_numeric');
+		$this->validation->setRule('id', lang('Auth.deactivate_validation_user_id_label'), 'required|integer');
 
 		if (! $this->validation->withRequest($this->request)->run())
 		{
@@ -505,7 +503,7 @@ class Auth extends \CodeIgniter\Controller
 			if ($this->request->getPost('confirm') === 'yes')
 			{
 				// do we have a valid request?
-				if ($id != $this->request->getPost('id'))
+				if ($id !== $this->request->getPost('id', FILTER_VALIDATE_INT))
 				{
 					throw new \Exception(lang('Auth.error_security'));
 				}
