@@ -4,7 +4,7 @@
 *
 * Author: Žiga Drnovšček
 * 		  ziga.drnovscek@gmail.com
-*         
+*
 *
 *
 * Location: http://github.com/benedmunds/ion_auth/
@@ -142,11 +142,6 @@ return [
 	'reset_password_submit_btn'                            => 'Spremeni',
 	'reset_password_validation_new_password_label'         => 'Novo geslo',
 	'reset_password_validation_new_password_confirm_label' => 'Potrdi novo geslo',
-
-	// Aktivacijsko sporočilo
-	'emailActivate_heading'    => 'Aktivirajte računa za %s',
-	'emailActivate_subheading' => 'Prosimo, sledite povezavi do %s.',
-	'emailActivate_link'       => 'Aktivirajte vaš račun',
 
 	// Pozabljeno geslo sporočilo
 	'emailForgotPassword_heading'    => 'Ponastavite geslo za %s',

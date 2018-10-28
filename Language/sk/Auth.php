@@ -145,11 +145,6 @@ return [
 	'reset_password_validation_new_password_label' => 'Nové heslo',
 	'reset_password_validation_new_password_confirm_label' => 'Potvrdiť nové heslo',
 
-	// Activation Email
-	'emailActivate_heading' => 'Aktivovať účet pre %s',
-	'email activate nadpis' => 'Prosím kliknite na tento odkaz %s.',
-	'emailActivate_link' => 'Aktivácia vášho účtu',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading' => 'Vytvoriť nové heslo pre %s',
 	'emailForgotPassword_subheading' => 'Prosím kliknite na tento odkaz %s.',

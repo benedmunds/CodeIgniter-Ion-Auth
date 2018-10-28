@@ -145,11 +145,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Naujas slaptažodis',
 	'reset_password_validation_new_password_confirm_label' => 'Patvirtinti naują slaptažodį',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Aktyvuoti %s paskyrą',
-	'emailActivate_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
-	'emailActivate_link'       => 'Aktyvuoti paskyrą',
-
 	// Forgot Slaptažodis Email
 	'emailForgotPassword_heading'    => 'Iš naujo sugeneruoti %s slaptažodį',
 	'emailForgotPassword_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',

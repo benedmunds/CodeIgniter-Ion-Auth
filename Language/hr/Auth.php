@@ -148,11 +148,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Nova lozinka',
 	'reset_password_validation_new_password_confirm_label' => 'Potvrdi novu lozinku',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Aktivirajte račun za %s',
-	'emailActivate_subheading' => 'Kliknite sljedeći link %s.',
-	'emailActivate_link'       => 'Aktivirajte Vaš račun',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Poništi lozinku za %s',
 	'emailForgotPassword_subheading' => 'Klikni ovaj link za %s.',

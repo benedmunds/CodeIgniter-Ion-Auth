@@ -63,9 +63,10 @@ return [
 
 	// Activation Email
 	'emailActivation_subject'         => '帐号激活',
-	'emailActivate_heading'    => 'Activate account for %s',
-	'emailActivate_subheading' => 'Please click this link to %s.',
-	'emailActivate_link'       => 'Activate Your Account',
+	'emailActivate_heading'    => '激活用户 %s',
+	'emailActivate_subheading' => '请点击连接跳转至 %s.',
+	'emailActivate_link'       => '激活您的账户',
+
 	// Forgot Password Email
 	'email_forgotten_password_subject' => '密码重设验证',
 	'emailForgotPassword_heading'    => 'Reset Password for %s',

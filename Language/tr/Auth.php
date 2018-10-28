@@ -146,11 +146,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Yeni Şifre',
 	'reset_password_validation_new_password_confirm_label' => 'Yeni Şifre Tekrarı',
 
-	// Activation Email
-	'emailActivate_heading'    => '%s İçin Hesap Etkinleştirme',
-	'emailActivate_subheading' => 'Bağlantıya basarak %s.',
-	'emailActivate_link'       => 'Hesabınızı Etkinleştiriniz',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => '%s İçin Şifre Sıfırlama',
 	'emailForgotPassword_subheading' => 'Bağlantıya basarak %s.',

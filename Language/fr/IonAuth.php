@@ -69,7 +69,7 @@ return [
 	// Activation Email
 	'emailActivation_subject'  => 'Activation du compte',
 	'emailActivate_heading'    => 'Activer le compte pour %s',
-	'emailActivate_subheading' => 'S\'il vous plaît cliquer sur ce lien pour %s.',
+	'emailActivate_subheading' => 'Veuillez cliquer sur le lien pour %s',
 	'emailActivate_link'       => 'Activez votre compte',
 
 	// Forgot Password Email

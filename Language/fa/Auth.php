@@ -141,11 +141,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'کلمه عبور جدید',
 	'reset_password_validation_new_password_confirm_label' => 'تایید کلمه عبور جدید',
 
-	// Activation Email
-	'emailActivate_heading'    => 'فعال سازی اکانت %s',
-	'emailActivate_subheading' => 'لطفا روی این لینک کلیک کنید %s',
-	'emailActivate_link'       => 'اکانت خود را فعال کنید',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'بازیابی کلمه عبور برای %s',
 	'emailForgotPassword_subheading' => 'لطفا روی این لینک کلیک کنید %s',

@@ -8,7 +8,7 @@
 *
 * Author: Daniel Davis
 *         @ourmaninjapan
-* 
+*
 * Author: Josue Ibarra
 *         @josuetijuana
 *
@@ -147,11 +147,6 @@ return [
 	'reset_password_submit_btn'                            => 'Guardar',
 	'reset_password_validation_new_password_label'         => 'Nueva Contraseña',
 	'reset_password_validation_new_password_confirm_label' => 'Confirmar Nueva Contraseña',
-
-	// Activation Email
-	'emailActivate_heading'    => 'Activar cuenta por %s',
-	'emailActivate_subheading' => 'Por favor ingresa en este link para %s.',
-	'emailActivate_link'       => 'activar tu cuenta',
 
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Reestablecer contraseña para %s',

@@ -149,11 +149,6 @@ return [
 	'reset_password_validation_new_password_label'         => '新しいパスワード',
 	'reset_password_validation_new_password_confirm_label' => '新しいパスワードの確認',
 
-	// Activation Email
-	'emailActivate_heading'    => 'アカウントの有効化： %s',
-	'emailActivate_subheading' => 'このリンクをクリックして%s。',
-	'emailActivate_link'       => 'アカウントを有効にして下さい',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'パスワードのリセット： %s',
 	'emailForgotPassword_subheading' => 'このリンクをクリックして%s。',

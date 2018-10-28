@@ -65,9 +65,10 @@ return [
 
 	// Activation Email
 	'emailActivation_subject'            => '계정 활성화 방법을 보내드립니다',
-	'emailActivate_heading'    => 'Activate account for %s',
-	'emailActivate_subheading' => 'Please click this link to %s.',
-	'emailActivate_link'       => 'Activate Your Account',
+	'emailActivate_heading'    => '%s 계정 활성화',
+	'emailActivate_subheading' => '다음 링크를 클릭하여 %s로 접근해 주십시오.',
+	'emailActivate_link'       => '계정 활성화',
+
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => '잊어버린 비밀번호를 찾는 절차를 보내드립니다',
 	'emailForgotPassword_heading'    => 'Reset Password for %s',

@@ -146,11 +146,6 @@ return [
 	'reset_password_validation_new_password_label'         => '새 비밀번호',
 	'reset_password_validation_new_password_confirm_label' => '새 비밀번호 재입력',
 
-	// Activation Email
-	'emailActivate_heading'    => '%s 계정 활성화',
-	'emailActivate_subheading' => '다음 링크를 클릭하여 %s로 접근해 주십시오.',
-	'emailActivate_link'       => '계정 활성화',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => '%s 계정 비밀번호 변경',
 	'emailForgotPassword_subheading' => '다음 링크를 클릭하여 %s로 접근해 주십시오.',

@@ -149,11 +149,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Nieuw wachtwoord',
 	'reset_password_validation_new_password_confirm_label' => 'Bevestig nieuw wachtwoord',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Activeer account voor %s',
-	'emailActivate_subheading' => 'Gelieve op deze link te klikken om %s.',
-	'emailActivate_link'       => 'Activeer uw account',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Wachtwoord resetten voor %s',
 	'emailForgotPassword_subheading' => 'Gelieve op deze link te klikken om %s.',

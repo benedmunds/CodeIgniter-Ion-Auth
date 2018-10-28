@@ -148,11 +148,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Nowe hasło',
 	'reset_password_validation_new_password_confirm_label' => 'Potwierdź nowe hasło',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Aktywuj konto dla %s',
-	'emailActivate_subheading' => 'Proszę klilknąć na link aby %s.',
-	'emailActivate_link'       => 'Aktywuj nowe konto',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Zresetuj hasło dla %s',
 	'emailForgotPassword_subheading' => 'Proszę klilknąć na link aby %s.',

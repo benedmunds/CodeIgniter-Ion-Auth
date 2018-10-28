@@ -7,7 +7,7 @@
 *         @benedmunds
 *
 * Translation: Benjamin Neu (benny@duxu.de), Max Vogl mail@max-vogl.de
-*         
+*
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
@@ -152,11 +152,6 @@ return [
 	'reset_password_submit_btn'                            => 'Ändern',
 	'reset_password_validation_new_password_label'         => 'Neues Kennwort',
 	'reset_password_validation_new_password_confirm_label' => 'Neues Kennwort bestätigen',
-
-	// Activation Email
-	'emailActivate_heading'    => 'Konto für %s aktivieren',
-	'emailActivate_subheading' => 'Bitte drücken Sie auf dieses Link um zu %s',
-	'emailActivate_link'       => 'Aktivieren Sie Ihr Konto',
 
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Kennwort für %s zurücksetzen',

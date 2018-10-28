@@ -153,11 +153,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Новый пароль',
 	'reset_password_validation_new_password_confirm_label' => 'Подтвердить',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Активировать аккаунт для %s',
-	'emailActivate_subheading' => 'Пожалуйста перейдите по ссылке для %s.',
-	'emailActivate_link'       => 'Активировать аккаунт',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Сбросить пароль для %s',
 	'emailForgotPassword_subheading' => 'Пожалуста по ссылке для %s.',

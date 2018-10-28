@@ -57,8 +57,9 @@ return [
 	// Activation Email
 	'emailActivation_subject'            => 'Konto aktivering',
 	'emailActivate_heading'    => 'Activate account for %s',
-	'emailActivate_subheading' => 'Please click this link to %s.',
-	'emailActivate_link'       => 'Activate Your Account',
+	'emailActivate_subheading' => 'Tryk på dette link for at %s.',
+	'emailActivate_link'       => 'Aktivér din brugerkonto',
+
 	// Forgot Password Email
 	'email_forgotten_password_subject'    	=> 'Verifikation af glemt adgangskode',
 	'emailForgotPassword_heading'    => 'Reset Password for %s',

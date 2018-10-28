@@ -150,11 +150,6 @@ return [
 	'reset_password_validation_new_password_label'         => 'Nyt Kodeord',
 	'reset_password_validation_new_password_confirm_label' => 'Bekræft nyt kodeord',
 
-	// Activation Email
-	'emailActivate_heading'    => 'Aktivér brugerkonto for %s',
-	'emailActivate_subheading' => 'Tryk på dette link for at %s.',
-	'emailActivate_link'       => 'Aktivér din brugerkonto',
-
 	// Forgot Password Email
 	'emailForgotPassword_heading'    => 'Nulstil kodeordet for %s',
 	'emailForgotPassword_subheading' => 'Tryk på dette link for at %s.',

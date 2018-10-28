@@ -67,8 +67,9 @@ return [
 	// Activation Email
 	'emailActivation_subject'            => 'Aktivacija računa',
 	'emailActivate_heading'    => 'Activate account for %s',
-	'emailActivate_subheading' => 'Please click this link to %s.',
-	'emailActivate_link'       => 'Activate Your Account',
+	'emailActivate_subheading' => 'Prosimo, sledite povezavi do %s.',
+	'emailActivate_link'       => 'Aktivirajte vaš račun',
+
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Pozabljeno geslo',
 	'emailForgotPassword_heading'    => 'Reset Password for %s',
