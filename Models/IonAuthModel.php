@@ -2549,13 +2549,13 @@ class IonAuthModel
 	 * Generate a random token
 	 * Inspired from http://php.net/manual/en/function.random-bytes.php#118932
 	 *
-	 * @param int $resultLength
+	 * @param integer $resultLength
 	 *
 	 * @return string
 	 */
-	protected function _randomToken(int $resultLength = 32): string
+	protected function randomToken(int $resultLength = 32): string
 	{
-		if($resultLength <= 8 )
+		if ($resultLength <= 8)
 		{
 			$resultLength = 32;
 		}
@@ -2662,10 +2662,10 @@ class IonAuthModel
 	protected function _generateSelectorValidatorCouple($selector_size = 40, $validator_size = 128)
 	{
 		// The selector is a simple token to retrieve the user
-		$selector = $this->_randomToken($selector_size);
+		$selector = $this->randomToken($selector_size);
 
 		// The validator will strictly validate the user and should be more complex
-		$validator = $this->_randomToken($validator_size);
+		$validator = $this->randomToken($validator_size);
 
 		// The validator is hashed for storing in DB (avoid session stealing in case of DB leaked)
 		$validator_hashed = $this->hashPassword($validator);
