@@ -313,10 +313,8 @@ class IonAuth
 		$this->session->destroy();
 
 		// Recreate the session
-		if (version_compare(PHP_VERSION, '7.0.0') >= 0)
-		{
-			session_start();
-		}
+		session_start();
+
 		session_regenerate_id(true);
 
 		$this->setMessage('IonAuth.logout_successful');
