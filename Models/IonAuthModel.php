@@ -1575,15 +1575,15 @@ class IonAuthModel
 	}
 
 	/**
-	 * add_to_group
+	 * Add to group
 	 *
-	 * @param array|int|float|string $groupIds
-	 * @param bool|int|float|string  $userId
+	 * @param array|integer $groupIds Groups id
+	 * @param integer       $userId   User id
 	 *
-	 * @return int
+	 * @return integer The number of groups added
 	 * @author Ben Edmunds
 	 */
-	public function addToGroup($groupIds, $userId = false): int
+	public function addToGroup($groupIds, int $userId = 0): int
 	{
 		$this->triggerEvents('add_to_group');
 
@@ -1611,8 +1611,8 @@ class IonAuthModel
 				}
 				else
 				{
-					$group = $this->group($groupId)->result();
-					$groupName = $group[0]->name;
+					$group                       = $this->group($groupId)->result();
+					$groupName                   = $group[0]->name;
 					$this->cacheGroups[$groupId] = $groupName;
 				}
 				$this->cacheUserInGroup[$userId][$groupId] = $groupName;
@@ -1628,18 +1628,18 @@ class IonAuthModel
 	/**
 	 * Remove from group
 	 *
-	 * @param array|int|float|string|bool $groupIds Group id
-	 * @param int|float|string|bool       $userId  User id
+	 * @param array|integer $groupIds Group id
+	 * @param integer       $userId   User id
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function removeFromGroup($groupIds = false, $userId = false): bool
+	public function removeFromGroup($groupIds = 0, int $userId = 0): bool
 	{
 		$this->triggerEvents('remove_from_group');
 
 		// user id is required
-		if (empty($userId))
+		if (! $userId)
 		{
 			return false;
 		}
@@ -1647,39 +1647,31 @@ class IonAuthModel
 		$builder = $this->db->table($this->tables['users_groups']);
 
 		// if group id(s) are passed remove user from the group(s)
-		if (!empty($groupIds))
+		if (! empty($groupIds))
 		{
-			if (!is_array($groupIds))
+			if (! is_array($groupIds))
 			{
 				$groupIds = [$groupIds];
 			}
 
 			foreach ($groupIds as $groupId)
 			{
-				// Cast to float to support bigint data type
-				/*
-				$this->db->delete(
-					$this->tables['users_groups'],
-					[$this->join['groups'] => (float)$groupId, $this->join['users'] => (float)$user_id]
-				);
-				*/
-				$builder->delete([$this->join['groups'] => (float)$groupId, $this->join['users'] => (float)$userId]);
+				$builder->delete([$this->join['groups'] => (int)$groupId, $this->join['users'] => $userId]);
 				if (isset($this->cacheUserInGroup[$userId]) && isset($this->cacheUserInGroup[$userId][$groupId]))
 				{
 					unset($this->cacheUserInGroup[$userId][$groupId]);
 				}
 			}
 
-			$return = TRUE;
+			$return = true;
 		}
 		// otherwise remove user from all groups
 		else
 		{
-			// Cast to float to support bigint data type
-			//if ($return = $this->db->delete($this->tables['users_groups'], [$this->join['users'] => (float)$userId]))
-			if ($return = $builder->delete([$this->join['users'] => (float)$userId]))
+			if ($return = $builder->delete([$this->join['users'] => $userId]))
 			{
 				$this->cacheUserInGroup[$userId] = [];
+				$return = true;
 			}
 		}
 		return $return;

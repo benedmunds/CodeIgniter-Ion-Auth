@@ -128,6 +128,17 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test removeFromGroup, addToGroup()
+	 *
+	 * @return void
+	 */
+	public function testRemoveFromAndAddToGroup()
+	{
+		$this->assertTrue($this->model->removeFromGroup(1, 1));
+		$this->assertEquals(1, $this->model->addToGroup(1, 1));
+	}
+
+	/**
 	 * Test createGroup(), updateGroup(), DeleteGroup()
 	 *
 	 * @return void
