@@ -20,24 +20,28 @@ class Auth extends \CodeIgniter\Controller
 	public $data = [];
 
 	/**
+	 * Configuration
 	 *
 	 * @var \IonAuth\Config\IonAuth
 	 */
 	protected $configIonAuth;
 
 	/**
+	 * IonAuth library
 	 *
 	 * @var \IonAuth\Libraries\IonAuth
 	 */
 	protected $ionAuth;
 
 	/**
+	 * Session
 	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
 	private $session;
 
 	/**
+	 * Validation library
 	 *
 	 * @var \CodeIgniter\Validation\Validation
 	 */
@@ -59,7 +63,11 @@ class Auth extends \CodeIgniter\Controller
 	 */
 	protected $viewsFolder = 'IonAuth\Views\auth';
 
-
+	/**
+	 * Constructor
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		$this->ionAuth    = new \IonAuth\Libraries\IonAuth();
@@ -210,25 +218,25 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 			$this->data['old_password'] = [
 				'name' => 'old',
-				'id' => 'old',
+				'id'   => 'old',
 				'type' => 'password',
 			];
 			$this->data['new_password'] = [
-				'name' => 'new',
-				'id' => 'new',
-				'type' => 'password',
+				'name'    => 'new',
+				'id'      => 'new',
+				'type'    => 'password',
 				'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 			];
 			$this->data['new_password_confirm'] = [
-				'name' => 'new_confirm',
-				'id' => 'new_confirm',
-				'type' => 'password',
+				'name'    => 'new_confirm',
+				'id'      => 'new_confirm',
+				'type'    => 'password',
 				'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 			];
 			$this->data['user_id'] = [
-				'name' => 'user_id',
-				'id' => 'user_id',
-				'type' => 'hidden',
+				'name'  => 'user_id',
+				'id'    => 'user_id',
+				'type'  => 'hidden',
 				'value' => $user->id,
 			];
 
@@ -265,7 +273,7 @@ class Auth extends \CodeIgniter\Controller
 		$this->data['title'] = lang('Auth.forgot_password_heading');
 
 		// setting validation rules by checking whether identity is username or email
-		if ($this->configIonAuth->identity != 'email')
+		if ($this->configIonAuth->identity !== 'email')
 		{
 			$this->validation->setRule('identity', lang('Auth.forgot_password_identity_label'), 'required');
 		}
@@ -283,7 +291,7 @@ class Auth extends \CodeIgniter\Controller
 				'id'   => 'identity',
 			];
 
-			if ($this->configIonAuth->identity != 'email')
+			if ($this->configIonAuth->identity !== 'email')
 			{
 				$this->data['identity_label'] = lang('Auth.forgot_password_identity_label');
 			}
@@ -303,7 +311,7 @@ class Auth extends \CodeIgniter\Controller
 
 			if (empty($identity))
 			{
-				if ($this->configIonAuth->identity != 'email')
+				if ($this->configIonAuth->identity !== 'email')
 				{
 					$this->ionAuth->setError('Auth.forgot_password_identity_not_found');
 				}
@@ -367,21 +375,21 @@ class Auth extends \CodeIgniter\Controller
 
 				$this->data['minPasswordLength'] = $this->configIonAuth->minPasswordLength;
 				$this->data['new_password'] = [
-					'name' => 'new',
-					'id' => 'new',
-					'type' => 'password',
+					'name'    => 'new',
+					'id'      => 'new',
+					'type'    => 'password',
 					'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 				];
 				$this->data['new_password_confirm'] = [
-					'name' => 'new_confirm',
-					'id' => 'new_confirm',
-					'type' => 'password',
+					'name'    => 'new_confirm',
+					'id'      => 'new_confirm',
+					'type'    => 'password',
 					'pattern' => '^.{' . $this->data['minPasswordLength'] . '}.*$',
 				];
 				$this->data['user_id'] = [
-					'name' => 'user_id',
-					'id' => 'user_id',
-					'type' => 'hidden',
+					'name'  => 'user_id',
+					'id'    => 'user_id',
+					'type'  => 'hidden',
 					'value' => $user->id,
 				];
 				$this->data['code'] = $code;
@@ -515,6 +523,8 @@ class Auth extends \CodeIgniter\Controller
 
 	/**
 	 * Create a new user
+	 *
+	 * @return string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function create_user()
 	{
@@ -552,14 +562,14 @@ class Auth extends \CodeIgniter\Controller
 			$identity = ($identityColumn === 'email') ? $email : $this->request->getPost('identity');
 			$password = $this->request->getPost('password');
 
-			$additional_data = [
+			$additionalData = [
 				'first_name' => $this->request->getPost('first_name'),
 				'last_name'  => $this->request->getPost('last_name'),
 				'company'    => $this->request->getPost('company'),
 				'phone'      => $this->request->getPost('phone'),
 			];
 		}
-		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additional_data))
+		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run() && $this->ionAuth->register($identity, $password, $email, $additionalData))
 		{
 			// check to see if we are creating the user
 			// redirect them back to the admin page
@@ -573,51 +583,51 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['message'] = $this->validation->getErrors() ? $this->validation->listErrors($this->validationListTemplate) : ($this->ionAuth->errors($this->validationListTemplate) ? $this->ionAuth->errors($this->validationListTemplate) : $this->session->getFlashdata('message'));
 
 			$this->data['first_name'] = [
-				'name' => 'first_name',
-				'id' => 'first_name',
-				'type' => 'text',
+				'name'  => 'first_name',
+				'id'    => 'first_name',
+				'type'  => 'text',
 				'value' => set_value('first_name'),
 			];
 			$this->data['last_name'] = [
-				'name' => 'last_name',
-				'id' => 'last_name',
-				'type' => 'text',
+				'name'  => 'last_name',
+				'id'    => 'last_name',
+				'type'  => 'text',
 				'value' => set_value('last_name'),
 			];
 			$this->data['identity'] = [
-				'name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
+				'name'  => 'identity',
+				'id'    => 'identity',
+				'type'  => 'text',
 				'value' => set_value('identity'),
 			];
 			$this->data['email'] = [
-				'name' => 'email',
-				'id' => 'email',
-				'type' => 'text',
+				'name'  => 'email',
+				'id'    => 'email',
+				'type'  => 'text',
 				'value' => set_value('email'),
 			];
 			$this->data['company'] = [
-				'name' => 'company',
-				'id' => 'company',
-				'type' => 'text',
+				'name'  => 'company',
+				'id'    => 'company',
+				'type'  => 'text',
 				'value' => set_value('company'),
 			];
 			$this->data['phone'] = [
-				'name' => 'phone',
-				'id' => 'phone',
-				'type' => 'text',
+				'name'  => 'phone',
+				'id'    => 'phone',
+				'type'  => 'text',
 				'value' => set_value('phone'),
 			];
 			$this->data['password'] = [
-				'name' => 'password',
-				'id' => 'password',
-				'type' => 'password',
+				'name'  => 'password',
+				'id'    => 'password',
+				'type'  => 'password',
 				'value' => set_value('password'),
 			];
 			$this->data['password_confirm'] = [
-				'name' => 'password_confirm',
-				'id' => 'password_confirm',
-				'type' => 'password',
+				'name'  => 'password_confirm',
+				'id'    => 'password_confirm',
+				'type'  => 'password',
 				'value' => set_value('password_confirm'),
 			];
 
@@ -650,7 +660,7 @@ class Auth extends \CodeIgniter\Controller
 	{
 		$this->data['title'] = lang('Auth.edit_user_heading');
 
-		if (!$this->ionAuth->loggedIn() || (!$this->ionAuth->isAdmin() && !($this->ionAuth->user()->row()->id == $id)))
+		if (! $this->ionAuth->loggedIn() || (! $this->ionAuth->isAdmin() && ! ($this->ionAuth->user()->row()->id == $id)))
 		{
 			return redirect('/auth');
 		}
@@ -755,13 +765,13 @@ class Auth extends \CodeIgniter\Controller
 			'name'  => 'company',
 			'id'    => 'company',
 			'type'  => 'text',
-			'value' => set_value('company', empty($user->company) ? '': $user->company),
+			'value' => set_value('company', empty($user->company) ? '' : $user->company),
 		];
 		$this->data['phone'] = [
 			'name'  => 'phone',
 			'id'    => 'phone',
 			'type'  => 'text',
-			'value' => set_value('phone', empty($user->phone) ? '': $user->phone),
+			'value' => set_value('phone', empty($user->phone) ? '' : $user->phone),
 		];
 		$this->data['password'] = [
 			'name' => 'password',
@@ -780,12 +790,14 @@ class Auth extends \CodeIgniter\Controller
 
 	/**
 	 * Create a new group
+	 *
+	 * @return string string|\CodeIgniter\HTTP\RedirectResponse
 	 */
 	public function create_group()
 	{
 		$this->data['title'] = lang('Auth.create_group_title');
 
-		if (!$this->ionAuth->loggedIn() || !$this->ionAuth->isAdmin())
+		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
 			return redirect('/auth');
 		}
@@ -795,8 +807,8 @@ class Auth extends \CodeIgniter\Controller
 
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
-			$new_group_id = $this->ionAuth->create_group($this->request->getPost('group_name'), $this->request->getPost('description'));
-			if ($new_group_id)
+			$newGroupId = $this->ionAuth->create_group($this->request->getPost('group_name'), $this->request->getPost('description'));
+			if ($newGroupId)
 			{
 				// check to see if we are creating the group
 				// redirect them back to the admin page
