@@ -6,7 +6,8 @@ namespace IonAuth\Controllers;
  *
  * @property Ion_auth|Ion_auth_model $ion_auth      The ION Auth spark
  * @package  CodeIgniter-Ion-Auth
- * @author   Ben Edmunds
+ * @author   Ben Edmunds <ben.edmunds@gmail.com>
+ * @author   Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
  * @license  https://opensource.org/licenses/MIT	MIT License
  */
 class Auth extends \CodeIgniter\Controller

@@ -1,6 +1,20 @@
 <?php
 namespace IonAuth\Database\Migrations;
 
+/**
+ * CodeIgniter IonAuth
+ *
+ * @package CodeIgniter-Ion-Auth
+ * @author  Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
+ * @license https://opensource.org/licenses/MIT	MIT License
+ * @link    http://github.com/benedmunds/CodeIgniter-Ion-Auth
+ */
+
+/**
+ * Migration class
+ *
+ * @package CodeIgniter-Ion-Auth
+ */
 class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 {
 	/**

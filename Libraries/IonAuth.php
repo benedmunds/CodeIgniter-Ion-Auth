@@ -3,21 +3,19 @@ namespace IonAuth\Libraries;
 
 /**
  * Name:    Ion Auth
- * Author:  Ben Edmunds
- *           ben.edmunds@gmail.com
- *           @benedmunds
- *
- * Added Awesomeness: Phil Sturgeon
  *
  * Created:  10.01.2009
  *
- * Description:  Modified auth system based on redux_auth with extensive customization. This is basically what Redux Auth 2 should be.
+ * Description:  Modified auth system based on redux_auth with extensive customization.
+ *               This is basically what Redux Auth 2 should be.
  * Original Author name has been kept but that does not mean that the method has not been modified.
  *
  * Requirements: PHP7.1 or above
  *
  * @package    CodeIgniter-Ion-Auth
- * @author     Ben Edmunds
+ * @author     Ben Edmunds <ben.edmunds@gmail.com>
+ * @author     Phil Sturgeon
+ * @author     Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
  * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
