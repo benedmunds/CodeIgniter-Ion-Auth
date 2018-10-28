@@ -2566,18 +2566,6 @@ class IonAuthModel
 			return bin2hex(random_bytes($resultLength / 2));
 		}
 
-		// Try mcrypt
-		if (function_exists('mcrypt_create_iv'))
-		{
-			return bin2hex(mcrypt_create_iv($resultLength / 2, MCRYPT_DEV_URANDOM));
-		}
-
-		// Try openssl
-		if (function_exists('openssl_random_pseudo_bytes'))
-		{
-			return bin2hex(openssl_random_pseudo_bytes($resultLength / 2));
-		}
-
 		// No luck!
 		throw new \Exception('Unable to generate a random token');
 	}
