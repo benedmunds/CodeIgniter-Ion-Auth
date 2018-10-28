@@ -102,22 +102,6 @@ class IonAuth
 	}
 
 	/**
-	 * __get
-	 *
-	 * Enables the use of CI super-global without having to define an extra variable.
-	 *
-	 * I can't remember where I first saw this, so thank you if you are the original author. -Militis
-	 *
-	 * @param  string $var
-	 *
-	 * @return mixed
-	 */
-	public function __get($var)
-	{
-		return get_instance()->$var;
-	}
-
-	/**
 	 * Forgotten password feature
 	 *
 	 * @param string $identity
