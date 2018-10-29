@@ -2161,14 +2161,14 @@ class IonAuthModel
 	}
 
 	/**
-	 * delete_group
+	 * Remove a group.
 	 *
-	 * @param int|string|bool $groupId
+	 * @param integer $groupId Group id
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author aditya menon
 	 */
-	public function deleteGroup($groupId = false): bool
+	public function deleteGroup(int $groupId): bool
 	{
 		// bail if mandatory param not set
 		if (! $groupId || empty($groupId))
