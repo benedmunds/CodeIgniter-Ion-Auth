@@ -1281,7 +1281,12 @@ class IonAuthModel
 	}
 
 	/**
-	 * @return object|mixed
+	 * Wrapper object to return a row as either an array, an object, or
+	 * a custom class.
+	 *
+	 * If row doesn't exist, returns null.
+	 *
+	 * @return mixed
 	 */
 	public function row()
 	{
