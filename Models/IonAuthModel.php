@@ -2216,10 +2216,10 @@ class IonAuthModel
 	 */
 	public function setHook($event, $name, $class, $method, $arguments): self
 	{
-		$this->_ion_hooks->{$event}[$name] = new stdClass;
-		$this->_ion_hooks->{$event}[$name]->class     = $class;
-		$this->_ion_hooks->{$event}[$name]->method    = $method;
-		$this->_ion_hooks->{$event}[$name]->arguments = $arguments;
+		$this->ionHooks->{$event}[$name] = new stdClass;
+		$this->ionHooks->{$event}[$name]->class     = $class;
+		$this->ionHooks->{$event}[$name]->method    = $method;
+		$this->ionHooks->{$event}[$name]->arguments = $arguments;
             return $this;
 	}
 
@@ -2229,9 +2229,9 @@ class IonAuthModel
 	 */
 	public function removeHook($event, $name)
 	{
-		if (isset($this->_ion_hooks->{$event}[$name]))
+		if (isset($this->ionHooks->{$event}[$name]))
 		{
-			unset($this->_ion_hooks->{$event}[$name]);
+			unset($this->ionHooks->{$event}[$name]);
 		}
 	}
 
@@ -2240,9 +2240,9 @@ class IonAuthModel
 	 */
 	public function removeHooks($event)
 	{
-		if (isset($this->_ion_hooks->$event))
+		if (isset($this->ionHooks->$event))
 		{
-			unset($this->_ion_hooks->$event);
+			unset($this->ionHooks->$event);
 		}
 	}
 
@@ -2254,9 +2254,9 @@ class IonAuthModel
 	 */
 	protected function _callHook($event, $name)
 	{
-		if (isset($this->_ion_hooks->{$event}[$name]) && method_exists($this->_ion_hooks->{$event}[$name]->class, $this->_ion_hooks->{$event}[$name]->method))
+		if (isset($this->ionHooks->{$event}[$name]) && method_exists($this->ionHooks->{$event}[$name]->class, $this->ionHooks->{$event}[$name]->method))
 		{
-			$hook = $this->_ion_hooks->{$event}[$name];
+			$hook = $this->ionHooks->{$event}[$name];
 
 			return call_user_func_array([$hook->class, $hook->method], $hook->arguments);
 		}
@@ -2282,9 +2282,9 @@ class IonAuthModel
 		}
 		else
 		{
-			if (isset($this->_ion_hooks->$events) && ! empty($this->_ion_hooks->$events))
+			if (isset($this->ionHooks->$events) && ! empty($this->ionHooks->$events))
 			{
-				foreach ($this->_ion_hooks->$events as $name => $hook)
+				foreach ($this->ionHooks->$events as $name => $hook)
 				{
 					$this->_callHook($events, $name);
 				}
