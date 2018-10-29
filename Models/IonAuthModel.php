@@ -209,7 +209,7 @@ class IonAuthModel
 	{
 		$this->config = config('IonAuth\\Config\\IonAuth');
 		helper(['cookie', 'date']);
-		$this->session = \Config\Services::session();
+		$this->session = session();
 
 		// initialize the database
 		if (empty($this->config->databaseGroupName))
@@ -1909,12 +1909,12 @@ class IonAuthModel
 	/**
 	 * Set session
 	 *
-	 * @param stdClass $user User
+	 * @param \stdClass $user User
 	 *
 	 * @return boolean
 	 * @author jrmadsen67
 	 */
-	public function setSession(stdClass $user): bool
+	public function setSession(\stdClass $user): bool
 	{
 		$this->triggerEvents('pre_set_session');
 
