@@ -65,7 +65,7 @@
 				<li><a href="#isMaxLoginAttemptsExceeded">isMaxLoginAttemptsExceeded()</a></li>
 				<li><a href="#getAttemptsNum">getAttemptsNum()</a></li>
 				<li><a href="#increaseLoginAttempts">increaseLoginAttempts()</a></li>
-				<li><a href="#clear_login_attempts">clear_login_attempts()</a></li>
+				<li><a href="#clearLoginAttempts">clearLoginAttempts()</a></li>
 				<li><a href="#user">user()</a></li>
 				<li><a href="#users">users()</a></li>
 				<li><a href="#group">group()</a></li>
@@ -318,7 +318,7 @@ Documentation
         </li>
         <li>
             <strong>rememberUsers</strong> Default is 'true'<br/>
-            TRUE or FALSE. Sets whether to enable 'remember me' functionality or not.
+            true or false. Sets whether to enable 'remember me' functionality or not.
         </li>
         <li>
             <strong>userExpire</strong> Default is '86500'<br/>
@@ -426,7 +426,7 @@ Documentation
 	<ol>
 		<li>'Identity' - string REQUIRED.  Username, email or any unique value in your users table, depending on your configuration.</li>
 		<li>'Password' - string REQUIRED.</li>
-		<li>'Remember' - boolean OPTIONAL. TRUE sets the user to be remembered if enabled in the configuration.</li>
+		<li>'Remember' - boolean OPTIONAL. true sets the user to be remembered if enabled in the configuration.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -884,8 +884,8 @@ Documentation
 	</pre>
 	<br />
 
-	<a name="clear_login_attempts"></a>
-	<h2>clear_login_attempts()</h2>
+	<a name="clearLoginAttempts"></a>
+	<h2>clearLoginAttempts()</h2>
 	<p>Clears all failed login attempt records for this identity or this ip address.
 	   This method is automatically called during the login() method if the login succeded.</p>
 
@@ -899,7 +899,7 @@ Documentation
 		$identity = 'ben.edmunds@gmail.com';
 		$password = '12345678';
 		if ($this->ionAuth->login($identity, $password) == TRUE) {
-			$this->ionAuth->clear_login_attempts($identity)
+			$this->ionAuth->clearLoginAttempts($identity)
 		}
 	</pre>
 	<br />
@@ -1191,13 +1191,13 @@ Documentation
 
 	<p><strong>Parameters</strong></p>
 	<ol>
-		<li>'group_name' - string REQUIRED.</li>
-		<li>'group_description' - string.</li>
+		<li>'groupName' - string REQUIRED.</li>
+		<li>'groupDescription' - string.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>brand new group_id if the group was created, FALSE if the group creation failed.</li>
+		<li>brand new group_id if the group was created, false if the group creation failed.</li>
 	</ul>
 
 	<p><strong>Usage</strong></p>
@@ -1205,13 +1205,13 @@ Documentation
         // pass the right arguments and it's done
         $group = $this->ionAuth->createGroup('new_test_group', 'This is a test description');
 
-        if(!$group)
+        if (! $group)
         {
-        	$view_errors = $this->ionAuth->messages();
+        	$viewErrors = $this->ionAuth->messages();
       	}
       	else
       	{
-      		$new_group_id = $group;
+      		$newGroupId = $group;
       		// do more cool stuff
       	}
 	</pre>
@@ -1235,10 +1235,10 @@ Documentation
 
 	<p><strong>Usage</strong></p>
 	<pre>
-				// source these things from anywhere you like (eg., a form)
-				$group_id = 2;
-				$group_name = 'test_group_changed_name';
-				$group_description = 'I changed the name yay';
+		// source these things from anywhere you like (eg., a form)
+		$group_id = 2;
+		$group_name = 'test_group_changed_name';
+		$group_description = 'I changed the name yay';
 
         // pass the right arguments and it's done
         $group_update = $this->ionAuth->updateGroup($group_id, $group_name, $group_description);
@@ -1265,20 +1265,20 @@ Documentation
 
 	<p><strong>Return</strong></p>
 	<ul>
-		<li>boolean.  TRUE if the group was deleted, FALSE if the delete failed.</li>
+		<li>boolean.  true if the group was deleted, false if the delete failed.</li>
 	</ul>
 
 	<p><strong>Usage</strong></p>
 	<pre>
-				// source this from anywhere you like (eg., a form)
-				$group_id = 2;
+		// source this from anywhere you like (eg., a form)
+		$groupId = 2;
 
         // pass the right arguments and it's done
-        $group_delete = $this->ionAuth->deleteGroup($group_id);
+        $groupDelete = $this->ionAuth->deleteGroup($groupId);
 
-        if(!$group_delete)
+        if (! $groupDelete)
         {
-        	$view_errors = $this->ionAuth->messages();
+        	$viewErrors = $this->ionAuth->messages();
       	}
       	else
       	{
