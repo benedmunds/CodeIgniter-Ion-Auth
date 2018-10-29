@@ -328,7 +328,7 @@ class IonAuthModel
 		{
 			if (password_needs_rehash($hash, $algo, $params))
 			{
-				if ($this->_setPasswordDb($identity, $password))
+				if ($this->setPasswordDb($identity, $password))
 				{
 					$this->triggerEvents(['rehash_password', 'rehash_password_successful']);
 				}
@@ -524,7 +524,7 @@ class IonAuthModel
 			return false;
 		}
 
-		$return = $this->_setPasswordDb($identity, $new);
+		$return = $this->setPasswordDb($identity, $new);
 
 		if ($return)
 		{
@@ -573,7 +573,7 @@ class IonAuthModel
 
 		if ($this->verifyPassword($old, $user->password, $identity))
 		{
-			$result = $this->_setPasswordDb($identity, $new);
+			$result = $this->setPasswordDb($identity, $new);
 
 			if ($result)
 			{
@@ -2492,12 +2492,12 @@ class IonAuthModel
 	/**
 	 * Internal function to set a password in the database
 	 *
-	 * @param string $identity
-	 * @param string $password
+	 * @param string $identity Identity
+	 * @param string $password Password
 	 *
-	 * @return bool
+	 * @return boolean
 	 */
-	protected function _setPasswordDb($identity, $password)
+	protected function setPasswordDb(string $identity, string $password): bool
 	{
 		$hash = $this->hashPassword($password, $identity);
 
@@ -2508,17 +2508,17 @@ class IonAuthModel
 
 		// When setting a new password, invalidate any other token
 		$data = [
-			'password' => $hash,
-			'remember_code' => null,
+			'password'                => $hash,
+			'remember_code'           => null,
 			'forgotten_password_code' => null,
-			'forgotten_password_time' => null
+			'forgotten_password_time' => null,
 		];
 
 		$this->triggerEvents('extra_where');
 
 		$this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
 
-		return $this->db->affectedRows() == 1;
+		return $this->db->affectedRows() === 1;
 	}
 
 	/**
