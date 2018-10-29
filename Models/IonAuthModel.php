@@ -121,28 +121,28 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	protected $ionLimit = NULL;
+	protected $ionLimit = null;
 
 	/**
 	 * Offset
 	 *
 	 * @var string
 	 */
-	protected $ionOffset = NULL;
+	protected $ionOffset = null;
 
 	/**
 	 * Order By
 	 *
 	 * @var string
 	 */
-	protected $ionOrderBy = NULL;
+	protected $ionOrderBy = null;
 
 	/**
 	 * Order
 	 *
 	 * @var string
 	 */
-	protected $ionOrder = NULL;
+	protected $ionOrder = null;
 
 	/**
 	 * Hooks
@@ -964,7 +964,7 @@ class IonAuthModel
 	 */
 	public function recheckSession(): bool
 	{
-		$recheck = (NULL !== $this->config->recheckTimer) ? $this->config->recheckTimer : 0;
+		$recheck = (null !== $this->config->recheckTimer) ? $this->config->recheckTimer : 0;
 
 		if ($recheck !== 0)
 		{
@@ -1006,7 +1006,7 @@ class IonAuthModel
 	 * @param string      $identity  user's identity
 	 * @param string|null $ipAddress IP address
 	 *                               Only used if trackLoginIpAddress is set to TRUE.
-	 *                               If NULL (default value), the current IP address is used.
+	 *                               If null (default value), the current IP address is used.
 	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
 	 * @return boolean
@@ -1032,7 +1032,7 @@ class IonAuthModel
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
 	 *                                Only used if trackLoginIpAddress is set to TRUE.
-	 *                                If NULL (default value), the current IP address is used.
+	 *                                If null (default value), the current IP address is used.
 	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
 	 * @return int
@@ -1065,7 +1065,7 @@ class IonAuthModel
 	 * @param string      $identity  User's identity
 	 * @param string|null $ipAddress IP address
 	 *                               Only used if trackLoginIpAddress is set to TRUE.
-	 *                               If NULL (default value), the current IP address is used.
+	 *                               If null (default value), the current IP address is used.
 	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
 	 * @return integer The time of the last login attempt for a given IP-address or identity
@@ -1157,7 +1157,7 @@ class IonAuthModel
 	 *                                                (for security reason, minimum value is lockoutTime config value)
 	 * @param string|null $ipAddress               IP address
 	 *                                                Only used if track_login_ipAddress is set to TRUE.
-	 *                                                If NULL (default value), the current IP address is used.
+	 *                                                If null (default value), the current IP address is used.
 	 *                                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
 	 * @return boolean
@@ -1219,7 +1219,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function where($where, $value = NULL): self
+	public function where($where, $value = null): self
 	{
 		$this->triggerEvents('where');
 
@@ -1240,7 +1240,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function like(string $like, $value = NULL, $position = 'both'): self
+	public function like(string $like, $value = null, $position = 'both'): self
 	{
 		$this->triggerEvents('like');
 
@@ -1480,7 +1480,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function user($id = NULL): self
+	public function user($id = null): self
 	{
 		$this->triggerEvents('user');
 
@@ -1705,14 +1705,14 @@ class IonAuthModel
 		{
 			$builder->limit($this->ionLimit, $this->ionOffset);
 
-			$this->ionLimit  = NULL;
-			$this->ionOffset = NULL;
+			$this->ionLimit  = null;
+			$this->ionOffset = null;
 		}
 		else if (isset($this->ionLimit))
 		{
 			$builder->limit($this->ionLimit);
 
-			$this->ionLimit  = NULL;
+			$this->ionLimit  = null;
 		}
 
 		// set the order
@@ -1734,7 +1734,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function group($id = NULL)
+	public function group($id = null)
 	{
 		$this->triggerEvents('group');
 
@@ -1838,7 +1838,7 @@ class IonAuthModel
 		$this->db->transBegin();
 
 		// remove user from groups
-		$this->removeFromGroup(NULL, $id);
+		$this->removeFromGroup(null, $id);
 
 		// delete user from users table should be placed after remove from group
 		$this->db->delete($this->tables['users'], ['id' => $id]);
@@ -2512,9 +2512,9 @@ class IonAuthModel
 		// When setting a new password, invalidate any other token
 		$data = [
 			'password' => $hash,
-			'remember_code' => NULL,
-			'forgotten_password_code' => NULL,
-			'forgotten_password_time' => NULL
+			'remember_code' => null,
+			'forgotten_password_code' => null,
+			'forgotten_password_time' => null
 		];
 
 		$this->triggerEvents('extra_where');
@@ -2580,7 +2580,7 @@ class IonAuthModel
 	 *
 	 * @return array|bool
 	 */
-	protected function _getHashParameters($identity = NULL)
+	protected function _getHashParameters($identity = null)
 	{
 		// Check if user is administrator or not
 		$is_admin = false;
