@@ -353,7 +353,7 @@ class IonAuthModel
 	public function getUserByActivationCode(string $userCode)
 	{
 		// Retrieve the token object from the code
-		$token = $this->_retrieveSelectorValidatorCouple($userCode);
+		$token = $this->retrieveSelectorValidatorCouple($userCode);
 
 		// Retrieve the user according to this selector
 		$user = $this->where('activation_selector', $token->selector)->users()->row();
@@ -748,7 +748,7 @@ class IonAuthModel
 	public function getUserByForgottenPasswordCode(string $userCode)
 	{
 		// Retrieve the token object from the code
-		$token = $this->_retrieveSelectorValidatorCouple($userCode);
+		$token = $this->retrieveSelectorValidatorCouple($userCode);
 
 		// Retrieve the user according to this selector
 		$user = $this->where('forgotten_password_selector', $token->selector)->users()->row();
@@ -2006,7 +2006,7 @@ class IonAuthModel
 
 		// Retrieve token from cookie
 		$remember_cookie = get_cookie($this->config->rememberCookieName);
-		$token = $this->_retrieveSelectorValidatorCouple($remember_cookie);
+		$token = $this->retrieveSelectorValidatorCouple($remember_cookie);
 
 		if ($token === false)
 		{
@@ -2672,13 +2672,13 @@ class IonAuthModel
 	/**
 	 * Retrieve remember cookie info
 	 *
-	 * @param $userCode string A user code of the form "selector.validator"
+	 * @param string $userCode A user code of the form "selector.validator"
 	 *
-	 * @return object
-	 * 			->selector		simple token to retrieve the user in DB
-	 * 			->validator		token to validate the user (check against hashed value in DB)
+	 * @return false|stdCalss
+	 *          ->selector		simple token to retrieve the user in DB
+	 *          ->validator		token to validate the user (check against hashed value in DB)
 	 */
-	protected function _retrieveSelectorValidatorCouple(string $userCode)
+	protected function retrieveSelectorValidatorCouple(string $userCode)
 	{
 		// Check code
 		if ($userCode)
@@ -2689,8 +2689,8 @@ class IonAuthModel
 			if (count($tokens) === 2)
 			{
 				return (object) [
-					'selector' => $tokens[0],
-					'validator' => $tokens[1]
+					'selector'  => $tokens[0],
+					'validator' => $tokens[1],
 				];
 			}
 		}
