@@ -2208,19 +2208,23 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string $event
-	 * @param string $name
-	 * @param string $class
-	 * @param string $method
-	 * @param array $arguments
+	 * Set a single or multiple functions to be called when trigged by triggerEvents().
+	 *
+	 * @param string $event     Event
+	 * @param string $name      Name
+	 * @param string $class     Class
+	 * @param string $method    Method
+	 * @param array  $arguments Arguments
+	 *
+	 * @return self
 	 */
-	public function setHook($event, $name, $class, $method, $arguments): self
+	public function setHook(string $event, string $name, string $class, string $method, array $arguments): self
 	{
-		$this->ionHooks->{$event}[$name] = new stdClass;
+		$this->ionHooks->{$event}[$name]            = new stdClass;
 		$this->ionHooks->{$event}[$name]->class     = $class;
 		$this->ionHooks->{$event}[$name]->method    = $method;
 		$this->ionHooks->{$event}[$name]->arguments = $arguments;
-            return $this;
+		return $this;
 	}
 
 	/**
