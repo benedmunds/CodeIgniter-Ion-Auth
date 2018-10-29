@@ -1327,7 +1327,9 @@ class IonAuthModel
 	}
 
 	/**
-	 * @return int
+	 * Num rows
+	 *
+	 * @return integer
 	 */
 	public function numRows(): int
 	{
@@ -1339,9 +1341,9 @@ class IonAuthModel
 	}
 
 	/**
-	 * Users
+	 * Get the users
 	 *
-	 * @param array|string|integer null $groups
+	 * @param array|string|integer $groups Group IDs, group names, or group IDs and names
 	 *
 	 * @return static
 	 * @author Ben Edmunds
@@ -1452,7 +1454,7 @@ class IonAuthModel
 		{
 			$builder->limit($this->ionLimit);
 
-			$this->ionLimit  = null;
+			$this->ionLimit = null;
 		}
 
 		// set the order
@@ -1460,7 +1462,7 @@ class IonAuthModel
 		{
 			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
 
-			$this->ionOrder    = null;
+			$this->ionOrder   = null;
 			$this->ionOrderBy = null;
 		}
 
