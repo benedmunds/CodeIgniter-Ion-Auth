@@ -288,14 +288,14 @@ class IonAuthModel
 	 * This function takes a password and validates it
 	 * against an entry in the users table.
 	 *
-	 * @param string	$password
-	 * @param string	$hashPasswordDb
-	 * @param string	$identity			optional @deprecated only for BC SHA1
+	 * @param string $password       Password
+	 * @param string $hashPasswordDb
+	 * @param string $identity		 Optional @deprecated only for BC SHA1
 	 *
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function verifyPassword(string $password, string $hashPasswordDb, $identity = null): bool
+	public function verifyPassword(string $password, string $hashPasswordDb, string $identity = ''): bool
 	{
 		// Check for empty id or password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
