@@ -426,39 +426,39 @@ class IonAuthModel
 	/**
 	 * Updates a users row with an activation code.
 	 *
-	 * @param int|string|null $id
+	 * @param integer $id User id
 	 *
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function deactivate($id = null): bool
+	public function deactivate(int $id = 0): bool
 	{
 		$this->triggerEvents('deactivate');
 
-		if (! isset($id))
+		if (! $id)
 		{
 			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
-		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id == $id)
+		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id === $id)
 		{
 			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
 		}
 
-		$token                 = $this->_generateSelectorValidatorCouple(20, 40);
-		$this->activationCode = $token->user_code;
+		$token                = $this->generateSelectorValidatorCouple(20, 40);
+		$this->activationCode = $token->userCode;
 
 		$data = [
 			'activation_selector' => $token->selector,
-			'activation_code'     => $token->validator_hashed,
+			'activation_code'     => $token->validatorHashed,
 			'active'              => 0,
 		];
 
 		$this->triggerEvents('extra_where');
 		$this->db->table($this->tables['users'])->update($data, ['id' => $id]);
 
-		$return = $this->db->affectedRows() == 1;
+		$return = $this->db->affectedRows() === 1;
 		if ($return)
 		{
 			$this->setMessage('IonAuth.deactivate_successful');
@@ -722,11 +722,11 @@ class IonAuthModel
 		}
 
 		// Generate random token: smaller size because it will be in the URL
-		$token = $this->_generateSelectorValidatorCouple(20, 80);
+		$token = $this->generateSelectorValidatorCouple(20, 80);
 
 		$update = [
 			'forgotten_password_selector' => $token->selector,
-			'forgotten_password_code' => $token->validator_hashed,
+			'forgotten_password_code' => $token->validatorHashed,
 			'forgotten_password_time' => time(),
 		];
 
@@ -736,7 +736,7 @@ class IonAuthModel
 		if ($this->db->affectedRows() === 1)
 		{
 			$this->triggerEvents(['post_forgotten_password', 'post_forgotten_password_successful']);
-			return $token->user_code;
+			return $token->userCode;
 		}
 		else
 		{
@@ -1965,12 +1965,12 @@ class IonAuthModel
 		}
 
 		// Generate random tokens
-		$token = $this->_generateSelectorValidatorCouple();
+		$token = $this->generateSelectorValidatorCouple();
 
-		if ($token->validator_hashed)
+		if ($token->validatorHashed)
 		{
 			$this->db->table('users')->update(['remember_selector' => $token->selector,
-								  			   'remember_code' => $token->validator_hashed ],
+								  			   'remember_code' => $token->validatorHashed ],
 											   [$this->identityColumn => $identity]);
 
 			if ($this->db->affectedRows() > -1)
@@ -1988,7 +1988,7 @@ class IonAuthModel
 
 				set_cookie([
 					'name'   => $this->config->rememberCookieName,
-					'value'  => $token->user_code,
+					'value'  => $token->userCode,
 					'expire' => $expire
 				]);
 
@@ -2649,32 +2649,32 @@ class IonAuthModel
 	 * Generate a random selector/validator couple
 	 * This is a user code
 	 *
-	 * @param $selector_size int	size of the selector token
-	 * @param $validator_size int	size of the validator token
+	 * @param integer $selectorSize  Size of the selector token
+	 * @param integer $validatorSize Size of the validator token
 	 *
-	 * @return object
-	 * 			->selector			simple token to retrieve the user (to store in DB)
-	 * 			->validator_hashed	token (hashed) to validate the user (to store in DB)
-	 * 			->user_code			code to be used user-side (in cookie or URL)
+	 * @return \stdClass
+	 *          ->selector			simple token to retrieve the user (to store in DB)
+	 *          ->validatorHashed	token (hashed) to validate the user (to store in DB)
+	 *          ->user_code			code to be used user-side (in cookie or URL)
 	 */
-	protected function _generateSelectorValidatorCouple($selector_size = 40, $validator_size = 128)
+	protected function generateSelectorValidatorCouple(int $selectorSize = 40, int $validatorSize = 128): \stdClass
 	{
 		// The selector is a simple token to retrieve the user
-		$selector = $this->randomToken($selector_size);
+		$selector = $this->randomToken($selectorSize);
 
 		// The validator will strictly validate the user and should be more complex
-		$validator = $this->randomToken($validator_size);
+		$validator = $this->randomToken($validatorSize);
 
 		// The validator is hashed for storing in DB (avoid session stealing in case of DB leaked)
-		$validator_hashed = $this->hashPassword($validator);
+		$validatorHashed = $this->hashPassword($validator);
 
 		// The code to be used user-side
-		$user_code = "$selector.$validator";
+		$userCode = $selector . '.' . $validator;
 
 		return (object) [
-			'selector' => $selector,
-			'validator_hashed' => $validator_hashed,
-			'user_code' => $user_code,
+			'selector'        => $selector,
+			'validatorHashed' => $validatorHashed,
+			'userCode'        => $userCode,
 		];
 	}
 
