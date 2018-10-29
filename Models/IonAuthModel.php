@@ -200,6 +200,11 @@ class IonAuthModel
 	 */
 	protected $db;
 
+	/**
+	 * Constructor
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
 		$this->config = config('IonAuth\\Config\\IonAuth');
@@ -223,7 +228,7 @@ class IonAuthModel
 
 		// initialize data
 		$this->identityColumn = $this->config->identity;
-		$this->join            = $this->config->join;
+		$this->join           = $this->config->join;
 
 		// initialize hash method options (Bcrypt)
 		$this->hashMethod = $this->config->hashMethod;
@@ -251,8 +256,8 @@ class IonAuthModel
 	/**
 	 * Hashes the password to be stored in the database.
 	 *
-	 * @param string $password
-	 * @param string $identity
+	 * @param string $password Password
+	 * @param string $identity Identity
 	 *
 	 * @return false|string
 	 * @author Mathew
@@ -268,7 +273,7 @@ class IonAuthModel
 			return false;
 		}
 
-		$algo = $this->_getHashAlgo();
+		$algo   = $this->_getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
