@@ -87,6 +87,16 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	}
 
 	/**
+	 * Test login
+	 *
+	 * @return void
+	 */
+	public function testLogin()
+	{
+		$this->assertFalse($this->model->login('admin@admin.com', 'bad_password'));
+	}
+
+	/**
 	 * Test getLastAttemptTime()
 	 *
 	 * @return void
