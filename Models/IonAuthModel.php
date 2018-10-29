@@ -1856,38 +1856,38 @@ class IonAuthModel
 	}
 
 	/**
-	 * update_last_login
+	 * Update last login
 	 *
-	 * @param int|string $id
+	 * @param integer $id User id
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function updateLastLogin($id): bool
+	public function updateLastLogin(int $id): bool
 	{
 		$this->triggerEvents('update_last_login');
 
 		$this->triggerEvents('extra_where');
 
-        $this->db->table($this->tables['users'])->update(['last_login' => time()], ['id' => $id]);
+		$this->db->table($this->tables['users'])->update(['last_login' => time()], ['id' => $id]);
 
-		return $this->db->affectedRows() == 1;
+		return $this->db->affectedRows() === 1;
 	}
 
 	/**
-	 * set_lang
+	 * Set lang
 	 *
-	 * @param string $lang
+	 * @param string $lang Lang
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function setLang($lang = 'en'): bool
+	public function setLang(string $lang = 'en'): bool
 	{
 		$this->triggerEvents('set_lang');
 
 		// if the userExpire is set to zero we'll set the expiration two years from now.
-		if($this->config->userExpire === 0)
+		if ($this->config->userExpire === 0)
 		{
 			$expire = self::MAX_COOKIE_LIFETIME;
 		}
@@ -1900,35 +1900,34 @@ class IonAuthModel
 		set_cookie([
 			'name'   => 'lang_code',
 			'value'  => $lang,
-			'expire' => $expire
+			'expire' => $expire,
 		]);
 
 		return true;
 	}
 
 	/**
-	 * set_session
+	 * Set session
 	 *
-	 * @param object $user
+	 * @param stdClass $user User
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author jrmadsen67
 	 */
-	public function setSession($user): bool
+	public function setSession(stdClass $user): bool
 	{
 		$this->triggerEvents('pre_set_session');
 
-		$session_data = [
-		    'identity'             => $user->{$this->identityColumn},
-		    $this->identityColumn => $user->{$this->identityColumn},
-		    'email'                => $user->email,
-		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
-		    'old_last_login'       => $user->last_login,
-		    'last_check'           => time(),
+		$sessionData = [
+			'identity'            => $user->{$this->identityColumn},
+			$this->identityColumn => $user->{$this->identityColumn},
+			'email'               => $user->email,
+			'user_id'             => $user->id, //everyone likes to overwrite id so we'll use user_id
+			'old_last_login'      => $user->last_login,
+			'last_check'          => time(),
 		];
 
-		//$this->session->set_userdata($session_data);
-        $this->session->set($session_data);
+		$this->session->set($sessionData);
 
 		$this->triggerEvents('post_set_session');
 
@@ -1941,16 +1940,16 @@ class IonAuthModel
 	 * Implemented as described in
 	 * https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 	 *
-	 * @param string $identity
+	 * @param string $identity Identity
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function rememberUser($identity)
+	public function rememberUser(string $identity): bool
 	{
 		$this->triggerEvents('pre_remember_user');
 
-		if (!$identity)
+		if (! $identity)
 		{
 			return false;
 		}
@@ -1961,13 +1960,13 @@ class IonAuthModel
 		if ($token->validatorHashed)
 		{
 			$this->db->table('users')->update(['remember_selector' => $token->selector,
-								  			   'remember_code' => $token->validatorHashed ],
+								  			   'remember_code' => $token->validatorHashed],
 											   [$this->identityColumn => $identity]);
 
 			if ($this->db->affectedRows() > -1)
 			{
 				// if the userExpire is set to zero we'll set the expiration two years from now.
-				if($this->config->userExpire === 0)
+				if ( $this->config->userExpire === 0)
 				{
 					$expire = self::MAX_COOKIE_LIFETIME;
 				}
@@ -1997,7 +1996,7 @@ class IonAuthModel
 	 * Implemented as described in
 	 * https://paragonie.com/blog/2015/04/secure-authentication-php-with-long-term-persistence
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Ben Edmunds
 	 */
 	public function loginRememberedUser(): bool
@@ -2005,8 +2004,8 @@ class IonAuthModel
 		$this->triggerEvents('pre_login_remembered_user');
 
 		// Retrieve token from cookie
-		$remember_cookie = get_cookie($this->config->rememberCookieName);
-		$token = $this->retrieveSelectorValidatorCouple($remember_cookie);
+		$rememberCookie = get_cookie($this->config->rememberCookieName);
+		$token          = $this->retrieveSelectorValidatorCouple($rememberCookie);
 
 		if ($token === false)
 		{
@@ -2058,39 +2057,44 @@ class IonAuthModel
 		return false;
 	}
 
-
 	/**
-	 * create_group
+	 * Create a group
 	 *
-	 * @param string|bool $groupName
-	 * @param string      $group_description
-	 * @param array       $additional_data
+	 * @param string $groupName        Group name
+	 * @param string $groupDescription Group description
+	 * @param array  $additionalData   Additional data
 	 *
-	 * @return int|bool The ID of the inserted group, or false on failure
+	 * @return integer|boolean The ID of the inserted group, or false on failure
 	 * @author aditya menon
 	 */
-	public function createGroup($groupName = false, string $groupDescription = '', array $additionalData = [])
+	public function createGroup(string $groupName = '', string $groupDescription = '', array $additionalData = [])
 	{
 		// bail if the group name was not passed
-		if(!$groupName)
+		if (! $groupName)
 		{
 			$this->setError('IonAuth.groupName_required');
 			return false;
 		}
 
 		// bail if the group name already exists
-		$existing_group = $this->db->table($this->tables['groups'])->where(['name' => $groupName])->countAllResults();
-		if($existing_group !== 0)
+		$existingGroup = $this->db->table($this->tables['groups'])->where(['name' => $groupName])->countAllResults();
+		if ($existingGroup !== 0)
 		{
 			$this->setError('IonAuth.group_already_exists');
 			return false;
 		}
 
-		$data = ['name'=>$groupName,'description'=>$groupDescription];
+		$data = [
+			'name'        => $groupName,
+			'description' => $groupDescription,
+		];
 
 		// filter out any data passed that doesnt have a matching column in the groups table
 		// and merge the set group data and the additional data
-		if (!empty($additionalData)) $data = array_merge($this->filterData($this->tables['groups'], $additionalData), $data);
+		if (! empty($additionalData))
+		{
+			$data = array_merge($this->filterData($this->tables['groups'], $additionalData), $data);
+		}
 
 		$this->triggerEvents('extra_group_set');
 
