@@ -274,7 +274,7 @@ class IonAuthModel
 		}
 
 		$algo   = $this->getHashAlgo();
-		$params = $this->_getHashParameters($identity);
+		$params = $this->getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
 		{
@@ -322,7 +322,7 @@ class IonAuthModel
 	public function rehashPasswordIfNeeded(string $hash, string $identity, string $password): void
 	{
 		$algo   = $this->getHashAlgo();
-		$params = $this->_getHashParameters($identity);
+		$params = $this->getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
 		{
@@ -2571,22 +2571,23 @@ class IonAuthModel
 		throw new \Exception('Unable to generate a random token');
 	}
 
-	/** Retrieve hash parameter according to options
+	/**
+	 * Retrieve hash parameter according to options
 	 *
-	 * @param string	$identity
+	 * @param string $identity Identity
 	 *
-	 * @return array|bool
+	 * @return array|boolean
 	 */
-	protected function _getHashParameters($identity = null)
+	protected function getHashParameters(string $identity = '')
 	{
 		// Check if user is administrator or not
-		$is_admin = false;
+		$isAdmin = false;
 		if ($identity)
 		{
 			$userId = $this->getUserIdFromIdentity($identity);
 			if ($userId && $this->inGroup($this->config->adminGroup, $userId))
 			{
-				$is_admin = TRUE;
+				$isAdmin = true;
 			}
 		}
 
@@ -2595,13 +2596,13 @@ class IonAuthModel
 		{
 			case 'bcrypt':
 				$params = [
-					'cost' => $is_admin ? $this->config->bcryptAdminCost
+					'cost' => $isAdmin ? $this->config->bcryptAdminCost
 										: $this->config->bcryptDefaultCost
 				];
 				break;
 
 			case 'argon2':
-				$params = $is_admin ? $this->config->argon2AdminParams
+				$params = $isAdmin ? $this->config->argon2AdminParams
 									: $this->config->argon2DefaultParams;
 				break;
 
