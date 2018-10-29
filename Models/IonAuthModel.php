@@ -306,16 +306,7 @@ class IonAuthModel
 			return false;
 		}
 
-		// password_hash always starts with $
-		if (strpos($hashPasswordDb, '$') === 0)
-		{
-			return password_verify($password, $hashPasswordDb);
-		}
-		else
-		{
-			// Handle legacy SHA1 @TODO to delete in later revision
-			return $this->_passwordVerifySha1Legacy($identity, $password, $hashPasswordDb);
-		}
+		return password_verify($password, $hashPasswordDb);
 	}
 
 	/**
@@ -2707,82 +2698,4 @@ class IonAuthModel
 		return false;
 	}
 
-	/**
-	 * Handle legacy sha1 password
-	 *
-	 * We expect the configuration to still have:
-	 *		store_salt
-	 *		salt_length
-	 *
-	 * @TODO to be removed in later version
-	 *
-	 * @param string	$identity
-	 * @param string	$password
-	 * @param string	$hashed_password_db
-	 *
-	 * @return bool
-	 **/
-	protected function _passwordVerifySha1Legacy($identity, $password, $hashedPasswordDb)
-	{
-		$this->triggerEvents('pre_sha1_password_migration');
-
-		if ($this->config->store_salt)
-		{
-			// Salt is store at the side, retrieve it
-			$query = $this->db->table($this->tables['users'])
-							  ->select('salt')
-							  ->where($this->identityColumn, $identity)
-							  ->limit(1)
-							  ->get();
-
-			$saltDb = $query->row();
-
-			if ($query->numRows() !== 1)
-			{
-				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-				return false;
-			}
-
-			$hashedPassword = sha1($password . $saltDb->salt);
-		}
-		else
-		{
-			// Salt is stored along with password
-			$saltLength = $this->config->salt_length;
-
-			if (!$saltLength)
-			{
-				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-				return false;
-			}
-
-			$salt = substr($hashedPasswordDb, 0, $saltLength);
-
-			$hashedPassword =  $salt . substr(sha1($salt . $password), 0, -$saltLength);
-		}
-
-		// Now we can compare them
-		if($hashedPassword === $hashedPasswordDb)
-		{
-			// Password is good, migrate it to latest
-			$result = $this->_setPasswordDb($identity, $password);
-
-			if ($result)
-			{
-				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_successful']);
-			}
-			else
-			{
-				$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-			}
-
-			return $result;
-		}
-		else
-		{
-			// Password mismatch, we cannot migrate...
-			$this->triggerEvents(['post_sha1_password_migration', 'post_sha1_password_migration_unsuccessful']);
-			return false;
-		}
-	}
 }
