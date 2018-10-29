@@ -1677,7 +1677,7 @@ class IonAuthModel
 	}
 
 	/**
-	 * groups
+	 * Get the groups
 	 *
 	 * @return static
 	 * @author Ben Edmunds
@@ -1689,7 +1689,7 @@ class IonAuthModel
 		$builder = $this->db->table($this->tables['groups']);
 
 		// run each where that was passed
-		if (isset($this->ionWhere) && !empty($this->ionWhere))
+		if (isset($this->ionWhere) && ! empty($this->ionWhere))
 		{
 			foreach ($this->ionWhere as $where)
 			{
@@ -1709,7 +1709,7 @@ class IonAuthModel
 		{
 			$builder->limit($this->ionLimit);
 
-			$this->ionLimit  = null;
+			$this->ionLimit = null;
 		}
 
 		// set the order
