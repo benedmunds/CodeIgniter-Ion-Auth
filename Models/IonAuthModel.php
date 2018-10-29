@@ -1494,25 +1494,25 @@ class IonAuthModel
 	}
 
 	/**
-	 * get_users_groups
+	 * Get all groups a user is part of
 	 *
-	 * @param int|string|bool $id
+	 * @param integer $id If a user id is not passed the id of the currently logged in user will be used
 	 *
 	 * @return \CodeIgniter\Database\ResultInterface
 	 * @author Ben Edmunds
 	 */
-	public function getUsersGroups($id = false)
+	public function getUsersGroups(int $id = 0)
 	{
 		$this->triggerEvents('get_users_group');
 
 		// if no id was passed use the current users id
 		$id || $id = $this->session->get('user_id');
 
-        $builder = $this->db->table($this->tables['users_groups']);
-		return $builder->select($this->tables['users_groups'].'.'.$this->join['groups'].' as id, '.$this->tables['groups'].'.name, '.$this->tables['groups'].'.description')
-		                ->where($this->tables['users_groups'].'.'.$this->join['users'], $id)
-		                ->join($this->tables['groups'], $this->tables['users_groups'].'.'.$this->join['groups'].'='.$this->tables['groups'].'.id')
-		                ->get();
+		$builder = $this->db->table($this->tables['users_groups']);
+		return $builder->select($this->tables['users_groups'] . '.' . $this->join['groups'] . ' as id, ' . $this->tables['groups'] . '.name, ' . $this->tables['groups'] . '.description')
+					   ->where($this->tables['users_groups'] . '.' . $this->join['users'], $id)
+					   ->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . '=' . $this->tables['groups'] . '.id')
+					   ->get();
 	}
 
 	/**
