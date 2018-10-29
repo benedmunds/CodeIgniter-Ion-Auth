@@ -41,11 +41,15 @@ class IonAuthModel
 	const MAX_PASSWORD_SIZE_BYTES = 4096;
 
 	/**
+	 * IonAuth config
+	 *
 	 * @var Config\IonAuth
 	 */
 	private $config;
 
 	/**
+	 * CodeIgniter session
+	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
 	private $session;
