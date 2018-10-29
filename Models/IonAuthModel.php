@@ -830,7 +830,7 @@ class IonAuthModel
 
 		// filter out any data passed that doesnt have a matching column in the users table
 		// and merge the set user data and the additional data
-		$user_data = array_merge($this->_filterData($this->tables['users'], $additional_data), $data);
+		$user_data = array_merge($this->filterData($this->tables['users'], $additional_data), $data);
 
 		$this->triggerEvents('extra_set');
 
@@ -1775,7 +1775,7 @@ class IonAuthModel
 		}
 
 		// Filter the data passed
-		$data = $this->_filterData($this->tables['users'], $data);
+		$data = $this->filterData($this->tables['users'], $data);
 
 		if (array_key_exists($this->identityColumn, $data) || array_key_exists('password', $data) || array_key_exists('email', $data))
 		{
@@ -2090,7 +2090,7 @@ class IonAuthModel
 
 		// filter out any data passed that doesnt have a matching column in the groups table
 		// and merge the set group data and the additional data
-		if (!empty($additionalData)) $data = array_merge($this->_filterData($this->tables['groups'], $additionalData), $data);
+		if (!empty($additionalData)) $data = array_merge($this->filterData($this->tables['groups'], $additionalData), $data);
 
 		$this->triggerEvents('extra_group_set');
 
@@ -2150,7 +2150,7 @@ class IonAuthModel
 		// and merge the set group data and the additional data
 		if (! empty($additionalData))
 		{
-			$data = array_merge($this->_filterData($this->tables['groups'], $additionalData), $data);
+			$data = array_merge($this->filterData($this->tables['groups'], $additionalData), $data);
 		}
 
 		$this->db->table($this->tables['groups'])->update($data, ['id' => $groupId]);
@@ -2522,14 +2522,16 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string $table
-	 * @param array  $data
+	 * Filter data
+	 *
+	 * @param string $table Table
+	 * @param array  $data  Data
 	 *
 	 * @return array
 	 */
-	protected function _filterData(string $table, $data): array
+	protected function filterData(string $table, $data): array
 	{
-		$filtered_data = [];
+		$filteredData = [];
 		$columns = $this->db->getFieldNames($table);
 
 		if (is_array($data))
@@ -2538,19 +2540,19 @@ class IonAuthModel
 			{
 				if (array_key_exists($column, $data))
 				{
-					$filtered_data[$column] = $data[$column];
+					$filteredData[$column] = $data[$column];
 				}
 			}
 		}
 
-		return $filtered_data;
+		return $filteredData;
 	}
 
 	/**
 	 * Generate a random token
 	 * Inspired from http://php.net/manual/en/function.random-bytes.php#118932
 	 *
-	 * @param integer $resultLength
+	 * @param integer $resultLength Result lenght
 	 *
 	 * @return string
 	 */
