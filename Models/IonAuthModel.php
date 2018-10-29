@@ -322,14 +322,15 @@ class IonAuthModel
 	 * Check if password needs to be rehashed
 	 * If true, then rehash and update it in DB
 	 *
-	 * @param string $hash
-	 * @param string $identity
-	 * @param string $password
+	 * @param string $hash     Hash
+	 * @param string $identity Identity
+	 * @param string $password Password
 	 *
+	 * @return void
 	 */
-	public function rehashPasswordIfNeeded(string $hash, string $identity, string $password)
+	public function rehashPasswordIfNeeded(string $hash, string $identity, string $password): void
 	{
-		$algo = $this->_getHashAlgo();
+		$algo   = $this->_getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
