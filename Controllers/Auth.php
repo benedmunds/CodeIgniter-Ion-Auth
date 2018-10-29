@@ -678,7 +678,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
 
 			// do we have a valid request?
-			if ($id != $this->request->getPost('id'))
+			if ($id !== $this->request->getPost('id', FILTER_VALIDATE_INT))
 			{
 				//show_error(lang('Auth.error_security'));
 				throw new \Exception(lang('Auth.error_security'));
