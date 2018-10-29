@@ -273,7 +273,7 @@ class IonAuthModel
 			return false;
 		}
 
-		$algo   = $this->_getHashAlgo();
+		$algo   = $this->getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
@@ -321,7 +321,7 @@ class IonAuthModel
 	 */
 	public function rehashPasswordIfNeeded(string $hash, string $identity, string $password): void
 	{
-		$algo   = $this->_getHashAlgo();
+		$algo   = $this->getHashAlgo();
 		$params = $this->_getHashParameters($identity);
 
 		if ($algo !== false && $params !== false)
@@ -2612,11 +2612,12 @@ class IonAuthModel
 		return $params;
 	}
 
-	/** Retrieve hash algorithm according to options
+	/**
+	 * Retrieve hash algorithm according to options
 	 *
-	 * @return string|bool
+	 * @return string|boolean
 	 */
-	protected function _getHashAlgo()
+	protected function getHashAlgo()
 	{
 		$algo = false;
 		switch ($this->hashMethod)
