@@ -1293,13 +1293,17 @@ class IonAuthModel
 	}
 
 	/**
-	 * @return array|mixed
+	 * Returns a single row from the results as an array.
+	 *
+	 * If row doesn't exist, returns null.
+	 *
+	 * @return mixed
 	 */
 	public function rowArray()
 	{
 		$this->triggerEvents(['row', 'row_array']);
 
-		$row = $this->response->rowArray();
+		$row = $this->response->getRowArray();
 
 		return $row;
 	}
