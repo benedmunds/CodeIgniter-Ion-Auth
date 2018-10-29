@@ -112,10 +112,10 @@ class IonAuth
 	 * @return array|boolean
 	 * @author Mathew
 	 */
-	public function forgottenPassword(string $identity): bool
+	public function forgottenPassword(string $identity)
 	{
 		// Retrieve user information
-		$user = $this->where($this->ionAuthModel->identity_column, $identity)
+		$user = $this->where($this->ionAuthModel->identityColumn, $identity)
 					 ->where('active', 1)
 					 ->users()->row();
 

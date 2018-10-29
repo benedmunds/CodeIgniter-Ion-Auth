@@ -17,6 +17,18 @@ namespace Tests;
 class IonAuthLibraryTest extends \CIUnitTestCase
 {
 	/**
+	 * Test forgottenPassword()
+	 *
+	 * @return void
+	 */
+	public function testForgottenPassword()
+	{
+		$ionAuthLibrary = new \IonAuth\Libraries\IonAuth();
+
+		$this->assertNotEmpty($ionAuthLibrary->forgottenPassword('admin@admin.com'));
+	}
+
+	/**
 	 * Test register()
 	 *
 	 * @return void
