@@ -74,7 +74,7 @@ class IonAuthModel
 	 * It contains the *user* version of the activation code
 	 * It's a value of the form "selector.validator"
 	 *
-	 * This is not the same activation_code as the one in DB.
+	 * This is not the same activationCode as the one in DB.
 	 * The DB contains a *hashed* version of the validator
 	 * and a selector in another column.
 	 *
@@ -86,7 +86,7 @@ class IonAuthModel
 	 *
 	 * @var string
 	 */
-	public $activation_code;
+	public $activationCode;
 
 	/**
 	 * Identity column
@@ -441,7 +441,7 @@ class IonAuthModel
 		}
 
 		$token                 = $this->_generateSelectorValidatorCouple(20, 40);
-		$this->activation_code = $token->user_code;
+		$this->activationCode = $token->user_code;
 
 		$data = [
 			'activation_selector' => $token->selector,
