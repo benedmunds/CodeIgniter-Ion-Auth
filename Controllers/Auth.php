@@ -807,7 +807,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
-			$newGroupId = $this->ionAuth->create_group($this->request->getPost('group_name'), $this->request->getPost('description'));
+			$newGroupId = $this->ionAuth->createGroup($this->request->getPost('group_name'), $this->request->getPost('description'));
 			if ($newGroupId)
 			{
 				// check to see if we are creating the group
