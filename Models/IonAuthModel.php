@@ -1821,14 +1821,14 @@ class IonAuthModel
 	}
 
 	/**
-	 * delete_user
+	 * Delete a user
 	 *
-	 * @param int|string $id
+	 * @param integer $id User id
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Phil Sturgeon
 	 */
-	public function deleteUser($id): bool
+	public function deleteUser(int $id): bool
 	{
 		$this->triggerEvents('pre_delete_user');
 
