@@ -2111,7 +2111,7 @@ class IonAuthModel
 	 * @param string  $groupName      Group name
 	 * @param array   $additionalData Additional datas
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author aditya menon
 	 */
 	public function updateGroup(int $groupId, string $groupName = '', array $additionalData = []): bool
@@ -2129,7 +2129,7 @@ class IonAuthModel
 
 			// bail if the group name already exists
 			$existingGroup = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
-			if (isset($existingGroup->id) && $existingGroup->id != $groupId)
+			if (isset($existingGroup->id) && $existingGroup->id !== $groupId)
 			{
 				$this->setError('IonAuth.group_already_exists');
 				return false;
