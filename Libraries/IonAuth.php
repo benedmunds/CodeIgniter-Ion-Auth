@@ -22,22 +22,27 @@ namespace IonAuth\Libraries;
  */
 
 /**
- * Class IonAuth
+ * This class is the IonAuth library.
  */
 class IonAuth
 {
 	/**
+	 * Configuration
+	 *
 	 * @var \IonAuth\Config\IonAuth
 	 */
 	private $config;
 
 	/**
+	 * IonAuth model
 	 *
 	 * @var \IonAuth\Models\IonAuthModel
 	 */
 	private $ionAuthModel;
 
 	/**
+	 * Email class
+	 *
 	 * @var \CodeIgniter\Email\Email
 	 */
 	protected $email;
@@ -55,7 +60,7 @@ class IonAuth
 		$this->config = config('IonAuth\\Config\\IonAuth');
 
 		$this->email = \Config\Services::email();
-		//$this->load->helper(['cookie', 'language','url']);
+		helper('cookie');
 
 		$this->session = session();
 
@@ -76,23 +81,23 @@ class IonAuth
 	 *
 	 * Acts as a simple way to call model methods without loads of stupid alias'
 	 *
-	 * @param string $method
-	 * @param array  $arguments
+	 * @param string $method    Method to call
+	 * @param array  $arguments Method arguments
 	 *
 	 * @return mixed
-	 * @throws Exception
+	 * @throws Exception When $method is undefined.
 	 */
-	public function __call($method, $arguments)
+	public function __call(string $method, array $arguments)
 	{
-		if (!method_exists( $this->ionAuthModel, $method) )
+		if (! method_exists( $this->ionAuthModel, $method))
 		{
 			throw new \Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
-		if($method == 'create_user')
+		if ($method === 'create_user')
 		{
 			return call_user_func_array([$this, 'register'], $arguments);
 		}
-		if($method=='update_user')
+		if ($method === 'update_user')
 		{
 			return call_user_func_array([$this, 'update'], $arguments);
 		}
@@ -102,12 +107,12 @@ class IonAuth
 	/**
 	 * Forgotten password feature
 	 *
-	 * @param string $identity
+	 * @param string $identity Identity
 	 *
 	 * @return array|boolean
 	 * @author Mathew
 	 */
-	public function forgottenPassword(string $identity)
+	public function forgottenPassword(string $identity): bool
 	{
 		// Retrieve user information
 		$user = $this->where($this->ionAuthModel->identity_column, $identity)
