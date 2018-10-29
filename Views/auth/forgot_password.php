@@ -3,10 +3,10 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/forgot_password");?>
+<?php echo form_open('auth/forgot_password');?>
 
       <p>
-      	<label for="identity"><?php echo (($type=='email') ? sprintf(lang('Auth.forgot_password_email_label'), $identity_label) : sprintf(lang('Auth.forgot_password_identity_label'), $identity_label));?></label> <br />
+      	<label for="identity"><?php echo (($type === 'email') ? sprintf(lang('Auth.forgot_password_email_label'), $identity_label) : sprintf(lang('Auth.forgot_password_identity_label'), $identity_label));?></label> <br />
       	<?php echo form_input($identity);?>
       </p>
 

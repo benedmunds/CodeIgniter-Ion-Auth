@@ -3,7 +3,7 @@
 
 <div id="infoMessage"><?php echo $message;?></div>
 
-<?php echo form_open("auth/login");?>
+<?php echo form_open('auth/login');?>
 
   <p>
     <?php echo form_label(lang('Auth.login_identity_label'), 'identity');?>
@@ -17,7 +17,7 @@
 
   <p>
     <?php echo form_label(lang('Auth.login_remember_label'), 'remember');?>
-    <?php echo form_checkbox('remember', '1', FALSE, 'id="remember"');?>
+    <?php echo form_checkbox('remember', '1', false, 'id="remember"');?>
   </p>
 
 

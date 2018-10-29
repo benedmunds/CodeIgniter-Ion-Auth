@@ -1,7 +1,7 @@
 <h1><?php echo lang('Auth.deactivate_heading');?></h1>
 <p><?php echo sprintf(lang('Auth.deactivate_subheading'), $user->username);?></p>
 
-<?php echo form_open("auth/deactivate/".$user->id);?>
+<?php echo form_open('auth/deactivate/' . $user->id);?>
 
   <p>
   	<?php echo form_label(lang('Auth.deactivate_confirm_y_label'), 'confirm');?>

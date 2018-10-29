@@ -19,11 +19,11 @@
             <td><?php echo htmlspecialchars($user->email,ENT_QUOTES,'UTF-8');?></td>
 			<td>
 				<?php foreach ($user->groups as $group):?>
-					<?php echo anchor("auth/edit_group/".$group->id, htmlspecialchars($group->name,ENT_QUOTES,'UTF-8')) ;?><br />
+					<?php echo anchor('auth/edit_group/' . $group->id, htmlspecialchars($group->name, ENT_QUOTES, 'UTF-8')); ?><br />
                 <?php endforeach?>
 			</td>
-			<td><?php echo ($user->active) ? anchor("auth/deactivate/".$user->id, lang('Auth.index_active_link')) : anchor("auth/activate/". $user->id, lang('Auth.index_inactive_link'));?></td>
-			<td><?php echo anchor("auth/edit_user/".$user->id, 'Edit') ;?></td>
+			<td><?php echo ($user->active) ? anchor('auth/deactivate/' . $user->id, lang('Auth.index_active_link')) : anchor("auth/activate/". $user->id, lang('Auth.index_inactive_link'));?></td>
+			<td><?php echo anchor('auth/edit_user/' . $user->id, 'Edit') ;?></td>
 		</tr>
 	<?php endforeach;?>
 </table>
