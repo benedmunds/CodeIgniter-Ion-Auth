@@ -1002,7 +1002,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity  user's identity
 	 * @param string|null $ipAddress IP address
-	 *                               Only used if trackLoginIpAddress is set to TRUE.
+	 *                               Only used if trackLoginIpAddress is set to true.
 	 *                               If null (default value), the current IP address is used.
 	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1028,7 +1028,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity   User's identity
 	 * @param string|null $ip_address IP address
-	 *                                Only used if trackLoginIpAddress is set to TRUE.
+	 *                                Only used if trackLoginIpAddress is set to true.
 	 *                                If null (default value), the current IP address is used.
 	 *                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1061,7 +1061,7 @@ class IonAuthModel
 	 *
 	 * @param string      $identity  User's identity
 	 * @param string|null $ipAddress IP address
-	 *                               Only used if trackLoginIpAddress is set to TRUE.
+	 *                               Only used if trackLoginIpAddress is set to true.
 	 *                               If null (default value), the current IP address is used.
 	 *                               Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1122,7 +1122,7 @@ class IonAuthModel
 	/**
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)
 	 *
-	 * Note: the current IP address will be used if trackLoginIpAddress config value is TRUE
+	 * Note: the current IP address will be used if trackLoginIpAddress config value is true
 	 *
 	 * @param string $identity User's identity
 	 *
@@ -1153,7 +1153,7 @@ class IonAuthModel
 	 *                                                It is used for regularly purging the attempts table.
 	 *                                                (for security reason, minimum value is lockoutTime config value)
 	 * @param string|null $ipAddress               IP address
-	 *                                                Only used if track_login_ipAddress is set to TRUE.
+	 *                                                Only used if track_login_ipAddress is set to true.
 	 *                                                If null (default value), the current IP address is used.
 	 *                                                Use getLastAttemptIp($identity) to retrieve a user's last IP
 	 *
@@ -1852,7 +1852,7 @@ class IonAuthModel
 
 		$this->triggerEvents(['post_delete_user', 'post_delete_user_successful']);
 		$this->setMessage('delete_successful');
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -1903,7 +1903,7 @@ class IonAuthModel
 			'expire' => $expire
 		]);
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -1932,7 +1932,7 @@ class IonAuthModel
 
 		$this->triggerEvents('post_set_session');
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -1984,7 +1984,7 @@ class IonAuthModel
 				]);
 
 				$this->triggerEvents(['post_remember_user', 'remember_user_successful']);
-				return TRUE;
+				return true;
 			}
 		}
 
@@ -2049,7 +2049,7 @@ class IonAuthModel
 				$this->session->sess_regenerate(false);
 
 				$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_successful']);
-				return TRUE;
+				return true;
 			}
 		}
 		delete_cookie($this->config->rememberCookieName);
@@ -2265,11 +2265,15 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string|array $events
+	 * Call Additional functions to run that were registered with setHook().
+	 *
+	 * @param string|array $events Event(s)
+	 *
+	 * @return void
 	 */
-	public function triggerEvents($events)
+	public function triggerEvents($events): void
 	{
-		if (is_array($events) && !empty($events))
+		if (is_array($events) && ! empty($events))
 		{
 			foreach ($events as $event)
 			{
@@ -2278,7 +2282,7 @@ class IonAuthModel
 		}
 		else
 		{
-			if (isset($this->_ion_hooks->$events) && !empty($this->_ion_hooks->$events))
+			if (isset($this->_ion_hooks->$events) && ! empty($this->_ion_hooks->$events))
 			{
 				foreach ($this->_ion_hooks->$events as $name => $hook)
 				{
@@ -2299,11 +2303,13 @@ class IonAuthModel
 	 */
 	public function setMessageTemplate(string $single = '', string $list = ''): bool
 	{
-		if (! empty($single)) {
+		if (! empty($single))
+		{
 			$this->messagesTemplates['single'] = $single;
 		}
 
-		if (!empty($list)) {
+		if (! empty($list))
+		{
 			$this->messagesTemplates['list'] = $list;
 		}
 
@@ -2333,14 +2339,15 @@ class IonAuthModel
 	 */
 	public function messages(): string
 	{
-		if (empty($this->messages)) {
+		if (empty($this->messages))
+		{
 			return '';
 		}
 
 		$messageLang = [];
 		foreach ($this->messages as $message)
 		{
-            $messageLang[] = lang($message) !== $message ? lang($message) : '##' . $message . '##';
+			$messageLang[] = lang($message) !== $message ? lang($message) : '##' . $message . '##';
 		}
 		return view($this->messagesTemplates['list'], ['messages' => $messageLang]);
 	}
@@ -2348,7 +2355,7 @@ class IonAuthModel
 	/**
 	 * Get the messages as an array
 	 *
-	 * @param bool $langify
+	 * @param boolean $langify Translate messages ?
 	 *
 	 * @return array
 	 * @author Raul Baldner Junior
@@ -2361,7 +2368,7 @@ class IonAuthModel
 			foreach ($this->messages as $message)
 			{
 				$messageLang = lang($message) !== $message ? lang($message) : '##' . $message . '##';
-				$output[] = view($this->messagesTemplates['signle'], ['message' => $messageLang]);
+				$output[]    = view($this->messagesTemplates['signle'], ['message' => $messageLang]);
 			}
 			return $output;
 		}
@@ -2372,8 +2379,6 @@ class IonAuthModel
 	}
 
 	/**
-	 * clear_messages
-	 *
 	 * Clear messages
 	 *
 	 * @return true
@@ -2383,7 +2388,7 @@ class IonAuthModel
 	{
 		$this->messages = [];
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -2404,7 +2409,7 @@ class IonAuthModel
 	/**
 	 * Get the error message
 	 *
-	 * @param string $template @see https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
+	 * @param string $template Template @see https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
 	 *
 	 * @return string
 	 * @author Ben Edmunds
@@ -2417,7 +2422,8 @@ class IonAuthModel
 		}
 
 		$errors = [];
-		foreach ($this->errors as $error) {
+		foreach ($this->errors as $error)
+		{
 			$errors[] = lang($error) !== $error ? lang($error) : '##' . $error . '##';
 		}
 
@@ -2427,12 +2433,12 @@ class IonAuthModel
 	/**
 	 * Get the error messages as an array
 	 *
-	 * @deprecated No longer used by internal code and not recommended.
-	 *
-	 * @param bool $langify
+	 * @param boolean $langify Langify errors ?
 	 *
 	 * @return array
 	 * @author Raul Baldner Junior
+	 *
+	 * @deprecated No longer used by internal code and not recommended.
 	 */
 	public function errorsArray(bool $langify = true): array
 	{
@@ -2454,7 +2460,7 @@ class IonAuthModel
 	/**
 	 * Get the error messages as an array
 	 *
-	 * @param bool $langify
+	 * @param boolean $langify Langify errors ?
 	 *
 	 * @return array
 	 * @author Benoit VRIGNAUD
