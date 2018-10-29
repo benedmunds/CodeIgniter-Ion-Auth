@@ -1724,20 +1724,20 @@ class IonAuthModel
 	}
 
 	/**
-	 * group
+	 * Get a group
 	 *
-	 * @param int|string|null $id
+	 * @param integer $id Group id
 	 *
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function group($id = null)
+	public function group(int $id = 0)
 	{
 		$this->triggerEvents('group');
 
-		if (isset($id))
+		if ($id)
 		{
-			$this->where($this->tables['groups'].'.id', $id);
+			$this->where($this->tables['groups'] . '.id', $id);
 		}
 
 		$this->limit(1);
