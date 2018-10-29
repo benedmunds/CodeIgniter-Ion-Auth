@@ -2247,12 +2247,14 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string $event
-	 * @param string $name
+	 * Call hook
 	 *
-	 * @return bool|mixed
+	 * @param string $event Event
+	 * @param string $name  Name
+	 *
+	 * @return false|mixed
 	 */
-	protected function _callHook($event, $name)
+	protected function callHook(string $event, string $name)
 	{
 		if (isset($this->ionHooks->{$event}[$name]) && method_exists($this->ionHooks->{$event}[$name]->class, $this->ionHooks->{$event}[$name]->method))
 		{
@@ -2286,7 +2288,7 @@ class IonAuthModel
 			{
 				foreach ($this->ionHooks->$events as $name => $hook)
 				{
-					$this->_callHook($events, $name);
+					$this->callHook($events, $name);
 				}
 			}
 		}
