@@ -1747,15 +1747,15 @@ class IonAuthModel
 	}
 
 	/**
-	 * update
+	 * Update a user
 	 *
-	 * @param int|string $id
-	 * @param array      $data
+	 * @param integer $id   User id
+	 * @param array   $data Multidimensional array
 	 *
-	 * @return bool
+	 * @return boolean
 	 * @author Phil Sturgeon
 	 */
-	public function update($id, $data)
+	public function update(int $id, array $data): bool
 	{
 		$this->triggerEvents('pre_update_user');
 
@@ -1781,7 +1781,7 @@ class IonAuthModel
 		{
 			if (array_key_exists('password', $data))
 			{
-				if( ! empty($data['password']))
+				if (! empty($data['password']))
 				{
 					$data['password'] = $this->hashPassword($data['password'], $user->{$this->identityColumn});
 					if ($data['password'] === false)
