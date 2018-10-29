@@ -1305,9 +1305,11 @@ class IonAuthModel
 	}
 
 	/**
-	 * @return mixed
+	 * Get result
+	 *
+	 * @return array
 	 */
-	public function result()
+	public function result(): array
 	{
 		$this->triggerEvents('result');
 
@@ -1315,9 +1317,11 @@ class IonAuthModel
 	}
 
 	/**
-	 * @return array|mixed
+	 * Get result array
+	 *
+	 * @return array
 	 */
-	public function resultArray()
+	public function resultArray(): array
 	{
 		$this->triggerEvents(['result', 'result_array']);
 
