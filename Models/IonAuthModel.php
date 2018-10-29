@@ -2224,10 +2224,14 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string $event
-	 * @param string $name
+	 * Remove hook
+	 *
+	 * @param string $event Event
+	 * @param string $name  Name
+	 *
+	 * @return void
 	 */
-	public function removeHook($event, $name)
+	public function removeHook(string $event, string $name): void
 	{
 		if (isset($this->ionHooks->{$event}[$name]))
 		{
