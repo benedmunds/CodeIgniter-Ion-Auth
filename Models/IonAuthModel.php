@@ -352,9 +352,9 @@ class IonAuthModel
 	/**
 	 * Get a user by its activation code
 	 *
-	 * @param boolean $userCode The activation code
-	 *                          It's the *user* one, containing "selector.validator"
-	 *                          the one you got in activation_code member
+	 * @param string $userCode The activation code
+	 *                         It's the *user* one, containing "selector.validator"
+	 *                         the one you got in activation_code member
 	 *
 	 * @return boolean|object
 	 * @author Indigo
@@ -370,7 +370,7 @@ class IonAuthModel
 		if ($user)
 		{
 			// Check the hash against the validator
-			if ($this->verify_password($token->validator, $user->activation_code))
+			if ($this->verifyPassword($token->validator, $user->activation_code))
 			{
 				return $user;
 			}
