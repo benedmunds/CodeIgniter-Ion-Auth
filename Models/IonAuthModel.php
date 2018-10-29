@@ -1516,53 +1516,55 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param int|string|array $check_group group(s) to check
-	 * @param int|string|bool  $id          user id
-	 * @param bool             $check_all   check if all groups is present, or any of the groups
+	 * Check to see if a user is in a group(s)
 	 *
-	 * @return bool Whether the/all user(s) with the given ID(s) is/are in the given group
+	 * @param integer|array $checkGroup Group(s) to check
+	 * @param integer       $id         User id
+	 * @param boolean       $checkAll   Check if all groups is present, or any of the groups
+	 *
+	 * @return boolean Whether the/all user(s) with the given ID(s) is/are in the given group
 	 * @author Phil Sturgeon
 	 **/
-	public function inGroup($check_group, $id = false, bool $check_all = false): bool
+	public function inGroup($checkGroup, int $id = 0, bool $checkAll = false): bool
 	{
 		$this->triggerEvents('in_group');
 
 		$id || $id = $this->session->get('user_id');
 
-		if (!is_array($check_group))
+		if (! is_array($checkGroup))
 		{
-			$check_group = [$check_group];
+			$checkGroup = [$checkGroup];
 		}
 
 		if (isset($this->cacheUserInGroup[$id]))
 		{
-			$groups_array = $this->cacheUserInGroup[$id];
+			$groupsArray = $this->cacheUserInGroup[$id];
 		}
 		else
 		{
-            $users_groups = $this->getUsersGroups($id)->getResult();
-			$groups_array = [];
-			foreach ($users_groups as $group)
+			$usersGroups = $this->getUsersGroups($id)->getResult();
+			$groupsArray = [];
+			foreach ($usersGroups as $group)
 			{
-				$groups_array[$group->id] = $group->name;
+				$groupsArray[$group->id] = $group->name;
 			}
-			$this->cacheUserInGroup[$id] = $groups_array;
+			$this->cacheUserInGroup[$id] = $groupsArray;
 		}
-		foreach ($check_group as $key => $value)
+		foreach ($checkGroup as $key => $value)
 		{
-			$groups = (is_numeric($value)) ? array_keys($groups_array) : $groups_array;
+			$groups = (is_numeric($value)) ? array_keys($groupsArray) : $groupsArray;
 
 			/**
 			 * if !all (default), in_array
 			 * if all, !in_array
 			 */
-			if (in_array($value, $groups) xor $check_all)
+			if (in_array($value, $groups) xor $checkAll)
 			{
 				/**
 				 * if !all (default), true
 				 * if all, false
 				 */
-				return !$check_all;
+				return ! $checkAll;
 			}
 		}
 
@@ -1570,7 +1572,7 @@ class IonAuthModel
 		 * if !all (default), false
 		 * if all, true
 		 */
-		return $check_all;
+		return $checkAll;
 	}
 
 	/**
