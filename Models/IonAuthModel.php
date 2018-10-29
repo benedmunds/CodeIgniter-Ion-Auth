@@ -1251,7 +1251,9 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param array|string $select
+	 * Select
+	 *
+	 * @param array|string $select Select
 	 *
 	 * @return static
 	 */
@@ -1265,17 +1267,19 @@ class IonAuthModel
 	}
 
 	/**
-	 * @param string $by
-	 * @param string $order
+	 * Order by
+	 *
+	 * @param string $by    By
+	 * @param string $order Order
 	 *
 	 * @return static
 	 */
-	public function orderBy(string $by, $order='desc'): self
+	public function orderBy(string $by, string $order = 'desc'): self
 	{
 		$this->triggerEvents('order_by');
 
 		$this->ionOrderBy = $by;
-		$this->ionOrder    = $order;
+		$this->ionOrder   = $order;
 
 		return $this;
 	}
