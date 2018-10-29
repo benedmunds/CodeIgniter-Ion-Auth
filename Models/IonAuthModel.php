@@ -1470,23 +1470,23 @@ class IonAuthModel
 	}
 
 	/**
-	 * user
+	 * Get a user
 	 *
-	 * @param int|string|null $id
+	 * @param integer $id If a user id is not passed the id of the currently logged in user will be used
 	 *
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function user($id = null): self
+	public function user(int $id = 0): self
 	{
 		$this->triggerEvents('user');
 
 		// if no id was passed use the current users id
-		$id = isset($id) ? $id : $this->session->get('user_id');
+		$id = $id ?: $this->session->get('user_id');
 
 		$this->limit(1);
-		$this->orderBy($this->tables['users'].'.id', 'desc');
-		$this->where($this->tables['users'].'.id', $id);
+		$this->orderBy($this->tables['users'] . '.id', 'desc');
+		$this->where($this->tables['users'] . '.id', $id);
 
 		$this->users();
 
