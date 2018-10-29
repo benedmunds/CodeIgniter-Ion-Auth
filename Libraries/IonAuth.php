@@ -160,7 +160,7 @@ class IonAuth
 	/**
 	 * Forgotten password check
 	 *
-	 * @param string $code
+	 * @param string $code Code
 	 *
 	 * @return object|boolean
 	 * @author Michael
@@ -202,9 +202,10 @@ class IonAuth
 	 * @param array  $additionalData Additional data
 	 * @param array  $groupIds       Groups id
 	 *
-	 * @return int|array|bool The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation was
-	 *                        completed; or an array of activation details if CI e-mail validation is enabled; or false
-	 *                        if the operation failed.
+	 * @return integer|array|boolean The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation
+	 *                               was completed;
+	 *                               or an array of activation details if CI e-mail validation is enabled; or false
+	 *                               if the operation failed.
 	 * @author Mathew
 	 */
 	public function register(string $identity, string $password, string $email, array $additionalData = [], array $groupIds = [])
@@ -349,13 +350,13 @@ class IonAuth
 	/**
 	 * Get user id
 	 *
-	 * @return int|null The user's ID from the session user data or NULL if not found
+	 * @return integer|null The user's ID from the session user data or NULL if not found
 	 * @author jrmadsen67
 	 **/
 	public function getUserId()
 	{
 		$userId = $this->session->get('user_id');
-		if (!empty($userId))
+		if (! empty($userId))
 		{
 			return $userId;
 		}
@@ -363,12 +364,14 @@ class IonAuth
 	}
 
 	/**
-	 * @param int|string|bool $id
+	 * Check to see if the currently logged in user is an admin.
 	 *
-	 * @return bool Whether the user is an administrator
+	 * @param integer $id User id
+	 *
+	 * @return boolean Whether the user is an administrator
 	 * @author Ben Edmunds
 	 */
-	public function isAdmin($id = false)
+	public function isAdmin(int $id = 0): bool
 	{
 		$this->ionAuthModel->triggerEvents('is_admin');
 
@@ -381,10 +384,14 @@ class IonAuth
 	 * Check the compatibility with the server
 	 *
 	 * Script will die in case of error
+	 *
+	 * @return void
 	 */
 	protected function checkCompatibility()
 	{
-        /*
+		// I think we can remove this method
+
+		/*
 		// PHP password_* function sanity check
 		if (!function_exists('password_hash') || !function_exists('password_verify'))
 		{
@@ -393,9 +400,9 @@ class IonAuth
 				"Please upgrade to CI 3, or PHP >= 5.5 " .
 				"or use password_compat (https://github.com/ircmaxell/password_compat).");
 		}
-         */
+		*/
 
-        /*
+		/*
 		// Compatibility check for CSPRNG
 		// See functions used in Ion_auth_model::randomToken()
 		if (!function_exists('random_bytes') && !function_exists('mcrypt_create_iv') && !function_exists('openssl_random_pseudo_bytes'))
@@ -403,8 +410,7 @@ class IonAuth
 			show_error("No CSPRNG functions to generate random enough token. " .
 				"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
 		}
-         *
-         */
+		*/
 	}
 
 }
