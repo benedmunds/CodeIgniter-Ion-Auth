@@ -11,7 +11,7 @@
 *             dgvirtual@akl.lt
 *
 * Created:  2012-03-04
-* Updated:  2016-05-13
+* Updated:  2018-11-01
 *
 * Description:  Lithuanian language file for Ion Auth messages and errors
 *
@@ -20,10 +20,8 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	 = 'Vartotojas sėkmingai sukurtas';
 $lang['account_creation_unsuccessful'] 	 	 = 'Neįmanoma sukurti vartotojo';
-$lang['account_creation_duplicate_email'] 	 = 'El, pašto adresas jau yra arba neteisingas';
-$lang['account_creation_duplicate_identity'] 	 = 'Prisijungimo vardas jau yra arba nekorektiškas';
-
-// TODO Please Translate
+$lang['account_creation_duplicate_email'] 	 = 'Toks el. pašto adresas jau yra, arba yra neteisingas';
+$lang['account_creation_duplicate_identity'] 	 = 'Toks prisijungimo vardas jau yra, arba yra neteisingas';
 $lang['account_creation_missing_default_group'] = 'Nenustatyta numatytoji grupė';
 $lang['account_creation_invalid_default_group'] = 'Nustatytas neteisingas numatytosios grupės pavadinimas';
 
@@ -40,18 +38,18 @@ $lang['deactivate_successful'] 		  	 = 'Deaktyvuota';
 $lang['deactivate_unsuccessful'] 	  	 = 'Neįmanoma deaktyvuoti';
 $lang['activation_email_successful'] 	  	 = 'Išsiųstas pranešimas į el. paštą';
 $lang['activation_email_unsuccessful']   	 = 'Neįmanoma išsiųsti';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['deactivate_current_user_unsuccessful']= 'Negalima išjungti savęs.';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'Sėkminga autorizacija';
 $lang['login_unsuccessful'] 		  	 = 'Klaidingas prisijungimas';
 $lang['login_unsuccessful_not_active'] 		 = 'Paskyra yra neaktyvi';
-$lang['login_timeout']                       = 'Laikinai užrakinta. Pabandykite iš naujo vėliau.';
-$lang['logout_successful'] 		 	 = 'Atsijungta sėkminga';
+$lang['login_timeout'				 = 'Laikinai užrakinta. Pabandykite iš naujo vėliau.';
+$lang['logout_successful'] 		 	 = 'Atsijungta sėkmingai';
 
 // Account Changes
 $lang['update_successful'] 		 	 = 'Vartotojo duomenys sėkmingai pakeisti';
-$lang['update_unsuccessful'] 		 	 = 'Neįmanoma pakeisti vartotojo duoemnų';
+$lang['update_unsuccessful'] 		 	 = 'Neįmanoma pakeisti vartotojo duomenų';
 $lang['delete_successful'] 		 	 = 'Vartotojas pašalintas';
 $lang['delete_unsuccessful'] 		 	 = 'Neįmanoma pašalinti vartotojo';
 
@@ -70,11 +68,13 @@ $lang['email_activation_subject']            = 'Paskyros aktyvavimas';
 $lang['email_activate_heading']    = 'Aktyvuoti %s paskyrą';
 $lang['email_activate_subheading'] = 'Prašome spragtelėti %s nuorodą.';
 $lang['email_activate_link']       = 'Aktyvuokite savo paskyrą';
+
 // Forgot Password Email
 $lang['email_forgotten_password_subject']    = 'Pamiršto slaptažodžio patvirtinimas';
 $lang['email_forgot_password_heading']    = 'Iš naujo generuoti %s slaptažodį';
 $lang['email_forgot_password_subheading'] = 'Prašome paspausti nuorodą norėdami %s.';
-$lang['email_forgot_password_link']       = 'Perkrauti slaptažodį';
+$lang['email_forgot_password_link']       = 'Iš naujo nustatyti slaptažodį';
+
 // New Password Email
 $lang['email_new_password_subject']          = 'Naujas slaptažodis';
 $lang['email_new_password_heading']    = 'Naujas %s slaptažodis';
