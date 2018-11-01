@@ -44,7 +44,7 @@ $lang['deactivate_current_user_unsuccessful']= 'Negalima išjungti savęs.';
 $lang['login_successful'] 		  	 = 'Sėkminga autorizacija';
 $lang['login_unsuccessful'] 		  	 = 'Klaidingas prisijungimas';
 $lang['login_unsuccessful_not_active'] 		 = 'Paskyra yra neaktyvi';
-$lang['login_timeout'				 = 'Laikinai užrakinta. Pabandykite iš naujo vėliau.';
+$lang['login_timeout']				 = 'Laikinai užrakinta. Pabandykite iš naujo vėliau.';
 $lang['logout_successful'] 		 	 = 'Atsijungta sėkmingai';
 
 // Account Changes
