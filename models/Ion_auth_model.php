@@ -801,7 +801,7 @@ class Ion_auth_model extends CI_Model
 			return FALSE;
 		}
 
-		return $this->db->where($this->identity_column, $identity)
+		return $this->db->where($this->identity_column, urldecode($identity))
 						->limit(1)
 						->count_all_results($this->tables['users']) > 0;
 	}
