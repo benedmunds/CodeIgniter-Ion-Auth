@@ -7,7 +7,7 @@ but had a ton of bugs and was missing some key features.  So we refactored
 the code and added new features.
 
 This version drops any backwards compatibility and makes things even more
-awesome then you could expect.
+awesome than you could expect.
 
 
 ## Support
@@ -18,25 +18,58 @@ If you use this to further your career, or put money in your pocket, and would l
 Documentation is located at http://benedmunds.com/ion_auth/
 
 ## Installation
-Just copy the files from this package to the corresponding folder in your
-application folder.  For example, copy Ion_auth/config/ion_auth.php to
-application/config/ion_auth.php
+There are 2 ways to install this package.
 
-You can also copy the libraries and models directories into your third_party/ion_auth folder.  For example, copy  to /application/third_party/ion_auth/.  The directory structure would be:
+> 1. Move files from this package to the corresponding folder structure:
 
-    controllers/Auth.php
-    views/
-    third_party/ion_auth/libraries/Ion_auth.php
-    third_party/ion_auth/libraries/Bcrypt.php
-    third_party/ion_auth/models/Ion_auth_model.php
+```shell
+CI                          # → Root Directory
+└── application/
+    ├── config/
+    │   └── ion_auth.php
+    ├── controllers/
+    │   └── Auth.php
+    ├── libraries
+    │   ├── Bcrypt.php
+    │   └── Ion_auth.php
+    ├── models
+    │   └── Ion_auth_model.php
+    └── views/
+        └── auth/           # → Various view files
+```
+---
 
+> 2. Move files from this package to the corresponding **third_party** structure:
 
-Then in your controller add the package path and load the library like normal
+```shell
+CI                          # → Root Directory
+└── application/
+    ├── controllers/
+    │   └── Auth.php
+    ├── third_party/
+    │   └── ion_auth/
+    │       ├── config/
+    │       │   └── ion_auth.php
+    │       ├── libraries
+    │       │    ├── Bcrypt.php
+    │       │    └── Ion_auth.php
+    │       └── models
+    │            └── Ion_auth_model.php
+    └── views/
+        └── auth/           # → Various view files
+```
+
+Then in your controller, example `Auth.php` add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
 	$this->load->library('ion_auth’);
 
+Or autoload by adding the following to application/config/autoload.php
 
+	$autoload['packages'] = array(APPPATH.'third_party/ion_auth');
+
+
+---
 
 ### CodeIgniter Version 2 Compatibility
 CodeIgniter v2 requires the class file names to be lowercase.  In order to support this follow the standard installation procedures and then either rename the following files or create symlinks
@@ -73,11 +106,11 @@ Time Based One-Time Password (TOTP) -
 There is a Time Based One-Time Password (TOTP) implementation compatible with Google Authenticator available. Feature branch maintained by [biscofil](https://github.com/biscofil) and is available at [https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp](https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp)
 
 
-
+## For Help
 Feel free to send me an email if you have any problems.
 
 
 Thanks,
 -Ben Edmunds
  ben.edmunds@gmail.com
- @benedmunds
+ [@benedmunds](http://twitter.com/benedmunds)
