@@ -45,7 +45,11 @@ Then in your Config/Autoload.php, add this :
 ---
 
 ### Relational DB Setup
-Then just run the appropriate SQL file or if you prefere, use the migration file (in Database/Migrations/).
+Then use the migration file (in Database/Migrations/).
+```
+$ php spark migrate:latest -n IonAuth
+```
+Don't forget to set Config\Migrations:enabled to true.
 
 ---
 
