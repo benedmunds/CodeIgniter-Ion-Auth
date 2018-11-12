@@ -18,7 +18,8 @@ $ composer require https://github.com/benedmunds/CodeIgniter-Ion-Auth:dev-4
 
 ```shell
 my-project$ git clone https://github.com/benedmunds/CodeIgniter-Ion-Auth.git
-my-project$ git checkout 4
+my-project$ cd CodeIgniter-Ion-Auth
+CodeIgniter-Ion-Auth$ git checkout 4
 ```
 Then in your Config/Autoload.php, add this :
 ```php
