@@ -603,7 +603,7 @@ class Auth extends \CodeIgniter\Controller
 			$this->data['email'] = [
 				'name'  => 'email',
 				'id'    => 'email',
-				'type'  => 'text',
+				'type'  => 'email',
 				'value' => set_value('email'),
 			];
 			$this->data['company'] = [
