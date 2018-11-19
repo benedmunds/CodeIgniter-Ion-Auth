@@ -689,12 +689,12 @@ class IonAuthModel
 
 		$user = $query->getRow();
 
-		if (count($user) !== 1)
+		if ($user)
 		{
-			return false;
+			return $user->id;
 		}
 
-		return $user->id;
+		return false;
 	}
 
 	/**
