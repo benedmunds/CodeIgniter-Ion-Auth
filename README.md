@@ -1,4 +1,4 @@
-# Ion Auth 3
+# Ion Auth 4
 ### The future of authentication
 by [Ben Edmunds](http://benedmunds.com)
 
@@ -17,9 +17,7 @@ If you use this to further your career, or put money in your pocket, and would l
 
 
 ## Server requirements
-Ion Auth 3 needs **CodeIgniter 3** and **PHP 5.6**.
-It should work on 5.4 as well, but we strongly advise you NOT to run such old versions of PHP, because of potential security and performance issues.
-In this case, you may need [password_compat](https://github.com/ircmaxell/password_compat).
+Ion Auth 4 needs **CodeIgniter 4** and **PHP 7.1**.
 
 ## Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
