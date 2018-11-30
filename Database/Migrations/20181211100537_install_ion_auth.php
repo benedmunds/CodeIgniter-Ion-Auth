@@ -71,19 +71,6 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 		$this->forge->addKey('id', true);
 		$this->forge->createTable($this->tables['groups']);
 
-		// Dumping data for table 'groups'
-		$data = [
-			[
-				'name'        => 'admin',
-				'description' => 'Administrator',
-			],
-			[
-				'name'        => 'members',
-				'description' => 'General User',
-			],
-		];
-		$this->db->table($this->tables['groups'])->insertBatch($data);
-
 		// Drop table 'users' if it exists
 		$this->forge->dropTable($this->tables['users'], true);
 
@@ -192,24 +179,6 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 		$this->forge->addKey('id', true);
 		$this->forge->createTable($this->tables['users']);
 
-		// Dumping data for table 'users'
-		$data = [
-			'ip_address'              => '127.0.0.1',
-			'username'                => 'administrator',
-			'password'                => '$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa',
-			'email'                   => 'admin@admin.com',
-			'activation_code'         => '',
-			'forgotten_password_code' => null,
-			'created_on'              => '1268889823',
-			'last_login'              => '1268889823',
-			'active'                  => '1',
-			'first_name'              => 'Admin',
-			'last_name'               => 'istrator',
-			'company'                 => 'ADMIN',
-			'phone'                   => '0',
-		];
-		$this->db->table($this->tables['users'])->insert($data);
-
 		// Drop table 'users_groups' if it exists
 		$this->forge->dropTable($this->tables['users_groups'], true);
 
@@ -234,19 +203,6 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 		]);
 		$this->forge->addKey('id', true);
 		$this->forge->createTable($this->tables['users_groups']);
-
-		// Dumping data for table 'users_groups'
-		$data = [
-			[
-				'user_id'  => '1',
-				'group_id' => '1',
-			],
-			[
-				'user_id'  => '1',
-				'group_id' => '2',
-			],
-		];
-		$this->db->table($this->tables['users_groups'])->insertBatch($data);
 
 		// Drop table 'login_attempts' if it exists
 		$this->forge->dropTable($this->tables['login_attempts'], true);
