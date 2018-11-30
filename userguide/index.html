@@ -139,7 +139,14 @@ Documentation
         </li>
 		<li>Copy the files from this package to the correspoding folder in your application folder.  For example, copy Ion_auth/config/ion_auth.php to system/application/config/ion_auth.php.</li>
 		<li>You can also copy the entire directory structure into your third_party/ folder.  For example, copy everything to /application/third_party/ion_auth/</li>
-		<li>Run the appropriate SQL file from the /sql directory.</li>
+		<li>
+			Use the migration file (in Database/Migrations/)
+			<pre>$ php spark migrate:latest -n IonAuth</pre>
+		</li>
+		<li>
+			Insert default datas
+			<pre>$ php spark db:seed IonAuth\\Database\\Seeds\\IonAuthSeeder</pre>
+		</li>
 	</ol>
 
 	<p>The default login is:</p>
