@@ -31,7 +31,7 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 	 */
 	public function __construct()
 	{
-		$config = config('IonAuth');
+		$config = config('IonAuth\\Config\\IonAuth');
 
 		// initialize the database
 		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
@@ -177,7 +177,7 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 			],
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->createTable($this->tables['users']);
+		$this->forge->createTable($this->tables['users'], false, ['COLLATE' => 'utf8_general_ci']);
 
 		// Drop table 'users_groups' if it exists
 		$this->forge->dropTable($this->tables['users_groups'], true);
