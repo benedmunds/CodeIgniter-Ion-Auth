@@ -177,7 +177,7 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 			],
 		]);
 		$this->forge->addKey('id', true);
-		$this->forge->createTable($this->tables['users']);
+		$this->forge->createTable($this->tables['users'], false, ['COLLATE' => 'utf8_general_ci']);
 
 		// Drop table 'users_groups' if it exists
 		$this->forge->dropTable($this->tables['users_groups'], true);
