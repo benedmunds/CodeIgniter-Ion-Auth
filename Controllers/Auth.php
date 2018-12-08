@@ -92,7 +92,7 @@ class Auth extends \CodeIgniter\Controller
 		if (! $this->ionAuth->loggedIn())
 		{
 			// redirect them to the login page
-			return redirect('auth/login');
+			return redirect()->to('/auth/login');
 		}
 		else if (! $this->ionAuth->isAdmin()) // remove this elseif if you want to enable this for non-admins
 		{
@@ -140,7 +140,7 @@ class Auth extends \CodeIgniter\Controller
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect('/');
+				return redirect()->to('/');
 			}
 			else
 			{
@@ -188,7 +188,7 @@ class Auth extends \CodeIgniter\Controller
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect('/auth/login');
+		return redirect()->to('/auth/login');
 	}
 
 	/**
@@ -204,7 +204,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if (! $this->ionAuth->loggedIn())
 		{
-			return redirect('auth/login');
+			return redirect()->to('/auth/login');
 		}
 
 		$user = $this->ionAuth->user()->row();
@@ -258,7 +258,7 @@ class Auth extends \CodeIgniter\Controller
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect('auth/change_password');
+				return redirect()->to('/auth/change_password');
 			}
 		}
 	}
@@ -321,7 +321,7 @@ class Auth extends \CodeIgniter\Controller
 				}
 
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect('/auth/forgot_password');
+				return redirect()->to('/auth/forgot_password');
 			}
 
 			// run the forgotten password method to email an activation code to the user
@@ -331,12 +331,12 @@ class Auth extends \CodeIgniter\Controller
 			{
 				// if there were no errors
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect('/auth/login'); //we should display a confirmation page here instead of the login page
+				return redirect()->to('/auth/login'); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-				return redirect('/auth/forgot_password');
+				return redirect()->to('/auth/forgot_password');
 			}
 		}
 	}
@@ -418,12 +418,12 @@ class Auth extends \CodeIgniter\Controller
 					{
 						// if the password was successfully changed
 						$this->session->setFlashdata('message', $this->ionAuth->messages());
-						return redirect('/auth/login');
+						return redirect()->to('/auth/login');
 					}
 					else
 					{
 						$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-						return redirect('/auth/reset_password/' . $code);
+						return redirect()->to('/auth/reset_password/' . $code);
 					}
 				}
 			}
@@ -432,7 +432,7 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// if the code is invalid then send them back to the forgot password page
 			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-			return redirect('/auth/forgot_password');
+			return redirect()->to('/auth/forgot_password');
 		}
 	}
 
@@ -461,13 +461,13 @@ class Auth extends \CodeIgniter\Controller
 		{
 			// redirect them to the auth page
 			$this->session->setFlashdata('message', $this->ionAuth->messages());
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 		else
 		{
 			// redirect them to the forgot password page
 			$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-			return redirect('/auth/forgot_password');
+			return redirect()->to('/auth/forgot_password');
 		}
 	}
 
@@ -517,7 +517,7 @@ class Auth extends \CodeIgniter\Controller
 			}
 
 			// redirect them back to the auth page
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 	}
 
@@ -532,7 +532,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 
 		$tables                        = $this->configIonAuth->tables;
@@ -574,7 +574,7 @@ class Auth extends \CodeIgniter\Controller
 			// check to see if we are creating the user
 			// redirect them back to the admin page
 			$this->session->setFlashdata('message', $this->ionAuth->messages());
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 		else
 		{
@@ -644,9 +644,9 @@ class Auth extends \CodeIgniter\Controller
 	{
 		if ($this->ionAuth->isAdmin())
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
-		return redirect('/');
+		return redirect()->to('/');
 	}
 
 	/**
@@ -662,7 +662,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if (! $this->ionAuth->loggedIn() || (! $this->ionAuth->isAdmin() && ! ($this->ionAuth->user()->row()->id == $id)))
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 
 		$user          = $this->ionAuth->user($id)->row();
@@ -799,7 +799,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 
 		// validate form input
@@ -813,7 +813,7 @@ class Auth extends \CodeIgniter\Controller
 				// check to see if we are creating the group
 				// redirect them back to the admin page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect('/auth');
+				return redirect()->to('/auth');
 			}
 		}
 		else
@@ -851,14 +851,14 @@ class Auth extends \CodeIgniter\Controller
 		// bail if no group id given
 		if (! $id)
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 
 		$this->data['title'] = lang('Auth.edit_group_title');
 
 		if (! $this->ionAuth->loggedIn() || ! $this->ionAuth->isAdmin())
 		{
-			return redirect('/auth');
+			return redirect()->to('/auth');
 		}
 
 		$group = $this->ionAuth->group($id)->row();
@@ -880,7 +880,7 @@ class Auth extends \CodeIgniter\Controller
 				{
 					$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
 				}
-				return redirect('/auth');
+				return redirect()->to('/auth');
 			}
 		}
 
