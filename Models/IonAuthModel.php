@@ -2162,7 +2162,7 @@ class IonAuthModel
 
 			// bail if the group name already exists
 			$existingGroup = $this->db->table($this->tables['groups'])->getWhere(['name' => $groupName])->getRow();
-			if (isset($existingGroup->id) && $existingGroup->id !== $groupId)
+			if (isset($existingGroup->id) && (int)$existingGroup->id !== $groupId)
 			{
 				$this->setError('IonAuth.group_already_exists');
 				return false;
