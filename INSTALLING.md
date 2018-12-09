@@ -73,3 +73,12 @@ class Auth extends \IonAuth\Controllers\Auth
     // protected $viewsFolder = 'auth';
 }
 ```
+You can also add routes configs in 'Config\Routes.php':
+```php
+$routes->group('auth', ['namespace' => 'IonAuth\Controllers'], function ($routes) {
+	$routes->get('/', 'Auth::index');
+	$routes->add('login', 'Auth::login');
+	$routes->get('logout', 'Auth::logout');
+	$routes->get('forgot_password', 'Auth::forgot_password');
+});
+```
