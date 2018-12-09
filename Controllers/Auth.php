@@ -726,16 +726,14 @@ class Auth extends \CodeIgniter\Controller
 				// check to see if we are updating the user
 				if ($this->ionAuth->update($user->id, $data))
 				{
-					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->setFlashdata('message', $this->ionAuth->messages());
-					return $this->redirectUser();
 				}
 				else
 				{
-					// redirect them back to the admin page if admin, or to the base url if non admin
 					$this->session->setFlashdata('message', $this->ionAuth->errors($this->validationListTemplate));
-					return $this->redirectUser();
 				}
+				// redirect them back to the admin page if admin, or to the base url if non admin
+				return $this->redirectUser();
 			}
 		}
 
