@@ -53,7 +53,7 @@ Don't forget to set Config\Migrations:enabled to true.
 
 You can also use the seeds file to insert default datas:
 ```
-$ php spark db:seed IonAuth\\Database\\Seeds\\IonAuthSeeder
+$ php spark db:seed IonAuth\Database\Seeds\IonAuthSeeder
 ```
 
 ---
