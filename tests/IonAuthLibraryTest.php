@@ -9,12 +9,14 @@ namespace Tests;
  * @license https://opensource.org/licenses/MIT	MIT License
  */
 
+use CodeIgniter\Test\CIUnitTestCase;
+
 /**
  * IonAuth\Libraries\IonAuth tests
  *
  * @package CodeIgniter-Ion-Auth
  */
-class IonAuthLibraryTest extends \CIUnitTestCase
+class IonAuthLibraryTest extends CIUnitTestCase
 {
 	/**
 	 * Test forgottenPassword()
