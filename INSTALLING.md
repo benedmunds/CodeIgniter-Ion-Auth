@@ -52,8 +52,13 @@ $ php spark migrate:latest -n IonAuth
 Don't forget to set Config\Migrations:enabled to true.
 
 You can also use the seeds file to insert default datas:
+Windows :
 ```
 $ php spark db:seed IonAuth\Database\Seeds\IonAuthSeeder
+```
+Linux :
+```
+$ php spark db:seed IonAuth\\Database\\Seeds\\IonAuthSeeder
 ```
 
 ---
