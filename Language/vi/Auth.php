@@ -36,6 +36,7 @@ return [
 	'index_groups_th'         => 'Nhóm',
 	'index_status_th'         => 'Trạng thái',
 	'index_action_th'         => 'Tác vụ',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Kích hoạt',
 	'index_inactive_link'     => 'Khoá',
 	'index_create_user_link'  => 'Tạo tài khoản mới',

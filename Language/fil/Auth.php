@@ -39,6 +39,7 @@ return [
 	'index_groups_th'         => 'Gropo',
 	'index_status_th'         => 'katayuan',
 	'index_action_th'         => 'aksyon',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'aktibo',
 	'index_inactive_link'     => 'Hindi aktibo',
 	'index_create_user_link'  => 'Lumikha ng isang bagong user',

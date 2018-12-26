@@ -40,6 +40,7 @@ return [
 	'index_groups_th'         => 'Grup',
 	'index_status_th'         => 'Status',
 	'index_action_th'         => 'Aksi',
+	'index_edit_link'         => 'Sunting',
 	'index_active_link'       => 'Aktif',
 	'index_inactive_link'     => 'Tidak Aktif',
 	'index_create_user_link'  => 'Buat Pengguna baru',

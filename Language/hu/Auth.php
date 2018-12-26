@@ -37,6 +37,7 @@ return [
 	'index_groups_th'         => 'Csoportok',
 	'index_status_th'         => 'Státusz',
 	'index_action_th'         => 'Operáció',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Aktív',
 	'index_inactive_link'     => 'Inaktív',
 	'index_create_user_link'  => 'Új felhasználó létrehozása',

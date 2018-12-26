@@ -39,6 +39,7 @@ return [
 	'index_groups_th' => 'Skupiny',
 	'index_status_th' => 'Stav',
 	'index_action_th' => 'Akcia',
+	'index_edit_link' => 'Edit',
 	'index_active_link' => 'Aktívne',
 	'index_inactive_link' => 'Neaktívne',
 	'index_create_user_link' => 'Vytvoriť nového používateľa',

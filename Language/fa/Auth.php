@@ -35,6 +35,7 @@ return [
 	'index_groups_th'         => 'گروه',
 	'index_status_th'         => 'وضعیت',
 	'index_action_th'         => 'مدیریت',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'فعال',
 	'index_inactive_link'     => 'غیرفعال',
 	'index_create_user_link'  => 'ساخت یوزر جدید',

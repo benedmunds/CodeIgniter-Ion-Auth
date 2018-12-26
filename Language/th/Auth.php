@@ -43,6 +43,7 @@ return [
 	'index_groups_th'         => 'กลุ่ม',
 	'index_status_th'         => 'สถานะ',
 	'index_action_th'         => 'การกระทำ',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'กำลังทำงาน',
 	'index_inactive_link'     => 'ไม่ทำงาน',
 	'index_create_user_link'  => 'สร้างผู้ใช้ใหม่',

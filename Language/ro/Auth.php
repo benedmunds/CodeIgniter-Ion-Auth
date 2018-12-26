@@ -36,6 +36,7 @@ return [
 	'index_groups_th'         => 'Grupuri',
 	'index_status_th'         => 'Status',
 	'index_action_th'         => 'Acțiune',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Activ',
 	'index_inactive_link'     => 'Inactiv',
 	'index_create_user_link'  => 'Creează un nou utilizator',

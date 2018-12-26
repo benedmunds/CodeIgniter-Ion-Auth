@@ -35,6 +35,7 @@ return [
 	'index_groups_th'         => 'Grupės',
 	'index_status_th'         => 'Būsena',
 	'index_action_th'         => 'Veiksmas',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Aktyvus',
 	'index_inactive_link'     => 'Neaktyvus',
 	'index_create_user_link'  => 'Sukurti naują vartotoją',
