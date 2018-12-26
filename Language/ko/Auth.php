@@ -36,6 +36,7 @@ return [
 	'index_groups_th'         => '그룹',
 	'index_status_th'         => '상태',
 	'index_action_th'         => '활동',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => '활성화',
 	'index_inactive_link'     => '비활성화',
 	'index_create_user_link'  => '새 사용자를 만듭니다',

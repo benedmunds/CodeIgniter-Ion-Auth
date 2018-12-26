@@ -42,6 +42,7 @@ return [
 	'index_groups_th'         => 'Grupos',
 	'index_status_th'         => 'Estado',
 	'index_action_th'         => 'Acción',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Activo',
 	'index_inactive_link'     => 'Inactivo',
 	'index_create_user_link'  => 'Crear nuevo usuario',

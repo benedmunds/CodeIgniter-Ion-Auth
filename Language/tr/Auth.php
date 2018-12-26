@@ -36,6 +36,7 @@ return [
 	'index_groups_th'         => 'Gruplar',
 	'index_status_th'         => 'Durum',
 	'index_action_th'         => 'Eylem',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Etkin',
 	'index_inactive_link'     => 'Etkin Değil',
 	'index_create_user_link'  => 'Yeni bir kullanıcı oluştur',

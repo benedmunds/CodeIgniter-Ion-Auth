@@ -39,6 +39,7 @@ return [
 	'index_groups_th'         => 'グループ',
 	'index_status_th'         => '状態',
 	'index_action_th'         => '操作',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => '有効',
 	'index_inactive_link'     => '無効',
 	'index_create_user_link'  => 'ユーザーの新規作成',

@@ -42,6 +42,7 @@ return [
 	'index_groups_th'         => '用户组',
 	'index_status_th'         => '状态',
 	'index_action_th'         => '操作',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => '激活',
 	'index_inactive_link'     => '未激活',
 	'index_create_user_link'  => '创建用户',

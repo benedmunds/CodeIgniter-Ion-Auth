@@ -23,7 +23,7 @@
                 <?php endforeach?>
 			</td>
 			<td><?php echo ($user->active) ? anchor('auth/deactivate/' . $user->id, lang('Auth.index_active_link')) : anchor("auth/activate/". $user->id, lang('Auth.index_inactive_link'));?></td>
-			<td><?php echo anchor('auth/edit_user/' . $user->id, 'Edit') ;?></td>
+			<td><?php echo anchor('auth/edit_user/' . $user->id, lang('Auth.index_edit_link')) ;?></td>
 		</tr>
 	<?php endforeach;?>
 </table>

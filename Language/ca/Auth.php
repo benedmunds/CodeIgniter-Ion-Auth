@@ -39,6 +39,7 @@ return [
 	'index_groups_th'         => 'Grups',
 	'index_status_th'         => 'Estat',
 	'index_action_th'         => 'Acció',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Actiu',
 	'index_inactive_link'     => 'Inactiu',
 	'index_create_user_link'  => 'Crea un nou usuari',

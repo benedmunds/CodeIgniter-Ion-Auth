@@ -39,6 +39,7 @@ return [
 	'index_groups_th'         => 'Groepen',
 	'index_status_th'         => 'Status',
 	'index_action_th'         => 'Actie',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Actief',
 	'index_inactive_link'     => 'Inactief',
 	'index_create_user_link'  => 'Nieuwe gebruiker aanmaken',

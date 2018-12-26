@@ -41,6 +41,7 @@ return [
 	'index_groups_th'         => '群組',
 	'index_status_th'         => '狀態',
 	'index_action_th'         => '動作',
+	'index_edit_link'         => 'Edit',
 	'index_active_link'       => '啟動',
 	'index_inactive_link'     => '關閉',
 	'index_create_user_link'  => '建立新帳號',
