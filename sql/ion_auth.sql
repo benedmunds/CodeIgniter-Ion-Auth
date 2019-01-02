@@ -32,6 +32,7 @@ CREATE TABLE `users` (
   `ip_address` varchar(45) NOT NULL,
   `username` varchar(100) NULL,
   `password` varchar(255) NOT NULL,
+  `salt` varchar(40) NULL,
   `email` varchar(254) NOT NULL,
   `activation_selector` varchar(255) DEFAULT NULL,
   `activation_code` varchar(255) DEFAULT NULL,
