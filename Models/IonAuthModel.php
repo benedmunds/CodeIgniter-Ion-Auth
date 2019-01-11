@@ -1988,7 +1988,7 @@ class IonAuthModel
 
 		if ($token->validatorHashed)
 		{
-			$this->db->table('users')->update(['remember_selector' => $token->selector,
+			$this->db->table($this->tables['users'])->update(['remember_selector' => $token->selector,
 								  			   'remember_code' => $token->validatorHashed],
 											   [$this->identityColumn => $identity]);
 
