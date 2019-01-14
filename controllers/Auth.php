@@ -46,6 +46,10 @@ class Auth extends CI_Controller
 
 			//list the users
 			$this->data['users'] = $this->ion_auth->users()->result();
+			
+			//USAGE NOTE - you can do more complicated queries like this
+			//$this->data['users'] = $this->ion_auth->where('field', 'value')->users()->result();
+			
 			foreach ($this->data['users'] as $k => $user)
 			{
 				$this->data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
@@ -590,6 +594,10 @@ class Auth extends CI_Controller
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+			
+		//USAGE NOTE - you can do more complicated queries like this
+		//$groups = $this->ion_auth->where(['field' => 'value'])->groups()->result_array();
+	
 
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
