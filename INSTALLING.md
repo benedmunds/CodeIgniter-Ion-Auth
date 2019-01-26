@@ -48,7 +48,7 @@ CI                          # → Root Directory
 Then in your controller, example `Auth.php` add the package path and load the library like normal
 
 	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
-	$this->load->library('ion_auth’);
+	$this->load->library('ion_auth');
 
 Or autoload by adding the following to application/config/autoload.php
 
