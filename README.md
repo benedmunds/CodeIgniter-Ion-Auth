@@ -10,10 +10,6 @@ This version drops any backwards compatibility and makes things even more
 awesome than you could expect.
 
 
-## Support
-If you use this to further your career, or put money in your pocket, and would like to support the project please consider a [moral license](https://www.morallicense.com/benedmunds/ion-auth).
-
-
 ## Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
 
@@ -106,11 +102,22 @@ Time Based One-Time Password (TOTP) -
 There is a Time Based One-Time Password (TOTP) implementation compatible with Google Authenticator available. Feature branch maintained by [biscofil](https://github.com/biscofil) and is available at [https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp](https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/otp)
 
 
+
+## Support
+If you think you've found a bug please [Create an Issue](https://github.com/benedmunds/CodeIgniter-Ion-Auth/issues).
+
+If you need a customization or help implementing Ion Auth into your project please [Email Me for Consulting Information](mailto:ionauth_consulting@benedmunds.com).
+
+If your company would like a support contract or service agreement please [Reach Out](mailto:ionauth_support_contract@benedmunds.com) to discuss available options.
+
+
 ## For Help
-Feel free to send me an email if you have any problems.
+If you're having an issue with CodeIgniter or for general help with development I recommend checking out the [CodeIgniter Forums](http://forum.codeigniter.com).
+
+If you think you've found a bug please [Create an Issue](https://github.com/benedmunds/CodeIgniter-Ion-Auth/issues).
 
 
 Thanks,
--Ben Edmunds
- ben.edmunds@gmail.com
+-Ben Edmunds 
+ [benedmunds.com](http://benedmunds.com)  
  [@benedmunds](http://twitter.com/benedmunds)
