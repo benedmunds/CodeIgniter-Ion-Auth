@@ -44,7 +44,7 @@ If you think you've found a bug please [Create an Issue](https://github.com/bene
 
 If you need a customization or help implementing Ion Auth into your project please [Email Me for Consulting Information](mailto:ionauth_consulting@benedmunds.com).
 
-If your company would like a long term support contract or service agreement please [Reach Out](mailto:ionauth_support_contract@benedmunds.com) to discuss available options.
+If your company would like a support contract or service agreement please [Reach Out](mailto:ionauth_support_contract@benedmunds.com) to discuss available options.
 
 
 ## For Help
