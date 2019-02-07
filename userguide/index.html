@@ -1231,7 +1231,7 @@ Documentation
 	<ol>
 		<li>'group_id' - int REQUIRED.</li>
 		<li>'group_name' - string REQUIRED.</li>
-		<li>'group_description' - string.</li>
+		<li>'additional_data' - array.</li>
 	</ol>
 
 	<p><strong>Return</strong></p>
@@ -1244,10 +1244,12 @@ Documentation
 				// source these things from anywhere you like (eg., a form)
 				$group_id = 2;
 				$group_name = 'test_group_changed_name';
-				$group_description = 'I changed the name yay';
+                $additional_data = array(
+                    'description' => 'New Description'
+                );
 
         // pass the right arguments and it's done
-        $group_update = $this->ion_auth->update_group($group_id, $group_name, $group_description);
+        $group_update = $this->ion_auth->update_group($group_id, $group_name, $additional_data);
 
         if(!$group_update)
         {
