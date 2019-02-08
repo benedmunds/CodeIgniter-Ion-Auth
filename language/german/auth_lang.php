@@ -27,7 +27,7 @@ $lang['login_heading']         = 'Einloggen';
 $lang['login_subheading']      = 'Bitte loggen Sie sich ein mit Ihrer/n Email/Benutzernamen und Kennwort unten ein.';
 $lang['login_identity_label']  = 'Email/Benutzername:';
 $lang['login_password_label']  = 'Kennwort:';
-$lang['login_remember_label']  = 'Merken Sie mich:';
+$lang['login_remember_label']  = 'Eingeloggt bleiben:';
 $lang['login_submit_btn']      = 'Einloggen';
 $lang['login_forgot_password'] = 'Ihr Kennwort vergessen?';
 
@@ -52,7 +52,7 @@ $lang['deactivate_subheading']               = 'Sind Sie sicher dass Sie den Ben
 $lang['deactivate_confirm_y_label']          = 'Ja:';
 $lang['deactivate_confirm_n_label']          = 'Nein:';
 $lang['deactivate_submit_btn']               = 'Eingeben';
-$lang['deactivate_validation_confirm_label'] = 'bestätigung';
+$lang['deactivate_validation_confirm_label'] = 'Bestätigen';
 $lang['deactivate_validation_user_id_label'] = 'Benutzer ID';
 
 // Create User
@@ -134,14 +134,14 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Neues Kennwort
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Kennwort vergessen';
-$lang['forgot_password_subheading']              = 'Bitte geben Sie Ihre %s ein damit wir Ihnen eine Mail schicken können um das Kennwort zu ändern.';
+$lang['forgot_password_subheading']              = 'Bitte geben Sie Ihre %s ein damit wir Ihnen eine Email schicken können um das Kennwort zu ändern.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Eingabe';
 $lang['forgot_password_validation_email_label']  = 'Email';
 $lang['forgot_password_username_identity_label'] = 'Benutzername';
 $lang['forgot_password_email_identity_label']    = 'Email';
-$lang['forgot_password_email_not_found']         = 'No record of that email address.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_email_not_found']         = 'Kein Eintrag für diese Email Adresse gefunden.';
+$lang['forgot_password_identity_not_found']      = 'Kein Eintrag für diesen Benutzernamen gefunden.';
 
 
 // Reset Password
