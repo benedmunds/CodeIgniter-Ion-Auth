@@ -22,18 +22,18 @@
 // Account Creation
 $lang['account_creation_successful'] 	  	   = 'Das Benutzerkonto wurde erfolgreich erstellt';
 $lang['account_creation_unsuccessful'] 	     = 'Das Benutzerkonto konnte nicht erstellt werden';
-$lang['account_creation_duplicate_email']    = 'Die E-Mail-Adresse ist ungültig oder wird bereits verwendet';
+$lang['account_creation_duplicate_email']    = 'Die Email Adresse ist ungültig oder wird bereits verwendet';
 $lang['account_creation_duplicate_identity'] = 'Der Benutzername ist ungültig oder wird bereits verwendet';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Standard-Gruppe ist nicht gesetzt';
-$lang['account_creation_invalid_default_group'] = 'Ungültiger Standard-Gruppenname';
+$lang['account_creation_missing_default_group'] = 'Standard Gruppe ist nicht gesetzt';
+$lang['account_creation_invalid_default_group'] = 'Ungültiger Standard Gruppenname';
 
 
 // Password
 $lang['password_change_successful'] 	= 'Das Passwort wurde erfolgreich geändert';
 $lang['password_change_unsuccessful'] = 'Das Passwort konnte nicht geändert werden';
-$lang['forgot_password_successful'] 	= 'Es wurde eine E-Mail zum Zurücksetzen des Passwortes versandt';
+$lang['forgot_password_successful'] 	= 'Es wurde eine Email zum Zurücksetzen des Passwortes versandt';
 $lang['forgot_password_unsuccessful'] = 'Das Passwort konnte nicht zurückgesetzt werden';
 
 // Activation
@@ -41,9 +41,9 @@ $lang['activate_successful'] 		  	   = 'Das Benutzerkonto wurde aktiviert';
 $lang['activate_unsuccessful'] 		 	   = 'Das Benutzerkonto konnte nicht aktiviert werden';
 $lang['deactivate_successful'] 		  	 = 'Das Benutzerkonto wurde deaktiviert';
 $lang['deactivate_unsuccessful'] 	  	 = 'Das Benutzerkonto konnte nicht deaktiviert werden';
-$lang['activation_email_successful'] 	 = 'Es wurde eine E-Mail zum Aktivieren des Benutzerkontos versandt';
-$lang['activation_email_unsuccessful'] = 'Die Aktivierungs-E-Mail konnte nicht versandt werden';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['activation_email_successful'] 	 = 'Es wurde eine Email zum Aktivieren des Benutzerkontos versandt';
+$lang['activation_email_unsuccessful'] = 'Die Aktivierungsmail konnte nicht versandt werden';
+$lang['deactivate_current_user_unsuccessful']= 'Du kannst dich nicht selbst deaktivieren.';
 
 // Login / Logout
 $lang['login_successful'] 		  	     = 'Login erfolgreich';
@@ -64,9 +64,9 @@ $lang['group_already_exists']       = 'Gruppenname bereits vergeben';
 $lang['group_update_successful']    = 'Gruppendetails aktualisiert';
 $lang['group_delete_successful']    = 'Gruppe gelöscht';
 $lang['group_delete_unsuccessful'] 	= 'Gruppe konnte nicht gelöscht werden';
-$lang['group_delete_notallowed']    = 'Sie können die Administrator-Gruppe nicht löschen';
+$lang['group_delete_notallowed']    = 'Sie können die Administrator Gruppe nicht löschen';
 $lang['group_name_required'] 		    = '"Gruppenname" ist ein Pflichtfeld';
-$lang['group_name_admin_not_alter'] = 'Admin-Gruppenname kann nicht geändert werden';
+$lang['group_name_admin_not_alter'] = 'Admin Gruppenname kann nicht geändert werden';
 
 // Activation Email
 $lang['email_activation_subject']  = 'Aktivierung des Kontos';
