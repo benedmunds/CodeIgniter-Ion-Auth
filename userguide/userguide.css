@@ -198,7 +198,7 @@ padding: 3px 0 7px 3px;
  padding: 0;
 }
 
-#content code {
+#content code:not([data-language]) {
  font-family: Monaco, Verdana, Sans-serif;
  font-size: 12px;
  background-color: #f9f9f9;
@@ -409,4 +409,46 @@ form {
  border: 1px solid #fff;
  margin: 0;
  padding: 1px 5px 2px 5px;
+}
+
+#content .word-break {
+ word-break: break-all;
+}
+
+#content pre {
+ overflow-x: auto; 
+}
+
+#content pre > code[data-language]{
+ font-size: 14px;
+}
+
+#content pre.f {
+ padding: 0;
+ border: none;
+ border-left: 4px solid #900;
+ background: none;
+}
+
+#content pre.cli {
+ font-family: Consolas, Monaco, Verdana, Sans-serif;
+ font-size: 14px;
+ background-color: #000;
+ color: #fff;
+}
+
+#content pre.f code {
+ font-style: italic;
+ font-size: 14px;
+ background-color: #fff;
+ display: block;
+ background-color: #f9f9f9;
+ padding: 4px 10px;
+}
+
+#content span.dir {
+ background-color: #eee;
+ padding-left: 4px;
+ padding-right: 4px;
+ border-radius: 4px;
 }
