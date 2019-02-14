@@ -780,7 +780,7 @@ class IonAuthModel
 	 * @return integer|boolean
 	 * @author Mathew
 	 */
-	public function register(string $identity, string $password, string $email, array $additionalData = [], array $groups = [])
+	public function register(string $identity, string $password, string $email, array $additionalData=[], array $groups=[])
 	{
 		$this->triggerEvents('pre_register');
 
@@ -871,7 +871,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function login(string $identity, string $password, bool $remember = false): bool
+	public function login(string $identity, string $password, bool $remember=false): bool
 	{
 		$this->triggerEvents('pre_login');
 
@@ -982,7 +982,7 @@ class IonAuthModel
 								  ->get($this->tables['users']);
 				if ($query->numRows() === 1)
 				{
-					$this->session->set_userdata('last_check', time());
+					$this->session->set('last_check', time());
 				}
 				else
 				{
@@ -990,7 +990,7 @@ class IonAuthModel
 
 					$identity = $this->config->identity;
 
-					$this->session->unset_userdata([$identity, 'id', 'user_id']);
+					$this->session->remove([$identity, 'id', 'user_id']);
 
 					return false;
 				}
@@ -1528,7 +1528,7 @@ class IonAuthModel
 	 * @return \CodeIgniter\Database\ResultInterface
 	 * @author Ben Edmunds
 	 */
-	public function getUsersGroups(int $id = 0)
+	public function getUsersGroups(int $id=0)
 	{
 		$this->triggerEvents('get_users_group');
 
@@ -1611,7 +1611,7 @@ class IonAuthModel
 	 * @return integer The number of groups added
 	 * @author Ben Edmunds
 	 */
-	public function addToGroup($groupIds, int $userId = 0): int
+	public function addToGroup($groupIds, int $userId=0): int
 	{
 		$this->triggerEvents('add_to_group');
 
@@ -1662,7 +1662,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function removeFromGroup($groupIds = 0, int $userId = 0): bool
+	public function removeFromGroup($groupIds=0, int $userId=0): bool
 	{
 		$this->triggerEvents('remove_from_group');
 
@@ -2074,7 +2074,7 @@ class IonAuthModel
 				}
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
-				$this->session->sess_regenerate(false);
+				$this->session->regenerate(false);
 
 				$this->triggerEvents(['post_login_remembered_user', 'post_login_remembered_user_successful']);
 				return true;
@@ -2096,7 +2096,7 @@ class IonAuthModel
 	 * @return integer|boolean The ID of the inserted group, or false on failure
 	 * @author aditya menon
 	 */
-	public function createGroup(string $groupName = '', string $groupDescription = '', array $additionalData = [])
+	public function createGroup(string $groupName='', string $groupDescription='', array $additionalData=[])
 	{
 		// bail if the group name was not passed
 		if (! $groupName)
@@ -2147,7 +2147,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author aditya menon
 	 */
-	public function updateGroup(int $groupId, string $groupName = '', array $additionalData = []): bool
+	public function updateGroup(int $groupId, string $groupName='', array $additionalData=[]): bool
 	{
 		if (! $groupId)
 		{
@@ -2251,7 +2251,7 @@ class IonAuthModel
 	 *
 	 * @return self
 	 */
-	public function setHook(string $event, string $name, string $class, string $method, array $arguments): self
+	public function setHook(string $event, string $name, string $class, string $method, array $arguments=[]): self
 	{
 		$this->ionHooks->{$event}[$name]            = new stdClass;
 		$this->ionHooks->{$event}[$name]->class     = $class;
@@ -2348,7 +2348,7 @@ class IonAuthModel
 	 * @return true
 	 * @author Ben Edmunds
 	 */
-	public function setMessageTemplate(string $single = '', string $list = ''): bool
+	public function setMessageTemplate(string $single='', string $list=''): bool
 	{
 		if (! empty($single))
 		{
@@ -2407,7 +2407,7 @@ class IonAuthModel
 	 * @return array
 	 * @author Raul Baldner Junior
 	 */
-	public function messagesArray(bool $langify = true): array
+	public function messagesArray(bool $langify=true): array
 	{
 		if ($langify)
 		{
@@ -2456,12 +2456,12 @@ class IonAuthModel
 	/**
 	 * Get the error message
 	 *
-	 * @param string $template Template @see https://bcit-ci.github.io/CodeIgniter4/libraries/validation.html#configuration
+	 * @param string $template Template @see https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#configuration
 	 *
 	 * @return string
 	 * @author Ben Edmunds
 	 */
-	public function errors(string $template = 'list'): string
+	public function errors(string $template='list'): string
 	{
 		if (! array_key_exists($template, config('Validation')->templates))
 		{
