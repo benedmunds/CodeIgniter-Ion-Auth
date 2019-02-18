@@ -47,18 +47,28 @@ a:hover {
 #nav {
  background-color: #494949;
  margin: 0;
- padding: 0;
+ padding: 8px 0 0 0;
 }
 #nav2 {
- background: #fff url(images/nav_bg_darker.jpg) repeat-x left top;
  padding: 0 310px 0 0;
  margin: 0;
  text-align: right;
 }
+#toggle_toc {
+ font-size: small;
+ padding: 4px 8px;
+ display: inline-block;
+ border-bottom-left-radius: 4px;
+ border-bottom-right-radius: 4px;
+ background: #494949;
+ color: white;
+ box-shadow: -2px 4px 4px #ccc;
+ cursor: pointer;
+}
 #nav_inner {
  background-color: transparent;
  padding: 8px 12px 0 20px;
- margin: 0;
+ margin: 0 0 12px 0;
  font-family: Lucida Grande, Verdana, Geneva, Sans-serif;
  font-size: 11px;
 }
@@ -146,7 +156,7 @@ padding: 0 0 6px 0;
  text-align: center;
 }
 
-#content {
+#content-bak {
  margin: 20px 40px 0 40px;
  padding: 0;
 }
@@ -217,7 +227,7 @@ padding: 3px 0 7px 3px;
  color: #002166;
  display: block;
  margin: 14px 0 14px 0;
- padding: 12px 10px 12px 10px;
+ padding: 12px 20px;
 }
 
 #content .path {
@@ -325,11 +335,11 @@ padding: 3px 0 7px 3px;
 
 
 #footer {
-background-color: transparent;
-font-size: 10px;
-padding: 16px 0 15px 0;
-margin: 20px 0 0 0;
-text-align: center;
+ background-color: transparent;
+ font-size: 10px;
+ padding: 16px 0 15px 0;
+ margin: 20px 0 0 0;
+ text-align: center;
 }
 
 #footer p {
@@ -431,10 +441,18 @@ form {
 }
 
 #content pre.cli {
+ background-color: #494949;
+ padding: 0;
+ display: block;
+}
+#content pre.cli > code {
  font-family: Consolas, Monaco, Verdana, Sans-serif;
  font-size: 14px;
- background-color: #000;
+ background-color: #494949;
  color: #fff;
+ display: inline-block;
+ border: none;
+ margin: 4px;
 }
 
 #content pre.f code {
@@ -443,7 +461,8 @@ form {
  background-color: #fff;
  display: block;
  background-color: #f9f9f9;
- padding: 4px 10px;
+ padding: 4px 14px !important;
+ display: inline-block;
 }
 
 #content span.dir {
@@ -451,4 +470,253 @@ form {
  padding-left: 4px;
  padding-right: 4px;
  border-radius: 4px;
+}
+
+#content .permalink {
+ display: none;
+}
+
+#content *:hover .permalink {
+ display: inline-block;
+}
+
+#content code.inline {
+ font-family: Lucida Grande, Verdana, Geneva, Sans-serif;
+ color: #8F5B00;
+ font-weight: bold;
+ font-style: normal;
+ display: inline-block;
+ margin: 0;
+ padding: 1px 4px;
+}
+#content pre.f,
+pre.f.rainbow-show {
+ overflow: hidden;
+ overflow-x: auto;
+}
+.hide {
+ display: none;
+}
+
+.go-top-btn {
+ background: #494949;
+ position: fixed;
+ bottom: 12px;
+ right: 12px;
+ font-weight: bold;
+ padding: 8px 12px;
+ border: 1px solid #f7f7f7;
+ border-radius: 4px;
+ cursor: pointer;
+ box-shadow: -2px 4px 4px #ccc;
+ opacity: .2;
+ -webkit-transition: opacity 0.3s;
+ -moz-transition: opacity 0.3s;
+ -ms-transition: opacity 0.3s;
+ -o-transition: opacity 0.3s;
+ transition: opacity 0.3s;
+ color: #fff;
+}
+
+.go-top-btn:hover,
+.go-top-btn.op {
+ background: #494949;
+ opacity: 1;
+}
+
+.go-top-btn:visited {
+ color: #fff;
+}
+
+.clipboard-copy {
+ display: inline-block;
+ position: absolute;
+ right: 4px;
+ top: 4px;
+ padding: 4px 8px;
+ color: #ccc;
+ cursor: pointer;
+}
+
+.clipboard-copy:hover {
+ background: rgba(0,0,0,.5);
+ color: #fff;
+ cursor: pointer;
+ border-radius: 4px;
+}
+
+.m-navbar {
+ padding: 4px 8px;
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ z-index: 2;
+ background: #494949;
+ color: #fff;
+ display: -ms-flexbox !important;
+ display: flex !important;
+ -ms-flex-pack: justify !important;
+ justify-content: space-between !important;
+ -ms-flex-align: center !important;
+ align-items: center !important;
+}
+.m-navbar .title {
+ padding-left: 8px;
+ font-size: 16px;
+ margin: auto;
+}
+
+.togglebar {
+ background: #494949;
+ display: inline-block;
+ padding: 6px;
+ cursor: pointer;
+}
+
+.bar1, .bar2, .bar3 {
+ width: 35px;
+ height: 5px;
+ background-color: #fff;
+ margin: 6px 0;
+ transition: 0.4s;
+}
+
+.change .bar1 {
+ -webkit-transform: rotate(-45deg) translate(-8px, 8px);
+ transform: rotate(-45deg) translate(-8px, 8px);
+}
+
+.change .bar2 {
+ opacity: 0;   
+}
+
+.change .bar3 {
+ transform: rotate(45deg) translate(-8px, -8px);
+}
+
+#top {
+ display: block;
+ height: 70px;  
+}
+
+pre .support.ionfunc {
+ color: darkblue;
+ font-weight: bold;
+}
+
+pre.f .variable {
+ color: #8F5B00;
+ font-weight: bold;
+}
+
+#navi {
+ position: fixed;
+ top: 0;
+ left: 0;
+}
+.text-upper {
+ text-transform: uppercase;
+}
+
+#nav.op {
+ -webkit-transition: opacity 0.8s;
+ -moz-transition: opacity 0.8s;
+ -ms-transition: opacity 0.8s;
+ -o-transition: opacity 0.8s;
+ transition: opacity 0.8s;
+}
+
+@media (max-width: 767.98px) {
+ .nfl > ul {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+ }
+ .nfr > ul {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+ }
+ #nav_inner ul {
+  padding: 0 0 0 18px;
+  margin: 8px 0 12px 0;
+ }
+ #nav_inner h3 {
+  font-size: 16px;
+ }
+ #nav_inner li {
+  font-size: 16px;
+  padding: 0;
+  margin: 0 0 4px 0;
+ }
+ #navi {
+  background: #494949;
+  bottom: 0;
+  left: -320px;
+  width: 320px;
+  z-index: 2;
+  overflow-y: auto;
+  -webkit-transition: left 0.3s;
+  -moz-transition: left 0.3s;
+  -ms-transition: left 0.3s;
+  -o-transition: left 0.3s;
+  transition: left 0.3s;
+  box-shadow: -2px 4px 4px #ccc;
+ }
+ #nav {
+  overflow-x: auto;
+ }
+ .show-m-menu #navi {
+  left: 0;
+  width: 100%;
+ }
+
+ #nav_inner {
+  margin-top: 70px; 
+ }
+
+ .github-corner, #nav2 {
+  display: none;
+ }
+
+ .github-logo {
+  width: 40px;
+  height: 40px;
+ }
+}
+
+@media (min-width: 768px) {
+ .github-corner {
+  z-index: 3;
+  position: absolute;
+  top: 0;
+  right: 0;
+ }
+
+ #navi {
+  position: fixed;
+  right: 0;
+  z-index: 1;
+ }
+ #navi.op {
+  opacity: .1;
+ }
+ #navi.op:hover {
+  opacity: 1;
+ }
+ #nav {
+  max-height: 1800px;
+  overflow: hidden;
+  -webkit-transition: max-height 0.5s;
+  -moz-transition: max-height 0.5s;
+  -ms-transition: max-height 0.5s;
+  -o-transition: max-height 0.5s;
+  transition: max-height 0.5s;
+  box-shadow: -2px 4px 4px #ccc;
+ }
+ #nav.collapsed {
+  max-height: 8px;
+ }
+ .m-navbar {
+  display: none !important;
+ }
 }

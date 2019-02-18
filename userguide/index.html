@@ -3,15 +3,19 @@
 <head>
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 <title>Ion Auth</title>
 
 <style type='text/css' media='all'>@import url('./userguide.css');</style>
-<link rel='stylesheet' type='text/css' media='all' href='../userguide.css' />
-<link rel='stylesheet' type='text/css' media='screen' href='rainbow/themes/github.css' />
+<style type='text/css' media='screen'>
+  @import url('./bootstrap-grid.min.css');
+  @import url('./rainbow/themes/github.css');
+</style>
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/functions.js"></script>
-<script type="text/javascript" src="rainbow/rainbow-php.min.js"></script>
+<link rel="stylesheet" type="text/css" href="../rainbow/themes/github.css"/>
+<link rel="stylesheet" type="text/css" media="all" href="../userguide.css"/>
+<link rel="stylesheet" type="text/css" media="screen" href="../bootstrap-grid.min.css"/>
 
 <meta http-equiv='expires' content='-1' />
 <meta http-equiv= 'pragma' content='no-cache' />
@@ -21,104 +25,137 @@
 <body>
 
 <!-- START NAVIGATION -->
-<div id="nav"><div id="nav_inner">
-<table cellpadding="0" cellspacing="0" border="0" style="width:98%">
-    <tr>
-        <td class="td" valign="top">
-            <h3>Author Info</h3>
-            <ul>
-                <li><a href="http://benedmunds.com">Ben Edmunds</a></li>
-                <li><a href="https://github.com/benedmunds">GitHub</a></li>
-            </ul>
-            <h3>Basic Info</h3>
-            <ul>
-                <li><a href="#license">License</a></li>
-                <li><a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth">GitHub Repo</a></li>
-            </ul>
-            <h3>Introduction</h3>
-            <ul>
-                <li><a href="#requirements">Server requirements</a></li>
-                <li><a href="#install">Installation</a></li>
-                <li><a href="#upgrade">Upgrading</a></li>
-                <li><a href="#loading">Loading the Library</a></li>
-            </ul>
-        </td>
-        <td class="td_sep" valign="top">
-            <h3>Configuration</h3>
-            <ul>
-                <li><a href="#use_config">Config Options</a></li>
-            </ul>
+    <!--img src="images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /-->
+<div id="navi" class="op">
+  <div id="nav" class="collapsed">
+    <div id="nav_inner">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-4">
+              <h3>Author Info</h3>
+              <ul>
+                  <li><a href="http://benedmunds.com">Ben Edmunds</a></li>
+                  <li><a href="https://github.com/benedmunds">GitHub</a></li>
+              </ul>
+              <h3>Basic Info</h3>
+              <ul>
+                  <li><a href="#license">License</a></li>
+                  <li><a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth">GitHub Repo</a></li>
+              </ul>
+              <h3>Introduction</h3>
+              <ul>
+                  <li><a href="#requirements">Server requirements</a></li>
+                  <li><a href="#install">Installation</a></li>
+                  <li><a href="#upgrade">Upgrading</a></li>
+                  <li><a href="#loading">Loading the Library</a></li>
+              </ul>
+              <h3>Configuration</h3>
+              <ul>
+                  <li><a href="#use_config">Config Options</a></li>
+              </ul>
+              <h3>Miscellaneous</h3>
+              <ul>
+                  <li><a href="#cheatsheet" class="noct">Cheatsheet</a></li>
+              </ul>
+          </div>
+          <div class="col-lg-8">
             <h3>Class Functions</h3>
-            <ul>
-                <li><a href="#login">login()</a></li>
-                <li><a href="#logout">logout()</a></li>
-                <li><a href="#register">register()</a></li>
-                <li><a href="#createUser">createUser()</a></li>
-                <li><a href="#update">update()</a></li>
-                <li><a href="#updateUser">updateUser()</a></li>
-                <li><a href="#deleteUser">deleteUser()</a></li>
-                <li><a href="#forgottenPassword">forgottenPassword()</a></li>
-                <li><a href="#forgottenPasswordCheck">forgottenPasswordCheck()</a></li>
-                <li><a href="#loggedIn">loggedIn()</a></li>
-                <li><a href="#isAdmin">isAdmin()</a></li>
-                <li><a href="#inGroup">inGroup()</a></li>
-                <li><a href="#usernameCheck">usernameCheck()</a></li>
-                <li><a href="#emailCheck">emailCheck()</a></li>
-                <li><a href="#identityCheck">identityCheck()</a></li>
-                <li><a href="#isMaxLoginAttemptsExceeded">isMaxLoginAttemptsExceeded()</a></li>
-                <li><a href="#getAttemptsNum">getAttemptsNum()</a></li>
-                <li><a href="#increaseLoginAttempts">increaseLoginAttempts()</a></li>
-                <li><a href="#clearLoginAttempts">clearLoginAttempts()</a></li>
-                <li><a href="#user">user()</a></li>
-                <li><a href="#users">users()</a></li>
-                <li><a href="#group">group()</a></li>
-                <li><a href="#groups">groups()</a></li>
-                <li><a href="#getUsersGroups">getUsersGroups()</a></li>
-                <li><a href="#addToGroup">addToGroup()</a></li>
-                <li><a href="#removeFromGroup">removeFromGroup()</a></li>
-                <li><a href="#createGroup">createGroup()</a></li>
-                <li><a href="#updateGroup">updateGroup()</a></li>
-                <li><a href="#deleteGroup">deleteGroup()</a></li>
-                <li><a href="#messages">messages()</a></li>
-                <li><a href="#messagesArray">messagesArray()</a></li>
-                <li><a href="#setMessageTemplate">setMessageTemplate()</a></li>
-                <li><a href="#errors">errors()</a></li>
-                <li><a href="#errorsArray">errorsArray()</a></li>
-                <li><a href="#triggerEvents">triggerEvents()</a></li>
-                <li><a href="#setHook">setHook()</a></li>
-            </ul>
-        </td>
-    </tr>
-</table>
-</div></div>
-<div id="nav2"><a name="top">&nbsp;</a><a href="#" id="toggle_toc"><img src="images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
-<div id="masthead">
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
-<tr>
-<td><h1>Documentation</h1></td>
-<td id="breadcrumb_right">Author: <a href="http://benedmunds.com">Ben Edmunds</a></td>
-</tr>
-</table>
+            <div class="row list-functions">
+              <div class="col-lg-6 nfl">
+                <ul>
+                    <li><a href="#login">login()</a></li>
+                    <li><a href="#logout">logout()</a></li>
+                    <li><a href="#register">register()</a></li>
+                    <li><a href="#createUser">createUser()</a></li>
+                    <li><a href="#update">update()</a></li>
+                    <li><a href="#updateUser">updateUser()</a></li>
+                    <li><a href="#deleteUser">deleteUser()</a></li>
+                    <li><a href="#forgottenPassword">forgottenPassword()</a></li>
+                    <li><a href="#forgottenPasswordCheck">forgottenPasswordCheck()</a></li>
+                    <li><a href="#loggedIn">loggedIn()</a></li>
+                    <li><a href="#isAdmin">isAdmin()</a></li>
+                    <li><a href="#inGroup">inGroup()</a></li>
+                    <li><a href="#usernameCheck">usernameCheck()</a></li>
+                    <li><a href="#emailCheck">emailCheck()</a></li>
+                    <li><a href="#identityCheck">identityCheck()</a></li>
+                    <li><a href="#isMaxLoginAttemptsExceeded">isMaxLoginAttemptsExceeded()</a></li>
+                    <li><a href="#getAttemptsNum">getAttemptsNum()</a></li>
+                    <li><a href="#increaseLoginAttempts">increaseLoginAttempts()</a></li>
+                    <li><a href="#clearLoginAttempts">clearLoginAttempts()</a></li>
+                  </ul>
+              </div>
+              <div class="col-lg-6 nfr">
+                <ul>
+                    <li><a href="#user">user()</a></li>
+                    <li><a href="#users">users()</a></li>
+                    <li><a href="#group">group()</a></li>
+                    <li><a href="#groups">groups()</a></li>
+                    <li><a href="#getUsersGroups">getUsersGroups()</a></li>
+                    <li><a href="#addToGroup">addToGroup()</a></li>
+                    <li><a href="#removeFromGroup">removeFromGroup()</a></li>
+                    <li><a href="#createGroup">createGroup()</a></li>
+                    <li><a href="#updateGroup">updateGroup()</a></li>
+                    <li><a href="#deleteGroup">deleteGroup()</a></li>
+                    <li><a href="#messages">messages()</a></li>
+                    <li><a href="#messagesArray">messagesArray()</a></li>
+                    <li><a href="#setMessageTemplate">setMessageTemplate()</a></li>
+                    <li><a href="#errors">errors()</a></li>
+                    <li><a href="#errorsArray">errorsArray()</a></li>
+                    <li><a href="#triggerEvents">triggerEvents()</a></li>
+                    <li><a href="#setHook">setHook()</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="nav2"><span id="toggle_toc" class="noct">Table of Contents</span></div>
 </div>
+
 <!-- END NAVIGATION -->
 
+<a href="https://github.com/benedmunds/CodeIgniter-Ion-Auth" class="github-corner" aria-label="View source on GitHub">
+  <svg width="80" height="80" viewBox="0 0 250 250" style="fill:#494949; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg>
+</a>
+<style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+<a name="top" id="top"></a>
+
+<div class="m-navbar">
+  <span class="togglebar">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </span>
+  <div class="title">
+    <span>CodeIgniter4 - Ion Auth</span>
+  </div>
+  <div class="title-toc hide" style="margin: auto;">
+    <span class="text-upper">Table of Contents</span>
+  </div>
+  <!--a class="title-toc hide" href="https://github.com/benedmunds/CodeIgniter-Ion-Auth">
+    <img class="github-logo" src="./images/github-mark/GitHub-Mark-Light-120px-plus.png"/>
+  </a-->
+</div>
 
 <!-- START BREADCRUMB -->
-<table cellpadding="0" cellspacing="0" border="0" style="width:100%">
-<tr>
-<td id="breadcrumb">
-<a href="http://benedmunds.com/ion_auth">Ion Auth</a> &nbsp;&#8250;&nbsp;
-Documentation
-</td>
-</tr>
-</table>
+<div class="container">
+  <a href="http://benedmunds.com/ion_auth">Ion Auth</a> &nbsp;&#8250;&nbsp;
+  Documentation
+</div>
 <!-- END BREADCRUMB -->
+
+<div class="container">
+  <h1>Documentation</h1>
+  <div style="text-align: right;">Author: <a href="http://benedmunds.com">Ben Edmunds</a></div>
+</div>
 
 <br clear="all" />
 
-
 <!-- START CONTENT -->
-<div id="content">
+<div class="container" id="content">
     <h1>Ion Auth</h1>
 
     <p>Ion Auth is a simple and lightweight authentication library for the CodeIgniter framework</p>
@@ -144,14 +181,14 @@ Documentation
         <li>You can also copy the entire directory structure into your <span class="dir">ThirdParty/</span> folder.  For example, copy everything to <span class="dir">app/ThirdParty/IonAuth/</span></li>
         <li>
             Use the migration file (in <span class="dir">Database/Migrations/</span>)
-            <pre class="cli">$ php spark migrate:latest -n IonAuth</pre>
+            <pre class="cli"><code>$ php spark migrate:latest -n IonAuth</code></pre>
         </li>
         <li>
             Insert default datas (Don't forget to set Config\Migrations:enabled to true.)
             Windows :
-            <pre class="cli">$ php spark db:seed IonAuth\Database\Seeds\IonAuthSeeder</pre>
+            <pre class="cli"><code>$ php spark db:seed IonAuth\Database\Seeds\IonAuthSeeder</code></pre>
             Linux :
-            <pre class="cli">$ php spark db:seed IonAuth\\Database\\Seeds\\IonAuthSeeder</pre>
+            <pre class="cli"><code>$ php spark db:seed IonAuth\\Database\\Seeds\\IonAuthSeeder</code></pre>
         </li>
     </ol>
 
@@ -193,32 +230,32 @@ Documentation
 
     <p>Ion Auth is extremely configurable.</p>
 
-    <p>To change configuration options simply edit the Config/IonAuth.php file or pass an array when loading the library.</p>
+    <p>To change configuration options simply edit the <span class="dir">Config/IonAuth.php</span> file or pass an array when loading the library.</p>
 
     <h3>Tables</h3>
     <ul>
         <li>
-            <strong>tables['groups']</strong> Default is 'groups'<br/>
+            <var>tables['groups']</var> Default is 'groups'<br/>
             The table name to use for the groups table.
         </li>
         <li>
-            <strong>tables['users']</strong> Default is 'users'<br/>
+            <var>tables['users']</var> Default is 'users'<br/>
             The table name to use for the users table.
         </li>
         <li>
-            <strong>tables['users_groups']</strong> Default is 'users_groups'<br/>
+            <var>tables['users_groups']</var> Default is 'users_groups'<br/>
             The table name to use for the users groups table.
         </li>
         <li>
-            <strong>tables['login_attempts']</strong> Default is 'login_attempts'<br/>
+            <var>tables['login_attempts']</var> Default is 'login_attempts'<br/>
             The table name to use for the login attempts table.
         </li>
         <li>
-            <strong>join['users'] </strong> Default is 'user_id'<br/>
+            <var>join['users'] </var> Default is 'user_id'<br/>
             Users table column you want to join WITH.
         </li>
         <li>
-            <strong>join['groups'] </strong> Default is 'group_id'<br/>
+            <var>join['groups'] </var> Default is 'group_id'<br/>
             Group table column you want to join WITH.
         </li>
     </ul>
@@ -226,7 +263,7 @@ Documentation
     <h3>Hash method</h3>
     <ul>
         <li>
-            <strong>hashMethod</strong> Default is 'bcrypt'<br/>
+            <var>hashMethod</var> Default is 'bcrypt'<br/>
             The method to hash the password before storing in database.
             You can choose between bcrypt (from PHP 5.3) or argon2 (from PHP 7.2)<br/>
 
@@ -239,13 +276,13 @@ Documentation
         <li><strong>Bcrypt-specific options:</strong><br/>
             <ul>
                 <li>
-                    <strong>bcryptDefaultCost</strong> Default is 10<br/>
+                    <var>bcryptDefaultCost</var> Default is 10<br/>
                     This defines how strong the encryption will be.<br/>
                     However, higher the cost, longer it will take to hash (CPU usage).
                     So adjust this based on your server hardware.
                 </li>
                 <li>
-                    <strong>bcryptAdminCost</strong> Default is 12<br/>
+                    <var>bcryptAdminCost</var> Default is 12<br/>
                     Same as bcryptDefaultCost, but for users in the admin group.<br/>
                     It is recommended to have a stronger hashing for administrators.
                 </li>
@@ -261,17 +298,17 @@ Documentation
         <li><strong>Argon2-specific options:</strong><br/>
             <ul>
                 <li>
-                    <strong>argon2DefaultParams</strong> Default is ['memory_cost' => 1 << 12, 'time_cost' => 2, 'threads' => 2]<br/>
+                    <var>argon2DefaultParams</var> Default is <code class="inline">['memory_cost' => 1 << 12, 'time_cost' => 2, 'threads' => 2]</code><br/>
                     This is an array containing the options for the Argon2 algorithm. The following keys can be set: <br/>
-                    <strong>['memory_cost']</strong>: Maximum memory (in kBytes) that may be used to compute the Argon2 hash.
+                    <var>['memory_cost']</var>: Maximum memory (in kBytes) that may be used to compute the Argon2 hash.
                     The spec recommends setting the memory cost to a power of 2.<br/>
-                    <strong>['time_cost']</strong>: Number of iterations (used to tune the running time independently of the memory size).
+                    <var>['time_cost']</var>: Number of iterations (used to tune the running time independently of the memory size).
                     This defines how strong the encryption will be.<br/>
-                    <strong>['threads']</strong>: Number of threads to use for computing the Argon2 hash.
+                    <var>['threads']</var>: Number of threads to use for computing the Argon2 hash.
                     The spec recommends setting the memory cost to a power of 2.
                 </li>
                 <li>
-                    <strong>argon2AdminParams</strong> Default is ['memory_cost' => 1 << 14, 'time_cost' => 4, 'threads' => 2]<br/>
+                    <var>argon2AdminParams</var> Default is <code class="inline">['memory_cost' => 1 << 14, 'time_cost' => 4, 'threads' => 2]</code><br/>
                     Same as argon2DefaultParams, but for users in the admin group.<br/>
                     It is recommended to have a stronger hashing for administrators.
                 </li>
@@ -291,29 +328,29 @@ Documentation
 
     <ul>
         <li>
-            <strong>siteTitle</strong><br/>
+            <var>siteTitle</var><br/>
             The title of your site, used for email.
         </li>
         <li>
-            <strong>adminEmail</strong> Default is 'admin@example.com'<br/>
+            <var>adminEmail</var> Default is 'admin@example.com'<br/>
             Your administrator email address.
         </li>
         <li>
-            <strong>defaultGroup</strong> Default is 'members'<br/>
+            <var>defaultGroup</var> Default is 'members'<br/>
             Name of the default user group.
         </li>
         <li>
-            <strong>adminGroup</strong> Default is 'admin'<br/>
+            <var>adminGroup</var> Default is 'admin'<br/>
             Name of the admin group.
         </li>
         <li>
-            <strong>identity</strong> Default is 'email'<br/>
+            <var>identity</var> Default is 'email'<br/>
             Column to use for uniquely identifing user/logging in/etc.
             Usual choices are 'email' OR 'username', but any unique key from your table can be used as identity.<br/>
             IMPORTANT: If you are changing it from the default (email), update the UNIQUE constraint in your DB.
         </li>
         <li>
-            <strong>minPasswordLength</strong> Default is '8'<br/>
+            <var>minPasswordLength</var> Default is '8'<br/>
             Minimum length of passwords.<br/>
             This minimum is not enforced directly by the library.<br/>
             The controller should define a validation rule to enforce it.<br/>
@@ -322,47 +359,47 @@ Documentation
             This is an arbitrary (long) value to protect against DOS attack.
         </li>
         <li>
-            <strong>emailActivation</strong> Default is 'false'<br/>
+            <var>emailActivation</var> Default is 'false'<br/>
             TRUE or FALSE. Sets whether to require email activation or not.
         </li>
         <li>
-            <strong>manualActivation</strong> Default is 'false'<br/>
+            <var>manualActivation</var> Default is 'false'<br/>
             TRUE or FALSE. Sets whether to require manual activation (probably by an admin user) or not.
         </li>
         <li>
-            <strong>rememberUsers</strong> Default is 'true'<br/>
+            <var>rememberUsers</var> Default is 'true'<br/>
             true or false. Sets whether to enable 'remember me' functionality or not.
         </li>
         <li>
-            <strong>userExpire</strong> Default is '86500'<br/>
+            <var>userExpire</var> Default is '86500'<br/>
             Sets how long to remember the user for in seconds. Set to zero for no expiration.
         </li>
         <li>
-            <strong>userExtendonLogin</strong> Default is 'false'<br/>
+            <var>userExtendonLogin</var> Default is 'false'<br/>
             TRUE or FALSE. Extend the users session expiration on login.
         </li>
         <li>
-            <strong>trackLoginAttempts</strong> Default is 'false'<br/>
+            <var>trackLoginAttempts</var> Default is 'false'<br/>
             Track the number of failed login attempts for each user or ip (see trackLoginIpAddress option).
         </li>
         <li>
-            <strong>trackLoginIpAddress</strong> Default is 'true'<br/>
+            <var>trackLoginIpAddress</var> Default is 'true'<br/>
             Track login attempts by IP Address, if FALSE will track based on identity.
         </li>
         <li>
-            <strong>maximumLoginAttempts</strong> Default is 3<br/>
+            <var>maximumLoginAttempts</var> Default is 3<br/>
             Set the maximum number of failed login attempts. This maximum is not enforced by the library, but is
             used by $this->ionAuth->isMaxLoginAttemptsExceeded(). The controller should check this function and act appropriately.
             If set to 0, there is no maximum.
         </li>
         <li>
-            <strong>forgotPasswordExpiration</strong> Default is 1800<br/>
+            <var>forgotPasswordExpiration</var> Default is 1800<br/>
             Number of seconds before a forgot password request expires. If set to 0, requests will not expire.<br/>
             30 minutes to 1 hour are good values (enough for a user to receive the email and reset its password).<br/>
             You should not set a value too high (or 0), as it could lead to security issue!
         </li>
         <li>
-            <strong>recheckTimer</strong> Default is 0<br/>
+            <var>recheckTimer</var> Default is 0<br/>
             The number of seconds after which the session is checked again against database to
             see if the user still exists and is active.<br/>
             Leave 0 if you don't want session recheck. if you really think you need to recheck the session
@@ -374,7 +411,7 @@ Documentation
 
     <ul>
         <li>
-            <strong>rememberCookieName</strong> Default is 'remember_code'<br/>
+            <var>rememberCookieName</var> Default is 'remember_code'<br/>
             Cookie name for the "Remember me" feature.
         </li>
     </ul>
@@ -383,7 +420,7 @@ Documentation
 
     <ul>
         <li>
-            <strong>email_type</strong> Default us 'html'<br/>
+            <var>emailType</var> Default us 'html'<br/>
             Email content type.
         </li>
     </ul>
@@ -392,15 +429,15 @@ Documentation
 
     <ul>
         <li>
-            <strong>emailTemplates</strong> Default is 'auth/email/'<br/>
+            <var>emailTemplates</var> Default is 'auth/email/'<br/>
             Folder where the email view templates are stored.
         </li>
         <li>
-            <strong>emailActivate</strong> Default is 'activate.tpl.php'<br/>
+            <var>emailActivate</var> Default is 'activate.tpl.php'<br/>
             Filname of the email activation view template.
         </li>
         <li>
-            <strong>emailForgotPassword</strong> Default is 'forgot_password.tpl.php'<br/>
+            <var>emailForgotPassword</var> Default is 'forgot_password.tpl.php'<br/>
             Filname of the forgot password email view template.
         </li>
     </ul>
@@ -408,7 +445,7 @@ Documentation
     <h3>Errors and Messages Templates</h3>
     <ul>
         <li>
-            <strong>templates['errors']['list']</strong> Default is specified in 'Config/Validation.php'<br/>
+            <var>templates['errors']['list']</var> Default is specified in 'Config/Validation.php'<br/>
             Template for list errors.<br>
             <i>Doc:
                 <a class="word-break" href="https://codeigniter4.github.io/CodeIgniter4/libraries/validation.html#customizing-error-display" target="_blank">
@@ -416,11 +453,11 @@ Documentation
             </i>
         </li>
         <li>
-            <strong>templates['messages']['list']</strong> Default is 'IonAuth\Views\Messages\list'<br/>
+            <var>templates['messages']['list']</var> Default is 'IonAuth\Views\Messages\list'<br/>
             Template for list messages.
         </li>
         <li>
-            <strong>templates['messages']['single']</strong> Default is 'IonAuth\Views\Messages\single'<br/>
+            <var>templates['messages']['single']</var> Default is 'IonAuth\Views\Messages\single'<br/>
             Template for single message.
         </li>
     </ul>
@@ -503,6 +540,7 @@ Documentation
 
     <a name="createUser"></a>
     <h2>createUser()</h2>
+    <pre class="f"><code data-language="php">createUser()</code></pre>
     <p>createUser is an alternate method for <a href="#register">register()</a> method.</p>
     <br/>
 
@@ -537,6 +575,7 @@ Documentation
 
     <a name="updateUser"></a>
     <h2>updateUser()</h2>
+    <pre class="f"><code data-language="php">updateUser(): bool</code></pre>
     <p>updateUser() is an alternate method for <a href="#update">update()</a> method.</p>
     <br/>
 
@@ -643,6 +682,7 @@ Documentation
 
     <a name="loggedIn"></a>
     <h2>loggedIn()</h2>
+    <pre class="f"><code data-language="php">loggedIn(): bool</code></pre>
     <p>Check to see if a user is logged in.</p>
 
     <p><strong>Return</strong></p>
@@ -661,12 +701,12 @@ Documentation
 
     <a name="isAdmin"></a>
     <h2>isAdmin()</h2>
+    <pre class="f"><code data-language="php">isAdmin(int $id=0): bool</code></pre>
     <p>Check to see if the currently logged in user is an admin.</p>
-
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'id' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
+        <li><var>id</var> - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -686,13 +726,14 @@ Documentation
 
     <a name="inGroup"></a>
     <h2>inGroup()</h2>
+    <pre class="f"><code data-language="php">inGroup($checkGroup, int $id=0, bool $checkAll=false): bool</code></pre>
     <p>Check to see if a user is in a group(s).</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Group ID or Name' - string REQUIRED. Integer or array of strings and integers.</li>
-        <li>'User ID' - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
-        <li>'Check All' - bool OPTIONAL. Whether to check if user is in all groups, or in any group.</li>
+        <li><var>checkGroup</var> - string REQUIRED. Integer or array of strings and integers.</li>
+        <li><var>id</var> - integer OPTIONAL.  If a user id is not passed the id of the currently logged in user will be used.</li>
+        <li><var>checkAll</var> - boolean OPTIONAL. Whether to check if user is in all groups, or in any group.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -755,11 +796,12 @@ Documentation
 
     <a name="usernameCheck"></a>
     <h2>usernameCheck()</h2>
+    <pre class="f"><code data-language="php">usernameCheck(string $username): bool</code></pre>
     <p>Check to see if the username is already registered.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Username' - string REQUIRED.</li>
+        <li><var>username</var> - string REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -788,11 +830,12 @@ Documentation
 
     <a name="emailCheck"></a>
     <h2>emailCheck()</h2>
+    <pre class="f"><code data-language="php">emailCheck(string $email=''): bool</code></pre>
     <p>Check to see if the email is already registered.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Email' - string REQUIRED.</li>
+        <li><var>email</var> - string REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -821,11 +864,12 @@ Documentation
 
     <a name="identityCheck"></a>
     <h2>identityCheck()</h2>
+    <pre class="f"><code data-language="php">identityCheck(string $identity=''): bool</code></pre>
     <p>Check to see if the identity is already registered.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Identity' - string REQUIRED.</li>
+        <li><var>identity</var> - string REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -852,12 +896,14 @@ Documentation
 
     <a name="isMaxLoginAttemptsExceeded"></a>
     <h2>isMaxLoginAttemptsExceeded()</h2>
+    <pre class="f"><code data-language="php">isMaxLoginAttemptsExceeded(string $identity, $ipAddress=null): bool</code></pre>
     <p>If login attempt tracking is enabled, checks to see if the number of failed login attempts for this identity or ip address has been exceeded.
        The controller must call this method and take any necessary actions. Login attempt limits are not enforced in the library.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Identity' - string REQUIRED.</li>
+        <li><var>identity</var> - string REQUIRED.</li>
+        <li><var>ipAddress</var> - OPTIONAL.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -878,16 +924,17 @@ Documentation
 
     <a name="getAttemptsNum"></a>
     <h2>getAttemptsNum()</h2>
+    <pre class="f"><code data-language="php">getAttemptsNum(string $identity, $ipAddress=null): int</code></pre>
     <p>Returns the number of failed login attempts for this identity or ip address.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Identity' - string REQUIRED.</li>
+        <li><var>identity</var> - string REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
     <ul>
-        <li>int.  The number of failed login attempts for this identity or ip address.</li>
+        <li>integer.  The number of failed login attempts for this identity or ip address.</li>
     </ul>
 
     <p><strong>Usage</strong></p>
@@ -899,13 +946,19 @@ Documentation
 
     <a name="increaseLoginAttempts"></a>
     <h2>increaseLoginAttempts()</h2>
+    <pre class="f"><code data-language="php">increaseLoginAttempts(string $identity): bool</code></pre>
     <p>If login attempt tracking is enabled, records another failed login attempt for this identity or ip address.
        This method is automatically called during the login() method if the login failed.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Identity' - string REQUIRED.</li>
+        <li><var>identity</var> - string REQUIRED.</li>
     </ol>
+
+    <p><strong>Return</strong></p>
+    <ul>
+        <li>boolean.</li>
+    </ul>
 
     <p><strong>Usage</strong></p>
     <pre><code data-language="php">
@@ -920,12 +973,15 @@ Documentation
 
     <a name="clearLoginAttempts"></a>
     <h2>clearLoginAttempts()</h2>
+    <pre class="f"><code data-language="php">clearLoginAttempts(string $identity, int $oldAttemptsAxpirePeriod=86400, $ipAddress = null): bool</code></pre>
     <p>Clears all failed login attempt records for this identity or this ip address.
        This method is automatically called during the login() method if the login succeded.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Identity' - string REQUIRED.</li>
+        <li><var>identity</var> - string REQUIRED.</li>
+        <li><var>oldAttemptsAxpirePeriod</var> - integer. OPTIONAL.</li>
+        <li><var>ipAddress</var> - OPTIONAL.</li>
     </ol>
 
     <p><strong>Usage</strong></p>
@@ -942,6 +998,7 @@ Documentation
 
     <a name="user"></a>
     <h2>user()</h2>
+    <pre class="f"><code data-language="php">user(int $id=0): self</code></pre>
     <p>Get a user.</p>
 
     <p><strong>Parameters</strong></p>
@@ -951,8 +1008,17 @@ Documentation
 
     <p><strong>Return</strong></p>
     <ul>
-        <li>
-            <pre>
+        <li>model object</li>
+    </ul>
+
+    <p><strong>Usage</strong></p>
+    <pre><code data-language="php">
+    $user = $this->ionAuth->user()->row();
+    echo $user->email;
+    </code></pre>
+
+    <p><strong>Output</strong></p>
+    <pre>
     stdClass Object (
         [id] => 1
         [ip_address] => 127.0.0.1
@@ -970,28 +1036,20 @@ Documentation
         [company] => Some Corporation
         [phone] => (123)456-7890
     )
-            </pre>
-        </li>
-    </ul>
-
-    <p><strong>Usage</strong></p>
-    <pre><code data-language="php">
-    $user = $this->ionAuth->user()->row();
-    echo $user->email;
-    </code></pre>
+    </pre>
     <br/>
 
     <a name="users"></a>
     <h2>users()</h2>
+    <pre class="f"><code data-language="php">users($groups=null): self</code></pre>
     <p>Get the users.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li><var>groupIds</var>, array OPTIONAL. Group names, or group IDs and names. If an array of group ids, of group names, or of group ids and names are passed (or a single group id or name) this will return the users in those groups.</li>
+        <li><var>groups</var> - array OPTIONAL. Group names, or group IDs and names. If an array of group ids, of group names, or of group ids and names are passed (or a single group id or name) this will return the users in those groups.</li>
     </ol>
 
     <p><strong>Return</strong></p>
-
     <ul>
         <li>model object</li>
     </ul>
@@ -1052,11 +1110,12 @@ Documentation
 
     <a name="group"></a>
     <h2>group()</h2>
+    <pre class="f"><code data-language="php">group(int $id=0)</code></pre>
     <p>Get a group.</p>
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li>'Id' - integer REQUIRED.</li>
+        <li><var>id</var> - integer REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -1073,6 +1132,7 @@ Documentation
 
     <a name="groups"></a>
     <h2>groups()</h2>
+    <pre class="f"><code data-language="php">groups()</code></pre>
     <p>Get the groups.</p>
 
     <p><strong>Return</strong></p>
@@ -1088,6 +1148,7 @@ Documentation
 
     <a name="messages"></a>
     <h2>messages()</h2>
+    <pre class="f"><code data-language="php">messages(): string</code></pre>
     <p>Get messages.</p>
 
     <p><strong>Return</strong></p>
@@ -1178,9 +1239,9 @@ Documentation
     </pre>
 
     <p><strong>Usage</strong></p>
-    <pre>
+    <pre><code data-language="php">
     $user_groups = $this->ionAuth->getUsersGroups($user->id)->result();
-    </pre>
+    </code></pre>
     <br/>
 
     <a name="addToGroup"></a>
@@ -1280,7 +1341,7 @@ Documentation
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li><var>groupId</var> - int REQUIRED.</li>
+        <li><var>groupId</var> - integer REQUIRED.</li>
         <li><var>groupName</var> - string REQUIRED.</li>
         <li><var>additionalData</var> - array.</li>
     </ol>
@@ -1320,7 +1381,7 @@ Documentation
 
     <p><strong>Parameters</strong></p>
     <ol>
-        <li><var>groupId</var> - int REQUIRED.</li>
+        <li><var>groupId</var> - integer REQUIRED.</li>
     </ol>
 
     <p><strong>Return</strong></p>
@@ -1570,10 +1631,11 @@ Documentation
 </div>
 <!-- END CONTENT -->
 
+<a href="#top" class="go-top-btn noct">&uarr;</a>
 
 <div id="footer">
     <p><a href="#top">Top of Page</a></p>
-    <p>Last updated on Feb 14, 2019.</p>
+    <p>Last updated on Feb 16, 2019.</p>
     <p>
         <a href="https://codeigniter.com">CodeIgniter</a>
         &nbsp;&middot;&nbsp;
@@ -1582,6 +1644,21 @@ Documentation
         <a href="https://ellislab.com/">Ellislab, Inc.</a>
     </p>
 </div>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
+<script type="text/javascript" src="rainbow/rainbow-php.min.js"></script>
+
+<script type="text/javascript">
+  Rainbow.extend('php', [
+   {
+    'matches': {
+      1: 'support.ionfunc'
+    },
+    'pattern': /\b(login|logout|register|createUser|updateGroup|updateUser|update|deleteUser|forgottenPasswordCheck|forgottenPassword|loggedIn|isAdmin|inGroup|usernameCheck|emailCheck|identityCheck|isMaxLoginAttemptsExceeded|getAttemptsNum|increaseLoginAttempts|clearLoginAttempts|users|user|groups|group|getUsersGroups|addToGroup|removeFromGroup|createGroup|deleteGroup|messagesArray|messages|setMessageTemplate|errorsArray|errors|triggerEvents|setHook)\(/g
+   }
+  ])
+</script>
 
 </body>
 </html>

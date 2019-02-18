@@ -10,7 +10,7 @@ namespace IonAuth\Libraries;
  *               This is basically what Redux Auth 2 should be.
  * Original Author name has been kept but that does not mean that the method has not been modified.
  *
- * Requirements: PHP7.1 or above
+ * Requirements: PHP7.2 or above
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds <ben.edmunds@gmail.com>
@@ -371,7 +371,7 @@ class IonAuth
 	 * @return boolean Whether the user is an administrator
 	 * @author Ben Edmunds
 	 */
-	public function isAdmin(int $id = 0): bool
+	public function isAdmin(int $id=0): bool
 	{
 		$this->ionAuthModel->triggerEvents('is_admin');
 

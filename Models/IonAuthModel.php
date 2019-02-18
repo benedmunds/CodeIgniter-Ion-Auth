@@ -10,7 +10,7 @@ namespace IonAuth\Models;
  *               This is basically what Redux Auth 2 should be.
  * Original Author name has been kept but that does not mean that the method has not been modified.
  *
- * Requirements: PHP 7.1 or above
+ * Requirements: PHP 7.2 or above
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds <ben.edmunds@gmail.com>
@@ -262,7 +262,7 @@ class IonAuthModel
 	 * @return false|string
 	 * @author Mathew
 	 */
-	public function hashPassword(string $password, string $identity = '')
+	public function hashPassword(string $password, string $identity='')
 	{
 		// Check for empty password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -295,7 +295,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function verifyPassword(string $password, string $hashPasswordDb, string $identity = ''): bool
+	public function verifyPassword(string $password, string $hashPasswordDb, string $identity=''): bool
 	{
 		// Check for empty id or password, or password containing null char, or password above limit
 		// Null char may pose issue: http://php.net/manual/en/function.password-hash.php#118603
@@ -380,7 +380,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, bool $code = false): bool
+	public function activate($id, bool $code=false): bool
 	{
 		$this->triggerEvents('pre_activate');
 
@@ -422,7 +422,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function deactivate(int $id = 0): bool
+	public function deactivate(int $id=0): bool
 	{
 		$this->triggerEvents('deactivate');
 
@@ -627,7 +627,7 @@ class IonAuthModel
 	 * @return boolean true if the user is registered false if the user is not registered.
 	 * @author Mathew
 	 */
-	public function emailCheck(string $email = ''): bool
+	public function emailCheck(string $email=''): bool
 	{
 		$this->triggerEvents('emailCheck');
 
@@ -652,7 +652,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function identityCheck(string $identity = ''): bool
+	public function identityCheck(string $identity=''): bool
 	{
 		$this->triggerEvents('identity_check');
 
@@ -674,7 +674,7 @@ class IonAuthModel
 	 *
 	 * @return boolean|integer
 	 */
-	public function getUserIdFromIdentity(string $identity = '')
+	public function getUserIdFromIdentity(string $identity='')
 	{
 		if (empty($identity))
 		{
@@ -1012,7 +1012,7 @@ class IonAuthModel
 	 *
 	 * @return boolean
 	 */
-	public function isMaxLoginAttemptsExceeded(string $identity, $ipAddress = null): bool
+	public function isMaxLoginAttemptsExceeded(string $identity, $ipAddress=null): bool
 	{
 		if ($this->config->trackLoginAttempts)
 		{
@@ -1038,7 +1038,7 @@ class IonAuthModel
 	 *
 	 * @return integer
 	 */
-	public function getAttemptsNum(string $identity, $ipAddress = null): int
+	public function getAttemptsNum(string $identity, $ipAddress=null): int
 	{
 		if ($this->config->trackLoginAttempts)
 		{
@@ -1069,7 +1069,7 @@ class IonAuthModel
 	 *
 	 * @return integer The time of the last login attempt for a given IP-address or identity
 	 */
-	public function getLastAttemptTime(string $identity, $ipAddress = null): int
+	public function getLastAttemptTime(string $identity, $ipAddress=null): int
 	{
 		if ($this->config->trackLoginAttempts)
 		{
@@ -1161,7 +1161,7 @@ class IonAuthModel
 	 *
 	 * @return boolean
 	 */
-	public function clearLoginAttempts(string $identity, int $oldAttemptsAxpirePeriod = 86400, $ipAddress = null): bool
+	public function clearLoginAttempts(string $identity, int $oldAttemptsAxpirePeriod=86400, $ipAddress = null): bool
 	{
 		if ($this->config->trackLoginAttempts)
 		{
@@ -1222,7 +1222,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function where($where, $value = null): self
+	public function where($where, $value=null): self
 	{
 		$this->triggerEvents('where');
 
@@ -1245,7 +1245,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function like(string $like, $value = null, $position = 'both'): self
+	public function like(string $like, $value=null, $position='both'): self
 	{
 		$this->triggerEvents('like');
 
@@ -1282,7 +1282,7 @@ class IonAuthModel
 	 *
 	 * @return static
 	 */
-	public function orderBy(string $by, string $order = 'desc'): self
+	public function orderBy(string $by, string $order='desc'): self
 	{
 		$this->triggerEvents('order_by');
 
@@ -1373,7 +1373,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function users($groups = null): self
+	public function users($groups=null): self
 	{
 		$this->triggerEvents('users');
 
@@ -1504,7 +1504,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function user(int $id = 0): self
+	public function user(int $id=0): self
 	{
 		$this->triggerEvents('user');
 
@@ -1552,7 +1552,7 @@ class IonAuthModel
 	 * @return boolean Whether the/all user(s) with the given ID(s) is/are in the given group
 	 * @author Phil Sturgeon
 	 **/
-	public function inGroup($checkGroup, int $id = 0, bool $checkAll = false): bool
+	public function inGroup($checkGroup, int $id=0, bool $checkAll=false): bool
 	{
 		$this->triggerEvents('in_group');
 
@@ -1760,7 +1760,7 @@ class IonAuthModel
 	 * @return static
 	 * @author Ben Edmunds
 	 */
-	public function group(int $id = 0)
+	public function group(int $id=0)
 	{
 		$this->triggerEvents('group');
 
@@ -1911,7 +1911,7 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Ben Edmunds
 	 */
-	public function setLang(string $lang = 'en'): bool
+	public function setLang(string $lang='en'): bool
 	{
 		$this->triggerEvents('set_lang');
 
@@ -2512,7 +2512,7 @@ class IonAuthModel
 	 * @return array
 	 * @author Benoit VRIGNAUD
 	 */
-	public function getErrors(bool $langify = true): array
+	public function getErrors(bool $langify=true): array
 	{
 		if ($langify)
 		{
@@ -2609,7 +2609,7 @@ class IonAuthModel
 	 *
 	 * @return string
 	 */
-	protected function randomToken(int $resultLength = 32): string
+	protected function randomToken(int $resultLength=32): string
 	{
 		if ($resultLength <= 8)
 		{
@@ -2633,7 +2633,7 @@ class IonAuthModel
 	 *
 	 * @return array|boolean
 	 */
-	protected function getHashParameters(string $identity = '')
+	protected function getHashParameters(string $identity='')
 	{
 		// Check if user is administrator or not
 		$isAdmin = false;
@@ -2705,7 +2705,7 @@ class IonAuthModel
 	 *          ->validatorHashed	token (hashed) to validate the user (to store in DB)
 	 *          ->user_code			code to be used user-side (in cookie or URL)
 	 */
-	protected function generateSelectorValidatorCouple(int $selectorSize = 40, int $validatorSize = 128): \stdClass
+	protected function generateSelectorValidatorCouple(int $selectorSize=40, int $validatorSize=128): \stdClass
 	{
 		// The selector is a simple token to retrieve the user
 		$selector = $this->randomToken($selectorSize);
