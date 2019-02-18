@@ -81,7 +81,7 @@ a:hover {
 }
 
 #nav_inner .td_sep {
- background: transparent url(images/nav_separator_darker.jpg) repeat-y left top;
+ background: transparent url(../images/nav_separator_darker.jpg) repeat-y left top;
  width: 25%;
  padding: 0 0 0 20px;
 }
@@ -95,7 +95,7 @@ a:hover {
  margin: 0 0 10px 0;
 }
 #nav_inner ul {
- list-style-image: url(images/arrow.gif);
+ list-style-image: url(../images/arrow.gif);
  padding: 0 0 0 18px;
  margin: 8px 0 12px 0;
 }
@@ -265,7 +265,7 @@ padding: 3px 0 7px 3px;
 }
 
 #content ul {
- list-style-image: url(images/arrow.gif);
+ list-style-image: url(../images/arrow.gif);
  margin: 10px 0 12px 0;
 }
 
