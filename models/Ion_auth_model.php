@@ -456,19 +456,6 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function deactivate($id = NULL)
 	{
-		$this->trigger_events('deactivate');
-
-		if (!isset($id))
-		{
-			$this->set_error('deactivate_unsuccessful');
-			return FALSE;
-		}
-		else if ($this->ion_auth->logged_in() && $this->user()->row()->id == $id)
-		{
-			$this->set_error('deactivate_current_user_unsuccessful');
-			return FALSE;
-		}
-
 		$token = $this->_generate_selector_validator_couple(20, 40);
 		$this->activation_code = $token->user_code;
 

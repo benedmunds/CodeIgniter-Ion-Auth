@@ -431,4 +431,22 @@ class Ion_auth
 		}
 	}
 
+	public function deactivate($id = NULL)
+	{
+		$this->trigger_events('deactivate');
+
+		if (!isset($id))
+		{
+			$this->set_error('deactivate_unsuccessful');
+			return FALSE;
+		}
+		else if ($this->logged_in() && $this->user()->row()->id == $id)
+		{
+			$this->set_error('deactivate_current_user_unsuccessful');
+			return FALSE;
+		}
+
+		return $this->ion_auth_model->deactivate($id);
+	}
+
 }
