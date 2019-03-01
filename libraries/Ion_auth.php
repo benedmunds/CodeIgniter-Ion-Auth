@@ -265,7 +265,7 @@ class Ion_auth
 			}
 
 			// deactivate so the user must follow the activation flow
-			$deactivate = $this->ion_auth_model->deactivate($id);
+			$deactivate = $this->deactivate($id);
 
 			// the deactivate method call adds a message, here we need to clear that
 			$this->ion_auth_model->clear_messages();
@@ -429,6 +429,24 @@ class Ion_auth
 			show_error("No CSPRNG functions to generate random enough token. " .
 				"Please update to PHP 7 or use random_compat (https://github.com/paragonie/random_compat).");
 		}
+	}
+
+	public function deactivate($id = NULL)
+	{
+		$this->trigger_events('deactivate');
+
+		if (!isset($id))
+		{
+			$this->set_error('deactivate_unsuccessful');
+			return FALSE;
+		}
+		else if ($this->logged_in() && $this->user()->row()->id == $id)
+		{
+			$this->set_error('deactivate_current_user_unsuccessful');
+			return FALSE;
+		}
+
+		return $this->ion_auth_model->deactivate($id);
 	}
 
 }
