@@ -16,6 +16,11 @@ v2/v3/v4
 **What PHP version are you using?**
 PHP 5.4/5.6/5.7/7.0/etc
 
+**Post your Ion Auth config below**
+```
+Config goes here
+```
+
 **Describe the bug**
 A clear and concise description of what the bug is.
 
