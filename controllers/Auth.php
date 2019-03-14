@@ -639,13 +639,11 @@ class Auth extends CI_Controller
 				if ($this->ion_auth->is_admin())
 				{
 					// Update the groups user belongs to
+					$this->ion_auth->remove_from_group('', $id);
+					
 					$groupData = $this->input->post('groups');
-
 					if (isset($groupData) && !empty($groupData))
 					{
-
-						$this->ion_auth->remove_from_group('', $id);
-
 						foreach ($groupData as $grp)
 						{
 							$this->ion_auth->add_to_group($grp, $id);
