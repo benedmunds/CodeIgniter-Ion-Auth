@@ -57,7 +57,7 @@ $lang['deactivate_validation_user_id_label'] = 'ID de usuario';
 
 // Create User
 $lang['create_user_heading']                           = 'Crear Usuario';
-$lang['create_user_subheading']                        = 'Por favor, introduzce la información del usuario.';
+$lang['create_user_subheading']                        = 'Por favor, introduzca la información del usuario.';
 $lang['create_user_fname_label']                       = 'Nombre:';
 $lang['create_user_lname_label']                       = 'Apellidos:';
 $lang['create_user_identity_label']                    = 'Identity:';
@@ -105,7 +105,7 @@ $lang['create_group_name_label']             = 'Nombre de Grupo:';
 $lang['create_group_desc_label']             = 'Descripción:';
 $lang['create_group_submit_btn']             = 'Crear Grupo';
 $lang['create_group_validation_name_label']  = 'Nombre de Grupo';
-$lang['create_group_validation_desc_label']  = 'Descripcion';
+$lang['create_group_validation_desc_label']  = 'Descripción';
 
 // Edit Group
 $lang['edit_group_title']                  = 'Editar Grupo';
@@ -137,7 +137,7 @@ $lang['forgot_password_validation_email_label']  = 'Correo Electrónico';
 $lang['forgot_password_username_identity_label'] = 'Usuario';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'El correo electrónico no existe.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_identity_not_found']         = 'No hay registros de esa dirección de usuario.';
 
 // Reset Password
 $lang['reset_password_heading']                               = 'Cambiar Contraseña';
@@ -150,7 +150,7 @@ $lang['reset_password_validation_new_password_confirm_label'] = 'Confirmar Nueva
 // Activation Email
 $lang['email_activate_heading']    = 'Activar cuenta por %s';
 $lang['email_activate_subheading'] = 'Por favor ingresa en este link para %s.';
-$lang['email_activate_link']       = 'activar tu cuenta';
+$lang['email_activate_link']       = 'Activar tu cuenta';
 
 // Forgot Password Email
 $lang['email_forgot_password_heading']    = 'Reestablecer contraseña para %s';
