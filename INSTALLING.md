@@ -9,7 +9,7 @@ There are different ways to install this package.
 > 1. With composer
 
 ```shell
-$ composer require https://github.com/benedmunds/CodeIgniter-Ion-Auth:dev-4
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.0.0
 ```
 
 ---
