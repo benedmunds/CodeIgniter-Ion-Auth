@@ -820,15 +820,16 @@ class Auth extends CI_Controller
 		// pass the user to the view
 		$this->data['group'] = $group;
 
-		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
-
 		$this->data['group_name'] = [
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
 			'value'   => $this->form_validation->set_value('group_name', $group->name),
-			$readonly => $readonly,
 		];
+		if ($this->config->item('admin_group', 'ion_auth') === $group->name) {
+			$this->data['group_name']['readonly'] = 'readonly';
+		}
+		
 		$this->data['group_description'] = [
 			'name'  => 'group_description',
 			'id'    => 'group_description',
