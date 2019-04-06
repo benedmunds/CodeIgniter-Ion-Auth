@@ -143,5 +143,5 @@ $lang['reset_password_heading']                               = 'Mudar Senha';
 $lang['reset_password_new_password_label']                    = 'Nova senha: (mínimo de %s caracteres)';
 $lang['reset_password_new_password_confirm_label']            = 'Confirme sua Nova Senha:';
 $lang['reset_password_submit_btn']                            = 'Mudar';
-$lang['reset_password_validation_new_password_label']         = 'Senha Antiga';
+$lang['reset_password_validation_new_password_label']         = 'Nova Senha';
 $lang['reset_password_validation_new_password_confirm_label'] = 'Confirme sua Nova Senha';
