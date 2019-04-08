@@ -15,7 +15,7 @@
     ],
 	"require": {
 		"php": ">=7.1",
-        "codeigniter/framework": "dev-master"
+        "codeigniter4/codeigniter4": "dev-master"
 	},
 	"require-dev": {
         "phpunit/phpunit": "^7.3",
