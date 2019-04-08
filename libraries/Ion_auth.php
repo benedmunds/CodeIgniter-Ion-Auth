@@ -76,11 +76,10 @@ class Ion_auth
 		$this->_cache_user_in_group =& $this->ion_auth_model->_cache_user_in_group;
 	
 		$email_config = $this->config->item('email_config', 'ion_auth');
-		$ci_email_config = $this->load->config('email',TRUE);
 
-		if ($this->config->item('use_ci_email', 'ion_auth'))
+		if ($this->config->item('use_ci_email', 'ion_auth') && isset($email_config) && is_array($email_config))
 		{
-			$this->email->initialize(array_merge($ci_email_config,(array)$email_config));
+			$this->email->initialize($email_config);
 		}
 
 		$this->ion_auth_model->trigger_events('library_constructor');
