@@ -207,8 +207,9 @@ class Ion_auth_model extends CI_Model
 		$group_name = $this->config->item('database_group_name', 'ion_auth');
 		if (empty($group_name)) 
 		{
-			// By default, use CI's default db
-			$this->db = $this->load->database('', TRUE, TRUE);
+			// By default, use CI's db that should be already loaded
+			$CI =& get_instance();
+			$this->db = $CI->db;
 		}
 		else
 		{
