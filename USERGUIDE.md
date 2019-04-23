@@ -47,9 +47,6 @@ Toggle Table of Contents
 </summary>
 </details>
 
- [![Toggle Table of
-Contents](http://benedmunds.com/ion_auth/images/nav_toggle_darker.jpg "Toggle Table of Contents")](#)
-
 
   Documentation  ›  Author : [Ben Edmunds](http://benedmunds.com)
 
@@ -1479,10 +1476,4 @@ Call Additional functions to run that were registered with
 ```php
 $this->ion_auth->trigger_events('socialpush');
 ```
-        
-
-
-[Top of Page](#Ion%20Auth)
-
-[CodeIgniter](http://codeigniter.com)  ·  Copyright © 2010 Ben Edmunds
- ·  [Ellislab, Inc.](https://ellislab.com/)
+       
