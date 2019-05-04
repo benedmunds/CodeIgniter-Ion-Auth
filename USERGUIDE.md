@@ -106,7 +106,7 @@ Upgrading from Ion Auth 2? Check the UPGRADING.md file in the package.
 Loading Ion Auth
 ----------------
 
-You load Ion Auth just link any other library:
+You load Ion Auth just like any other library:
 
 ```php
 $ionAuth = new \IonAuth\Libraries\IonAuth();
