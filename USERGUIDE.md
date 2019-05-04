@@ -887,36 +887,44 @@ Get the users.
 ```php
 // get all users
 $users = $this->ionAuth->users()->result();
+```
 
-
+```php
 // get users from group with id of '1'
 $users = $this->ionAuth->users(1)->result();
+```
 
-
+```php
 // get users from 'members' group
 $users = $this->ionAuth->users('members')->result();
+```
 
-
+```php
 // get users from 'admin' and 'members' group
 $users = $this->ionAuth->users(array('admin', 'members'))->result();
+```
 
-
+```php
 // get users from 'admin' group, 'members' group and group with id '4'
 $users = $this->ionAuth->users(array('admin', 4, 'members'))->result();
+```
 
-
+```php
 // get users from group with id of '1'
 $users = $this->ionAuth->users(1)->result();
+```
 
-
+```php
 // get users from 'members' group
 $users = $this->ionAuth->users('members')->result();
+```
 
-
+```php
 // get users from 'admin' and 'members' group
 $users = $this->ionAuth->users(array('admin', 'members'))->result();
+```
 
-
+```php
 // get users from 'admin' group, 'members' group and group with id '4'
 $users = $this->ionAuth->users(array('admin', 4 ,'members'))->result();
 ```
