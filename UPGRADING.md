@@ -24,6 +24,7 @@ This is a bit more complex, depending on your configuration.
  5. If you were **using** the SHA1 hash method, please check the relevant chapter below
  6. Check your code for functions modification/removal
     (see list in relevant chapter below)
+ 7. Ensure your database connection is loaded before loading Ion Auth.
 
 ### Options evolution from Ion Auth 2
 

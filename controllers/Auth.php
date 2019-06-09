@@ -602,8 +602,8 @@ class Auth extends CI_Controller
 		// validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'trim|required');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'trim|required');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim|required');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim|required');
+		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'trim');
+		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'trim');
 
 		if (isset($_POST) && !empty($_POST))
 		{
@@ -798,9 +798,9 @@ class Auth extends CI_Controller
 		{
 			if ($this->form_validation->run() === TRUE)
 			{
-				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], [
-					$_POST['group_description']
-				]);
+				$group_update = $this->ion_auth->update_group($id, $_POST['group_name'], array(
+					'description' => $_POST['group_description']
+				));
 
 				if ($group_update)
 				{
@@ -820,15 +820,16 @@ class Auth extends CI_Controller
 		// pass the user to the view
 		$this->data['group'] = $group;
 
-		$readonly = $this->config->item('admin_group', 'ion_auth') === $group->name ? 'readonly' : '';
-
 		$this->data['group_name'] = [
 			'name'    => 'group_name',
 			'id'      => 'group_name',
 			'type'    => 'text',
 			'value'   => $this->form_validation->set_value('group_name', $group->name),
-			$readonly => $readonly,
 		];
+		if ($this->config->item('admin_group', 'ion_auth') === $group->name) {
+			$this->data['group_name']['readonly'] = 'readonly';
+		}
+		
 		$this->data['group_description'] = [
 			'name'  => 'group_description',
 			'id'    => 'group_description',

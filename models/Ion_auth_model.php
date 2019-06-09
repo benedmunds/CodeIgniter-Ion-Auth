@@ -981,6 +981,11 @@ class Ion_auth_model extends CI_Model
 	 */
 	public function recheck_session()
 	{
+		if (empty($this->session->userdata('identity')))
+		{
+			return FALSE;
+		}
+
 		$recheck = (NULL !== $this->config->item('recheck_timer', 'ion_auth')) ? $this->config->item('recheck_timer', 'ion_auth') : 0;
 
 		if ($recheck !== 0)
