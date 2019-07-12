@@ -10,7 +10,7 @@ There are different ways to install this package.
 
 ```shell
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
-$ composer require benedmunds/CodeIgniter-Ion-Auth:4.0.0
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.0.2
 ```
 
 ---
