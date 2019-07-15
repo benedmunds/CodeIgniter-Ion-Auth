@@ -8,11 +8,20 @@ There are different ways to install this package.
 
 > 1. With composer
 
+For an existing compoer project:
 ```shell
+$ composer config minimum-stability dev
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
-$ composer require benedmunds/CodeIgniter-Ion-Auth:4.0.3
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
 ```
 
+For a new project:
+```shell
+$ composer init
+$ composer config minimum-stability dev
+$ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
+```
 ---
 
 > 2. With Git:
