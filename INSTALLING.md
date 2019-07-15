@@ -8,7 +8,7 @@ There are different ways to install this package.
 
 > 1. With composer
 
-For an existing compoer project:
+For an existing composer project:
 ```shell
 $ composer config minimum-stability dev
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
