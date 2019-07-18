@@ -738,7 +738,7 @@ class Ion_auth_model extends CI_Model
 		$update = [
 			'forgotten_password_selector' => $token->selector,
 			'forgotten_password_code' => $token->validator_hashed,
-			'forgotten_password_time' => time()
+			'forgotten_password_time' => now()
 		];
 
 		$this->trigger_events('extra_where');
@@ -844,7 +844,7 @@ class Ion_auth_model extends CI_Model
 			'password' => $password,
 			'email' => $email,
 			'ip_address' => $ip_address,
-			'created_on' => time(),
+			'created_on' => now(),
 			'active' => ($manual_activation === FALSE ? 1 : 0)
 		];
 
@@ -991,7 +991,7 @@ class Ion_auth_model extends CI_Model
 		if ($recheck !== 0)
 		{
 			$last_login = $this->session->userdata('last_check');
-			if ($last_login + $recheck < time())
+			if ($last_login + $recheck < now())
 			{
 				$query = $this->db->select('id')
 								  ->where([
@@ -1003,7 +1003,7 @@ class Ion_auth_model extends CI_Model
 								  ->get($this->tables['users']);
 				if ($query->num_rows() === 1)
 				{
-					$this->session->set_userdata('last_check', time());
+					$this->session->set_userdata('last_check', now());
 				}
 				else
 				{
@@ -1073,7 +1073,7 @@ class Ion_auth_model extends CI_Model
 				}
 				$this->db->where('ip_address', $ip_address);
 			}
-			$this->db->where('time >', time() - $this->config->item('lockout_time', 'ion_auth'), FALSE);
+			$this->db->where('time >', now() - $this->config->item('lockout_time', 'ion_auth'), FALSE);
 			$qres = $this->db->get($this->tables['login_attempts']);
 			return $qres->num_rows();
 		}
@@ -1155,7 +1155,7 @@ class Ion_auth_model extends CI_Model
 	{
 		if ($this->config->item('track_login_attempts', 'ion_auth'))
 		{
-			$data = ['ip_address' => '', 'login' => $identity, 'time' => time()];
+			$data = ['ip_address' => '', 'login' => $identity, 'time' => now()];
 			if ($this->config->item('track_login_ip_address', 'ion_auth'))
 			{
 				$data['ip_address'] = $this->input->ip_address();
@@ -1197,7 +1197,7 @@ class Ion_auth_model extends CI_Model
 				$this->db->where('ip_address', $ip_address);
 			}
 			// Purge obsolete login attempts
-			$this->db->or_where('time <', time() - $old_attempts_expire_period, FALSE);
+			$this->db->or_where('time <', now() - $old_attempts_expire_period, FALSE);
 
 			return $this->db->delete($this->tables['login_attempts']);
 		}
@@ -1884,7 +1884,7 @@ class Ion_auth_model extends CI_Model
 
 		$this->trigger_events('extra_where');
 
-		$this->db->update($this->tables['users'], ['last_login' => time()], ['id' => $id]);
+		$this->db->update($this->tables['users'], ['last_login' => now()], ['id' => $id]);
 
 		return $this->db->affected_rows() == 1;
 	}
@@ -1939,7 +1939,7 @@ class Ion_auth_model extends CI_Model
 		    'email'                => $user->email,
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login,
-		    'last_check'           => time(),
+		    'last_check'           => now(),
 		];
 
 		$this->session->set_userdata($session_data);
