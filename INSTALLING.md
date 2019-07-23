@@ -1,7 +1,8 @@
-Installing Ion Auth.
+Installing Ion Auth 4.x 
 ===================================
 
 Before installing, please check that you are meeting the minimum server requirements.
+Ion Auth 4 needs CodeIgniter 4.x and PHP 7.1.
 
 There are different ways to install this package.
 
@@ -41,8 +42,8 @@ Then in your Config/Autoload.php, add this :
 > 3. Download the archive, and move folder from this package to the root folder:
 
 ```shell
-CI                          # → Root Directory
-├── application/
+CI 4.x                           # → Root Directory
+├── app/
 ├── ion-auth/               # → Ion-auth directory
 ├── public
 ├──...
