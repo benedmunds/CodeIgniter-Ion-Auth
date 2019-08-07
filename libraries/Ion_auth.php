@@ -343,10 +343,6 @@ class Ion_auth
 		// Destroy the session
 		$this->session->sess_destroy();
 
-		// Recreate the session
-		session_start();
-		$this->session->sess_regenerate(TRUE);
-
 		$this->set_message('logout_successful');
 		return TRUE;
 	}
