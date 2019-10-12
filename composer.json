@@ -1,0 +1,21 @@
+{
+    "name": "benedmunds/codeigniter-ion-auth",
+    "description": "Simple and Lightweight Auth System for CodeIgniter",
+    "type": "library",
+    "license": "MIT",
+    "homepage": "http://benedmunds.com/ion_auth",
+    "authors": [
+        {
+            "name": "Ben EDMUNDS"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:benedmunds/CodeIgniter-Ion-Auth.git"
+        }
+    ]
+}
