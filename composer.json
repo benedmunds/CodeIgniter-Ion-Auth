@@ -19,17 +19,26 @@
         }
     ],
     "scripts": {
-        "post-install-cmd": [
+        "install-ion-auth": [
+            "[ -f application/config/ion_auth.php ] || cp -p vendor/benedmunds/codeigniter-ion-auth/config/ion_auth.php application/config/",
+            "@install-ion-auth-clm",
+            "[ -d application/views/auth ] || cp -pr vendor/benedmunds/codeigniter-ion-auth/views/* application/views/"
+        ],
+        "force-install-ion-auth": [
             "cp -p vendor/benedmunds/codeigniter-ion-auth/config/ion_auth.php application/config/",
-            "cp -p vendor/benedmunds/codeigniter-ion-auth/controllers/Auth.php application/controllers/",
-            "cp -p vendor/benedmunds/codeigniter-ion-auth/libraries/Ion_auth.php application/libraries/",
-            "cp -p vendor/benedmunds/codeigniter-ion-auth/models/Ion_auth_model.php application/models/",
+            "@install-ion-auth-clm",
             "cp -pr vendor/benedmunds/codeigniter-ion-auth/views/* application/views/"
         ],
-        "post-update-cmd": [
+        "install-ion-auth-clm": [
             "cp -p vendor/benedmunds/codeigniter-ion-auth/controllers/Auth.php application/controllers/",
             "cp -p vendor/benedmunds/codeigniter-ion-auth/libraries/Ion_auth.php application/libraries/",
             "cp -p vendor/benedmunds/codeigniter-ion-auth/models/Ion_auth_model.php application/models/"
+        ],
+        "post-install-cmd": [
+            "@install-ion-auth"
+        ],
+        "post-update-cmd": [
+            "@install-ion-auth"
         ]
     }
 }
