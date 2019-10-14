@@ -17,5 +17,19 @@
             "type": "vcs",
             "url": "git@github.com:benedmunds/CodeIgniter-Ion-Auth.git"
         }
-    ]
+    ],
+    "scripts": {
+        "post-install-cmd": [
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/config/ion_auth.php application/config/",
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/controllers/Auth.php application/controllers/",
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/libraries/Ion_auth.php application/libraries/",
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/models/Ion_auth_model.php application/models/",
+            "cp -pr vendor/benedmunds/codeigniter-ion-auth/views/* application/views/"
+        ],
+        "post-update-cmd": [
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/controllers/Auth.php application/controllers/",
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/libraries/Ion_auth.php application/libraries/",
+            "cp -p vendor/benedmunds/codeigniter-ion-auth/models/Ion_auth_model.php application/models/"
+        ]
+    }
 }
