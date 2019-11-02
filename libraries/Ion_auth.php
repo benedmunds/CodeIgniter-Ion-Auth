@@ -98,10 +98,6 @@ class Ion_auth
 	 */
 	public function __call($method, $arguments)
 	{
-		if (!method_exists( $this->ion_auth_model, $method) )
-		{
-			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
-		}
 		if($method == 'create_user')
 		{
 			return call_user_func_array([$this, 'register'], $arguments);
@@ -109,6 +105,10 @@ class Ion_auth
 		if($method=='update_user')
 		{
 			return call_user_func_array([$this, 'update'], $arguments);
+		}
+		if (!method_exists( $this->ion_auth_model, $method) )
+		{
+			throw new Exception('Undefined method Ion_auth::' . $method . '() called');
 		}
 		return call_user_func_array( [$this->ion_auth_model, $method], $arguments);
 	}
