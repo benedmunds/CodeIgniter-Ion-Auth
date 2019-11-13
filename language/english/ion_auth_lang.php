@@ -6,7 +6,7 @@
 *         ben.edmunds@gmail.com
 *         @benedmunds
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  03.14.2010
 *

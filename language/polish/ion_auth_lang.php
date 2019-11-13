@@ -13,7 +13,7 @@
  *			vertisan@vrs-factory.pl
  *			@vertisan
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  03.23.2010
 * Updated:  13.03.2016

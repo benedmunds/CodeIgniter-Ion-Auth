@@ -7,9 +7,9 @@
 *         @benedmunds
 *
 * Translation: Benjamin Neu (benny@duxu.de), Max Vogl mail@max-vogl.de
-*         
 *
-* Location: http://github.com/benedmunds/ion_auth/
+*
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  29.07.2013
 * Last-Edit: 23.04.2016

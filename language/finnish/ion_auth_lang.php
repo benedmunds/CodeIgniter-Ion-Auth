@@ -6,7 +6,7 @@
 *         jarno.fabritius@meisso.com
 *         @meisso_jarno
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  01.03.2011
 *

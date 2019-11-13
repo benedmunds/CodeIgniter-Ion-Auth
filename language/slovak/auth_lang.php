@@ -9,7 +9,7 @@
 * Author: Jakub Vatrt
 *         vatrtj@gmail.com
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  11.11.2016
 *

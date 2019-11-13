@@ -12,7 +12,7 @@
 * 		  id513128@gmail.com
 *         @itpcc
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * created:  03.09.2013
 * modify :  10.11.2014

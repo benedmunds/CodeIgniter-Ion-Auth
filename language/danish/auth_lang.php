@@ -9,7 +9,7 @@
 * Author: Daniel Davis
 *         daniel@kyokodaniel.com
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  05.09.2013
 *

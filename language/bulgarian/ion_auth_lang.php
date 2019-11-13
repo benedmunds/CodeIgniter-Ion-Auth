@@ -6,7 +6,7 @@
 * 		  ivan.kolev@gmail.com
 *
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  01.22.2013
 *

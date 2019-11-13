@@ -8,7 +8,7 @@
 * Updated by: Gwenaël Gallon
 * 			  github@dev-ggallon
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  03.23.2010
 * Updated:  06.16.2017

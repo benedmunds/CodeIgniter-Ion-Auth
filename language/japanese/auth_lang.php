@@ -9,7 +9,7 @@
 * Author/Translation: Daniel Davis
 *         @ourmaninjapan
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  03.19.2013
 *
