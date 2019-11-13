@@ -6,7 +6,7 @@
 *           contacto@wilfridogarcia.com
 *           @wilfridogarcia
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  05.04.2010
 *

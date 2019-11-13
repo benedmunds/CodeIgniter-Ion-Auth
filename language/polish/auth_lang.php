@@ -9,7 +9,7 @@
 * Translation: Piotr Fuz
 *         piotr.fuz@gmail.com
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:    03.09.2013
 * Translated: 18.05.2017

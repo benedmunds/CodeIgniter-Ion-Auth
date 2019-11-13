@@ -6,7 +6,7 @@
 * 		  trungdq88@gmail.com
 *         @trungdq88
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  01.17.2015
 *

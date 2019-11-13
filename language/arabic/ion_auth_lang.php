@@ -5,7 +5,7 @@
 * Author: Emad Elsaid
 * 		  blazeeboy@gmail.com
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  30.08.2010
 *

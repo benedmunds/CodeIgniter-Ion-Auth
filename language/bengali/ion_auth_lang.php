@@ -9,7 +9,7 @@
 * Author: Arifur Rahman
 *         @arif2009
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  03.25.2018
 *

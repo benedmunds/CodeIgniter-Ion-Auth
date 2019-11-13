@@ -9,7 +9,7 @@
 *
 *
 *
-* Location: http://github.com/benedmunds/ion_auth/
+* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  21.06.2013
 * Last-Edit: 21.06.2017
