@@ -5,14 +5,16 @@
 * Author:       Ben Edmunds
 * 		          ben.edmunds@gmail.com
 *               @benedmunds
-* Translation:  Bernd Hückstädt (akademie@joytopia.net), Benjamin Neu (benny@duxu.de), Max Vogl mail@max-vogl.de
-*
+* Translation:  Bernd Hückstädt (akademie@joytopia.net),
+*               Benjamin Neu (benny@duxu.de),
+*               Max Vogl (mail@max-vogl.de),
+*               Armin Stebich (ion_auth@mail.lordofbikes.de)
 *
 *
 * Location:     https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  04.02.2010
-* Last-Edit: 23.04.2016
+* Last-Edit: 13.11.2019
 *
 * Description:      German language file for Ion Auth messages and errors
 * Beschreibung:     Deutsche Sprach-Datei für Ion Auth System- und Fehlermeldungen
@@ -31,10 +33,10 @@ $lang['account_creation_invalid_default_group'] = 'Ungültiger Standard Gruppenn
 
 
 // Password
-$lang['password_change_successful']     = 'Das Passwort wurde erfolgreich geändert';
-$lang['password_change_unsuccessful']   = 'Das Passwort konnte nicht geändert werden';
-$lang['forgot_password_successful']     = 'Es wurde eine Email zum Zurücksetzen des Passwortes versandt';
-$lang['forgot_password_unsuccessful']   = 'Das Passwort konnte nicht zurückgesetzt werden';
+$lang['password_change_successful']     = 'Das Kennwort wurde erfolgreich geändert';
+$lang['password_change_unsuccessful']   = 'Das Kennwort konnte nicht geändert werden';
+$lang['forgot_password_successful']     = 'Es wurde eine Email zum Rücksetzen des Kennworts versandt';
+$lang['forgot_password_unsuccessful']   = 'Das Kennwort konnte nicht zurückgesetzt werden';
 
 // Activation
 $lang['activate_successful']                    = 'Das Benutzerkonto wurde aktiviert';
@@ -75,7 +77,7 @@ $lang['email_activate_subheading'] = 'Bitte klicken Sie auf diesen Link, um %s.'
 $lang['email_activate_link']       = 'Aktivieren Sie Ihr Benutzerkonto';
 
 // Forgot Password Email
-$lang['email_forgotten_password_subject'] = 'Vergessenes Kennwort Verifikation';
+$lang['email_forgotten_password_subject'] = 'Vergessenes Kennwort bestätigen';
 $lang['email_forgot_password_heading']    = 'Kennwort zurücksetzen für %s';
 $lang['email_forgot_password_subheading'] = 'Bitte klicken Sie auf diesen Link, um %s.';
 $lang['email_forgot_password_link']       = 'Ihr Kennwort zurückzusetzen';
