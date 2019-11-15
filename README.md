@@ -7,7 +7,7 @@ Simple and lightweight authentication for your CodeIgniter apps.
 Note, this version is meant to be used with CodeIgniter 4 and is not backwards compatible with previous versions.  The database is backwards compatible though for those migrating from previous versions.
 
 ## Server requirements
-Ion Auth 4 needs **CodeIgniter 4** and **PHP 7.1**.
+Ion Auth 4 needs **CodeIgniter 4**.
 
 ## Documentation
 Documentation is located at http://benedmunds.com/ion_auth/
