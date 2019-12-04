@@ -38,14 +38,14 @@ class Auth extends \CodeIgniter\Controller
 	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
-	private $session;
+	protected $session;
 
 	/**
 	 * Validation library
 	 *
 	 * @var \CodeIgniter\Validation\Validation
 	 */
-	private $validation;
+	protected $validation;
 
 	/**
 	 * Validation list template.
