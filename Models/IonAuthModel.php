@@ -45,14 +45,14 @@ class IonAuthModel
 	 *
 	 * @var Config\IonAuth
 	 */
-	private $config;
+	protected $config;
 
 	/**
 	 * CodeIgniter session
 	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
-	private $session;
+	protected $session;
 
 	/**
 	 * Holds an array of tables used
