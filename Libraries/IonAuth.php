@@ -31,14 +31,14 @@ class IonAuth
 	 *
 	 * @var \IonAuth\Config\IonAuth
 	 */
-	private $config;
+	protected $config;
 
 	/**
 	 * IonAuth model
 	 *
 	 * @var \IonAuth\Models\IonAuthModel
 	 */
-	private $ionAuthModel;
+	protected $ionAuthModel;
 
 	/**
 	 * Email class
