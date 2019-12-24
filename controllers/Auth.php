@@ -744,28 +744,31 @@ class Auth extends CI_Controller
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				redirect("auth", 'refresh');
 			}
+			else
+            		{
+				$this->session->set_flashdata('message', $this->ion_auth->errors());
+            		}			
 		}
-		else
-		{
-			// display the create group form
-			// set the flash data error message if there is one
-			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+			
+		// display the create group form
+		// set the flash data error message if there is one
+		$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['group_name'] = [
-				'name'  => 'group_name',
-				'id'    => 'group_name',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('group_name'),
-			];
-			$this->data['description'] = [
-				'name'  => 'description',
-				'id'    => 'description',
-				'type'  => 'text',
-				'value' => $this->form_validation->set_value('description'),
-			];
+		$this->data['group_name'] = [
+			'name'  => 'group_name',
+			'id'    => 'group_name',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('group_name'),
+		];
+		$this->data['description'] = [
+			'name'  => 'description',
+			'id'    => 'description',
+			'type'  => 'text',
+			'value' => $this->form_validation->set_value('description'),
+		];
 
-			$this->_render_page('auth/create_group', $this->data);
-		}
+		$this->_render_page('auth/create_group', $this->data);
+		
 	}
 
 	/**
@@ -804,12 +807,12 @@ class Auth extends CI_Controller
 				if ($group_update)
 				{
 					$this->session->set_flashdata('message', $this->lang->line('edit_group_saved'));
+					redirect("auth", 'refresh');
 				}
 				else
 				{
 					$this->session->set_flashdata('message', $this->ion_auth->errors());
-				}
-				redirect("auth", 'refresh');
+				}				
 			}
 		}
 
