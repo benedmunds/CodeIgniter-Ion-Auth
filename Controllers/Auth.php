@@ -245,7 +245,7 @@ class Auth extends \CodeIgniter\Controller
 		}
 		else
 		{
-			$identity = $this->session->userdata('identity');
+			$identity = $this->session->get('identity');
 
 			$change = $this->ionAuth->changePassword($identity, $this->request->getPost('old'), $this->request->getPost('new'));
 

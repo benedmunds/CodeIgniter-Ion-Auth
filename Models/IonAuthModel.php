@@ -558,20 +558,21 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		$query = $this->db->select('id, password')
-						  ->where($this->identityColumn, $identity)
-						  ->limit(1)
-						  ->orderBy('id', 'desc')
-						  ->get($this->tables['users']);
+		$builder = $this->db->table($this->tables['users']);
+		$query   = $builder
+					   ->select('id, password')
+					   ->where($this->identityColumn, $identity)
+					   ->limit(1)
+					   ->get()->getResult();
 
-		if ($query->numRows() !== 1)
+		if (empty($query))
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
 			$this->setError('IonAuth.password_change_unsuccessful');
 			return false;
 		}
 
-		$user = $query->row();
+		$user = $query[0];
 
 		if ($this->verifyPassword($old, $user->password, $identity))
 		{
