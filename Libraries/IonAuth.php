@@ -252,7 +252,7 @@ class IonAuth
 				return false;
 			}
 
-			$activationCode = $this->ionAuthModel->activation_code;
+			$activationCode = $this->ionAuthModel->activationCode;
 			$identity       = $this->config->identity;
 			$user           = $this->ionAuthModel->user($id)->row();
 
