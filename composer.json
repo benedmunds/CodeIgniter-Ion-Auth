@@ -3,6 +3,9 @@
     "description": "Simple and Lightweight Auth System for CodeIgniter",
     "type": "library",
 	"license": "MIT",
+	"keywords": [
+	  "codeigniter", "auth"
+	],
 	"homepage": "http://benedmunds.com/ion_auth",
     "authors": [
         {
