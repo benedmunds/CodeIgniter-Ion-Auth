@@ -1,4 +1,4 @@
-Installing Ion Auth 4.x 
+Installing Ion Auth 4.x
 ===================================
 
 Before installing, please check that you are meeting the minimum server requirements.
@@ -95,6 +95,6 @@ $routes->group('auth', ['namespace' => 'IonAuth\Controllers'], function ($routes
 	$routes->get('/', 'Auth::index');
 	$routes->add('login', 'Auth::login');
 	$routes->get('logout', 'Auth::logout');
-	$routes->get('forgot_password', 'Auth::forgot_password');
+	$routes->add('forgot_password', 'Auth::forgot_password');
 });
 ```
