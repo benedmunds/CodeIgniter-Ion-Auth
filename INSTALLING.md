@@ -55,6 +55,23 @@ Then in your Config/Autoload.php, add this :
 
 ---
 
+### Configuration
+Once installed, maybe, you need to configure IonAuth library.
+In your application, perform the following setup:
+Create IonAuth.php in your Config directory :
+```php
+<?php namespace Config;
+
+class IonAuth extends \IonAuth\Config\IonAuth
+{
+    // set your specific config
+    // public $siteTitle                = 'Example.com';       // Site Title, example.com
+    // public $adminEmail               = 'admin@example.com'; // Admin Email, admin@example.com
+    // ...
+}
+
+```
+
 ### Relational DB Setup
 Then use the migration file (in Database/Migrations/).
 ```
