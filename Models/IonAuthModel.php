@@ -15,7 +15,7 @@ namespace IonAuth\Models;
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds <ben.edmunds@gmail.com>
  * @author     Phil Sturgeon
- * @author     Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
+ * @author     Benoit VRIGNAUD <benoit.vrignaud@tangue.fr>
  * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
@@ -207,7 +207,7 @@ class IonAuthModel
 	 */
 	public function __construct()
 	{
-		$this->config = config('IonAuth\\Config\\IonAuth');
+		$this->config = config('IonAuth');
 		helper(['cookie', 'date']);
 		$this->session = session();
 
