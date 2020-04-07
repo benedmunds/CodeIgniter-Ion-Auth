@@ -1021,9 +1021,9 @@ class Ion_auth_model extends CI_Model
 					return FALSE;
 				}
 			}
-        }
+		}
 
-        $session_hash = $this->session->userdata('ion_auth_session_hash');
+		$session_hash = $this->session->userdata('ion_auth_session_hash');
 
 		return (bool)$session_hash && $session_hash === $this->config->item('session_hash', 'ion_auth');
 	}
@@ -1946,8 +1946,8 @@ class Ion_auth_model extends CI_Model
 		    'email'                    => $user->email,
 		    'user_id'                  => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'           => $user->last_login,
-            'last_check'               => time(),
-            'ion_auth_session_hash'    => $this->config->item('session_hash', 'ion_auth'),
+		    'last_check'               => time(),
+		    'ion_auth_session_hash'    => $this->config->item('session_hash', 'ion_auth'),
 		];
 
 		$this->session->set_userdata($session_data);
