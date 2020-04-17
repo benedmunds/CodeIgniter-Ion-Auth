@@ -19,19 +19,19 @@ $lang['error_csrf'] = 'Gönderilen form verisi güvenlik kontrolünden geçemedi
 
 // Login
 $lang['login_heading']         = 'Giriş';
-$lang['login_subheading']      = 'Lütfen kullanıcı adınız/epostanız ve şifreniz ile giriş yapın. ';
-$lang['login_identity_label']  = 'Eposta/Kullanıcı Adı:';
-$lang['login_password_label']  = 'Şifre:';
+$lang['login_subheading']      = 'Lütfen kullanıcı adınız/e-postanız ve parolanız ile giriş yapın. ';
+$lang['login_identity_label']  = 'E-posta/Kullanıcı Adı:';
+$lang['login_password_label']  = 'Parola:';
 $lang['login_remember_label']  = 'Beni Hatırla:';
 $lang['login_submit_btn']      = 'Gir';
-$lang['login_forgot_password'] = 'Şifrenizi mi unuttunuz ?';
+$lang['login_forgot_password'] = 'Parolanızı mı unuttunuz ?';
 
 // Index
 $lang['index_heading']           = 'Kullanıcılar';
 $lang['index_subheading']        = 'Aşağıdaki kullanıcıların listesidir.';
 $lang['index_fname_th']          = 'İsim';
 $lang['index_lname_th']          = 'Soyisim';
-$lang['index_email_th']          = 'Eposta';
+$lang['index_email_th']          = 'E-posta';
 $lang['index_groups_th']         = 'Gruplar';
 $lang['index_status_th']         = 'Durum';
 $lang['index_action_th']         = 'Eylem';
@@ -56,21 +56,21 @@ $lang['create_user_fname_label']                       = 'İsim:';
 $lang['create_user_lname_label']                       = 'Soyisim:';
 $lang['create_user_identity_label']                    = 'Identity:';
 $lang['create_user_company_label']                     = 'Şirket İsmi:';
-$lang['create_user_email_label']                       = 'Eposta:';
+$lang['create_user_email_label']                       = 'E-posta:';
 $lang['create_user_phone_label']                       = 'Telefon:';
-$lang['create_user_password_label']                    = 'Şifre:';
-$lang['create_user_password_confirm_label']            = 'Şifre Tekrarı:';
+$lang['create_user_password_label']                    = 'Parola:';
+$lang['create_user_password_confirm_label']            = 'Parola Tekrarı:';
 $lang['create_user_submit_btn']                        = 'Kullanıcı Oluştur';
 $lang['create_user_validation_fname_label']            = 'İsim';
 $lang['create_user_validation_lname_label']            = 'Soyisim';
 $lang['create_user_validation_identity_label']         = 'Identity';
-$lang['create_user_validation_email_label']            = 'Eposta Adresi';
+$lang['create_user_validation_email_label']            = 'E-posta Adresi';
 $lang['create_user_validation_phone1_label']           = 'Telefonun İlk Kısmı';
 $lang['create_user_validation_phone2_label']           = 'Telefonun İkinci Kısmı';
 $lang['create_user_validation_phone3_label']           = 'Telefonun Üçüncü Kısmı';
 $lang['create_user_validation_company_label']          = 'Şirket İsmi';
-$lang['create_user_validation_password_label']         = 'Şifre';
-$lang['create_user_validation_password_confirm_label'] = 'Şifre Tekrarı';
+$lang['create_user_validation_password_label']         = 'Parola';
+$lang['create_user_validation_password_confirm_label'] = 'Parola Tekrarı';
 
 // Edit User
 $lang['edit_user_heading']                           = 'Kullanıcı Düzenleme';
@@ -78,22 +78,22 @@ $lang['edit_user_subheading']                        = 'Kullanıcı bilgilerini 
 $lang['edit_user_fname_label']                       = 'İsim:';
 $lang['edit_user_lname_label']                       = 'Soyisim:';
 $lang['edit_user_company_label']                     = 'Şirket İsmi:';
-$lang['edit_user_email_label']                       = 'Eposta:';
+$lang['edit_user_email_label']                       = 'E-posta:';
 $lang['edit_user_phone_label']                       = 'Telefon:';
-$lang['edit_user_password_label']                    = 'Şifre: (Eğer değişecekse)';
-$lang['edit_user_password_confirm_label']            = 'Şifre Tekrarı: (Eğer değişecekse)';
+$lang['edit_user_password_label']                    = 'Parola: (Eğer değişecekse)';
+$lang['edit_user_password_confirm_label']            = 'Parola Tekrarı: (Eğer değişecekse)';
 $lang['edit_user_groups_heading']                    = 'Üye olduğu gruplar';
 $lang['edit_user_submit_btn']                        = 'Kullanıcıyı Kaydet';
 $lang['edit_user_validation_fname_label']            = 'İsim';
 $lang['edit_user_validation_lname_label']            = 'Soyisim';
-$lang['edit_user_validation_email_label']            = 'Eposta Adresi';
+$lang['edit_user_validation_email_label']            = 'E-posta Adresi';
 $lang['edit_user_validation_phone1_label']           = 'Telefonun İlk Kısmı';
 $lang['edit_user_validation_phone2_label']           = 'Telefonun İkinci Kısmı';
 $lang['edit_user_validation_phone3_label']           = 'Telefonun Üçüncü Kısmı';
 $lang['edit_user_validation_company_label']          = 'Şirket İsmi';
 $lang['edit_user_validation_groups_label']           = 'Gruplar';
-$lang['edit_user_validation_password_label']         = 'Şifre';
-$lang['edit_user_validation_password_confirm_label'] = 'Şifre Tekrarı';
+$lang['edit_user_validation_password_label']         = 'Parola';
+$lang['edit_user_validation_password_confirm_label'] = 'Parola Tekrarı';
 
 // Create Group
 $lang['create_group_title']                  = 'Grup Oluşturma';
@@ -117,33 +117,33 @@ $lang['edit_group_validation_name_label']  = 'Grup İsmi';
 $lang['edit_group_validation_desc_label']  = 'Açıklama';
 
 // Change Password
-$lang['change_password_heading']                               = 'Şifre Değiştirme';
-$lang['change_password_old_password_label']                    = 'Eski Şifre:';
-$lang['change_password_new_password_label']                    = 'Yeni Şifre (en az %s karakter uzunluğunda):';
-$lang['change_password_new_password_confirm_label']            = 'Yeni Şifre Tekrarı:';
+$lang['change_password_heading']                               = 'Parola Değiştirme';
+$lang['change_password_old_password_label']                    = 'Eski Parola:';
+$lang['change_password_new_password_label']                    = 'Yeni Parola (en az %s karakter uzunluğunda):';
+$lang['change_password_new_password_confirm_label']            = 'Yeni Parola Tekrarı:';
 $lang['change_password_submit_btn']                            = 'Değiştir';
-$lang['change_password_validation_old_password_label']         = 'Eski Şifre';
-$lang['change_password_validation_new_password_label']         = 'Yeni Şifre';
-$lang['change_password_validation_new_password_confirm_label'] = 'Yeni Şifre Tekrarı';
+$lang['change_password_validation_old_password_label']         = 'Eski Parola';
+$lang['change_password_validation_new_password_label']         = 'Yeni Parola';
+$lang['change_password_validation_new_password_confirm_label'] = 'Yeni Parola Tekrarı';
 
 // Forgot Password
-$lang['forgot_password_heading']                 = 'Şifremi Unuttum';
-$lang['forgot_password_subheading']              = 'Şifrenizi sıfırlamanızı sağlayacak eposta gönderebilmemiz için %s giriniz.';
+$lang['forgot_password_heading']                 = 'Parolamı Unuttum';
+$lang['forgot_password_subheading']              = 'Parolanızı sıfırlamanızı sağlayacak e-posta gönderebilmemiz için %s giriniz.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Gönder';
-$lang['forgot_password_validation_email_label']  = 'Eposta Adresi';
+$lang['forgot_password_validation_email_label']  = 'E-posta Adresi';
 $lang['forgot_password_username_identity_label'] = 'Kullanıcı Adı';
-$lang['forgot_password_email_identity_label']    = 'Eposta';
-$lang['forgot_password_email_not_found']         = 'Belirttiğiniz Eposta adresi için bir kayıt bulunamadı.';
-$lang['forgot_password_identity_not_found']         = 'No record of that username address.';
+$lang['forgot_password_email_identity_label']    = 'E-posta';
+$lang['forgot_password_email_not_found']         = 'Belirttiğiniz E-posta adresi için bir kayıt bulunamadı.';
+$lang['forgot_password_identity_not_found']      = 'Bu kullanıcı adına ait kayıt bulunamadı.';
 
 // Reset Password
-$lang['reset_password_heading']                               = 'Şifre Değiştirme';
-$lang['reset_password_new_password_label']                    = 'Yeni Şifre (en az %s karakter uzunluğunda):';
-$lang['reset_password_new_password_confirm_label']            = 'Yeni Şifre Tekrarı:';
+$lang['reset_password_heading']                               = 'Parola Değiştirme';
+$lang['reset_password_new_password_label']                    = 'Yeni Parola (en az %s karakter uzunluğunda):';
+$lang['reset_password_new_password_confirm_label']            = 'Yeni Parola Tekrarı:';
 $lang['reset_password_submit_btn']                            = 'Değiştir';
-$lang['reset_password_validation_new_password_label']         = 'Yeni Şifre';
-$lang['reset_password_validation_new_password_confirm_label'] = 'Yeni Şifre Tekrarı';
+$lang['reset_password_validation_new_password_label']         = 'Yeni Parola';
+$lang['reset_password_validation_new_password_confirm_label'] = 'Yeni Parola Tekrarı';
 
 // Activation Email
 $lang['email_activate_heading']    = '%s İçin Hesap Etkinleştirme';
@@ -151,8 +151,8 @@ $lang['email_activate_subheading'] = 'Bağlantıya basarak %s.';
 $lang['email_activate_link']       = 'Hesabınızı Etkinleştiriniz';
 
 // Forgot Password Email
-$lang['email_forgot_password_heading']    = '%s İçin Şifre Sıfırlama';
+$lang['email_forgot_password_heading']    = '%s İçin Parola Sıfırlama';
 $lang['email_forgot_password_subheading'] = 'Bağlantıya basarak %s.';
-$lang['email_forgot_password_link']       = 'Şifrenizi Sıfırlayınız';
+$lang['email_forgot_password_link']       = 'Parolanızı Sıfırlayınız';
 
 
