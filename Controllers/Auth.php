@@ -448,7 +448,7 @@ class Auth extends \CodeIgniter\Controller
 	{
 		$activation = false;
 
-		if (! $code)
+		if ($code)
 		{
 			$activation = $this->ionAuth->activate($id, $code);
 		}
