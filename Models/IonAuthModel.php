@@ -374,13 +374,13 @@ class IonAuthModel
 	 * Validates and removes activation code.
 	 *
 	 * @param integer|string $id   The user identifier
-	 * @param boolean        $code The *user* activation code
+	 * @param string         $code The *user* activation code
 	 *                             if omitted, simply activate the user without check
 	 *
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, bool $code=false): bool
+	public function activate($id, $code=false): bool
 	{
 		$this->triggerEvents('pre_activate');
 
@@ -390,7 +390,7 @@ class IonAuthModel
 		}
 		// Activate if no code is given
 		// Or if a user was found with this code, and that it matches the id
-		if ($code === false || ($user && $user->id === $id))
+		if ($code === false || ($user && $user->id == $id))
 		{
 			$data = [
 				'activation_selector' => null,
