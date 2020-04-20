@@ -380,17 +380,17 @@ class IonAuthModel
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, $code=false): bool
+	public function activate($id, ?string $code=null): bool
 	{
 		$this->triggerEvents('pre_activate');
 
-		if ($code !== false)
+		if ($code)
 		{
 			$user = $this->getUserByActivationCode($code);
 		}
 		// Activate if no code is given
 		// Or if a user was found with this code, and that it matches the id
-		if ($code === false || ($user && $user->id == $id))
+		if (is_null($code) || ($user && $user->id == $id))
 		{
 			$data = [
 				'activation_selector' => null,
