@@ -384,7 +384,7 @@ class IonAuthModel
 	{
 		$this->triggerEvents('pre_activate');
 
-		if ($code)
+		if (!is_null($code))
 		{
 			$user = $this->getUserByActivationCode($code);
 		}
