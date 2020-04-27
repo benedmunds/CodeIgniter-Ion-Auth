@@ -431,7 +431,7 @@ class IonAuthModel
 			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
-		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id === $id)
+		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id == $id)
 		{
 			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
@@ -907,7 +907,7 @@ class IonAuthModel
 		{
 			if ($this->verifyPassword($password, $user->password, $identity))
 			{
-				if ($user->active === 0)
+				if ($user->active == 0)
 				{
 					$this->triggerEvents('post_login_unsuccessful');
 					$this->setError('IonAuth.login_unsuccessful_not_active');
