@@ -374,23 +374,23 @@ class IonAuthModel
 	 * Validates and removes activation code.
 	 *
 	 * @param integer|string $id   The user identifier
-	 * @param boolean        $code The *user* activation code
+	 * @param string         $code The *user* activation code
 	 *                             if omitted, simply activate the user without check
 	 *
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, bool $code=false): bool
+	public function activate($id, string $code=''): bool
 	{
 		$this->triggerEvents('pre_activate');
 
-		if ($code !== false)
+		if ($code)
 		{
 			$user = $this->getUserByActivationCode($code);
 		}
 		// Activate if no code is given
 		// Or if a user was found with this code, and that it matches the id
-		if ($code === false || ($user && $user->id === $id))
+		if (!$code || ($user && $user->id == $id))
 		{
 			$data = [
 				'activation_selector' => null,
@@ -431,7 +431,7 @@ class IonAuthModel
 			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
-		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id === $id)
+		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id == $id)
 		{
 			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
@@ -907,7 +907,7 @@ class IonAuthModel
 		{
 			if ($this->verifyPassword($password, $user->password, $identity))
 			{
-				if ($user->active === 0)
+				if ($user->active == 0)
 				{
 					$this->triggerEvents('post_login_unsuccessful');
 					$this->setError('IonAuth.login_unsuccessful_not_active');
