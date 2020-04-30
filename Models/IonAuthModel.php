@@ -1868,7 +1868,7 @@ class IonAuthModel
 		$this->removeFromGroup(null, $id);
 
 		// delete user from users table should be placed after remove from group
-		$this->db->delete($this->tables['users'], ['id' => $id]);
+		$this->db->table($this->tables['users'])->delete(['id' => $id]);
 
 		if ($this->db->transStatus() === false)
 		{
