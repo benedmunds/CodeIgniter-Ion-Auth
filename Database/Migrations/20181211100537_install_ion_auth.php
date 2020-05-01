@@ -31,7 +31,7 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 	 */
 	public function __construct()
 	{
-		$config = config('IonAuth\\Config\\IonAuth');
+		$config = config('IonAuth');
 
 		// initialize the database
 		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
