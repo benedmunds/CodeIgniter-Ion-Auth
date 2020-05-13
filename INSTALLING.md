@@ -76,7 +76,7 @@ class IonAuth extends \IonAuth\Config\IonAuth
 ### Relational DB Setup
 Then use the migration file (in Database/Migrations/).
 ```
-$ php spark migrate:latest -n IonAuth
+$ php spark migrate -n IonAuth
 ```
 Don't forget to set Config\Migrations:enabled to true.
 
