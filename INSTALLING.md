@@ -4,7 +4,7 @@ Installing Ion Auth 4.x
 Before installing, please check that you are meeting the minimum server requirements.
 Ion Auth 4 needs CodeIgniter 4.x, PHP 7.1 and Composer.
 
-> With composer
+> For using the library, you should install with Composer
 
 For an existing composer project:
 ```shell
@@ -22,6 +22,15 @@ $ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
 ```
 ---
 
+> For developing against the library, you can use git directly
+```shell
+my-project$ git clone https://github.com/benedmunds/CodeIgniter-Ion-Auth.git
+my-project$ cd CodeIgniter-Ion-Auth
+CodeIgniter-Ion-Auth$ git checkout 4
+```
+Then in your Config/Autoload.php, add this :
+```php
+'IonAuth' => ROOTPATH . 'CodeIgniter-Ion-Auth',
 ```
 
 ---
