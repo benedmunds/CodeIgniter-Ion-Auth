@@ -20,7 +20,7 @@
           echo '<p>';
           echo form_label(lang('Auth.create_user_identity_label'), 'identity');
           echo '<br />';
-          echo form_error('identity');
+          echo \Config\Services::validation()->getError('identity');
           echo form_input($identity);
           echo '</p>';
       }
