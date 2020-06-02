@@ -377,7 +377,7 @@ class IonAuth
 
 		$adminGroup = $this->config->adminGroup;
 
-		return $this->ionAuthModel->inGroup($adminGroup, $id);
+		return $this->loggedIn() && $this->ionAuthModel->inGroup($adminGroup, $id);
 	}
 
 	/**
