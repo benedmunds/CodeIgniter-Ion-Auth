@@ -202,6 +202,10 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 			],
 		]);
 		$this->forge->addKey('id', true);
+
+		$this->forge->addForeignKey('user_id', $this->tables['users'], 'id', 'NO ACTION', 'CASCADE');
+		$this->forge->addForeignKey('group_id', $this->tables['groups'], 'id', 'NO ACTION', 'CASCADE');
+
 		$this->forge->createTable($this->tables['users_groups']);
 
 		// Drop table 'login_attempts' if it exists
