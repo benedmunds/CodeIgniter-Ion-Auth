@@ -47,7 +47,7 @@ return [
 
 	// Deactivate User
 	'deactivate_heading'                  => 'Disattiva Utente',
-	'deactivate_subheading'               => 'Sei sicuro di voler attivare l\'utente \'%s\'',
+	'deactivate_subheading'               => 'Sei sicuro di voler disattivare l\'utente \'%s\'',
 	'deactivate_confirm_y_label'          => 'S&igrave;:',
 	'deactivate_confirm_n_label'          => 'No:',
 	'deactivate_submit_btn'               => 'Invia',
