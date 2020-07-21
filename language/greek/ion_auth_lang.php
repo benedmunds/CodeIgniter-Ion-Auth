@@ -1,74 +1,74 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Ion Auth Lang - Greek
-*
-* Author: Vagelis Papaloukas
-* 		  vagelispapalou@yahoo.gr
-*
-* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  02.04.2011
-*
-* Description:  Greek language file for Ion Auth messages and errors
-*
-*/
+ * Name:  Ion Auth Lang - Greek
+ *
+ * Author: Konstantinos Gkanatsios
+ * 		  kgkanatsios@gmail.com
+ *
+ * Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
+ *
+ * Created:  21.07.2020
+ *
+ * Description:  Greek language file for Ion Auth messages and errors
+ *
+ */
 
 // Account Creation
-$lang['account_creation_successful'] 	  	 = 'Ο Λογαριασμός Δημιουργήθηκε Επιτυχώς';
-$lang['account_creation_unsuccessful'] 	 	 = 'Αποτυχία Δημιουργίας Λογαριασμού';
-$lang['account_creation_duplicate_email'] 	 = 'Το Email χρησιμποιείται ήδη ή είναι λάθος';
-$lang['account_creation_duplicate_identity'] 	 = 'Ο Χρήστης υπάρχει ήδη ή είναι λάθος';
+$lang['account_creation_successful']            = 'Ο Λογαριασμός Δημιουργήθηκε Επιτυχώς';
+$lang['account_creation_unsuccessful']           = 'Αδυναμία Δημιουργίας Λογαριασμού';
+$lang['account_creation_duplicate_email']      = 'Η διεύθυνση Email χρησιμοποιείται ήδη ή είναι λάθος';
+$lang['account_creation_duplicate_identity']      = 'Το όνομα χρήστη υπάρχει ήδη ή είναι λάθος';
 
 // TODO Please Translate
-$lang['account_creation_missing_default_group'] = 'Default group is not set';
-$lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_creation_missing_default_group'] = 'Δεν έχετε ορίσει προεπιλεγμένη ομάδα';
+$lang['account_creation_invalid_default_group'] = 'Μη έγκυρο όνομα προεπιλεγμένης ομάδας';
 
 
 // Password
-$lang['password_change_successful'] 	 	 = 'Επιτυχής Αλλαγή Κωδικού';
-$lang['password_change_unsuccessful'] 	  	 = 'Αδυναμία Αλλαγής Κωδικού';
-$lang['forgot_password_successful'] 	 	 = 'Εστάλη Email Κωδικού Επαναφοράς';
-$lang['forgot_password_unsuccessful'] 	 	 = 'Αδυναμία Επαναφοράς Κωδικού';
+$lang['password_change_successful']           = 'Επιτυχής Αλλαγή Κωδικού Πρόσβασης';
+$lang['password_change_unsuccessful']            = 'Αδυναμία Αλλαγής Κωδικού Πρόσβασης';
+$lang['forgot_password_successful']           = 'Εστάλη Email για την Επαναφορά του Κωδικού Πρόσβασης';
+$lang['forgot_password_unsuccessful']           = 'Αδυναμία Επαναφοράς Κωδικού Πρόσβασης';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'Ο Λογαριασμός Ενεργοποιήθηκε';
-$lang['activate_unsuccessful'] 		 	 = 'Αδυναμία Ενεργοποίησης Λογαριασμού';
-$lang['deactivate_successful'] 		  	 = 'Ο Λογαριασμός Απενεργοποιήθηκε';
-$lang['deactivate_unsuccessful'] 	  	 = 'Αδυναμία Απενεργοποίησης Λογαριασμού';
-$lang['activation_email_successful'] 	  	 = 'Εστάλη Email Ενεργοποίησης Λογαριασμού';
-$lang['activation_email_unsuccessful']   	 = 'Αδυναμία Αποστολής Email Ενεργοποίησης';
+$lang['activate_successful']                = 'Ο Λογαριασμός Ενεργοποιήθηκε Επιτυχώς';
+$lang['activate_unsuccessful']               = 'Αδυναμία Ενεργοποίησης Λογαριασμού';
+$lang['deactivate_successful']                = 'Ο Λογαριασμός Απενεργοποιήθηκε Επιτυχώς';
+$lang['deactivate_unsuccessful']            = 'Αδυναμία Απενεργοποίησης Λογαριασμού';
+$lang['activation_email_successful']            = 'Εστάλη Email για την Ενεργοποίηση του Λογαριασμού';
+$lang['activation_email_unsuccessful']        = 'Αδυναμία Αποστολής Email Ενεργοποίησης του Λογαριασμού';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'Συνδεθήκατε Επιτυχώς';
-$lang['login_unsuccessful'] 		  	 = 'Λάθος Στοιχεία';
-$lang['login_unsuccessful_not_active'] 		 = 'Account is inactive';
-$lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
-$lang['logout_successful'] 		 	 = 'Αποσυνδεθήκατε Επιτυχώς';
+$lang['login_successful']                = 'Συνδεθήκατε Επιτυχώς';
+$lang['login_unsuccessful']                = 'Λάθος Στοιχεία Σύνδεσης';
+$lang['login_unsuccessful_not_active']          = 'Ο Λογαριασμός σας είναι ανενεργός';
+$lang['login_timeout']                       = 'Ο Λογαριασμός σας έχει Κλειδωθεί Προσωρινά. Παρακαλούμε Δοκιμάστε αργότερα.';
+$lang['logout_successful']               = 'Αποσυνδεθήκατε Επιτυχώς';
 
 // Account Changes
-$lang['update_successful'] 		 	 = 'Οι Πληροφορίες του Λογαριασμού Ενημερώθηκαν Επιτυχώς';
-$lang['update_unsuccessful'] 		 	 = 'Αδυναμία Ενημέρωσης Πληροφοριών Λογαριασμού';
-$lang['delete_successful'] 		 	 = 'Ο Χρήστης Διαγράφηκε';
-$lang['delete_unsuccessful'] 		 	 = 'Αδυναμία Διαγραφής Χρήστη';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['update_successful']               = 'Οι Πληροφορίες του Λογαριασμού Ενημερώθηκαν Επιτυχώς';
+$lang['update_unsuccessful']               = 'Αδυναμία Ενημέρωσης Πληροφοριών Λογαριασμού';
+$lang['delete_successful']               = 'Ο Λογαριασμός Διαγράφηκε Επιτυχώς';
+$lang['delete_unsuccessful']               = 'Αδυναμία Διαγραφής Λογαριασμού';
+$lang['deactivate_current_user_unsuccessful'] = 'Δεν Μπορείτε να Απενεργοποιήσετε τον Λογαριασμό σας.';
 
 // Groups
-$lang['group_creation_successful']  = 'Group created Successfully';
-$lang['group_already_exists']       = 'Group name already taken';
-$lang['group_update_successful']    = 'Group details updated';
-$lang['group_delete_successful']    = 'Group deleted';
-$lang['group_delete_unsuccessful'] 	= 'Unable to delete group';
-$lang['group_delete_notallowed']    = 'Can\'t delete the administrators\' group';
-$lang['group_name_required'] 		= 'Group name is a required field';
-$lang['group_name_admin_not_alter'] = 'Admin group name can not be changed';
+$lang['group_creation_successful']  = 'Η Ομάδα Δημιουργήθηκε Επιτυχώς';
+$lang['group_already_exists']       = 'Υπάρχει ήδη ομάδα με το συγκεκριμένο όνομα';
+$lang['group_update_successful']    = 'Η Ομάδα Ανανεώθηκε Επιτυχώς';
+$lang['group_delete_successful']    = 'Η Ομάδα Διαγράφηκε Επιτυχώς';
+$lang['group_delete_unsuccessful']     = 'Αδυναμία Διαγραφής Ομάδας';
+$lang['group_delete_notallowed']    = 'Δεν μπορείτε να διαγράψετε την ομάδα των διαχειριστών';
+$lang['group_name_required']         = 'Το Όνομα Ομάδας είναι Υποχρεωτικό';
+$lang['group_name_admin_not_alter'] = 'Το Όνομα της Ομάδας των Διαχειριστών δεν Μπορεί να Τροποποιηθεί';
 
 // Activation Email
-$lang['email_activation_subject']            = 'Account Activation';
-$lang['email_activate_heading']    = 'Activate account for %s';
-$lang['email_activate_subheading'] = 'Please click this link to %s.';
-$lang['email_activate_link']       = 'Activate Your Account';
+$lang['email_activation_subject']            = 'Ενεργοποίηση Λογαριασμού';
+$lang['email_activate_heading']    = 'Ενεργοποίηση του λογαριασμού %s';
+$lang['email_activate_subheading'] = 'Παρακαλούμε ακολουθήστε τον σύνδεσμο %s.';
+$lang['email_activate_link']       = 'Ενεργοποίηση λογαριασμού';
 // Forgot Password Email
-$lang['email_forgotten_password_subject']    = 'Forgotten Password Verification';
-$lang['email_forgot_password_heading']    = 'Reset Password for %s';
-$lang['email_forgot_password_subheading'] = 'Please click this link to %s.';
-$lang['email_forgot_password_link']       = 'Reset Your Password';
+$lang['email_forgotten_password_subject']    = 'Ανάκτηση κωδικού πρόσβασης';
+$lang['email_forgot_password_heading']    = 'Αλλάξτε τον κωδικό πρόσβαση του %s';
+$lang['email_forgot_password_subheading'] = 'Παρακαλούμε ακολουθήστε τον σύνδεσμο %s.';
+$lang['email_forgot_password_link']       = 'Αλλαγή κωδικού πρόσβασης';
