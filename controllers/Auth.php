@@ -593,7 +593,7 @@ class Auth extends CI_Controller
 
 		$user = $this->ion_auth->user($id)->row();
 		$groups = $this->ion_auth->groups()->result_array();
-		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
+		$currentGroups = $this->ion_auth->get_users_groups($id)->result_array();
 			
 		//USAGE NOTE - you can do more complicated queries like this
 		//$groups = $this->ion_auth->where(['field' => 'value'])->groups()->result_array();
