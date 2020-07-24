@@ -5,8 +5,9 @@ Upgrading Ion Auth.
 
  1. Download the [latest Ion Auth 3 revision](http://github.com/benedmunds/CodeIgniter-Ion-Auth/zipball/3)
  2. Overwrite "libraries/ion_auth.php" and "models/ion_auth_model.php" with the new versions.
- 3. Overwrite "language/*" with the news versions.
- 4. Check "config/ion_auth.php" for evolution.
+ 3. Overwrite "language/*" with the new versions.
+ 4. Overwrite "controllers/Auth.php" with the new version.  Make sure to integrate this with any custom changes you already have in your previous version.
+ 5. Check "config/ion_auth.php" for evolution.
 
 # Upgrading from Ion Auth 2
 
