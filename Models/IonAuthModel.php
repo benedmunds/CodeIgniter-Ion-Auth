@@ -615,9 +615,10 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		return $this->db->where('username', $username)
-						->limit(1)
-						->count_all_results($this->tables['users']) > 0;
+		return $this->db->table($this->tables['users'])
+			->where('username', $username)
+			->limit(1)
+			->countAllResults() > 0;
 	}
 
 	/**
