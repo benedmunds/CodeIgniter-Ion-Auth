@@ -2007,7 +2007,6 @@ class Ion_auth_model extends CI_Model
 					'name'   => $this->config->item('remember_cookie_name', 'ion_auth'),
 					'value'  => $token->user_code,
 					'expire' => $expire,
-					'secure' => TRUE,
 					'httponly' => TRUE,
 				]);
 
