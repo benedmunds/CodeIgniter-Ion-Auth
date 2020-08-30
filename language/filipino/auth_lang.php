@@ -1,21 +1,21 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - Filipino
-*
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
-*
-* Author: Daniel Davis
-*         @ourmaninjapan
-*
-* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  03.09.2013
-*
-* Deskripsyon:  Filipino language file for Ion Auth example views
-*
-*/
+ * Name:  Auth Lang - Filipino
+ *
+ * Author: Ben Edmunds
+ * 		  ben.edmunds@gmail.com
+ *         @benedmunds
+ *
+ * Author: Daniel Davis
+ *         @ourmaninjapan
+ *
+ * Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
+ *
+ * Created:  03.09.2013
+ *
+ * Deskripsyon:  Filipino language file for Ion Auth example views
+ *
+ */
 
 // Errors
 $lang['error_csrf'] = 'Ang form na ito post ay hindi pumasa sa aming mga pagsusuri ng seguridad.';
@@ -131,7 +131,7 @@ $lang['forgot_password_subheading']              = 'Pakipasok ang iyong %s upang
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Submit';
 $lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_identity_label'] = 'Identity';
+$lang['forgot_password_username_identity_label'] = 'Identity';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'Walang record ng email address.';
 $lang['forgot_password_identity_not_found']         = 'Walang record ng username.';

@@ -1,22 +1,22 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Auth Lang - Bengali
-*
-* Author: Ben Edmunds
-* 		  ben.edmunds@gmail.com
-*         @benedmunds
-*
-*
-* Author: Arifur Rahman
-*         @arif2009
-*
-* Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
-*
-* Created:  25.03.2018
-*
-* Description:  Bengali language file for Ion Auth example views
-*
-*/
+ * Name:  Auth Lang - Bengali
+ *
+ * Author: Ben Edmunds
+ * 		  ben.edmunds@gmail.com
+ *         @benedmunds
+ *
+ *
+ * Author: Arifur Rahman
+ *         @arif2009
+ *
+ * Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
+ *
+ * Created:  25.03.2018
+ *
+ * Description:  Bengali language file for Ion Auth example views
+ *
+ */
 
 // Errors
 $lang['error_csrf'] = 'এই ফর্মের ডাটা নিরাপদ নহে, এটি আমাদের নিরাপত্তা সংক্রান্ত শর্তগুলো পূরণ করতে পারেনি।';
@@ -133,7 +133,7 @@ $lang['forgot_password_subheading']              = 'দয়া করে আ�
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'সম্পূর্ণ করুন';
 $lang['forgot_password_validation_email_label']  = 'ই-মেইল';
-$lang['forgot_password_identity_label']          = 'আইডেন্টিটি';
+$lang['forgot_password_username_identity_label']          = 'আইডেন্টিটি';
 $lang['forgot_password_email_identity_label']    = 'ই-মেইল';
 $lang['forgot_password_email_not_found']         = 'আপনার এই ই-মেইল আমাদের সাথে যুক্ত নেই।';
 $lang['forgot_password_identity_not_found']      = 'আপনার এই নামটি আমাদের সাথে যুক্ত নেই।';
@@ -258,7 +258,7 @@ $lang['forgot_password_subheading']              = 'Please enter your %s so we c
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Submit';
 $lang['forgot_password_validation_email_label']  = 'Email Address';
-$lang['forgot_password_identity_label'] = 'Identity';
+$lang['forgot_password_username_identity_label'] = 'Identity';
 $lang['forgot_password_email_identity_label']    = 'Email';
 $lang['forgot_password_email_not_found']         = 'No record of that email address.';
 $lang['forgot_password_identity_not_found']         = 'No record of that username.';
@@ -270,4 +270,3 @@ $lang['reset_password_new_password_confirm_label']            = 'Confirm New Pas
 $lang['reset_password_submit_btn']                            = 'Change';
 $lang['reset_password_validation_new_password_label']         = 'New Password';
 $lang['reset_password_validation_new_password_confirm_label'] = 'Confirm New Password';
-
