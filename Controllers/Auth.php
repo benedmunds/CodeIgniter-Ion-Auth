@@ -198,18 +198,18 @@ class Auth extends \CodeIgniter\Controller
 	 */
 	public function change_password()
 	{
-		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
-		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
-		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
-
 		if (! $this->ionAuth->loggedIn())
 		{
 			return redirect()->to('/auth/login');
 		}
+		
+		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
+		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
+		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
 		$user = $this->ionAuth->user()->row();
 
-		if ($this->validation->run() === false)
+		if (! $this->request->getPost() || $this->validation->withRequest($this->request)->run() === false)
 		{
 			// display the form
 			// set the flash data error message if there is one
@@ -253,7 +253,7 @@ class Auth extends \CodeIgniter\Controller
 			{
 				//if the password was successfully changed
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				$this->logout();
+				return $this->logout();
 			}
 			else
 			{
