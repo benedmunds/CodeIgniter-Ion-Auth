@@ -188,7 +188,7 @@ class Auth extends \CodeIgniter\Controller
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect()->to('/auth/login');
+		return redirect()->to('/auth/login')->withCookies();
 	}
 
 	/**
