@@ -505,9 +505,10 @@ class IonAuthModel
 		];
 
 		// get identity of logged in user
-		$builder = $this->db->table($this->tables['users']);
-		$identity = $builder->select($identity)->where('id', $this->session->get('user_id'))->get()->getRowArray();
-
+		if ($identity == $this->identityColumn) {
+			$builder = $this->db->table($this->tables['users']);
+			$identity = $builder->select($identity)->where('id', $this->session->get('user_id'))->get()->getRowArray();
+		}
 		return $this->db->table($this->tables['users'])->update($data, $identity);
 	}
 
