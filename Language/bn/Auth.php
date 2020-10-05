@@ -11,7 +11,7 @@
  *         @arif2009
  *
  * Location: http://github.com/benedmunds/ion_auth/
- * 
+ *
  *  Created:  25.03.2018
  *
  * Description:  Bengali language file for Ion Auth example views
@@ -260,7 +260,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Submit',
 	'forgot_password_validation_email_label'  => 'Email Address',
-	'forgot_password_identity_label' => 'Identity',
+	'forgot_password_identity_label'          => 'Identity',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'No record of that email address.',
 	'forgot_password_identity_not_found'         => 'No record of that username.',

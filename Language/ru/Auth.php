@@ -140,7 +140,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Отправить',
 	'forgot_password_validation_email_label'  => 'Email',
-	'forgot_password_username_identity_label' => 'Логин',
+	'forgot_password_identity_label'          => 'Логин',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_back'    => 'Вернуться',
 	'forgot_password_email_not_found'         => 'No record of that email address.',

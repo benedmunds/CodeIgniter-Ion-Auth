@@ -137,7 +137,7 @@ return [
 	'forgot_password_email_label'             => '%s :',
 	'forgot_password_submit_btn'              => 'Envoyer',
 	'forgot_password_validation_email_label'  => 'Adresse Email',
-	'forgot_password_username_identity_label' => 'Nom d\'utilisateur',
+	'forgot_password_identity_label'          => 'Nom d\'utilisateur',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Cette adresse email n\'est pas enregistrée chez nous.',
 	'forgot_password_identity_not_found'      => 'Ce nom d\'utilisateur n\'est pas enregistré chez nous.',

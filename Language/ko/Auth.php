@@ -134,7 +134,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => '보내기',
 	'forgot_password_validation_email_label'  => '이메일 주소',
-	'forgot_password_username_identity_label' => '계정명',
+	'forgot_password_identity_label'          => '계정명',
 	'forgot_password_email_identity_label'    => '이메일',
 	'forgot_password_email_not_found'         => 'No record of that email address.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

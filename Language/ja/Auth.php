@@ -137,7 +137,7 @@ return [
 	'forgot_password_email_label'             => '%s：',
 	'forgot_password_submit_btn'              => '送信',
 	'forgot_password_validation_email_label'  => 'メールアドレス',
-	'forgot_password_username_identity_label' => 'ユーザー名',
+	'forgot_password_identity_label'          => 'ユーザー名',
 	'forgot_password_email_identity_label'    => 'メールアドレス',
 	'forgot_password_email_not_found'         => 'No record of that email address.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

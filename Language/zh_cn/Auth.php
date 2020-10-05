@@ -140,7 +140,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => '提交',
 	'forgot_password_validation_email_label'  => '邮箱地址',
-	'forgot_password_username_identity_label' => '用户名',
+	'forgot_password_identity_label'          => '用户名',
 	'forgot_password_email_identity_label'    => '邮箱',
 	'forgot_password_email_not_found'         => '无此邮箱的记录.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

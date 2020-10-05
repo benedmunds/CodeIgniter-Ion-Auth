@@ -134,7 +134,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Kirim',
 	'forgot_password_validation_email_label'  => 'Alamat Surel',
-	'forgot_password_username_identity_label' => 'Nama Pengguna',
+	'forgot_password_identity_label'          => 'Nama Pengguna',
 	'forgot_password_email_identity_label'    => 'Surel',
 	'forgot_password_email_not_found'         => 'Tidak ada data dari surel tersebut.',
 	'forgot_password_identity_not_found'      => 'Tidak ada data dari nama pengguna tersebut.',

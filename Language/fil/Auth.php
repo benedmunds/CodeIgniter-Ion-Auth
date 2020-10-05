@@ -133,7 +133,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Submit',
 	'forgot_password_validation_email_label'  => 'Email Address',
-	'forgot_password_identity_label' => 'Identity',
+	'forgot_password_identity_label'          => 'Identity',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Walang record ng email address.',
 	'forgot_password_identity_not_found'         => 'Walang record ng username.',

@@ -137,7 +137,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Verzenden',
 	'forgot_password_validation_email_label'  => 'E-mailadres',
-	'forgot_password_username_identity_label' => 'Gebruikersnaam',
+	'forgot_password_identity_label'          => 'Gebruikersnaam',
 	'forgot_password_email_identity_label'    => 'E-mail',
 	'forgot_password_email_not_found'         => 'Het opgegeven e-mailadres werd niet terug gevonden.',
 	'forgot_password_identity_not_found'      => 'De opgegeven identiteit kon niet gevonden worden.',
