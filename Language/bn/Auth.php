@@ -118,8 +118,7 @@ return [
 	'edit_group_validation_desc_label'  => 'বর্ণনা',
 
 	// Change Password
-	'edit_user_validation_password_label'                   => 'পাসওয়ার্ড পরিবর্তন',
-	'change_password_heading'                               => '',
+	'change_password_heading'                               => 'পাসওয়ার্ড পরিবর্তন',
 	'change_password_old_password_label'                    => 'পুরাতন পাসওয়ার্ডঃ',
 	'change_password_new_password_label'                    => 'নুতুন পাসওয়ার্ড (অন্যূন %s অক্ষরের হতে হবে)ঃ',
 	'change_password_new_password_confirm_label'            => 'নুতুন পাসওয়ার্ডটি আবার দিনঃ',
