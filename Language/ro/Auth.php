@@ -130,7 +130,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Trimite',
 	'forgot_password_validation_email_label'  => 'Adresa de email',
-	'forgot_password_username_identity_label' => 'Utilizator',
+	'forgot_password_identity_label'          => 'Utilizator',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Nu există nicio înregistrare cu acest email.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

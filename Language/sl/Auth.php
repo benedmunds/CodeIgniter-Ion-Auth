@@ -131,7 +131,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Pošlji',
 	'forgot_password_validation_email_label'  => 'Elektronski naslov',
-	'forgot_password_username_identity_label' => 'Uporabniško ime',
+	'forgot_password_identity_label'          => 'Uporabniško ime',
 	'forgot_password_email_identity_label'    => 'E-naslov',
 	'forgot_password_email_not_found'         => 'No record of that email address.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

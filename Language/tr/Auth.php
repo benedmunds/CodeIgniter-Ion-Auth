@@ -134,7 +134,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Gönder',
 	'forgot_password_validation_email_label'  => 'Eposta Adresi',
-	'forgot_password_username_identity_label' => 'Kullanıcı Adı',
+	'forgot_password_identity_label'          => 'Kullanıcı Adı',
 	'forgot_password_email_identity_label'    => 'Eposta',
 	'forgot_password_email_not_found'         => 'Belirttiğiniz Eposta adresi için bir kayıt bulunamadı.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',
