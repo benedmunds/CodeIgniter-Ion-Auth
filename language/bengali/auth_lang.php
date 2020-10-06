@@ -117,8 +117,7 @@ $lang['edit_group_validation_name_label']  = 'দলের নাম';
 $lang['edit_group_validation_desc_label']  = 'বর্ণনা';
 
 // Change Password
-$lang['edit_user_validation_password_label']                   = 'পাসওয়ার্ড পরিবর্তন';
-$lang['change_password_heading']                               = '';
+$lang['change_password_heading']                               = 'পাসওয়ার্ড পরিবর্তন';
 $lang['change_password_old_password_label']                    = 'পুরাতন পাসওয়ার্ডঃ';
 $lang['change_password_new_password_label']                    = 'নুতুন পাসওয়ার্ড (অন্যূন %s অক্ষরের হতে হবে)ঃ';
 $lang['change_password_new_password_confirm_label']            = 'নুতুন পাসওয়ার্ডটি আবার দিনঃ';
