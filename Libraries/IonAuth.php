@@ -302,17 +302,19 @@ class IonAuth
 	{
 		$this->ionAuthModel->triggerEvents('logout');
 
-		$identity = $this->config->identity;
-
-		// Clear all codes
-		$this->ionAuthModel->clearForgottenPasswordCode($identity);
-		$this->ionAuthModel->clearRememberCode($identity);
+		$identity = $this->session->get('user_id');
 		
 		$this->session->remove([$identity, 'id', 'user_id']);
 
 		// delete the remember me cookies if they exist
 		delete_cookie($this->config->rememberCookieName);
 
+		// Clear all codes
+		if (isset($identity)) {
+			$this->ionAuthModel->clearForgottenPasswordCode($identity);
+			$this->ionAuthModel->clearRememberCode($identity);
+		}
+		
 		// Destroy the session
 		$this->session->destroy();
 
