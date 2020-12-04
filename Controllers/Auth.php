@@ -140,7 +140,7 @@ class Auth extends \CodeIgniter\Controller
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect()->to('/');
+				return redirect()->to('/')->withCookies();
 			}
 			else
 			{
@@ -188,7 +188,7 @@ class Auth extends \CodeIgniter\Controller
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect()->to('/auth/login');
+		return redirect()->to('/auth/login')->withCookies();
 	}
 
 	/**

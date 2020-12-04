@@ -482,7 +482,7 @@ class IonAuthModel
 			'forgotten_password_time'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->orWhere('id', $identity)->update($data);
 	}
 
 	/**
@@ -504,7 +504,7 @@ class IonAuthModel
 			'remember_code'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->orWhere('id', $identity)->update($data);
 	}
 
 	/**
@@ -2050,14 +2050,13 @@ class IonAuthModel
 						  ->select($this->identityColumn . ', id, email, remember_code, last_login')
 						  ->where('remember_selector', $token->selector)
 						  ->where('active', 1)
-						  ->limit(1)
-						  ->get();
+						  ->limit(1);
 
 		// Check that we got the user
-		if ($query->numRows() === 1)
+		if ($query->countAllResults(false) === 1)
 		{
 			// Retrieve the information
-			$user = $query->row();
+			$user = $query->get()->getRow();
 
 			// Check the code against the validator
 			$identity = $user->{$this->identityColumn};
