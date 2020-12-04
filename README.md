@@ -1,4 +1,6 @@
 # Ion Auth 3
+### CodeIgniter Compatibility
+This version is for CodeIgniter v3, if you need support for v4 you can find it at the [v4 branch here](https://github.com/benedmunds/CodeIgniter-Ion-Auth/tree/4).
 ### The future of authentication
 by [Ben Edmunds](http://benedmunds.com)
 
