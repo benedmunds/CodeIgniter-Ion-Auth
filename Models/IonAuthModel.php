@@ -482,7 +482,7 @@ class IonAuthModel
 			'forgotten_password_time'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->orWhere('id', $identity)->update($data);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->update($data);
 	}
 
 	/**
@@ -504,7 +504,7 @@ class IonAuthModel
 			'remember_code'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->orWhere('id', $identity)->update($data);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->update($data);
 	}
 
 	/**
