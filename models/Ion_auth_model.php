@@ -2646,19 +2646,13 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _get_hash_algo()
 	{
-		$algo = FALSE;
-		switch ($this->hash_method)
-		{
-			case 'bcrypt':
-				$algo = PASSWORD_BCRYPT;
-				break;
-
-			case 'argon2':
-				$algo = PASSWORD_ARGON2I;
-				break;
-
-			default:
-				// Do nothing
+		$algo = PASSWORD_DEFAULT;
+		
+		if ($this->hash_method === 'bcrypt') { 
+			$algo = PASSWORD_BCRYPT;
+		}
+		else if ($this->hash_method === 'argon2') { 
+			$algo = PASSWORD_ARGON2ID;
 		}
 
 		return $algo;
