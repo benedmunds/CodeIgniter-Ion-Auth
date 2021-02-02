@@ -2629,10 +2629,11 @@ class Ion_auth_model extends CI_Model
 				break;
 
 			case 'argon2':
+			case 'argon2id':
 				$params = $is_admin ? $this->config->item('argon2_admin_params', 'ion_auth')
 									: $this->config->item('argon2_default_params', 'ion_auth');
 				break;
-
+				
 			default:
 				// Do nothing
 		}
@@ -2646,13 +2647,23 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected function _get_hash_algo()
 	{
-		$algo = PASSWORD_DEFAULT;
-		
-		if ($this->hash_method === 'bcrypt') { 
-			$algo = PASSWORD_BCRYPT;
-		}
-		else if ($this->hash_method === 'argon2') { 
-			$algo = PASSWORD_ARGON2ID;
+		$algo = FALSE;
+		switch ($this->hash_method)
+		{
+			case 'bcrypt':
+				$algo = PASSWORD_BCRYPT;
+				break;
+
+			case 'argon2':
+				$algo = PASSWORD_ARGON2I;
+				break;
+
+			case 'argon2id':
+				$algo = PASSWORD_ARGON2ID;
+				break;
+
+			default:
+				// Do nothing
 		}
 
 		return $algo;
