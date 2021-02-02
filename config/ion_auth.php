@@ -60,7 +60,7 @@ $config['join']['groups'] = 'group_id';
  | Argon2 is available in PHP 7.2
  | Argon2id is available in PHP 7.3
  |
- | Argon2id is the current PHP language default.
+ | Bcrypt is the current PHP language default.
  |
  | Bcrypt specific:
  | 		bcrypt_default_cost settings:  This defines how strong the encryption will be.
@@ -100,9 +100,9 @@ $config['join']['groups'] = 'group_id';
 $config['hash_method']			= 'bcrypt';	// bcrypt, argon2, or argon2id
 $config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 $config['argon2_default_params']	= [
-	'memory_cost'	=> PASSWORD_ARGON2_DEFAULT_MEMORY_COST,
-	'time_cost'	=> PASSWORD_ARGON2_DEFAULT_TIME_COST,
-	'threads'	=> PASSWORD_ARGON2_DEFAULT_THREADS
+	'memory_cost'	=> defined(PASSWORD_ARGON2_DEFAULT_MEMORY_COST) ? PASSWORD_ARGON2_DEFAULT_MEMORY_COST : 1 << 12,
+	'time_cost'	=> defined(PASSWORD_ARGON2_DEFAULT_TIME_COST) ? PASSWORD_ARGON2_DEFAULT_TIME_COST : 2,
+	'threads'	=> defined(PASSWORD_ARGON2_DEFAULT_THREADS) ? PASSWORD_ARGON2_DEFAULT_THREADS : 2
 ];
 
 /*
