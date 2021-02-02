@@ -2415,8 +2415,7 @@ class IonAuthModel
 			$output = [];
 			foreach ($this->messages as $message)
 			{
-				$messageLang = lang($message) !== $message ? lang($message) : '##' . $message . '##';
-				$output[]    = view($this->messagesTemplates['single'], ['message' => $messageLang]);
+				$output[] = lang($message) !== $message ? lang($message) : '##' . $message . '##';
 			}
 			return $output;
 		}
