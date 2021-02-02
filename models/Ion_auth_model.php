@@ -2633,10 +2633,11 @@ class Ion_auth_model extends CI_Model
 				break;
 
 			case 'argon2':
+			case 'argon2id':
 				$params = $is_admin ? $this->config->item('argon2_admin_params', 'ion_auth')
 									: $this->config->item('argon2_default_params', 'ion_auth');
 				break;
-
+				
 			default:
 				// Do nothing
 		}
@@ -2659,6 +2660,10 @@ class Ion_auth_model extends CI_Model
 
 			case 'argon2':
 				$algo = PASSWORD_ARGON2I;
+				break;
+
+			case 'argon2id':
+				$algo = PASSWORD_ARGON2ID;
 				break;
 
 			default:
