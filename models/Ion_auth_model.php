@@ -280,7 +280,7 @@ class Ion_auth_model extends CI_Model
 	 * Hashes the password to be stored in the database.
 	 *
 	 * @param string $password
-	 * @param string $identity
+	 * @param string Deprecated, identity is no longer used when hashing passwords
 	 *
 	 * @return false|string
 	 * @author Mathew
@@ -297,7 +297,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		$algo = $this->_get_hash_algo();
-		$params = $this->_get_hash_parameters($identity);
+		$params = $this->_get_hash_parameters();
 
 		if ($algo !== FALSE && $params !== FALSE)
 		{
@@ -357,7 +357,7 @@ class Ion_auth_model extends CI_Model
 	public function rehash_password_if_needed($hash, $identity, $password)
 	{
 		$algo = $this->_get_hash_algo();
-		$params = $this->_get_hash_parameters($identity);
+		$params = $this->_get_hash_parameters();
 
 		if ($algo !== FALSE && $params !== FALSE)
 		{
@@ -2605,7 +2605,7 @@ class Ion_auth_model extends CI_Model
 
 	/** Retrieve hash parameter according to options
 	 *
-	 * @param string	$identity
+	 * @param string Deprecated, identity is no longer used when hashing passwords
 	 *
 	 * @return array|bool
 	 */
