@@ -92,7 +92,7 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 			],
 			'password' => [
 				'type'       => 'VARCHAR',
-				'constraint' => '80',
+				'constraint' => '255',
 			],
 			'email' => [
 				'type'       => 'VARCHAR',
