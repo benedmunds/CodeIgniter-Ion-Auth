@@ -301,7 +301,11 @@ class Ion_auth_model extends CI_Model
 
 		if ($algo !== FALSE && $params !== FALSE)
 		{
-			return password_hash($password, $algo, $params);
+			$hash = password_hash($password, $algo, $params);
+			if (is_null($hash) || $hash === FALSE) {
+				return FALSE;
+			}
+			return $hash;
 		}
 
 		return FALSE;
