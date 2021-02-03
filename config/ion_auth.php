@@ -98,11 +98,11 @@ $config['join']['groups'] = 'group_id';
  |
  */
 $config['hash_method']			= 'bcrypt';	// bcrypt, argon2, or argon2id
-$config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
+$config['bcrypt_default_cost']		= defined('PASSWORD_BCRYPT_DEFAULT_COST') ? PASSWORD_BCRYPT_DEFAULT_COST : 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 $config['argon2_default_params']	= [
-	'memory_cost'	=> defined(PASSWORD_ARGON2_DEFAULT_MEMORY_COST) ? PASSWORD_ARGON2_DEFAULT_MEMORY_COST : 1 << 12,
-	'time_cost'	=> defined(PASSWORD_ARGON2_DEFAULT_TIME_COST) ? PASSWORD_ARGON2_DEFAULT_TIME_COST : 2,
-	'threads'	=> defined(PASSWORD_ARGON2_DEFAULT_THREADS) ? PASSWORD_ARGON2_DEFAULT_THREADS : 2
+	'memory_cost'	=> defined('PASSWORD_ARGON2_DEFAULT_MEMORY_COST') ? PASSWORD_ARGON2_DEFAULT_MEMORY_COST : 1 << 12,
+	'time_cost'	=> defined('PASSWORD_ARGON2_DEFAULT_TIME_COST') ? PASSWORD_ARGON2_DEFAULT_TIME_COST : 2,
+	'threads'	=> defined('PASSWORD_ARGON2_DEFAULT_THREADS') ? PASSWORD_ARGON2_DEFAULT_THREADS : 2
 ];
 
 /*
