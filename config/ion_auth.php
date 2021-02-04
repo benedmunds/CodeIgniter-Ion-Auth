@@ -58,9 +58,9 @@ $config['join']['groups'] = 'group_id';
  | -------------------------------------------------------------------------
  | Bcrypt is available in PHP 5.3+
  | Argon2 is available in PHP 7.2
+ | Argon2id is available in PHP 7.3
  |
- | Argon2 is recommended by expert (it is actually the winner of the Password Hashing Competition
- | for more information see https://password-hashing.net). So if you can (PHP 7.2), go for it.
+ | Bcrypt is the current PHP language default.
  |
  | Bcrypt specific:
  | 		bcrypt_default_cost settings:  This defines how strong the encryption will be.
@@ -73,8 +73,6 @@ $config['join']['groups'] = 'group_id';
  | 		With bcrypt, an example hash of "password" is:
  | 		$2y$08$200Z6ZZbp3RAEXoaWcMA6uJOFicwNZaqk4oDhqTUiFXFe63MG.Daa
  |
- |		A specific parameter bcrypt_admin_cost is available for user in admin group.
- |		It is recommended to have a stronger hashing for administrators.
  |
  | Argon2 specific:
  | 		argon2_default_params settings:  This is an array containing the options for the Argon2 algorithm.
@@ -95,25 +93,19 @@ $config['join']['groups'] = 'group_id';
  | 		With argon2, an example hash of "password" is:
  | 		$argon2i$v=19$m=1024,t=2,p=2$VEFSSU4wSzh3cllVdE1JZQ$PDeks/7JoKekQrJa9HlfkXIk8dAeZXOzUxLBwNFbZ44
  |
- |		A specific parameter argon2_admin_params is available for user in admin group.
- |		It is recommended to have a stronger hashing for administrators.
  |
  | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
  |
  */
-$config['hash_method']				= 'bcrypt';	// bcrypt or argon2
-$config['bcrypt_default_cost']		= 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
-$config['bcrypt_admin_cost']		= 12;		// Cost for user in admin group
+$config['hash_method']			= 'bcrypt';	// bcrypt, argon2, or argon2id
+$config['bcrypt_default_cost']		= defined('PASSWORD_BCRYPT_DEFAULT_COST') ? PASSWORD_BCRYPT_DEFAULT_COST : 10;		// Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 $config['argon2_default_params']	= [
-	'memory_cost'	=> 1 << 12,	// 4MB
-	'time_cost'		=> 2,
-	'threads'		=> 2
+	'memory_cost'	=> defined('PASSWORD_ARGON2_DEFAULT_MEMORY_COST') ? PASSWORD_ARGON2_DEFAULT_MEMORY_COST : 1 << 12,
+	'time_cost'	=> defined('PASSWORD_ARGON2_DEFAULT_TIME_COST') ? PASSWORD_ARGON2_DEFAULT_TIME_COST : 2,
+	'threads'	=> defined('PASSWORD_ARGON2_DEFAULT_THREADS') ? PASSWORD_ARGON2_DEFAULT_THREADS : 2
 ];
-$config['argon2_admin_params']		= [
-	'memory_cost'	=> 1 << 14,	// 16MB
-	'time_cost'		=> 4,
-	'threads'		=> 2
-];
+
+// NOTE - the admin specific hashing config fields are no longer used, all users share the same hashing params now
 
 /*
  | -------------------------------------------------------------------------
