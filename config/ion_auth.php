@@ -105,6 +105,8 @@ $config['argon2_default_params']	= [
 	'threads'	=> defined('PASSWORD_ARGON2_DEFAULT_THREADS') ? PASSWORD_ARGON2_DEFAULT_THREADS : 2
 ];
 
+// NOTE - the admin specific hashing config fields are no longer used, all users share the same hashing params now
+
 /*
  | -------------------------------------------------------------------------
  | Authentication options.
