@@ -292,20 +292,13 @@ class IonAuth
 		}
 	}
 
-		/**
-	 * Send activation email.
-	 *
-	 * @param string $identity
-	 *
-	 * @return boolean
-	 */
 	/**
 	 * Send activation email.
 	 *
 	 * @param string $identity
 	 *
 	 * @return boolean|array return an array of activation details if CI e-mail validation is enabled
-	 * 
+	 * @author Ali Ragab
 	 */
 	public function SendActivationEmail(string $identity): bool|array
 	{
