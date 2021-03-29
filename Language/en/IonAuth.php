@@ -75,4 +75,10 @@ return [
 	'emailForgotPassword_subheading'    => 'Please click this link to %s.',
 	'emailForgotPassword_link'          => 'Reset Your Password',
 
+	// Re-activation Email
+	'empty_email_address'          => 'Some thing wrong. Please, try again.',
+	'unregistered_email'          => 'This email is not registered yet. Please, try to register first.',
+	'already_activated_email'          => 'This email is activated already. Please, try to login.',
+	'emailForgotPassword_link'          => 'Reset Your Password',
+	
 ];
