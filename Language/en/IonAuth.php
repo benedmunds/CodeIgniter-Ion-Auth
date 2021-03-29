@@ -68,6 +68,9 @@ return [
 	'emailActivate_heading'              => 'Activate account for %s',
 	'emailActivate_subheading'           => 'Please click this link to %s.',
 	'emailActivate_link'                 => 'Activate Your Account',
+	'empty_identity'          			 => 'Some thing wrong. Please, try again.',
+	'unregistered_identity'          	 => 'This email is not registered yet. Please, try to register first.',
+	'already_activated_identity'         => 'This email is activated already. Please, try to login.',
 
 	// Forgot Password Email
 	'email_forgotten_password_subject'    => 'Forgotten Password Verification',

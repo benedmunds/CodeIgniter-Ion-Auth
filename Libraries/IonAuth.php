@@ -292,6 +292,93 @@ class IonAuth
 		}
 	}
 
+		/**
+	 * Send activation email.
+	 *
+	 * @param string $identity
+	 *
+	 * @return boolean
+	 */
+	/**
+	 * Send activation email.
+	 *
+	 * @param string $identity
+	 *
+	 * @return boolean|array return an array of activation details if CI e-mail validation is enabled
+	 * 
+	 */
+	public function SendActivationEmail(string $identity): bool|array
+	{
+		if (empty($identity)) {
+			$this->setError('IonAuth.empty_identity');
+			return FALSE;
+		}
+
+		if (!$this->ionAuthModel->identityCheck($identity)) {
+			$this->setError("IonAuth.unregistered_identity");
+			return FALSE;
+		}
+
+		// Retrieve user information
+		$user = $this->where($this->ionAuthModel->identityColumn, $identity)
+			->limit(1)
+			->users()->row();
+
+		if ($user->active) {
+			$this->setError("IonAuth.already_activated_identity");
+			return FALSE;
+		}
+
+		if ($user) {
+
+			// deactivate so the user must follow the activation flow
+			$deactivate = $this->deactivate($user->id);
+
+			// the deactivate method call adds a message, here we need to clear that
+			$this->clearMessages();
+
+			if (!$deactivate) {
+				$this->setError('IonAuth.deactivate_unsuccessful');
+				return FALSE;
+			}
+
+			$activationCode = $this->ionAuthModel->activationCode;
+			$identity       = $this->config->identity;
+
+			$data = [
+				'identity'   		  => $user->{$identity},
+				'id'         		  => $user->id,
+				'email'      		  => $user->email,
+				'activation' 		  => $activationCode,
+			];
+
+			if (!$this->config->useCiEmail) {
+				$this->ionAuthModel->triggerEvents(['activation_email_successful']);
+				$this->setMessage('IonAuth.activation_email_successful');
+				return $data;
+
+			} else {
+				$message = view($this->config->emailTemplates . $this->config->emailActivate, $data);
+
+				$this->email->clear();
+				$this->email->clear();
+				$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
+				$this->email->setTo($user->email);
+				$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'));
+				$this->email->setMessage($message);
+
+				if ($this->email->send() === true) {
+					$this->triggerEvents(['activation_email_successful']);
+					$this->setMessage('IonAuth.activation_email_successful');
+					return TRUE;
+
+				}
+			}
+		}
+
+		return FALSE;
+	}
+
 	/**
 	 * Logout
 	 *
