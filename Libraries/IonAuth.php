@@ -270,16 +270,14 @@ class IonAuth
 			}
 			else
 			{
-				$message = view($this->config->emailTemplates . $this->config->emailActivate, $data);
+				$email_sent = $this->sendEmail(
+					$email,
+					$this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'),
+					$this->config->emailTemplates . $this->config->emailActivate,
+					$data
+				);
 
-				$this->email->clear();
-				$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
-				$this->email->setTo($email);
-				$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'));
-				$this->email->setMessage($message);
-
-				if ($this->email->send() === true)
-				{
+				if ($email_sent) {
 					$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
 					$this->setMessage('IonAuth.activation_email_successful');
 					return $id;
@@ -349,24 +347,54 @@ class IonAuth
 			return $data;
 
 		} else {
-			$message = view($this->config->emailTemplates . $this->config->emailActivate, $data);
 
-			$this->email->clear();
-			$this->email->clear();
-			$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
-			$this->email->setTo($user->email);
-			$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'));
-			$this->email->setMessage($message);
+			$email_sent = $this->sendEmail(
+				$user->email,
+				$this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'),
+				$this->config->emailTemplates . $this->config->emailActivate,
+				$data
+			);
 
-			if ($this->email->send() === true) {
+			if ($email_sent) {
 				$this->triggerEvents(['activation_email_successful']);
 				$this->setMessage('IonAuth.activation_email_successful');
 				return TRUE;
-
 			}
 		}
 
 		return FALSE;
+	}
+
+	/**
+	 * Send email to the user.
+	 *
+	 * @param string $user_email
+	 * @param string $subject
+	 * @param string $template
+	 * @param array $data
+	 *
+	 * @return boolean
+	 */
+	public function sendEmail(
+		string $user_email, 
+		string $subject, 
+		string $template, 
+		array $data): bool
+	{
+		$message = view($template, $data);
+
+		$this->email->clear();
+		$this->email->clear();
+		$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
+		$this->email->setTo($user_email);
+		$this->email->setSubject($subject);
+		$this->email->setMessage($message);
+
+		if ($this->email->send() === true) {
+			return TRUE;
+		}else{
+			return FALSE;
+		}
 	}
 
 	/**
