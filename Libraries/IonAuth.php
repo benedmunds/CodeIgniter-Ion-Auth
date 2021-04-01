@@ -355,7 +355,7 @@ class IonAuth
 				$data
 			);
 
-			if ($email_sent) {
+			if ($emailSent) {
 				$this->triggerEvents(['activation_email_successful']);
 				$this->setMessage('IonAuth.activation_email_successful');
 				return TRUE;
