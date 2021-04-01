@@ -384,7 +384,6 @@ class IonAuth
 		$message = view($template, $data);
 
 		$this->email->clear();
-		$this->email->clear();
 		$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
 		$this->email->setTo($user_email);
 		$this->email->setSubject($subject);
