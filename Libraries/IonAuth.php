@@ -392,7 +392,7 @@ class IonAuth
 
 		if ($this->email->send() === true) {
 			return TRUE;
-		}else{
+		} else {
 			return FALSE;
 		}
 	}
