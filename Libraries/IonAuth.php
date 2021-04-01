@@ -270,16 +270,14 @@ class IonAuth
 			}
 			else
 			{
-				$message = view($this->config->emailTemplates . $this->config->emailActivate, $data);
+				$emailSent = $this->sendEmail(
+					$email,
+					$this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'),
+					$this->config->emailTemplates . $this->config->emailActivate,
+					$data
+				);
 
-				$this->email->clear();
-				$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
-				$this->email->setTo($email);
-				$this->email->setSubject($this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'));
-				$this->email->setMessage($message);
-
-				if ($this->email->send() === true)
-				{
+				if ($emailSent) {
 					$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_successful', 'activation_email_successful']);
 					$this->setMessage('IonAuth.activation_email_successful');
 					return $id;
@@ -289,6 +287,112 @@ class IonAuth
 			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
 			$this->setError('IonAuth.activation_email_unsuccessful');
 			return false;
+		}
+	}
+
+	/**
+	 * Send activation email.
+	 *
+	 * @param string $identity
+	 *
+	 * @return boolean|array return an array of activation details if CI e-mail validation is enabled
+	 * @author Ali Ragab
+	 */
+	public function sendActivationEmail(string $identity): bool|array
+	{
+		if (empty($identity)) {
+			$this->setError('IonAuth.empty_identity');
+			return FALSE;
+		}
+
+		if (!$this->ionAuthModel->identityCheck($identity)) {
+			$this->setError("IonAuth.unregistered_identity");
+			return FALSE;
+		}
+
+		// Retrieve user information
+		$user = $this->where($this->ionAuthModel->identityColumn, $identity)
+			->limit(1)
+			->users()->row();
+
+		if ($user->active) {
+			$this->setError("IonAuth.already_activated_identity");
+			return FALSE;
+		}
+
+		// deactivate so the user must follow the activation flow
+		$deactivate = $this->ionAuthModel->deactivate($user->id);
+
+		// the deactivate method call adds a message, here we need to clear that
+		$this->ionAuthModel->clearMessages();
+
+		if (!$deactivate) {
+			$this->setError('IonAuth.deactivate_unsuccessful');
+			return FALSE;
+		}
+
+		$activationCode = $this->ionAuthModel->activationCode;
+		$identity       = $this->config->identity;
+
+		$data = [
+			'identity'   		  => $user->{$identity},
+			'id'         		  => $user->id,
+			'email'      		  => $user->email,
+			'activation' 		  => $activationCode,
+		];
+
+		if (!$this->config->useCiEmail) {
+			$this->ionAuthModel->triggerEvents(['activation_email_successful']);
+			$this->setMessage('IonAuth.activation_email_successful');
+			return $data;
+
+		} else {
+
+			$emailSent = $this->sendEmail(
+				$user->email,
+				$this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'),
+				$this->config->emailTemplates . $this->config->emailActivate,
+				$data
+			);
+
+			if ($emailSent) {
+				$this->triggerEvents(['activation_email_successful']);
+				$this->setMessage('IonAuth.activation_email_successful');
+				return TRUE;
+			}
+		}
+
+		return FALSE;
+	}
+
+	/**
+	 * Send email to the user.
+	 *
+	 * @param string $user_email
+	 * @param string $subject
+	 * @param string $template
+	 * @param array $data
+	 *
+	 * @return boolean
+	 */
+	public function sendEmail(
+		string $user_email, 
+		string $subject, 
+		string $template, 
+		array $data): bool
+	{
+		$message = view($template, $data);
+
+		$this->email->clear();
+		$this->email->setFrom($this->config->adminEmail, $this->config->siteTitle);
+		$this->email->setTo($user_email);
+		$this->email->setSubject($subject);
+		$this->email->setMessage($message);
+
+		if ($this->email->send() === true) {
+			return TRUE;
+		} else {
+			return FALSE;
 		}
 	}
 
