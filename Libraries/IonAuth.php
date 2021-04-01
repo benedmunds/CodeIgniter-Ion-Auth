@@ -348,7 +348,7 @@ class IonAuth
 
 		} else {
 
-			$email_sent = $this->sendEmail(
+			$emailSent = $this->sendEmail(
 				$user->email,
 				$this->config->siteTitle . ' - ' . lang('IonAuth.emailActivation_subject'),
 				$this->config->emailTemplates . $this->config->emailActivate,
