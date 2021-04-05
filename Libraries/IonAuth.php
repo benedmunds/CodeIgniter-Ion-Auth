@@ -298,7 +298,7 @@ class IonAuth
 	 * @return boolean|array return an array of activation details if CI e-mail validation is enabled
 	 * @author Ali Ragab
 	 */
-	public function sendActivationEmail(string $identity): bool|array
+	public function sendActivationEmail(string $identity)
 	{
 		if (empty($identity)) {
 			$this->setError('IonAuth.empty_identity');
