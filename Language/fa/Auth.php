@@ -35,7 +35,7 @@ return [
 	'index_groups_th'         => 'گروه',
 	'index_status_th'         => 'وضعیت',
 	'index_action_th'         => 'مدیریت',
-	'index_edit_link'         => 'Edit',
+	'index_edit_link'         => 'ویرایش',
 	'index_active_link'       => 'فعال',
 	'index_inactive_link'     => 'غیرفعال',
 	'index_create_user_link'  => 'ساخت یوزر جدید',
@@ -114,9 +114,9 @@ return [
 	'edit_group_validation_desc_label'  => 'توضیحات',
 
 	// Change Password
-	'change_password_heading'                               => 'اغییر کلمه عبور',
+	'change_password_heading'                               => 'تغییر کلمه عبور',
 	'change_password_old_password_label'                    => 'کلمه عبور قبلی:',
-	'change_password_new_password_label'                    => 'کلمه عبور جدید حداقل %s حررف:',
+	'change_password_new_password_label'                    => 'کلمه عبور جدید حداقل %s حروف:',
 	'change_password_new_password_confirm_label'            => 'تکرار کلمه عبور جدید',
 	'change_password_submit_btn'                            => 'تغییر کلمه عبور',
 	'change_password_validation_old_password_label'         => 'کلمه عبور قبلی',
@@ -132,7 +132,7 @@ return [
 	'forgot_password_identity_label'          => 'نام کاربری',
 	'forgot_password_email_identity_label'    => 'ایمیل',
 	'forgot_password_email_not_found'         => 'اطلاعات یافت نشد',
-	'forgot_password_identity_not_found'         => 'No record of that username address.',
+	'forgot_password_identity_not_found'         => 'موردی برای این شناسه کاربری پیدا نشد.',
 
 	// Reset Password
 	'reset_password_heading'                               => 'تغییر کلمه عبور',
