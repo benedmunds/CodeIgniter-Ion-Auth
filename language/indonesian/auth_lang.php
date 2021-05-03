@@ -12,7 +12,7 @@
 * Location: https://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
 * Created:  21.06.2013
-* Last-Edit: 21.06.2017
+* Last-Edit: 03.05.2021
 *
 * Description:  Indonesia language file for Ion Auth example views
 *
@@ -60,7 +60,7 @@ $lang['create_user_fname_label']                       = 'Nama Awal:';
 $lang['create_user_lname_label']                       = 'Nama Akhir:';
 $lang['create_user_company_label']                     = 'Nama Perusahaan:';
 $lang['create_user_identity_label']                    = 'Identitas:';
-$lang['create_user_email_label']                       = 'Surel:';
+$lang['create_user_email_label']                       = 'Email:';
 $lang['create_user_phone_label']                       = 'Telepon:';
 $lang['create_user_password_label']                    = 'Kata Sandi:';
 $lang['create_user_password_confirm_label']            = 'Konfirmasi Kata Sandi:';
@@ -68,7 +68,7 @@ $lang['create_user_submit_btn']                        = 'Buat Pengguna';
 $lang['create_user_validation_fname_label']            = 'Nama Awal';
 $lang['create_user_validation_lname_label']            = 'Nama Akhir';
 $lang['create_user_validation_identity_label']         = 'Identitas';
-$lang['create_user_validation_email_label']            = 'Alamat Surel';
+$lang['create_user_validation_email_label']            = 'Alamat Email';
 $lang['create_user_validation_phone_label']            = 'Telepon';
 $lang['create_user_validation_company_label']          = 'Nama Perusahaan';
 $lang['create_user_validation_password_label']         = 'Kata Sandi';
@@ -80,7 +80,7 @@ $lang['edit_user_subheading']                        = 'Silakan masukan informas
 $lang['edit_user_fname_label']                       = 'Nama Awal:';
 $lang['edit_user_lname_label']                       = 'Nama Akhir:';
 $lang['edit_user_company_label']                     = 'Nama Perusahaan:';
-$lang['edit_user_email_label']                       = 'Surel:';
+$lang['edit_user_email_label']                       = 'Email:';
 $lang['edit_user_phone_label']                       = 'Telepon:';
 $lang['edit_user_password_label']                    = 'Kata Sandi: (jika mengubah sandi)';
 $lang['edit_user_password_confirm_label']            = 'Konfirmasi Kata Sandi: (jika mengubah sandi)';
@@ -88,7 +88,7 @@ $lang['edit_user_groups_heading']                    = 'Anggota dari Grup';
 $lang['edit_user_submit_btn']                        = 'Simpan Pengguna';
 $lang['edit_user_validation_fname_label']            = 'Nama Awal';
 $lang['edit_user_validation_lname_label']            = 'Nama Akhir';
-$lang['edit_user_validation_email_label']            = 'Alamat Surel';
+$lang['edit_user_validation_email_label']            = 'Alamat Email';
 $lang['edit_user_validation_phone_label']            = 'Telepon';
 $lang['edit_user_validation_company_label']          = 'Nama Perusahaan';
 $lang['edit_user_validation_groups_label']           = 'Nama Grup';
@@ -128,13 +128,13 @@ $lang['change_password_validation_new_password_confirm_label'] = 'Konfirmasi Kat
 
 // Forgot Password
 $lang['forgot_password_heading']                 = 'Lupa Kata Sandi';
-$lang['forgot_password_subheading']              = 'Silakan masukkan %s anda, agar kami dapat mengirim surel untuk mereset Kata Sandi Anda.';
+$lang['forgot_password_subheading']              = 'Silakan masukkan %s anda, agar kami dapat mengirim email untuk mereset Kata Sandi Anda.';
 $lang['forgot_password_email_label']             = '%s:';
 $lang['forgot_password_submit_btn']              = 'Kirim';
-$lang['forgot_password_validation_email_label']  = 'Alamat Surel';
+$lang['forgot_password_validation_email_label']  = 'Alamat Email';
 $lang['forgot_password_identity_label']          = 'Nama Pengguna';
-$lang['forgot_password_email_identity_label']    = 'Surel';
-$lang['forgot_password_email_not_found']         = 'Tidak ada data dari surel tersebut.';
+$lang['forgot_password_email_identity_label']    = 'Email';
+$lang['forgot_password_email_not_found']         = 'Tidak ada data dari email tersebut.';
 $lang['forgot_password_identity_not_found']      = 'Tidak ada data dari nama pengguna tersebut.';
 
 // Reset Password
