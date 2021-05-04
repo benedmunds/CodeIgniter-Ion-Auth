@@ -2252,7 +2252,7 @@ class IonAuthModel
 	 *
 	 * @return self
 	 */
-	public function setHook(string $event, string $name, string $class, string $method, array $arguments=[]): self
+	public function setHook(string $event, string $name, $class, $method, array $arguments=[]): self
 	{
 		$this->ionHooks->{$event}[$name]            = new \stdClass;
 		$this->ionHooks->{$event}[$name]->class     = $class;
