@@ -2535,7 +2535,7 @@ class IonAuthModel
 	 * @return true
 	 * @author Ben Edmunds
 	 */
-	public function clearErrors(): boolean
+	public function clearErrors(): bool
 	{
 		$this->errors = [];
 
