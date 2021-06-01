@@ -186,7 +186,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 */
 	public $useCiEmail  = false; // Send Email using the builtin CI email class, if false it will return the code and the identity
 	public $emailConfig = [
-		'mailtype' => 'html',
+		'mailType' => 'html',
 	];
 
 	/**
