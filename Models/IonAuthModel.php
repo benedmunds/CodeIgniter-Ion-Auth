@@ -15,7 +15,7 @@ namespace IonAuth\Models;
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds <ben.edmunds@gmail.com>
  * @author     Phil Sturgeon
- * @author     Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
+ * @author     Benoit VRIGNAUD <benoit.vrignaud@tangue.fr>
  * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
@@ -45,14 +45,14 @@ class IonAuthModel
 	 *
 	 * @var Config\IonAuth
 	 */
-	private $config;
+	protected $config;
 
 	/**
 	 * CodeIgniter session
 	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
-	private $session;
+	protected $session;
 
 	/**
 	 * Holds an array of tables used
@@ -207,7 +207,7 @@ class IonAuthModel
 	 */
 	public function __construct()
 	{
-		$this->config = config('IonAuth\\Config\\IonAuth');
+		$this->config = config('IonAuth');
 		helper(['cookie', 'date']);
 		$this->session = session();
 
@@ -374,23 +374,23 @@ class IonAuthModel
 	 * Validates and removes activation code.
 	 *
 	 * @param integer|string $id   The user identifier
-	 * @param boolean        $code The *user* activation code
+	 * @param string         $code The *user* activation code
 	 *                             if omitted, simply activate the user without check
 	 *
 	 * @return boolean
 	 * @author Mathew
 	 */
-	public function activate($id, bool $code=false): bool
+	public function activate($id, string $code=''): bool
 	{
 		$this->triggerEvents('pre_activate');
 
-		if ($code !== false)
+		if ($code)
 		{
 			$user = $this->getUserByActivationCode($code);
 		}
 		// Activate if no code is given
 		// Or if a user was found with this code, and that it matches the id
-		if ($code === false || ($user && $user->id === $id))
+		if (!$code || ($user && $user->id == $id))
 		{
 			$data = [
 				'activation_selector' => null,
@@ -431,7 +431,7 @@ class IonAuthModel
 			$this->setError('IonAuth.deactivate_unsuccessful');
 			return false;
 		}
-		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id === $id)
+		else if ((new \IonAuth\Libraries\IonAuth())->loggedIn() && $this->user()->row()->id == $id)
 		{
 			$this->setError('IonAuth.deactivate_current_user_unsuccessful');
 			return false;
@@ -482,7 +482,7 @@ class IonAuthModel
 			'forgotten_password_time'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->update($data);
 	}
 
 	/**
@@ -504,7 +504,7 @@ class IonAuthModel
 			'remember_code'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
+		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->update($data);
 	}
 
 	/**
@@ -558,20 +558,21 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		$query = $this->db->select('id, password')
-						  ->where($this->identityColumn, $identity)
-						  ->limit(1)
-						  ->orderBy('id', 'desc')
-						  ->get($this->tables['users']);
+		$builder = $this->db->table($this->tables['users']);
+		$query   = $builder
+					   ->select('id, password')
+					   ->where($this->identityColumn, $identity)
+					   ->limit(1)
+					   ->get()->getResult();
 
-		if ($query->numRows() !== 1)
+		if (empty($query))
 		{
 			$this->triggerEvents(['post_change_password', 'post_change_password_unsuccessful']);
 			$this->setError('IonAuth.password_change_unsuccessful');
 			return false;
 		}
 
-		$user = $query->row();
+		$user = $query[0];
 
 		if ($this->verifyPassword($old, $user->password, $identity))
 		{
@@ -614,9 +615,10 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		return $this->db->where('username', $username)
-						->limit(1)
-						->count_all_results($this->tables['users']) > 0;
+		return $this->db->table($this->tables['users'])
+			->where('username', $username)
+			->limit(1)
+			->countAllResults() > 0;
 	}
 
 	/**
@@ -906,7 +908,7 @@ class IonAuthModel
 		{
 			if ($this->verifyPassword($password, $user->password, $identity))
 			{
-				if ($user->active === 0)
+				if ($user->active == 0)
 				{
 					$this->triggerEvents('post_login_unsuccessful');
 					$this->setError('IonAuth.login_unsuccessful_not_active');
@@ -1867,7 +1869,7 @@ class IonAuthModel
 		$this->removeFromGroup(null, $id);
 
 		// delete user from users table should be placed after remove from group
-		$this->db->delete($this->tables['users'], ['id' => $id]);
+		$this->db->table($this->tables['users'])->delete(['id' => $id]);
 
 		if ($this->db->transStatus() === false)
 		{
@@ -2048,14 +2050,13 @@ class IonAuthModel
 						  ->select($this->identityColumn . ', id, email, remember_code, last_login')
 						  ->where('remember_selector', $token->selector)
 						  ->where('active', 1)
-						  ->limit(1)
-						  ->get();
+						  ->limit(1);
 
 		// Check that we got the user
-		if ($query->numRows() === 1)
+		if ($query->countAllResults(false) === 1)
 		{
 			// Retrieve the information
-			$user = $query->row();
+			$user = $query->get()->getRow();
 
 			// Check the code against the validator
 			$identity = $user->{$this->identityColumn};
@@ -2251,9 +2252,9 @@ class IonAuthModel
 	 *
 	 * @return self
 	 */
-	public function setHook(string $event, string $name, string $class, string $method, array $arguments=[]): self
+	public function setHook(string $event, string $name, $class, $method, array $arguments=[]): self
 	{
-		$this->ionHooks->{$event}[$name]            = new stdClass;
+		$this->ionHooks->{$event}[$name]            = new \stdClass;
 		$this->ionHooks->{$event}[$name]->class     = $class;
 		$this->ionHooks->{$event}[$name]->method    = $method;
 		$this->ionHooks->{$event}[$name]->arguments = $arguments;
@@ -2414,8 +2415,7 @@ class IonAuthModel
 			$output = [];
 			foreach ($this->messages as $message)
 			{
-				$messageLang = lang($message) !== $message ? lang($message) : '##' . $message . '##';
-				$output[]    = view($this->messagesTemplates['single'], ['message' => $messageLang]);
+				$output[] = lang($message) !== $message ? lang($message) : '##' . $message . '##';
 			}
 			return $output;
 		}
@@ -2535,7 +2535,7 @@ class IonAuthModel
 	 * @return true
 	 * @author Ben Edmunds
 	 */
-	public function clearErrors(): boolean
+	public function clearErrors(): bool
 	{
 		$this->errors = [];
 
@@ -2579,26 +2579,34 @@ class IonAuthModel
 	 *
 	 * @param string $table Table
 	 * @param array  $data  Data
-	 *
+	 * @author jlgc/monolinux
 	 * @return array
 	 */
 	protected function filterData(string $table, $data): array
 	{
-		$filteredData = [];
-		$columns = $this->db->getFieldNames($table);
-
-		if (is_array($data))
-		{
-			foreach ($columns as $column)
+			$filteredData = [];
+			if( $this->db->DBDriver === 'Postgre'){
+				$structTable  = $this->db->query("SELECT column_name  FROM information_schema.columns     
+				WHERE table_schema = 'security'    
+				AND table_name   = 'users'")->getResult();	
+				$columns = null;	
+				foreach($structTable  as $key => $value ){
+					$columns[] = $value->column_name;
+				}
+			}else{
+				$columns = $this->db->getFieldNames($table);
+			}
+			if (is_array($data))
 			{
-				if (array_key_exists($column, $data))
-				{
-					$filteredData[$column] = $data[$column];
+				foreach ($columns as $column)
+				{	
+					if (array_key_exists($column, $data))
+					{
+						$filteredData[$column] = $data[$column];
+					}
 				}
 			}
-		}
-
-		return $filteredData;
+			return $filteredData;
 	}
 
 	/**

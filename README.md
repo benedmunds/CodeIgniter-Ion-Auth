@@ -4,7 +4,15 @@ by [Ben Edmunds](http://benedmunds.com)
 
 Simple and lightweight authentication for your CodeIgniter apps.
 
+<<<<<<< HEAD
+Ion Auth 2 dropped any backwards compatibility and made things more
+awesome.
+
+Ion Auth 3, while not dropping as much backwards compatibility, made things
+even more awesome!
+=======
 Note, this version is meant to be used with CodeIgniter 4 and is not backwards compatible with previous versions.  The database is backwards compatible though for those migrating from previous versions.
+>>>>>>> d89ad0eef740953ad918731ba719f2181dd8bab1
 
 ## Server requirements
 Ion Auth 4 needs **CodeIgniter 4** and **PHP 7.1**.
@@ -33,7 +41,10 @@ Password: password
 It is highly recommended that you use encrypted database sessions for security!
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> d89ad0eef740953ad918731ba719f2181dd8bab1
 ## Support
 If you think you've found a bug please [Create an Issue](https://github.com/benedmunds/CodeIgniter-Ion-Auth/issues).
 

@@ -29,7 +29,12 @@ Then in your Config/Autoload.php, add this :
 
 ---
 
+<<<<<<< HEAD
+	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
+	$this->load->library('ion_auth');
+=======
 > 3. Download the archive, and move folder from this package to the root folder:
+>>>>>>> d89ad0eef740953ad918731ba719f2181dd8bab1
 
 ```shell
 CI                          # → Root Directory
