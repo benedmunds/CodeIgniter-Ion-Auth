@@ -1,6 +1,14 @@
 Ion Auth Changelog
 ===================================
 
+## xx Octobre 2018 - Ion Auth 4
+
+- **General:**
+	- Migration from CodeIgniter 3 to CodeIgniter 4
+ - **New server requirements:**
+    - Drop CodeIgniter 3 support
+    - Drop PHP < 7.1 support
+
 ## xx March 2018 - Ion Auth 3
 
  - **General:**
@@ -17,7 +25,7 @@ Ion Auth Changelog
     - Higher default hashing parameters (e.g. higher cost for bcrypt)
     - Allows different hashing parameters for admins
     - Remove `random_rounds` bcrypt feature
-    - Better default value for `forgot_password_expiration`
+    - Better default value for `forgotPasswordExpiration`
  - **Updated features:**
      - Update _Remember me_ feature for more security
      - Update _Password Reset_ feature for more security
