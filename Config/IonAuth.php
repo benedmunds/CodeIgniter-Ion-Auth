@@ -10,12 +10,12 @@ namespace IonAuth\Config;
  *               This is basically what Redux Auth 2 should be.
  * Original Author name has been kept but that does not mean that the method has not been modified.
  *
- * Requirements: PHP7.1 or above
+ * Requirements: PHP7.2 or above
  *
  * @package    CodeIgniter-Ion-Auth
  * @author     Ben Edmunds <ben.edmunds@gmail.com>
  * @author     Phil Sturgeon
- * @author     Benoit VRIGNAUD <benoit.vrignaud@zaclys.net>
+ * @author     Benoit VRIGNAUD <benoit.vrignaud@tangue.fr>
  * @license    https://opensource.org/licenses/MIT	MIT License
  * @link       http://github.com/benedmunds/CodeIgniter-Ion-Auth
  * @filesource
@@ -186,7 +186,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 */
 	public $useCiEmail  = false; // Send Email using the builtin CI email class, if false it will return the code and the identity
 	public $emailConfig = [
-		'mailtype' => 'html',
+		'mailType' => 'html',
 	];
 
 	/**

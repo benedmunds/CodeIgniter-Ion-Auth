@@ -47,7 +47,7 @@ return [
 
 	// Deactivate User
 	'deactivate_heading'                  => 'Disattiva Utente',
-	'deactivate_subheading'               => 'Sei sicuro di voler attivare l\'utente \'%s\'',
+	'deactivate_subheading'               => 'Sei sicuro di voler disattivare l\'utente \'%s\'',
 	'deactivate_confirm_y_label'          => 'S&igrave;:',
 	'deactivate_confirm_n_label'          => 'No:',
 	'deactivate_submit_btn'               => 'Invia',
@@ -137,7 +137,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Invia',
 	'forgot_password_validation_email_label'  => 'Indirizzo Email',
-	'forgot_password_username_identity_label' => 'Username',
+	'forgot_password_identity_label'          => 'Username',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Indirizzo email non presente nel database.',
 	'forgot_password_identity_not_found'         => 'Nessuna registrazione per il nome utente.',

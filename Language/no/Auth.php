@@ -142,7 +142,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Send inn',
 	'forgot_password_validation_email_label'  => 'Email',
-	'forgot_password_username_identity_label' => 'Brukernavn',
+	'forgot_password_identity_label'          => 'Brukernavn',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Vi fant ikke emailen du oppgav.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

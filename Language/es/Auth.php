@@ -136,7 +136,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Enviar',
 	'forgot_password_validation_email_label'  => 'Correo Electrónico',
-	'forgot_password_username_identity_label' => 'Usuario',
+	'forgot_password_identity_label'          => 'Usuario',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'El correo electrónico no existe.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

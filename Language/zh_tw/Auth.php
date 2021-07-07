@@ -139,7 +139,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => '送出',
 	'forgot_password_validation_email_label'  => '電子郵件',
-	'forgot_password_username_identity_label' => '帳號',
+	'forgot_password_identity_label'          => '帳號',
 	'forgot_password_email_identity_label'    => '電子郵件',
 	'forgot_password_email_not_found'         => '找不到此電子郵件相關資訊.',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

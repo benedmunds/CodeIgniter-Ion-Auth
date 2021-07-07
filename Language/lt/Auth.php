@@ -8,6 +8,7 @@
 * Location: http://github.com/benedmunds/ion_auth/
 *
 * Created:  10.05.2016
+* Updated: 14.04.2020
 *
 * Description:  Lithuanian language file for Ion Auth example views
 *
@@ -35,8 +36,8 @@ return [
 	'index_groups_th'         => 'Grupės',
 	'index_status_th'         => 'Būsena',
 	'index_action_th'         => 'Veiksmas',
-	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Aktyvus',
+	'index_edit_link'         => 'Keisti',
 	'index_inactive_link'     => 'Neaktyvus',
 	'index_create_user_link'  => 'Sukurti naują vartotoją',
 	'index_create_group_link' => 'Sukurti naują grupę',
@@ -55,8 +56,8 @@ return [
 	'create_user_subheading'                        => 'Prašome įrašyti vartotojo informaciją.',
 	'create_user_fname_label'                       => 'Vardas:',
 	'create_user_lname_label'                       => 'Pavardė:',
-	'create_user_identity_label'                    => 'Tapatybė:',
 	'create_user_company_label'                     => 'Įmonė:',
+	'create_user_identity_label'                    => 'Tapatybė:',
 	'create_user_email_label'                       => 'El. p. adresas:',
 	'create_user_phone_label'                       => 'Telefonas:',
 	'create_user_password_label'                    => 'Slaptažodis:',
@@ -66,31 +67,27 @@ return [
 	'create_user_validation_lname_label'            => 'Pavardė',
 	'create_user_validation_identity_label'         => 'Tapatybė',
 	'create_user_validation_email_label'            => 'El. p. adresas:',
-	'create_user_validation_phone1_label'           => 'Pirmoji telefono numerio dalis',
-	'create_user_validation_phone2_label'           => 'Antroji telefono numerio dalis',
-	'create_user_validation_phone3_label'           => 'Trečioji telefono numerio dalis',
+	'create_user_validation_phone_label'            => 'Telefonas',
 	'create_user_validation_company_label'          => 'Įmonės pavadinimas',
 	'create_user_validation_password_label'         => 'Slaptažodis',
 	'create_user_validation_password_confirm_label' => 'Pakartokite slaptažodį',
 
 	// Edit User
-	'edit_user_heading'                           => 'Taisyti vartotojo duomenis',
+	'edit_user_heading'                           => 'Keisti vartotojo duomenis',
 	'edit_user_subheading'                        => 'Prašome įrašyti vartotojo informaciją.',
 	'edit_user_fname_label'                       => 'Vardas:',
 	'edit_user_lname_label'                       => 'Pavardė:',
 	'edit_user_company_label'                     => 'Įmonės pavadinimas:',
 	'edit_user_email_label'                       => 'El. p. adresas:',
-	'edit_user_phone_label'                       => 'Phone:',
-	'edit_user_password_label'                    => 'Slaptažodis: (if changing password)',
-	'edit_user_password_confirm_label'            => 'Confirm Slaptažodis: (if changing password)',
-	'edit_user_groups_heading'                    => 'Member of groups',
-	'edit_user_submit_btn'                        => 'Save User',
+	'edit_user_phone_label'                       => 'Telefono Nr.:',
+	'edit_user_password_label'                    => 'Slaptažodis: (jei keičiamas slaptažodis)',
+	'edit_user_password_confirm_label'            => 'Patvirtinti slaptažodį: (jei keičiamas slaptažodis)',
+	'edit_user_groups_heading'                    => 'Grupių narys',
+	'edit_user_submit_btn'                        => 'Įrašyti vartotoją',
 	'edit_user_validation_fname_label'            => 'Vardas',
 	'edit_user_validation_lname_label'            => 'Pavardė',
 	'edit_user_validation_email_label'            => 'El. p. adresas',
-	'edit_user_validation_phone1_label'           => 'Pirmoji telefono numerio dalis',
-	'edit_user_validation_phone2_label'           => 'Antroji telefono numerio dalis',
-	'edit_user_validation_phone3_label'           => 'Trečioji telefono numerio dalis',
+	'edit_user_validation_phone_label'            => 'Telefono Nr.',
 	'edit_user_validation_company_label'          => 'Įmonės pavadinimas',
 	'edit_user_validation_groups_label'           => 'Grupės',
 	'edit_user_validation_password_label'         => 'Slaptažodis',
@@ -117,7 +114,7 @@ return [
 	'edit_group_validation_name_label'  => 'Grupės pavadinimas',
 	'edit_group_validation_desc_label'  => 'Aprašymas',
 
-	// Change Slaptažodis
+	// Change Password
 	'change_password_heading'                               => 'Pakeisti slaptažodį',
 	'change_password_old_password_label'                    => 'Senas slaptažodis:',
 	'change_password_new_password_label'                    => 'Naujas slaptažodis (mažiausiai %s simbolių):',
@@ -127,16 +124,16 @@ return [
 	'change_password_validation_new_password_label'         => 'Naujas slaptažodis',
 	'change_password_validation_new_password_confirm_label' => 'Patvirtinti naują slaptažodį',
 
-	// Forgot password
+	// Forgot Password
 	'forgot_password_heading'                 => 'Pamiršus slaptažodį',
 	'forgot_password_subheading'              => 'Prašome įrašyti savo %s kad galėtume išsiųsti Jums el. laišką slaptažodžio atkūrimui.',
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Pateikti',
 	'forgot_password_validation_email_label'  => 'El. p. adresas',
-	'forgot_password_username_identity_label' => 'Vartotojo vardas',
+	'forgot_password_identity_label'          => 'Vartotojo vardas',
 	'forgot_password_email_identity_label'    => 'El. p. adresas',
 	'forgot_password_email_not_found'         => 'Duomenų bazėje tokio el. pašto adreso nėra.',
-	'forgot_password_identity_not_found'         => 'No record of that username address.',
+	'forgot_password_identity_not_found'      => 'Nėra įrašo apie su šiuo vartotojo vardu susietą adresą.',
 
 	// Reset password
 	'reset_password_heading'                               => 'Pakeisti slaptažodį',
@@ -145,11 +142,4 @@ return [
 	'reset_password_submit_btn'                            => 'Keisti',
 	'reset_password_validation_new_password_label'         => 'Naujas slaptažodis',
 	'reset_password_validation_new_password_confirm_label' => 'Patvirtinti naują slaptažodį',
-
-	// Forgot Slaptažodis Email
-	'emailForgotPassword_heading'    => 'Iš naujo sugeneruoti %s slaptažodį',
-	'emailForgotPassword_subheading' => 'Norėdami %s turite paspausti šią nuorodą.',
-	'emailForgotPassword_link'       => 'Sugeneruoti slaptažodį iš naujo',
-
-	// New Slaptažodis Email
 ];

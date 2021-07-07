@@ -38,14 +38,14 @@ class Auth extends \CodeIgniter\Controller
 	 *
 	 * @var \CodeIgniter\Session\Session
 	 */
-	private $session;
+	protected $session;
 
 	/**
 	 * Validation library
 	 *
 	 * @var \CodeIgniter\Validation\Validation
 	 */
-	private $validation;
+	protected $validation;
 
 	/**
 	 * Validation list template.
@@ -140,7 +140,7 @@ class Auth extends \CodeIgniter\Controller
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				return redirect()->to('/');
+				return redirect()->to('/')->withCookies();
 			}
 			else
 			{
@@ -188,7 +188,7 @@ class Auth extends \CodeIgniter\Controller
 
 		// redirect them to the login page
 		$this->session->setFlashdata('message', $this->ionAuth->messages());
-		return redirect()->to('/auth/login');
+		return redirect()->to('/auth/login')->withCookies();
 	}
 
 	/**
@@ -198,18 +198,18 @@ class Auth extends \CodeIgniter\Controller
 	 */
 	public function change_password()
 	{
-		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
-		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
-		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
-
 		if (! $this->ionAuth->loggedIn())
 		{
 			return redirect()->to('/auth/login');
 		}
+		
+		$this->validation->setRule('old', lang('Auth.change_password_validation_old_password_label'), 'required');
+		$this->validation->setRule('new', lang('Auth.change_password_validation_new_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[new_confirm]');
+		$this->validation->setRule('new_confirm', lang('Auth.change_password_validation_new_password_confirm_label'), 'required');
 
 		$user = $this->ionAuth->user()->row();
 
-		if ($this->validation->run() === false)
+		if (! $this->request->getPost() || $this->validation->withRequest($this->request)->run() === false)
 		{
 			// display the form
 			// set the flash data error message if there is one
@@ -245,7 +245,7 @@ class Auth extends \CodeIgniter\Controller
 		}
 		else
 		{
-			$identity = $this->session->userdata('identity');
+			$identity = $this->session->get('identity');
 
 			$change = $this->ionAuth->changePassword($identity, $this->request->getPost('old'), $this->request->getPost('new'));
 
@@ -253,7 +253,7 @@ class Auth extends \CodeIgniter\Controller
 			{
 				//if the password was successfully changed
 				$this->session->setFlashdata('message', $this->ionAuth->messages());
-				$this->logout();
+				return $this->logout();
 			}
 			else
 			{
@@ -448,7 +448,7 @@ class Auth extends \CodeIgniter\Controller
 	{
 		$activation = false;
 
-		if (! $code)
+		if ($code)
 		{
 			$activation = $this->ionAuth->activate($id, $code);
 		}

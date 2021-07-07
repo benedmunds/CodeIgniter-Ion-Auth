@@ -27,8 +27,8 @@ return [
 	// Account Creation
 	'account_creation_successful'				=> 'Akun Berhasil Dibuat',
 	'account_creation_unsuccessful'				=> 'Tidak Dapat Membuat Akun',
-	'account_creation_duplicate_email'			=> 'Email Sudah Digunakan atau Tidak Valid',
-	'account_creation_duplicate_identity'	    => 'Identitas Sudah Digunakan atau Tidak Valid',
+	'account_creation_duplicate_email'			=> 'Email Telah Digunakan atau Tidak Valid',
+	'account_creation_duplicate_identity'	    => 'Identitas Telah Digunakan atau Tidak Valid',
 
 	// TODO Please Translate
 	'account_creation_missing_defaultGroup'		=> 'Standar grup tidak diatur',
@@ -65,7 +65,7 @@ return [
 
 	// Groups
 	'group_creation_successful'				    => 'Grup Berhasil Dibuat',
-	'group_already_exists'						=> 'Nama Grup Sudah Digunakan',
+	'group_already_exists'						=> 'Nama Grup Telah Digunakan',
 	'group_update_successful'					=> 'Rincian Grup Berhasil Diubah',
 	'group_delete_successful'					=> 'Grup Berhasil Dihapus',
 	'group_delete_unsuccessful'				    => 'Gagal Menghapus Grup',

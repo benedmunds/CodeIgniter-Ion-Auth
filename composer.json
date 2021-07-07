@@ -3,6 +3,9 @@
     "description": "Simple and Lightweight Auth System for CodeIgniter",
     "type": "library",
 	"license": "MIT",
+	"keywords": [
+	  "codeigniter", "auth"
+	],
 	"homepage": "http://benedmunds.com/ion_auth",
     "authors": [
         {
@@ -10,13 +13,9 @@
         },
         {
             "name": "Benoit VRIGNAUD",
-            "email": "benoit.vrignaud@zaclys.net"
+            "email": "benoit.vrignaud@tangue.fr"
         }
     ],
-	"require": {
-		"php": ">=7.1",
-        "codeigniter4/codeigniter4": "dev-master"
-	},
 	"require-dev": {
         "phpunit/phpunit": "^7.3",
         "codeigniter4/codeigniter4-standard": "^1.0",
@@ -24,9 +23,7 @@
 	},
 	"autoload": {
 		"psr-4" : {
-			"IonAuth\\Controllers\\" : "Controllers/",
-			"IonAuth\\Libraries\\" : "Libraries/",
-			"IonAuth\\Models\\" : "Models/"
+		  "IonAuth\\": "/"
 		}
 	},
     "repositories": {
@@ -38,5 +35,7 @@
             "type": "vcs",
             "url": "git@github.com:benedmunds/CodeIgniter-Ion-Auth.git"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

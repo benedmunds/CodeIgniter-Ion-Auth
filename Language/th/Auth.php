@@ -141,7 +141,7 @@ return [
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'ยอมรับ',
 	'forgot_password_validation_email_label'  => 'ที่อยู่อีเมล์',
-	'forgot_password_username_identity_label' => 'ชื่อผู้ใช้',
+	'forgot_password_identity_label'          => 'ชื่อผู้ใช้',
 	'forgot_password_email_identity_label'    => 'อีเมล์',
 	'forgot_password_email_not_found'         => 'ไม่พบที่อยู่อีเมล์นี้ในสารบบ',
 	'forgot_password_identity_not_found'         => 'No record of that username address.',

@@ -15,7 +15,7 @@ Note, this version is meant to be used with CodeIgniter 4 and is not backwards c
 >>>>>>> d89ad0eef740953ad918731ba719f2181dd8bab1
 
 ## Server requirements
-Ion Auth 4 needs **CodeIgniter 4** and **PHP 7.1**.
+Ion Auth 4 needs **CodeIgniter 4**.
 
 ## Documentation
 Documentation is located at http://benedmunds.com/ion_auth/

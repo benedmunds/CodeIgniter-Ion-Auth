@@ -1,22 +1,28 @@
-Installing Ion Auth.
+Installing Ion Auth 4.x
 ===================================
 
 Before installing, please check that you are meeting the minimum server requirements.
+Ion Auth 4 needs CodeIgniter 4.x, PHP 7.1 and Composer.
 
-There are different ways to install this package.
+> For using the library, you should install with Composer
 
-
-> 1. With composer
-
+For an existing composer project:
 ```shell
+$ composer config minimum-stability dev
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
-$ composer require benedmunds/CodeIgniter-Ion-Auth:4.0.0
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
 ```
 
+For a new project:
+```shell
+$ composer init
+$ composer config minimum-stability dev
+$ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
+$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
+```
 ---
 
-> 2. With Git:
-
+> For developing against the library, you can use git directly
 ```shell
 my-project$ git clone https://github.com/benedmunds/CodeIgniter-Ion-Auth.git
 my-project$ cd CodeIgniter-Ion-Auth
@@ -29,12 +35,8 @@ Then in your Config/Autoload.php, add this :
 
 ---
 
-<<<<<<< HEAD
-	$this->load->add_package_path(APPPATH.'third_party/ion_auth/');
-	$this->load->library('ion_auth');
-=======
 > 3. Download the archive, and move folder from this package to the root folder:
->>>>>>> d89ad0eef740953ad918731ba719f2181dd8bab1
+
 
 ```shell
 CI                          # → Root Directory
@@ -44,16 +46,30 @@ CI                          # → Root Directory
 ├──...
 ```
 Then in your Config/Autoload.php, add this :
-```php
-'IonAuth' => ROOTPATH . 'YOUR-ION_AUTH-FOLDER',
-```
+=======
+### Configuration
+Once installed, maybe, you need to configure IonAuth library.
+In your application, perform the following setup:
+Create IonAuth.php in your Config directory :
 
----
+```php
+<?php namespace Config;
+
+class IonAuth extends \IonAuth\Config\IonAuth
+{
+    // set your specific config
+    // public $siteTitle                = 'Example.com';       // Site Title, example.com
+    // public $adminEmail               = 'admin@example.com'; // Admin Email, admin@example.com
+    // public $emailTemplates           = 'App\\Views\\auth\\email\\';
+    // ...
+}
+
+```
 
 ### Relational DB Setup
 Then use the migration file (in Database/Migrations/).
 ```
-$ php spark migrate:latest -n IonAuth
+$ php spark migrate -n IonAuth
 ```
 Don't forget to set Config\Migrations:enabled to true.
 
@@ -87,9 +103,18 @@ class Auth extends \IonAuth\Controllers\Auth
 You can also add routes configs in 'Config\Routes.php':
 ```php
 $routes->group('auth', ['namespace' => 'IonAuth\Controllers'], function ($routes) {
-	$routes->get('/', 'Auth::index');
 	$routes->add('login', 'Auth::login');
 	$routes->get('logout', 'Auth::logout');
-	$routes->get('forgot_password', 'Auth::forgot_password');
+	$routes->add('forgot_password', 'Auth::forgot_password');
+	// $routes->get('/', 'Auth::index');
+	// $routes->add('create_user', 'Auth::create_user');
+	// $routes->add('edit_user/(:num)', 'Auth::edit_user/$1');
+	// $routes->add('create_group', 'Auth::create_group');
+	// $routes->get('activate/(:num)', 'Auth::activate/$1');
+	// $routes->get('activate/(:num)/(:hash)', 'Auth::activate/$1/$2');
+	// $routes->add('deactivate/(:num)', 'Auth::deactivate/$1');
+	// $routes->get('reset_password/(:hash)', 'Auth::reset_password/$1');
+	// $routes->post('reset_password/(:hash)', 'Auth::reset_password/$1');
+	// ...
 });
 ```
