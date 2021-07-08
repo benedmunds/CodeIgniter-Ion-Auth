@@ -2579,26 +2579,34 @@ class IonAuthModel
 	 *
 	 * @param string $table Table
 	 * @param array  $data  Data
-	 *
+	 * @author jlgc/monolinux
 	 * @return array
 	 */
 	protected function filterData(string $table, $data): array
 	{
-		$filteredData = [];
-		$columns = $this->db->getFieldNames($table);
-
-		if (is_array($data))
-		{
-			foreach ($columns as $column)
+			$filteredData = [];
+			if( $this->db->DBDriver === 'Postgre'){
+				$structTable  = $this->db->query("SELECT column_name  FROM information_schema.columns     
+				WHERE table_schema = 'security'    
+				AND table_name   = 'users'")->getResult();	
+				$columns = null;	
+				foreach($structTable  as $key => $value ){
+					$columns[] = $value->column_name;
+				}
+			}else{
+				$columns = $this->db->getFieldNames($table);
+			}
+			if (is_array($data))
 			{
-				if (array_key_exists($column, $data))
-				{
-					$filteredData[$column] = $data[$column];
+				foreach ($columns as $column)
+				{	
+					if (array_key_exists($column, $data))
+					{
+						$filteredData[$column] = $data[$column];
+					}
 				}
 			}
-		}
-
-		return $filteredData;
+			return $filteredData;
 	}
 
 	/**
