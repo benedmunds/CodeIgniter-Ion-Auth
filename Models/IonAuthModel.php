@@ -761,7 +761,7 @@ class IonAuthModel
 		if ($user)
 		{
 			// Check the hash against the validator
-			if ($this->verifyPassword($token->validator, $user->forgotten_password_code))
+			if (isset($user->forgotten_password_code) && $this->verifyPassword($token->validator, $user->forgotten_password_code))
 			{
 				return $user;
 			}
