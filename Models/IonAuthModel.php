@@ -2657,6 +2657,7 @@ class IonAuthModel
 				break;
 
 			case 'argon2':
+			case 'argon2id':
 				$params = $isAdmin ? $this->config->argon2AdminParams
 									: $this->config->argon2DefaultParams;
 				break;
@@ -2684,6 +2685,10 @@ class IonAuthModel
 
 			case 'argon2':
 				$algo = PASSWORD_ARGON2I;
+				break;
+
+			case 'argon2id':
+				$algo = PASSWORD_ARGON2ID;
 				break;
 
 			default:

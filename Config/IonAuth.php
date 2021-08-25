@@ -114,7 +114,7 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 | For more information, check the password_hash function help: http://php.net/manual/en/function.password-hash.php
 	 |
 	 */
-	public $hashMethod          = 'bcrypt';  // bcrypt or argon2
+	public $hashMethod          = 'bcrypt';  // bcrypt, argon2 (argon2i) or argon2id
 	public $bcryptDefaultCost   = 10;        // Set cost according to your server benchmark - but no lower than 10 (default PHP value)
 	public $bcryptAdminCost     = 12;        // Cost for user in admin group
 	public $argon2DefaultParams = [
