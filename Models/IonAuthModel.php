@@ -280,8 +280,8 @@ class IonAuthModel
 		{
 			$hash = password_hash($password, $algo, $params);
 			
-			if (is_null($hash) || $hash === FALSE) {
-				return FALSE;
+			if (is_null($hash) || $hash === false) {
+				return false;
 			}
 			
 			return $hash;
