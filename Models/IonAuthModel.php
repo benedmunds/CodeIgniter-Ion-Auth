@@ -278,7 +278,13 @@ class IonAuthModel
 
 		if ($algo !== false && $params !== false)
 		{
-			return password_hash($password, $algo, $params);
+			$hash = password_hash($password, $algo, $params);
+			
+			if (is_null($hash) || $hash === FALSE) {
+				return FALSE;
+			}
+			
+			return $hash;
 		}
 
 		return false;
