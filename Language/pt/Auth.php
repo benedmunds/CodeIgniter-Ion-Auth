@@ -6,6 +6,7 @@
 * 		  alphabraga@hotmail.com
 *         @alphabraga
 *
+* Adjustments by @mpmont
 *
 * Location: http://github.com/benedmunds/ion_auth/
 *
@@ -29,8 +30,8 @@ return [
 	'login_forgot_password' => 'Esqueceu sua senha?',
 
 	// Index
-	'index_heading'           => 'Usuários',
-	'index_subheading'        => 'Abaixo uma lista com os usuários.',
+	'index_heading'           => 'utilizadores',
+	'index_subheading'        => 'Abaixo uma lista com os utilizadores.',
 	'index_fname_th'          => 'Nome',
 	'index_lname_th'          => 'Sobrenome',
 	'index_email_th'          => 'Email',
@@ -40,12 +41,12 @@ return [
 	'index_edit_link'         => 'Edit',
 	'index_active_link'       => 'Ativo',
 	'index_inactive_link'     => 'Inativo',
-	'index_create_user_link'  => 'Criar novo usuário',
+	'index_create_user_link'  => 'Criar novo utilizador',
 	'index_create_group_link' => 'Criar novo grupo',
 
 	// Deactivate User
-	'deactivate_heading'                  => 'Desativar Usuário',
-	'deactivate_subheading'               => 'Você tem certeza que deseja desativar esse usuário \'%s\'',
+	'deactivate_heading'                  => 'Desativar utilizador',
+	'deactivate_subheading'               => 'Você tem certeza que deseja desativar esse utilizador \'%s\'',
 	'deactivate_confirm_y_label'          => 'Sim:',
 	'deactivate_confirm_n_label'          => 'Não:',
 	'deactivate_submit_btn'               => 'Enviar',
@@ -53,8 +54,8 @@ return [
 	'deactivate_validation_user_id_label' => 'user ID',
 
 	// Create User
-	'create_user_heading'                           => 'Criar Usuário',
-	'create_user_subheading'                        => 'Por favor informe os dados do usuário.',
+	'create_user_heading'                           => 'Criar utilizador',
+	'create_user_subheading'                        => 'Por favor informe os dados do utilizador.',
 	'create_user_fname_label'                       => 'Nome:',
 	'create_user_lname_label'                       => 'Sobrenome:',
 	'create_user_identity_label'                    => 'Identity:',
@@ -63,7 +64,7 @@ return [
 	'create_user_phone_label'                       => 'Telefone:',
 	'create_user_password_label'                    => 'Senha:',
 	'create_user_password_confirm_label'            => 'Confirmar senha:',
-	'create_user_submit_btn'                        => 'Criar Usuário',
+	'create_user_submit_btn'                        => 'Criar utilizador',
 	'create_user_validation_fname_label'            => 'Nome',
 	'create_user_validation_lname_label'            => 'Sobrenome',
 	'create_user_validation_identity_label'         => 'Identity',
@@ -76,8 +77,8 @@ return [
 	'create_user_validation_password_confirm_label' => 'Confirmação de Senha',
 
 	// Edit User
-	'edit_user_heading'                           => 'Editar Usuário',
-	'edit_user_subheading'                        => 'Por favor informe os dados sobre o usuário abaixo.',
+	'edit_user_heading'                           => 'Editar utilizador',
+	'edit_user_subheading'                        => 'Por favor informe os dados sobre o utilizador abaixo.',
 	'edit_user_fname_label'                       => 'Nome:',
 	'edit_user_lname_label'                       => 'Sobrenome:',
 	'edit_user_company_label'                     => 'Empresa:',
@@ -86,7 +87,7 @@ return [
 	'edit_user_password_label'                    => 'Senha: (se quiser mudar a senha)',
 	'edit_user_password_confirm_label'            => 'Confirme a senha: (se quiser mudar a senha)',
 	'edit_user_groups_heading'                    => 'Membro dos grupos',
-	'edit_user_submit_btn'                        => 'Salvar Usuário',
+	'edit_user_submit_btn'                        => 'Gravar utilizador',
 	'edit_user_validation_fname_label'            => 'Nome',
 	'edit_user_validation_lname_label'            => 'Sobrenome',
 	'edit_user_validation_email_label'            => 'Email',
@@ -131,14 +132,14 @@ return [
 
 	// Forgot Password
 	'forgot_password_heading'                 => 'Esqueceu a Senha',
-	'forgot_password_subheading'              => 'Por favor, informe seu %s para que possamos enviar para você uma mensagem para recuparar sua senha.',
+	'forgot_password_subheading'              => 'Por favor, informe seu %s para que possamos enviar para si uma mensagem para recuparar sua senha.',
 	'forgot_password_email_label'             => '%s:',
 	'forgot_password_submit_btn'              => 'Enviar',
 	'forgot_password_validation_email_label'  => 'Email',
 	'forgot_password_identity_label'          => 'Login',
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'Este email não foi encontrado.',
-	'forgot_password_identity_not_found'         => 'No record of that username address.',
+	'forgot_password_identity_not_found'         => 'O utilizador selecionado não existe.',
 
 	// Reset Password
 	'reset_password_heading'                               => 'Mudar Senha',
