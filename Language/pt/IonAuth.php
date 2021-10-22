@@ -5,7 +5,7 @@
 * Author: André Brás Simões
 *       andrebrassimoes@gmail.com
 *
-* Adjustments by @Dentxinho and @MichelAlonso and @marcelod
+* Adjustments by @Dentxinho and @MichelAlonso and @marcelod and @mpmont
 *
 * Location: http://github.com/benedmunds/CodeIgniter-Ion-Auth
 *
@@ -37,11 +37,11 @@ return [
 	'deactivate_unsuccessful'            => 'Não foi possível desativar a conta',
 	'activation_email_successful'        => 'Email de ativação enviado com sucesso',
 	'activation_email_unsuccessful'      => 'Não foi possível enviar o email de ativação',
-	'deactivate_current_user_unsuccessful'=> 'You cannot De-Activate your self.',
+	'deactivate_current_user_unsuccessful'=> 'Não pode inativar a sua própria conta',
 
 	// Login / Logout
 	'login_successful'                   => 'Sessão iniciada com sucesso',
-	'login_unsuccessful'                 => 'Usuário ou senha inválidos',
+	'login_unsuccessful'                 => 'Utilizador ou senha inválidos',
 	'login_unsuccessful_not_active'      => 'A conta está desativada',
 	'login_timeout'                      => 'Conta temporariamente bloqueada. Tente novamente mais tarde',
 	'logout_successful'            		=> 'Sessão encerrada com sucesso',
@@ -49,8 +49,8 @@ return [
 	// Account Changes
 	'update_successful'                  => 'Informações da conta atualizadas com sucesso',
 	'update_unsuccessful'                => 'Não foi possível atualizar as informações da conta',
-	'delete_successful'                  => 'Usuário excluído com sucesso',
-	'delete_unsuccessful'                => 'Não foi possível excluir o usuário',
+	'delete_successful'                  => 'Utilizador excluído com sucesso',
+	'delete_unsuccessful'                => 'Não foi possível excluir o utilizador',
 
 	// Groups
 	'group_creation_successful'          => 'Grupo criado com sucesso',
@@ -72,5 +72,5 @@ return [
 	'email_forgotten_password_subject'   => 'Esqueci a senha',
 	'emailForgotPassword_heading'    	=> 'Redefinido a senha para %s',
 	'emailForgotPassword_subheading' 	=> 'Por favor, clique neste link para %s.',
-	'emailForgotPassword_link'       	=> 'Redefina sua senha',
+	'emailForgotPassword_link'       	=> 'Redefinir a sua senha',
 ];
