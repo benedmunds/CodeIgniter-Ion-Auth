@@ -43,7 +43,7 @@ class IonAuthModel
 	/**
 	 * IonAuth config
 	 *
-	 * @var Config\IonAuth
+	 * @var \IonAuth\Config\IonAuth
 	 */
 	protected $config;
 
@@ -161,14 +161,14 @@ class IonAuthModel
 	/**
 	 * Message (uses lang file)
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $messages = [];
 
 	/**
 	 * Error message (uses lang file)
 	 *
-	 * @var string
+	 * @var array
 	 */
 	protected $errors = [];
 
@@ -980,15 +980,16 @@ class IonAuthModel
 			$lastLogin = $this->session->get('last_check');
 			if ($lastLogin + $recheck < time())
 			{
-				$query = $this->db->select('id')
-								  ->where([
-									  $this->identityColumn => $this->session->get('identity'),
-									  'active'              => '1',
-								  ])
-								  ->limit(1)
-								  ->orderBy('id', 'desc')
-								  ->get($this->tables['users']);
-				if ($query->numRows() === 1)
+				$builder = $this->db->table($this->tables['users']);
+        $numRows = $builder->select('id')
+          ->where([
+            $this->identityColumn => $this->session->get('identity'),
+            'active'              => '1',
+          ])
+          ->limit(1)
+          ->orderBy('id', 'desc')
+          ->countAllResults();
+        if ($numRows === 1) 
 				{
 					$this->session->set('last_check', time());
 				}
@@ -1115,14 +1116,17 @@ class IonAuthModel
 	{
 		if ($this->config->trackLoginAttempts && $this->config->trackLoginIpAddress)
 		{
-			$this->db->select('ip_address');
-			$this->db->where('login', $identity);
-			$this->db->orderBy('id', 'desc');
-			$qres = $this->db->get($this->tables['login_attempts'], 1);
+			$builder = $this->db->table($this->tables['login_attempts']);
+      $resRows = $builder->select('ip_address')
+        ->where('login', $identity)
+        ->orderBy('id', 'desc')
+        ->limit(1)
+        ->get()
+        ->getRow();
 
-			if ($qres->numRows() > 0)
+      if (!empty($resRows))
 			{
-				return $qres->row()->ip_address;
+				return $resRows->ip_address;
 			}
 		}
 
@@ -1355,20 +1359,6 @@ class IonAuthModel
 		$this->triggerEvents(['result', 'result_array']);
 
 		$result = $this->response->getResultArray();
-
-		return $result;
-	}
-
-	/**
-	 * Num rows
-	 *
-	 * @return integer
-	 */
-	public function numRows(): int
-	{
-		$this->triggerEvents(['num_rows']);
-
-		$result = $this->response->numRows();
 
 		return $result;
 	}
