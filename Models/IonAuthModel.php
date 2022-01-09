@@ -199,6 +199,13 @@ class IonAuthModel
 	 * @var \CodeIgniter\Database\BaseConnection
 	 */
 	protected $db;
+	
+	/**
+	 * Query builder
+	 *
+	 * @var \CodeIgniter\Database\BaseBuilder
+	 */
+	protected $builder;
 
 	/**
 	 * Constructor
@@ -564,8 +571,8 @@ class IonAuthModel
 
 		$this->triggerEvents('extra_where');
 
-		$builder = $this->db->table($this->tables['users']);
-		$query   = $builder
+		$this->builder = $this->db->table($this->tables['users']);
+		$query   = $this->builder
 					   ->select('id, password')
 					   ->where($this->identityColumn, $identity)
 					   ->limit(1)
@@ -669,8 +676,8 @@ class IonAuthModel
 			return false;
 		}
 
-		$builder = $this->db->table($this->tables['users']);
-		return $builder->where($this->identityColumn, $identity)
+		$this->builder = $this->db->table($this->tables['users']);
+		return $this->builder->where($this->identityColumn, $identity)
 					   ->limit(1)
 					   ->countAllResults() > 0;
 	}
@@ -689,8 +696,8 @@ class IonAuthModel
 			return false;
 		}
 
-		$builder = $this->db->table($this->tables['users']);
-		$query = $builder->select('id')
+		$this->builder = $this->db->table($this->tables['users']);
+		$query = $this->builder->select('id')
 						 ->where($this->identityColumn, $identity)
 						 ->limit(1)
 						 ->get();
@@ -980,8 +987,8 @@ class IonAuthModel
 			$lastLogin = $this->session->get('last_check');
 			if ($lastLogin + $recheck < time())
 			{
-				$builder = $this->db->table($this->tables['users']);
-        $numRows = $builder->select('id')
+				$this->builder = $this->db->table($this->tables['users']);
+        $numRows = $this->builder->select('id')
           ->where([
             $this->identityColumn => $this->session->get('identity'),
             'active'              => '1',
@@ -1051,18 +1058,18 @@ class IonAuthModel
 	{
 		if ($this->config->trackLoginAttempts)
 		{
-			$builder = $this->db->table($this->tables['login_attempts']);
-			$builder->where('login', $identity);
+			$this->builder = $this->db->table($this->tables['login_attempts']);
+			$this->builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
 				if (! isset($ipAddress))
 				{
 					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$builder->where('ip_address', $ipAddress);
+				$this->builder->where('ip_address', $ipAddress);
 			}
-			$builder->where('time >', time() - $this->config->lockoutTime, false);
-			return $builder->countAllResults();
+			$this->builder->where('time >', time() - $this->config->lockoutTime, false);
+			return $this->builder->countAllResults();
 		}
 		return 0;
 	}
@@ -1082,19 +1089,19 @@ class IonAuthModel
 	{
 		if ($this->config->trackLoginAttempts)
 		{
-			$builder = $this->db->table($this->tables['login_attempts']);
-			$builder->select('time');
-			$builder->where('login', $identity);
+			$this->builder = $this->db->table($this->tables['login_attempts']);
+			$this->builder->select('time');
+			$this->builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
 				if (! isset($ipAddress))
 				{
 					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$builder->where('ip_address', $ipAddress);
+				$this->builder->where('ip_address', $ipAddress);
 			}
-			$builder->orderBy('id', 'desc');
-			$qres = $builder->get(1);
+			$this->builder->orderBy('id', 'desc');
+			$qres = $this->builder->get(1);
 
 			if ($qres->getRow())
 			{
@@ -1116,8 +1123,8 @@ class IonAuthModel
 	{
 		if ($this->config->trackLoginAttempts && $this->config->trackLoginIpAddress)
 		{
-			$builder = $this->db->table($this->tables['login_attempts']);
-      $resRows = $builder->select('ip_address')
+			$this->builder = $this->db->table($this->tables['login_attempts']);
+      $resRows = $this->builder->select('ip_address')
         ->where('login', $identity)
         ->orderBy('id', 'desc')
         ->limit(1)
@@ -1151,8 +1158,8 @@ class IonAuthModel
 			{
 				$data['ip_address'] = \Config\Services::request()->getIPAddress();
 			}
-			$builder = $this->db->table($this->tables['login_attempts']);
-			$builder->insert($data);
+			$this->builder = $this->db->table($this->tables['login_attempts']);
+			$this->builder->insert($data);
 			return true;
 		}
 		return false;
@@ -1180,20 +1187,20 @@ class IonAuthModel
 			// Make sure $oldAttemptsAxpirePeriod is at least equals to lockoutTime
 			$oldAttemptsAxpirePeriod = max($oldAttemptsAxpirePeriod, $this->config->lockoutTime);
 
-			$builder = $this->db->table($this->tables['login_attempts']);
-			$builder->where('login', $identity);
+			$this->builder = $this->db->table($this->tables['login_attempts']);
+			$this->builder->where('login', $identity);
 			if ($this->config->trackLoginIpAddress)
 			{
 				if (! isset($ipAddress))
 				{
 					$ipAddress = \Config\Services::request()->getIPAddress();
 				}
-				$builder->where('ip_address', $ipAddress);
+				$this->builder->where('ip_address', $ipAddress);
 			}
 			// Purge obsolete login attempts
-			$builder->orWhere('time <', time() - $oldAttemptsAxpirePeriod, false);
+			$this->builder->orWhere('time <', time() - $oldAttemptsAxpirePeriod, false);
 
-			return $builder->delete() === false ? false: true;
+			return $this->builder->delete() === false ? false: true;
 		}
 		return false;
 	}
@@ -1363,6 +1370,21 @@ class IonAuthModel
 		return $result;
 	}
 
+		/**
+	 * Num rows
+	 *
+	 * @return integer
+	 */
+	public function numRows(): int
+	{
+		$this->triggerEvents(['num_rows']);
+		if ($this->builder) {
+			$result = $this->builder->countAllResults(false);
+		}
+		// return result or 0 if result = null
+		return $result ?? 0;
+	}
+
 	/**
 	 * Get the users
 	 *
@@ -1375,13 +1397,13 @@ class IonAuthModel
 	{
 		$this->triggerEvents('users');
 
-		$builder = $this->db->table($this->tables['users']);
+		$this->builder = $this->db->table($this->tables['users']);
 
 		if (! empty($this->ionSelect))
 		{
 			foreach ($this->ionSelect as $select)
 			{
-				$builder->select($select);
+				$this->builder->select($select);
 			}
 
 			$this->ionSelect = [];
@@ -1389,7 +1411,7 @@ class IonAuthModel
 		else
 		{
 			// default selects
-			$builder->select([
+			$this->builder->select([
 				$this->tables['users'] . '.*',
 				$this->tables['users'] . '.id as id',
 				$this->tables['users'] . '.id as user_id',
@@ -1408,8 +1430,8 @@ class IonAuthModel
 			// join and then run a where_in against the group ids
 			if (! empty($groups))
 			{
-				$builder->distinct();
-				$builder->join(
+				$this->builder->distinct();
+				$this->builder->join(
 					$this->tables['users_groups'],
 					$this->tables['users_groups'] . '.' . $this->join['users'] . '=' . $this->tables['users'] . '.id',
 					'inner'
@@ -1434,12 +1456,12 @@ class IonAuthModel
 			// if group name was used we do one more join with groups
 			if (! empty($groupNames))
 			{
-				$builder->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
-				$builder->whereIn($this->tables['groups'] . '.name', $groupNames);
+				$this->builder->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . ' = ' . $this->tables['groups'] . '.id', 'inner');
+				$this->builder->whereIn($this->tables['groups'] . '.name', $groupNames);
 			}
 			if (! empty($groupIds))
 			{
-				$builder->{$orWhereIn}($this->tables['users_groups'] . '.' . $this->join['groups'], $groupIds);
+				$this->builder->{$orWhereIn}($this->tables['users_groups'] . '.' . $this->join['groups'], $groupIds);
 			}
 		}
 
@@ -1450,7 +1472,7 @@ class IonAuthModel
 		{
 			foreach ($this->ionWhere as $where)
 			{
-				$builder->where($where);
+				$this->builder->where($where);
 			}
 
 			$this->ionWhere = [];
@@ -1460,7 +1482,7 @@ class IonAuthModel
 		{
 			foreach ($this->ionLike as $like)
 			{
-				$builder->orLike($like['like'], $like['value'], $like['position']);
+				$this->builder->orLike($like['like'], $like['value'], $like['position']);
 			}
 
 			$this->ionLike = [];
@@ -1468,14 +1490,14 @@ class IonAuthModel
 
 		if (isset($this->ionLimit) && isset($this->ionOffset))
 		{
-			$builder->limit($this->ionLimit, $this->ionOffset);
+			$this->builder->limit($this->ionLimit, $this->ionOffset);
 
 			$this->ionLimit  = null;
 			$this->ionOffset = null;
 		}
 		else if (isset($this->ionLimit))
 		{
-			$builder->limit($this->ionLimit);
+			$this->builder->limit($this->ionLimit);
 
 			$this->ionLimit = null;
 		}
@@ -1483,13 +1505,13 @@ class IonAuthModel
 		// set the order
 		if (isset($this->ionOrderBy) && isset($this->ionOrder))
 		{
-			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
+			$this->builder->orderBy($this->ionOrderBy, $this->ionOrder);
 
 			$this->ionOrder   = null;
 			$this->ionOrderBy = null;
 		}
 
-		$this->response = $builder->get();
+		$this->response = $this->builder->get();
 
 		return $this;
 	}
@@ -1533,8 +1555,8 @@ class IonAuthModel
 		// if no id was passed use the current users id
 		$id || $id = $this->session->get('user_id');
 
-		$builder = $this->db->table($this->tables['users_groups']);
-		return $builder->select($this->tables['users_groups'] . '.' . $this->join['groups'] . ' as id, ' . $this->tables['groups'] . '.name, ' . $this->tables['groups'] . '.description')
+		$this->builder = $this->db->table($this->tables['users_groups']);
+		return $this->builder->select($this->tables['users_groups'] . '.' . $this->join['groups'] . ' as id, ' . $this->tables['groups'] . '.name, ' . $this->tables['groups'] . '.description')
 					   ->where($this->tables['users_groups'] . '.' . $this->join['users'], $id)
 					   ->join($this->tables['groups'], $this->tables['users_groups'] . '.' . $this->join['groups'] . '=' . $this->tables['groups'] . '.id')
 					   ->get();
@@ -1670,7 +1692,7 @@ class IonAuthModel
 			return false;
 		}
 
-		$builder = $this->db->table($this->tables['users_groups']);
+		$this->builder = $this->db->table($this->tables['users_groups']);
 
 		// if group id(s) are passed remove user from the group(s)
 		if (! empty($groupIds))
@@ -1682,7 +1704,7 @@ class IonAuthModel
 
 			foreach ($groupIds as $groupId)
 			{
-				$builder->delete([$this->join['groups'] => (int)$groupId, $this->join['users'] => $userId]);
+				$this->builder->delete([$this->join['groups'] => (int)$groupId, $this->join['users'] => $userId]);
 				if (isset($this->cacheUserInGroup[$userId]) && isset($this->cacheUserInGroup[$userId][$groupId]))
 				{
 					unset($this->cacheUserInGroup[$userId][$groupId]);
@@ -1694,7 +1716,7 @@ class IonAuthModel
 		// otherwise remove user from all groups
 		else
 		{
-			if ($return = $builder->delete([$this->join['users'] => $userId]))
+			if ($return = $this->builder->delete([$this->join['users'] => $userId]))
 			{
 				$this->cacheUserInGroup[$userId] = [];
 				$return = true;
@@ -1713,28 +1735,28 @@ class IonAuthModel
 	{
 		$this->triggerEvents('groups');
 
-		$builder = $this->db->table($this->tables['groups']);
+		$this->builder = $this->db->table($this->tables['groups']);
 
 		// run each where that was passed
 		if (isset($this->ionWhere) && ! empty($this->ionWhere))
 		{
 			foreach ($this->ionWhere as $where)
 			{
-				$builder->where($where);
+				$this->builder->where($where);
 			}
 			$this->ionWhere = [];
 		}
 
 		if (isset($this->ionLimit) && isset($this->ionOffset))
 		{
-			$builder->limit($this->ionLimit, $this->ionOffset);
+			$this->builder->limit($this->ionLimit, $this->ionOffset);
 
 			$this->ionLimit  = null;
 			$this->ionOffset = null;
 		}
 		else if (isset($this->ionLimit))
 		{
-			$builder->limit($this->ionLimit);
+			$this->builder->limit($this->ionLimit);
 
 			$this->ionLimit = null;
 		}
@@ -1742,10 +1764,10 @@ class IonAuthModel
 		// set the order
 		if (isset($this->ionOrderBy) && isset($this->ionOrder))
 		{
-			$builder->orderBy($this->ionOrderBy, $this->ionOrder);
+			$this->builder->orderBy($this->ionOrderBy, $this->ionOrder);
 		}
 
-		$this->response = $builder->get();
+		$this->response = $this->builder->get();
 
 		return $this;
 	}
