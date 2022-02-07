@@ -43,7 +43,7 @@ $lang['deactivate_successful'] 		  	 = 'アカウントを無効にしました'
 $lang['deactivate_unsuccessful'] 	  	 = 'アカウントを無効にすることが出来ません';
 $lang['activation_email_successful'] 	 = 'アクティベーション・メールを送信しました';
 $lang['activation_email_unsuccessful']   = 'アクティベーション・メールを送信できません';
-$lang['deactivate_current_user_unsuccessful']= 'You cannot De-Activate your self.';
+$lang['deactivate_current_user_unsuccessful']= '自身のアカウントの無効にすることが出来ません';
 
 // Login / Logout
 $lang['login_successful'] 		  	 = 'ログインしました';
