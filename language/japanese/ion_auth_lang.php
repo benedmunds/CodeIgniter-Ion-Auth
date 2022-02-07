@@ -37,20 +37,20 @@ $lang['forgot_password_successful'] 	 	 = 'パスワード再設定メールを�
 $lang['forgot_password_unsuccessful'] 	 	 = 'パスワードを再設定することが出来ません';
 
 // Activation
-$lang['activate_successful'] 		  	 = 'アカウントを有効にしました';
-$lang['activate_unsuccessful'] 		 	 = 'アカウントを有効にすることが出来ません';
-$lang['deactivate_successful'] 		  	 = 'アカウントを無効にしました';
-$lang['deactivate_unsuccessful'] 	  	 = 'アカウントを無効にすることが出来ません';
-$lang['activation_email_successful'] 	 = 'アクティベーション・メールを送信しました';
-$lang['activation_email_unsuccessful']   = 'アクティベーション・メールを送信できません';
-$lang['deactivate_current_user_unsuccessful']= '自身のアカウントの無効にすることが出来ません';
+$lang['activate_successful'] 		  	      = 'アカウントを有効にしました';
+$lang['activate_unsuccessful'] 		 	      = 'アカウントを有効にすることが出来ません';
+$lang['deactivate_successful'] 		  	      = 'アカウントを無効にしました';
+$lang['deactivate_unsuccessful'] 	  	      = 'アカウントを無効にすることが出来ません';
+$lang['activation_email_successful'] 	      = 'アクティベーション・メールを送信しました';
+$lang['activation_email_unsuccessful']        = 'アクティベーション・メールを送信できません';
+$lang['deactivate_current_user_unsuccessful'] = '自身のアカウントの無効にすることが出来ません';
 
 // Login / Logout
-$lang['login_successful'] 		  	 = 'ログインしました';
-$lang['login_unsuccessful'] 		 = 'ログイン出来ません';
-$lang['login_unsuccessful_not_active'] 		 = 'アカウントが無効です';
-$lang['login_timeout']                       = 'アカウントが仮にロックされています。後でもう一度試してください';
-$lang['logout_successful'] 		 	 = 'ログアウトしました';
+$lang['login_successful'] 		  	   = 'ログインしました';
+$lang['login_unsuccessful'] 		   = 'ログイン出来ません';
+$lang['login_unsuccessful_not_active'] = 'アカウントが無効です';
+$lang['login_timeout']                 = 'アカウントが仮にロックされています。後でもう一度試してください';
+$lang['logout_successful'] 		 	   = 'ログアウトしました';
 
 // Account Changes
 $lang['update_successful'] 		 	 = 'アカウント情報を更新しました';
@@ -69,12 +69,12 @@ $lang['group_name_required'] 		= 'グループ名が必要です。';
 $lang['group_name_admin_not_alter'] = '管理者グループ名は変更できません';
 
 // Activation Email
-$lang['email_activation_subject']            = 'アカウントの承認';
+$lang['email_activation_subject']  = 'アカウントの承認';
 $lang['email_activate_heading']    = '%s アカウントを有効化します';
 $lang['email_activate_subheading'] = 'このリンクをクリックして %s';
 $lang['email_activate_link']       = 'アカウントを有効にして下さい';
 // Forgot Password Email
-$lang['email_forgotten_password_subject']    = '忘れたパスワードの確認';
+$lang['email_forgotten_password_subject'] = '忘れたパスワードの確認';
 $lang['email_forgot_password_heading']    = '%s のパスワードのリセット';
 $lang['email_forgot_password_subheading'] = 'こちらのリンクをクリックしてください。 %s';
 $lang['email_forgot_password_link']       = 'パスワードのリセット';
