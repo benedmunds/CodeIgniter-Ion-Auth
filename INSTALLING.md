@@ -30,7 +30,11 @@ CodeIgniter-Ion-Auth$ git checkout 4
 ```
 Then in your Config/Autoload.php, add this :
 ```php
-'IonAuth' => ROOTPATH . 'CodeIgniter-Ion-Auth',
+public $psr4 = [
+	...
+	'IonAuth' => ROOTPATH . 'CodeIgniter-Ion-Auth',
+	...
+];
 ```
 
 ---
