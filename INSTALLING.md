@@ -10,7 +10,7 @@ For an existing composer project:
 ```shell
 $ composer config minimum-stability dev
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
-$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
+$ composer require benedmunds/codeigniter-ion-auth:4.x-dev
 ```
 
 For a new project:
@@ -18,7 +18,7 @@ For a new project:
 $ composer init
 $ composer config minimum-stability dev
 $ composer config repositories.ionAuth vcs git@github.com:benedmunds/CodeIgniter-Ion-Auth.git
-$ composer require benedmunds/CodeIgniter-Ion-Auth:4.x-dev
+$ composer require benedmunds/codeigniter-ion-auth:4.x-dev
 ```
 ---
 
