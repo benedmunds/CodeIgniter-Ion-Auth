@@ -2776,7 +2776,7 @@ class Ion_auth_model extends CI_Model
 		}
 
 		// Now we can compare them
-		if($hashed_password === $hashed_password_db)
+		if(hash_equals($hashed_password, $hashed_password_db))
 		{
 			// Password is good, migrate it to latest
 			$result = $this->_set_password_db($identity, $password);
