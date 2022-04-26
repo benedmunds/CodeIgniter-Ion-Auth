@@ -118,7 +118,7 @@ $lang['edit_group_validation_desc_label']    = 'Deskripsi';
 
 // Change Password
 $lang['change_password_heading']                               = 'Ganti Kata Sandi';
-$lang['change_password_old_password_label']                    = 'Kata Santi Lama:';
+$lang['change_password_old_password_label']                    = 'Kata Sandi Lama:';
 $lang['change_password_new_password_label']                    = 'Kata Sandi Baru (paling sedikit %s karakter):';
 $lang['change_password_new_password_confirm_label']            = 'Konfirmasi Kata Sandi:';
 $lang['change_password_submit_btn']                            = 'Ubah';
