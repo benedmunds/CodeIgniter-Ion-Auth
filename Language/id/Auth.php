@@ -120,7 +120,7 @@ return [
 
 	// Change Password
 	'change_password_heading'                               => 'Ganti Kata Sandi',
-	'change_password_old_password_label'                    => 'Kata Santi Lama:',
+	'change_password_old_password_label'                    => 'Kata Sandi Lama:',
 	'change_password_new_password_label'                    => 'Kata Sandi Baru (paling sedikit %s karakter):',
 	'change_password_new_password_confirm_label'            => 'Konfirmasi Kata Sandi:',
 	'change_password_submit_btn'                            => 'Ubah',
