@@ -1076,7 +1076,7 @@ stdClass Object (
 **Usage**
 
 ```php
-$user_groups = $this->ionAuth->getUsersGroups($user->id)->result();
+$user_groups = $this->ionAuth->getUsersGroups($user->id)->getResult();
 ```
         
 
