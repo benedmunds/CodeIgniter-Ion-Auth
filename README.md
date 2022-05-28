@@ -10,7 +10,7 @@ Note, this version is meant to be used with CodeIgniter 4 and is not backwards c
 Ion Auth 4 needs **CodeIgniter 4**.
 
 ## Documentation
-Documentation is located at http://benedmunds.com/ion_auth/
+See [USERGUIDE.md](USERGUIDE.md) file.
 
 ## Upgrading
 See [UPGRADING.md](UPGRADING.md) file.
