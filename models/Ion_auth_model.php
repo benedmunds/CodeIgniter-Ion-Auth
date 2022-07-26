@@ -76,7 +76,7 @@ class Ion_auth_model extends CI_Model
 	 *
 	 * @var string
 	 */
-	public $identity;
+	public $identity_column;
 
 	/**
 	 * Where
