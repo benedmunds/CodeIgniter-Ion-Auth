@@ -359,7 +359,7 @@ class Ion_auth
 		$recheck = $this->ion_auth_model->recheck_session();
 
 		// auto-login the user if they are remembered
-		if (!$recheck && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
+		if (!$recheck && ($this->config->item('remember_users', 'ion_auth')) && get_cookie($this->config->item('remember_cookie_name', 'ion_auth')))
 		{
 			$recheck = $this->ion_auth_model->login_remembered_user();
 		}
