@@ -54,6 +54,13 @@ class Ion_auth
 	 **/
 	public $_cache_user_in_group;
 
+	 /**
+	 * Session
+	 *
+	 * @var \CodeIgniter\Session\Session
+	 */
+	protected $session;
+
 	/**
 	 * __construct
 	 *
