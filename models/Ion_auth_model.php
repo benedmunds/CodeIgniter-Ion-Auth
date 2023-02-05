@@ -197,27 +197,6 @@ class Ion_auth_model extends CI_Model
 	 */
 	protected $db;
 
-	/**
-	 * Associative array of tables and columns to join
-	 *
-	 * @var array
-	 */
-	protected $join;
-
-	/**
-	 * Hash method
-	 *
-	 * @var string
-	 */
-	protected $hashMethod;
-
-	/**
-	 * Associative array of errors and message views
-	 *
-	 * @var array
-	 */
-	protected $messagesTemplates;
-
 	public function __construct()
 	{
 		$this->config->load('ion_auth', TRUE);
