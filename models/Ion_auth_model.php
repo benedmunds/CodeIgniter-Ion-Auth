@@ -46,27 +46,27 @@ class Ion_auth_model extends CI_Model
 
 	/**
 	 * activation code
-	 * 
+	 *
 	 * Set by deactivate() function
-	 * Also set on register() function, if email_activation 
+	 * Also set on register() function, if email_activation
 	 * option is activated
-	 * 
-	 * This is the value devs should give to the user 
+	 *
+	 * This is the value devs should give to the user
 	 * (in an email, usually)
-	 * 
+	 *
 	 * It contains the *user* version of the activation code
-	 * It's a value of the form "selector.validator" 
-	 * 
+	 * It's a value of the form "selector.validator"
+	 *
 	 * This is not the same activation_code as the one in DB.
 	 * The DB contains a *hashed* version of the validator
 	 * and a selector in another column.
-	 * 
+	 *
 	 * THe selector is not private, and only used to lookup
 	 * the validator.
-	 * 
+	 *
 	 * The validator is private, and to be only known by the user
 	 * So in case of DB leak, nothing could be actually used.
-	 * 
+	 *
 	 * @var string
 	 */
 	public $activation_code;
@@ -205,7 +205,7 @@ class Ion_auth_model extends CI_Model
 
 		// initialize the database
 		$group_name = $this->config->item('database_group_name', 'ion_auth');
-		if (empty($group_name)) 
+		if (empty($group_name))
 		{
 			// By default, use CI's db that should be already loaded
 			$CI =& get_instance();
@@ -215,7 +215,7 @@ class Ion_auth_model extends CI_Model
 		{
 			// For specific group name, open a new specific connection
 			$this->db = $this->load->database($group_name, TRUE, TRUE);
-		}   
+		}
 
 		// initialize db tables data
 		$this->tables = $this->config->item('tables', 'ion_auth');
@@ -378,7 +378,7 @@ class Ion_auth_model extends CI_Model
 	/**
 	 * Get a user by its activation code
 	 *
-	 * @param bool       $user_code	the activation code 
+	 * @param bool       $user_code	the activation code
 	 * 								It's the *user* one, containing "selector.validator"
 	 * 								the one you got in activation_code member
 	 *
@@ -390,7 +390,7 @@ class Ion_auth_model extends CI_Model
 		// Retrieve the token object from the code
 		$token = $this->_retrieve_selector_validator_couple($user_code);
 
-		if ($token) 
+		if ($token)
 		{
 			// Retrieve the user according to this selector
 			$user = $this->where('activation_selector', $token->selector)->users()->row();
@@ -412,7 +412,7 @@ class Ion_auth_model extends CI_Model
 	 * Validates and removes activation code.
 	 *
 	 * @param int|string $id		the user identifier
-	 * @param bool       $code		the *user* activation code 
+	 * @param bool       $code		the *user* activation code
 	 * 								if omitted, simply activate the user without check
 	 *
 	 * @return bool
@@ -961,7 +961,7 @@ class Ion_auth_model extends CI_Model
 						$this->clear_remember_code($identity);
 					}
 				}
-				
+
 				// Rehash if needed
 				$this->rehash_password_if_needed($user->password, $identity, $password);
 
@@ -1810,7 +1810,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$user = $this->user($id)->row();
+//					$user = $this->user($id)->row();
 					$data['password'] = $this->hash_password($data['password'], $user->{$this->identity_column});
 					if ($data['password'] === FALSE)
 					{
@@ -2624,7 +2624,7 @@ class Ion_auth_model extends CI_Model
 			case 'argon2id':
 				$params = $this->config->item('argon2_default_params', 'ion_auth');
 				break;
-				
+
 			default:
 				// Do nothing
 		}
