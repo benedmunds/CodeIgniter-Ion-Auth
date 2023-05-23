@@ -1888,7 +1888,7 @@ class IonAuthModel
 		$this->db->transCommit();
 
 		$this->triggerEvents(['post_delete_user', 'post_delete_user_successful']);
-		$this->setMessage('delete_successful');
+		$this->setMessage('IonAuth.delete_successful');
 		return true;
 	}
 
