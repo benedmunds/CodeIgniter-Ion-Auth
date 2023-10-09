@@ -44,7 +44,7 @@ return [
 	'deactivate_unsuccessful' 	  	 => 'アカウントを無効にすることが出来ません',
 	'activation_email_successful' 	 => 'アクティベーション・メールを送信しました',
 	'activation_email_unsuccessful'   => 'アクティベーション・メールを送信できません',
-	'deactivate_current_user_unsuccessful'=> 'You cannot De-Activate your self.',
+	'deactivate_current_user_unsuccessful'=> '自分自身を非アクティブ化することはできません。',
 
 	// Login / Logout
 	'login_successful' 		  	 => 'ログインしました',
