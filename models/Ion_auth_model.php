@@ -1845,7 +1845,7 @@ class Ion_auth_model extends CI_Model
 			{
 				if( ! empty($data['password']))
 				{
-					$user = $this->user($id)->row();
+//					$user = $this->user($id)->row();
 					$data['password'] = $this->hash_password($data['password'], $user->{$this->identity_column});
 					if ($data['password'] === FALSE)
 					{
