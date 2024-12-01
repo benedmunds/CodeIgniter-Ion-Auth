@@ -540,19 +540,19 @@ class Auth extends \CodeIgniter\Controller
 		$this->data['identity_column'] = $identityColumn;
 
 		// validate form input
-		$this->validation->setRule('first_name', lang('Auth.create_user_validation_fname_label'), 'trim|required');
-		$this->validation->setRule('last_name', lang('Auth.create_user_validation_lname_label'), 'trim|required');
+		$this->validation->setRule('first_name', lang('Auth.create_user_validation_fname_label'), 'required');
+		$this->validation->setRule('last_name', lang('Auth.create_user_validation_lname_label'), 'required');
 		if ($identityColumn !== 'email')
 		{
-			$this->validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'trim|required|is_unique[' . $tables['users'] . '.' . $identityColumn . ']');
-			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email');
+			$this->validation->setRule('identity', lang('Auth.create_user_validation_identity_label'), 'required|is_unique[' . $tables['users'] . '.' . $identityColumn . ']');
+			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'required|valid_email');
 		}
 		else
 		{
-			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'trim|required|valid_email|is_unique[' . $tables['users'] . '.email]');
+			$this->validation->setRule('email', lang('Auth.create_user_validation_email_label'), 'required|valid_email|is_unique[' . $tables['users'] . '.email]');
 		}
-		$this->validation->setRule('phone', lang('Auth.create_user_validation_phone_label'), 'trim');
-		$this->validation->setRule('company', lang('Auth.create_user_validation_company_label'), 'trim');
+		//$this->validation->setRule('phone', lang('Auth.create_user_validation_phone_label'), 'required');// if it does not trim, it does nothing
+		//$this->validation->setRule('company', lang('Auth.create_user_validation_company_label'), 'required');
 		$this->validation->setRule('password', lang('Auth.create_user_validation_password_label'), 'required|min_length[' . $this->configIonAuth->minPasswordLength . ']|matches[password_confirm]');
 		$this->validation->setRule('password_confirm', lang('Auth.create_user_validation_password_confirm_label'), 'required');
 
@@ -672,10 +672,10 @@ class Auth extends \CodeIgniter\Controller
 		if (! empty($_POST))
 		{
 			// validate form input
-			$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'trim|required');
-			$this->validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'trim|required');
-			$this->validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'trim|required');
-			$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'trim|required');
+			$this->validation->setRule('first_name', lang('Auth.edit_user_validation_fname_label'), 'required');
+			$this->validation->setRule('last_name', lang('Auth.edit_user_validation_lname_label'), 'required');
+			$this->validation->setRule('phone', lang('Auth.edit_user_validation_phone_label'), 'required');
+			$this->validation->setRule('company', lang('Auth.edit_user_validation_company_label'), 'required');
 
 			// do we have a valid request?
 			if ($id !== $this->request->getPost('id', FILTER_VALIDATE_INT))
@@ -801,7 +801,7 @@ class Auth extends \CodeIgniter\Controller
 		}
 
 		// validate form input
-		$this->validation->setRule('group_name', lang('Auth.create_group_validation_name_label'), 'trim|required|alpha_dash');
+		$this->validation->setRule('group_name', lang('Auth.create_group_validation_name_label'), 'required|alpha_dash');
 
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
