@@ -139,8 +139,7 @@ return [
 	'forgot_password_email_identity_label'   => 'El. p. adresas',
 	'forgot_password_email_not_found'        => 'Duomenų bazėje tokio el. pašto adreso nėra.',
 	'forgot_password_identity_not_found'     => 'Nėra įrašo apie su šiuo vartotojo vardu susietą adresą.',
-
-	// Reset password
+    'forgot_password_generic_message'        => 'Jei toks el. pašto adresas yra sistemoje, slaptažodžio atkūrimo instrukcijos bus išsiųstos šiuo adresu.',
 	'reset_password_heading'                               => 'Pakeisti slaptažodį',
 	'reset_password_new_password_label'                    => 'Naujas slaptažodis (bent %s simboliai/-ų)',
 	'reset_password_new_password_confirm_label'            => 'Patvirtinti naują slaptažodį',

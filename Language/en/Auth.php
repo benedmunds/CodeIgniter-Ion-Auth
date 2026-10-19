@@ -139,8 +139,7 @@ return [
 	'forgot_password_email_identity_label'    => 'Email',
 	'forgot_password_email_not_found'         => 'No record of that email address.',
 	'forgot_password_identity_not_found'         => 'No record of that username.',
-
-	// Reset Password
+    'forgot_password_generic_message'         => 'If an account exists for that address, password reset instructions have been sent to it.',
 	'reset_password_heading'                               => 'Change Password',
 	'reset_password_new_password_label'                    => 'New Password (at least %s characters long):',
 	'reset_password_new_password_confirm_label'            => 'Confirm New Password:',

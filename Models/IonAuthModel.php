@@ -931,7 +931,17 @@ class IonAuthModel
 				if ($user->active == 0)
 				{
 					$this->triggerEvents('post_login_unsuccessful');
-					$this->setError('IonAuth.login_unsuccessful_not_active');
+
+					// Do not reveal that the account exists but is inactive when
+					// enumeration protection is enabled.
+					$this->setError($this->config->preventUserEnumeration
+						? 'IonAuth.login_unsuccessful'
+						: 'IonAuth.login_unsuccessful_not_active');
+
+					if ($this->config->preventUserEnumeration)
+					{
+						log_message('notice', 'Ion Auth: login attempt for an inactive account was rejected with a generic message.');
+					}
 
 					return false;
 				}

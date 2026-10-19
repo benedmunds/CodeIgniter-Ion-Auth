@@ -153,6 +153,14 @@ class IonAuth
 			}
 		}
 
+		if (! empty($this->config->preventUserEnumeration))
+		{
+			// Never reveal whether the identity exists, or whether the reset
+			// e-mail could be sent. Callers only see a success message.
+			$this->setMessage('IonAuth.forgot_password_successful');
+			return true;
+		}
+
 		$this->setError('IonAuth.forgot_password_unsuccessful');
 		return false;
 	}
@@ -204,13 +212,40 @@ class IonAuth
 	 *
 	 * @return integer|array|boolean The new user's ID if e-mail activation is disabled or Ion-Auth e-mail activation
 	 *                               was completed;
-	 *                               or an array of activation details if CI e-mail validation is enabled; or false
-	 *                               if the operation failed.
+	 *                               or an array of activation details if CI e-mail validation is enabled;
+	 *                               or true when user enumeration protection handled a registration attempt for an
+	 *                               existing account; or false if the operation failed.
 	 * @author Mathew
 	 */
 	public function register(string $identity, string $password, string $email, array $additionalData = [], array $groupIds = [])
 	{
 		$this->ionAuthModel->triggerEvents('pre_account_creation');
+
+		// Privacy protection: never reveal whether an identity or e-mail address
+		// is already registered. The answer must look exactly like a successful
+		// registration; the owner of the existing account is notified by e-mail
+		// instead. Administrators creating users still get the real error.
+		if (! empty($this->config->preventUserEnumeration) && ! $this->isAdminUser())
+		{
+			$existingUser = $this->findUserByIdentityOrEmail($identity, $email);
+
+			if ($existingUser !== null)
+			{
+				// Hash the password anyway so that a duplicate attempt takes
+				// roughly the same time as a real registration.
+				$this->ionAuthModel->hashPassword($password);
+
+				$this->notifyExistingAccount($existingUser);
+
+				$this->setMessage($this->config->emailActivation
+					? 'IonAuth.activation_email_successful'
+					: 'IonAuth.account_creation_successful');
+
+				$this->ionAuthModel->triggerEvents('registration_attempt_existing_account');
+
+				return true;
+			}
+		}
 
 		$emailActivation = $this->config->emailActivation;
 
@@ -287,6 +322,109 @@ class IonAuth
 			$this->ionAuthModel->triggerEvents(['post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful']);
 			$this->setError('IonAuth.activation_email_unsuccessful');
 			return false;
+		}
+	}
+
+	/**
+	 * Whether the currently logged-in user belongs to the administrator group.
+	 *
+	 * @return boolean
+	 */
+	protected function isAdminUser(): bool
+	{
+		$userId = $this->getUserId();
+
+		if ($userId === null)
+		{
+			return false;
+		}
+
+		return $this->ionAuthModel->inGroup($this->config->adminGroup, (int) $userId);
+	}
+
+	/**
+	 * Find an existing account by identity or e-mail address.
+	 *
+	 * @param string $identity Identity
+	 * @param string $email    E-mail address
+	 *
+	 * @return object|null
+	 */
+	protected function findUserByIdentityOrEmail(string $identity, string $email)
+	{
+		if ($identity !== '')
+		{
+			$user = $this->ionAuthModel->where($this->config->identity, $identity)->users()->row();
+
+			if ($user)
+			{
+				return $user;
+			}
+		}
+
+		if ($email !== '')
+		{
+			$user = $this->ionAuthModel->where('email', $email)->users()->row();
+
+			if ($user)
+			{
+				return $user;
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Notify the owner of an existing account about a registration attempt.
+	 *
+	 * The notification is throttled per address to keep the public registration
+	 * form from being abused to mail-bomb a user.
+	 *
+	 * @param object $user Existing user row
+	 *
+	 * @return void
+	 */
+	protected function notifyExistingAccount($user): void
+	{
+		if (empty($this->config->notifyExistingAccountOnRegistration) || empty($user->email))
+		{
+			return;
+		}
+
+		$cache   = \Config\Services::cache();
+		$cacheKey = 'ionauth_registration_attempt_' . md5(strtolower((string) $user->email));
+		$throttle = (int) $this->config->registrationAttemptNotificationThrottle;
+
+		if ($throttle > 0 && $cache->get($cacheKey) !== null)
+		{
+			return;
+		}
+
+		if ($throttle > 0)
+		{
+			$cache->save($cacheKey, time(), $throttle);
+		}
+
+		helper('url');
+
+		$data = [
+			'identity'          => $user->{$this->config->identity} ?? '',
+			'siteTitle'         => $this->config->siteTitle,
+			'adminEmail'        => $this->config->adminEmail,
+			'forgotPasswordUrl' => site_url($this->config->forgotPasswordUri),
+		];
+
+		$sent = $this->sendEmail(
+			(string) $user->email,
+			$this->config->siteTitle . ' - ' . lang('IonAuth.emailRegistrationAttempt_subject'),
+			$this->config->emailTemplates . $this->config->emailRegistrationAttempt,
+			$data
+		);
+
+		if (! $sent)
+		{
+			log_message('error', 'Ion Auth: unable to send the registration attempt notification.');
 		}
 	}
 

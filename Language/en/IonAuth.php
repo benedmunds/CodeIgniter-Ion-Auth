@@ -78,4 +78,12 @@ return [
 	'emailForgotPassword_subheading'    => 'Please click this link to %s.',
 	'emailForgotPassword_link'          => 'Reset Your Password',
 
+	// Registration Attempt Email
+	'emailRegistrationAttempt_subject'        => 'Registration attempt with your e-mail address',
+	'emailRegistrationAttempt_heading'        => 'Someone tried to register using your e-mail address',
+	'emailRegistrationAttempt_subheading'     => 'Somebody (possibly you) tried to create a new account on %s with this e-mail address. An account with this address already exists, so no new account was created and your existing account was not changed.',
+	'emailRegistrationAttempt_forgotPassword' => 'If this was you and you forgot your password, you can set a new one here: %s',
+	'emailRegistrationAttempt_adminContact'   => 'If you lost your two-factor authentication device and can no longer sign in, contact the administrator: %s',
+	'emailRegistrationAttempt_ignore'         => 'If this was not you, you can safely ignore this e-mail. Nothing happened to your account.',
+
 ];

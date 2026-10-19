@@ -309,7 +309,7 @@ Register (create) a new user.
 
 **Return**
 
--   mixed. The ID of the user if the user was successfully created, FALSE if the user was not created.
+-   mixed. The ID of the user if the user was successfully created, TRUE when the attempt was handled neutrally because the identity or e-mail address is already registered (see the privacy note below), FALSE if the user was not created.
 
 **Usage**
 
@@ -325,6 +325,18 @@ $group = array('1'); // Sets user to admin.
 
 $this->ionAuth->register($username, $password, $email, $additional_data, $group);
 ```   
+
+> **Privacy note:** User enumeration is prevented by default
+> (`$config['preventUserEnumeration'] = true`). Registering with an identity or
+> e-mail address that is already in use looks exactly like a successful
+> registration: the same message is returned and no new account is created.
+> Instead, the owner of the existing account receives an e-mail explaining the
+> registration attempt and how to reset a forgotten password or contact the
+> administrator. Administrators creating users from the admin area still receive
+> the real "already used" error. Tune the notification with
+> `$config['notifyExistingAccountOnRegistration']` and
+> `$config['registrationAttemptNotificationThrottle']`; the e-mail template is
+> `Views/auth/email/registration_attempt.tpl.php`.
 
 createUser()
 ------------

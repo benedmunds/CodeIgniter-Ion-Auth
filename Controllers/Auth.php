@@ -311,6 +311,13 @@ class Auth extends \CodeIgniter\Controller
 
 			if (empty($identity))
 			{
+				if ($this->configIonAuth->preventUserEnumeration)
+				{
+					// Do not reveal whether the identity exists.
+					$this->session->setFlashdata('message', lang('Auth.forgot_password_generic_message'));
+					return redirect()->to('/auth/login');
+				}
+
 				if ($this->configIonAuth->identity !== 'email')
 				{
 					$this->ionAuth->setError('Auth.forgot_password_identity_not_found');
@@ -326,6 +333,14 @@ class Auth extends \CodeIgniter\Controller
 
 			// run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ionAuth->forgottenPassword($identity->{$this->configIonAuth->identity});
+
+			if ($this->configIonAuth->preventUserEnumeration)
+			{
+				// Give the same answer whether the e-mail was sent or not, so the
+				// form cannot be used to check which addresses are registered.
+				$this->session->setFlashdata('message', lang('Auth.forgot_password_generic_message'));
+				return redirect()->to('/auth/login');
+			}
 
 			if ($forgotten)
 			{

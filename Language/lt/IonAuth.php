@@ -68,4 +68,12 @@ return [
 	'emailForgotPassword_heading'         => 'Iš naujo generuoti %s slaptažodį',
 	'emailForgotPassword_subheading'      => 'Prašome paspausti nuorodą, jei norite %s.',
     'emailForgotPassword_link'            => 'Pasikeisti slaptažodį',
+
+    // Registration Attempt Email
+    'emailRegistrationAttempt_subject'        => 'Bandymas registruotis su Jūsų el. paštu',
+    'emailRegistrationAttempt_heading'        => 'Kažkas bandė registruotis su Jūsų el. pašto adresu',
+    'emailRegistrationAttempt_subheading'     => 'Kažkas (galbūt Jūs) bandė susikurti naują paskyrą sistemoje „%s“ su šiuo el. pašto adresu. Paskyra su šiuo adresu jau yra, todėl nauja paskyra nebuvo sukurta, o esama Jūsų paskyra nepakito.',
+    'emailRegistrationAttempt_forgotPassword' => 'Jei tai buvote Jūs ir pamiršote slaptažodį, naują slaptažodį galite nustatyti čia: %s',
+    'emailRegistrationAttempt_adminContact'   => 'Jei pametėte dviejų veiksnių autentifikavimo (2FA) įrenginį ir nebegalite prisijungti, susisiekite su sistemos administratoriumi: %s',
+    'emailRegistrationAttempt_ignore'         => 'Jei tai buvote ne Jūs, šį laišką galite ignoruoti – Jūsų paskyrai nieko nenutiko.',
 ];

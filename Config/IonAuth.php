@@ -169,6 +169,46 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 																	recommend a higher value, as this would affect performance */
 
 	/**
+	 * Prevent user enumeration.
+	 *
+	 * When enabled, registering, logging in and requesting a password reset do
+	 * not reveal whether an identity or e-mail address belongs to an existing
+	 * account. A registration attempt with an address that is already registered
+	 * looks exactly like a successful registration; instead, the owner of the
+	 * existing account receives a notification e-mail.
+	 *
+	 * Administrators creating users from the admin area still get the real
+	 * "already used" error.
+	 *
+	 * @var boolean
+	 */
+	public $preventUserEnumeration = true;
+
+	/**
+	 * Notify the owner of an existing account when somebody tries to register
+	 * with its e-mail address. Only used when $preventUserEnumeration is true.
+	 *
+	 * @var boolean
+	 */
+	public $notifyExistingAccountOnRegistration = true;
+
+	/**
+	 * Minimum number of seconds between two registration-attempt notifications
+	 * for the same e-mail address (0 disables the throttle). Prevents the public
+	 * registration form from being abused to mail-bomb a user.
+	 *
+	 * @var integer
+	 */
+	public $registrationAttemptNotificationThrottle = 3600;
+
+	/**
+	 * URI of the forgot-password page used in the registration-attempt e-mail.
+	 *
+	 * @var string
+	 */
+	public $forgotPasswordUri = 'auth/forgot_password';
+
+	/**
 	 * Cookie options.
 	 * rememberCookieName Default: remember_code
 	 *
@@ -217,6 +257,19 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 * @var string
 	 */
 	public $emailForgotPassword = 'forgot_password.tpl.php';
+
+	/**
+	 * -------------------------------------------------------------------------
+	 * Registration Attempt Email Template
+	 * -------------------------------------------------------------------------
+	 * Sent to the owner of an existing account when somebody tries to register
+	 * with the same address.
+	 *
+	 * Default: registration_attempt.tpl.php
+	 *
+	 * @var string
+	 */
+	public $emailRegistrationAttempt = 'registration_attempt.tpl.php';
 
 	/**
 	 * Specifies the views that are used to display the
