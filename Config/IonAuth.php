@@ -35,11 +35,13 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 * Allows to select a specific group for the database connection
 	 *
 	 * Default is empty: uses default group defined in CI's configuration
-	 * (see application/config/database.php, $active_group variable)
+	 * (see application/config/database.php, $active_group variable).
+	 * This also means that the test suite (which switches the default group)
+	 * automatically uses the same connection as the application.
 	 *
 	 * @var string
 	 */
-	public $databaseGroupName = 'default';
+	public $databaseGroupName = '';
 
 	/**
 	 * Tables (Database table names)

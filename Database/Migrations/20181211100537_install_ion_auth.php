@@ -33,8 +33,12 @@ class Migration_Install_ion_auth extends \CodeIgniter\Database\Migration
 	{
 		$config = config('IonAuth');
 
-		// initialize the database
-		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
+		// initialize the database; an empty value means "use the default group"
+		$databaseGroup = trim((string) $config->databaseGroupName);
+		if ($databaseGroup !== '')
+		{
+			$this->DBGroup = $databaseGroup;
+		}
 
 		parent::__construct();
 
