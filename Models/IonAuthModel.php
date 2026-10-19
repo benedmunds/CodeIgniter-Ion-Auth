@@ -2003,7 +2003,7 @@ class IonAuthModel
 	{
 		$this->triggerEvents('pre_remember_user');
 
-		if (! $identity)
+		if (! $this->config->rememberUsers || ! $identity)
 		{
 			return false;
 		}
