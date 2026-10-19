@@ -2486,6 +2486,13 @@ class IonAuthModel
 	 */
 	public function errors(string $template='list'): string
 	{
+		// Unlike messages(), this method used to render the (empty) template
+		// even when there were no errors at all.
+		if (empty($this->errors))
+		{
+			return '';
+		}
+
 		if (! array_key_exists($template, config('Validation')->templates))
 		{
 			throw new \CodeIgniter\Exceptions\ConfigException(lang('Validation.invalidTemplate', [$template]));

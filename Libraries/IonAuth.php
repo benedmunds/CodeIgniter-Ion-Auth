@@ -48,6 +48,15 @@ class IonAuth
 	protected $email;
 
 	/**
+	 * CodeIgniter session
+	 *
+	 * Declared explicitly: assigning it dynamically is deprecated since PHP 8.2.
+	 *
+	 * @var \CodeIgniter\Session\Session
+	 */
+	protected $session;
+
+	/**
 	 * __construct
 	 *
 	 * @author Ben
