@@ -194,6 +194,16 @@ class IonAuthModel
 	protected $cacheGroups = [];
 
 	/**
+	 * Whether the remember-tokens table exists (cached).
+	 *
+	 * Null means "not checked yet". Keeping this optional allows updating the
+	 * code before the migration has been run.
+	 *
+	 * @var boolean|null
+	 */
+	protected $rememberTokensTableExists;
+
+	/**
 	 * Database object
 	 *
 	 * @var \CodeIgniter\Database\BaseConnection
@@ -348,7 +358,9 @@ class IonAuthModel
 		{
 			if (password_needs_rehash($hash, $algo, $params))
 			{
-				if ($this->setPasswordDb($identity, $password))
+				// Rehashing does not change the password, so remember tokens
+				// must stay valid.
+				if ($this->setPasswordDb($identity, $password, false))
 				{
 					$this->triggerEvents(['rehash_password', 'rehash_password_successful']);
 				}
@@ -506,7 +518,74 @@ class IonAuthModel
 	}
 
 	/**
-	 * Clear the remember code for a user
+	 * Name of the remember-tokens table.
+	 *
+	 * Falls back to the default name when an application overrides $tables
+	 * without adding the new key.
+	 *
+	 * @return string
+	 */
+	protected function rememberTokensTable(): string
+	{
+		return isset($this->tables['remember_tokens'])
+			? $this->tables['remember_tokens']
+			: 'users_remember_tokens';
+	}
+
+	/**
+	 * Whether the remember-tokens table exists.
+	 *
+	 * The result is cached per request. When the table does not exist (the
+	 * migration has not been run yet) the model keeps using the legacy
+	 * users.remember_selector / users.remember_code columns.
+	 *
+	 * @return boolean
+	 */
+	protected function rememberTokensTableExists(): bool
+	{
+		if ($this->rememberTokensTableExists === null)
+		{
+			$table = $this->rememberTokensTable();
+
+			try
+			{
+				if (method_exists($this->db, 'tableExists'))
+				{
+					$this->rememberTokensTableExists = (bool) $this->db->tableExists($table);
+				}
+				else
+				{
+					$this->rememberTokensTableExists = ! empty($this->db->getFieldNames($table));
+				}
+			}
+			catch (\Throwable $e)
+			{
+				$this->rememberTokensTableExists = false;
+			}
+		}
+
+		return $this->rememberTokensTableExists;
+	}
+
+	/**
+	 * How long a remember token is valid, in seconds.
+	 *
+	 * @return integer
+	 */
+	protected function rememberTokenLifetime(): int
+	{
+		// If userExpire is set to zero we'll set the expiration two years from now.
+		return $this->config->userExpire === 0
+			? self::MAX_COOKIE_LIFETIME
+			: (int) $this->config->userExpire;
+	}
+
+	/**
+	 * Clear ALL remember tokens of a user.
+	 *
+	 * Used when a password is changed or reset: every browser/device has to
+	 * log in again. To remove only the current browser's token (logout) use
+	 * clearRememberToken().
 	 *
 	 * @param string $identity Identity
 	 *
@@ -524,7 +603,66 @@ class IonAuthModel
 			'remember_code'     => null,
 		];
 
-		return $this->db->table($this->tables['users'])->where($this->identityColumn, $identity)->update($data);
+		$updated = $this->db->table($this->tables['users'])
+							->where($this->identityColumn, $identity)
+							->update($data);
+
+		if ($this->rememberTokensTableExists())
+		{
+			$user = $this->db->table($this->tables['users'])
+							 ->select('id')
+							 ->where($this->identityColumn, $identity)
+							 ->limit(1)
+							 ->get()
+							 ->getRow();
+
+			if ($user)
+			{
+				$this->db->table($this->rememberTokensTable())
+						 ->where('user_id', (int) $user->id)
+						 ->delete();
+			}
+		}
+
+		return (bool) $updated;
+	}
+
+	/**
+	 * Clear ONE remember token ("selector.validator" user code).
+	 *
+	 * Used on logout so other browsers/devices stay logged in. The legacy
+	 * users.remember_selector / remember_code columns are cleared too when
+	 * they hold this exact token.
+	 *
+	 * @param string $userCode User code of the form "selector.validator"
+	 *
+	 * @return boolean Success
+	 */
+	public function clearRememberToken(string $userCode): bool
+	{
+		$token = $this->retrieveSelectorValidatorCouple($userCode);
+
+		if ($token === false)
+		{
+			return false;
+		}
+
+		if ($this->rememberTokensTableExists())
+		{
+			$this->db->table($this->rememberTokensTable())
+					 ->where('selector', $token->selector)
+					 ->delete();
+		}
+
+		// Clear the legacy single token as well, but only when it is the same one.
+		$this->db->table($this->tables['users'])
+				 ->where('remember_selector', $token->selector)
+				 ->update([
+					 'remember_selector' => null,
+					 'remember_code'     => null,
+				 ]);
+
+		return true;
 	}
 
 	/**
@@ -943,20 +1081,31 @@ class IonAuthModel
 				$this->clearLoginAttempts($identity);
 				$this->clearForgottenPasswordCode($identity);
 
+				// Rehash if needed BEFORE issuing a remember token: setPasswordDb()
+				// would otherwise invalidate the token we just wrote.
+				$this->rehashPasswordIfNeeded($user->password, $identity, $password);
+
 				if ($this->config->rememberUsers)
 				{
 					if ($remember)
 					{
 						$this->rememberUser($identity);
 					}
+					elseif ($this->config->rememberMultipleDevices)
+					{
+						// Logging in without "remember me" must not log out
+						// other browsers/devices.
+						$rememberCookie = get_cookie($this->config->rememberCookieName);
+						if (! empty($rememberCookie))
+						{
+							$this->clearRememberToken($rememberCookie);
+						}
+					}
 					else
 					{
 						$this->clearRememberCode($identity);
 					}
 				}
-
-				// Rehash if needed
-				$this->rehashPasswordIfNeeded($user->password, $identity, $password);
 
 				// Regenerate the session (for security purpose: to avoid session fixation)
 				$this->session->regenerate(false);
@@ -1891,6 +2040,12 @@ class IonAuthModel
 		// remove user from groups
 		$this->removeFromGroup(null, $id);
 
+		// remove the user's remember-me tokens
+		if ($this->rememberTokensTableExists())
+		{
+			$this->db->table($this->rememberTokensTable())->where('user_id', $id)->delete();
+		}
+
 		// delete user from users table should be placed after remove from group
 		$this->db->table($this->tables['users'])->delete(['id' => $id]);
 
@@ -2008,41 +2163,171 @@ class IonAuthModel
 			return false;
 		}
 
+		$user = $this->db->table($this->tables['users'])
+						 ->select('id')
+						 ->where($this->identityColumn, $identity)
+						 ->limit(1)
+						 ->get()
+						 ->getRow();
+
+		if (! $user)
+		{
+			$this->triggerEvents(['post_remember_user', 'remember_user_unsuccessful']);
+			return false;
+		}
+
 		// Generate random tokens
 		$token = $this->generateSelectorValidatorCouple();
 
-		if ($token->validatorHashed)
+		if (! $token->validatorHashed)
 		{
-			$this->db->table($this->tables['users'])->update(['remember_selector' => $token->selector,
-								  			   'remember_code' => $token->validatorHashed],
-											   [$this->identityColumn => $identity]);
-
-			if ($this->db->affectedRows() > -1)
-			{
-				// if the userExpire is set to zero we'll set the expiration two years from now.
-				if ( $this->config->userExpire === 0)
-				{
-					$expire = self::MAX_COOKIE_LIFETIME;
-				}
-				// otherwise use what is set
-				else
-				{
-					$expire = $this->config->userExpire;
-				}
-
-				set_cookie([
-					'name'   => $this->config->rememberCookieName,
-					'value'  => $token->userCode,
-					'expire' => $expire
-				]);
-
-				$this->triggerEvents(['post_remember_user', 'remember_user_successful']);
-				return true;
-			}
+			$this->triggerEvents(['post_remember_user', 'remember_user_unsuccessful']);
+			return false;
 		}
 
-		$this->triggerEvents(['post_remember_user', 'remember_user_unsuccessful']);
-		return false;
+		$expire = $this->rememberTokenLifetime();
+
+		if ($this->rememberTokensTableExists())
+		{
+			$table = $this->rememberTokensTable();
+
+			// Without multi-device support there is only one active token per user.
+			if (! $this->config->rememberMultipleDevices)
+			{
+				$this->db->table($table)->where('user_id', (int) $user->id)->delete();
+			}
+
+			$inserted = $this->db->table($table)->insert([
+				'user_id'        => (int) $user->id,
+				'selector'       => $token->selector,
+				'validator_hash' => $token->validatorHashed,
+				'created_at'     => time(),
+				'expires_at'     => time() + $expire,
+			]);
+
+			if (! $inserted)
+			{
+				$this->triggerEvents(['post_remember_user', 'remember_user_unsuccessful']);
+				return false;
+			}
+
+			$this->limitRememberTokens((int) $user->id);
+			$this->deleteExpiredRememberTokens();
+		}
+		else
+		{
+			// Backwards compatibility: the migration has not been run yet.
+			$this->db->table($this->tables['users'])->update([
+				'remember_selector' => $token->selector,
+				'remember_code'     => $token->validatorHashed,
+			], [$this->identityColumn => $identity]);
+		}
+
+		set_cookie([
+			'name'   => $this->config->rememberCookieName,
+			'value'  => $token->userCode,
+			'expire' => $expire
+		]);
+
+		$this->triggerEvents(['post_remember_user', 'remember_user_successful']);
+		return true;
+	}
+
+	/**
+	 * Keep at most rememberMaxTokensPerUser tokens per user.
+	 *
+	 * @param integer $userId User id
+	 *
+	 * @return void
+	 */
+	protected function limitRememberTokens(int $userId): void
+	{
+		$limit = (int) $this->config->rememberMaxTokensPerUser;
+
+		if ($limit <= 0)
+		{
+			return;
+		}
+
+		$table = $this->rememberTokensTable();
+		$count = $this->db->table($table)->where('user_id', $userId)->countAllResults();
+
+		if ($count <= $limit)
+		{
+			return;
+		}
+
+		$old = $this->db->table($table)
+						->select('id')
+						->where('user_id', $userId)
+						->orderBy('created_at', 'ASC')
+						->orderBy('id', 'ASC')
+						->limit($count - $limit)
+						->get()
+						->getResult();
+
+		$ids = [];
+		foreach ($old as $row)
+		{
+			$ids[] = (int) $row->id;
+		}
+
+		if (! empty($ids))
+		{
+			$this->db->table($table)->whereIn('id', $ids)->delete();
+		}
+	}
+
+	/**
+	 * Delete expired remember tokens.
+	 *
+	 * Runs occasionally, so expired rows don't pile up.
+	 *
+	 * @return void
+	 */
+	protected function deleteExpiredRememberTokens(): void
+	{
+		if (random_int(1, 100) !== 1 || ! $this->rememberTokensTableExists())
+		{
+			return;
+		}
+
+		$this->db->table($this->rememberTokensTable())
+				 ->where('expires_at IS NOT NULL', null, false)
+				 ->where('expires_at <=', time())
+				 ->delete();
+	}
+
+	/**
+	 * Copy a legacy users.remember_selector token into the new table.
+	 *
+	 * Called after a successful auto-login with a cookie issued before the
+	 * remember-tokens migration.
+	 *
+	 * @param object $user  User row
+	 * @param object $token Selector/validator pair
+	 *
+	 * @return void
+	 */
+	protected function migrateLegacyRememberToken($user, $token): void
+	{
+		$table = $this->rememberTokensTable();
+
+		$existing = $this->db->table($table)->where('selector', $token->selector)->countAllResults();
+
+		if ($existing !== 0)
+		{
+			return;
+		}
+
+		$this->db->table($table)->insert([
+			'user_id'        => (int) $user->id,
+			'selector'       => $token->selector,
+			'validator_hash' => $user->remember_code,
+			'created_at'     => time(),
+			// The original cookie expiry is unknown – do not cut it short.
+			'expires_at'     => null,
+		]);
 	}
 
 	/**
@@ -2067,23 +2352,64 @@ class IonAuthModel
 			return false;
 		}
 
-		// get the user with the selector
-		$this->triggerEvents('extra_where');
-		$query = $this->db->table($this->tables['users'])
-						  ->select($this->identityColumn . ', id, email, remember_code, last_login')
-						  ->where('remember_selector', $token->selector)
-						  ->where('active', 1)
-						  ->limit(1);
+		$user       = null;
+		$storedHash = null;
+		$fromLegacy = false;
 
-		// Check that we got the user
-		if ($query->countAllResults(false) === 1)
+		if ($this->rememberTokensTableExists())
 		{
-			// Retrieve the information
-			$user = $query->get()->getRow();
+			$tokenRow = $this->db->table($this->rememberTokensTable())
+								 ->select('user_id, validator_hash')
+								 ->where('selector', $token->selector)
+								 ->groupStart()
+									 ->where('expires_at', null)
+									 ->orWhere('expires_at >', time())
+								 ->groupEnd()
+								 ->limit(1)
+								 ->get()
+								 ->getRow();
 
+			if ($tokenRow)
+			{
+				$user = $this->db->table($this->tables['users'])
+								 ->select($this->identityColumn . ', id, email, last_login')
+								 ->where('id', (int) $tokenRow->user_id)
+								 ->where('active', 1)
+								 ->limit(1)
+								 ->get()
+								 ->getRow();
+
+				if ($user)
+				{
+					$storedHash = $tokenRow->validator_hash;
+				}
+			}
+		}
+
+		// Fallback for cookies issued before the remember-tokens migration.
+		if (! $user)
+		{
+			$this->triggerEvents('extra_where');
+			$query = $this->db->table($this->tables['users'])
+							  ->select($this->identityColumn . ', id, email, remember_code, last_login')
+							  ->where('remember_selector', $token->selector)
+							  ->where('active', 1)
+							  ->limit(1);
+
+			if ($query->countAllResults(false) === 1)
+			{
+				$user       = $query->get()->getRow();
+				$storedHash = $user->remember_code;
+				$fromLegacy = true;
+			}
+		}
+
+		if ($user)
+		{
 			// Check the code against the validator
 			$identity = $user->{$this->identityColumn};
-			if ($this->verifyPassword($token->validator, $user->remember_code, $identity))
+
+			if ($this->verifyPassword($token->validator, $storedHash, $identity))
 			{
 				$this->updateLastLogin($user->id);
 
@@ -2091,9 +2417,23 @@ class IonAuthModel
 
 				$this->clearForgottenPasswordCode($identity);
 
+				// Move a pre-migration token into the new table.
+				if ($fromLegacy && $this->rememberTokensTableExists())
+				{
+					$this->migrateLegacyRememberToken($user, $token);
+				}
+
+				if (! $fromLegacy && $this->rememberTokensTableExists())
+				{
+					$this->db->table($this->rememberTokensTable())
+							 ->where('selector', $token->selector)
+							 ->update(['last_used_at' => time()]);
+				}
+
 				// extend the users cookies if the option is enabled
 				if ($this->config->userExtendonLogin)
 				{
+					$this->clearRememberToken($rememberCookie);
 					$this->rememberUser($identity);
 				}
 
@@ -2486,6 +2826,13 @@ class IonAuthModel
 	 */
 	public function errors(string $template='list'): string
 	{
+		// Unlike messages(), this method used to render the (empty) template
+		// even when there were no errors at all.
+		if (empty($this->errors))
+		{
+			return '';
+		}
+
 		if (! array_key_exists($template, config('Validation')->templates))
 		{
 			throw new \CodeIgniter\Exceptions\ConfigException(lang('Validation.invalidTemplate', [$template]));
@@ -2568,12 +2915,13 @@ class IonAuthModel
 	/**
 	 * Internal function to set a password in the database
 	 *
-	 * @param string $identity Identity
-	 * @param string $password Password
+	 * @param string  $identity                  Identity
+	 * @param string  $password                  Password
+	 * @param boolean $invalidateRememberTokens  Whether to remove all remember tokens
 	 *
 	 * @return boolean
 	 */
-	protected function setPasswordDb(string $identity, string $password): bool
+	protected function setPasswordDb(string $identity, string $password, bool $invalidateRememberTokens = true): bool
 	{
 		$hash = $this->hashPassword($password, $identity);
 
@@ -2582,19 +2930,44 @@ class IonAuthModel
 			return false;
 		}
 
-		// When setting a new password, invalidate any other token
 		$data = [
 			'password'                => $hash,
-			'remember_code'           => null,
 			'forgotten_password_code' => null,
 			'forgotten_password_time' => null,
 		];
+
+		// When setting a new password, invalidate any other token. Rehashing
+		// an unchanged password must NOT invalidate remember-me tokens.
+		if ($invalidateRememberTokens)
+		{
+			$data['remember_selector'] = null;
+			$data['remember_code']     = null;
+		}
 
 		$this->triggerEvents('extra_where');
 
 		$this->db->table($this->tables['users'])->update($data, [$this->identityColumn => $identity]);
 
-		return $this->db->affectedRows() === 1;
+		$affected = $this->db->affectedRows();
+
+		if ($invalidateRememberTokens && $this->rememberTokensTableExists())
+		{
+			$user = $this->db->table($this->tables['users'])
+							 ->select('id')
+							 ->where($this->identityColumn, $identity)
+							 ->limit(1)
+							 ->get()
+							 ->getRow();
+
+			if ($user)
+			{
+				$this->db->table($this->rememberTokensTable())
+						 ->where('user_id', (int) $user->id)
+						 ->delete();
+			}
+		}
+
+		return $affected === 1;
 	}
 
 	/**

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/codeigniter4/framework/system/Test/bootstrap.php"
+         colors="true"
+         cacheDirectory=".phpunit.cache">
+    <testsuites>
+        <testsuite name="IonAuth">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+
+    <php>
+        <env name="CI_ENVIRONMENT" value="testing"/>
+        <!-- Test database: SQLite in memory (see CodeIgniter's Config\Database::$tests) -->
+        <env name="database.tests.DBDriver" value="SQLite3"/>
+        <env name="database.tests.database" value=":memory:"/>
+    </php>
+</phpunit>

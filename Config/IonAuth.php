@@ -35,11 +35,13 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 * Allows to select a specific group for the database connection
 	 *
 	 * Default is empty: uses default group defined in CI's configuration
-	 * (see application/config/database.php, $active_group variable)
+	 * (see application/config/database.php, $active_group variable).
+	 * This also means that the test suite (which switches the default group)
+	 * automatically uses the same connection as the application.
 	 *
 	 * @var string
 	 */
-	public $databaseGroupName = 'default';
+	public $databaseGroupName = '';
 
 	/**
 	 * Tables (Database table names)
@@ -47,10 +49,11 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	 * @var array
 	 */
 	public $tables = [
-		'users'          => 'users',
-		'groups'         => 'groups',
-		'users_groups'   => 'users_groups',
-		'login_attempts' => 'login_attempts',
+		'users'            => 'users',
+		'groups'           => 'groups',
+		'users_groups'     => 'users_groups',
+		'login_attempts'   => 'login_attempts',
+		'remember_tokens'  => 'users_remember_tokens',
 	];
 
 	/**
@@ -154,6 +157,8 @@ class IonAuth extends \CodeIgniter\Config\BaseConfig
 	public $emailActivation          = false;               // Email Activation for registration
 	public $manualActivation         = false;               // Manual Activation for registration
 	public $rememberUsers            = true;                // Allow users to be remembered and enable auto-login
+	public $rememberMultipleDevices  = false;               // Allow one remember token per browser/device instead of one per user
+	public $rememberMaxTokensPerUser = 10;                  // Maximum number of remember tokens per user (0 = unlimited)
 	public $userExpire               = 86500;               // How long to remember the user (seconds). Set to zero for no expiration
 	public $userExtendonLogin        = false;               // Extend the users cookies every time they auto-login
 	public $trackLoginAttempts       = true;                // Track the number of failed login attempts for each user or ip.

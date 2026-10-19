@@ -558,7 +558,7 @@ class Auth extends \CodeIgniter\Controller
 
 		if ($this->request->getPost() && $this->validation->withRequest($this->request)->run())
 		{
-			$email    = strtolower($this->request->getPost('email'));
+			$email    = strtolower((string) $this->request->getPost('email'));
 			$identity = ($identityColumn === 'email') ? $email : $this->request->getPost('identity');
 			$password = $this->request->getPost('password');
 

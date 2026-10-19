@@ -19,8 +19,8 @@
 
 return [
     // Account Creation
-	'account_creation_successful'              => 'Vartotojas sėkmingai sukurtas',
-	'account_creation_unsuccessful'            => 'Neįmanoma sukurti vartotojo',
+	'account_creation_successful'              => 'Naudotojas sėkmingai sukurtas',
+	'account_creation_unsuccessful'            => 'Neįmanoma sukurti naudotojo',
 	'account_creation_duplicate_email'         => 'Toks el. pašto adresas jau yra, arba adresas yra netaisyklingas',
 	'account_creation_duplicate_identity'      => 'Prisijungimo vardas jau yra arba vardas netaisyklingas',
 	'account_creation_missing_defaultGroup'    => 'Nenustatyta numatytoji grupė',
@@ -31,7 +31,7 @@ return [
 	'forgot_password_successful'          => 'Slaptažodis keičiamas. Instrukcijos išsiųstos paštu.',
 	'forgot_password_unsuccessful'        => 'Neįmanoma išsiųsti el. paštu slaptažodžio pakeitimo nuorodos',
 	// Activation
-	'activate_successful'                   => 'Paskyra aktyvuota, vartotojas gali prisijungti',
+	'activate_successful'                   => 'Paskyra aktyvuota, naudotojas gali prisijungti',
 	'activate_unsuccessful'                 => 'Nepavyko aktyvuoti paskyros',
 	'deactivate_successful'                 => 'Paskyra deaktyvuota',
 	'deactivate_unsuccessful'               => 'Nepavyko deaktyvuoti paskyros',
@@ -45,10 +45,10 @@ return [
 	'login_timeout'                   => 'Laikinai užrakinta. Pabandykite iš naujo vėliau.',
 	'logout_successful'               => 'Atsijungta sėkmingai',
 	// Account Changes
-	'update_successful'               => 'Vartotojo duomenys sėkmingai pakeisti',
-	'update_unsuccessful'             => 'Neįmanoma pakeisti vartotojo duomenų',
-	'delete_successful'               => 'Vartotojas pašalintas',
-	'delete_unsuccessful'             => 'Neįmanoma pašalinti vartotojo',
+	'update_successful'               => 'Naudotojo duomenys sėkmingai pakeisti',
+	'update_unsuccessful'             => 'Neįmanoma pakeisti naudotojo duomenų',
+	'delete_successful'               => 'Naudotojas pašalintas',
+	'delete_unsuccessful'             => 'Neįmanoma pašalinti naudotojo',
 	// Groups
 	'group_creation_successful'       => 'Grupė sėkmingai sukurta',
 	'group_already_exists'            => 'Grupės vardas jau naudojamas',

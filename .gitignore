@@ -98,4 +98,6 @@ nb-configuration.xml
 
 /results/
 /phpunit*.xml
+!/phpunit.xml.dist
+/.phpunit.cache/
 

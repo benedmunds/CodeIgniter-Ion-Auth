@@ -15,8 +15,14 @@ class IonAuthSeeder extends \CodeIgniter\Database\Seeder
 	public function run()
 	{
 		$config = config('IonAuth\\Config\\IonAuth');
-		$this->DBGroup = empty($config->databaseGroupName) ? '' : $config->databaseGroupName;
-		$tables        = $config->tables;
+
+		$databaseGroup = trim((string) $config->databaseGroupName);
+		if ($databaseGroup !== '')
+		{
+			$this->DBGroup = $databaseGroup;
+		}
+
+		$tables = $config->tables;
 
 		$groups = [
 			[

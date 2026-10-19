@@ -9,6 +9,8 @@ namespace IonAuth\Tests;
  * @license https://opensource.org/licenses/MIT	MIT License
  */
 
+use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\DatabaseTestTrait;
 use IonAuth\Models\IonAuthModel;
 
 /**
@@ -16,15 +18,38 @@ use IonAuth\Models\IonAuthModel;
  *
  * @package CodeIgniter-Ion-Auth
  */
-class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
+class IonAuthModelTest extends CIUnitTestCase
 {
+	use DatabaseTestTrait {
+		setUpDatabase as protected traitSetUpDatabase;
+	}
+
 	/**
-	 * Should the db be refreshed before
-	 * each test?
+	 * Point IonAuth at the SQLite "tests" connection group before running the
+	 * migrations, so migrations, seeds and the model share one database.
 	 *
-	 * @var boolean
+	 * @return void
 	 */
-	protected $refresh = false;
+	protected function setUpDatabase()
+	{
+		config('IonAuth')->databaseGroupName = 'tests';
+
+		$this->traitSetUpDatabase();
+	}
+
+	/**
+	 * Namespace of the IonAuth migrations.
+	 *
+	 * @var string
+	 */
+	protected $namespace = 'IonAuth';
+
+	/**
+	 * Seed the database with the default IonAuth data.
+	 *
+	 * @var string
+	 */
+	protected $seed = 'IonAuth\\Database\\Seeds\\IonAuthSeeder';
 
 	/**
 	 * @var IonAuthModel
@@ -32,8 +57,10 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	private $model;
 
 
-	public function setUp()
+	protected function setUp(): void
 	{
+		helper('text');
+
 		parent::setUp();
 		$this->model = new IonAuthModel();
 	}
@@ -210,7 +237,7 @@ class IonAuthModelTest extends \CodeIgniter\Test\CIDatabaseTestCase
 	public function testErrors()
 	{
 		$this->model->setError('Test error !');
-		$this->assertContains('Test error !', $this->model->errors());
+		$this->assertStringContainsString('Test error !', $this->model->errors());
 	}
 
 	/**

@@ -10,6 +10,7 @@ namespace Tests;
  */
 
 use CodeIgniter\Test\CIUnitTestCase;
+use CodeIgniter\Test\DatabaseTestTrait;
 
 /**
  * IonAuth\Libraries\IonAuth tests
@@ -18,6 +19,49 @@ use CodeIgniter\Test\CIUnitTestCase;
  */
 class IonAuthLibraryTest extends CIUnitTestCase
 {
+	use DatabaseTestTrait {
+		setUpDatabase as protected traitSetUpDatabase;
+	}
+
+	/**
+	 * Namespace of the IonAuth migrations.
+	 *
+	 * @var string
+	 */
+	protected $namespace = 'IonAuth';
+
+	/**
+	 * Seed the database with the default IonAuth data.
+	 *
+	 * @var string
+	 */
+	protected $seed = 'IonAuth\\Database\\Seeds\\IonAuthSeeder';
+
+	/**
+	 * Load the helpers required by the tests.
+	 *
+	 * @return void
+	 */
+	protected function setUp(): void
+	{
+		helper('text');
+
+		parent::setUp();
+	}
+
+	/**
+	 * Point IonAuth at the SQLite "tests" connection group before running the
+	 * migrations, so migrations, seeds and the library share one database.
+	 *
+	 * @return void
+	 */
+	protected function setUpDatabase()
+	{
+		config('IonAuth')->databaseGroupName = 'tests';
+
+		$this->traitSetUpDatabase();
+	}
+
 	/**
 	 * Test forgottenPassword()
 	 *
@@ -61,6 +105,9 @@ class IonAuthLibraryTest extends CIUnitTestCase
 	public function testIsAdmin()
 	{
 		$ionAuthLibrary = new \IonAuth\Libraries\IonAuth();
+
+		// isAdmin() requires a logged in user.
+		$this->assertTrue($ionAuthLibrary->login('admin@admin.com', 'password'));
 
 		$this->assertTrue($ionAuthLibrary->isAdmin(1));
 
