@@ -406,26 +406,60 @@ class IonAuth
 	{
 		$this->ionAuthModel->triggerEvents('logout');
 
-		$identity = $this->session->get('user_id');
-		
-		$this->session->remove([$identity, 'id', 'user_id']);
+		// clearRememberCode() and clearForgottenPasswordCode() filter on the
+		// identity column (e.g. email), so the numeric user id never matched
+		// them. Use the identity stored in the session instead.
+		$identity = $this->session->get('identity');
 
-		// delete the remember me cookies if they exist
+		// Remove only THIS browser's remember-me token. Removing every token
+		// would also log out other browsers/devices that use "remember me".
+		$rememberCookie = get_cookie($this->config->rememberCookieName);
+		if (! empty($rememberCookie))
+		{
+			$this->ionAuthModel->clearRememberToken($rememberCookie);
+		}
+
+		// delete the remember me cookie if it exists
 		delete_cookie($this->config->rememberCookieName);
 
-		// Clear all codes
-		if (isset($identity)) {
-			$this->ionAuthModel->clearForgottenPasswordCode($identity);
-			$this->ionAuthModel->clearRememberCode($identity);
+		// Clear the forgotten-password code of this user
+		if (! empty($identity))
+		{
+			$this->ionAuthModel->clearForgottenPasswordCode((string) $identity);
 		}
-		
-		// Destroy the session
-		$this->session->destroy();
 
-		// Recreate the session
-		session_start();
+		// Remove the authentication data from the session instead of calling
+		// session_start() manually: the latter fails when headers are already
+		// sent (e.g. in tests) and is not aware of CodeIgniter's session
+		// configuration.
+		$userId = $this->session->get('user_id');
+		$keys   = [
+			'identity',
+			'email',
+			$this->config->identity,
+			'user_id',
+			'old_last_login',
+			'last_check',
+		];
 
-		session_regenerate_id(true);
+		if ($userId !== null)
+		{
+			$keys[] = (string) $userId;
+		}
+
+		$this->session->remove(array_unique($keys));
+
+		// Destroy the session on the server and start a fresh one. Skipped in
+		// tests: CI4's destroy() is a no-op there and starting a session after
+		// PHPUnit has produced output would fail.
+		if (! defined('ENVIRONMENT') || ENVIRONMENT !== 'testing')
+		{
+			$this->session->destroy();
+			$this->session->start();
+		}
+
+		// Invalidate the old session id (and delete its data on disk).
+		$this->session->regenerate(true);
 
 		$this->setMessage('IonAuth.logout_successful');
 		return true;
